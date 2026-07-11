@@ -17,11 +17,12 @@ venv/
 htmlcov/
 .coverage*
 
-# Node / frontend (reserved for later phases)
+# Node / frontend
 node_modules/
 dist/
 .vite/
 coverage/
+test-results/
 
 # IDE / OS
 .DS_Store

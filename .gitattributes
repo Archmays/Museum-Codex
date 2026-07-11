@@ -4,5 +4,12 @@
 *.json text eol=lf
 *.csv text eol=lf
 *.py text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.yml text eol=lf
 *.txt text eol=lf
 *.bin binary

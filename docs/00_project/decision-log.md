@@ -18,5 +18,6 @@
 | D-0014 | 2026-07-11 | accepted | Release schema_versions 从实际消费 schema 反算并精确对账 | 自报版本不能支持回滚、兼容性或审计 | schema manifest 格式升级时 |
 | D-0015 | 2026-07-11 | accepted | Canonical Source 同时锁定来源矩阵身份、官方 host 与规则快照 | 仅锁许可规则仍允许镜像站或伪域名借用权威来源身份 | 来源迁移官方域名或合并机构身份时 |
 | D-0016 | 2026-07-11 | accepted | 第三方 notices 按 release 内实际使用的 rule 集合精确生成 | 单一代表性许可不能表达字段、对象和媒体之间的差异 | notices 迁移到外部签名清单时 |
+| D-0017 | 2026-07-11 | accepted | GitHub 仓库与 Pages 均公开，MUSEUM-01 正式启用 Pages workflow 发布 | 用户明确选择 `repository=public`、`pages=public` 并要求本阶段完成真实公开部署 | 用户重新决定站点可见性或托管方式 |
 
 状态使用 `proposed / accepted / superseded / rejected`。被替代决策保留原行并链接后继 ID，不覆写历史。
