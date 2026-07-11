@@ -3,7 +3,9 @@
     "argv": [
       "C:\\Program Files\\nodejs\\node.exe",
       "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\node_modules\\@playwright\\test\\cli.js",
-      "test"
+      "test",
+      "--config",
+      "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\playwright.config.ts"
     ],
     "configFile": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\playwright.config.ts",
     "rootDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
@@ -86,12 +88,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3100,
+                  "duration": 3175,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-07-11T13:54:22.266Z",
+                  "startTime": "2026-07-11T13:58:39.344Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -120,12 +122,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1575,
+                  "duration": 1573,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-07-11T13:54:25.450Z",
+                  "startTime": "2026-07-11T13:58:42.589Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -154,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2006,
+                  "duration": 1948,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-07-11T13:54:27.033Z",
+                  "startTime": "2026-07-11T13:58:44.170Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -188,12 +190,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1348,
+                  "duration": 1375,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-07-11T13:54:29.045Z",
+                  "startTime": "2026-07-11T13:58:46.125Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -222,12 +224,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1061,
+                  "duration": 1043,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-07-11T13:54:30.400Z",
+                  "startTime": "2026-07-11T13:58:47.506Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -245,8 +247,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-07-11T13:54:21.935Z",
-    "duration": 9603.968,
+    "startTime": "2026-07-11T13:58:39.008Z",
+    "duration": 9619.137999999999,
     "expected": 5,
     "skipped": 0,
     "unexpected": 0,
