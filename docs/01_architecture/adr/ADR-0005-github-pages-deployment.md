@@ -1,6 +1,6 @@
 # ADR-0005：GitHub Pages 发布方式
 
-- Status: accepted for MUSEUM-01 planning; not implemented
+- Status: accepted; implemented in MUSEUM-01
 - Date: 2026-07-11
 
 ## Context

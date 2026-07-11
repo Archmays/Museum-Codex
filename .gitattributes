@@ -1,5 +1,6 @@
 /.gitattributes text eol=lf
 /.gitignore text eol=lf
+/.node-version text eol=lf
 *.md text eol=lf
 *.json text eol=lf
 *.csv text eol=lf
@@ -11,5 +12,6 @@
 *.css text eol=lf
 *.html text eol=lf
 *.yml text eol=lf
+*.svg text eol=lf
 *.txt text eol=lf
 *.bin binary
