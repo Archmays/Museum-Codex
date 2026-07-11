@@ -1,0 +1,53 @@
+{
+  "fixture_id": "invalid-claim-without-evidence",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/claim.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "claim:fixture-unsourced",
+    "entity_type": "claim",
+    "subject_id": "artist:fixture-a",
+    "predicate": "death_year",
+    "object": {
+      "value": "1900",
+      "datatype": "year",
+      "precision": "uncertain"
+    },
+    "claim_text": {
+      "en": "An unsupported death year."
+    },
+    "temporal_scope": {
+      "start": "1900",
+      "end": "1900",
+      "precision": "year",
+      "uncertain": true,
+      "description": "Unverified year"
+    },
+    "applicability_scope": "Identity",
+    "evidence_ids": [],
+    "counter_evidence_ids": [],
+    "status": "candidate",
+    "status_history": [
+      {
+        "from": null,
+        "to": "candidate",
+        "changed_at": "2026-07-11T08:00:00Z",
+        "changed_by": "fixture",
+        "role": "collector",
+        "reason": "Negative fixture."
+      }
+    ],
+    "disputed": false,
+    "dispute_note": null,
+    "no_counter_evidence_reason": null,
+    "dispute_display": "not_disputed",
+    "review": null,
+    "publish_status": "not_public",
+    "supersedes": null,
+    "data_version": "0.1.0"
+  }
+}

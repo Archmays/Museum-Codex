@@ -1,0 +1,73 @@
+{
+  "fixture_id": "valid-media-cc-by",
+  "expected_valid": true,
+  "mode": "publish",
+  "target_schema": "schemas/common/media-asset.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "media:fixture-cc-by",
+    "entity_type": "media_asset",
+    "media_type": "image",
+    "source_id": "source:fixture-museum",
+    "source_object_url": "https://example.org/objects/fixture-image",
+    "delivery_mode": "self_hosted",
+    "cache_bytes": true,
+    "content_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "rights_status": "cc_by",
+    "metadata_license": {
+      "identifier": "CC0-1.0",
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution_required": false,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "media_license": {
+      "identifier": "CC-BY-4.0",
+      "version": "4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution_required": true,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "rights_statement_url": "https://creativecommons.org/licenses/by/4.0/",
+    "rights_evidence": {
+      "source_url": "https://example.org/objects/fixture-image",
+      "verified_at": "2026-07-11",
+      "object_rights_field": "fixture.rights = CC-BY-4.0",
+      "statement_snapshot_hash": "sha256:1212121212121212121212121212121212121212121212121212121212121212"
+    },
+    "rights_holder": "Fixture Museum",
+    "attribution": "Fixture image, Fixture Museum, CC BY 4.0",
+    "allow_redistribution": true,
+    "allow_modification": true,
+    "allow_commercial_use": true,
+    "development_only": false,
+    "reuse_mode": "verbatim",
+    "derivation": null,
+    "license_scope": null,
+    "review_status": "verified",
+    "reviewed_by": "fixture-rights-reviewer",
+    "reviewed_at": "2026-07-11",
+    "publish_status": "publishable",
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "storage_path": "assets/fixture-cc-by.bin",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-museum",
+        "rule_id": "synthetic_fixture:media:standalone",
+        "content_class": "media",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

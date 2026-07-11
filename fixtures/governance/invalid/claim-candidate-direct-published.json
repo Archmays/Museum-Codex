@@ -1,0 +1,67 @@
+{
+  "fixture_id": "invalid-claim-candidate-direct-published",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "invalid_claim_transition"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/claim.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "claim:fixture-skipped-review",
+    "entity_type": "claim",
+    "subject_id": "artist:fixture-a",
+    "predicate": "death_year",
+    "object": {
+      "value": "1900",
+      "datatype": "year",
+      "precision": "exact"
+    },
+    "claim_text": {
+      "en": "A claim that skipped all review gates."
+    },
+    "temporal_scope": {
+      "start": "1900",
+      "end": "1900",
+      "precision": "year",
+      "uncertain": false,
+      "description": "Claimed death year"
+    },
+    "applicability_scope": "Identity",
+    "evidence_ids": [
+      "evidence:fixture-a"
+    ],
+    "counter_evidence_ids": [],
+    "status": "published",
+    "status_history": [
+      {
+        "from": null,
+        "to": "candidate",
+        "changed_at": "2026-07-11T08:00:00Z",
+        "changed_by": "fixture",
+        "role": "collector",
+        "reason": "Created."
+      },
+      {
+        "from": "candidate",
+        "to": "published",
+        "changed_at": "2026-07-11T08:01:00Z",
+        "changed_by": "fixture",
+        "role": "collector",
+        "reason": "Improper direct publication."
+      }
+    ],
+    "disputed": false,
+    "dispute_note": null,
+    "no_counter_evidence_reason": null,
+    "dispute_display": "not_disputed",
+    "review": {
+      "reviewer": "fixture",
+      "reviewed_at": "2026-07-11",
+      "decision_note": "This object is schema-shaped but has an invalid transition."
+    },
+    "publish_status": "published",
+    "supersedes": null,
+    "data_version": "0.1.0"
+  }
+}

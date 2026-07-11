@@ -1,0 +1,84 @@
+{
+  "fixture_id": "invalid-biology-animation-missing-evidence",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema",
+    "biology_animation_evidence_missing"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/biology/ecosystem-interaction.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "bio-rel:fixture-animation-no-evidence",
+    "entity_type": "relationship",
+    "branch_id": "biology",
+    "relationship_type": "predation",
+    "relationship_semantics": "discipline_specific",
+    "source_entity_id": "taxon:fixture-predator",
+    "target_entity_id": "taxon:fixture-prey",
+    "directed": true,
+    "temporal_scope": {
+      "start": null,
+      "end": null,
+      "precision": "unknown",
+      "uncertain": true,
+      "description": "Unverified behavior scope"
+    },
+    "place_scope": {
+      "place_ids": [],
+      "description": "No verified location"
+    },
+    "evidence_level": "C",
+    "historical_relationship_strength": null,
+    "evidence_confidence": 0.2,
+    "computational_similarity": null,
+    "curatorial_relevance": 0.5,
+    "claim_ids": [
+      "claim:fixture-predation"
+    ],
+    "source_ids": [
+      "source:fixture-aggregator"
+    ],
+    "curatorial_note": {
+      "en": "A proposed behavior animation without primary evidence."
+    },
+    "public_display": false,
+    "is_algorithmic": false,
+    "review_status": "candidate",
+    "reviewed_by": "fixture-reviewer",
+    "reviewed_at": "2026-07-11",
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0",
+    "participant_roles": {
+      "source": "predator",
+      "target": "prey"
+    },
+    "life_stage_scope": [
+      "unknown"
+    ],
+    "public_animation_candidate": true,
+    "behavior_animation": {
+      "representation_type": "scientific_reconstruction",
+      "scope_limitations": {
+        "en": "Unknown."
+      },
+      "scientific_review": {
+        "reviewer": "fixture-reviewer",
+        "reviewed_at": "2026-07-11",
+        "status": "rejected"
+      }
+    },
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-aggregator",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

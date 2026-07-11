@@ -1,0 +1,62 @@
+{
+  "fixture_id": "valid-artist-publishable",
+  "expected_valid": true,
+  "mode": "foundation",
+  "target_schema": "schemas/art/artist.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "artist:fixture-deceased",
+    "entity_type": "artist",
+    "branch_id": "art",
+    "labels": {
+      "en": "Fixture Deceased Artist",
+      "zh-Hans": "示例已故艺术家"
+    },
+    "external_ids": {
+      "ulan": "500000001"
+    },
+    "claim_ids": [
+      "claim:fixture-birth",
+      "claim:fixture-death",
+      "claim:fixture-work"
+    ],
+    "source_ids": [
+      "source:fixture-authority"
+    ],
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "artist_kind": "individual",
+    "deceased_status": "confirmed_deceased",
+    "identity_status": "resolved",
+    "life_dates": {
+      "birth": {
+        "display_value": "1840",
+        "precision": "year",
+        "claim_id": "claim:fixture-birth"
+      },
+      "death": {
+        "display_value": "1900",
+        "precision": "year",
+        "claim_id": "claim:fixture-death"
+      }
+    },
+    "at_least_one_verified_work_or_record": true,
+    "artwork_or_history_claim_ids": [
+      "claim:fixture-work"
+    ],
+    "review_status": "publishable",
+    "uncertainty_note": null,
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-authority",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

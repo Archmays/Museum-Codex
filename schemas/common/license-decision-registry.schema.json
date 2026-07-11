@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/license-decision-registry.schema.json",
+  "title": "Museum license decision registry",
+  "type": "object",
+  "required": ["schema_version", "decisions"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "decisions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["decision_id", "subject", "status", "license", "scope", "scope_constraint", "effective_at", "approver", "evidence_reference", "reason"],
+        "properties": {
+          "decision_id": { "type": "string", "pattern": "^license-decision:[a-z0-9][a-z0-9._-]*$" },
+          "subject": { "enum": ["code", "original_content"] },
+          "status": { "enum": ["decided", "not_applicable", "pending", "withdrawn"] },
+          "license": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": ["identifier", "version", "url"],
+                "properties": {
+                  "identifier": { "type": "string", "minLength": 1 },
+                  "version": { "type": ["string", "null"] },
+                  "url": { "type": "string", "format": "uri" }
+                },
+                "additionalProperties": false
+              },
+              { "type": "null" }
+            ]
+          },
+          "scope": { "type": "string", "minLength": 1 },
+          "scope_constraint": {
+            "type": "object",
+            "required": ["release_kind", "release_id_pattern"],
+            "properties": {
+              "release_kind": { "enum": ["synthetic_fixture", "project"] },
+              "release_id_pattern": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
+          "effective_at": { "type": ["string", "null"], "format": "date" },
+          "approver": { "type": ["string", "null"] },
+          "evidence_reference": { "type": ["string", "null"] },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "status": { "const": "decided" } }, "required": ["status"] },
+            "then": {
+              "properties": {
+                "license": { "type": "object" },
+                "effective_at": { "type": "string", "format": "date" },
+                "approver": { "type": "string", "minLength": 1 },
+                "evidence_reference": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          {
+            "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+            "then": {
+              "properties": {
+                "license": { "type": "null" },
+                "effective_at": { "type": "string", "format": "date" },
+                "approver": { "type": "string", "minLength": 1 },
+                "evidence_reference": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          {
+            "if": { "properties": { "status": { "const": "pending" } }, "required": ["status"] },
+            "then": { "properties": { "license": { "type": "null" }, "effective_at": { "type": "null" }, "approver": { "type": "null" } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

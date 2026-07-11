@@ -1,0 +1,71 @@
+{
+  "fixture_id": "invalid-algorithm-as-influence",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema",
+    "algorithmic_influence"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/art/artist-relationship.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "art-rel:fixture-false-influence",
+    "entity_type": "relationship",
+    "branch_id": "art",
+    "relationship_type": "explicitly_influenced_by",
+    "relationship_semantics": "computational_similarity",
+    "source_entity_id": "artist:fixture-a",
+    "target_entity_id": "artist:fixture-b",
+    "directed": false,
+    "temporal_scope": {
+      "start": null,
+      "end": null,
+      "precision": "unknown",
+      "uncertain": true,
+      "description": "No documented historical scope"
+    },
+    "place_scope": {
+      "place_ids": [],
+      "description": "No documented place scope"
+    },
+    "evidence_level": "C",
+    "historical_relationship_strength": null,
+    "evidence_confidence": 0.5,
+    "computational_similarity": 0.92,
+    "curatorial_relevance": 0.7,
+    "claim_ids": [
+      "claim:fixture-false-influence"
+    ],
+    "source_ids": [
+      "source:fixture-model-output"
+    ],
+    "curatorial_note": {
+      "en": "A visual embedding was mislabelled as influence."
+    },
+    "public_display": false,
+    "is_algorithmic": true,
+    "algorithm": {
+      "name": "fixture-embedding",
+      "version": "1",
+      "input_dataset_release": "fixture-0.1.0",
+      "method_note": "Visual embedding similarity only."
+    },
+    "review_status": "candidate",
+    "reviewed_by": "fixture-reviewer",
+    "reviewed_at": "2026-07-11",
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-model-output",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

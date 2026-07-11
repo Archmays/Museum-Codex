@@ -1,0 +1,183 @@
+{
+  "fixture_id": "invalid-high-risk-computational-tier3",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "high_risk_claim_requires_tier_1_or_2",
+    "computational_evidence_wrong_predicate"
+  ],
+  "mode": "foundation",
+  "context": {
+    "require_local_references": true
+  },
+  "records": [
+    {
+      "target_schema": "schemas/common/source.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "source:fixture-open-encyclopedia",
+        "entity_type": "source",
+        "title": "Fixture open encyclopedia",
+        "publisher": "Fixture community",
+        "official_url": "https://example.org/encyclopedia",
+        "archived_url": null,
+        "accessed_at": "2026-07-11",
+        "published_or_updated_at": null,
+        "source_version": null,
+        "tier": 3,
+        "source_type": "open_encyclopedia",
+        "access_method": "Web page",
+        "api_key_required": "no",
+        "access_limits": "Fixture only",
+        "rate_limit": "not stated",
+        "license_rules": [
+          {
+            "content_class": "data",
+            "applies_to": "fixture text",
+            "rights_status": "cc_by_sa",
+            "identifier": "CC-BY-SA-4.0",
+            "version": "4.0",
+            "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "attribution_template": "Fixture contributors",
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": true,
+            "scope_note": "Synthetic fixture.",
+            "no_inheritance": true,
+            "rule_id": "synthetic_fixture:data:5cb72f90e968",
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^fixture\\ text$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          }
+        ],
+        "terms_url": "https://example.org/terms",
+        "terms_version": "fixture-1",
+        "terms_snapshot_hash": "sha256:3131313131313131313131313131313131313131313131313131313131313131",
+        "terms_verified_at": "2026-07-11",
+        "reverify_by": "2027-07-11",
+        "public_static_redistribution": "allowed",
+        "derivative_use": "allowed",
+        "commercial_use": "allowed",
+        "permission_status": "not_required",
+        "permission_reference": null,
+        "permission_scope": null,
+        "permission_verified_at": "2026-07-11",
+        "permission_expires_at": null,
+        "permission_revoked_at": null,
+        "risk_note": "Tier 3 cannot independently support direct influence.",
+        "lifecycle_status": "reviewed",
+        "data_version": "0.1.0",
+        "registry_source_id": "synthetic_fixture",
+        "selected_license_rule_ids": [
+          "synthetic_fixture:data:5cb72f90e968"
+        ],
+        "license_rules_snapshot_hash": "sha256:7d37cc4e8c0e75a9cf4b1b097bbc4b3b3009929b3551f9d7f5d112b94bd56187",
+        "registry_identity": {
+          "canonical_name": "Fixture community",
+          "canonical_official_host": "example.org",
+          "snapshot_hash": "sha256:701049acba5507b9d04cfac1f45c2da9ebadeddf995850657375e466dc888297"
+        }
+      }
+    },
+    {
+      "target_schema": "schemas/common/evidence.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "evidence:fixture-computed-influence",
+        "entity_type": "evidence",
+        "claim_ids": [
+          "claim:fixture-computed-influence"
+        ],
+        "stance": "supports",
+        "evidence_kind": "computational_result",
+        "source_ids": [
+          "source:fixture-open-encyclopedia"
+        ],
+        "locator": {
+          "record_id": "fixture-vector-1"
+        },
+        "summary": "A visual embedding score was used as influence evidence.",
+        "short_excerpt": null,
+        "original_language": "en",
+        "extracted_at": "2026-07-11T08:00:00Z",
+        "extraction_method": "computed",
+        "reliability_note": "This evidence kind is invalid for a historical influence predicate.",
+        "computation": {
+          "algorithm": "fixture-embedding",
+          "version": "1",
+          "input_dataset_release": "fixture-0.1.0",
+          "parameters": {},
+          "reproducibility_note": "Synthetic fixture."
+        },
+        "lifecycle_status": "candidate",
+        "data_version": "0.1.0",
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-open-encyclopedia",
+            "rule_id": "synthetic_fixture:data:5cb72f90e968",
+            "content_class": "data",
+            "scope_locator": "fixture text",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "fixture text"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/claim.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "claim:fixture-computed-influence",
+        "entity_type": "claim",
+        "subject_id": "artist:fixture-a",
+        "predicate": "explicitly_influenced_by",
+        "object": {
+          "entity_id": "artist:fixture-b"
+        },
+        "claim_text": {
+          "en": "The model incorrectly claims direct influence."
+        },
+        "temporal_scope": {
+          "start": null,
+          "end": null,
+          "precision": "unknown",
+          "uncertain": true,
+          "description": "No historical scope"
+        },
+        "applicability_scope": "Synthetic negative fixture",
+        "evidence_ids": [
+          "evidence:fixture-computed-influence"
+        ],
+        "counter_evidence_ids": [],
+        "status": "candidate",
+        "status_history": [
+          {
+            "from": null,
+            "to": "candidate",
+            "changed_at": "2026-07-11T08:00:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Negative fixture."
+          }
+        ],
+        "disputed": false,
+        "dispute_note": null,
+        "no_counter_evidence_reason": null,
+        "dispute_display": "not_disputed",
+        "review": null,
+        "publish_status": "not_public",
+        "supersedes": null,
+        "data_version": "0.1.0"
+      }
+    }
+  ]
+}

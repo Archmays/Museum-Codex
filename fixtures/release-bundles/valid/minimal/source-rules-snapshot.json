@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "MUSEUM-00-physical-fixture",
+  "generated_at": "2026-07-11T09:00:00Z",
+  "sources": [
+    {
+      "source_id": "source:physical-fixture-museum",
+      "registry_source_id": "synthetic_fixture",
+      "registry_identity": {
+        "canonical_name": "Fixture Museum",
+        "canonical_official_host": "example.org",
+        "snapshot_hash": "sha256:9373730a8e020b23d8acf246567ff8e4342582511039d5898e66a22419b9171d"
+      },
+      "license_rules_snapshot_hash": "sha256:2b98a517e4823a596cdcea1f16d906f8a29c035028b5cf9b2bcc0ba44cecdb36",
+      "license_rules": [
+        {
+          "content_class": "data",
+          "applies_to": "physical fixture records",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "Fixture Museum, CC BY 4.0",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Synthetic fixture only.",
+          "no_inheritance": true,
+          "rule_id": "synthetic_fixture:data:cb79f2438a99",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^physical\\ fixture\\ records$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "rule_id": "synthetic_fixture:media:40d129aca3d2",
+          "content_class": "media",
+          "applies_to": "synthetic fixture media media:physical-fixture-image",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "Fixture Museum, CC BY 4.0",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Synthetic fixture media rule only.",
+          "no_inheritance": true,
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^synthetic\\ fixture\\ media\\ media:physical\\-fixture\\-image$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    }
+  ]
+}

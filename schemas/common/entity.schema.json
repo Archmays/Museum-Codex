@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/entity.schema.json",
+  "title": "Museum common entity",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "entity_type",
+    "branch_id",
+    "labels",
+    "lifecycle_status",
+    "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "$ref": "#/$defs/stableId" },
+    "entity_type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "branch_id": {
+      "enum": ["global", "art", "biology", "music", "games", "civilization", "science"]
+    },
+    "labels": { "$ref": "#/$defs/localizedText" },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "language", "alias_type", "source_claim_id"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "language": { "$ref": "#/$defs/languageTag" },
+          "script": { "type": ["string", "null"] },
+          "alias_type": {
+            "enum": ["alternate", "historical", "transliteration", "translated", "source_form"]
+          },
+          "source_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "external_ids": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*$" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "claim_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+      "uniqueItems": true
+    },
+    "source_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+      "uniqueItems": true
+    },
+    "source_license_bindings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceLicenseBinding" },
+      "uniqueItems": true
+    },
+    "lifecycle_status": {
+      "enum": ["candidate", "reviewed", "publishable", "published", "disputed", "deprecated", "withdrawn"]
+    },
+    "data_version": { "$ref": "#/$defs/semver" },
+    "replaced_by": { "oneOf": [{ "$ref": "#/$defs/stableId" }, { "type": "null" }] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "branch_extensions": { "type": "object" }
+  },
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$"
+    },
+    "languageTag": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
+    },
+    "localizedText": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/languageTag" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "timeSpan": {
+      "type": "object",
+      "required": ["start", "end", "precision", "uncertain", "description"],
+      "properties": {
+        "start": { "type": ["string", "null"] },
+        "end": { "type": ["string", "null"] },
+        "precision": { "enum": ["day", "month", "year", "decade", "century", "range", "unknown"] },
+        "uncertain": { "type": "boolean" },
+        "description": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "sourceLicenseBinding": {
+      "type": "object",
+      "required": ["source_id", "rule_id", "content_class", "scope_locator", "scope_fields", "permission_resolution"],
+      "properties": {
+        "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+        "rule_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$" },
+        "content_class": { "enum": ["metadata", "data", "media"] },
+        "scope_locator": { "type": "string", "minLength": 1 },
+        "scope_fields": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "permission_resolution": { "enum": ["rule_direct", "object_level"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

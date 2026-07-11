@@ -1,0 +1,308 @@
+{
+  "fixture_id": "valid-dataset-release-bundle",
+  "expected_valid": true,
+  "mode": "publish",
+  "records": [
+    {
+      "target_schema": "schemas/common/source.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "source:fixture-release-museum",
+        "entity_type": "source",
+        "title": "Fixture release source",
+        "publisher": "Fixture Museum",
+        "official_url": "https://example.org/release-source",
+        "archived_url": null,
+        "accessed_at": "2026-07-11",
+        "published_or_updated_at": "2026-07-01",
+        "source_version": "fixture-1",
+        "tier": 1,
+        "source_type": "official_collection",
+        "access_method": "Synthetic fixture",
+        "api_key_required": "no",
+        "access_limits": "Fixture only",
+        "rate_limit": "not applicable",
+        "license_rules": [
+          {
+            "content_class": "data",
+            "applies_to": "fixture release records",
+            "rights_status": "cc_by",
+            "identifier": "CC-BY-4.0",
+            "version": "4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution_template": "Fixture Museum, CC BY 4.0",
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": false,
+            "scope_note": "Synthetic fixture only.",
+            "no_inheritance": true,
+            "rule_id": "synthetic_fixture:data:8d74d70c1920",
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^fixture\\ release\\ records$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          },
+          {
+            "rule_id": "synthetic_fixture:media:e1141d861fec",
+            "content_class": "media",
+            "applies_to": "synthetic fixture media media:fixture-release-image",
+            "rights_status": "cc_by",
+            "identifier": "CC-BY-4.0",
+            "version": "4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution_template": "Fixture Museum, CC BY 4.0",
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": false,
+            "scope_note": "Synthetic fixture media rule only.",
+            "no_inheritance": true,
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^synthetic\\ fixture\\ media\\ media:fixture\\-release\\-image$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          }
+        ],
+        "terms_url": "https://example.org/terms",
+        "terms_version": "fixture-1",
+        "terms_snapshot_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "terms_verified_at": "2026-07-11",
+        "reverify_by": "2027-07-11",
+        "public_static_redistribution": "allowed",
+        "derivative_use": "allowed",
+        "commercial_use": "allowed",
+        "permission_status": "not_required",
+        "permission_reference": null,
+        "permission_scope": null,
+        "permission_verified_at": "2026-07-11",
+        "permission_expires_at": null,
+        "permission_revoked_at": null,
+        "risk_note": "Synthetic fixture; not production evidence.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "registry_source_id": "synthetic_fixture",
+        "selected_license_rule_ids": [
+          "synthetic_fixture:data:8d74d70c1920",
+          "synthetic_fixture:media:e1141d861fec"
+        ],
+        "license_rules_snapshot_hash": "sha256:a34c7eea9efe85654dfd488b91ff8a4d41154725e4c5846e1169bdc6d21f4a93",
+        "registry_identity": {
+          "canonical_name": "Fixture Museum",
+          "canonical_official_host": "example.org",
+          "snapshot_hash": "sha256:9373730a8e020b23d8acf246567ff8e4342582511039d5898e66a22419b9171d"
+        }
+      }
+    },
+    {
+      "target_schema": "schemas/common/media-asset.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "media:fixture-release-image",
+        "entity_type": "media_asset",
+        "media_type": "image",
+        "source_id": "source:fixture-release-museum",
+        "source_object_url": "https://example.org/release-image",
+        "delivery_mode": "self_hosted",
+        "cache_bytes": true,
+        "content_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "rights_status": "cc_by",
+        "metadata_license": {
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_required": false,
+          "share_alike": false,
+          "redistribution_allowed": true,
+          "modification_allowed": true,
+          "commercial_use_allowed": true
+        },
+        "media_license": {
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_required": true,
+          "share_alike": false,
+          "redistribution_allowed": true,
+          "modification_allowed": true,
+          "commercial_use_allowed": true
+        },
+        "rights_statement_url": "https://creativecommons.org/licenses/by/4.0/",
+        "rights_evidence": {
+          "source_url": "https://example.org/release-image",
+          "verified_at": "2026-07-11",
+          "object_rights_field": "fixture.rights = CC-BY-4.0",
+          "statement_snapshot_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "rights_holder": "Fixture Museum",
+        "attribution": "Fixture Museum, CC BY 4.0",
+        "allow_redistribution": true,
+        "allow_modification": true,
+        "allow_commercial_use": true,
+        "development_only": false,
+        "reuse_mode": "verbatim",
+        "derivation": null,
+        "license_scope": null,
+        "review_status": "verified",
+        "reviewed_by": "fixture-rights-reviewer",
+        "reviewed_at": "2026-07-11",
+        "publish_status": "publishable",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "storage_path": "assets/fixture-release-image.bin",
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-release-museum",
+            "rule_id": "synthetic_fixture:media:e1141d861fec",
+            "content_class": "media",
+            "scope_locator": "synthetic fixture media media:fixture-release-image",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "synthetic fixture media media:fixture-release-image"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/dataset-release.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "release:fixture-0.1.0",
+        "entity_type": "dataset_release",
+        "version": "0.1.0",
+        "schema_versions": {
+          "common/attribution-manifest": "1.0.0",
+          "common/dataset-release": "1.0.0",
+          "common/license-decision-registry": "1.0.0",
+          "common/media-asset": "1.0.0",
+          "common/source-rules-snapshot": "1.0.0",
+          "common/source": "1.0.0",
+          "common/third-party-notices": "1.0.0"
+        },
+        "build_version": "fixture-build-1",
+        "created_at": "2026-07-11T09:00:00Z",
+        "source_snapshot_at": "2026-07-11T08:00:00Z",
+        "content_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "status": "publishable",
+        "predecessor": null,
+        "public_release": true,
+        "public_until": null,
+        "included_entity_ids": [],
+        "included_relationship_ids": [],
+        "included_claim_ids": [],
+        "included_evidence_ids": [],
+        "included_source_ids": [
+          "source:fixture-release-museum"
+        ],
+        "included_media_asset_ids": [
+          "media:fixture-release-image"
+        ],
+        "withdrawals": [],
+        "deprecations": [],
+        "manifest_files": [
+          {
+            "path": "records.json",
+            "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+            "bytes": 100,
+            "record_type": "data",
+            "schema_path": null,
+            "record_ids": [
+              "source:fixture-release-museum",
+              "media:fixture-release-image"
+            ]
+          },
+          {
+            "path": "assets/fixture-release-image.bin",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bytes": 40,
+            "record_type": "media",
+            "schema_path": null,
+            "record_ids": [
+              "media:fixture-release-image"
+            ]
+          },
+          {
+            "path": "source-rules-snapshot.json",
+            "sha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+            "bytes": 100,
+            "record_type": "source_registry",
+            "schema_path": "schemas/common/source-rules-snapshot.schema.json",
+            "record_ids": [
+              "source:fixture-release-museum"
+            ]
+          },
+          {
+            "path": "license-decisions.json",
+            "sha256": "a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2",
+            "bytes": 100,
+            "record_type": "license_decisions",
+            "schema_path": "schemas/common/license-decision-registry.schema.json",
+            "record_ids": [
+              "license-decision:synthetic-fixture-code",
+              "license-decision:synthetic-fixture-content"
+            ]
+          },
+          {
+            "path": "third-party-notices.json",
+            "sha256": "a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3",
+            "bytes": 100,
+            "record_type": "third_party_notices",
+            "schema_path": "schemas/common/third-party-notices.schema.json",
+            "record_ids": [
+              "source:fixture-release-museum",
+              "media:fixture-release-image"
+            ]
+          },
+          {
+            "path": "attributions.json",
+            "sha256": "a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4",
+            "bytes": 100,
+            "record_type": "attributions",
+            "schema_path": "schemas/common/attribution-manifest.schema.json",
+            "record_ids": [
+              "media:fixture-release-image"
+            ]
+          }
+        ],
+        "license_decisions": {
+          "code_license_decision_id": "license-decision:synthetic-fixture-code",
+          "code_license_status": "not_applicable",
+          "original_content_license_decision_id": "license-decision:synthetic-fixture-content",
+          "original_content_license_status": "not_applicable",
+          "third_party_scope_statement": "Synthetic fixture only; no project-wide license is granted.",
+          "registry_path": "license-decisions.json",
+          "registry_sha256": "a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2"
+        },
+        "third_party_notices_manifest": {
+          "path": "third-party-notices.json",
+          "sha256": "a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3"
+        },
+        "attribution_manifest": {
+          "path": "attributions.json",
+          "sha256": "a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4",
+          "asset_ids": [
+            "media:fixture-release-image"
+          ]
+        },
+        "release_notes": "Synthetic release-bundle fixture.",
+        "source_registry_manifest": {
+          "path": "source-rules-snapshot.json",
+          "sha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+        }
+      }
+    }
+  ]
+}

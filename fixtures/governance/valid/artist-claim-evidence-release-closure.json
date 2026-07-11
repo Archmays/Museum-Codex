@@ -1,0 +1,642 @@
+{
+  "fixture_id": "valid-artist-claim-evidence-release-closure",
+  "expected_valid": true,
+  "mode": "publish",
+  "records": [
+    {
+      "target_schema": "schemas/common/source.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "source:fixture-artist-authority",
+        "entity_type": "source",
+        "title": "Fixture artist authority",
+        "publisher": "Fixture Museum",
+        "official_url": "https://example.org/artist-authority",
+        "archived_url": null,
+        "accessed_at": "2026-07-11",
+        "published_or_updated_at": "2026-07-01",
+        "source_version": "fixture-1",
+        "tier": 1,
+        "source_type": "official_collection",
+        "access_method": "Synthetic fixture",
+        "api_key_required": "no",
+        "access_limits": "Fixture only",
+        "rate_limit": "not applicable",
+        "license_rules": [
+          {
+            "content_class": "data",
+            "applies_to": "fixture artist records",
+            "rights_status": "cc0",
+            "identifier": "CC0-1.0",
+            "version": "1.0",
+            "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "attribution_template": null,
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": false,
+            "scope_note": "Synthetic fixture only.",
+            "no_inheritance": true,
+            "rule_id": "synthetic_fixture:data:95c58fef88d2",
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^fixture\\ artist\\ records$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          }
+        ],
+        "terms_url": "https://example.org/terms",
+        "terms_version": "fixture-1",
+        "terms_snapshot_hash": "sha256:d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1",
+        "terms_verified_at": "2026-07-11",
+        "reverify_by": "2027-07-11",
+        "public_static_redistribution": "allowed",
+        "derivative_use": "allowed",
+        "commercial_use": "allowed",
+        "permission_status": "not_required",
+        "permission_reference": null,
+        "permission_scope": null,
+        "permission_verified_at": "2026-07-11",
+        "permission_expires_at": null,
+        "permission_revoked_at": null,
+        "risk_note": "Synthetic Tier 1 fixture.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "registry_source_id": "synthetic_fixture",
+        "selected_license_rule_ids": [
+          "synthetic_fixture:data:95c58fef88d2"
+        ],
+        "license_rules_snapshot_hash": "sha256:f804472ea47baf35ff02be942a2ea26fd597f79c1446a27a8ad946248d43a30f",
+        "registry_identity": {
+          "canonical_name": "Fixture Museum",
+          "canonical_official_host": "example.org",
+          "snapshot_hash": "sha256:9373730a8e020b23d8acf246567ff8e4342582511039d5898e66a22419b9171d"
+        }
+      }
+    },
+    {
+      "target_schema": "schemas/common/evidence.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "evidence:fixture-artist-birth",
+        "entity_type": "evidence",
+        "claim_ids": [
+          "claim:fixture-artist-birth"
+        ],
+        "stance": "supports",
+        "evidence_kind": "collection_record",
+        "source_ids": [
+          "source:fixture-artist-authority"
+        ],
+        "locator": {
+          "record_id": "birth-1"
+        },
+        "summary": "Official birth-year record.",
+        "short_excerpt": null,
+        "original_language": "en",
+        "extracted_at": "2026-07-11T08:00:00Z",
+        "extraction_method": "manual",
+        "reliability_note": "Within the source remit.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-artist-authority",
+            "rule_id": "synthetic_fixture:data:95c58fef88d2",
+            "content_class": "data",
+            "scope_locator": "fixture artist records",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "fixture artist records"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/evidence.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "evidence:fixture-artist-death",
+        "entity_type": "evidence",
+        "claim_ids": [
+          "claim:fixture-artist-death"
+        ],
+        "stance": "supports",
+        "evidence_kind": "collection_record",
+        "source_ids": [
+          "source:fixture-artist-authority"
+        ],
+        "locator": {
+          "record_id": "death-1"
+        },
+        "summary": "Official death-year record.",
+        "short_excerpt": null,
+        "original_language": "en",
+        "extracted_at": "2026-07-11T08:00:00Z",
+        "extraction_method": "manual",
+        "reliability_note": "Within the source remit.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-artist-authority",
+            "rule_id": "synthetic_fixture:data:95c58fef88d2",
+            "content_class": "data",
+            "scope_locator": "fixture artist records",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "fixture artist records"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/evidence.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "evidence:fixture-artist-work",
+        "entity_type": "evidence",
+        "claim_ids": [
+          "claim:fixture-artist-work"
+        ],
+        "stance": "supports",
+        "evidence_kind": "collection_record",
+        "source_ids": [
+          "source:fixture-artist-authority"
+        ],
+        "locator": {
+          "record_id": "work-1"
+        },
+        "summary": "Official artwork record.",
+        "short_excerpt": null,
+        "original_language": "en",
+        "extracted_at": "2026-07-11T08:00:00Z",
+        "extraction_method": "manual",
+        "reliability_note": "Within the source remit.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-artist-authority",
+            "rule_id": "synthetic_fixture:data:95c58fef88d2",
+            "content_class": "data",
+            "scope_locator": "fixture artist records",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "fixture artist records"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/claim.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "claim:fixture-artist-birth",
+        "entity_type": "claim",
+        "subject_id": "artist:fixture-closure-artist",
+        "predicate": "birth_year",
+        "object": {
+          "value": "1840",
+          "datatype": "year",
+          "precision": "exact"
+        },
+        "claim_text": {
+          "en": "The fixture artist was born in 1840."
+        },
+        "temporal_scope": {
+          "start": "1840",
+          "end": "1840",
+          "precision": "year",
+          "uncertain": false,
+          "description": "Birth year"
+        },
+        "applicability_scope": "Identity",
+        "evidence_ids": [
+          "evidence:fixture-artist-birth"
+        ],
+        "counter_evidence_ids": [],
+        "status": "publishable",
+        "status_history": [
+          {
+            "from": null,
+            "to": "candidate",
+            "changed_at": "2026-07-11T08:00:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Created."
+          },
+          {
+            "from": "candidate",
+            "to": "sourced",
+            "changed_at": "2026-07-11T08:01:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Sourced."
+          },
+          {
+            "from": "sourced",
+            "to": "reviewed",
+            "changed_at": "2026-07-11T08:02:00Z",
+            "changed_by": "fixture",
+            "role": "reviewer",
+            "reason": "Reviewed."
+          },
+          {
+            "from": "reviewed",
+            "to": "verified",
+            "changed_at": "2026-07-11T08:03:00Z",
+            "changed_by": "fixture",
+            "role": "reviewer",
+            "reason": "Verified."
+          },
+          {
+            "from": "verified",
+            "to": "publishable",
+            "changed_at": "2026-07-11T08:04:00Z",
+            "changed_by": "fixture",
+            "role": "release manager",
+            "reason": "Gates passed."
+          }
+        ],
+        "disputed": false,
+        "dispute_note": null,
+        "no_counter_evidence_reason": null,
+        "dispute_display": "not_disputed",
+        "review": {
+          "reviewer": "fixture-reviewer",
+          "reviewed_at": "2026-07-11",
+          "decision_note": "Tier 1 record supports the scoped claim."
+        },
+        "publish_status": "publishable",
+        "supersedes": null,
+        "data_version": "0.1.0"
+      }
+    },
+    {
+      "target_schema": "schemas/common/claim.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "claim:fixture-artist-death",
+        "entity_type": "claim",
+        "subject_id": "artist:fixture-closure-artist",
+        "predicate": "death_year",
+        "object": {
+          "value": "1900",
+          "datatype": "year",
+          "precision": "exact"
+        },
+        "claim_text": {
+          "en": "The fixture artist died in 1900."
+        },
+        "temporal_scope": {
+          "start": "1900",
+          "end": "1900",
+          "precision": "year",
+          "uncertain": false,
+          "description": "Death year"
+        },
+        "applicability_scope": "Identity",
+        "evidence_ids": [
+          "evidence:fixture-artist-death"
+        ],
+        "counter_evidence_ids": [],
+        "status": "publishable",
+        "status_history": [
+          {
+            "from": null,
+            "to": "candidate",
+            "changed_at": "2026-07-11T08:00:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Created."
+          },
+          {
+            "from": "candidate",
+            "to": "sourced",
+            "changed_at": "2026-07-11T08:01:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Sourced."
+          },
+          {
+            "from": "sourced",
+            "to": "reviewed",
+            "changed_at": "2026-07-11T08:02:00Z",
+            "changed_by": "fixture",
+            "role": "reviewer",
+            "reason": "Reviewed."
+          },
+          {
+            "from": "reviewed",
+            "to": "verified",
+            "changed_at": "2026-07-11T08:03:00Z",
+            "changed_by": "fixture",
+            "role": "reviewer",
+            "reason": "Verified."
+          },
+          {
+            "from": "verified",
+            "to": "publishable",
+            "changed_at": "2026-07-11T08:04:00Z",
+            "changed_by": "fixture",
+            "role": "release manager",
+            "reason": "Gates passed."
+          }
+        ],
+        "disputed": false,
+        "dispute_note": null,
+        "no_counter_evidence_reason": null,
+        "dispute_display": "not_disputed",
+        "review": {
+          "reviewer": "fixture-reviewer",
+          "reviewed_at": "2026-07-11",
+          "decision_note": "Tier 1 record supports the scoped claim."
+        },
+        "publish_status": "publishable",
+        "supersedes": null,
+        "data_version": "0.1.0"
+      }
+    },
+    {
+      "target_schema": "schemas/common/claim.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "claim:fixture-artist-work",
+        "entity_type": "claim",
+        "subject_id": "artist:fixture-closure-artist",
+        "predicate": "has_verified_work_record",
+        "object": {
+          "value": "work-1",
+          "datatype": "string",
+          "precision": "exact"
+        },
+        "claim_text": {
+          "en": "The fixture source records a work by this artist."
+        },
+        "temporal_scope": {
+          "start": null,
+          "end": null,
+          "precision": "unknown",
+          "uncertain": false,
+          "description": "Collection record scope"
+        },
+        "applicability_scope": "Minimum artist inclusion evidence",
+        "evidence_ids": [
+          "evidence:fixture-artist-work"
+        ],
+        "counter_evidence_ids": [],
+        "status": "publishable",
+        "status_history": [
+          {
+            "from": null,
+            "to": "candidate",
+            "changed_at": "2026-07-11T08:00:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Created."
+          },
+          {
+            "from": "candidate",
+            "to": "sourced",
+            "changed_at": "2026-07-11T08:01:00Z",
+            "changed_by": "fixture",
+            "role": "collector",
+            "reason": "Sourced."
+          },
+          {
+            "from": "sourced",
+            "to": "reviewed",
+            "changed_at": "2026-07-11T08:02:00Z",
+            "changed_by": "fixture",
+            "role": "reviewer",
+            "reason": "Reviewed."
+          },
+          {
+            "from": "reviewed",
+            "to": "verified",
+            "changed_at": "2026-07-11T08:03:00Z",
+            "changed_by": "fixture",
+            "role": "reviewer",
+            "reason": "Verified."
+          },
+          {
+            "from": "verified",
+            "to": "publishable",
+            "changed_at": "2026-07-11T08:04:00Z",
+            "changed_by": "fixture",
+            "role": "release manager",
+            "reason": "Gates passed."
+          }
+        ],
+        "disputed": false,
+        "dispute_note": null,
+        "no_counter_evidence_reason": null,
+        "dispute_display": "not_disputed",
+        "review": {
+          "reviewer": "fixture-reviewer",
+          "reviewed_at": "2026-07-11",
+          "decision_note": "Official collection record supports the scoped claim."
+        },
+        "publish_status": "publishable",
+        "supersedes": null,
+        "data_version": "0.1.0"
+      }
+    },
+    {
+      "target_schema": "schemas/art/artist.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "artist:fixture-closure-artist",
+        "entity_type": "artist",
+        "branch_id": "art",
+        "labels": {
+          "en": "Fixture Closure Artist"
+        },
+        "external_ids": {
+          "ulan": "500000777"
+        },
+        "claim_ids": [
+          "claim:fixture-artist-birth",
+          "claim:fixture-artist-death",
+          "claim:fixture-artist-work"
+        ],
+        "source_ids": [
+          "source:fixture-artist-authority"
+        ],
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "artist_kind": "individual",
+        "deceased_status": "confirmed_deceased",
+        "identity_status": "resolved",
+        "life_dates": {
+          "birth": {
+            "display_value": "1840",
+            "precision": "year",
+            "claim_id": "claim:fixture-artist-birth"
+          },
+          "death": {
+            "display_value": "1900",
+            "precision": "year",
+            "claim_id": "claim:fixture-artist-death"
+          }
+        },
+        "at_least_one_verified_work_or_record": true,
+        "artwork_or_history_claim_ids": [
+          "claim:fixture-artist-work"
+        ],
+        "review_status": "publishable",
+        "uncertainty_note": null,
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-artist-authority",
+            "rule_id": "synthetic_fixture:data:95c58fef88d2",
+            "content_class": "data",
+            "scope_locator": "fixture artist records",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "fixture artist records"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/dataset-release.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "release:fixture-artist-closure-0.1.0",
+        "entity_type": "dataset_release",
+        "version": "0.1.0",
+        "schema_versions": {
+          "art/artist": "1.0.0",
+          "common/attribution-manifest": "1.0.0",
+          "common/claim": "1.0.0",
+          "common/dataset-release": "1.0.0",
+          "common/evidence": "1.0.0",
+          "common/license-decision-registry": "1.0.0",
+          "common/source-rules-snapshot": "1.0.0",
+          "common/source": "1.0.0",
+          "common/third-party-notices": "1.0.0"
+        },
+        "build_version": "fixture-artist-closure",
+        "created_at": "2026-07-11T09:00:00Z",
+        "source_snapshot_at": "2026-07-11T08:00:00Z",
+        "content_hash": "sha256:e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1",
+        "status": "publishable",
+        "predecessor": null,
+        "public_release": true,
+        "public_until": null,
+        "included_entity_ids": [
+          "artist:fixture-closure-artist"
+        ],
+        "included_relationship_ids": [],
+        "included_claim_ids": [
+          "claim:fixture-artist-birth",
+          "claim:fixture-artist-death",
+          "claim:fixture-artist-work"
+        ],
+        "included_evidence_ids": [
+          "evidence:fixture-artist-birth",
+          "evidence:fixture-artist-death",
+          "evidence:fixture-artist-work"
+        ],
+        "included_source_ids": [
+          "source:fixture-artist-authority"
+        ],
+        "included_media_asset_ids": [],
+        "withdrawals": [],
+        "deprecations": [],
+        "manifest_files": [
+          {
+            "path": "records.json",
+            "sha256": "f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1",
+            "bytes": 100,
+            "record_type": "data",
+            "schema_path": null,
+            "record_ids": [
+              "source:fixture-artist-authority",
+              "evidence:fixture-artist-birth",
+              "evidence:fixture-artist-death",
+              "evidence:fixture-artist-work",
+              "claim:fixture-artist-birth",
+              "claim:fixture-artist-death",
+              "claim:fixture-artist-work",
+              "artist:fixture-closure-artist"
+            ]
+          },
+          {
+            "path": "source-rules-snapshot.json",
+            "sha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+            "bytes": 100,
+            "record_type": "source_registry",
+            "schema_path": "schemas/common/source-rules-snapshot.schema.json",
+            "record_ids": [
+              "source:fixture-artist-authority"
+            ]
+          },
+          {
+            "path": "license-decisions.json",
+            "sha256": "a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2",
+            "bytes": 100,
+            "record_type": "license_decisions",
+            "schema_path": "schemas/common/license-decision-registry.schema.json",
+            "record_ids": [
+              "license-decision:synthetic-fixture-code",
+              "license-decision:synthetic-fixture-content"
+            ]
+          },
+          {
+            "path": "third-party-notices.json",
+            "sha256": "a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3",
+            "bytes": 100,
+            "record_type": "third_party_notices",
+            "schema_path": "schemas/common/third-party-notices.schema.json",
+            "record_ids": [
+              "source:fixture-artist-authority"
+            ]
+          },
+          {
+            "path": "attributions.json",
+            "sha256": "a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4",
+            "bytes": 100,
+            "record_type": "attributions",
+            "schema_path": "schemas/common/attribution-manifest.schema.json",
+            "record_ids": []
+          }
+        ],
+        "license_decisions": {
+          "code_license_decision_id": "license-decision:synthetic-fixture-code",
+          "code_license_status": "not_applicable",
+          "original_content_license_decision_id": "license-decision:synthetic-fixture-content",
+          "original_content_license_status": "not_applicable",
+          "third_party_scope_statement": "Synthetic fixture only; no project-wide license is granted.",
+          "registry_path": "license-decisions.json",
+          "registry_sha256": "a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2"
+        },
+        "third_party_notices_manifest": {
+          "path": "third-party-notices.json",
+          "sha256": "a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3"
+        },
+        "attribution_manifest": {
+          "path": "attributions.json",
+          "sha256": "a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4",
+          "asset_ids": []
+        },
+        "release_notes": "Full artist birth/death/work Claim-Evidence-Source closure fixture.",
+        "source_registry_manifest": {
+          "path": "source-rules-snapshot.json",
+          "sha256": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+        }
+      }
+    }
+  ]
+}

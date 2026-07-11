@@ -1,0 +1,96 @@
+{
+  "fixture_id": "invalid-media-license-scope",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "license_scope_missing_platform",
+    "license_scope_missing_purpose",
+    "license_scope_missing_territory",
+    "license_not_started",
+    "release_outlives_license"
+  ],
+  "mode": "publish",
+  "target_schema": "schemas/common/media-asset.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "media:fixture-bad-scope",
+    "entity_type": "media_asset",
+    "media_type": "image",
+    "source_id": "source:fixture-licensor",
+    "source_object_url": "https://example.org/licensed-image",
+    "delivery_mode": "self_hosted",
+    "cache_bytes": true,
+    "content_hash": "sha256:6161616161616161616161616161616161616161616161616161616161616161",
+    "rights_status": "licensed",
+    "metadata_license": {
+      "identifier": "CC0-1.0",
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution_required": false,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "media_license": {
+      "identifier": "CUSTOM-LICENSE",
+      "version": "1",
+      "url": "https://example.org/license",
+      "attribution_required": true,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "rights_statement_url": "https://example.org/license",
+    "rights_evidence": {
+      "source_url": "https://example.org/licensed-image",
+      "verified_at": "2026-07-11",
+      "object_rights_field": "custom license",
+      "statement_snapshot_hash": "sha256:6262626262626262626262626262626262626262626262626262626262626262"
+    },
+    "rights_holder": "Fixture Licensor",
+    "attribution": "Fixture Licensor",
+    "allow_redistribution": true,
+    "allow_modification": true,
+    "allow_commercial_use": true,
+    "development_only": false,
+    "reuse_mode": "verbatim",
+    "derivation": null,
+    "license_scope": {
+      "platforms": [
+        "print"
+      ],
+      "purposes": [
+        "internal"
+      ],
+      "territories": [
+        "CN"
+      ],
+      "starts_at": "2099-01-01",
+      "expires_at": "2100-01-01",
+      "permission_status": "approved",
+      "authorization_reference": "AUTH-2099-FIXTURE",
+      "revoked_at": null,
+      "takedown_plan": "Remove before the fixture expiry."
+    },
+    "review_status": "verified",
+    "reviewed_by": "fixture-rights-reviewer",
+    "reviewed_at": "2026-07-11",
+    "publish_status": "publishable",
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "storage_path": "assets/fixture-bad-scope.bin",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-licensor",
+        "rule_id": "synthetic_fixture:media:standalone",
+        "content_class": "media",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

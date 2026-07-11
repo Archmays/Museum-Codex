@@ -1,0 +1,118 @@
+{
+  "manifest_version": "1.0.0",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "schemas": [
+    {
+      "path": "schemas/common/entity.schema.json",
+      "id": "https://museum-codex.example/schemas/common/entity.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/common/relationship.schema.json",
+      "id": "https://museum-codex.example/schemas/common/relationship.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/claim.schema.json",
+      "id": "https://museum-codex.example/schemas/common/claim.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/evidence.schema.json",
+      "id": "https://museum-codex.example/schemas/common/evidence.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/source.schema.json",
+      "id": "https://museum-codex.example/schemas/common/source.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/media-asset.schema.json",
+      "id": "https://museum-codex.example/schemas/common/media-asset.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/dataset-release.schema.json",
+      "id": "https://museum-codex.example/schemas/common/dataset-release.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/attribution-manifest.schema.json",
+      "id": "https://museum-codex.example/schemas/common/attribution-manifest.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/common/third-party-notices.schema.json",
+      "id": "https://museum-codex.example/schemas/common/third-party-notices.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/license-decision-registry.schema.json",
+      "id": "https://museum-codex.example/schemas/common/license-decision-registry.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/common/source-rules-snapshot.schema.json",
+      "id": "https://museum-codex.example/schemas/common/source-rules-snapshot.schema.json",
+      "version": "1.0.0",
+      "branch": "common",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/common/source.schema.json"]
+    },
+    {
+      "path": "schemas/art/artist.schema.json",
+      "id": "https://museum-codex.example/schemas/art/artist.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/artwork.schema.json",
+      "id": "https://museum-codex.example/schemas/art/artwork.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/artist-relationship.schema.json",
+      "id": "https://museum-codex.example/schemas/art/artist-relationship.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/relationship.schema.json"]
+    },
+    {
+      "path": "schemas/biology/taxon.schema.json",
+      "id": "https://museum-codex.example/schemas/biology/taxon.schema.json",
+      "version": "1.0.0",
+      "branch": "biology",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/biology/ecosystem-interaction.schema.json",
+      "id": "https://museum-codex.example/schemas/biology/ecosystem-interaction.schema.json",
+      "version": "1.0.0",
+      "branch": "biology",
+      "depends_on": ["schemas/common/relationship.schema.json"]
+    }
+  ]
+}

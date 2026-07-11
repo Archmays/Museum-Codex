@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/dataset-release.schema.json",
+  "title": "Museum dataset release",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "version", "schema_versions", "build_version",
+    "created_at", "source_snapshot_at", "content_hash", "status", "predecessor",
+    "public_release", "public_until", "included_entity_ids", "included_relationship_ids",
+    "included_claim_ids", "included_evidence_ids", "included_source_ids",
+    "included_media_asset_ids", "withdrawals", "deprecations", "manifest_files",
+    "license_decisions", "source_registry_manifest", "third_party_notices_manifest",
+    "attribution_manifest", "release_notes"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^release:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "dataset_release" },
+    "version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "schema_versions": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_/-]*$" },
+      "additionalProperties": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+    },
+    "build_version": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_snapshot_at": { "type": "string", "format": "date-time" },
+    "content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "status": { "enum": ["draft", "reviewed", "publishable", "published", "deprecated", "withdrawn"] },
+    "predecessor": { "type": ["string", "null"], "pattern": "^release:[a-z0-9][a-z0-9._-]*$" },
+    "public_release": { "type": "boolean" },
+    "public_until": { "type": ["string", "null"], "format": "date" },
+    "included_entity_ids": { "$ref": "#/$defs/entityIdList" },
+    "included_relationship_ids": { "$ref": "#/$defs/relationshipIdList" },
+    "included_claim_ids": { "$ref": "#/$defs/claimIdList" },
+    "included_evidence_ids": { "$ref": "#/$defs/evidenceIdList" },
+    "included_source_ids": { "$ref": "#/$defs/sourceIdList" },
+    "included_media_asset_ids": { "$ref": "#/$defs/mediaIdList" },
+    "withdrawals": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/withdrawalRecord" }
+    },
+    "deprecations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/deprecationRecord" }
+    },
+    "manifest_files": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/manifestFile" }
+    },
+    "license_decisions": {
+      "type": "object",
+      "required": [
+        "code_license_decision_id", "code_license_status",
+        "original_content_license_decision_id", "original_content_license_status",
+        "third_party_scope_statement", "registry_path", "registry_sha256"
+      ],
+      "properties": {
+        "code_license_decision_id": { "type": "string", "minLength": 1 },
+        "code_license_status": { "enum": ["decided", "not_applicable", "pending"] },
+        "original_content_license_decision_id": { "type": "string", "minLength": 1 },
+        "original_content_license_status": { "enum": ["decided", "not_applicable", "pending"] },
+        "third_party_scope_statement": { "type": "string", "minLength": 1 },
+        "registry_path": { "$ref": "#/$defs/canonicalPath" },
+        "registry_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "source_registry_manifest": { "$ref": "#/$defs/artifactRef" },
+    "third_party_notices_manifest": { "$ref": "#/$defs/artifactRef" },
+    "attribution_manifest": {
+      "type": "object",
+      "required": ["path", "sha256", "asset_ids"],
+      "properties": {
+        "path": { "$ref": "#/$defs/canonicalPath" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "asset_ids": { "$ref": "#/$defs/mediaIdList" }
+      },
+      "additionalProperties": false
+    },
+    "release_notes": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "canonicalPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+      "not": { "enum": [".", ".."] }
+    },
+    "entityIdList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^(?!(?:rel|art-rel|bio-rel|claim|evidence|source|media|release):)[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "relationshipIdList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^(rel|art-rel|bio-rel):[a-z0-9][a-z0-9._-]*$" }
+    },
+    "claimIdList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "evidenceIdList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "sourceIdList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "mediaIdList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "withdrawalRecord": {
+      "type": "object",
+      "required": ["id", "reason", "effective_at", "scope", "replacement", "public_notice"],
+      "properties": {
+        "id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+        "reason": { "enum": ["factual_error", "rights_request", "privacy_safety", "cultural_sensitivity", "source_retraction", "duplicate_identity", "legal_hold", "other"] },
+        "effective_at": { "type": "string", "format": "date-time" },
+        "scope": { "enum": ["data", "media", "data_and_media"] },
+        "replacement": {
+          "oneOf": [
+            { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+            { "type": "null" }
+          ]
+        },
+        "public_notice": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "deprecationRecord": {
+      "type": "object",
+      "required": ["id", "superseded_by", "effective_at", "reason"],
+      "properties": {
+        "id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+        "superseded_by": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+        "effective_at": { "type": "string", "format": "date-time" },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "manifestFile": {
+      "type": "object",
+      "required": ["path", "sha256", "bytes", "record_type", "schema_path", "record_ids"],
+      "properties": {
+        "path": { "$ref": "#/$defs/canonicalPath" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "record_type": { "enum": ["data", "media", "source_registry", "license_decisions", "third_party_notices", "attributions", "withdrawals", "search_index", "other"] },
+        "schema_path": {
+          "oneOf": [
+            { "$ref": "#/$defs/canonicalPath" },
+            { "type": "null" }
+          ]
+        },
+        "record_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "record_type": { "const": "media" } }, "required": ["record_type"] },
+          "then": { "properties": { "bytes": { "minimum": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "artifactRef": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/canonicalPath" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "public_release": { "const": true } }, "required": ["public_release"] },
+      "then": {
+        "properties": {
+          "license_decisions": {
+            "properties": {
+              "code_license_status": { "enum": ["decided", "not_applicable"] },
+              "original_content_license_status": { "enum": ["decided", "not_applicable"] }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

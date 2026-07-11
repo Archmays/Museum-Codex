@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/artist-relationship.schema.json",
+  "title": "Art museum artist relationship",
+  "allOf": [
+    { "$ref": "https://museum-codex.example/schemas/common/relationship.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" },
+        "branch_id": { "const": "art" },
+        "source_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "context_entity_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" }
+        },
+        "relationship_type": {
+          "enum": [
+            "student_of", "teacher_of", "worked_in_studio_of", "collaborated_with", "member_of",
+            "associated_with_movement", "participated_in_same_exhibition", "worked_in_same_place_period",
+            "explicitly_influenced_by", "explicitly_influenced", "referenced_or_quoted", "shared_patron",
+            "shared_institution", "shared_subject", "shared_technique", "shared_material",
+            "scholarly_compared_with", "computationally_similar_to"
+          ]
+        }
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "enum": ["explicitly_influenced_by", "explicitly_influenced", "student_of", "teacher_of", "worked_in_studio_of", "collaborated_with", "referenced_or_quoted"] } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+          "relationship_semantics": { "const": "historical_direct" },
+          "evidence_level": { "const": "A" },
+          "is_algorithmic": { "const": false },
+          "directed": { "const": true }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "enum": ["member_of", "associated_with_movement", "participated_in_same_exhibition", "worked_in_same_place_period", "shared_patron", "shared_institution"] } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "relationship_semantics": { "const": "historical_context" },
+          "evidence_level": { "const": "B" },
+          "is_algorithmic": { "const": false }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "enum": ["shared_subject", "shared_technique", "shared_material", "scholarly_compared_with"] } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+          "relationship_semantics": { "const": "curatorial_comparison" },
+          "evidence_level": { "const": "C" },
+          "is_algorithmic": { "const": false },
+          "directed": { "const": false }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "computationally_similar_to" } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+          "relationship_semantics": { "const": "computational_similarity" },
+          "evidence_level": { "const": "C" },
+          "is_algorithmic": { "const": true },
+          "directed": { "const": false },
+          "historical_relationship_strength": { "type": "null" },
+          "computational_similarity": { "type": "number" }
+        },
+        "required": ["algorithm"]
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "member_of" } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^(art_group|organization):[a-z0-9][a-z0-9._-]*$" },
+          "directed": { "const": true }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "associated_with_movement" } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^art_movement:[a-z0-9][a-z0-9._-]*$" },
+          "directed": { "const": true }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relationship_type": {
+            "enum": ["participated_in_same_exhibition", "shared_patron", "shared_institution", "shared_subject", "shared_technique", "shared_material"]
+          }
+        },
+        "required": ["relationship_type"]
+      },
+      "then": {
+        "required": ["context_entity_ids"],
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+          "context_entity_ids": { "minItems": 1 },
+          "directed": { "const": false }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "participated_in_same_exhibition" } }, "required": ["relationship_type"] },
+      "then": { "properties": { "context_entity_ids": { "items": { "type": "string", "pattern": "^(exhibition|exhibition_event):[a-z0-9][a-z0-9._-]*$" } } } }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "shared_patron" } }, "required": ["relationship_type"] },
+      "then": { "properties": { "context_entity_ids": { "items": { "type": "string", "pattern": "^(person|organization):[a-z0-9][a-z0-9._-]*$" } } } }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "shared_institution" } }, "required": ["relationship_type"] },
+      "then": { "properties": { "context_entity_ids": { "items": { "type": "string", "pattern": "^(museum_institution|organization):[a-z0-9][a-z0-9._-]*$" } } } }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "shared_subject" } }, "required": ["relationship_type"] },
+      "then": { "properties": { "context_entity_ids": { "items": { "type": "string", "pattern": "^subject:[a-z0-9][a-z0-9._-]*$" } } } }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "shared_technique" } }, "required": ["relationship_type"] },
+      "then": { "properties": { "context_entity_ids": { "items": { "type": "string", "pattern": "^technique:[a-z0-9][a-z0-9._-]*$" } } } }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "shared_material" } }, "required": ["relationship_type"] },
+      "then": { "properties": { "context_entity_ids": { "items": { "type": "string", "pattern": "^material:[a-z0-9][a-z0-9._-]*$" } } } }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "worked_in_same_place_period" } }, "required": ["relationship_type"] },
+      "then": {
+        "properties": {
+          "target_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+          "place_scope": { "properties": { "place_ids": { "minItems": 1 } } },
+          "directed": { "const": false }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

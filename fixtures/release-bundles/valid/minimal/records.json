@@ -1,0 +1,177 @@
+{
+  "records": [
+    {
+      "target_schema": "schemas/common/source.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "source:physical-fixture-museum",
+        "entity_type": "source",
+        "title": "Physical fixture source",
+        "publisher": "Fixture Museum",
+        "official_url": "https://example.org/physical-source",
+        "archived_url": null,
+        "accessed_at": "2026-07-11",
+        "published_or_updated_at": "2026-07-01",
+        "source_version": "fixture-1",
+        "tier": 1,
+        "source_type": "official_collection",
+        "access_method": "Synthetic physical fixture",
+        "api_key_required": "no",
+        "access_limits": "Fixture only",
+        "rate_limit": "not applicable",
+        "license_rules": [
+          {
+            "content_class": "data",
+            "applies_to": "physical fixture records",
+            "rights_status": "cc_by",
+            "identifier": "CC-BY-4.0",
+            "version": "4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution_template": "Fixture Museum, CC BY 4.0",
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": false,
+            "scope_note": "Synthetic fixture only.",
+            "no_inheritance": true,
+            "rule_id": "synthetic_fixture:data:cb79f2438a99",
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^physical\\ fixture\\ records$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          },
+          {
+            "rule_id": "synthetic_fixture:media:40d129aca3d2",
+            "content_class": "media",
+            "applies_to": "synthetic fixture media media:physical-fixture-image",
+            "rights_status": "cc_by",
+            "identifier": "CC-BY-4.0",
+            "version": "4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution_template": "Fixture Museum, CC BY 4.0",
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": false,
+            "scope_note": "Synthetic fixture media rule only.",
+            "no_inheritance": true,
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^synthetic\\ fixture\\ media\\ media:physical\\-fixture\\-image$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          }
+        ],
+        "terms_url": "https://example.org/terms",
+        "terms_version": "fixture-1",
+        "terms_snapshot_hash": "sha256:a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "terms_verified_at": "2026-07-11",
+        "reverify_by": "2027-07-11",
+        "public_static_redistribution": "allowed",
+        "derivative_use": "allowed",
+        "commercial_use": "allowed",
+        "permission_status": "not_required",
+        "permission_reference": null,
+        "permission_scope": null,
+        "permission_verified_at": "2026-07-11",
+        "permission_expires_at": null,
+        "permission_revoked_at": null,
+        "risk_note": "Synthetic physical release fixture.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "registry_source_id": "synthetic_fixture",
+        "selected_license_rule_ids": [
+          "synthetic_fixture:data:cb79f2438a99",
+          "synthetic_fixture:media:40d129aca3d2"
+        ],
+        "license_rules_snapshot_hash": "sha256:2b98a517e4823a596cdcea1f16d906f8a29c035028b5cf9b2bcc0ba44cecdb36",
+        "registry_identity": {
+          "canonical_name": "Fixture Museum",
+          "canonical_official_host": "example.org",
+          "snapshot_hash": "sha256:9373730a8e020b23d8acf246567ff8e4342582511039d5898e66a22419b9171d"
+        }
+      }
+    },
+    {
+      "target_schema": "schemas/common/media-asset.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "media:physical-fixture-image",
+        "entity_type": "media_asset",
+        "media_type": "image",
+        "source_id": "source:physical-fixture-museum",
+        "source_object_url": "https://example.org/physical-image",
+        "delivery_mode": "self_hosted",
+        "cache_bytes": true,
+        "content_hash": "sha256:1b5cb44e8412dc3f9214746afd55ef613831ce20829226a8129171669e702626",
+        "rights_status": "cc_by",
+        "metadata_license": {
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_required": false,
+          "share_alike": false,
+          "redistribution_allowed": true,
+          "modification_allowed": true,
+          "commercial_use_allowed": true
+        },
+        "media_license": {
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_required": true,
+          "share_alike": false,
+          "redistribution_allowed": true,
+          "modification_allowed": true,
+          "commercial_use_allowed": true
+        },
+        "rights_statement_url": "https://creativecommons.org/licenses/by/4.0/",
+        "rights_evidence": {
+          "source_url": "https://example.org/physical-image",
+          "verified_at": "2026-07-11",
+          "object_rights_field": "fixture.rights = CC-BY-4.0",
+          "statement_snapshot_hash": "sha256:c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1"
+        },
+        "rights_holder": "Fixture Museum",
+        "attribution": "Fixture Museum, CC BY 4.0",
+        "allow_redistribution": true,
+        "allow_modification": true,
+        "allow_commercial_use": true,
+        "development_only": false,
+        "reuse_mode": "verbatim",
+        "derivation": null,
+        "license_scope": null,
+        "review_status": "verified",
+        "reviewed_by": "fixture-rights-reviewer",
+        "reviewed_at": "2026-07-11",
+        "publish_status": "publishable",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "storage_path": "assets/physical-fixture-image.bin",
+        "source_license_bindings": [
+          {
+            "source_id": "source:physical-fixture-museum",
+            "rule_id": "synthetic_fixture:media:40d129aca3d2",
+            "content_class": "media",
+            "scope_locator": "synthetic fixture media media:physical-fixture-image",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "synthetic fixture media media:physical-fixture-image"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

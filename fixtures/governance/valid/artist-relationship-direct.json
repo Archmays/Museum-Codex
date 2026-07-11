@@ -1,0 +1,64 @@
+{
+  "fixture_id": "valid-artist-relationship-direct",
+  "expected_valid": true,
+  "mode": "foundation",
+  "target_schema": "schemas/art/artist-relationship.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "art-rel:fixture-student",
+    "entity_type": "relationship",
+    "branch_id": "art",
+    "relationship_type": "student_of",
+    "relationship_semantics": "historical_direct",
+    "source_entity_id": "artist:fixture-student",
+    "target_entity_id": "artist:fixture-teacher",
+    "directed": true,
+    "temporal_scope": {
+      "start": "1886",
+      "end": "1887",
+      "precision": "year",
+      "uncertain": false,
+      "description": "Documented study period"
+    },
+    "place_scope": {
+      "place_ids": [
+        "place:fixture-city"
+      ],
+      "description": "Documented studio location"
+    },
+    "evidence_level": "A",
+    "historical_relationship_strength": 0.8,
+    "evidence_confidence": 0.95,
+    "computational_similarity": null,
+    "curatorial_relevance": 0.75,
+    "claim_ids": [
+      "claim:fixture-student-of"
+    ],
+    "source_ids": [
+      "source:fixture-archive"
+    ],
+    "curatorial_note": {
+      "en": "A documented period of study.",
+      "zh-Hans": "档案记录的学习时期。"
+    },
+    "public_display": true,
+    "is_algorithmic": false,
+    "review_status": "publishable",
+    "reviewed_by": "fixture-reviewer",
+    "reviewed_at": "2026-07-11",
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-archive",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

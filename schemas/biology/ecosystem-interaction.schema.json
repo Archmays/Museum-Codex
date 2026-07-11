@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/biology/ecosystem-interaction.schema.json",
+  "title": "Biology ecosystem interaction",
+  "allOf": [
+    { "$ref": "https://museum-codex.example/schemas/common/relationship.schema.json" },
+    {
+      "type": "object",
+      "required": ["participant_roles", "life_stage_scope", "public_animation_candidate"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^bio-rel:[a-z0-9][a-z0-9._-]*$" },
+        "branch_id": { "const": "biology" },
+        "relationship_semantics": { "const": "discipline_specific" },
+        "is_algorithmic": { "const": false },
+        "computational_similarity": { "type": "null" },
+        "relationship_type": { "enum": ["predation", "herbivory", "scavenging", "competition", "mutualism", "commensalism", "parasitism", "pollination", "decomposition", "host_of", "uses_habitat"] },
+        "participant_roles": {
+          "type": "object", "minProperties": 2,
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "life_stage_scope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "public_animation_candidate": { "type": "boolean" },
+        "behavior_animation": {
+          "type": "object",
+          "required": ["representation_type", "animation_evidence_ids", "simplification_notes", "scope_limitations", "scientific_review"],
+          "properties": {
+            "representation_type": { "enum": ["real_footage", "scientific_reconstruction", "mechanism_animation", "hypothesis"] },
+            "animation_evidence_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" } },
+            "simplification_notes": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/localizedText" },
+            "scope_limitations": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/localizedText" },
+            "scientific_review": {
+              "type": "object",
+              "required": ["reviewer", "reviewed_at", "status"],
+              "properties": {
+                "reviewer": { "type": "string", "minLength": 1 },
+                "reviewed_at": { "type": "string", "format": "date" },
+                "status": { "enum": ["approved", "changes_required", "rejected"] }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "if": { "properties": { "public_animation_candidate": { "const": true } }, "required": ["public_animation_candidate"] },
+      "then": { "required": ["behavior_animation"] }
+    }
+  ],
+  "unevaluatedProperties": false
+}

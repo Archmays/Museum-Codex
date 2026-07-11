@@ -1,0 +1,211 @@
+{
+  "fixture_id": "valid-claim-evidence-source-bundle",
+  "expected_valid": true,
+  "mode": "foundation",
+  "context": {
+    "require_local_references": true
+  },
+  "records": [
+    {
+      "target_schema": "schemas/common/source.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "source:fixture-authority-record",
+        "entity_type": "source",
+        "title": "Fixture authority record",
+        "publisher": "Fixture Museum",
+        "official_url": "https://example.org/authority/record",
+        "archived_url": null,
+        "accessed_at": "2026-07-11",
+        "published_or_updated_at": "2026-06-01",
+        "source_version": "2026-06",
+        "tier": 1,
+        "source_type": "official_collection",
+        "access_method": "Official object page",
+        "api_key_required": "no",
+        "access_limits": "No numeric limit stated",
+        "rate_limit": "not stated",
+        "license_rules": [
+          {
+            "content_class": "data",
+            "applies_to": "fixture record",
+            "rights_status": "cc0",
+            "identifier": "CC0-1.0",
+            "version": "1.0",
+            "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "attribution_template": null,
+            "redistribution": "allowed",
+            "modification": "allowed",
+            "commercial_use": "allowed",
+            "share_alike": false,
+            "scope_note": "Synthetic fixture data only.",
+            "no_inheritance": true,
+            "rule_id": "synthetic_fixture:data:1d2f48e69a8c",
+            "scope_match": {
+              "normalization": "none",
+              "pattern": "^fixture\\ record$",
+              "allowed_schemes": [],
+              "allowed_hosts": [],
+              "allow_relative_path": true,
+              "field_policy": "any",
+              "fields": [],
+              "require_explicit_query_fields": false
+            }
+          }
+        ],
+        "terms_url": "https://example.org/terms",
+        "terms_version": "fixture-1",
+        "terms_snapshot_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "terms_verified_at": "2026-07-11",
+        "reverify_by": "2027-07-11",
+        "public_static_redistribution": "allowed",
+        "derivative_use": "allowed",
+        "commercial_use": "allowed",
+        "permission_status": "not_required",
+        "permission_reference": null,
+        "permission_scope": null,
+        "permission_verified_at": "2026-07-11",
+        "permission_expires_at": null,
+        "permission_revoked_at": null,
+        "risk_note": "Synthetic fixture; not a production source.",
+        "lifecycle_status": "published",
+        "data_version": "0.1.0",
+        "registry_source_id": "synthetic_fixture",
+        "selected_license_rule_ids": [
+          "synthetic_fixture:data:1d2f48e69a8c"
+        ],
+        "license_rules_snapshot_hash": "sha256:cf3c8355cd95fe0a8e49007e1fd66b98ac3c3025a52ee2c5596cea7f2bb52687",
+        "registry_identity": {
+          "canonical_name": "Fixture Museum",
+          "canonical_official_host": "example.org",
+          "snapshot_hash": "sha256:9373730a8e020b23d8acf246567ff8e4342582511039d5898e66a22419b9171d"
+        }
+      }
+    },
+    {
+      "target_schema": "schemas/common/evidence.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "evidence:fixture-death-record",
+        "entity_type": "evidence",
+        "claim_ids": [
+          "claim:fixture-death-record"
+        ],
+        "stance": "supports",
+        "evidence_kind": "collection_record",
+        "source_ids": [
+          "source:fixture-authority-record"
+        ],
+        "locator": {
+          "record_id": "fixture-123"
+        },
+        "summary": "The official record supplies a death year.",
+        "short_excerpt": null,
+        "original_language": "en",
+        "extracted_at": "2026-07-11T08:00:00Z",
+        "extraction_method": "manual",
+        "reliability_note": "Official record within the publisher's collection remit.",
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-authority-record",
+            "rule_id": "synthetic_fixture:data:1d2f48e69a8c",
+            "content_class": "data",
+            "scope_locator": "fixture record",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "fixture record"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/claim.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "claim:fixture-death-record",
+        "entity_type": "claim",
+        "subject_id": "artist:fixture-deceased",
+        "predicate": "death_year",
+        "object": {
+          "value": "1900",
+          "datatype": "year",
+          "precision": "exact"
+        },
+        "claim_text": {
+          "en": "The artist died in 1900.",
+          "zh-Hans": "该艺术家于 1900 年去世。"
+        },
+        "temporal_scope": {
+          "start": "1900",
+          "end": "1900",
+          "precision": "year",
+          "uncertain": false,
+          "description": "Death year"
+        },
+        "applicability_scope": "Identity and life dates",
+        "evidence_ids": [
+          "evidence:fixture-death-record"
+        ],
+        "counter_evidence_ids": [],
+        "status": "publishable",
+        "status_history": [
+          {
+            "from": null,
+            "to": "candidate",
+            "changed_at": "2026-07-11T08:00:00Z",
+            "changed_by": "fixture-collector",
+            "role": "collector",
+            "reason": "Created from an official record."
+          },
+          {
+            "from": "candidate",
+            "to": "sourced",
+            "changed_at": "2026-07-11T08:05:00Z",
+            "changed_by": "fixture-collector",
+            "role": "collector",
+            "reason": "Evidence and source linked."
+          },
+          {
+            "from": "sourced",
+            "to": "reviewed",
+            "changed_at": "2026-07-11T08:10:00Z",
+            "changed_by": "fixture-reviewer",
+            "role": "discipline reviewer",
+            "reason": "Identity and locator checked."
+          },
+          {
+            "from": "reviewed",
+            "to": "verified",
+            "changed_at": "2026-07-11T08:15:00Z",
+            "changed_by": "fixture-reviewer",
+            "role": "discipline reviewer",
+            "reason": "Evidence is within source remit."
+          },
+          {
+            "from": "verified",
+            "to": "publishable",
+            "changed_at": "2026-07-11T08:20:00Z",
+            "changed_by": "fixture-release",
+            "role": "release manager",
+            "reason": "Governance gates passed."
+          }
+        ],
+        "disputed": false,
+        "dispute_note": null,
+        "no_counter_evidence_reason": null,
+        "dispute_display": "not_disputed",
+        "review": {
+          "reviewer": "fixture-reviewer",
+          "reviewed_at": "2026-07-11",
+          "decision_note": "Official record supports the scoped claim."
+        },
+        "publish_status": "publishable",
+        "supersedes": null,
+        "data_version": "0.1.0"
+      }
+    }
+  ]
+}

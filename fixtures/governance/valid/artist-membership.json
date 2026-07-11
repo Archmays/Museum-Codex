@@ -1,0 +1,63 @@
+{
+  "fixture_id": "valid-artist-membership",
+  "expected_valid": true,
+  "mode": "foundation",
+  "target_schema": "schemas/art/artist-relationship.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "art-rel:fixture-membership",
+    "entity_type": "relationship",
+    "branch_id": "art",
+    "relationship_type": "member_of",
+    "relationship_semantics": "historical_context",
+    "source_entity_id": "artist:fixture-member",
+    "target_entity_id": "art_group:fixture-group",
+    "directed": true,
+    "temporal_scope": {
+      "start": "1901",
+      "end": "1905",
+      "precision": "year",
+      "uncertain": false,
+      "description": "Documented membership interval"
+    },
+    "place_scope": {
+      "place_ids": [
+        "place:fixture-city"
+      ],
+      "description": "Group headquarters"
+    },
+    "evidence_level": "B",
+    "historical_relationship_strength": 0.7,
+    "evidence_confidence": 0.9,
+    "computational_similarity": null,
+    "curatorial_relevance": 0.8,
+    "claim_ids": [
+      "claim:fixture-membership"
+    ],
+    "source_ids": [
+      "source:fixture-archive"
+    ],
+    "curatorial_note": {
+      "en": "A documented membership, not an artist-to-artist edge."
+    },
+    "public_display": true,
+    "is_algorithmic": false,
+    "review_status": "publishable",
+    "reviewed_by": "fixture-reviewer",
+    "reviewed_at": "2026-07-11",
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-archive",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

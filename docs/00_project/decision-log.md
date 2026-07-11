@@ -1,0 +1,22 @@
+# 决策日志
+
+| ID | 日期 | 状态 | 决策 | 理由 | 重评触发 |
+|---|---|---|---|---|---|
+| D-0001 | 2026-07-11 | accepted | 采用静态优先发布，API 仅用于离线采集 | Pages 可用性、可复现与权利门禁优先 | 数据规模或个性化需求使静态分片不可维持 |
+| D-0002 | 2026-07-11 | accepted | 事实以 Claim–Evidence–Source 为规范层 | 允许争议、反证、审核和撤回 | 无 |
+| D-0003 | 2026-07-11 | accepted | common 小 schema + 分馆扩展 | 共享治理而不抹平学科语义 | 第三个分馆证明公共抽象错误 |
+| D-0004 | 2026-07-11 | accepted | 算法相似与历史关系在 schema、状态和视觉上隔离 | 防止相关性被误读为历史因果 | 仅可加强隔离，不可弱化 |
+| D-0005 | 2026-07-11 | accepted | 美术馆正式 artist 只含确认去世个人 | 明确首馆伦理与范围门槛 | 用户明确修改产品政策并完成影响评估 |
+| D-0006 | 2026-07-11 | accepted | 元数据许可与媒体许可逐项记录 | API 开放性不等于媒体可发布 | 无 |
+| D-0007 | 2026-07-11 | proposed | 代码与原创内容的最终许可证 | 本阶段不得代用户决定 | 用户选择许可证组合 |
+| D-0008 | 2026-07-11 | accepted | MUSEUM-00 不建立前端或 Pages 工作流 | 保持阶段边界 | 用户授权 MUSEUM-01 |
+| D-0009 | 2026-07-11 | accepted | 首批 12 位艺术家在 MUSEUM-03 才确定 | 需要来源、权利与代表性评分 | MUSEUM-03 入场门槛满足 |
+| D-0010 | 2026-07-11 | accepted | 发布记录按类型、分馆与 ID 前缀强制分派 concrete schema | 阻止输入通过 common schema 降级绕过分馆约束 | schema major 版本重构时 |
+| D-0011 | 2026-07-11 | accepted | Source 许可采用稳定 rule ID、canonical 快照 hash 与逐记录 binding | 防止 metadata/data/media 许可错配和来源自报条款 | 引入受控书面许可覆盖模型时 |
+| D-0012 | 2026-07-11 | accepted | 物理 release 对文件、媒体字节、notices、attribution 与许可决策做精确闭包 | GitHub Pages 分发的是实际字节，不能只验证自报 manifest 字段 | 后端签名 release 服务替代静态包时 |
+| D-0013 | 2026-07-11 | accepted | 许可 binding 同时记录实际 scope locator，且决策 scope 可执行 | 仅有 rule/decision ID 仍可能选择错误字段或越权复用 fixture 决策 | 引入通用规则表达式引擎时 |
+| D-0014 | 2026-07-11 | accepted | Release schema_versions 从实际消费 schema 反算并精确对账 | 自报版本不能支持回滚、兼容性或审计 | schema manifest 格式升级时 |
+| D-0015 | 2026-07-11 | accepted | Canonical Source 同时锁定来源矩阵身份、官方 host 与规则快照 | 仅锁许可规则仍允许镜像站或伪域名借用权威来源身份 | 来源迁移官方域名或合并机构身份时 |
+| D-0016 | 2026-07-11 | accepted | 第三方 notices 按 release 内实际使用的 rule 集合精确生成 | 单一代表性许可不能表达字段、对象和媒体之间的差异 | notices 迁移到外部签名清单时 |
+
+状态使用 `proposed / accepted / superseded / rejected`。被替代决策保留原行并链接后继 ID，不覆写历史。

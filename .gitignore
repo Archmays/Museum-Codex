@@ -1,0 +1,47 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+htmlcov/
+.coverage*
+
+# Node / frontend (reserved for later phases)
+node_modules/
+dist/
+.vite/
+coverage/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Acquired and generated data that must not be committed by default
+data/raw/**
+data/intermediate/**
+data/staging/**
+data/downloads/**
+media/third-party/**
+tmp/
+*.log
+
+# Large archives and databases
+*.zip
+*.7z
+*.tar
+*.gz
+*.sqlite
+*.sqlite3

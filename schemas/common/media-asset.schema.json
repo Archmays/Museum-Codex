@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/media-asset.schema.json",
+  "title": "Museum media asset",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "media_type", "source_id", "source_object_url",
+    "delivery_mode", "storage_path", "cache_bytes", "content_hash", "rights_status", "metadata_license",
+    "media_license", "rights_statement_url", "rights_evidence", "rights_holder", "attribution",
+    "allow_redistribution", "allow_modification", "allow_commercial_use", "development_only",
+    "reuse_mode", "derivation", "license_scope", "source_license_bindings", "review_status", "reviewed_by", "reviewed_at",
+    "publish_status", "lifecycle_status", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_asset" },
+    "media_type": { "enum": ["image", "audio", "video", "3d_model", "document", "iiif_manifest"] },
+    "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "source_object_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "delivery_mode": { "enum": ["self_hosted", "external_link", "iiif_external"] },
+    "storage_path": {
+      "type": ["string", "null"],
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    },
+    "cache_bytes": { "type": "boolean" },
+    "content_hash": {
+      "oneOf": [
+        { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        { "type": "null" }
+      ]
+    },
+    "rights_status": { "enum": ["public_domain", "cc0", "cc_by", "cc_by_sa", "licensed", "research_or_education_only", "restricted", "unknown"] },
+    "metadata_license": { "$ref": "#/$defs/licenseDescriptor" },
+    "media_license": { "$ref": "#/$defs/licenseDescriptor" },
+    "rights_statement_url": { "type": ["string", "null"], "format": "uri" },
+    "rights_evidence": {
+      "type": "object",
+      "required": ["source_url", "verified_at", "object_rights_field", "statement_snapshot_hash"],
+      "properties": {
+        "source_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "verified_at": { "type": "string", "format": "date" },
+        "object_rights_field": { "type": "string", "minLength": 1 },
+        "statement_snapshot_hash": {
+          "oneOf": [
+            { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "rights_holder": { "type": ["string", "null"] },
+    "attribution": { "type": "string" },
+    "allow_redistribution": { "type": "boolean" },
+    "allow_modification": { "type": "boolean" },
+    "allow_commercial_use": { "type": "boolean" },
+    "development_only": { "type": "boolean" },
+    "reuse_mode": { "enum": ["verbatim", "adaptation", "collection"] },
+    "derivation": {
+      "oneOf": [
+        { "$ref": "#/$defs/derivationRecord" },
+        { "type": "null" }
+      ]
+    },
+    "license_scope": {
+      "oneOf": [
+        { "$ref": "#/$defs/licenseScope" },
+        { "type": "null" }
+      ]
+    },
+    "source_license_bindings": {
+      "type": "array", "minItems": 1, "maxItems": 1, "uniqueItems": true,
+      "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/sourceLicenseBinding" }
+    },
+    "review_status": { "enum": ["candidate", "reviewed", "verified", "blocked", "withdrawn"] },
+    "reviewed_by": { "type": "string", "minLength": 1 },
+    "reviewed_at": { "type": "string", "format": "date" },
+    "publish_status": { "enum": ["not_public", "publishable", "published", "blocked", "withdrawn"] },
+    "lifecycle_status": { "enum": ["candidate", "reviewed", "publishable", "published", "deprecated", "withdrawn"] },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "$defs": {
+    "licenseDescriptor": {
+      "type": "object",
+      "required": [
+        "identifier", "version", "url", "attribution_required", "share_alike",
+        "redistribution_allowed", "modification_allowed", "commercial_use_allowed"
+      ],
+      "properties": {
+        "identifier": { "type": "string", "minLength": 1 },
+        "version": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "attribution_required": { "type": "boolean" },
+        "share_alike": { "type": "boolean" },
+        "redistribution_allowed": { "type": "boolean" },
+        "modification_allowed": { "type": "boolean" },
+        "commercial_use_allowed": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "licenseScope": {
+      "type": "object",
+      "required": [
+        "platforms", "purposes", "territories", "starts_at", "expires_at",
+        "permission_status", "authorization_reference", "revoked_at", "takedown_plan"
+      ],
+      "properties": {
+        "platforms": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "enum": ["public_web", "github_pages", "print", "internal_research", "other"] }
+        },
+        "purposes": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "enum": ["public_education", "research", "commercial", "internal", "other"] }
+        },
+        "territories": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^(worldwide|[A-Z]{2})$" }
+        },
+        "starts_at": { "type": ["string", "null"], "format": "date" },
+        "expires_at": { "type": ["string", "null"], "format": "date" },
+        "permission_status": { "enum": ["approved", "pending", "denied", "revoked"] },
+        "authorization_reference": { "type": "string", "minLength": 8, "not": { "pattern": "(?:[Pp][Ll][Aa][Cc][Ee][Hh][Oo][Ll][Dd][Ee][Rr]|[Tt][Oo][Dd][Oo]|[Tt][Bb][Dd])" } },
+        "revoked_at": { "type": ["string", "null"], "format": "date" },
+        "takedown_plan": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "expires_at": { "type": "string" } }, "required": ["expires_at"] },
+          "then": { "properties": { "takedown_plan": { "type": "string", "minLength": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "derivationRecord": {
+      "type": "object",
+      "required": [
+        "derived_from_media_id", "source_content_hash", "transform_recipe", "transform_version",
+        "output_content_hash", "output_license_identifier", "share_alike_compatibility_decision"
+      ],
+      "properties": {
+        "derived_from_media_id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+        "source_content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "transform_recipe": { "type": "string", "minLength": 1 },
+        "transform_version": { "type": "string", "minLength": 1 },
+        "output_content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "output_license_identifier": { "type": "string", "minLength": 1 },
+        "share_alike_compatibility_decision": { "enum": ["not_applicable", "compatible", "approved_exception", "incompatible"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "delivery_mode": { "const": "self_hosted" } }, "required": ["delivery_mode"] },
+      "then": {
+        "properties": {
+          "storage_path": { "type": "string" },
+          "cache_bytes": { "const": true },
+          "content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "delivery_mode": { "enum": ["external_link", "iiif_external"] } }, "required": ["delivery_mode"] },
+      "then": { "properties": { "storage_path": { "type": "null" }, "cache_bytes": { "const": false } } }
+    },
+    {
+      "if": { "properties": { "rights_status": { "const": "unknown" } }, "required": ["rights_status"] },
+      "then": {
+        "properties": {
+          "allow_redistribution": { "const": false },
+          "development_only": { "const": true },
+          "publish_status": { "const": "blocked" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "development_only": { "const": true } }, "required": ["development_only"] },
+      "then": { "properties": { "publish_status": { "const": "blocked" } } }
+    },
+    {
+      "if": { "properties": { "rights_status": { "enum": ["cc_by", "cc_by_sa"] } }, "required": ["rights_status"] },
+      "then": {
+        "properties": {
+          "attribution": { "type": "string", "minLength": 1 },
+          "rights_statement_url": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "rights_status": { "const": "licensed" } }, "required": ["rights_status"] },
+      "then": {
+        "properties": {
+          "rights_holder": { "type": "string", "minLength": 1 },
+          "license_scope": { "$ref": "#/$defs/licenseScope" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "reuse_mode": { "const": "adaptation" } }, "required": ["reuse_mode"] },
+      "then": { "properties": { "derivation": { "$ref": "#/$defs/derivationRecord" } } }
+    },
+    {
+      "if": { "properties": { "reuse_mode": { "enum": ["verbatim", "collection"] } }, "required": ["reuse_mode"] },
+      "then": { "properties": { "derivation": { "type": "null" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "rights_status": { "const": "cc_by_sa" },
+          "reuse_mode": { "const": "adaptation" }
+        },
+        "required": ["rights_status", "reuse_mode"]
+      },
+      "then": {
+        "properties": {
+          "derivation": {
+            "properties": {
+              "output_license_identifier": { "pattern": "^CC-BY-SA-" },
+              "share_alike_compatibility_decision": { "const": "compatible" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "publish_status": { "enum": ["publishable", "published"] } }, "required": ["publish_status"] },
+      "then": {
+        "properties": {
+          "review_status": { "const": "verified" },
+          "lifecycle_status": { "enum": ["publishable", "published"] },
+          "development_only": { "const": false },
+          "allow_redistribution": { "const": true }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

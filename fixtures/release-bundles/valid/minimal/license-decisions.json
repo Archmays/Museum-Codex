@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "decisions": [
+    {
+      "decision_id": "license-decision:synthetic-fixture-code",
+      "subject": "code",
+      "status": "not_applicable",
+      "license": null,
+      "scope": "Synthetic governance fixtures only; no project code license is granted.",
+      "scope_constraint": { "release_kind": "synthetic_fixture", "release_id_pattern": "^release:[a-z0-9._-]*fixture[a-z0-9._-]*$" },
+      "effective_at": "2026-07-11",
+      "approver": "MUSEUM-00 fixture governance",
+      "evidence_reference": "docs/02_governance/license-decision-memo.md#synthetic-fixtures",
+      "reason": "The fixture is validation data and does not close OD-001."
+    },
+    {
+      "decision_id": "license-decision:synthetic-fixture-content",
+      "subject": "original_content",
+      "status": "not_applicable",
+      "license": null,
+      "scope": "Synthetic governance fixtures only; no project content license is granted.",
+      "scope_constraint": { "release_kind": "synthetic_fixture", "release_id_pattern": "^release:[a-z0-9._-]*fixture[a-z0-9._-]*$" },
+      "effective_at": "2026-07-11",
+      "approver": "MUSEUM-00 fixture governance",
+      "evidence_reference": "docs/02_governance/license-decision-memo.md#synthetic-fixtures",
+      "reason": "The fixture is validation data and does not close OD-002."
+    }
+  ]
+}

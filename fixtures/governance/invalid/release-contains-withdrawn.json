@@ -1,0 +1,152 @@
+{
+  "fixture_id": "invalid-release-contains-withdrawn",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "release_sets_not_disjoint"
+  ],
+  "mode": "publish",
+  "records": [
+    {
+      "target_schema": "schemas/art/artist.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "artist:fixture-withdrawn",
+        "entity_type": "artist",
+        "branch_id": "art",
+        "labels": {
+          "en": "Withdrawn Fixture Artist"
+        },
+        "external_ids": {
+          "ulan": "500000099"
+        },
+        "claim_ids": [
+          "claim:fixture-withdrawn-birth",
+          "claim:fixture-withdrawn-death",
+          "claim:fixture-withdrawn-work"
+        ],
+        "source_ids": [
+          "source:fixture-missing"
+        ],
+        "lifecycle_status": "publishable",
+        "data_version": "0.1.0",
+        "artist_kind": "individual",
+        "deceased_status": "confirmed_deceased",
+        "identity_status": "resolved",
+        "life_dates": {
+          "birth": {
+            "display_value": "1800",
+            "precision": "year",
+            "claim_id": "claim:fixture-withdrawn-birth"
+          },
+          "death": {
+            "display_value": "1880",
+            "precision": "year",
+            "claim_id": "claim:fixture-withdrawn-death"
+          }
+        },
+        "at_least_one_verified_work_or_record": true,
+        "artwork_or_history_claim_ids": [
+          "claim:fixture-withdrawn-work"
+        ],
+        "review_status": "publishable",
+        "uncertainty_note": null,
+        "source_license_bindings": [
+          {
+            "source_id": "source:fixture-missing",
+            "rule_id": "synthetic_fixture:data:standalone",
+            "content_class": "data",
+            "scope_locator": "standalone synthetic fixture scope",
+            "permission_resolution": "rule_direct",
+            "scope_fields": [
+              "standalone synthetic fixture scope"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target_schema": "schemas/common/dataset-release.schema.json",
+      "data": {
+        "schema_version": "1.0.0",
+        "id": "release:fixture-bad-0.1.0",
+        "entity_type": "dataset_release",
+        "version": "0.1.0",
+        "schema_versions": {
+          "art/artist": "1.0.0"
+        },
+        "build_version": "fixture-build-bad",
+        "created_at": "2026-07-11T09:00:00Z",
+        "source_snapshot_at": "2026-07-11T08:00:00Z",
+        "content_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "status": "publishable",
+        "predecessor": null,
+        "public_release": true,
+        "public_until": null,
+        "included_entity_ids": [
+          "artist:fixture-withdrawn"
+        ],
+        "included_relationship_ids": [],
+        "included_claim_ids": [],
+        "included_evidence_ids": [],
+        "included_source_ids": [],
+        "included_media_asset_ids": [],
+        "withdrawals": [
+          {
+            "id": "artist:fixture-withdrawn",
+            "reason": "rights_request",
+            "effective_at": "2026-07-11T08:30:00Z",
+            "scope": "data_and_media",
+            "replacement": null,
+            "public_notice": "This synthetic record is withdrawn."
+          }
+        ],
+        "deprecations": [],
+        "manifest_files": [
+          {
+            "path": "records.json",
+            "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "bytes": 10,
+            "record_type": "data",
+            "schema_path": null,
+            "record_ids": [
+              "artist:fixture-withdrawn"
+            ]
+          },
+          {
+            "path": "third-party-notices.json",
+            "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "bytes": 2,
+            "record_type": "third_party_notices",
+            "schema_path": null,
+            "record_ids": []
+          },
+          {
+            "path": "attributions.json",
+            "sha256": "abababababababababababababababababababababababababababababababab",
+            "bytes": 2,
+            "record_type": "attributions",
+            "schema_path": null,
+            "record_ids": []
+          }
+        ],
+        "license_decisions": {
+          "code_license_decision_id": "fixture-code-license",
+          "code_license_status": "not_applicable",
+          "original_content_license_decision_id": "fixture-content-license",
+          "original_content_license_status": "decided",
+          "third_party_scope_statement": "Synthetic fixture only."
+        },
+        "third_party_notices_manifest": {
+          "path": "third-party-notices.json",
+          "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        },
+        "attribution_manifest": {
+          "path": "attributions.json",
+          "sha256": "abababababababababababababababababababababababababababababababab",
+          "asset_ids": []
+        },
+        "release_notes": "Negative fixture with included and withdrawn overlap."
+      }
+    }
+  ]
+}

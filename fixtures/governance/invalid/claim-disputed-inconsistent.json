@@ -1,0 +1,73 @@
+{
+  "fixture_id": "invalid-claim-disputed-inconsistent",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/claim.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "claim:fixture-bad-dispute",
+    "entity_type": "claim",
+    "subject_id": "artwork:fixture-a",
+    "predicate": "creator_attribution",
+    "object": {
+      "entity_id": "artist:fixture-a"
+    },
+    "claim_text": {
+      "en": "A contradictory dispute state."
+    },
+    "temporal_scope": {
+      "start": null,
+      "end": null,
+      "precision": "unknown",
+      "uncertain": true,
+      "description": "Attribution scope"
+    },
+    "applicability_scope": "Artwork attribution",
+    "evidence_ids": [
+      "evidence:fixture-support"
+    ],
+    "counter_evidence_ids": [],
+    "status": "disputed",
+    "status_history": [
+      {
+        "from": null,
+        "to": "candidate",
+        "changed_at": "2026-07-11T08:00:00Z",
+        "changed_by": "fixture",
+        "role": "collector",
+        "reason": "Created."
+      },
+      {
+        "from": "candidate",
+        "to": "sourced",
+        "changed_at": "2026-07-11T08:01:00Z",
+        "changed_by": "fixture",
+        "role": "collector",
+        "reason": "Sourced."
+      },
+      {
+        "from": "sourced",
+        "to": "disputed",
+        "changed_at": "2026-07-11T08:02:00Z",
+        "changed_by": "fixture",
+        "role": "reviewer",
+        "reason": "Disputed."
+      }
+    ],
+    "disputed": false,
+    "dispute_note": null,
+    "no_counter_evidence_reason": null,
+    "dispute_display": "not_disputed",
+    "review": {
+      "reviewer": "fixture",
+      "reviewed_at": "2026-07-11",
+      "decision_note": "Intentionally inconsistent."
+    },
+    "publish_status": "publishable",
+    "supersedes": null,
+    "data_version": "0.1.0"
+  }
+}

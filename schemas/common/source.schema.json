@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/source.schema.json",
+  "title": "Museum source",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "title", "publisher", "official_url",
+    "accessed_at", "tier", "source_type", "access_method", "api_key_required",
+    "access_limits", "rate_limit", "registry_source_id", "registry_identity", "license_rules",
+    "license_rules_snapshot_hash", "selected_license_rule_ids", "terms_url", "terms_version",
+    "terms_snapshot_hash", "terms_verified_at", "reverify_by",
+    "public_static_redistribution", "derivative_use", "commercial_use",
+    "permission_status", "permission_reference", "permission_scope",
+    "permission_verified_at", "permission_expires_at", "permission_revoked_at",
+    "risk_note", "lifecycle_status", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "source" },
+    "title": { "type": "string", "minLength": 1 },
+    "publisher": { "type": "string", "minLength": 1 },
+    "official_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "archived_url": { "type": ["string", "null"], "format": "uri" },
+    "accessed_at": { "type": "string", "format": "date" },
+    "published_or_updated_at": { "type": ["string", "null"] },
+    "source_version": { "type": ["string", "null"] },
+    "tier": { "type": "integer", "minimum": 1, "maximum": 4 },
+    "source_type": {
+      "enum": [
+        "official_collection", "authority_file", "archive", "primary_document",
+        "peer_reviewed_research", "scholarly_publication", "official_database",
+        "aggregator", "open_encyclopedia", "unverified_web", "other"
+      ]
+    },
+    "access_method": { "type": "string", "minLength": 1 },
+    "api_key_required": { "enum": ["yes", "no", "conditional"] },
+    "access_limits": { "type": "string", "minLength": 1 },
+    "rate_limit": { "type": "string", "minLength": 1 },
+    "registry_source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "registry_identity": {
+      "type": "object",
+      "required": ["canonical_name", "canonical_official_host", "snapshot_hash"],
+      "properties": {
+        "canonical_name": { "type": "string", "minLength": 1 },
+        "canonical_official_host": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
+        "snapshot_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "license_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/licenseRule" }
+    },
+    "license_rules_snapshot_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "selected_license_rule_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$" }
+    },
+    "terms_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "terms_version": { "type": "string", "minLength": 1 },
+    "terms_snapshot_hash": {
+      "oneOf": [
+        { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        { "type": "null" }
+      ]
+    },
+    "terms_verified_at": { "type": "string", "format": "date" },
+    "reverify_by": { "type": "string", "format": "date" },
+    "public_static_redistribution": { "$ref": "#/$defs/permissionValue" },
+    "derivative_use": { "$ref": "#/$defs/permissionValue" },
+    "commercial_use": { "$ref": "#/$defs/permissionValue" },
+    "permission_status": { "enum": ["approved", "not_required", "pending", "denied", "revoked"] },
+    "permission_reference": { "type": ["string", "null"] },
+    "permission_scope": {
+      "oneOf": [
+        { "$ref": "#/$defs/permissionScope" },
+        { "type": "null" }
+      ]
+    },
+    "permission_verified_at": { "type": ["string", "null"], "format": "date" },
+    "permission_expires_at": { "type": ["string", "null"], "format": "date" },
+    "permission_revoked_at": { "type": ["string", "null"], "format": "date" },
+    "risk_note": { "type": "string", "minLength": 1 },
+    "lifecycle_status": { "enum": ["candidate", "reviewed", "publishable", "published", "deprecated", "withdrawn"] },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "$defs": {
+    "permissionValue": { "enum": ["allowed", "conditional", "prohibited", "unknown"] },
+    "permissionScope": {
+      "type": "object",
+      "required": ["platforms", "purposes", "territories", "starts_at"],
+      "properties": {
+        "platforms": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "enum": ["public_web", "github_pages", "print", "internal_research", "other"] }
+        },
+        "purposes": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "enum": ["public_education", "research", "commercial", "internal", "other"] }
+        },
+        "territories": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^(worldwide|[A-Z]{2})$" }
+        },
+        "starts_at": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "licenseRule": {
+      "type": "object",
+      "required": [
+        "rule_id", "content_class", "applies_to", "scope_match", "rights_status", "identifier", "version", "url",
+        "attribution_template", "redistribution", "modification", "commercial_use",
+        "share_alike", "scope_note", "no_inheritance"
+      ],
+      "properties": {
+        "rule_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$" },
+        "content_class": { "enum": ["metadata", "data", "media"] },
+        "applies_to": { "type": "string", "minLength": 1 },
+        "scope_match": {
+          "type": "object",
+          "required": ["normalization", "pattern", "allowed_schemes", "allowed_hosts", "allow_relative_path", "field_policy", "fields", "require_explicit_query_fields"],
+          "properties": {
+            "normalization": { "enum": ["none", "url_path_decode"] },
+            "pattern": { "type": "string", "minLength": 1 },
+            "allowed_schemes": { "type": "array", "uniqueItems": true, "items": { "enum": ["https"] } },
+            "allowed_hosts": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" } },
+            "allow_relative_path": { "type": "boolean" },
+            "field_policy": { "enum": ["any", "include", "exclude"] },
+            "fields": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+            "require_explicit_query_fields": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "rights_status": { "enum": ["public_domain", "cc0", "cc_by", "cc_by_sa", "odc_by", "licensed", "mixed", "restricted", "unknown", "not_applicable"] },
+        "identifier": { "type": "string", "minLength": 1 },
+        "version": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "attribution_template": { "type": ["string", "null"] },
+        "redistribution": { "$ref": "#/$defs/permissionValue" },
+        "modification": { "$ref": "#/$defs/permissionValue" },
+        "commercial_use": { "$ref": "#/$defs/permissionValue" },
+        "share_alike": { "type": "boolean" },
+        "scope_note": { "type": "string", "minLength": 1 },
+        "no_inheritance": { "const": true }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "rights_status": { "enum": ["cc0", "cc_by", "cc_by_sa", "odc_by"] } }, "required": ["rights_status"] },
+          "then": { "properties": { "url": { "type": "string", "format": "uri" } } }
+        },
+        {
+          "if": { "properties": { "rights_status": { "enum": ["cc_by", "cc_by_sa", "odc_by"] } }, "required": ["rights_status"] },
+          "then": { "properties": { "attribution_template": { "type": "string", "minLength": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "source_type": { "const": "open_encyclopedia" } }, "required": ["source_type"] },
+      "then": { "properties": { "tier": { "minimum": 3 } } }
+    },
+    {
+      "if": { "properties": { "source_type": { "const": "unverified_web" } }, "required": ["source_type"] },
+      "then": { "properties": { "tier": { "const": 4 } } }
+    },
+    {
+      "if": { "properties": { "public_static_redistribution": { "const": "allowed" } }, "required": ["public_static_redistribution"] },
+      "then": { "properties": { "permission_status": { "enum": ["approved", "not_required"] } } }
+    },
+    {
+      "if": { "properties": { "public_static_redistribution": { "enum": ["prohibited", "unknown"] } }, "required": ["public_static_redistribution"] },
+      "then": { "properties": { "lifecycle_status": { "enum": ["candidate", "reviewed", "deprecated", "withdrawn"] } } }
+    },
+    {
+      "if": { "properties": { "permission_status": { "const": "approved" } }, "required": ["permission_status"] },
+      "then": {
+        "properties": {
+          "permission_reference": { "type": "string", "minLength": 8, "not": { "pattern": "(?:[Pp][Ll][Aa][Cc][Ee][Hh][Oo][Ll][Dd][Ee][Rr]|[Tt][Oo][Dd][Oo]|[Tt][Bb][Dd])" } },
+          "permission_scope": { "$ref": "#/$defs/permissionScope" },
+          "permission_verified_at": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "permission_status": { "const": "revoked" } }, "required": ["permission_status"] },
+      "then": {
+        "properties": {
+          "permission_revoked_at": { "type": "string", "format": "date" },
+          "lifecycle_status": { "const": "withdrawn" }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/biology/taxon.schema.json",
+  "title": "Biology museum taxon",
+  "allOf": [
+    { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json" },
+    {
+      "type": "object",
+      "required": [
+        "scientific_name", "taxonomic_rank", "name_status", "taxonomy_source_id",
+        "taxonomy_source_version", "original_name_usage", "conservation_assessments", "review_status"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^taxon:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "enum": ["taxon", "species"] },
+        "branch_id": { "const": "biology" },
+        "scientific_name": { "type": "string", "minLength": 1 },
+        "taxonomic_rank": { "enum": ["domain", "kingdom", "phylum", "class", "order", "family", "genus", "species", "subspecies", "variety", "other"] },
+        "name_status": { "enum": ["accepted", "synonym", "provisionally_accepted", "doubtful", "unresolved"] },
+        "taxonomy_source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+        "taxonomy_source_version": { "type": "string", "minLength": 1 },
+        "original_name_usage": { "type": "string", "minLength": 1 },
+        "conservation_assessments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["assessment_id", "category", "version", "assessment_date", "scope", "source_id"],
+            "properties": {
+              "assessment_id": { "type": "string", "minLength": 1 },
+              "category": { "type": "string", "minLength": 1 },
+              "version": { "type": "string", "minLength": 1 },
+              "assessment_date": { "type": "string", "format": "date" },
+              "scope": { "type": "string", "minLength": 1 },
+              "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "withdrawn"] }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

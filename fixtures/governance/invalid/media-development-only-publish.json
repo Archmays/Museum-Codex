@@ -1,0 +1,76 @@
+{
+  "fixture_id": "invalid-media-development-only-publish",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "development_only_publish"
+  ],
+  "mode": "publish",
+  "target_schema": "schemas/common/media-asset.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "media:fixture-development-only",
+    "entity_type": "media_asset",
+    "media_type": "image",
+    "source_id": "source:fixture-museum",
+    "source_object_url": "https://example.org/development-image",
+    "delivery_mode": "external_link",
+    "cache_bytes": false,
+    "content_hash": null,
+    "rights_status": "cc0",
+    "metadata_license": {
+      "identifier": "CC0-1.0",
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution_required": false,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "media_license": {
+      "identifier": "CC0-1.0",
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution_required": false,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "rights_statement_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "rights_evidence": {
+      "source_url": "https://example.org/development-image",
+      "verified_at": "2026-07-11",
+      "object_rights_field": "fixture.rights = CC0",
+      "statement_snapshot_hash": null
+    },
+    "rights_holder": "Fixture Museum",
+    "attribution": "Fixture Museum",
+    "allow_redistribution": true,
+    "allow_modification": true,
+    "allow_commercial_use": true,
+    "development_only": true,
+    "reuse_mode": "verbatim",
+    "derivation": null,
+    "license_scope": null,
+    "review_status": "verified",
+    "reviewed_by": "fixture-rights-reviewer",
+    "reviewed_at": "2026-07-11",
+    "publish_status": "blocked",
+    "lifecycle_status": "reviewed",
+    "data_version": "0.1.0",
+    "storage_path": null,
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-museum",
+        "rule_id": "synthetic_fixture:media:standalone",
+        "content_class": "media",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

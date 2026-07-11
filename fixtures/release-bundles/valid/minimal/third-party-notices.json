@@ -1,0 +1,35 @@
+{
+  "scope_statement": "This synthetic fixture does not grant rights in any real third-party content.",
+  "notices": [
+    {
+      "record_id": "source:physical-fixture-museum",
+      "notice": "Synthetic source record used only to exercise release governance.",
+      "source_url": "https://example.org/physical-source",
+      "license_rule_ids": [
+        "synthetic_fixture:media:40d129aca3d2"
+      ],
+      "license_identifiers": [
+        "CC-BY-4.0"
+      ],
+      "attribution_texts": [
+        "Fixture Museum, CC BY 4.0"
+      ],
+      "rights_holder": "Fixture Museum"
+    },
+    {
+      "record_id": "media:physical-fixture-image",
+      "notice": "Synthetic Fixture Museum image, CC BY 4.0.",
+      "source_url": "https://example.org/physical-image",
+      "license_rule_ids": [
+        "synthetic_fixture:media:40d129aca3d2"
+      ],
+      "license_identifiers": [
+        "CC-BY-4.0"
+      ],
+      "attribution_texts": [
+        "Fixture Museum, CC BY 4.0"
+      ],
+      "rights_holder": "Fixture Museum"
+    }
+  ]
+}

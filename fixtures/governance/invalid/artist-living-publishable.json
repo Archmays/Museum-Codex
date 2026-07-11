@@ -1,0 +1,64 @@
+{
+  "fixture_id": "invalid-artist-living-publishable",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema",
+    "artist_not_confirmed_deceased"
+  ],
+  "mode": "publish",
+  "target_schema": "schemas/art/artist.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "artist:fixture-living",
+    "entity_type": "artist",
+    "branch_id": "art",
+    "labels": {
+      "en": "Living Fixture Artist"
+    },
+    "external_ids": {
+      "ulan": "500000002"
+    },
+    "claim_ids": [
+      "claim:fixture-birth",
+      "claim:fixture-work"
+    ],
+    "source_ids": [
+      "source:fixture-authority"
+    ],
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "artist_kind": "individual",
+    "deceased_status": "living",
+    "identity_status": "resolved",
+    "life_dates": {
+      "birth": {
+        "display_value": "1980",
+        "precision": "year",
+        "claim_id": "claim:fixture-birth"
+      },
+      "death": {
+        "display_value": "not applicable",
+        "precision": "uncertain",
+        "claim_id": "claim:fixture-no-death"
+      }
+    },
+    "at_least_one_verified_work_or_record": true,
+    "artwork_or_history_claim_ids": [
+      "claim:fixture-work"
+    ],
+    "review_status": "publishable",
+    "uncertainty_note": null,
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-authority",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

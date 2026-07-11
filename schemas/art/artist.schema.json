@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/artist.schema.json",
+  "title": "Art museum artist",
+  "allOf": [
+    { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json" },
+    {
+      "type": "object",
+      "required": [
+        "artist_kind", "deceased_status", "identity_status", "life_dates",
+        "at_least_one_verified_work_or_record", "artwork_or_history_claim_ids", "review_status"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "artist" },
+        "branch_id": { "const": "art" },
+        "artist_kind": { "const": "individual" },
+        "deceased_status": { "enum": ["confirmed_deceased", "uncertain", "living", "unknown"] },
+        "identity_status": { "enum": ["resolved", "provisional", "disputed"] },
+        "life_dates": {
+          "type": "object",
+          "required": ["birth", "death"],
+          "properties": {
+            "birth": { "$ref": "#/$defs/lifeDate" },
+            "death": { "$ref": "#/$defs/lifeDate" }
+          },
+          "additionalProperties": false
+        },
+        "at_least_one_verified_work_or_record": { "type": "boolean" },
+        "artwork_or_history_claim_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "withdrawn"] },
+        "uncertainty_note": { "type": ["string", "null"] }
+      }
+    }
+  ],
+  "$defs": {
+    "lifeDate": {
+      "type": "object",
+      "required": ["display_value", "precision", "claim_id"],
+      "properties": {
+        "display_value": { "type": "string", "minLength": 1 },
+        "precision": { "enum": ["day", "month", "year", "decade", "century", "range", "traditional", "uncertain"] },
+        "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "if": {
+    "properties": { "lifecycle_status": { "enum": ["publishable", "published"] } },
+    "required": ["lifecycle_status"]
+  },
+  "then": {
+    "properties": {
+      "deceased_status": { "const": "confirmed_deceased" },
+      "identity_status": { "const": "resolved" },
+      "at_least_one_verified_work_or_record": { "const": true },
+      "review_status": { "enum": ["publishable", "published"] },
+      "external_ids": { "type": "object", "minProperties": 1 },
+      "source_ids": { "type": "array", "minItems": 1 }
+    },
+    "required": ["external_ids", "source_ids"]
+  },
+  "unevaluatedProperties": false
+}

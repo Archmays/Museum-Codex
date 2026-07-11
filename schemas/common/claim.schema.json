@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/claim.schema.json",
+  "title": "Museum claim",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "subject_id", "predicate", "object",
+    "claim_text", "temporal_scope", "applicability_scope", "evidence_ids",
+    "counter_evidence_ids", "status", "status_history", "disputed", "review",
+    "publish_status", "dispute_display", "no_counter_evidence_reason", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "claim" },
+    "subject_id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+    "predicate": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "object": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["entity_id"],
+          "properties": { "entity_id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["value", "datatype"],
+          "properties": {
+            "value": { "type": ["string", "number", "boolean"] },
+            "datatype": { "enum": ["string", "date", "year", "number", "boolean", "uri"] },
+            "language": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/languageTag" },
+            "precision": { "enum": ["exact", "circa", "range", "traditional", "uncertain", "not_applicable"] }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "claim_text": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/localizedText" },
+    "temporal_scope": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+    "applicability_scope": { "type": "string", "minLength": 1 },
+    "evidence_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "counter_evidence_ids": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "deprecated", "withdrawn"] },
+    "status_history": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+        "properties": {
+          "from": { "type": ["string", "null"], "enum": [null, "candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "deprecated", "withdrawn"] },
+          "to": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "deprecated", "withdrawn"] },
+          "changed_at": { "type": "string", "format": "date-time" },
+          "changed_by": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "disputed": { "type": "boolean" },
+    "dispute_note": { "type": ["string", "null"] },
+    "no_counter_evidence_reason": { "type": ["string", "null"] },
+    "dispute_display": { "enum": ["not_disputed", "not_public", "public_with_notice"] },
+    "review": {
+      "type": ["object", "null"],
+      "required": ["reviewer", "reviewed_at", "decision_note"],
+      "properties": {
+        "reviewer": { "type": "string", "minLength": 1 },
+        "reviewed_at": { "type": "string", "format": "date" },
+        "decision_note": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "publish_status": { "enum": ["not_public", "pending", "publishable", "published", "disputed_public", "blocked", "withdrawn"] },
+    "supersedes": { "type": ["string", "null"], "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "enum": ["reviewed", "verified", "publishable", "published", "disputed", "deprecated", "withdrawn"] } }, "required": ["status"] },
+      "then": { "properties": { "review": { "type": "object" } } }
+    },
+    {
+      "if": { "properties": { "status": { "const": "published" } }, "required": ["status"] },
+      "then": { "properties": { "publish_status": { "const": "published" } } }
+    },
+    {
+      "if": {
+        "anyOf": [
+          { "properties": { "status": { "const": "disputed" } }, "required": ["status"] },
+          { "properties": { "disputed": { "const": true } }, "required": ["disputed"] }
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": { "const": "disputed" },
+          "disputed": { "const": true },
+          "dispute_note": { "type": "string", "minLength": 1 },
+          "review": { "type": "object" },
+          "dispute_display": { "enum": ["not_public", "public_with_notice"] }
+        },
+        "anyOf": [
+          { "properties": { "counter_evidence_ids": { "minItems": 1 } } },
+          { "properties": { "no_counter_evidence_reason": { "type": "string", "minLength": 1 } } }
+        ]
+      }
+    },
+    {
+      "if": { "properties": { "disputed": { "const": false } }, "required": ["disputed"] },
+      "then": {
+        "properties": {
+          "status": { "not": { "const": "disputed" } },
+          "dispute_note": { "type": "null" },
+          "no_counter_evidence_reason": { "type": "null" },
+          "dispute_display": { "const": "not_disputed" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "counter_evidence_ids": { "minItems": 1 } }, "required": ["counter_evidence_ids"] },
+      "then": {
+        "properties": {
+          "status": { "const": "disputed" },
+          "disputed": { "const": true },
+          "dispute_display": { "enum": ["not_public", "public_with_notice"] }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "dispute_display": { "const": "public_with_notice" } }, "required": ["dispute_display"] },
+      "then": { "properties": { "publish_status": { "const": "disputed_public" } } }
+    },
+    {
+      "if": { "properties": { "dispute_display": { "const": "not_public" } }, "required": ["dispute_display"] },
+      "then": { "properties": { "publish_status": { "enum": ["not_public", "blocked"] } } }
+    },
+    {
+      "if": { "properties": { "publish_status": { "const": "disputed_public" } }, "required": ["publish_status"] },
+      "then": {
+        "properties": {
+          "status": { "const": "disputed" },
+          "disputed": { "const": true },
+          "dispute_display": { "const": "public_with_notice" }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

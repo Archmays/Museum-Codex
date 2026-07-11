@@ -1,0 +1,1461 @@
+{
+  "rules_version": "1.0.0",
+  "verified_at": "2026-07-11",
+  "sources": [
+    {
+      "source_id": "wikidata",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "structured entity metadata in licensed namespaces",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Structured data only; preserve provenance as project policy.",
+          "no_inheritance": true,
+          "rule_id": "wikidata:metadata:4eced8901f2d",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^structured\\ entity\\ metadata\\ in\\ licensed\\ namespaces$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "main/property/lexeme/entity-schema structured data",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Other text namespaces are excluded.",
+          "no_inheritance": true,
+          "rule_id": "wikidata:data:dab022172e7e",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^main/property/lexeme/entity\\-schema\\ structured\\ data$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "linked Commons media",
+          "rights_status": "not_applicable",
+          "identifier": "NOT-APPLICABLE",
+          "version": null,
+          "url": null,
+          "attribution_template": null,
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "Resolve a separate Commons file-level rule; never inherit Wikidata CC0.",
+          "no_inheritance": true,
+          "rule_id": "wikidata:media:919f53149376",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^linked\\ Commons\\ media$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "wikimedia_commons",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "Structured Data on Commons file statements",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Unstructured file-page text is excluded.",
+          "no_inheritance": true,
+          "rule_id": "wikimedia_commons:metadata:37bd4ca17213",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Structured\\ Data\\ on\\ Commons\\ file\\ statements$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "unstructured File namespace text",
+          "rights_status": "cc_by_sa",
+          "identifier": "CC-BY-SA-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "attribution_template": "Credit page authors and Wikimedia Commons; mark adaptations.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": true,
+          "scope_note": "Historic GFDL combinations require record-level review.",
+          "no_inheritance": true,
+          "rule_id": "wikimedia_commons:data:0b25fc9e1f6b",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^unstructured\\ File\\ namespace\\ text$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "each individual file page and revision",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia/licenses",
+          "attribution_template": "Use the exact file-page author, license version, link, and change notice.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Uploader claim requires rights review; no site-level inheritance.",
+          "no_inheritance": true,
+          "rule_id": "wikimedia_commons:media:fec160142938",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ individual\\ file\\ page\\ and\\ revision$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "getty_ulan",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "ULAN vocabulary records",
+          "rights_status": "odc_by",
+          "identifier": "ODC-BY-1.0",
+          "version": "1.0",
+          "url": "https://opendatacommons.org/licenses/by/1-0/",
+          "attribution_template": "Getty Research Institute, Union List of Artist Names (ULAN).",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Retain contributing institutions and source provenance.",
+          "no_inheritance": true,
+          "rule_id": "getty_ulan:metadata:00e2b042d4ee",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^ULAN\\ vocabulary\\ records$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "ULAN N-Triples/SPARQL/per-record exports",
+          "rights_status": "odc_by",
+          "identifier": "ODC-BY-1.0",
+          "version": "1.0",
+          "url": "https://opendatacommons.org/licenses/by/1-0/",
+          "attribution_template": "Getty Research Institute, ULAN; mark changes.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Does not license artworks or prove attribution/influence.",
+          "no_inheritance": true,
+          "rule_id": "getty_ulan:data:eb25ddb4d400",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^ULAN\\ N\\-Triples/SPARQL/per\\-record\\ exports$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "artwork media",
+          "rights_status": "not_applicable",
+          "identifier": "NOT-APPLICABLE",
+          "version": null,
+          "url": null,
+          "attribution_template": null,
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "ULAN is not an artwork-media source.",
+          "no_inheritance": true,
+          "rule_id": "getty_ulan:media:cf6ecbef5ef8",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^artwork\\ media$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "met_open_access",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "Open Access collection API/CSV metadata",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Record retrieved_at and changed fields.",
+          "no_inheritance": true,
+          "rule_id": "met_open_access:metadata:2b6e10a388a0",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Open\\ Access\\ collection\\ API/CSV\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "Open Access collection API/CSV fields",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Website content outside OA data is excluded.",
+          "no_inheritance": true,
+          "rule_id": "met_open_access:data:8924a3c83dc7",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Open\\ Access\\ collection\\ API/CSV\\ fields$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "objects explicitly carrying OA/CC0 designation",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.metmuseum.org/hubs/open-access",
+          "attribution_template": "Use object-level credit requested by The Met.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "primaryImage alone is not an OA selector.",
+          "no_inheritance": true,
+          "rule_id": "met_open_access:media:1669574588c7",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^objects\\ explicitly\\ carrying\\ OA/CC0\\ designation$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "europeana",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "Europeana aggregated EDM metadata",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Credit provider, aggregator, and Europeana as project policy.",
+          "no_inheritance": true,
+          "rule_id": "europeana:metadata:4a5de3cf239b",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Europeana\\ aggregated\\ EDM\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "Search/Record/Entity API aggregated metadata",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Object bytes and previews are excluded.",
+          "no_inheritance": true,
+          "rule_id": "europeana:data:382995934b96",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Search/Record/Entity\\ API\\ aggregated\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "digital object, preview, thumbnail, and IIIF resource selected by edm:rights",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.europeana.eu/eu/rights/terms-of-use",
+          "attribution_template": "Follow edm:rights and original provider object-level credit.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Missing edm:rights is unknown and blocked.",
+          "no_inheritance": true,
+          "rule_id": "europeana:media:580756c968d9",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^digital\\ object,\\ preview,\\ thumbnail,\\ and\\ IIIF\\ resource\\ selected\\ by\\ edm:rights$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "smithsonian_open_access",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "Open Access and basic restricted-object metadata explicitly offered as CC0",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Retain unit and object provenance.",
+          "no_inheritance": true,
+          "rule_id": "smithsonian_open_access:metadata:aef2dcaa1f09",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Open\\ Access\\ and\\ basic\\ restricted\\-object\\ metadata\\ explicitly\\ offered\\ as\\ CC0$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "records with an explicit Smithsonian CC0 indication",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.si.edu/openaccess/faq",
+          "attribution_template": "Credit the Smithsonian unit and object when requested.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Restricted/culturally sensitive records are excluded.",
+          "no_inheritance": true,
+          "rule_id": "smithsonian_open_access:data:592849901d36",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^records\\ with\\ an\\ explicit\\ Smithsonian\\ CC0\\ indication$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "assets explicitly marked CC0",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.si.edu/openaccess/faq",
+          "attribution_template": "Use the object-level Smithsonian credit.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "No CC0 marker means no media rule match.",
+          "no_inheritance": true,
+          "rule_id": "smithsonian_open_access:media:d959e9357576",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^assets\\ explicitly\\ marked\\ CC0$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "rijksmuseum",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "each linked-data or API record rights statement",
+          "rights_status": "mixed",
+          "identifier": "RECORD-SPECIFIC",
+          "version": null,
+          "url": "https://data.rijksmuseum.nl/policy/information-and-data-policy",
+          "attribution_template": "Follow the record-level PDM, CC0, or CC BY credit.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "No inheritance across records.",
+          "no_inheritance": true,
+          "rule_id": "rijksmuseum:metadata:c765b86ec848",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ linked\\-data\\ or\\ API\\ record\\ rights\\ statement$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "each object, vocabulary, exhibition, or library record",
+          "rights_status": "mixed",
+          "identifier": "RECORD-SPECIFIC",
+          "version": null,
+          "url": "https://data.rijksmuseum.nl/policy/information-and-data-policy",
+          "attribution_template": "Follow record-level rights and Rijksmuseum requested credit.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Schema evolution does not change stored rights evidence.",
+          "no_inheritance": true,
+          "rule_id": "rijksmuseum:data:2b79005460fb",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ object,\\ vocabulary,\\ exhibition,\\ or\\ library\\ record$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "each object image/IIIF rights statement",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://data.rijksmuseum.nl/policy/information-and-data-policy",
+          "attribution_template": "Use the object-level rights holder, license, and credit.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Technically accessible IIIF is not a license.",
+          "no_inheritance": true,
+          "rule_id": "rijksmuseum:media:9afa251862e4",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ object\\ image/IIIF\\ rights\\ statement$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "nga_open_data",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "official open-data CSV metadata",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Courtesy credit encouraged.",
+          "no_inheritance": true,
+          "rule_id": "nga_open_data:metadata:5260eb2c5369",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^official\\ open\\-data\\ CSV\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "official open-data CSV tables and dictionary",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Image URLs are references only.",
+          "no_inheritance": true,
+          "rule_id": "nga_open_data:data:8afdbf28a3ed",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^official\\ open\\-data\\ CSV\\ tables\\ and\\ dictionary$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "object-page image explicitly designated Open Access/CC0",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.nga.gov/terms-and-notices",
+          "attribution_template": "Courtesy National Gallery of Art, Washington, with object caption.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "CSV image URL alone never matches this rule.",
+          "no_inheritance": true,
+          "rule_id": "nga_open_data:media:3daf8c91b262",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^object\\-page\\ image\\ explicitly\\ designated\\ Open\\ Access/CC0$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "aic_api",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "/api/v1/artworks fields except endpoint-specific exclusions",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Does not apply to articles or other endpoints.",
+          "no_inheritance": true,
+          "rule_id": "aic_api:metadata:1e7ddbe4f8ac",
+          "scope_match": {
+            "normalization": "url_path_decode",
+            "pattern": "^/api/v1/artworks(?:/[0-9]+|/search)?$",
+            "allowed_schemes": [
+              "https"
+            ],
+            "allowed_hosts": [
+              "api.artic.edu"
+            ],
+            "allow_relative_path": true,
+            "field_policy": "exclude",
+            "fields": [
+              "description"
+            ],
+            "require_explicit_query_fields": true
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "/api/v1/artworks/* excluding /description",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Selector is endpoint and field specific.",
+          "no_inheritance": true,
+          "rule_id": "aic_api:data:75df7e022b4e",
+          "scope_match": {
+            "normalization": "url_path_decode",
+            "pattern": "^/api/v1/artworks(?:/[0-9]+|/search)?$",
+            "allowed_schemes": [
+              "https"
+            ],
+            "allowed_hosts": [
+              "api.artic.edu"
+            ],
+            "allow_relative_path": true,
+            "field_policy": "exclude",
+            "fields": [
+              "description"
+            ],
+            "require_explicit_query_fields": true
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "/api/v1/artworks/description",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "Art Institute of Chicago; field-level CC BY 4.0; mark changes.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Attribution must survive extraction into static data.",
+          "no_inheritance": true,
+          "rule_id": "aic_api:data:230184c34ce7",
+          "scope_match": {
+            "normalization": "url_path_decode",
+            "pattern": "^/api/v1/artworks(?:/[0-9]+|/search)?$",
+            "allowed_schemes": [
+              "https"
+            ],
+            "allowed_hosts": [
+              "api.artic.edu"
+            ],
+            "allow_relative_path": true,
+            "field_policy": "include",
+            "fields": [
+              "description"
+            ],
+            "require_explicit_query_fields": true
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "IIIF/object media with CC0 Public Domain Designation",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.artic.edu/open-access/open-access-images",
+          "attribution_template": "Use the standard object caption and object-level rights statement.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "IIIF reachability or is_public_domain alone is insufficient without object evidence.",
+          "no_inheritance": true,
+          "rule_id": "aic_api:media:98cceb1965b8",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^IIIF/object\\ media\\ with\\ CC0\\ Public\\ Domain\\ Designation$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "cleveland_open_access",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "Open Access API/dump metadata",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Record retrieved_at and source hash.",
+          "no_inheritance": true,
+          "rule_id": "cleveland_open_access:metadata:9a6e34bc94d5",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Open\\ Access\\ API/dump\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "Open Access API/dump fields",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Third-party rights can remain outside the dataset grant.",
+          "no_inheritance": true,
+          "rule_id": "cleveland_open_access:data:818c1d328e7d",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Open\\ Access\\ API/dump\\ fields$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "object media with share_license_status=CC0 and object-level evidence",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://www.clevelandart.org/open-access",
+          "attribution_template": "Use the Cleveland Museum of Art object credit.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "No CC0 status means no match.",
+          "no_inheritance": true,
+          "rule_id": "cleveland_open_access:media:9f5808165c51",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^object\\ media\\ with\\ share_license_status=CC0\\ and\\ object\\-level\\ evidence$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "catalogue_of_life",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "COL26.6 XR/Base release metadata",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "Catalogue of Life release, DOI, and contributing dataset.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Record release and merged flag.",
+          "no_inheritance": true,
+          "rule_id": "catalogue_of_life:metadata:486e2fc9487e",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^COL26\\.6\\ XR/Base\\ release\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "ColDP/DwC-A/TextTree release records",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "Catalogue of Life release, DOI, and contributing dataset; mark changes.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "XR programmatic merges retain upstream provenance.",
+          "no_inheritance": true,
+          "rule_id": "catalogue_of_life:data:0c3f6b106b95",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^ColDP/DwC\\-A/TextTree\\ release\\ records$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "webpage images",
+          "rights_status": "not_applicable",
+          "identifier": "NOT-APPLICABLE",
+          "version": null,
+          "url": null,
+          "attribution_template": null,
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "The checklist license does not license webpage media.",
+          "no_inheritance": true,
+          "rule_id": "catalogue_of_life:media:21e75eff4308",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^webpage\\ images$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "gbif",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "dataset/record license field",
+          "rights_status": "mixed",
+          "identifier": "RECORD-SPECIFIC",
+          "version": null,
+          "url": "https://www.gbif.org/terms/data-user",
+          "attribution_template": "Cite dataset or download DOI and publisher.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Allowed licenses include CC0, CC BY, and CC BY-NC.",
+          "no_inheritance": true,
+          "rule_id": "gbif:metadata:d29ff8638dc9",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^dataset/record\\ license\\ field$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "each occurrence/taxon/event record and dataset license",
+          "rights_status": "mixed",
+          "identifier": "RECORD-SPECIFIC",
+          "version": null,
+          "url": "https://www.gbif.org/terms/data-user",
+          "attribution_template": "Preserve publisher and cite dataset/download DOI.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "CC BY-NC records do not match commercial-use releases.",
+          "no_inheritance": true,
+          "rule_id": "gbif:data:34f8ee7ab4f4",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ occurrence/taxon/event\\ record\\ and\\ dataset\\ license$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "each multimedia extension record and provider statement",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://techdocs.gbif.org/en/data-publishing/multimedia-publishing",
+          "attribution_template": "Follow provider media license and credit independently of occurrence data.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Free-text or missing media rights are unknown and blocked.",
+          "no_inheritance": true,
+          "rule_id": "gbif:media:021317d2446c",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ multimedia\\ extension\\ record\\ and\\ provider\\ statement$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "eol",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "each EOL data object and provider attribution",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://eol.org/docs/what-is-eol/copyright-and-linking-policy",
+          "attribution_template": "Retain the original content provider, license, and EOL link.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Page-level inheritance is forbidden.",
+          "no_inheritance": true,
+          "rule_id": "eol:metadata:d471dfebcc2c",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ EOL\\ data\\ object\\ and\\ provider\\ attribution$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "each trait/text/interaction object; Overview auto-summary separately CC0",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://eol.org/docs/what-is-eol/copyright-and-linking-policy",
+          "attribution_template": "Follow each object license and provider attribution.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Mixed CC/PD terms require object filters.",
+          "no_inheritance": true,
+          "rule_id": "eol:data:2d637f916d9f",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ trait/text/interaction\\ object;\\ Overview\\ auto\\-summary\\ separately\\ CC0$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "each individual media object",
+          "rights_status": "mixed",
+          "identifier": "OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://eol.org/docs/what-is-eol/copyright-and-linking-policy",
+          "attribution_template": "Follow the media object license, rights holder, and provider.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Missing machine-readable rights are unknown.",
+          "no_inheritance": true,
+          "rule_id": "eol:media:b76b89369bc3",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ individual\\ media\\ object$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "globi",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "GloBI integrated record metadata",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "Global Biotic Interactions and original study/dataset.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Retain original citation chain.",
+          "no_inheritance": true,
+          "rule_id": "globi:metadata:093c3308191a",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^GloBI\\ integrated\\ record\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "stable DOI snapshot interaction records",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "GloBI snapshot DOI and original study/dataset; mark changes.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Does not by itself approve behavior animation.",
+          "no_inheritance": true,
+          "rule_id": "globi:data:d6791b40bc75",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^stable\\ DOI\\ snapshot\\ interaction\\ records$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "media",
+          "rights_status": "not_applicable",
+          "identifier": "NOT-APPLICABLE",
+          "version": null,
+          "url": null,
+          "attribution_template": null,
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "GloBI is not a media source.",
+          "no_inheritance": true,
+          "rule_id": "globi:media:721c9525ade2",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^media$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "iucn_red_list",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "IUCN Red List assessment metadata and API response fields",
+          "rights_status": "restricted",
+          "identifier": "IUCN-SPECIAL-TERMS",
+          "version": "live-2026-07-11",
+          "url": "https://www.iucnredlist.org/terms/terms-of-use",
+          "attribution_template": "IUCN Red List assessment, version, date, and required citation.",
+          "redistribution": "prohibited",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Public static redistribution requires written permission; source links alone remain allowed.",
+          "no_inheritance": true,
+          "rule_id": "iucn_red_list:metadata:ea0f4652ce8d",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^IUCN\\ Red\\ List\\ assessment\\ metadata\\ and\\ API\\ response\\ fields$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "API responses, assessment text, range data, maps, and spatial downloads",
+          "rights_status": "restricted",
+          "identifier": "IUCN-SPECIAL-TERMS",
+          "version": "live-2026-07-11",
+          "url": "https://www.iucnredlist.org/terms/terms-of-use",
+          "attribution_template": "Use only within the exact written permission scope.",
+          "redistribution": "prohibited",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "No public bytes until permission_status=approved with scope/reference.",
+          "no_inheritance": true,
+          "rule_id": "iucn_red_list:data:9c627d6f86b2",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^API\\ responses,\\ assessment\\ text,\\ range\\ data,\\ maps,\\ and\\ spatial\\ downloads$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "species images and other donated media",
+          "rights_status": "restricted",
+          "identifier": "THIRD-PARTY-RIGHTS",
+          "version": null,
+          "url": "https://nrl.iucnredlist.org/about/faqs",
+          "attribution_template": "Obtain permission directly from the identified rights holder.",
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "IUCN usually cannot license donated images.",
+          "no_inheritance": true,
+          "rule_id": "iucn_red_list:media:acfb3e37b4d9",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^species\\ images\\ and\\ other\\ donated\\ media$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "resolve_ecoregions_2017",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "Ecoregions 2017 dataset metadata",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "RESOLVE Ecoregions 2017; cite authors/source and mark changes.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Record framework year and geometry version.",
+          "no_inheritance": true,
+          "rule_id": "resolve_ecoregions_2017:metadata:9db0392cb1b1",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^Ecoregions\\ 2017\\ dataset\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "downloaded Ecoregions 2017 Shapefile geometry and attributes",
+          "rights_status": "cc_by",
+          "identifier": "CC-BY-4.0",
+          "version": "4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution_template": "RESOLVE Ecoregions 2017; cite source and mark simplification.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Webpage imagery and basemaps are excluded.",
+          "no_inheritance": true,
+          "rule_id": "resolve_ecoregions_2017:data:a96c4066a008",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^downloaded\\ Ecoregions\\ 2017\\ Shapefile\\ geometry\\ and\\ attributes$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "webpage imagery and third-party basemaps",
+          "rights_status": "not_applicable",
+          "identifier": "NOT-APPLICABLE",
+          "version": null,
+          "url": null,
+          "attribution_template": null,
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "Dataset license does not transfer to media/basemap.",
+          "no_inheritance": true,
+          "rule_id": "resolve_ecoregions_2017:media:62246e3c97d8",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^webpage\\ imagery\\ and\\ third\\-party\\ basemaps$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "nhm_london_data_portal",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "all dataset catalogue metadata",
+          "rights_status": "cc0",
+          "identifier": "CC0-1.0",
+          "version": "1.0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution_template": null,
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Dataset content license remains separate.",
+          "no_inheritance": true,
+          "rule_id": "nhm_london_data_portal:metadata:b31adb15df18",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^all\\ dataset\\ catalogue\\ metadata$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "each dataset license; core collection-specimens is CC0",
+          "rights_status": "mixed",
+          "identifier": "DATASET-SPECIFIC",
+          "version": null,
+          "url": "https://data.nhm.ac.uk/terms-conditions",
+          "attribution_template": "Use the dataset citation and record-level version URL/DOI.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "License not specified is unknown and blocked.",
+          "no_inheritance": true,
+          "rule_id": "nhm_london_data_portal:data:bcd36179c4cf",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ dataset\\ license;\\ core\\ collection\\-specimens\\ is\\ CC0$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "each dataset media rule; collection-specimen images are CC BY 4.0",
+          "rights_status": "mixed",
+          "identifier": "DATASET-AND-OBJECT-SPECIFIC",
+          "version": null,
+          "url": "https://data.nhm.ac.uk/terms-conditions",
+          "attribution_template": "Natural History Museum, London; dataset/object credit and license.",
+          "redistribution": "conditional",
+          "modification": "conditional",
+          "commercial_use": "conditional",
+          "share_alike": false,
+          "scope_note": "Do not inherit core collection image terms into other datasets.",
+          "no_inheritance": true,
+          "rule_id": "nhm_london_data_portal:media:96a7b9b13818",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^each\\ dataset\\ media\\ rule;\\ collection\\-specimen\\ images\\ are\\ CC\\ BY\\ 4\\.0$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "fixture_id": "invalid-source-iucn-unapproved-publish",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "source_redistribution_not_approved",
+    "source_permission_not_approved"
+  ],
+  "mode": "publish",
+  "target_schema": "schemas/common/source.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "source:fixture-iucn",
+    "entity_type": "source",
+    "title": "IUCN-style restricted fixture",
+    "publisher": "Fixture authority",
+    "official_url": "https://example.org/iucn-fixture",
+    "archived_url": null,
+    "accessed_at": "2026-07-11",
+    "published_or_updated_at": null,
+    "source_version": "fixture",
+    "tier": 1,
+    "source_type": "official_database",
+    "access_method": "Restricted API",
+    "api_key_required": "yes",
+    "access_limits": "Written redistribution permission required",
+    "rate_limit": "dynamic",
+    "license_rules": [
+      {
+        "content_class": "data",
+        "applies_to": "API response",
+        "rights_status": "restricted",
+        "identifier": "SPECIAL-TERMS",
+        "version": "fixture",
+        "url": "https://example.org/terms",
+        "attribution_template": "Fixture citation",
+        "redistribution": "prohibited",
+        "modification": "conditional",
+        "commercial_use": "conditional",
+        "share_alike": false,
+        "scope_note": "No written permission.",
+        "no_inheritance": true,
+        "rule_id": "iucn_red_list:data:7f67ab5dae29",
+        "scope_match": {
+          "normalization": "none",
+          "pattern": "^API\\ response$",
+          "allowed_schemes": [],
+          "allowed_hosts": [],
+          "allow_relative_path": true,
+          "field_policy": "any",
+          "fields": [],
+          "require_explicit_query_fields": false
+        }
+      }
+    ],
+    "terms_url": "https://example.org/terms",
+    "terms_version": "fixture-1",
+    "terms_snapshot_hash": "sha256:4141414141414141414141414141414141414141414141414141414141414141",
+    "terms_verified_at": "2026-07-11",
+    "reverify_by": "2027-07-11",
+    "public_static_redistribution": "prohibited",
+    "derivative_use": "conditional",
+    "commercial_use": "conditional",
+    "permission_status": "pending",
+    "permission_reference": null,
+    "permission_scope": null,
+    "permission_verified_at": "2026-07-11",
+    "permission_expires_at": null,
+    "permission_revoked_at": null,
+    "risk_note": "Must remain blocked without written permission.",
+    "lifecycle_status": "reviewed",
+    "data_version": "0.1.0",
+    "registry_source_id": "iucn_red_list",
+    "selected_license_rule_ids": [
+      "iucn_red_list:data:7f67ab5dae29"
+    ],
+    "license_rules_snapshot_hash": "sha256:46b2192beeb360ae7c0072258a2219c6c0bfb4eadda1ee09e68a790ddd2826a8",
+    "registry_identity": {
+      "canonical_name": "IUCN Red List",
+      "canonical_official_host": "api.iucnredlist.org",
+      "snapshot_hash": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21"
+    }
+  }
+}

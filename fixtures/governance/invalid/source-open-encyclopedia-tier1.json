@@ -1,0 +1,82 @@
+{
+  "fixture_id": "invalid-source-open-encyclopedia-tier1",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/source.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "source:fixture-tier-lie",
+    "entity_type": "source",
+    "title": "Fixture open encyclopedia",
+    "publisher": "Fixture community",
+    "official_url": "https://example.org/tier-lie",
+    "archived_url": null,
+    "accessed_at": "2026-07-11",
+    "published_or_updated_at": null,
+    "source_version": null,
+    "tier": 1,
+    "source_type": "open_encyclopedia",
+    "access_method": "Web page",
+    "api_key_required": "no",
+    "access_limits": "Fixture only",
+    "rate_limit": "not stated",
+    "license_rules": [
+      {
+        "content_class": "data",
+        "applies_to": "fixture",
+        "rights_status": "cc0",
+        "identifier": "CC0-1.0",
+        "version": "1.0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_template": null,
+        "redistribution": "allowed",
+        "modification": "allowed",
+        "commercial_use": "allowed",
+        "share_alike": false,
+        "scope_note": "Synthetic fixture.",
+        "no_inheritance": true,
+        "rule_id": "synthetic_fixture:data:f16d05ec6b29",
+        "scope_match": {
+          "normalization": "none",
+          "pattern": "^fixture$",
+          "allowed_schemes": [],
+          "allowed_hosts": [],
+          "allow_relative_path": true,
+          "field_policy": "any",
+          "fields": [],
+          "require_explicit_query_fields": false
+        }
+      }
+    ],
+    "terms_url": "https://example.org/terms",
+    "terms_version": "fixture-1",
+    "terms_snapshot_hash": null,
+    "terms_verified_at": "2026-07-11",
+    "reverify_by": "2027-07-11",
+    "public_static_redistribution": "allowed",
+    "derivative_use": "allowed",
+    "commercial_use": "allowed",
+    "permission_status": "not_required",
+    "permission_reference": null,
+    "permission_scope": null,
+    "permission_verified_at": "2026-07-11",
+    "permission_expires_at": null,
+    "permission_revoked_at": null,
+    "risk_note": "Open encyclopedias cannot self-declare Tier 1.",
+    "lifecycle_status": "reviewed",
+    "data_version": "0.1.0",
+    "registry_source_id": "synthetic_fixture",
+    "selected_license_rule_ids": [
+      "synthetic_fixture:data:f16d05ec6b29"
+    ],
+    "license_rules_snapshot_hash": "sha256:7a0517ea4c994cbd55b8e520211d28df7e57cee6ccc240ccbd91e9e831a37b3e",
+    "registry_identity": {
+      "canonical_name": "Fixture community",
+      "canonical_official_host": "example.org",
+      "snapshot_hash": "sha256:701049acba5507b9d04cfac1f45c2da9ebadeddf995850657375e466dc888297"
+    }
+  }
+}

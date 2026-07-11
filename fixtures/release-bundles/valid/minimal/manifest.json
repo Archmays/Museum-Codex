@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "id": "release:physical-fixture-0.1.0",
+  "entity_type": "dataset_release",
+  "version": "0.1.0",
+  "schema_versions": {
+    "common/source": "1.0.0",
+    "common/media-asset": "1.0.0",
+    "common/dataset-release": "1.0.0",
+    "common/source-rules-snapshot": "1.0.0",
+    "common/license-decision-registry": "1.0.0",
+    "common/third-party-notices": "1.0.0",
+    "common/attribution-manifest": "1.0.0"
+  },
+  "build_version": "physical-fixture-build-1",
+  "created_at": "2026-07-11T09:00:00Z",
+  "source_snapshot_at": "2026-07-11T08:00:00Z",
+  "content_hash": "sha256:228378af265bd003d022c4557b66476a9e3d5dce57fe6f83e28199d7e9bab4d0",
+  "status": "publishable",
+  "predecessor": null,
+  "public_release": true,
+  "public_until": null,
+  "included_entity_ids": [],
+  "included_relationship_ids": [],
+  "included_claim_ids": [],
+  "included_evidence_ids": [],
+  "included_source_ids": [
+    "source:physical-fixture-museum"
+  ],
+  "included_media_asset_ids": [
+    "media:physical-fixture-image"
+  ],
+  "withdrawals": [],
+  "deprecations": [],
+  "manifest_files": [
+    {
+      "path": "records.json",
+      "sha256": "d1ca94b9bc404a2aaaed050a8376c0f8c6252292b1662a211c39e2b04d6848b2",
+      "bytes": 7284,
+      "record_type": "data",
+      "schema_path": null,
+      "record_ids": [
+        "source:physical-fixture-museum",
+        "media:physical-fixture-image"
+      ]
+    },
+    {
+      "path": "assets/physical-fixture-image.bin",
+      "sha256": "1b5cb44e8412dc3f9214746afd55ef613831ce20829226a8129171669e702626",
+      "bytes": 40,
+      "record_type": "media",
+      "schema_path": null,
+      "record_ids": [
+        "media:physical-fixture-image"
+      ]
+    },
+    {
+      "path": "source-rules-snapshot.json",
+      "sha256": "ea87d73a4d0d319f0450a50ab822bc12e210a3cd2e4824a1c874d1e22722496c",
+      "bytes": 2742,
+      "record_type": "source_registry",
+      "schema_path": "schemas/common/source-rules-snapshot.schema.json",
+      "record_ids": [
+        "source:physical-fixture-museum"
+      ]
+    },
+    {
+      "path": "license-decisions.json",
+      "sha256": "2e6b86650c3bb3dc2cc6db263903e601f83345ddaf52f2ff9aeacedc694e532a",
+      "bytes": 1349,
+      "record_type": "license_decisions",
+      "schema_path": "schemas/common/license-decision-registry.schema.json",
+      "record_ids": [
+        "license-decision:synthetic-fixture-code",
+        "license-decision:synthetic-fixture-content"
+      ]
+    },
+    {
+      "path": "third-party-notices.json",
+      "sha256": "73d400a0229d9d8d29c77d47d9ab5ffa0d5b5131d552518b54962827fbb5cc7b",
+      "bytes": 1069,
+      "record_type": "third_party_notices",
+      "schema_path": "schemas/common/third-party-notices.schema.json",
+      "record_ids": [
+        "source:physical-fixture-museum",
+        "media:physical-fixture-image"
+      ]
+    },
+    {
+      "path": "attributions.json",
+      "sha256": "c037dbf3d1ba0abea64e99f04c5c4a1b75aa45ac5c7a1bd77280a88a57fd0e91",
+      "bytes": 340,
+      "record_type": "attributions",
+      "schema_path": "schemas/common/attribution-manifest.schema.json",
+      "record_ids": [
+        "media:physical-fixture-image"
+      ]
+    }
+  ],
+  "license_decisions": {
+    "code_license_decision_id": "license-decision:synthetic-fixture-code",
+    "code_license_status": "not_applicable",
+    "original_content_license_decision_id": "license-decision:synthetic-fixture-content",
+    "original_content_license_status": "not_applicable",
+    "third_party_scope_statement": "Synthetic fixture licenses cover only listed records and never override real third-party rights.",
+    "registry_path": "license-decisions.json",
+    "registry_sha256": "2e6b86650c3bb3dc2cc6db263903e601f83345ddaf52f2ff9aeacedc694e532a"
+  },
+  "third_party_notices_manifest": {
+    "path": "third-party-notices.json",
+    "sha256": "73d400a0229d9d8d29c77d47d9ab5ffa0d5b5131d552518b54962827fbb5cc7b"
+  },
+  "attribution_manifest": {
+    "path": "attributions.json",
+    "sha256": "c037dbf3d1ba0abea64e99f04c5c4a1b75aa45ac5c7a1bd77280a88a57fd0e91",
+    "asset_ids": [
+      "media:physical-fixture-image"
+    ]
+  },
+  "release_notes": "Physical fixture proving exact file closure, concrete schema dispatch, byte/hash binding, source-rule and license-decision snapshots, rights, notices, and attributions.",
+  "source_registry_manifest": {
+    "path": "source-rules-snapshot.json",
+    "sha256": "ea87d73a4d0d319f0450a50ab822bc12e210a3cd2e4824a1c874d1e22722496c"
+  }
+}

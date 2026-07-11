@@ -1,0 +1,66 @@
+{
+  "fixture_id": "invalid-artist-membership-wrong-target",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/art/artist-relationship.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "art-rel:fixture-bad-membership",
+    "entity_type": "relationship",
+    "branch_id": "art",
+    "relationship_type": "member_of",
+    "relationship_semantics": "historical_context",
+    "source_entity_id": "artist:fixture-a",
+    "target_entity_id": "artist:fixture-b",
+    "directed": true,
+    "temporal_scope": {
+      "start": "1901",
+      "end": "1905",
+      "precision": "year",
+      "uncertain": false,
+      "description": "Fixture interval"
+    },
+    "place_scope": {
+      "place_ids": [
+        "place:fixture-city"
+      ],
+      "description": "Fixture location"
+    },
+    "evidence_level": "B",
+    "historical_relationship_strength": 0.6,
+    "evidence_confidence": 0.8,
+    "computational_similarity": null,
+    "curatorial_relevance": 0.7,
+    "claim_ids": [
+      "claim:fixture-bad-membership"
+    ],
+    "source_ids": [
+      "source:fixture-archive"
+    ],
+    "curatorial_note": {
+      "en": "An artist cannot be the group endpoint of member_of."
+    },
+    "public_display": false,
+    "is_algorithmic": false,
+    "review_status": "candidate",
+    "reviewed_by": "fixture-reviewer",
+    "reviewed_at": "2026-07-11",
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-archive",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/third-party-notices.schema.json",
+  "title": "Museum third-party notices",
+  "type": "object",
+  "required": ["scope_statement", "notices"],
+  "properties": {
+    "scope_statement": { "type": "string", "minLength": 1 },
+    "notices": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["record_id", "notice", "source_url", "license_rule_ids", "license_identifiers", "attribution_texts", "rights_holder"],
+        "properties": {
+          "record_id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+          "notice": { "type": "string", "minLength": 1 },
+          "source_url": { "type": "string", "format": "uri" },
+          "license_rule_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$" } },
+          "license_identifiers": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "attribution_texts": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "rights_holder": { "type": ["string", "null"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

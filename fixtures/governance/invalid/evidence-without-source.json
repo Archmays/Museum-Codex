@@ -1,0 +1,32 @@
+{
+  "fixture_id": "invalid-evidence-without-source",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/evidence.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "evidence:fixture-no-source",
+    "entity_type": "evidence",
+    "claim_ids": [
+      "claim:fixture-a"
+    ],
+    "stance": "supports",
+    "evidence_kind": "other",
+    "source_ids": [],
+    "locator": {
+      "fragment": "No source"
+    },
+    "summary": "Evidence cannot exist without a source reference.",
+    "short_excerpt": null,
+    "original_language": "en",
+    "extracted_at": "2026-07-11T08:00:00Z",
+    "extraction_method": "manual",
+    "reliability_note": "Negative fixture.",
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0",
+    "source_license_bindings": []
+  }
+}

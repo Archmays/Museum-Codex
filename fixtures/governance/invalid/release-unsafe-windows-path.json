@@ -1,0 +1,77 @@
+{
+  "fixture_id": "invalid-release-unsafe-windows-path",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/dataset-release.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "release:fixture-unsafe-path",
+    "entity_type": "dataset_release",
+    "version": "0.1.0",
+    "schema_versions": {
+      "common/entity": "1.0.0"
+    },
+    "build_version": "fixture-bad-path",
+    "created_at": "2026-07-11T09:00:00Z",
+    "source_snapshot_at": "2026-07-11T08:00:00Z",
+    "content_hash": "sha256:8181818181818181818181818181818181818181818181818181818181818181",
+    "status": "publishable",
+    "predecessor": null,
+    "public_release": false,
+    "public_until": null,
+    "included_entity_ids": [],
+    "included_relationship_ids": [],
+    "included_claim_ids": [],
+    "included_evidence_ids": [],
+    "included_source_ids": [],
+    "included_media_asset_ids": [],
+    "withdrawals": [],
+    "deprecations": [],
+    "manifest_files": [
+      {
+        "path": "C:\\outside.json",
+        "sha256": "8282828282828282828282828282828282828282828282828282828282828282",
+        "bytes": 1,
+        "record_type": "data",
+        "schema_path": null,
+        "record_ids": []
+      },
+      {
+        "path": "third-party-notices.json",
+        "sha256": "8383838383838383838383838383838383838383838383838383838383838383",
+        "bytes": 2,
+        "record_type": "third_party_notices",
+        "schema_path": null,
+        "record_ids": []
+      },
+      {
+        "path": "attributions.json",
+        "sha256": "8484848484848484848484848484848484848484848484848484848484848484",
+        "bytes": 2,
+        "record_type": "attributions",
+        "schema_path": null,
+        "record_ids": []
+      }
+    ],
+    "license_decisions": {
+      "code_license_decision_id": "OD-001",
+      "code_license_status": "pending",
+      "original_content_license_decision_id": "OD-002",
+      "original_content_license_status": "pending",
+      "third_party_scope_statement": "No third-party content in this negative fixture."
+    },
+    "third_party_notices_manifest": {
+      "path": "third-party-notices.json",
+      "sha256": "8383838383838383838383838383838383838383838383838383838383838383"
+    },
+    "attribution_manifest": {
+      "path": "attributions.json",
+      "sha256": "8484848484848484848484848484848484848484848484848484848484848484",
+      "asset_ids": []
+    },
+    "release_notes": "Negative Windows path fixture."
+  }
+}

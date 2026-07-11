@@ -1,0 +1,82 @@
+{
+  "fixture_id": "invalid-release-missing-record",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "release_record_set_mismatch",
+    "release_record_missing"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/common/dataset-release.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "release:fixture-missing-record",
+    "entity_type": "dataset_release",
+    "version": "0.1.0",
+    "schema_versions": {
+      "art/artist": "1.0.0"
+    },
+    "build_version": "fixture-missing-record",
+    "created_at": "2026-07-11T09:00:00Z",
+    "source_snapshot_at": "2026-07-11T08:00:00Z",
+    "content_hash": "sha256:9191919191919191919191919191919191919191919191919191919191919191",
+    "status": "publishable",
+    "predecessor": null,
+    "public_release": false,
+    "public_until": null,
+    "included_entity_ids": [
+      "artist:fixture-does-not-exist"
+    ],
+    "included_relationship_ids": [],
+    "included_claim_ids": [],
+    "included_evidence_ids": [],
+    "included_source_ids": [],
+    "included_media_asset_ids": [],
+    "withdrawals": [],
+    "deprecations": [],
+    "manifest_files": [
+      {
+        "path": "records.json",
+        "sha256": "9292929292929292929292929292929292929292929292929292929292929292",
+        "bytes": 1,
+        "record_type": "data",
+        "schema_path": null,
+        "record_ids": [
+          "artist:fixture-does-not-exist"
+        ]
+      },
+      {
+        "path": "third-party-notices.json",
+        "sha256": "9393939393939393939393939393939393939393939393939393939393939393",
+        "bytes": 2,
+        "record_type": "third_party_notices",
+        "schema_path": null,
+        "record_ids": []
+      },
+      {
+        "path": "attributions.json",
+        "sha256": "9494949494949494949494949494949494949494949494949494949494949494",
+        "bytes": 2,
+        "record_type": "attributions",
+        "schema_path": null,
+        "record_ids": []
+      }
+    ],
+    "license_decisions": {
+      "code_license_decision_id": "OD-001",
+      "code_license_status": "pending",
+      "original_content_license_decision_id": "OD-002",
+      "original_content_license_status": "pending",
+      "third_party_scope_statement": "No third-party content in this negative fixture."
+    },
+    "third_party_notices_manifest": {
+      "path": "third-party-notices.json",
+      "sha256": "9393939393939393939393939393939393939393939393939393939393939393"
+    },
+    "attribution_manifest": {
+      "path": "attributions.json",
+      "sha256": "9494949494949494949494949494949494949494949494949494949494949494",
+      "asset_ids": []
+    },
+    "release_notes": "Negative missing record fixture."
+  }
+}

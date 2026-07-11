@@ -1,0 +1,92 @@
+{
+  "fixture_id": "valid-biology-animation-evidence",
+  "expected_valid": true,
+  "mode": "foundation",
+  "target_schema": "schemas/biology/ecosystem-interaction.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "bio-rel:fixture-pollination",
+    "entity_type": "relationship",
+    "branch_id": "biology",
+    "relationship_type": "pollination",
+    "relationship_semantics": "discipline_specific",
+    "source_entity_id": "taxon:fixture-insect",
+    "target_entity_id": "taxon:fixture-plant",
+    "directed": true,
+    "temporal_scope": {
+      "start": null,
+      "end": null,
+      "precision": "unknown",
+      "uncertain": false,
+      "description": "Observed during the documented flowering season"
+    },
+    "place_scope": {
+      "place_ids": [
+        "place:fixture-habitat"
+      ],
+      "description": "The source study site only"
+    },
+    "evidence_level": "A",
+    "historical_relationship_strength": null,
+    "evidence_confidence": 0.9,
+    "computational_similarity": null,
+    "curatorial_relevance": 0.8,
+    "claim_ids": [
+      "claim:fixture-pollination"
+    ],
+    "source_ids": [
+      "source:fixture-study"
+    ],
+    "curatorial_note": {
+      "en": "A documented interaction at one study site.",
+      "zh-Hans": "一处研究地点记录到的互动。"
+    },
+    "public_display": true,
+    "is_algorithmic": false,
+    "review_status": "publishable",
+    "reviewed_by": "fixture-science-reviewer",
+    "reviewed_at": "2026-07-11",
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "participant_roles": {
+      "source": "pollinator",
+      "target": "flowering plant"
+    },
+    "life_stage_scope": [
+      "adult insect",
+      "flowering plant"
+    ],
+    "public_animation_candidate": true,
+    "behavior_animation": {
+      "representation_type": "scientific_reconstruction",
+      "animation_evidence_ids": [
+        "evidence:fixture-pollination-study"
+      ],
+      "simplification_notes": {
+        "en": "Timing is compressed; individual variation is omitted.",
+        "zh-Hans": "时间被压缩，未表现个体差异。"
+      },
+      "scope_limitations": {
+        "en": "Do not generalize beyond the documented population and season.",
+        "zh-Hans": "不得外推到记录种群与季节之外。"
+      },
+      "scientific_review": {
+        "reviewer": "fixture-science-reviewer",
+        "reviewed_at": "2026-07-11",
+        "status": "approved"
+      }
+    },
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-study",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "fixture_id": "invalid-media-sharealike-adaptation",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema",
+    "share_alike_not_satisfied"
+  ],
+  "mode": "publish",
+  "target_schema": "schemas/common/media-asset.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "media:fixture-bad-sa",
+    "entity_type": "media_asset",
+    "media_type": "image",
+    "source_id": "source:fixture-commons",
+    "source_object_url": "https://example.org/sa-image",
+    "delivery_mode": "self_hosted",
+    "cache_bytes": true,
+    "content_hash": "sha256:7171717171717171717171717171717171717171717171717171717171717171",
+    "rights_status": "cc_by_sa",
+    "metadata_license": {
+      "identifier": "CC0-1.0",
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution_required": false,
+      "share_alike": false,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "media_license": {
+      "identifier": "CC-BY-SA-4.0",
+      "version": "4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution_required": true,
+      "share_alike": true,
+      "redistribution_allowed": true,
+      "modification_allowed": true,
+      "commercial_use_allowed": true
+    },
+    "rights_statement_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "rights_evidence": {
+      "source_url": "https://example.org/sa-image",
+      "verified_at": "2026-07-11",
+      "object_rights_field": "CC-BY-SA-4.0",
+      "statement_snapshot_hash": "sha256:7272727272727272727272727272727272727272727272727272727272727272"
+    },
+    "rights_holder": "Fixture Author",
+    "attribution": "Fixture Author, CC BY-SA 4.0",
+    "allow_redistribution": true,
+    "allow_modification": true,
+    "allow_commercial_use": true,
+    "development_only": false,
+    "reuse_mode": "adaptation",
+    "derivation": {
+      "derived_from_media_id": "media:fixture-sa-original",
+      "source_content_hash": "sha256:7373737373737373737373737373737373737373737373737373737373737373",
+      "transform_recipe": "Crop and color adjustment",
+      "transform_version": "1",
+      "output_content_hash": "sha256:7171717171717171717171717171717171717171717171717171717171717171",
+      "output_license_identifier": "CC-BY-4.0",
+      "share_alike_compatibility_decision": "incompatible"
+    },
+    "license_scope": null,
+    "review_status": "verified",
+    "reviewed_by": "fixture-rights-reviewer",
+    "reviewed_at": "2026-07-11",
+    "publish_status": "publishable",
+    "lifecycle_status": "publishable",
+    "data_version": "0.1.0",
+    "storage_path": "assets/fixture-bad-sa.bin",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-commons",
+        "rule_id": "synthetic_fixture:media:standalone",
+        "content_class": "media",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}

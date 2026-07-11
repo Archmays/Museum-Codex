@@ -1,0 +1,26 @@
+{
+  "snapshot_id": "MUSEUM-00",
+  "minimum_source_ids": [
+    "wikidata",
+    "wikimedia_commons",
+    "getty_ulan",
+    "met_open_access",
+    "europeana",
+    "smithsonian_open_access",
+    "rijksmuseum",
+    "nga_open_data",
+    "aic_api",
+    "cleveland_open_access",
+    "catalogue_of_life",
+    "gbif",
+    "eol",
+    "globi",
+    "iucn_red_list",
+    "resolve_ecoregions_2017",
+    "nhm_london_data_portal"
+  ],
+  "maximum_verification_age_days": 366,
+  "license_rules_file": "source-license-rules.json",
+  "license_rules_snapshot_hash": "sha256:911cd69ab43594ab33bb9e7320302e0df00f2116bbe5bda0c83f566ef6006608",
+  "source_matrix_snapshot_hash": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21"
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/common/attribution-manifest.schema.json",
+  "title": "Museum media attribution manifest",
+  "type": "object",
+  "required": ["assets"],
+  "properties": {
+    "assets": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["asset_id", "attribution", "license_identifier", "license_url", "source_url", "changes_statement"],
+        "properties": {
+          "asset_id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+          "attribution": { "type": "string", "minLength": 1 },
+          "license_identifier": { "type": "string", "minLength": 1 },
+          "license_url": { "type": "string", "format": "uri" },
+          "source_url": { "type": "string", "format": "uri" },
+          "changes_statement": { "type": ["string", "null"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

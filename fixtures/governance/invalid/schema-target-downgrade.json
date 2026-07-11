@@ -1,0 +1,16 @@
+{
+  "fixture_id": "invalid-schema-target-downgrade",
+  "expected_valid": false,
+  "expected_error_codes": ["schema_target_mismatch"],
+  "mode": "foundation",
+  "target_schema": "schemas/common/entity.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "artist:fixture-schema-downgrade",
+    "entity_type": "artist",
+    "branch_id": "art",
+    "labels": { "en": "Schema Downgrade Probe" },
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "fixture_id": "invalid-artwork-confirmed-without-creator",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "schema"
+  ],
+  "mode": "foundation",
+  "target_schema": "schemas/art/artwork.schema.json",
+  "data": {
+    "schema_version": "1.0.0",
+    "id": "artwork:fixture-missing-creator",
+    "entity_type": "artwork",
+    "branch_id": "art",
+    "labels": {
+      "en": "Fixture artwork"
+    },
+    "claim_ids": [
+      "claim:fixture-attribution"
+    ],
+    "source_ids": [
+      "source:fixture-museum"
+    ],
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0",
+    "creator_attributions": [
+      {
+        "attribution_type": "confirmed",
+        "creator_entity_id": null,
+        "display_label": "Missing creator",
+        "claim_id": "claim:fixture-attribution",
+        "public_note": "Invalid confirmed attribution."
+      }
+    ],
+    "creation_span": {
+      "start": "1900",
+      "end": "1900",
+      "precision": "year",
+      "uncertain": false,
+      "description": "Fixture date"
+    },
+    "holding_institution_id": "museum_institution:fixture-museum",
+    "accession_number": "FIX-1",
+    "material_ids": [],
+    "technique_ids": [],
+    "media_asset_ids": [],
+    "review_status": "candidate",
+    "source_license_bindings": [
+      {
+        "source_id": "source:fixture-museum",
+        "rule_id": "synthetic_fixture:data:standalone",
+        "content_class": "data",
+        "scope_locator": "standalone synthetic fixture scope",
+        "permission_resolution": "rule_direct",
+        "scope_fields": [
+          "standalone synthetic fixture scope"
+        ]
+      }
+    ]
+  }
+}
