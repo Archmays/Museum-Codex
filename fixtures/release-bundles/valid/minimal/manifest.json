@@ -15,7 +15,7 @@
   "build_version": "physical-fixture-build-1",
   "created_at": "2026-07-11T09:00:00Z",
   "source_snapshot_at": "2026-07-11T08:00:00Z",
-  "content_hash": "sha256:228378af265bd003d022c4557b66476a9e3d5dce57fe6f83e28199d7e9bab4d0",
+  "content_hash": "sha256:168ed96c9f4472b6d8ea60b92dceb8f3339b5ecde416492e7b0d7827fe28edd4",
   "status": "publishable",
   "predecessor": null,
   "public_release": true,
@@ -35,8 +35,8 @@
   "manifest_files": [
     {
       "path": "records.json",
-      "sha256": "d1ca94b9bc404a2aaaed050a8376c0f8c6252292b1662a211c39e2b04d6848b2",
-      "bytes": 7284,
+      "sha256": "102c0648ba7dd890e1da173050507ed25ecf111a813549fe7c9ee6f8c613e5b4",
+      "bytes": 7107,
       "record_type": "data",
       "schema_path": null,
       "record_ids": [
@@ -56,8 +56,8 @@
     },
     {
       "path": "source-rules-snapshot.json",
-      "sha256": "ea87d73a4d0d319f0450a50ab822bc12e210a3cd2e4824a1c874d1e22722496c",
-      "bytes": 2742,
+      "sha256": "d61188dad4a78f2566a310a17bd805044c9c85dff735696bf2ba61ec57bebb95",
+      "bytes": 2671,
       "record_type": "source_registry",
       "schema_path": "schemas/common/source-rules-snapshot.schema.json",
       "record_ids": [
@@ -77,8 +77,8 @@
     },
     {
       "path": "third-party-notices.json",
-      "sha256": "73d400a0229d9d8d29c77d47d9ab5ffa0d5b5131d552518b54962827fbb5cc7b",
-      "bytes": 1069,
+      "sha256": "f6b1096841ddf0429d4f392d8c90db55923fdf7f775028f93673ced0bac08b0b",
+      "bytes": 1034,
       "record_type": "third_party_notices",
       "schema_path": "schemas/common/third-party-notices.schema.json",
       "record_ids": [
@@ -88,8 +88,8 @@
     },
     {
       "path": "attributions.json",
-      "sha256": "c037dbf3d1ba0abea64e99f04c5c4a1b75aa45ac5c7a1bd77280a88a57fd0e91",
-      "bytes": 340,
+      "sha256": "2ba662546af053017c1940e50e39380593cd1cd3665d7ec0c19d9919bf1e8be7",
+      "bytes": 334,
       "record_type": "attributions",
       "schema_path": "schemas/common/attribution-manifest.schema.json",
       "record_ids": [
@@ -108,11 +108,11 @@
   },
   "third_party_notices_manifest": {
     "path": "third-party-notices.json",
-    "sha256": "73d400a0229d9d8d29c77d47d9ab5ffa0d5b5131d552518b54962827fbb5cc7b"
+    "sha256": "f6b1096841ddf0429d4f392d8c90db55923fdf7f775028f93673ced0bac08b0b"
   },
   "attribution_manifest": {
     "path": "attributions.json",
-    "sha256": "c037dbf3d1ba0abea64e99f04c5c4a1b75aa45ac5c7a1bd77280a88a57fd0e91",
+    "sha256": "2ba662546af053017c1940e50e39380593cd1cd3665d7ec0c19d9919bf1e8be7",
     "asset_ids": [
       "media:physical-fixture-image"
     ]
@@ -120,6 +120,6 @@
   "release_notes": "Physical fixture proving exact file closure, concrete schema dispatch, byte/hash binding, source-rule and license-decision snapshots, rights, notices, and attributions.",
   "source_registry_manifest": {
     "path": "source-rules-snapshot.json",
-    "sha256": "ea87d73a4d0d319f0450a50ab822bc12e210a3cd2e4824a1c874d1e22722496c"
+    "sha256": "d61188dad4a78f2566a310a17bd805044c9c85dff735696bf2ba61ec57bebb95"
   }
 }
