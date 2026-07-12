@@ -152,8 +152,8 @@ class CliTests(unittest.TestCase):
 
 
 class LeakageTests(unittest.TestCase):
-    def test_current_dist_has_no_candidate_or_third_party_media_leak(self) -> None:
-        self.assertEqual([], scan_public_artifact(ROOT / "dist"))
+    def test_current_public_inputs_have_no_candidate_or_third_party_media_leak(self) -> None:
+        self.assertEqual([], scan_public_artifact(ROOT / "public"))
 
     def test_candidate_identifier_is_detected_in_public_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
