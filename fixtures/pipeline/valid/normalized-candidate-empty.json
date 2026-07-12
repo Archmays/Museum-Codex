@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "id": "candidate:11111111-1111-5111-8111-111111111111",
+  "entity_type": "normalized_candidate",
+  "candidate_kind": "unknown",
+  "source_records": [
+    {
+      "source_id": "wikidata",
+      "source_object_id": "Q1",
+      "raw_snapshot_id": "snapshot:wikidata:20260712t000000.000000z:000000000000"
+    }
+  ],
+  "fields": {},
+  "field_provenance": [],
+  "candidate_claims": [],
+  "media_candidates": [],
+  "conflicts": [],
+  "contract_drift": [],
+  "quarantine": [],
+  "review_state": "candidate",
+  "observed_at": "2026-07-12T00:00:00Z",
+  "publishable": false,
+  "input_hash": "sha256:8974a82c0747323a0c5261f0f54a094b2c4cf5dc10838a930fddf20fc68360bc"
+}

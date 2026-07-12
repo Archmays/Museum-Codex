@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "aic_api",
+  "adapter_version": "0.1.0",
+  "contract_version": "1.0.0",
+  "captured_at": "2026-07-12T11:03:15.181314Z",
+  "official_endpoint": "https://api.artic.edu/api/v1/artworks/27992?fields=api_link%2Cartist_display%2Ccopyright_notice%2Ccredit_line%2Cdate_display%2Cdepartment_title%2Cid%2Cimage_id%2Cis_public_domain%2Cmain_reference_number%2Cmedium_display%2Ctitle",
+  "sanitized_request": {
+    "method": "GET",
+    "canonical_endpoint": "https://api.artic.edu/api/v1/artworks/27992?fields=api_link%2Cartist_display%2Ccopyright_notice%2Ccredit_line%2Cdate_display%2Cdepartment_title%2Cid%2Cimage_id%2Cis_public_domain%2Cmain_reference_number%2Cmedium_display%2Ctitle",
+    "query_profile": "default",
+    "credential_alias": null,
+    "headers": {
+      "AIC-User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)",
+      "Accept": "application/json",
+      "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+    }
+  },
+  "content_type": "application/json",
+  "body_bytes": 811,
+  "body_sha256": "sha256:1e5aa208a2b44cde781a84d49909e546bd79f64fe041afea66d881aee8072e8c",
+  "fixture_projection": true,
+  "projection_note": "Minimal deterministic projection of the live exact-field response; no description field or media bytes are retained.",
+  "original_live_snapshot_id": "snapshot:aic_api:20260712t110315.181314z:bf1b7aaf1e9d",
+  "original_live_body_bytes": 1077,
+  "original_live_body_sha256": "sha256:bf1b7aaf1e9ddc33a860f35ae88c377d055d15342d102b1776b5dbb7624722f6",
+  "source_license_rule_ids": [
+    "aic_api:data:75df7e022b4e",
+    "aic_api:media:98cceb1965b8"
+  ],
+  "terms_url": "https://www.artic.edu/terms",
+  "documentation_url": "https://api.artic.edu/docs/",
+  "third_party_notice_path": "THIRD_PARTY_NOTICE.md",
+  "media_bytes_included": false,
+  "curatorial_selection": false
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/acquisition-request.schema.json",
+  "title": "Museum pipeline sanitized acquisition request",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "source_id", "adapter_version", "method", "canonical_endpoint", "object_id", "query_profile", "headers", "credential_alias", "live_explicit"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^acquisition-request:[a-f0-9]{16}$" },
+    "entity_type": { "const": "acquisition_request" },
+    "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "adapter_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "method": { "const": "GET" },
+    "canonical_endpoint": { "type": "string", "format": "uri", "pattern": "^https://", "not": { "pattern": "(?i)(?:api[_-]?key|token|authorization|cookie|secret)=" } },
+    "object_id": { "type": "string", "pattern": "^[A-Za-z0-9._-]+$" },
+    "query_profile": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+    "headers": {
+      "type": "object",
+      "propertyNames": { "not": { "pattern": "(?i)^(authorization|cookie|x-api-key)$" } },
+      "additionalProperties": { "type": "string", "not": { "pattern": "(?i)^bearer\\s+" } }
+    },
+    "credential_alias": { "type": ["string", "null"], "pattern": "^[A-Z][A-Z0-9_]*$" },
+    "live_explicit": { "const": true }
+  },
+  "additionalProperties": false
+}

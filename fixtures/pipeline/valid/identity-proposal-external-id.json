@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "id": "identity-proposal:33333333-3333-5333-8333-333333333333",
+  "entity_type": "identity_proposal",
+  "candidate_ids": ["candidate:22222222-2222-5222-8222-222222222222", "candidate:44444444-4444-5444-8444-444444444444"],
+  "proposed_status": "same",
+  "signals": [{ "signal_type": "exact_external_id", "strength": "strong", "scheme": "getty_ulan", "values": ["500115493"] }],
+  "hard_conflicts": [],
+  "source_independence": { "source_ids": ["getty_ulan", "wikidata"], "independent": true, "note": "Distinct direct source records; review is still required." },
+  "rationale": "Exact authority identifier supports a review proposal, never an automatic merge.",
+  "input_record_hashes": {
+    "candidate:22222222-2222-5222-8222-222222222222": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "candidate:44444444-4444-5444-8444-444444444444": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "proposal_version": "1.0.0",
+  "generated_at": "2026-07-12T00:00:00Z",
+  "review_status": "pending",
+  "auto_merge": false,
+  "proposal_hash": "sha256:284e96c6dd47d9326a441f6bbb78c2d67a1b24f71312bc70da2db0be89852256"
+}

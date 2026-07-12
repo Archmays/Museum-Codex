@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "getty_ulan",
+  "adapter_version": "0.1.1",
+  "contract_version": "1.0.0",
+  "captured_at": "2026-07-12T11:03:03.846350Z",
+  "official_endpoint": "https://vocab.getty.edu/ulan/500115493.json",
+  "sanitized_request": {
+    "method": "GET",
+    "canonical_endpoint": "https://vocab.getty.edu/ulan/500115493.json",
+    "query_profile": "default",
+    "credential_alias": null,
+    "headers": {
+      "Accept": "application/ld+json, application/json;q=0.9",
+      "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+    }
+  },
+  "content_type": "application/json",
+  "body_bytes": 640,
+  "body_sha256": "sha256:e589593e8770a8ac6be164db9af83e8d9bbae0f74562af13b7c81a9202a73edc",
+  "fixture_projection": true,
+  "projection_note": "Minimal deterministic projection of the compacted Linked Art JSON-LD response; values are retained and unrelated nodes are omitted.",
+  "original_live_snapshot_id": "snapshot:getty_ulan:20260712t110303.846350z:6a6d7dedc0b4",
+  "original_live_body_bytes": 170122,
+  "original_live_body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+  "source_license_rule_ids": [
+    "getty_ulan:data:eb25ddb4d400"
+  ],
+  "terms_url": "https://www.getty.edu/research/tools/vocabularies/obtain/",
+  "documentation_url": "https://www.getty.edu/research/tools/vocabularies/lod/index.html",
+  "third_party_notice_path": "THIRD_PARTY_NOTICE.md",
+  "media_bytes_included": false,
+  "curatorial_selection": false
+}

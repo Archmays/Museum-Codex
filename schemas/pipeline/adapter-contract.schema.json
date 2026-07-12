@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/adapter-contract.schema.json",
+  "title": "Museum pipeline adapter contract",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "source_id", "adapter_name", "adapter_version", "contract_version", "allowed_hosts", "supported_record_types", "credential_requirements", "network_default_enabled", "methods"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^adapter:[a-z][a-z0-9_]*$" },
+    "entity_type": { "const": "adapter_contract" },
+    "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "adapter_name": { "type": "string", "minLength": 1 },
+    "adapter_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "contract_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "allowed_hosts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" } },
+    "supported_record_types": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" } },
+    "credential_requirements": {
+      "type": "object",
+      "required": ["mode", "aliases"],
+      "properties": {
+        "mode": { "enum": ["none", "optional", "required"] },
+        "aliases": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" } }
+      },
+      "additionalProperties": false
+    },
+    "network_default_enabled": { "const": false },
+    "methods": {
+      "type": "array",
+      "uniqueItems": true,
+      "allOf": [
+        { "contains": { "const": "build_request" } },
+        { "contains": { "const": "redact_request" } },
+        { "contains": { "const": "validate_response_contract" } },
+        { "contains": { "const": "extract_source_object_ids" } },
+        { "contains": { "const": "normalize" } },
+        { "contains": { "const": "map_license_rules" } },
+        { "contains": { "const": "extract_media_candidates" } },
+        { "contains": { "const": "detect_contract_drift" } }
+      ],
+      "items": { "enum": ["build_request", "redact_request", "validate_response_contract", "extract_source_object_ids", "normalize", "map_license_rules", "extract_media_candidates", "detect_contract_drift"] }
+    }
+  },
+  "additionalProperties": false
+}

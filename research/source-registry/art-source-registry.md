@@ -41,3 +41,7 @@
 ## 共同行动
 
 适配器保存请求（脱敏）、fetched_at、响应 hash、source object ID、字段级/对象级许可和条款核验日。Tier 3 发现的死亡、归属、直接影响和争议信息必须回到 Tier 1/2。任何可访问图片、IIIF manifest 或 URL 在 rights review 前均为 `unknown` 或 `development_only`。
+
+## MUSEUM-02 追加复核（2026-07-12）
+
+四个参考来源的官方 endpoint、许可、限速和字段语义已再次核验，并固化到 `pipeline-endpoint-registry.json`。许可语义与 2026-07-11 canonical rules 一致，因此未改写 `source-license-rules.json` 或其 snapshot hash。技术变化是 Getty ULAN 当前 per-record JSON 返回 compacted Linked Art JSON-LD object；adapter 0.1.1 显式支持该形态，同时继续阻断旧 XML/Web Service 无声 fallback。Wikidata、The Met 与 AIC 当前接口与既有许可分层一致；AIC `description` 的 CC BY 4.0 和其余 artwork data 的 CC0 仍必须按 exact fields 分开。

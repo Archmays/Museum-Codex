@@ -34,3 +34,12 @@
 每个公开 release 前复核实际使用来源的条款与对象权利；平时至少 12 个月一次。API 版本/字段、仓库归档、许可文本、访问错误或撤回通知立即触发。保存核验页面 URL、访问时间、必要的条款快照 hash 和 reviewer；不要把网页全文或不明授权文件提交 Git。
 
 本次 canonical 机器规则快照由 `minimum-source-set.json.license_rules_snapshot_hash` 固定；每条规则的稳定 ID 由来源、内容类别和 `applies_to` 选择器哈希派生。修改条款解释时必须同时更新核验笔记、规则文件、快照 hash、受影响 fixture，并重新运行两个治理验证器；Release 不接受自报的替代规则数组。
+
+## MUSEUM-02 adapter 入口复核（2026-07-12）
+
+- Wikidata：确认显式 `Special:EntityData/<QID>.json`、结构化数据 CC0、合规 User-Agent/限速与 `Retry-After`；不启用批量 WDQS discovery。
+- Getty ULAN：确认单记录 JSON、ODC-BY 1.0 与 XML Web Services 已停止；真实 probe 显示当前 JSON 为 compacted Linked Art object，adapter 因此升至 0.1.1。
+- The Met：确认 object endpoint、80 req/s 文档值、OA 字段；`primaryImage` 仍不是媒体权利证明。
+- AIC：确认 explicit `fields`、60/min、AIC User-Agent、`description` CC BY 4.0/其他 artwork data CC0；IIIF 与 image ID 不构成媒体许可。
+
+本轮没有许可含义变化，故 canonical license-rule snapshot 保持不变。endpoint/response contract 的当前状态由新增 `pipeline-endpoint-registry.json` 单独 hash；四个最小 recorded projections 同时记录自身 hash 与未提交 live raw hash，避免将 projection 冒充原始响应。

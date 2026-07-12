@@ -1,0 +1,1 @@
+{"case_id":"merge-deletes-loser","operation":"merge_record","loser_ids":["candidate:44444444-4444-5444-8444-444444444444"],"alias_mappings":[],"expected_error":"merge_loser_deleted"}

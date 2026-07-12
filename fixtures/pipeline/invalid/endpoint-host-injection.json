@@ -1,0 +1,1 @@
+{"case_id":"endpoint-host-injection","operation":"validate_request","source_id":"met_open_access","url":"https://collectionapi.metmuseum.org.evil.example/public/collection/v1/objects/1","expected_error":"endpoint_not_allowed"}

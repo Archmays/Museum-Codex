@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/normalized-candidate.schema.json",
+  "title": "Museum normalized source candidate",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "candidate_kind", "source_records", "fields", "field_provenance", "candidate_claims", "media_candidates", "conflicts", "contract_drift", "quarantine", "review_state", "observed_at", "publishable", "input_hash"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^candidate:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "normalized_candidate" },
+    "candidate_kind": { "enum": ["individual", "artwork", "anonymous", "workshop", "collective", "traditional_attribution", "conventional_identity", "corporate_body", "unknown"] },
+    "source_records": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "required": ["source_id", "source_object_id", "raw_snapshot_id"],
+        "properties": {
+          "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "source_object_id": { "type": "string", "minLength": 1 },
+          "raw_snapshot_id": { "type": "string", "pattern": "^snapshot:" },
+          "upstream_lineage_id": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "fields": { "type": "object" },
+    "field_provenance": { "type": "array", "items": { "$ref": "https://museum-codex.example/schemas/pipeline/field-provenance.schema.json" } },
+    "candidate_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "subject_candidate_id", "predicate", "value", "status", "inferred", "algorithm_or_rule_version", "source_tier", "license_rule_id", "content_class", "evidence", "source_assertion_metadata"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^candidate-claim:[0-9a-f-]{36}$" },
+          "subject_candidate_id": { "type": "string", "pattern": "^candidate:[0-9a-f-]{36}$" },
+          "predicate": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "value": true,
+          "status": { "const": "candidate" },
+          "inferred": { "type": "boolean" },
+          "algorithm_or_rule_version": { "type": ["string", "null"] },
+          "source_tier": { "type": "integer", "minimum": 1, "maximum": 4 },
+          "license_rule_id": { "type": "string", "minLength": 1 },
+          "content_class": { "enum": ["metadata", "data"] },
+          "evidence": {
+            "type": "object", "required": ["source_id", "source_object_id", "raw_snapshot_id", "raw_locator", "stance"],
+            "properties": {
+              "source_id": { "type": "string", "minLength": 1 },
+              "source_object_id": { "type": "string", "minLength": 1 },
+              "raw_snapshot_id": { "type": "string", "pattern": "^snapshot:" },
+              "raw_locator": { "type": "string", "minLength": 1 },
+              "stance": { "const": "supports" }
+            },
+            "additionalProperties": false
+          },
+          "source_assertion_metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "media_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["source_id", "source_object_id", "source_locator", "url_or_identifier", "rights_hints", "license_rule_id", "content_class", "rights_status", "development_only", "publish_status", "bytes_downloaded"],
+        "properties": {
+          "source_id": { "type": "string", "minLength": 1 },
+          "source_object_id": { "type": "string", "minLength": 1 },
+          "source_locator": { "type": "string", "minLength": 1 },
+          "url_or_identifier": { "type": "string", "minLength": 1 },
+          "rights_hints": { "type": "object" },
+          "license_rule_id": { "type": "string", "minLength": 1 },
+          "content_class": { "const": "media" },
+          "rights_status": { "const": "unknown" },
+          "development_only": { "const": true },
+          "publish_status": { "const": "blocked" },
+          "bytes_downloaded": { "const": false }
+        },
+        "additionalProperties": false
+      }
+    },
+    "conflicts": { "type": "array", "items": { "type": "object" } },
+    "contract_drift": { "type": "array", "items": { "type": "object", "required": ["code", "raw_locator"] } },
+    "quarantine": { "type": "array", "items": { "type": "object", "required": ["raw_locator", "reason"] } },
+    "review_state": { "const": "candidate" },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "publishable": { "const": false },
+    "input_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  },
+  "additionalProperties": false
+}

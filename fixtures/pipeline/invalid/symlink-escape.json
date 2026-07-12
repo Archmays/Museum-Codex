@@ -1,0 +1,1 @@
+{"case_id":"symlink-escape","operation":"symlink_path","path":"link/outside.json","expected_error":"symlink_escape"}

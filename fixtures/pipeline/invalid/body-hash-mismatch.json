@@ -1,0 +1,1 @@
+{"case_id":"body-hash-mismatch","operation":"snapshot_mutation","field":"body_sha256","value":"sha256:0000000000000000000000000000000000000000000000000000000000000000","expected_error":"body_hash_mismatch"}

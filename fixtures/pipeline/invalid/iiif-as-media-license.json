@@ -1,0 +1,1 @@
+{"case_id":"iiif-as-media-license","operation":"media_rights","source_id":"aic_api","hint":"iiif_url","rights_status":"cc0","expected_error":"iiif_not_rights_proof"}

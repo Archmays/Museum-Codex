@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/identity-proposal.schema.json",
+  "title": "Museum identity resolution proposal",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "candidate_ids", "proposed_status", "signals", "hard_conflicts", "source_independence", "rationale", "input_record_hashes", "proposal_version", "generated_at", "review_status", "auto_merge", "proposal_hash"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^identity-proposal:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "identity_proposal" },
+    "candidate_ids": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "type": "string", "pattern": "^candidate:[0-9a-f-]{36}$" } },
+    "proposed_status": { "enum": ["same", "distinct", "uncertain"] },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["signal_type", "strength", "values"],
+        "properties": {
+          "signal_type": { "enum": ["exact_external_id", "source_same_as", "name_or_alias", "script_or_transliteration", "life_dates", "place_period", "institution", "collection_clue"] },
+          "strength": { "enum": ["strong", "moderate", "weak"] },
+          "scheme": { "type": "string" },
+          "values": { "type": "array", "minItems": 1, "uniqueItems": true }
+        },
+        "additionalProperties": false
+      }
+    },
+    "hard_conflicts": { "type": "array", "items": { "type": "object", "required": ["conflict_type"] } },
+    "source_independence": {
+      "type": "object", "required": ["source_ids", "independent", "note"],
+      "properties": {
+        "source_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "independent": { "type": "boolean" },
+        "note": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "rationale": { "type": "string", "minLength": 1 },
+    "input_record_hashes": { "type": "object", "minProperties": 2, "maxProperties": 2, "propertyNames": { "pattern": "^candidate:" }, "additionalProperties": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" } },
+    "proposal_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "review_status": { "enum": ["pending", "approved", "rejected", "superseded"] },
+    "auto_merge": { "const": false },
+    "proposal_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "proposed_status": { "const": "same" } }, "required": ["proposed_status"] },
+      "then": { "properties": { "signals": { "contains": { "properties": { "strength": { "const": "strong" } }, "required": ["strength"] } }, "hard_conflicts": { "maxItems": 0 } } }
+    },
+    {
+      "if": { "properties": { "hard_conflicts": { "minItems": 1 } }, "required": ["hard_conflicts"] },
+      "then": { "properties": { "proposed_status": { "const": "distinct" } } }
+    }
+  ],
+  "additionalProperties": false
+}

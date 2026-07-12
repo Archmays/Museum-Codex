@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "id": "acquisition-request:1111111111111111",
+  "entity_type": "acquisition_request",
+  "source_id": "wikidata",
+  "adapter_version": "0.1.0",
+  "method": "GET",
+  "canonical_endpoint": "https://www.wikidata.org/wiki/Special:EntityData/Q1.json",
+  "object_id": "Q1",
+  "query_profile": "default",
+  "headers": {
+    "Accept": "application/json",
+    "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+  },
+  "credential_alias": null,
+  "live_explicit": true
+}

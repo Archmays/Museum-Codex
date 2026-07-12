@@ -1,0 +1,1 @@
+{"case_id":"source-rule-missing","operation":"license_rule","source_id":"aic_api","rule_id":"aic_api:data:missing","expected_error":"source_rule_missing"}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "met_open_access",
+  "adapter_version": "0.1.0",
+  "contract_version": "1.0.0",
+  "captured_at": "2026-07-12T11:03:09.278264Z",
+  "official_endpoint": "https://collectionapi.metmuseum.org/public/collection/v1/objects/1",
+  "sanitized_request": {
+    "method": "GET",
+    "canonical_endpoint": "https://collectionapi.metmuseum.org/public/collection/v1/objects/1",
+    "query_profile": "default",
+    "credential_alias": null,
+    "headers": {
+      "Accept": "application/json",
+      "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+    }
+  },
+  "content_type": "application/json",
+  "body_bytes": 303,
+  "body_sha256": "sha256:743ff401e755478c5b06f89abda08664c8b29eca91256a3c0172cdc42626b1c9",
+  "fixture_projection": true,
+  "projection_note": "Minimal deterministic projection of the live object response; the required object contract and negative media-rights signal are retained.",
+  "original_live_snapshot_id": "snapshot:met_open_access:20260712t110309.278264z:a3fb36ebf214",
+  "original_live_body_bytes": 1665,
+  "original_live_body_sha256": "sha256:a3fb36ebf2149f568cb8fe74f4feb439dc9519fcb6e8ab8c4d2cadeea249354d",
+  "source_license_rule_ids": [
+    "met_open_access:data:8924a3c83dc7",
+    "met_open_access:media:1669574588c7"
+  ],
+  "terms_url": "https://www.metmuseum.org/hubs/open-access",
+  "documentation_url": "https://metmuseum.github.io/",
+  "third_party_notice_path": "THIRD_PARTY_NOTICE.md",
+  "media_bytes_included": false,
+  "curatorial_selection": false
+}

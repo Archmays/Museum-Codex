@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "id": "adapter:wikidata",
+  "entity_type": "adapter_contract",
+  "source_id": "wikidata",
+  "adapter_name": "Wikidata explicit entity adapter",
+  "adapter_version": "0.1.0",
+  "contract_version": "1.0.0",
+  "allowed_hosts": ["www.wikidata.org"],
+  "supported_record_types": ["wikidata_item"],
+  "credential_requirements": { "mode": "none", "aliases": [] },
+  "network_default_enabled": false,
+  "methods": ["build_request", "redact_request", "validate_response_contract", "extract_source_object_ids", "normalize", "map_license_rules", "extract_media_candidates", "detect_contract_drift"]
+}

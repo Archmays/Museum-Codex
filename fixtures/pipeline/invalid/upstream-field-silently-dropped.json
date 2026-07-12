@@ -1,0 +1,1 @@
+{"case_id":"upstream-field-silently-dropped","operation":"contract_drift","unknown_field":"new_upstream_field","quarantine":[],"expected_error":"unknown_field_not_quarantined"}

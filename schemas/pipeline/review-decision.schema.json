@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/review-decision.schema.json",
+  "title": "Museum local review decision",
+  "type": "object",
+  "required": ["schema_version", "decision_schema_version", "id", "entity_type", "target_id", "decision_type", "reviewer", "reviewer_role", "decided_at", "rationale", "input_hashes", "supersedes", "status", "status_history"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "decision_schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^review-decision:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "review_decision" },
+    "target_id": { "type": "string", "minLength": 1 },
+    "decision_type": { "enum": ["approve_same", "approve_distinct", "defer_uncertain", "reject_bad_source_record", "request_more_evidence", "approve_field_mapping", "reject_field_mapping"] },
+    "reviewer": { "type": "string", "minLength": 1 },
+    "reviewer_role": { "enum": ["identity_reviewer", "discipline_reviewer", "rights_reviewer", "release_manager", "normalizer"] },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "rationale": { "type": "string", "minLength": 1 },
+    "input_hashes": { "type": "object", "minProperties": 1, "propertyNames": { "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" }, "additionalProperties": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" } },
+    "survivor_candidate_id": { "type": "string", "pattern": "^candidate:" },
+    "supersedes": { "type": ["string", "null"], "pattern": "^review-decision:" },
+    "status": { "enum": ["active", "superseded", "stale", "revoked"] },
+    "status_history": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+        "properties": {
+          "from": { "enum": [null, "active", "superseded", "stale"] },
+          "to": { "enum": ["active", "superseded", "stale", "revoked"] },
+          "changed_at": { "type": "string", "format": "date-time" },
+          "changed_by": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    { "if": { "properties": { "decision_type": { "const": "approve_same" } }, "required": ["decision_type"] }, "then": { "required": ["survivor_candidate_id"], "properties": { "target_id": { "pattern": "^identity-proposal:" }, "reviewer_role": { "enum": ["identity_reviewer", "discipline_reviewer"] } } } },
+    { "if": { "properties": { "decision_type": { "enum": ["approve_distinct", "defer_uncertain"] } }, "required": ["decision_type"] }, "then": { "properties": { "target_id": { "pattern": "^identity-proposal:" }, "reviewer_role": { "enum": ["identity_reviewer", "discipline_reviewer"] } } } },
+    { "if": { "properties": { "decision_type": { "const": "reject_bad_source_record" } }, "required": ["decision_type"] }, "then": { "properties": { "target_id": { "pattern": "^candidate:" }, "reviewer_role": { "enum": ["discipline_reviewer", "rights_reviewer"] } } } },
+    { "if": { "properties": { "decision_type": { "const": "request_more_evidence" } }, "required": ["decision_type"] }, "then": { "properties": { "reviewer_role": { "enum": ["identity_reviewer", "discipline_reviewer", "rights_reviewer"] } } } },
+    { "if": { "properties": { "decision_type": { "enum": ["approve_field_mapping", "reject_field_mapping"] } }, "required": ["decision_type"] }, "then": { "properties": { "target_id": { "pattern": "^field-provenance:" }, "reviewer_role": { "enum": ["normalizer", "discipline_reviewer"] } } } }
+  ],
+  "additionalProperties": false
+}

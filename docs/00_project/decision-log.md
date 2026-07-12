@@ -19,5 +19,9 @@
 | D-0015 | 2026-07-11 | accepted | Canonical Source 同时锁定来源矩阵身份、官方 host 与规则快照 | 仅锁许可规则仍允许镜像站或伪域名借用权威来源身份 | 来源迁移官方域名或合并机构身份时 |
 | D-0016 | 2026-07-11 | accepted | 第三方 notices 按 release 内实际使用的 rule 集合精确生成 | 单一代表性许可不能表达字段、对象和媒体之间的差异 | notices 迁移到外部签名清单时 |
 | D-0017 | 2026-07-11 | accepted | GitHub 仓库与 Pages 均公开，MUSEUM-01 正式启用 Pages workflow 发布 | 用户明确选择 `repository=public`、`pages=public` 并要求本阶段完成真实公开部署 | 用户重新决定站点可见性或托管方式 |
+| D-0018 | 2026-07-12 | accepted | MUSEUM-02 使用独立、离线优先的构建期 Python 包与 CLI，不建立后端 | 保持静态运行时、复现性与最小供应链 | 明确授权远程审核或标准库无法安全覆盖新协议 |
+| D-0019 | 2026-07-12 | accepted | Candidate 使用 source namespace UUIDv5，跨来源只生成人审 proposal，merge 保留全部 loser alias 且可逆 | 名称无关、fixture 可复现、错误身份可撤销 | MUSEUM-03 真实审核证明 signal/alias 模型不足 |
+| D-0020 | 2026-07-12 | accepted | CI 使用带双 hash/notice 的最小 recorded projections；真实 probe 仅显式 live 且 raw 不提交 | 同时满足离线稳定与当前接口证据 | 来源提供签名测试 endpoint 或 fixture 需独立仓库 |
+| D-0021 | 2026-07-12 | accepted | Normalized field、Claim 和 media candidate 均绑定 canonical source rule/content class；AIC 使用 exact-field selector | 阻断 metadata/media 继承和字段级许可绕过 | 引入书面授权覆盖或复杂组合许可 |
 
 状态使用 `proposed / accepted / superseded / rejected`。被替代决策保留原行并链接后继 ID，不覆写历史。

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "snapshot:wikidata:20260712t000000.000000z:000000000000",
+  "entity_type": "raw_snapshot_manifest",
+  "source_id": "wikidata",
+  "event_type": "acquired",
+  "acquisition_request_id": "acquisition-request:1111111111111111",
+  "sanitized_request": {
+    "method": "GET",
+    "canonical_endpoint": "https://www.wikidata.org/wiki/Special:EntityData/Q1.json",
+    "headers": {
+      "Accept": "application/json",
+      "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+    },
+    "query_profile": "default",
+    "credential_alias": null
+  },
+  "http_method": "GET",
+  "canonical_endpoint": "https://www.wikidata.org/wiki/Special:EntityData/Q1.json",
+  "query_profile": "default",
+  "credential_alias": null,
+  "fetched_at": "2026-07-12T00:00:00Z",
+  "adapter_name": "Wikidata explicit entity adapter",
+  "adapter_version": "0.1.0",
+  "contract_version": "1.0.0",
+  "source_registry_snapshot_hash": "sha256:de65a18fa3a6adcd3216b5c5e1f4426a112c35680b6899507d839e07a1cda7f7",
+  "license_rules_snapshot_hash": "sha256:19d10386405abf971c5712e955f60c08d2bd43e6f8060a29035033ff3c33ada2",
+  "status_code": 200,
+  "response_headers": {
+    "content-type": "application/json"
+  },
+  "redirect_chain": [],
+  "final_url": "https://www.wikidata.org/wiki/Special:EntityData/Q1.json",
+  "content_type": "application/json",
+  "body_bytes": 0,
+  "body_sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "response_body_path": "response.body",
+  "reused_body_snapshot_id": null,
+  "source_object_ids": ["Q1"],
+  "retry_count": 0,
+  "warnings": [],
+  "errors": [],
+  "terms_verified_at": "2026-07-12",
+  "run_id": "pipeline-run:11111111-1111-5111-8111-111111111111"
+}

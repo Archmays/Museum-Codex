@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "id": "pipeline-run:77777777-7777-5777-8777-777777777777",
+  "entity_type": "pipeline_run",
+  "started_at": "2026-07-12T00:00:00Z",
+  "finished_at": "2026-07-12T00:00:01Z",
+  "status": "completed",
+  "network_mode": "offline",
+  "source_registry_snapshot_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "license_rules_snapshot_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "adapter_runs": [],
+  "inputs": [],
+  "outputs": [],
+  "commands": ["fixture-validation"],
+  "errors": [],
+  "candidate_data_publicly_exposed": false,
+  "media_downloaded": false,
+  "public_artifact_scanned": true
+}

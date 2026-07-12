@@ -1,0 +1,1 @@
+{"case_id":"aic-fields-undeclared","operation":"aic_fields","fields":["id","title"],"expected_error":"aic_fields_invalid"}

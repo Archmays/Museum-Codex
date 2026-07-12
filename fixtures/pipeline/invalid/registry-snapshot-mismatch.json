@@ -1,0 +1,1 @@
+{"case_id":"registry-snapshot-mismatch","operation":"snapshot_mutation","field":"source_registry_snapshot_hash","value":"sha256:0000000000000000000000000000000000000000000000000000000000000000","expected_error":"source_registry_snapshot_hash_mismatch"}

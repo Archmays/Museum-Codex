@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "wikidata",
+  "adapter_version": "0.1.0",
+  "contract_version": "1.0.0",
+  "captured_at": "2026-07-12T11:09:48.631212Z",
+  "official_endpoint": "https://www.wikidata.org/wiki/Special:EntityData/Q42.json",
+  "sanitized_request": {
+    "method": "GET",
+    "canonical_endpoint": "https://www.wikidata.org/wiki/Special:EntityData/Q42.json",
+    "query_profile": "default",
+    "credential_alias": null,
+    "headers": {
+      "Accept": "application/json",
+      "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+    }
+  },
+  "content_type": "application/json",
+  "body_bytes": 1300,
+  "body_sha256": "sha256:7f13e523fddf5edb611cef417450661735044e058ef1544656d576fca5e34463",
+  "fixture_projection": true,
+  "projection_note": "Minimal deterministic projection of the live entity response; mapped values are retained while unrelated statements, language variants, and nested reference details are pruned without changing presence flags.",
+  "original_live_snapshot_id": "snapshot:wikidata:20260712t110948.631212z:83e0be1eea4f",
+  "original_live_body_bytes": 309251,
+  "original_live_body_sha256": "sha256:83e0be1eea4f43a9577d06d9845a25596814d1ea269ff24ac65d44b966d15fe6",
+  "source_license_rule_ids": [
+    "wikidata:data:dab022172e7e",
+    "wikidata:media:919f53149376"
+  ],
+  "terms_url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
+  "documentation_url": "https://www.wikidata.org/wiki/Wikidata:Data_access",
+  "third_party_notice_path": "THIRD_PARTY_NOTICE.md",
+  "media_bytes_included": false,
+  "curatorial_selection": false
+}

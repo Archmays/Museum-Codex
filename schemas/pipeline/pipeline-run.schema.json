@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/pipeline-run.schema.json",
+  "title": "Museum pipeline run manifest",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "started_at", "finished_at", "status", "network_mode", "source_registry_snapshot_hash", "license_rules_snapshot_hash", "adapter_runs", "inputs", "outputs", "commands", "errors", "candidate_data_publicly_exposed", "media_downloaded", "public_artifact_scanned"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^pipeline-run:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "pipeline_run" },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": ["string", "null"], "format": "date-time" },
+    "status": { "enum": ["running", "completed", "partial", "failed"] },
+    "network_mode": { "enum": ["offline", "live_explicit"] },
+    "source_registry_snapshot_hash": { "$ref": "#/$defs/hash" },
+    "license_rules_snapshot_hash": { "$ref": "#/$defs/hash" },
+    "adapter_runs": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object", "required": ["source_id", "adapter_version", "contract_version", "snapshot_ids", "status"],
+        "properties": {
+          "source_id": { "type": "string", "minLength": 1 },
+          "adapter_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+          "contract_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+          "snapshot_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^snapshot:" } },
+          "status": { "enum": ["pass", "drift", "failed", "not_run"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "inputs": { "type": "array", "items": { "$ref": "#/$defs/artifact" } },
+    "outputs": { "type": "array", "items": { "$ref": "#/$defs/artifact" } },
+    "commands": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "errors": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "candidate_data_publicly_exposed": { "const": false },
+    "media_downloaded": { "const": false },
+    "public_artifact_scanned": { "type": "boolean" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" },
+    "artifact": {
+      "type": "object", "required": ["path", "sha256", "bytes", "record_ids"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/hash" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "record_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

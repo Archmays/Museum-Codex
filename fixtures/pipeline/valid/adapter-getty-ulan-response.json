@@ -1,0 +1,14 @@
+[
+  {
+    "@id": "https://vocab.getty.edu/ulan/500115493",
+    "@type": "http://vocab.getty.edu/ontology#PersonConcept",
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [{ "@value": "Technical ULAN probe", "@language": "en" }],
+    "http://www.w3.org/2004/02/skos/core#altLabel": [{ "@value": "ULAN contract probe", "@language": "en" }],
+    "http://vocab.getty.edu/ontology#displayDate": [{ "@value": "1900-1980", "@language": "en" }],
+    "http://www.w3.org/2004/02/skos/core#exactMatch": [{ "@id": "https://www.wikidata.org/entity/Q42" }]
+  },
+  {
+    "@id": "https://vocab.getty.edu/ulan/500115493-agent",
+    "@type": "http://xmlns.com/foaf/0.1/Person"
+  }
+]

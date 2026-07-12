@@ -1,0 +1,1 @@
+{"case_id":"redirect-unapproved-host","operation":"redirect","source_id":"wikidata","location":"https://evil.example/entity/Q42","expected_error":"endpoint_not_allowed"}

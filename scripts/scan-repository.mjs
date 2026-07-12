@@ -11,7 +11,7 @@ const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclud
 const largeFiles = [];
 const secretFindings = [];
 const maxBytes = 5 * 1024 * 1024;
-const textExtensions = new Set([".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".svg", ".ts", ".tsx", ".txt", ".yml", ".yaml"]);
+const textExtensions = new Set([".body", ".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".svg", ".ts", ".tsx", ".txt", ".yml", ".yaml"]);
 const secretPatterns = [
   ["GitHub token", /gh[pousr]_[A-Za-z0-9]{20,}/],
   ["OpenAI-style key", /sk-(?:proj-)?[A-Za-z0-9_-]{20,}/],

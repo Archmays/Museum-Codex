@@ -1,0 +1,1 @@
+{"case_id":"retry-loop-unbounded","operation":"retry_limit","statuses":[500,500,500,500,500,500],"expected_error":"retry_limit_exceeded"}

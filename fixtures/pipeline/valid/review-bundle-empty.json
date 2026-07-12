@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "id": "review-bundle:11111111-1111-5111-8111-111111111111",
+  "entity_type": "review_bundle",
+  "candidate_records": [],
+  "field_provenance": [],
+  "conflicts": [],
+  "identity_proposals": [],
+  "rights_warnings": [],
+  "adapter_drift": [],
+  "required_reviewer_roles": [
+    "discipline_reviewer",
+    "identity_reviewer"
+  ],
+  "input_files": [],
+  "exact_input_hashes": {},
+  "generated_at": "1970-01-01T00:00:00Z",
+  "bundle_hash": "sha256:b5cf9a149a2f8641bf278a39d28e1bd92905709b4fc2469d5185efae83c99644",
+  "candidate_data_publicly_exposed": false
+}

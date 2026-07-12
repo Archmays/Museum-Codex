@@ -42,8 +42,17 @@ jobs:
       - name: Validate physical release fixture
         run: python scripts/validate_governance_foundation.py --release-root fixtures/release-bundles/valid/minimal
 
+      - name: Verify offline pipeline source and adapter registries
+        run: python -m museum_pipeline verify-sources --json
+
+      - name: Validate pipeline schemas, fixtures, and recorded contracts
+        run: python scripts/validate_pipeline_foundation.py
+
+      - name: Scan static public inputs for candidate data
+        run: python scripts/scan_public_artifact_for_candidate_data.py public
+
       - name: Run Python tests
-        run: python -m unittest discover -s tests -q
+        run: python scripts/run_offline_python_tests.py
 
       - name: Set up Node.js
         # actions/setup-node v6.4.0
@@ -69,6 +78,9 @@ jobs:
 
       - name: Check built asset paths and external runtime dependencies
         run: npm run check:build
+
+      - name: Scan production artifact for raw, candidate, review, and media leakage
+        run: python scripts/scan_public_artifact_for_candidate_data.py dist
 
       - name: Scan repository for credentials and large files
         run: npm run check:safety

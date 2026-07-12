@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/raw-snapshot-manifest.schema.json",
+  "title": "Museum immutable raw snapshot manifest",
+  "type": "object",
+  "required": ["schema_version", "snapshot_id", "entity_type", "source_id", "event_type", "acquisition_request_id", "sanitized_request", "http_method", "canonical_endpoint", "query_profile", "credential_alias", "fetched_at", "adapter_name", "adapter_version", "contract_version", "source_registry_snapshot_hash", "license_rules_snapshot_hash", "status_code", "response_headers", "redirect_chain", "final_url", "content_type", "body_bytes", "body_sha256", "response_body_path", "reused_body_snapshot_id", "source_object_ids", "retry_count", "warnings", "errors", "terms_verified_at", "run_id"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "snapshot_id": { "type": "string", "pattern": "^snapshot:[a-z][a-z0-9_]*:[0-9]{8}t[0-9]{6}\\.[0-9]{6}z:[a-f0-9]{12}$" },
+    "entity_type": { "const": "raw_snapshot_manifest" },
+    "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "event_type": { "enum": ["acquired", "duplicate_content", "not_modified"] },
+    "acquisition_request_id": { "type": "string", "pattern": "^acquisition-request:[a-f0-9]{16}$" },
+    "sanitized_request": {
+      "type": "object",
+      "required": ["method", "canonical_endpoint", "headers", "query_profile", "credential_alias"],
+      "properties": {
+        "method": { "const": "GET" },
+        "canonical_endpoint": { "type": "string", "format": "uri", "pattern": "^https://", "not": { "pattern": "(?i)(?:api[_-]?key|token|authorization|cookie|secret)=" } },
+        "headers": { "type": "object", "propertyNames": { "not": { "pattern": "(?i)^(authorization|cookie|x-api-key)$" } }, "additionalProperties": { "type": "string" } },
+        "query_profile": { "type": "string", "minLength": 1 },
+        "credential_alias": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "http_method": { "const": "GET" },
+    "canonical_endpoint": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "query_profile": { "type": "string", "minLength": 1 },
+    "credential_alias": { "type": ["string", "null"] },
+    "fetched_at": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "adapter_name": { "type": "string", "minLength": 1 },
+    "adapter_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "contract_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "source_registry_snapshot_hash": { "$ref": "#/$defs/hash" },
+    "license_rules_snapshot_hash": { "$ref": "#/$defs/hash" },
+    "status_code": { "type": "integer", "minimum": 100, "maximum": 599 },
+    "response_headers": { "type": "object", "propertyNames": { "pattern": "^[a-z0-9-]+$" }, "additionalProperties": { "type": "string" } },
+    "redirect_chain": { "type": "array", "maxItems": 3, "items": { "type": "string", "format": "uri", "pattern": "^https://" } },
+    "final_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "content_type": { "type": "string", "pattern": "^(?:[a-z0-9.+-]+/[a-z0-9.+-]+)?$" },
+    "body_bytes": { "type": "integer", "minimum": 0, "maximum": 5242880 },
+    "body_sha256": { "$ref": "#/$defs/hash" },
+    "response_body_path": { "oneOf": [{ "$ref": "#/$defs/path" }, { "type": "null" }] },
+    "reused_body_snapshot_id": { "type": ["string", "null"], "pattern": "^snapshot:" },
+    "source_object_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Za-z0-9._-]+$" } },
+    "retry_count": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "warnings": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "errors": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "terms_verified_at": { "type": "string", "format": "date" },
+    "run_id": { "type": "string", "pattern": "^pipeline-run:[0-9a-f-]{36}$" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "event_type": { "const": "acquired" } }, "required": ["event_type"] },
+      "then": { "properties": { "response_body_path": { "$ref": "#/$defs/path" }, "reused_body_snapshot_id": { "type": "null" } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "enum": ["duplicate_content", "not_modified"] } }, "required": ["event_type"] },
+      "then": { "properties": { "response_body_path": { "type": "null" }, "reused_body_snapshot_id": { "type": "string", "pattern": "^snapshot:" } } }
+    }
+  ],
+  "additionalProperties": false
+}

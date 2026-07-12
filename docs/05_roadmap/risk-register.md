@@ -23,5 +23,10 @@
 | R-017 | 输入通过基础 schema 或自报许可规则绕过分馆/来源约束 | M | H | canonical schema dispatch、稳定 rule ID、canonical 快照 hash | 任一类型/branch/ID/规则不匹配即阻断 | data + rights reviewer |
 | R-018 | Manifest hash 正确但夹带未登记文件、空 notices 或缺媒体字节 | M | H | 精确文件集合、artifact schema/ID 内容闭包、自托管字节 hash | 物理包任一集合/内容不闭合即拒绝 | release manager |
 | R-019 | 镜像站、同形域名或字段查询借用权威来源身份与开放许可 | M | H | hashed registry identity、HTTPS 精确 host、endpoint + query-field matcher、notice rule 并集对账 | 身份、字段集合或实际 rule coverage 任一不一致即拒绝 | data + rights reviewer |
+| R-020 | duplicate/304 snapshot 引用损坏、错源或循环 body，导致表面 hash 正确但不可重放 | L | H | 引用链同源解析、物理 bytes/hash、cycle、snapshot ID suffix 和损坏 body 不复用测试 | 任一引用无法闭合即阻断 normalize/run | data maintainer |
+| R-021 | Review decision 在 candidate/proposal 改变后被自动套用 | M | H | bundle exact input hashes、physical validation、stale status、不创建 merge | 任一 hash 不同即 stale，要求重新审核 | review lead |
+| R-022 | raw/candidate/review/recorded fixture 或技术探针进入 Pages | L | H | Git ignore、public/dist scanner、workflow 仅上传 dist、线上标识符 smoke | 扫描命中即停止 build/deploy，撤回污染 artifact | release manager |
+| R-023 | 固定 adapter 被路径/query/redirect/DNS 绕过形成 SSRF 或 secret 泄漏 | L | H | HTTPS exact allowlist、object pattern、public IP check、每跳复核、无 Cookie、脱敏与有界 transport | 任一 host/path/query/地址异常即拒绝并保留安全错误码 | security reviewer |
+| R-024 | recorded projection 与当前 live response 分叉却被当作实时通过 | M | H | 双 hash、抓取日、adapter version、真实 live probe、drift fail closed、projection notice | contract/shape 不同先升级 adapter/fixture，阶段状态如实 partial/blocked | data maintainer |
 
 风险在每个阶段入口和 release 前复核；关闭风险需 Evidence，不因“暂未发生”删除。

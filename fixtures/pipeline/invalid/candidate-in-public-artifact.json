@@ -1,0 +1,1 @@
+{"case_id":"candidate-in-public-artifact","operation":"public_leak","path":"dist/assets/candidates.json","content":"{\"id\":\"candidate:22222222-2222-5222-8222-222222222222\"}","expected_error":"candidate_data_publicly_exposed"}

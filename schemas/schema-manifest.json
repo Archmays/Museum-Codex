@@ -101,6 +101,81 @@
       "depends_on": ["schemas/common/relationship.schema.json"]
     },
     {
+      "path": "schemas/pipeline/adapter-contract.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/adapter-contract.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/acquisition-request.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/acquisition-request.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/raw-snapshot-manifest.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/raw-snapshot-manifest.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/field-provenance.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/field-provenance.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/normalized-candidate.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/normalized-candidate.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/pipeline/field-provenance.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/identity-proposal.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/identity-proposal.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/merge-record.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/merge-record.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/review-decision.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/review-decision.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/pipeline-run.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/pipeline-run.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/pipeline/review-bundle.schema.json",
+      "id": "https://museum-codex.example/schemas/pipeline/review-bundle.schema.json",
+      "version": "1.0.0",
+      "branch": "pipeline",
+      "depends_on": [
+        "schemas/common/entity.schema.json",
+        "schemas/pipeline/field-provenance.schema.json",
+        "schemas/pipeline/normalized-candidate.schema.json",
+        "schemas/pipeline/identity-proposal.schema.json"
+      ]
+    },
+    {
       "path": "schemas/biology/taxon.schema.json",
       "id": "https://museum-codex.example/schemas/biology/taxon.schema.json",
       "version": "1.0.0",

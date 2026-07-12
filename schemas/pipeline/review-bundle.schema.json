@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/review-bundle.schema.json",
+  "title": "Museum local review bundle",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "candidate_records", "field_provenance", "conflicts", "identity_proposals", "rights_warnings", "adapter_drift", "required_reviewer_roles", "input_files", "exact_input_hashes", "generated_at", "bundle_hash", "candidate_data_publicly_exposed"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^review-bundle:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "review_bundle" },
+    "candidate_records": { "type": "array", "items": { "$ref": "https://museum-codex.example/schemas/pipeline/normalized-candidate.schema.json" } },
+    "field_provenance": { "type": "array", "items": { "$ref": "https://museum-codex.example/schemas/pipeline/field-provenance.schema.json" } },
+    "conflicts": { "type": "array", "items": { "type": "object" } },
+    "identity_proposals": { "type": "array", "items": { "$ref": "https://museum-codex.example/schemas/pipeline/identity-proposal.schema.json" } },
+    "rights_warnings": { "type": "array", "items": { "type": "object", "required": ["candidate_id", "source_locator", "code"] } },
+    "adapter_drift": { "type": "array", "items": { "type": "object", "required": ["candidate_id", "code", "raw_locator"] } },
+    "required_reviewer_roles": { "type": "array", "uniqueItems": true, "items": { "enum": ["identity_reviewer", "discipline_reviewer", "rights_reviewer", "release_manager"] } },
+    "input_files": { "type": "array", "items": { "$ref": "#/$defs/artifact" } },
+    "exact_input_hashes": { "type": "object", "propertyNames": { "$ref": "#/$defs/path" }, "additionalProperties": { "$ref": "#/$defs/hash" } },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "bundle_hash": { "$ref": "#/$defs/hash" },
+    "candidate_data_publicly_exposed": { "const": false }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" },
+    "artifact": {
+      "type": "object", "required": ["path", "sha256", "bytes"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "$ref": "#/$defs/hash" },
+        "bytes": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

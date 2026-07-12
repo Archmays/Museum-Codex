@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/pipeline/field-provenance.schema.json",
+  "title": "Museum normalized field provenance",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "candidate_id", "field_pointer", "source_id", "source_object_id", "raw_snapshot_id", "raw_locator", "raw_value", "normalized_value", "transform_id", "transform_version", "transform_warnings", "source_tier", "license_rule_id", "content_class", "language", "script", "observed_at", "inferred", "review_state"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^field-provenance:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "field_provenance" },
+    "candidate_id": { "type": "string", "pattern": "^candidate:[0-9a-f-]{36}$" },
+    "field_pointer": { "type": "string", "pattern": "^/" },
+    "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "source_object_id": { "type": "string", "minLength": 1 },
+    "raw_snapshot_id": { "type": "string", "pattern": "^snapshot:" },
+    "raw_locator": { "type": "string", "minLength": 1 },
+    "raw_value": true,
+    "normalized_value": true,
+    "transform_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "transform_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "transform_warnings": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "source_tier": { "type": "integer", "minimum": 1, "maximum": 4 },
+    "license_rule_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$" },
+    "content_class": { "enum": ["metadata", "data", "media"] },
+    "language": { "type": ["string", "null"], "pattern": "^(und|[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*)$" },
+    "script": { "type": ["string", "null"] },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "inferred": { "type": "boolean" },
+    "review_state": { "enum": ["candidate", "approved", "rejected", "superseded"] }
+  },
+  "additionalProperties": false
+}

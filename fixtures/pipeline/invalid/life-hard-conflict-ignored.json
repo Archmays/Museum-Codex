@@ -1,0 +1,1 @@
+{"case_id":"life-hard-conflict-ignored","operation":"identity_proposal","proposed_status":"same","signals":[{"signal_type":"exact_external_id","strength":"strong","values":["same"]}],"hard_conflicts":[{"conflict_type":"birth_date_conflict"}],"expected_error":"hard_conflict_ignored"}

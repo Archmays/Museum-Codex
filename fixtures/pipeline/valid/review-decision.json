@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "decision_schema_version": "1.0.0",
+  "id": "review-decision:66666666-6666-5666-8666-666666666666",
+  "entity_type": "review_decision",
+  "target_id": "identity-proposal:33333333-3333-5333-8333-333333333333",
+  "decision_type": "approve_same",
+  "reviewer": "fixture-reviewer",
+  "reviewer_role": "identity_reviewer",
+  "decided_at": "2026-07-12T00:00:00Z",
+  "rationale": "Exact authority identifier reviewed for fixture behavior.",
+  "input_hashes": { "candidate.json": "sha256:0000000000000000000000000000000000000000000000000000000000000000" },
+  "survivor_candidate_id": "candidate:22222222-2222-5222-8222-222222222222",
+  "supersedes": null,
+  "status": "active",
+  "status_history": [{ "from": null, "to": "active", "changed_at": "2026-07-12T00:00:00Z", "changed_by": "fixture-reviewer", "role": "identity_reviewer", "reason": "Fixture decision created." }]
+}

@@ -1,0 +1,1 @@
+{"case_id":"unknown-adapter-version","operation":"snapshot_mutation","field":"adapter_version","value":"99.0.0","expected_error":"unknown_adapter_version"}

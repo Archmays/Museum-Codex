@@ -1,0 +1,1 @@
+{"case_id":"name-only-auto-merge","operation":"identity_proposal","proposed_status":"same","signals":[{"signal_type":"name_or_alias","strength":"weak","values":["same name"]}],"hard_conflicts":[],"expected_error":"name_only_merge"}
