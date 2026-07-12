@@ -6,7 +6,7 @@ export function HomePage() {
   return (
     <main id="main-content" tabIndex={-1}>
       <section className="hero" aria-labelledby="home-title">
-        <div className="hero-index" aria-hidden="true"><span>六馆</span><i /></div>
+        <div className="hero-index" aria-hidden="true"><span>{t.home.heroIndex}</span><i /></div>
         <div className="hero-copy reveal-group">
           <p className="eyebrow">{t.home.eyebrow}</p>
           <h1 id="home-title">{t.home.title}</h1>
@@ -35,6 +35,7 @@ export function HomePage() {
           <HallPortal hall="music" />
           <HallPortal hall="games" />
           <HallPortal hall="civilization" />
+          <HallPortal hall="arms" />
           <HallPortal hall="science" />
         </div>
       </section>
@@ -42,7 +43,7 @@ export function HomePage() {
       <section className="coda" aria-labelledby="coda-title">
         <span className="coda-line" aria-hidden="true" />
         <div>
-          <p className="eyebrow">01 — 06</p>
+          <p className="eyebrow">01 — 07</p>
           <h2 id="coda-title">{t.home.codaTitle}</h2>
         </div>
         <p>{t.home.codaText}</p>

@@ -28,5 +28,7 @@
 | R-022 | raw/candidate/review/recorded fixture 或技术探针进入 Pages | L | H | Git ignore、public/dist scanner、workflow 仅上传 dist、线上标识符 smoke | 扫描命中即停止 build/deploy，撤回污染 artifact | release manager |
 | R-023 | 固定 adapter 被路径/query/redirect/DNS 绕过形成 SSRF 或 secret 泄漏 | L | H | HTTPS exact allowlist、object pattern、public IP check、每跳复核、无 Cookie、脱敏与有界 transport | 任一 host/path/query/地址异常即拒绝并保留安全错误码 | security reviewer |
 | R-024 | recorded projection 与当前 live response 分叉却被当作实时通过 | M | H | 双 hash、抓取日、adapter version、真实 live probe、drift fail closed、projection notice | contract/shape 不同先升级 adapter/fixture，阶段状态如实 partial/blocked | data maintainer |
+| R-025 | 武器馆内容被操作化、采购化、伤害优化或暴力娱乐化 | M | H | 独立安全政策、敏感内容分级、公开 artifact 文本扫描、学科/安全/年龄审核 | 命中制造/改装/操作/采购/战术或美化表达即阻断并退回内容审查 | safety + content reviewer |
+| R-026 | `branch_id=arms` 借 common entity fallback 绕过尚未实现的分馆 schema | M | H | common enum 与 concrete dispatch 分离、明确 unimplemented 错误、expected-invalid fixture、physical closure 回归 | 任一 arms 实体进入数据入口即 fail-closed；不得通过 common schema 发布 | data + release reviewer |
 
 风险在每个阶段入口和 release 前复核；关闭风险需 Evidence，不因“暂未发生”删除。

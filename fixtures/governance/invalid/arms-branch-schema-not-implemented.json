@@ -1,0 +1,16 @@
+{
+  "fixture_id": "invalid-arms-branch-schema-not-implemented",
+  "expected_valid": false,
+  "expected_error_codes": ["arms_branch_schema_not_implemented"],
+  "mode": "foundation",
+  "target_schema": "schemas/common/entity.schema.json",
+  "data": {
+    "schema_version": "1.1.0",
+    "id": "arms_artifact:fixture-unimplemented",
+    "entity_type": "arms_artifact",
+    "branch_id": "arms",
+    "labels": { "en": "Unimplemented arms branch probe" },
+    "lifecycle_status": "candidate",
+    "data_version": "0.1.0"
+  }
+}

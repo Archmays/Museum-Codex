@@ -17,7 +17,7 @@
     "id": { "$ref": "#/$defs/stableId" },
     "entity_type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
     "branch_id": {
-      "enum": ["global", "art", "biology", "music", "games", "civilization", "science"]
+      "enum": ["global", "art", "biology", "music", "games", "civilization", "arms", "science"]
     },
     "labels": { "$ref": "#/$defs/localizedText" },
     "aliases": {

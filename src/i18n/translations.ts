@@ -23,11 +23,12 @@ const zh = {
     rightsShort: "当前公开版本为项目门户与技术预览，尚未发布第三方馆藏资产。",
   },
   home: {
+    heroIndex: "七馆",
     eyebrow: "Museum of Connected Knowledge",
     title: "让知识的连接，成为参观的入口",
-    intro: "从作品、生命、声音、游戏与文明之间的联系开始探索。",
-    lead: "这里不是一座把答案排成目录的仓库。六个分馆将从不同方向出发，让证据、时间与观察彼此照亮。",
-    sectionLabel: "六个分馆",
+    intro: "从作品、生命、声音、规则、文明、科学与器物之间的联系开始探索。",
+    lead: "这里不是一座把答案排成目录的仓库。七个分馆将从不同方向出发，让证据、时间与观察彼此照亮。",
+    sectionLabel: "七个分馆",
     sectionTitle: "选择一扇门，开始你的参观",
     sectionIntro: "美术馆首先开放序厅；其余展馆正在整理展陈线索。",
     halls: {
@@ -60,6 +61,12 @@ const zh = {
         english: "Museum of Civilizations",
         description: "追随城市、文字与时间的层叠，理解文明如何被记录与重述。",
         status: "正在整理展陈线索",
+      },
+      arms: {
+        name: "武器博物馆",
+        english: "Museum of Arms & Armor",
+        description: "从兵器、甲胄、材料与制度出发，理解技术、权力和冲突如何共同塑造历史。",
+        status: "正在整理器物与历史线索",
       },
       science: {
         name: "科学馆",
@@ -151,11 +158,12 @@ const en = {
     rightsShort: "This public edition is a portal and technical preview. No third-party collection assets are published.",
   },
   home: {
+    heroIndex: "Seven",
     eyebrow: "Museum of Connected Knowledge",
     title: "Let connections become the way in",
-    intro: "Begin with connections among art, life, sound, play, and civilization.",
-    lead: "This is not a storehouse of answers arranged in a list. Six museums will approach knowledge from different directions, allowing evidence, time, and observation to illuminate one another.",
-    sectionLabel: "Six museums",
+    intro: "Begin with connections among art, life, sound, play, civilizations, inquiry, and material culture.",
+    lead: "This is not a storehouse of answers arranged in a list. Seven museums will approach knowledge from different directions, allowing evidence, time, and observation to illuminate one another.",
+    sectionLabel: "Seven museums",
     sectionTitle: "Choose a doorway and begin your visit",
     sectionIntro: "The Art Museum foyer is open first; the other museums are preparing their exhibition threads.",
     halls: {
@@ -188,6 +196,12 @@ const en = {
         english: "文明馆",
         description: "Trace layers of cities, writing, and time to see how civilizations are recorded and retold.",
         status: "Exhibition threads in preparation",
+      },
+      arms: {
+        name: "Museum of Arms & Armor",
+        english: "武器博物馆",
+        description: "Explore how arms, armor, materials, and institutions reveal the entanglement of technology, power, and conflict.",
+        status: "Objects and historical threads in preparation",
       },
       science: {
         name: "Museum of Inquiry",

@@ -1,4 +1,4 @@
-export type HallId = "art" | "biology" | "music" | "games" | "civilization" | "science";
+export type HallId = "art" | "biology" | "music" | "games" | "civilization" | "arms" | "science";
 
 export function HallMotif({ hall }: { hall: HallId }) {
   return (
@@ -37,6 +37,15 @@ export function HallMotif({ hall }: { hall: HallId }) {
           <span className="city-layer city-layer-one" />
           <span className="city-layer city-layer-two" />
           <span className="city-sun" />
+        </>
+      )}
+      {hall === "arms" && (
+        <>
+          <span className="arms-guard" />
+          <span className="arms-layer arms-layer-one" />
+          <span className="arms-layer arms-layer-two" />
+          <span className="arms-era-ticks" />
+          <span className="arms-catalog-dot" />
         </>
       )}
       {hall === "science" && (

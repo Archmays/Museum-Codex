@@ -190,6 +190,12 @@ class LeakageTests(unittest.TestCase):
             (root / "image.jpg").write_bytes(b"not media")
             self.assertIn("third_party_media_in_public_artifact", {item["code"] for item in scan_public_artifact(root)})
 
+    def test_operational_arms_tutorial_is_detected_in_public_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "index.html").write_text("武器装填教程", encoding="utf-8")
+            self.assertIn("operational_arms_content", {item["code"] for item in scan_public_artifact(root)})
+
     def test_workflow_contains_no_live_acquisition(self) -> None:
         workflow = (ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
         self.assertNotIn("museum_pipeline acquire", workflow)

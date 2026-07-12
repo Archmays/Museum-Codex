@@ -5,7 +5,7 @@
     {
       "path": "schemas/common/entity.schema.json",
       "id": "https://museum-codex.example/schemas/common/entity.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "common",
       "depends_on": []
     },

@@ -164,7 +164,9 @@ def schema_version_key(path: str) -> str:
     return path[len(prefix):-len(suffix)] if path.startswith(prefix) and path.endswith(suffix) else path
 
 
-def expected_target_schema(data: dict[str, Any]) -> str:
+def expected_target_schema(data: dict[str, Any]) -> str | None:
+    if data.get("branch_id") == "arms":
+        return None
     entity_type = data.get("entity_type")
     if entity_type == "relationship":
         record_id = str(data.get("id", ""))
@@ -179,6 +181,14 @@ def expected_target_schema(data: dict[str, Any]) -> str:
 
 def target_schema_binding_issues(target_schema: str, data: dict[str, Any], prefix: str) -> list[ValidationIssue]:
     expected = expected_target_schema(data)
+    if expected is None:
+        return [
+            ValidationIssue(
+                "arms_branch_schema_not_implemented",
+                "Branch 'arms' has no concrete entity schema; fallback to the common entity schema is forbidden until MUSEUM-ARMS-00 implements the branch contract",
+                f"{prefix}.target_schema",
+            )
+        ]
     if target_schema == expected:
         return []
     return [

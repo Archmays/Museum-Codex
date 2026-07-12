@@ -26,7 +26,7 @@ flowchart LR
 ## 五层产品架构
 
 1. **门户层**：分馆入口、全局检索、时间/地点导航、语言、无障碍偏好、未来收藏接口。
-2. **分馆层**：`art`、`biology`、`music`、`games`、`civilization`、`science`；分馆拥有学科 schema 与展陈规则。
+2. **分馆层**：`art`、`biology`、`music`、`games`、`civilization`、`arms`、`science`；分馆拥有学科 schema 与展陈规则。`arms` 当前仅登记为门户可见的筹备分馆，尚无 concrete schema，任何实际 arms 数据均由 canonical dispatch 明确阻断。
 3. **知识层**：Entity、Relationship、Claim、Evidence、Source、Place、Time Span、Media Asset、Exhibition、Exploration Path、Interactive Module、Dataset Release。
 4. **展陈层**：关系视图、时间轴、地图、详情、数字展厅、AB 路径、对比、专题、儿童/深度导览与策展任务。它只读发布数据，不产生事实。
 5. **治理层**：来源登记、采集、标准化、去重/消歧、证据绑定、人工审核、权利检查、快照、发布、废弃与撤回。

@@ -582,7 +582,9 @@ svg {
 
 .hall-portal:nth-child(1) { grid-column: span 7; min-height: 31rem; }
 .hall-portal:nth-child(2) { grid-column: span 5; min-height: 31rem; }
-.hall-portal:nth-child(n + 3) { grid-column: span 4; }
+.hall-portal:nth-child(n + 3):nth-child(-n + 5) { grid-column: span 4; }
+.hall-portal:nth-child(6),
+.hall-portal:nth-child(7) { grid-column: span 6; }
 
 .hall-portal::after {
   content: "";
@@ -765,6 +767,15 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
 .city-layer-one { top: 24%; height: 24%; clip-path: polygon(0 100%, 0 78%, 9% 78%, 9% 42%, 18% 42%, 18% 68%, 30% 68%, 30% 17%, 37% 17%, 37% 74%, 52% 74%, 52% 35%, 61% 35%, 61% 67%, 73% 67%, 73% 8%, 80% 8%, 80% 72%, 100% 72%, 100% 100%); background: rgba(195, 151, 100, 0.16); }
 .city-layer-two { top: 18%; height: 40%; border-color: rgba(195, 151, 100, 0.13); transform: translateY(1.4rem); }
 .city-sun { position: absolute; top: 13%; right: 23%; width: 3.5rem; height: 3.5rem; border: 1px solid rgba(235, 190, 126, 0.25); border-radius: 50%; }
+
+/* Arms and armor: a protective arc, forged layers, chronology ticks, and a catalog point */
+.arms-guard { position: absolute; top: 8%; right: 9%; width: 62%; height: 48%; border: 1px solid rgba(194, 174, 137, 0.34); border-radius: 50% 50% 42% 42% / 68% 68% 35% 35%; box-shadow: inset 0 -1.8rem 3rem rgba(138, 119, 87, 0.08); }
+.arms-guard::before { content: ""; position: absolute; inset: 13% 16% 18%; border: 1px solid rgba(194, 174, 137, 0.17); border-bottom-color: transparent; border-radius: 50% 50% 35% 35% / 70% 70% 30% 30%; }
+.arms-layer { position: absolute; right: 13%; width: 54%; height: 1px; background: linear-gradient(90deg, transparent, rgba(194, 174, 137, 0.4), transparent); }
+.arms-layer-one { top: 28%; rotate: -2deg; }
+.arms-layer-two { top: 36%; rotate: 2deg; }
+.arms-era-ticks { position: absolute; top: 13%; right: 16%; width: 47%; height: 34%; opacity: 0.55; background: repeating-linear-gradient(90deg, transparent 0 12%, rgba(194, 174, 137, 0.38) 12% calc(12% + 1px), transparent calc(12% + 1px) 16%); mask-image: linear-gradient(to bottom, black 0 18%, transparent 18% 100%); }
+.arms-catalog-dot { position: absolute; top: 21%; right: 34%; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #d9c39a; box-shadow: 0 0 0 0.45rem rgba(217, 195, 154, 0.08), 0 0 1.2rem rgba(217, 195, 154, 0.24); }
 
 /* Science: lens, rays, and an observed point */
 .science-lens { position: absolute; top: 12%; right: 13%; width: 42%; aspect-ratio: 1; border: 1px solid rgba(142, 190, 218, 0.32); border-radius: 50%; box-shadow: inset 0 0 2.5rem rgba(142, 190, 218, 0.07); }
@@ -1034,6 +1045,7 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   .hero-orbit { width: 18rem; }
   .hall-portal:nth-child(1), .hall-portal:nth-child(2) { grid-column: span 6; }
   .hall-portal:nth-child(n + 3) { grid-column: span 6; }
+  .hall-portal:last-child { grid-column: 4 / span 6; }
   .section-heading { grid-template-columns: 0.5fr 1.2fr 0.8fr; }
 }
 

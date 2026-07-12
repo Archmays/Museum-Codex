@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed when pipeline candidates, raw data, review data, or media reach a public artifact."""
+"""Fail closed when non-public data, media, or operational arms content reaches a public artifact."""
 
 from __future__ import annotations
 
@@ -27,6 +27,12 @@ FORBIDDEN_CONTENT = {
         r"A Sunday on La Grande Jatte|James Barton Longacre|Georges Seurat",
         re.IGNORECASE,
     ),
+    "operational_arms_content": re.compile(
+        r"制造(?:武器|弹药|爆炸物)|(?:武器|弹药)(?:改装|装填|发射|瞄准|拆装|采购|购买)(?:教程|指南|步骤|方法)?|"
+        r"how\s+to\s+(?:build|manufacture|modify|load|fire|aim|buy)\s+(?:a\s+)?(?:weapon|firearm|ammunition)|"
+        r"(?:weapon|firearm|ammunition)\s+(?:build|manufacturing|modification|loading|firing|aiming|purchase)\s+(?:steps|instructions|guide)",
+        re.IGNORECASE,
+    ),
 }
 
 
@@ -52,7 +58,8 @@ def scan_public_artifact(root: Path) -> list[dict[str, str]]:
             continue
         for code, pattern in FORBIDDEN_CONTENT.items():
             if pattern.search(text):
-                findings.append({"code": "candidate_data_publicly_exposed" if code not in {"wikidata_qid", "ulan_id"} else code, "path": relative})
+                public_code = code if code in {"wikidata_qid", "ulan_id", "operational_arms_content"} else "candidate_data_publicly_exposed"
+                findings.append({"code": public_code, "path": relative})
     unique = {(item["code"], item["path"]): item for item in findings}
     return [unique[key] for key in sorted(unique)]
 

@@ -1,16 +1,28 @@
 import { expect, test, type Page } from "@playwright/test";
+import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-const qaDir = path.resolve("docs/qa/museum-01");
+const qaDir = path.resolve("docs/qa/museum-02a");
+mkdirSync(qaDir, { recursive: true });
 
 function observePage(page: Page) {
   const consoleErrors: string[] = [];
   const failedRequests: string[] = [];
+  const httpErrors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") consoleErrors.push(message.text());
   });
   page.on("requestfailed", (request) => failedRequests.push(`${request.method()} ${request.url()}`));
-  return { consoleErrors, failedRequests };
+  page.on("response", (response) => {
+    if (response.status() >= 400) httpErrors.push(`${response.status()} ${response.url()}`);
+  });
+  return { consoleErrors, failedRequests, httpErrors };
+}
+
+function expectCleanPage(observed: ReturnType<typeof observePage>) {
+  expect(observed.consoleErrors).toEqual([]);
+  expect(observed.failedRequests).toEqual([]);
+  expect(observed.httpErrors).toEqual([]);
 }
 
 async function expectNoHorizontalOverflow(page: Page) {
@@ -21,13 +33,38 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 }
 
-test("desktop home, language, keyboard, and resources", async ({ page }) => {
+async function expectOnlyFirstPartyResources(page: Page) {
+  const result = await page.evaluate(() => {
+    const pageOrigin = window.location.origin;
+    const resourceOrigins = performance.getEntriesByType("resource").map((entry) => new URL(entry.name).origin);
+    return {
+      allFirstParty: resourceOrigins.every((origin) => origin === pageOrigin),
+      mediaElements: document.querySelectorAll("img, video, audio, source, object, embed").length,
+    };
+  });
+  expect(result.allFirstParty).toBe(true);
+  expect(result.mediaElements).toBe(0);
+}
+
+async function expectSevenHallHome(page: Page) {
+  await expect(page.locator(".hall-grid > .hall-portal")).toHaveCount(7);
+  const arms = page.getByRole("article", { name: /武器博物馆，正在整理器物与历史线索/ });
+  await expect(arms).toBeVisible();
+  await expect(arms.getByRole("heading", { name: "武器博物馆" })).toBeVisible();
+  await expect(arms.locator("a")).toHaveCount(0);
+  await expect(arms.locator(".hall-motif-arms")).toHaveAttribute("aria-hidden", "true");
+  await expect(page.locator(".hall-grid > a")).toHaveCount(1);
+  await expect(page.locator(".hall-grid > a")).toHaveAttribute("href", "#/art");
+}
+
+test("desktop seven-hall home, language, keyboard, and resources", async ({ page }) => {
   const observed = observePage(page);
   await page.setViewportSize({ width: 1440, height: 900 });
   const response = await page.goto("./#/", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
   await expect(page).toHaveTitle(/博物馆|Museum/);
   await expect(page.getByRole("heading", { name: "让知识的连接，成为参观的入口" })).toBeVisible();
+  await expectSevenHallHome(page);
   await expectNoHorizontalOverflow(page);
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "跳到主要内容" })).toBeFocused();
@@ -53,30 +90,51 @@ test("desktop home, language, keyboard, and resources", async ({ page }) => {
   }
   await page.getByRole("button", { name: "EN" }).click();
   await expect(page.getByRole("heading", { name: "Let connections become the way in" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Museum of Arms & Armor" })).toBeVisible();
+  await expect(page.getByText("Objects and historical threads in preparation")).toBeVisible();
   await page.getByRole("button", { name: "中" }).click();
+  await expectOnlyFirstPartyResources(page);
   await page.screenshot({ path: path.join(qaDir, "desktop-home-1440x900.png"), fullPage: true });
-  expect(observed.consoleErrors).toEqual([]);
-  expect(observed.failedRequests).toEqual([]);
+  expectCleanPage(observed);
 });
 
-test("mobile home at 390 by 844", async ({ page }) => {
+test("seven-card home reflows at every required responsive size", async ({ page }) => {
   const observed = observePage(page);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("./#/", { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: "让知识的连接，成为参观的入口" })).toBeVisible();
-  await expectNoHorizontalOverflow(page);
-  await page.getByRole("button", { name: "低带宽" }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
-  await expect(page.locator(".hero-orbit")).toBeHidden();
-  await expect(page.locator(".constellation")).toBeHidden();
-  await page.getByRole("button", { name: "低带宽" }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "full");
-  await page.screenshot({ path: path.join(qaDir, "mobile-home-390x844.png"), fullPage: true });
-  expect(observed.consoleErrors).toEqual([]);
-  expect(observed.failedRequests).toEqual([]);
+  const viewports = [
+    { width: 1024, height: 768 },
+    { width: 768, height: 1024 },
+    { width: 390, height: 844 },
+    { width: 360, height: 800 },
+  ];
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto("./#/", { waitUntil: "networkidle" });
+    await expectSevenHallHome(page);
+    await expectNoHorizontalOverflow(page);
+    if (viewport.width > 760) {
+      const centerDelta = await page.locator(".hall-grid > .hall-portal:last-child").evaluate((lastCard) => {
+        const card = lastCard.getBoundingClientRect();
+        const grid = lastCard.parentElement?.getBoundingClientRect();
+        return grid ? Math.abs((card.left + card.right) / 2 - (grid.left + grid.right) / 2) : Number.POSITIVE_INFINITY;
+      });
+      expect(centerDelta).toBeLessThanOrEqual(1);
+    }
+    if (viewport.width === 390) {
+      await page.getByRole("button", { name: "低带宽" }).click();
+      await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
+      await expect(page.locator(".hero-orbit")).toBeHidden();
+      await expect(page.locator(".constellation")).toBeHidden();
+      await page.getByRole("button", { name: "低带宽" }).click();
+      await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "full");
+      await page.screenshot({ path: path.join(qaDir, "mobile-home-390x844.png"), fullPage: true });
+    }
+    await expectOnlyFirstPartyResources(page);
+  }
+  expectCleanPage(observed);
 });
 
-test("art foyer survives refresh and 1024 layout", async ({ page }) => {
+test("Art foyer remains available while the Arms route fails closed", async ({ page }) => {
   const observed = observePage(page);
   await page.setViewportSize({ width: 1024, height: 768 });
   await page.goto("./#/art", { waitUntil: "networkidle" });
@@ -84,12 +142,15 @@ test("art foyer survives refresh and 1024 layout", async ({ page }) => {
   await page.reload({ waitUntil: "networkidle" });
   await expect(page.getByRole("heading", { name: "在一件作品前，打开许多条路" })).toBeVisible();
   await expectNoHorizontalOverflow(page);
-  await page.screenshot({ path: path.join(qaDir, "art-foyer-1024x768.png"), fullPage: true });
-  expect(observed.consoleErrors).toEqual([]);
-  expect(observed.failedRequests).toEqual([]);
+
+  await page.goto("./#/arms", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "这里还没有展厅" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "返回博物馆首页" })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  expectCleanPage(observed);
 });
 
-test("about, rights, reduced motion, and 360 layout", async ({ page }) => {
+test("About, Accessibility, reduced motion, forced colors, and 360 layout regress cleanly", async ({ page }) => {
   const observed = observePage(page);
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "none" });
   await page.setViewportSize({ width: 360, height: 800 });
@@ -105,13 +166,16 @@ test("about, rights, reduced motion, and 360 layout", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });
   expect(await page.evaluate(() => matchMedia("(forced-colors: active)").matches)).toBe(true);
   await expect(page.locator(".ambient-field")).toBeHidden();
+
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "none" });
-  await page.screenshot({ path: path.join(qaDir, "about-rights-360x800.png"), fullPage: true });
-  expect(observed.consoleErrors).toEqual([]);
-  expect(observed.failedRequests).toEqual([]);
+  await page.goto("./#/accessibility", { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "一座能被更多方式参观的博物馆" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "开启低带宽模式" })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  expectCleanPage(observed);
 });
 
-test("basic museum introduction remains readable without JavaScript", async ({ browser }, testInfo) => {
+test("seven-museum introduction remains readable without JavaScript", async ({ browser }, testInfo) => {
   const baseURL = testInfo.project.use.baseURL;
   expect(baseURL).toBeTruthy();
   const context = await browser.newContext({
@@ -120,10 +184,14 @@ test("basic museum introduction remains readable without JavaScript", async ({ b
     viewport: { width: 1024, height: 768 },
   });
   const page = await context.newPage();
+  const observed = observePage(page);
   const response = await page.goto("./#/", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
   const fallback = page.locator(".noscript-fallback");
   await expect(fallback.getByRole("heading", { name: "博物馆 · Museum" })).toBeVisible();
+  await expect(fallback.getByText(/七个分馆/)).toBeVisible();
+  await expect(fallback.getByText(/Seven museums/)).toBeVisible();
+  await expectNoHorizontalOverflow(page);
   const contrast = await fallback.evaluate((element) => {
     const parse = (value: string) => (value.match(/\d+/g) ?? []).slice(0, 3).map(Number);
     const luminance = (rgb: number[]) => {
@@ -138,5 +206,6 @@ test("basic museum introduction remains readable without JavaScript", async ({ b
     return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
   });
   expect(contrast).toBeGreaterThanOrEqual(4.5);
+  expectCleanPage(observed);
   await context.close();
 });

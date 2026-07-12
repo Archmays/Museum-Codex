@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import re
 import shutil
 import subprocess
 import sys
@@ -14,6 +15,7 @@ from scripts.validate_governance_foundation import (
     ROOT,
     canonical_source_identities,
     canonical_release_path,
+    expected_target_schema,
     fixture_paths,
     load_schema_environment,
     media_publish_issues,
@@ -22,7 +24,9 @@ from scripts.validate_governance_foundation import (
     record_is_publishable,
     release_bundle_issues,
     release_content_hash,
+    schema_issues,
     source_publish_issues,
+    target_schema_binding_issues,
     validate_release_directory,
     validate_fixture,
 )
@@ -73,6 +77,45 @@ class GovernanceFoundationTests(unittest.TestCase):
         self.assertEqual(
             ["schemas/common/relationship.schema.json"],
             entries["schemas/art/artist-relationship.schema.json"]["depends_on"],
+        )
+        self.assertEqual("1.1.0", entries["schemas/common/entity.schema.json"]["version"])
+
+    def test_open_decisions_register_exactly_ten_unresolved_items(self) -> None:
+        text = (ROOT / "docs" / "05_roadmap" / "open-decisions.md").read_text(encoding="utf-8")
+        unresolved = text.split("## 已关闭事项", 1)[0]
+        ids = re.findall(r"^\| (OD-\d{3}) \|", unresolved, flags=re.MULTILINE)
+        self.assertEqual(
+            ["OD-001", "OD-002", "OD-004", "OD-005", "OD-006", "OD-007", "OD-008", "OD-009", "OD-010", "OD-011"],
+            ids,
+        )
+
+    def test_arms_branch_is_registered_but_concrete_dispatch_fails_closed(self) -> None:
+        record = {
+            "schema_version": "1.1.0",
+            "id": "arms_artifact:fixture-unimplemented",
+            "entity_type": "arms_artifact",
+            "branch_id": "arms",
+            "labels": {"en": "Unimplemented arms branch probe"},
+            "lifecycle_status": "candidate",
+            "data_version": "0.1.0",
+        }
+        self.assertEqual(
+            [],
+            schema_issues("schemas/common/entity.schema.json", record, self.environment, "$.data"),
+        )
+        self.assertIsNone(expected_target_schema(record))
+        issues = target_schema_binding_issues("schemas/common/entity.schema.json", record, "$.data")
+        self.assertEqual(["arms_branch_schema_not_implemented"], [issue.code for issue in issues])
+        self.assertIn("fallback to the common entity schema is forbidden", issues[0].message)
+
+    def test_existing_art_and_biology_dispatch_is_unchanged(self) -> None:
+        self.assertEqual(
+            "schemas/art/artist-relationship.schema.json",
+            expected_target_schema({"entity_type": "relationship", "branch_id": "art", "id": "art-rel:probe"}),
+        )
+        self.assertEqual(
+            "schemas/biology/ecosystem-interaction.schema.json",
+            expected_target_schema({"entity_type": "relationship", "branch_id": "biology", "id": "bio-rel:probe"}),
         )
 
     def test_all_valid_fixtures_pass(self) -> None:
@@ -612,7 +655,7 @@ class GovernanceFoundationTests(unittest.TestCase):
                 {
                     "target_schema": "schemas/common/entity.schema.json",
                     "data": {
-                        "schema_version": "1.0.0",
+                        "schema_version": "1.1.0",
                         "id": "concept:notice-probe",
                         "entity_type": "concept",
                         "branch_id": "global",
@@ -637,7 +680,7 @@ class GovernanceFoundationTests(unittest.TestCase):
             records_path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             manifest_path = target / "manifest.json"
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            manifest["schema_versions"]["common/entity"] = "1.0.0"
+            manifest["schema_versions"]["common/entity"] = "1.1.0"
             manifest["included_entity_ids"] = ["concept:notice-probe"]
             records_item = next(item for item in manifest["manifest_files"] if item["path"] == "records.json")
             records_item["record_ids"].append("concept:notice-probe")

@@ -1,6 +1,6 @@
 # Schema contract
 
-All schemas use JSON Schema Draft 2020-12. The current foundation set is version `1.0.0`; data records also carry `schema_version`, while each dataset release records the exact schema versions it consumed.
+All schemas use JSON Schema Draft 2020-12. Schemas began at `1.0.0`; the compatible `arms` branch-ID addition advances `common/entity` to `1.1.0` while unaffected schemas remain `1.0.0`. Data records carry `schema_version`, and each dataset release records the exact schema versions it consumed.
 
 `schema-manifest.json` is the machine-readable dependency registry. Dependencies are direct: branch schemas extend a common schema; transitive dependencies are resolved through the referenced schema. A breaking meaning, required-field, or type change increments the schema major version. Compatible optional additions increment minor; clarifications and non-breaking corrections increment patch.
 

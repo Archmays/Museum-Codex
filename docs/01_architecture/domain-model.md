@@ -35,6 +35,12 @@
 
 观测记录、物种分布 Claim、稳定栖息地和保护状态是不同对象：单次观测不能自动升级为长期分布；保护状态必须绑定评估机构、版本、范围与日期。生态关系具有参与者角色、生命周期/季节、地点和证据范围；不压缩成单一线性食物链。
 
+## 武器博物馆扩展（规划中）
+
+`arms` 是合法分馆 ID，但 `MUSEUM-02A` 只登记知识模型 outline，不实现 concrete branch schema。候选模型覆盖器物与甲胄、材料与工艺、来源与收藏、保存、冲突/法律/仪式语境及人类影响；不包含现实使用、制造、改装、采购、杀伤优化或战术字段。
+
+在 `MUSEUM-ARMS-00` 完成前，任何 `branch_id=arms` 的实际实体不得借 common entity schema 成为 publishable/published。canonical dispatch 必须返回“分馆 schema 尚未实现”的明确错误；不能把通用 schema 当作兼容回退。
+
 ## 聚合与引用
 
 - Entity 是身份聚合根；可删除展示投影但不删除已引用 canonical ID。
