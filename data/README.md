@@ -6,9 +6,12 @@ The public site must consume only immutable files produced under `data/releases/
 |---|---|---|---|
 | `raw/` | timestamped byte-for-byte source snapshots plus request metadata | ignored; store externally or with an approved large-file strategy | append-only |
 | `intermediate/` | normalized, deduplicated, unresolved and conflict-preserving work products | ignored | rebuildable |
+| `review/` | local candidate/preflight/scenario/decision packages before user approval | ignored; never copied to public artifacts | append new bundle versions; stale inputs require rebuild |
 | `reviewed/` | human-reviewed candidate records and review logs | versioned when introduced | changes require review history |
 | `releases/` | manifest-led static JSON/GeoJSON and derived search indexes | versioned | immutable; replace by new version |
 
 Each release manifest records source snapshot timestamps, content hashes, schema versions, build version, included IDs, withdrawals, and predecessor. Secrets and downloaded media never belong in these directories.
+
+MUSEUM-03A selection bundles live under `review/curation/museum-03a/`. Their manifest closes exact paths, content roles, bytes, SHA-256, candidate/artwork/lead/scenario references, source snapshots and the pending decision hash. These are pre-release review packages, not the later `reviewed/` or `releases/` zones.
 
 A future physical release directory is closed: its actual files must equal `manifest.json` plus every declared manifest path. It carries hashed source-rule and license-decision snapshots, parsed third-party notices and attribution manifests, and exactly one byte file for every `self_hosted` media record. Media bytes are admitted only when their SHA-256 equals the record `content_hash`; undeclared files and broken parent/derivation chains fail the build.

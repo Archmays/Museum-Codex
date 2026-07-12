@@ -30,5 +30,9 @@
 | R-024 | recorded projection 与当前 live response 分叉却被当作实时通过 | M | H | 双 hash、抓取日、adapter version、真实 live probe、drift fail closed、projection notice | contract/shape 不同先升级 adapter/fixture，阶段状态如实 partial/blocked | data maintainer |
 | R-025 | 武器馆内容被操作化、采购化、伤害优化或暴力娱乐化 | M | H | 独立安全政策、敏感内容分级、公开 artifact 文本扫描、学科/安全/年龄审核 | 命中制造/改装/操作/采购/战术或美化表达即阻断并退回内容审查 | safety + content reviewer |
 | R-026 | `branch_id=arms` 借 common entity fallback 绕过尚未实现的分馆 schema | M | H | common enum 与 concrete dispatch 分离、明确 unimplemented 错误、expected-invalid fixture、physical closure 回归 | 任一 arms 实体进入数据入口即 fail-closed；不得通过 common schema 发布 | data + release reviewer |
+| R-027 | 未确认候选姓名、外部 ID、作品、leads 或 decision package 进入 Git/Pages | M | H | ignored review/raw、tracked-path scan、bundle-label public/dist scan、Pages 仅上传 dist | 任一命中即阻断提交/构建/部署并重建无污染 artifact | release manager |
+| R-028 | 西方机构开放数据和高分图可得性主导合格池与 Recommended | H | H | 42+ 宽池、无 adapter 自动排除、small-quota 理由、scenario 偏差矩阵、替换规则 | 组合目标失衡则回到宽池；不以低质量来源补数、不把 media count 当价值 | curator + discipline reviewer |
+| R-029 | preflight 的 PD/CC0/IIIF/metadata-only 状态被误写成发布批准 | M | H | `*_candidate` 状态、metadata/media 分离、object evidence、decision pending、无 approve CLI | 出现 publishable/approved/released 或许可继承即 schema/semantic fail | rights reviewer |
+| R-030 | 权威来源记录内部生卒/身份字段冲突却被规范投影静默覆盖 | M | H | raw bytes、结构化字段与 biography/馆藏交叉核验、冲突候选退出合格池、adapter gap | 任一高风险冲突进入 hard gate 即退回 research queue，保留双方证据 | identity reviewer + data maintainer |
 
 风险在每个阶段入口和 release 前复核；关闭风险需 Evidence，不因“暂未发生”删除。

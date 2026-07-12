@@ -13,6 +13,7 @@ The canonical `$id` values are identifiers, not live network dependencies. Valid
 | release artifacts | `source-rules-snapshot`, `license-decision-registry`, `third-party-notices`, `attribution-manifest` | validate the actual hashed files shipped beside release data |
 | art | `artist`, `artwork`, `artist-relationship` | extend `entity` or `relationship` |
 | pipeline | `adapter-contract`, `acquisition-request`, `raw-snapshot-manifest`, `field-provenance`, `normalized-candidate`, `identity-proposal`, `merge-record`, `review-decision`, `pipeline-run`, `review-bundle` | build-time acquisition and local review only; never public release data |
+| curation | `curation-common`, `artist-candidate-preflight`, `artwork-rights-preflight`, `relationship-lead`, `selection-scenario`, `selection-decision`, `selection-review-bundle` | MUSEUM-03A research/decision contracts only; real records stay in ignored `data/review` |
 | biology | `taxon`, `ecosystem-interaction` | extend `entity` or `relationship` |
 
 Run `python scripts/validate_governance_foundation.py` after any schema or manifest change. Update the corresponding positive/negative fixtures and tests in the same change.

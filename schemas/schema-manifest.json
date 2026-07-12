@@ -101,6 +101,55 @@
       "depends_on": ["schemas/common/relationship.schema.json"]
     },
     {
+      "path": "schemas/curation/curation-common.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/curation-common.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/curation/artist-candidate-preflight.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/artist-candidate-preflight.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/curation/artwork-rights-preflight.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/artwork-rights-preflight.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/curation/relationship-lead.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/relationship-lead.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/curation/selection-scenario.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/selection-scenario.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/curation/selection-decision.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/selection-decision.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/curation/selection-review-bundle.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/selection-review-bundle.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
       "path": "schemas/pipeline/adapter-contract.schema.json",
       "id": "https://museum-codex.example/schemas/pipeline/adapter-contract.schema.json",
       "version": "1.0.0",

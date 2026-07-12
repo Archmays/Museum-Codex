@@ -33,6 +33,7 @@ Thumbs.db
 # Acquired and generated data that must not be committed by default
 data/raw/**
 data/intermediate/**
+data/review/**
 data/staging/**
 data/downloads/**
 media/third-party/**

@@ -8,7 +8,9 @@
 | MUSEUM-01 | 项目骨架、门户占位、发布链 | M00 pass、明确授权、Pages/许可决策或私有预览边界 | React/TS/Vite 最小壳、路由/i18n/a11y 基线、Actions 门禁、非正式占位门户 | 正式美术馆交互或内容 | build/test/Pages dry run、无事实伪内容、回滚演练 | 启用 Pages 前必须确认 | 推送；是否启用 Pages单独确认 |
 | MUSEUM-02 | 美术馆数据导入管线 | common/art schema、已选来源与凭据策略 | adapters、raw snapshot、normalize/identity/review workbench 契约 | 正式 12 人名单、批量媒体发布 | contract tests、冲突/merge/许可字段可追踪 | 数据映射和来源范围 | 推送代码；不公开候选数据 |
 | MUSEUM-02A | 登记第七分馆与安全门户契约 | M02 pass、用户确认 `arms` 命名与范围 | 武器馆章程/安全政策/模型 outline、common branch enum、不可点击七馆门户 | M03、arms 数据采集、adapter、媒体、正式路由 | schema/dispatch、治理、前端、Pages 与 A–E 审查通过 | 本阶段已由用户授权；后续阶段仍需另行授权 | 推送并部署无第三方媒体的门户修订 |
-| MUSEUM-03 | 首批艺术家/作品/关系证据库 | selection framework、M02 pipeline、权利审核能力 | 经确认的候选组合、约 48 作品与 50–80 关系的审核数据 | 用算法补关系、权利不明图像、冒充代表性 | 死亡/身份/证据/权利门禁、偏差审查 | 用户确认 12 人与公开范围 | 推送获准数据；媒体按许可 |
+| MUSEUM-03A | 候选池、权利预审、组合方案与用户确认包 | selection framework、M02 pipeline、权利预审能力 | ignored 宽池/合格池/对象预审/关系 leads、三套 12 人 scenario、Recommended、备选与 pending decision template | 正式 12 人批次、正式关系、媒体下载、候选数据进入 Git/Pages、关闭 OD-004/007 | schemas/fixtures/tests、物理 bundle、偏差/A–E/泄漏/Pages 回归通过 | 用户尚未确认；完成后停止 | 推送通用合同与非姓名化报告；不推候选数据 |
+| MUSEUM-03B | 用户批准后的首批艺术家/作品/关系证据库 | M03A pass、用户明确选择 12 人与公开/媒体范围 | 经批准的约 48 作品与 50–80 关系审核数据及内部 release | 未批准候选、算法补关系、权利不明媒体、把 preflight 当发布批准 | Claim–Evidence–Source、身份/死亡/归属/关系/逐资产权利与 release 门禁 | 必须；12 人与 OD-007 公开范围 | 只推送用户批准且通过门禁的数据；媒体按对象许可 |
+| MUSEUM-03 | 首批艺术家/作品/关系证据库（高层总目标） | M03A 用户确认后进入 M03B | 经确认的候选组合、约 48 作品与 50–80 关系的审核数据 | 不绕过 M03A/M03B 人工边界 | M03B 正式批次通过全部门禁 | 用户确认 12 人与公开范围 | 按 M03B 获准范围执行 |
 | MUSEUM-04 | 艺术星海 | M03 publishable graph、性能预算 | 局部图、筛选、证据解释、列表替代 | 全图首屏、地位编码、默认算法边 | 目标设备/键盘/读屏/语义测试通过 | 视觉与学习体验验收 | 推送并部署获准版本 |
 | MUSEUM-05 | 数字展厅与作品互动 | 作品 release、IIIF/衍生图、互动适用性 | 艺术家展厅、详情、选定互动 | 每作全互动、默认 3D、生成替代作品 | 内容/权利/a11y/性能逐展项通过 | 策展与权利审核 | 推送并部署 |
 | MUSEUM-06 | AB 路径与关系解释 | 审核图、路径语义、M04 UI | 受约束历史/语境/比较路径、替代路径 | 单一“影响力”权重、算法边伪历史 | 方向/状态/等级/算法版本测试通过 | 路径文案审核 | 推送并部署 |

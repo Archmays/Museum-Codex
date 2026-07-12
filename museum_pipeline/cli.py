@@ -21,6 +21,7 @@ from museum_pipeline.snapshots import load_snapshot_manifest, snapshot_body_byte
 from museum_pipeline.source_registry import verify_sources
 from museum_pipeline.validation.dispatch import ValidationIssue, validate_record
 from museum_pipeline.validation.physical import validate_review_bundle_file, validate_run_directory
+from museum_pipeline.curation.cli import register_curation_commands
 
 
 EXIT_VALIDATION = 3
@@ -95,6 +96,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("pipeline_run_dir", type=Path)
     _json_flag(run)
     run.set_defaults(handler=_cmd_validate_run)
+    register_curation_commands(subparsers)
     return parser
 
 

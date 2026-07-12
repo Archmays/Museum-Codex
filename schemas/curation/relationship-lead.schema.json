@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/curation/relationship-lead.schema.json",
+  "title": "Research-only artist relationship lead",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "source_candidate_id", "target_candidate_id",
+    "context_candidate", "proposed_relation_type", "likely_evidence_level", "supporting_source_leads",
+    "direct_evidence_category", "specific_context", "exact_evidence_reviewed", "wording_restriction",
+    "research_readiness", "readiness_rationale", "formal_relationship_created", "public_display",
+    "museum_03b_verification_needed", "review_status", "generated_at"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/lead_id" },
+    "entity_type": { "const": "relationship_lead" },
+    "source_candidate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" },
+    "target_candidate_id": { "anyOf": [{ "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" }, { "type": "null" }] },
+    "context_candidate": { "type": ["string", "null"], "minLength": 1 },
+    "proposed_relation_type": { "enum": ["student_of", "teacher_of", "worked_in_studio_of", "collaborated_with", "member_of", "associated_with_movement", "participated_in_same_exhibition", "worked_in_same_place_period", "explicitly_influenced_by", "referenced_or_quoted", "shared_patron", "shared_institution", "shared_subject", "shared_technique", "shared_material", "scholarly_compared_with"] },
+    "likely_evidence_level": { "enum": ["A", "B", "C"] },
+    "supporting_source_leads": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["source_id", "url", "lead_note"], "properties": { "source_id": { "type": "string", "minLength": 1 }, "url": { "type": "string", "format": "uri", "pattern": "^https://" }, "lead_note": { "type": "string", "minLength": 1 } }, "additionalProperties": false } },
+    "direct_evidence_category": { "type": ["string", "null"], "minLength": 1 },
+    "specific_context": { "type": ["string", "null"], "minLength": 1 },
+    "exact_evidence_reviewed": { "const": false },
+    "wording_restriction": { "type": "string", "minLength": 1 },
+    "research_readiness": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "readiness_rationale": { "type": "string", "minLength": 1 },
+    "formal_relationship_created": { "const": false },
+    "public_display": { "const": false },
+    "museum_03b_verification_needed": { "type": "string", "minLength": 1 },
+    "review_status": { "enum": ["research_lead", "needs_direct_evidence", "needs_context_review", "curatorial_comparison_only"] },
+    "generated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

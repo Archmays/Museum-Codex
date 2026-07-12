@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "data_version": "1.0.0",
+  "id": "artist-candidate:10000000-0000-5000-8000-000000000001",
+  "entity_type": "artist_candidate_preflight",
+  "candidate_status": "qualified",
+  "preferred_labels": [
+    { "language": "zh-Hans", "text": "合成艺术家甲" },
+    { "language": "en", "text": "Synthetic Artist Alpha" }
+  ],
+  "aliases": [],
+  "external_ids": { "fixture": ["alpha"] },
+  "life_display": "1900–1980",
+  "identity_kind": "individual",
+  "identity_status": "resolved",
+  "deceased_status": "confirmed_deceased",
+  "birth_claim_ids": ["claim:synthetic-birth-alpha"],
+  "death_claim_ids": ["claim:synthetic-death-alpha"],
+  "authority_source_ids": ["source:synthetic-authority"],
+  "museum_source_ids": ["source:synthetic-museum"],
+  "source_independence": true,
+  "regions_traditions": [
+    { "kind": "artistic_tradition", "label": "Synthetic print tradition", "certainty": "confirmed" }
+  ],
+  "activity_places": ["Synthetic City"],
+  "historical_periods": ["synthetic-period-1"],
+  "media_materials": ["printmaking"],
+  "potential_artwork_ids": [
+    "artwork-preflight:20000000-0000-5000-8000-000000000001",
+    "artwork-preflight:20000000-0000-5000-8000-000000000002",
+    "artwork-preflight:20000000-0000-5000-8000-000000000003",
+    "artwork-preflight:20000000-0000-5000-8000-000000000004"
+  ],
+  "artwork_quota_rationale": null,
+  "rights_readiness_summary": {
+    "clear_candidate": 4,
+    "external_iiif": 0,
+    "external_link_only": 0,
+    "metadata_only": 0,
+    "review_required": 0,
+    "blocked_unknown": 0,
+    "blocked_restricted": 0
+  },
+  "relationship_lead_ids": ["relationship-lead:30000000-0000-5000-8000-000000000001"],
+  "public_learning_themes": ["How evidence changes attribution"],
+  "interaction_opportunities": ["Compare material and technique"],
+  "adapter_readiness": [
+    { "source_id": "source:synthetic-museum", "status": "manual_preflight_only", "note": "Synthetic fixture has no network adapter." }
+  ],
+  "hard_gate_results": {
+    "individual_artist": true,
+    "confirmed_deceased": true,
+    "identity_resolved": true,
+    "birth_claim_reliable": true,
+    "death_claim_reliable": true,
+    "authority_source_present": true,
+    "museum_or_scholarly_source_present": true,
+    "not_tier3_only": true,
+    "verified_work_or_art_history_record": true,
+    "object_level_display_path": true,
+    "attribution_uncertainty_expressible": true,
+    "special_identity_not_coerced": true,
+    "no_ai_fact_source": true,
+    "public_learning_entry_present": true
+  },
+  "score_dimensions": [
+    { "dimension": "identity_readiness", "score": 3, "rationale": "Synthetic authority path.", "source_ids": ["source:synthetic-authority"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "death_evidence_readiness", "score": 3, "rationale": "Synthetic death claim.", "source_ids": ["source:synthetic-authority"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "source_quality", "score": 3, "rationale": "Independent synthetic sources.", "source_ids": ["source:synthetic-authority", "source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "artwork_record_availability", "score": 3, "rationale": "Four synthetic objects.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "object_level_media_rights_readiness", "score": 3, "rationale": "Four object rights fixtures.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "multilingual_identity_readiness", "score": 2, "rationale": "Two fixture labels.", "source_ids": ["source:synthetic-authority"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "relationship_evidence_potential", "score": 2, "rationale": "One synthetic lead.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "geographic_tradition_contribution", "score": 2, "rationale": "Fixture tradition contribution.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "period_contribution", "score": 2, "rationale": "Fixture period contribution.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "medium_material_contribution", "score": 2, "rationale": "Fixture medium contribution.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "public_learning_value", "score": 2, "rationale": "Evidence question is explicit.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "interaction_potential", "score": 2, "rationale": "Comparison prompt is explicit.", "source_ids": ["source:synthetic-museum"], "limitations": [], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" },
+    { "dimension": "adapter_pipeline_readiness", "score": 1, "rationale": "Manual preflight only.", "source_ids": ["source:synthetic-museum"], "limitations": ["No production adapter."], "reviewer": "fixture-reviewer", "reviewed_at": "2026-07-13T00:00:00Z" }
+  ],
+  "evidence_gaps": [],
+  "inclusion_rationale": "Synthetic qualified fixture for contract validation.",
+  "exclusion_rationale": null,
+  "bias_notes": ["Synthetic fixture is not a curatorial candidate."],
+  "reviewer_status": "preflight_reviewed",
+  "source_snapshot_hashes": ["sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],
+  "ai_assistance": {
+    "runtime_descriptor": "not_exposed_by_runtime",
+    "generated_at": "2026-07-13T00:00:00Z",
+    "task": "Generate synthetic fixture structure.",
+    "source_inputs": ["MUSEUM-03A schema contract"],
+    "human_review_status": "reviewed_for_preflight"
+  },
+  "generated_at": "2026-07-13T00:00:00Z"
+}

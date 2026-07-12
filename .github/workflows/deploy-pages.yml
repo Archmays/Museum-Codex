@@ -48,6 +48,9 @@ jobs:
       - name: Validate pipeline schemas, fixtures, and recorded contracts
         run: python scripts/validate_pipeline_foundation.py
 
+      - name: Validate MUSEUM-03A curation schemas, synthetic fixtures, and private-package boundaries
+        run: python scripts/validate_artist_selection_preflight.py
+
       - name: Scan static public inputs for candidate data
         run: python scripts/scan_public_artifact_for_candidate_data.py public
 

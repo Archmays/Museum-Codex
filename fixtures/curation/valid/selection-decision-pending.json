@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "id": "selection-decision:50000000-0000-5000-8000-000000000001",
+  "entity_type": "selection_decision",
+  "status": "pending_user_decision",
+  "decision_type": null,
+  "decision_authority": null,
+  "decision_date": null,
+  "selected_scenario_id": null,
+  "selected_candidate_ids": [],
+  "replacements": [],
+  "media_strategy": null,
+  "public_scope": { "artist_metadata": null, "artwork_metadata": null, "media": null },
+  "rationale": null,
+  "acknowledged_limitations": [],
+  "additional_constraints": [],
+  "input_bundle_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+}

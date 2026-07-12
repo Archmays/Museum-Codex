@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/curation/selection-decision.schema.json",
+  "title": "User selection decision template",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "status", "decision_type", "decision_authority", "decision_date", "selected_scenario_id", "selected_candidate_ids", "replacements", "media_strategy", "public_scope", "rationale", "acknowledged_limitations", "additional_constraints", "input_bundle_hash"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^selection-decision:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "selection_decision" },
+    "status": { "enum": ["pending_user_decision", "submitted"] },
+    "decision_type": { "enum": [null, "approve_recommended_slate", "approve_named_scenario", "approve_with_replacements", "request_revision", "defer"] },
+    "decision_authority": { "type": ["string", "null"], "minLength": 1 },
+    "decision_date": { "type": ["string", "null"], "format": "date-time" },
+    "selected_scenario_id": { "anyOf": [{ "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/scenario_id" }, { "type": "null" }] },
+    "selected_candidate_ids": { "type": "array", "maxItems": 12, "uniqueItems": true, "items": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" } },
+    "replacements": { "type": "array", "items": { "type": "object", "required": ["remove_candidate_id", "add_candidate_id", "rationale"], "properties": { "remove_candidate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" }, "add_candidate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" }, "rationale": { "type": "string", "minLength": 1 } }, "additionalProperties": false } },
+    "media_strategy": { "enum": [null, "metadata_first", "external_iiif_source_delivery", "self_hosted_open_media_only", "mixed"] },
+    "public_scope": { "type": "object", "required": ["artist_metadata", "artwork_metadata", "media"], "properties": { "artist_metadata": { "type": ["boolean", "null"] }, "artwork_metadata": { "type": ["boolean", "null"] }, "media": { "enum": [null, "none", "external_only", "self_hosted_open_only", "mixed"] } }, "additionalProperties": false },
+    "rationale": { "type": ["string", "null"], "minLength": 1 },
+    "acknowledged_limitations": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "additional_constraints": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "input_bundle_hash": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/hash" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "submitted" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "decision_type": { "type": "string" },
+          "decision_authority": { "type": "string", "minLength": 1 },
+          "decision_date": { "type": "string", "format": "date-time" },
+          "media_strategy": { "type": "string" },
+          "rationale": { "type": "string", "minLength": 1 }
+        },
+        "required": ["decision_type", "decision_authority", "decision_date", "media_strategy", "rationale"]
+      }
+    }
+  ],
+  "additionalProperties": false
+}

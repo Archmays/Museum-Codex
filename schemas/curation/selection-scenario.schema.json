@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/curation/selection-scenario.schema.json",
+  "title": "Twelve-person selection scenario",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "title", "scenario_kind", "candidate_ids", "goal", "coverage_matrix", "region_tradition_counts", "time_coverage", "gender_underrepresentation_audit", "media_coverage", "rights_readiness", "adapter_gap", "relationship_connectivity_potential", "public_learning_themes", "residual_bias", "exclusions", "replacement_rules", "reviewer_note", "user_approved", "generated_at"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/scenario_id" },
+    "entity_type": { "const": "selection_scenario" },
+    "title": { "type": "string", "minLength": 1 },
+    "scenario_kind": { "enum": ["global_cross_cultural_balance", "relationships_learning_paths", "data_rights_readiness", "recommended_slate"] },
+    "candidate_ids": { "type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true, "items": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" } },
+    "goal": { "type": "string", "minLength": 1 },
+    "coverage_matrix": { "type": "array", "minItems": 12, "items": { "type": "object", "required": ["candidate_id", "regions_traditions", "periods", "gender_audit_labels", "media_materials"], "properties": { "candidate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" }, "regions_traditions": { "type": "array", "items": { "type": "string" } }, "periods": { "type": "array", "items": { "type": "string" } }, "gender_audit_labels": { "type": "array", "items": { "type": "string" } }, "media_materials": { "type": "array", "items": { "type": "string" } } }, "additionalProperties": false } },
+    "region_tradition_counts": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "integer", "minimum": 0 } },
+    "time_coverage": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+    "gender_underrepresentation_audit": { "type": "object", "required": ["women_count", "limitations", "not_an_art_value_score"], "properties": { "women_count": { "type": "integer", "minimum": 0 }, "limitations": { "type": "array", "items": { "type": "string" } }, "not_an_art_value_score": { "const": true } }, "additionalProperties": false },
+    "media_coverage": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "integer", "minimum": 0 } },
+    "rights_readiness": { "type": "object", "required": ["candidates_with_four_or_more_clear_paths", "limitations"], "properties": { "candidates_with_four_or_more_clear_paths": { "type": "integer", "minimum": 0, "maximum": 12 }, "limitations": { "type": "array", "items": { "type": "string" } } }, "additionalProperties": false },
+    "adapter_gap": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "relationship_connectivity_potential": { "type": "object", "required": ["isolated_candidates", "lead_count", "relation_type_count", "a_b_c_balance", "cross_region_bridge_count"], "properties": { "isolated_candidates": { "type": "array", "items": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" } }, "lead_count": { "type": "integer", "minimum": 0 }, "relation_type_count": { "type": "integer", "minimum": 0 }, "a_b_c_balance": { "type": "object", "required": ["A", "B", "C"], "properties": { "A": { "type": "integer", "minimum": 0 }, "B": { "type": "integer", "minimum": 0 }, "C": { "type": "integer", "minimum": 0 } }, "additionalProperties": false }, "cross_region_bridge_count": { "type": "integer", "minimum": 0 } }, "additionalProperties": false },
+    "public_learning_themes": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "residual_bias": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "exclusions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "replacement_rules": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "reviewer_note": { "type": "string", "minLength": 1 },
+    "user_approved": { "const": false },
+    "generated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

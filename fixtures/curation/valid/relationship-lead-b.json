@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "id": "relationship-lead:30000000-0000-5000-8000-000000000001",
+  "entity_type": "relationship_lead",
+  "source_candidate_id": "artist-candidate:10000000-0000-5000-8000-000000000001",
+  "target_candidate_id": "artist-candidate:10000000-0000-5000-8000-000000000002",
+  "context_candidate": null,
+  "proposed_relation_type": "worked_in_same_place_period",
+  "likely_evidence_level": "B",
+  "supporting_source_leads": [
+    { "source_id": "source:synthetic-museum", "url": "https://example.invalid/research/context", "lead_note": "Synthetic place-period lead." }
+  ],
+  "direct_evidence_category": null,
+  "specific_context": "Synthetic City, 1900-1910",
+  "exact_evidence_reviewed": false,
+  "wording_restriction": "Shared context does not prove contact or influence.",
+  "research_readiness": 2,
+  "readiness_rationale": "A specific place and period are available for later verification.",
+  "formal_relationship_created": false,
+  "public_display": false,
+  "museum_03b_verification_needed": "Verify dates and activity locations in Tier 1/2 sources.",
+  "review_status": "needs_context_review",
+  "generated_at": "2026-07-13T00:00:00Z"
+}

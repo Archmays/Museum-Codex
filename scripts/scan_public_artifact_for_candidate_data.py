@@ -36,7 +36,7 @@ FORBIDDEN_CONTENT = {
 }
 
 
-def scan_public_artifact(root: Path) -> list[dict[str, str]]:
+def scan_public_artifact(root: Path, *, private_candidate_terms: set[str] | None = None) -> list[dict[str, str]]:
     if not root.exists() or not root.is_dir():
         return [{"code": "public_artifact_missing", "path": root.name}]
     files = sorted(path for path in root.rglob("*") if path.is_file())
@@ -60,6 +60,9 @@ def scan_public_artifact(root: Path) -> list[dict[str, str]]:
             if pattern.search(text):
                 public_code = code if code in {"wikidata_qid", "ulan_id", "operational_arms_content"} else "candidate_data_publicly_exposed"
                 findings.append({"code": public_code, "path": relative})
+        for term in sorted(private_candidate_terms or set(), key=str.casefold):
+            if len(term) >= 4 and term.casefold() in text.casefold():
+                findings.append({"code": "candidate_name_publicly_exposed", "path": relative})
     unique = {(item["code"], item["path"]): item for item in findings}
     return [unique[key] for key in sorted(unique)]
 
@@ -67,9 +70,11 @@ def scan_public_artifact(root: Path) -> list[dict[str, str]]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("root", nargs="?", type=Path, default=ROOT / "dist")
+    parser.add_argument("--selection-bundle", type=Path, help="optional ignored bundle whose labels must not appear in the public artifact")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
-    findings = scan_public_artifact(args.root)
+    terms = candidate_terms_from_bundle(args.selection_bundle) if args.selection_bundle else set()
+    findings = scan_public_artifact(args.root, private_candidate_terms=terms)
     payload = {"ok": not findings, "root": args.root.name, "findings": findings}
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
@@ -79,6 +84,19 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(f"[public-artifact-scan] PASS files={sum(path.is_file() for path in args.root.rglob('*'))}")
     return 0 if not findings else 1
+
+
+def candidate_terms_from_bundle(bundle: Path) -> set[str]:
+    try:
+        candidates = json.loads((bundle / "candidate-pool.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, UnicodeDecodeError):
+        return set()
+    return {
+        item["text"]
+        for candidate in candidates if isinstance(candidate, dict)
+        for item in candidate.get("preferred_labels", []) + candidate.get("aliases", [])
+        if isinstance(item, dict) and isinstance(item.get("text"), str)
+    }
 
 
 if __name__ == "__main__":
