@@ -22,7 +22,7 @@ museum_03_recommended: true
 
 # MUSEUM-02 阶段报告
 
-报告日期：2026-07-12（Asia/Shanghai）  
+报告日期：2026-07-12（Asia/Shanghai）
 项目根目录：`D:\ChatGPT-Codex-Projects\Museum-Codex`
 
 ## 1. 阶段目标
@@ -213,7 +213,8 @@ Reviewer A–E 的完整记录在 `docs/qa/museum-02/adversarial-review.md`。
 
 - `36f4ac6145d5e442259151f28578083e3a3e82cc` — `Phase MUSEUM-02 art data ingestion pipeline foundation`：管线、schemas、fixtures、测试、CI、文档、ADRs、postscript 与 A–E 审查。
 - `38f3ddae1d722d7e0eef4cde57d0c0140e21f6aa` — `Fix offline test ordering before Pages build`：修正 pre-build 测试对尚未生成 `dist` 的错误假设，保留独立 post-build dist scan。
-- 本报告所在提交 — 阶段证据与 closeout；精确提交 hash 由最终 Git handoff 记录，避免在提交内容中制造自引用 hash。
+- `5c630a50d9eecf6aa960dfb5fb5a2f51aa3db915` — `Close out Phase MUSEUM-02 evidence report`：阶段证据与 closeout 报告。
+- 本文件的最终格式修订提交 — 去除 `git diff --check` 报告的 Markdown 行尾空格并补记报告提交；精确 hash 由最终 Git handoff 记录，避免在提交内容中制造自引用 hash。
 
 未重写 `main` 历史，未覆盖已发布数据。
 
