@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "id": "approved-identity-basis:museum-03b-first-slate-v1",
+  "entity_type": "approved_identity_basis",
+  "phase_id": "MUSEUM-03B",
+  "decision_application_id": "selection-decision-application:8c2666ef-fdfe-5250-af97-1d3b1d8c4a43",
+  "application_basis_hash": "sha256:6eab3c70f56a2b77006888edec7e421e4af59f99c1a637ee66e9267282f205cd",
+  "input_bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+  "bindings": [
+    {"approved_candidate_id":"artist-candidate:aba4e7b5-5cce-5903-98a3-debd6a8a30fe","candidate_input_hash":"sha256:03a86449952dddda9c2f2e35ae0f30ac3361b3472f8be4db385510dc276354aa","artist_id":"artist:albrecht-durer","approved_labels":{"en":"Albrecht Dürer","zh-Hans":"阿尔布雷希特·丢勒"},"external_ids":{"loc":"n79118011","ulan":"500115493","wikidata":"Q5580"}},
+    {"approved_candidate_id":"artist-candidate:28386296-3385-5ef8-a959-9f1ef8ae7bc9","candidate_input_hash":"sha256:de4b5c99482b2d641d8c66b7432de9c042b43b4f20dd83e60a0b78a7b42d133c","artist_id":"artist:francisco-de-goya","approved_labels":{"en":"Francisco de Goya","zh-Hans":"弗朗西斯科·戈雅"},"external_ids":{"loc":"n79003363","ulan":"500118936","wikidata":"Q5432"}},
+    {"approved_candidate_id":"artist-candidate:708f8528-dbac-53f5-8fc7-bb15e816c0a5","candidate_input_hash":"sha256:4d79056dab02a5afc17f243126fe36fcb995057ef6e56bea640de8d0ea713119","artist_id":"artist:vincent-van-gogh","approved_labels":{"en":"Vincent van Gogh","zh-Hans":"文森特·梵高"},"external_ids":{"loc":"n79022935","ulan":"500115588","wikidata":"Q5582"}},
+    {"approved_candidate_id":"artist-candidate:f92e77cc-b45b-5998-9707-879503c1dabf","candidate_input_hash":"sha256:b176a8488b921f141f43d3f3b910f58cbac2ea9704eae01c782b1b329847175a","artist_id":"artist:mary-cassatt","approved_labels":{"en":"Mary Cassatt","zh-Hans":"玛丽·卡萨特"},"external_ids":{"loc":"n78096937","ulan":"500012368","wikidata":"Q173223"}},
+    {"approved_candidate_id":"artist-candidate:09ae6255-0541-57ef-9dcd-df1570ff2d62","candidate_input_hash":"sha256:d420f23c32c340d7653f89e116e1e824d69bc4a103669ca81373ab4698b17d65","artist_id":"artist:kathe-kollwitz","approved_labels":{"en":"Käthe Kollwitz","zh-Hans":"凯绥·珂勒惠支"},"external_ids":{"loc":"n50044456","ulan":"500016751","wikidata":"Q142472"}},
+    {"approved_candidate_id":"artist-candidate:f1757502-ff5e-5769-857a-e7e53cec7c60","candidate_input_hash":"sha256:a7370809bbb9b5d0a3735d0e269e5f1cbb756e13f3172b136f5e7f2995a12b20","artist_id":"artist:julia-margaret-cameron","approved_labels":{"en":"Julia Margaret Cameron","zh-Hans":"朱莉娅·玛格丽特·卡梅隆"},"external_ids":{"loc":"n50031545","ulan":"500118804","wikidata":"Q230120"}},
+    {"approved_candidate_id":"artist-candidate:1942ecb6-ca0e-58c5-9fca-7785d500b8cf","candidate_input_hash":"sha256:c14bcf01d7b484f3b05220bb792ff1e9b0fa52eb80538fb72191c5369628f10d","artist_id":"artist:katsushika-hokusai","approved_labels":{"en":"Katsushika Hokusai","zh-Hans":"葛饰北斋"},"external_ids":{"loc":"n80043599","ulan":"500060426","wikidata":"Q5586"}},
+    {"approved_candidate_id":"artist-candidate:0ca3f12a-9ae9-5644-916f-3d599f1967f8","candidate_input_hash":"sha256:0c656ccc74bcc5a42f7dc1b3434ec5b35d126b84ebbc42d35a47b7a9977cca25","artist_id":"artist:kitagawa-utamaro","approved_labels":{"en":"Kitagawa Utamaro","zh-Hans":"喜多川歌麿"},"external_ids":{"loc":"n50049864","ulan":"500054492","wikidata":"Q272045"}},
+    {"approved_candidate_id":"artist-candidate:da02db61-430f-5d73-a97f-64b0e7a5ce26","candidate_input_hash":"sha256:b0e6cc36412870668b2b725dcb5013ff72c33512c7b6099758460f8b22f709eb","artist_id":"artist:shen-zhou","approved_labels":{"en":"Shen Zhou","zh-Hans":"沈周"},"external_ids":{"loc":"n81093497","ulan":"500121310","wikidata":"Q558863"}},
+    {"approved_candidate_id":"artist-candidate:f25c47aa-47bd-5009-b3fe-508b6cc9b039","candidate_input_hash":"sha256:1a9a8139841cd1ccaad48417146e45c0baab13076c7c008897029a15946e96fa","artist_id":"artist:raja-ravi-varma","approved_labels":{"en":"Raja Ravi Varma","zh-Hans":"拉贾·拉维·瓦尔玛"},"external_ids":{"loc":"n89146283","ulan":"500122641","wikidata":"Q333453"}},
+    {"approved_candidate_id":"artist-candidate:ad5f2cda-6489-55d4-aa81-37be10697f58","candidate_input_hash":"sha256:12492233259be52a7e2da0ab2c90051b4b007533363f4aceee5b07d11c83859a","artist_id":"artist:jose-guadalupe-posada","approved_labels":{"en":"José Guadalupe Posada","zh-Hans":"何塞·瓜达卢佩·波萨达"},"external_ids":{"loc":"n81019064","ulan":"500032573","wikidata":"Q732526"}},
+    {"approved_candidate_id":"artist-candidate:0bfcdd78-5be2-5903-9819-d3a3a1406698","candidate_input_hash":"sha256:77b9f26813bbfa8200e74c7264924066c7f6bd9ddae8feaaaf361de6e01b9cc8","artist_id":"artist:henry-ossawa-tanner","approved_labels":{"en":"Henry Ossawa Tanner","zh-Hans":"亨利·奥萨瓦·坦纳"},"external_ids":{"loc":"n50008686","ulan":"500005351","wikidata":"Q1374436"}}
+  ],
+  "generated_at": "2026-07-13T13:15:00+08:00",
+  "content_hash": "sha256:79605a30abf4082d3fa28d789256de4714d4ec13b007e5d5bf6c197bb6698fcb"
+}

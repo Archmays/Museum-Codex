@@ -32,7 +32,99 @@
           "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
         },
         "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "withdrawn"] },
-        "uncertainty_note": { "type": ["string", "null"] }
+        "uncertainty_note": { "type": ["string", "null"] },
+        "branch_extensions": {
+          "type": "object",
+          "required": [
+            "approved_candidate_id", "name_records", "activity_places", "historical_periods",
+            "artistic_traditions", "authority_source_ids", "source_independence_note",
+            "future_publishable_eligibility", "review_signoff_ids", "status_history"
+          ],
+          "properties": {
+            "approved_candidate_id": { "type": "string", "pattern": "^artist-candidate:[a-f0-9-]{36}$" },
+            "name_records": {
+              "type": "array", "minItems": 2, "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": ["text", "language", "script", "name_type", "source_claim_id", "time_scope"],
+                "properties": {
+                  "text": { "type": "string", "minLength": 1 },
+                  "language": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/languageTag" },
+                  "script": { "type": ["string", "null"] },
+                  "name_type": { "enum": ["original", "preferred", "alternate", "historical", "transliteration", "translated_display"] },
+                  "source_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+                  "time_scope": { "type": ["string", "null"] }
+                },
+                "additionalProperties": false
+              }
+            },
+            "activity_places": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": ["label", "historical_scope", "precision", "claim_id"],
+                "properties": {
+                  "label": { "type": "string", "minLength": 1 },
+                  "historical_scope": { "type": "string", "minLength": 1 },
+                  "precision": { "enum": ["exact", "approximate", "broad", "uncertain"] },
+                  "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "historical_periods": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": ["label", "claim_id"],
+                "properties": {
+                  "label": { "type": "string", "minLength": 1 },
+                  "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "artistic_traditions": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": ["label", "claim_id"],
+                "properties": {
+                  "label": { "type": "string", "minLength": 1 },
+                  "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "authority_source_ids": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+            },
+            "source_independence_note": { "type": "string", "minLength": 1 },
+            "future_publishable_eligibility": { "enum": ["eligible_after_release_gates", "blocked"] },
+            "review_signoff_ids": {
+              "type": "array", "minItems": 2, "uniqueItems": true,
+              "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+            },
+            "status_history": {
+              "type": "array", "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+                "properties": {
+                  "from": { "type": ["string", "null"] },
+                  "to": { "enum": ["candidate", "sourced", "reviewed", "verified", "disputed", "withdrawn"] },
+                  "changed_at": { "type": "string", "format": "date-time" },
+                  "changed_by": { "type": "string", "minLength": 1 },
+                  "role": { "type": "string", "minLength": 1 },
+                  "reason": { "type": "string", "minLength": 1 }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
       }
     }
   ],

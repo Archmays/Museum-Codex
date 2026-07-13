@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/approved-identity-basis.schema.json",
+  "title": "MUSEUM-03B approved identity basis",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "decision_application_id",
+    "application_basis_hash", "input_bundle_hash", "bindings", "generated_at", "content_hash"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^approved-identity-basis:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "approved_identity_basis" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "decision_application_id": { "type": "string", "pattern": "^selection-decision-application:[a-f0-9-]{36}$" },
+    "application_basis_hash": { "$ref": "#/$defs/hash" },
+    "input_bundle_hash": { "$ref": "#/$defs/hash" },
+    "bindings": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["approved_candidate_id", "candidate_input_hash", "artist_id", "approved_labels", "external_ids"],
+        "properties": {
+          "approved_candidate_id": { "type": "string", "pattern": "^artist-candidate:[a-f0-9-]{36}$" },
+          "candidate_input_hash": { "$ref": "#/$defs/hash" },
+          "artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+          "approved_labels": {
+            "type": "object", "required": ["en", "zh-Hans"],
+            "properties": {
+              "en": { "type": "string", "minLength": 1 },
+              "zh-Hans": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
+          "external_ids": {
+            "type": "object", "minProperties": 2,
+            "propertyNames": { "pattern": "^[a-z][a-z0-9_-]*$" },
+            "additionalProperties": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "content_hash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  },
+  "additionalProperties": false
+}

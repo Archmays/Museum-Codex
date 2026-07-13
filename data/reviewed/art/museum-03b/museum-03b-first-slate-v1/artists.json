@@ -1,0 +1,2289 @@
+[
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "de",
+        "script": "Latn",
+        "source_claim_id": "claim:albrecht-durer-identity-profile",
+        "text": "Dürer, Albrecht"
+      },
+      {
+        "alias_type": "transliteration",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:albrecht-durer-identity-profile",
+        "text": "Albrecht Duerer"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:albrecht-durer-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:albrecht-durer-activity-scope",
+          "historical_scope": "Free Imperial City of Nuremberg in the Holy Roman Empire",
+          "label": "Nuremberg",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:aba4e7b5-5cce-5903-98a3-debd6a8a30fe",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:albrecht-durer-artistic-tradition",
+          "label": "German painting and printmaking"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:albrecht-durer-historical-period",
+          "label": "Northern European Renaissance"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "de",
+          "name_type": "original",
+          "script": "Latn",
+          "source_claim_id": "claim:albrecht-durer-identity-profile",
+          "text": "Albrecht Dürer",
+          "time_scope": null
+        },
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:albrecht-durer-identity-profile",
+          "text": "Albrecht Dürer",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:albrecht-durer-identity-profile",
+          "text": "阿尔布雷希特·丢勒",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:albrecht-durer-identity",
+        "review-signoff:albrecht-durer-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:albrecht-durer-identity-profile",
+      "claim:albrecht-durer-birth",
+      "claim:albrecht-durer-death",
+      "claim:albrecht-durer-official-record",
+      "claim:albrecht-durer-activity-scope",
+      "claim:albrecht-durer-historical-period",
+      "claim:albrecht-durer-artistic-tradition",
+      "claim:albrecht-durer-loc-crosswalk",
+      "claim:albrecht-durer-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n79118011",
+      "ulan": "500115493",
+      "wikidata": "Q5580"
+    },
+    "id": "artist:albrecht-durer",
+    "identity_status": "resolved",
+    "labels": {
+      "de": "Albrecht Dürer",
+      "en": "Albrecht Dürer",
+      "zh-Hans": "阿尔布雷希特·丢勒"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:albrecht-durer-birth",
+        "display_value": "1471",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:albrecht-durer-death",
+        "display_value": "1528",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": null,
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "es",
+        "script": "Latn",
+        "source_claim_id": "claim:francisco-de-goya-identity-profile",
+        "text": "Goya, Francisco de"
+      },
+      {
+        "alias_type": "alternate",
+        "language": "es",
+        "script": "Latn",
+        "source_claim_id": "claim:francisco-de-goya-identity-profile",
+        "text": "Francisco José de Goya y Lucientes"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:francisco-de-goya-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:francisco-de-goya-activity-scope",
+          "historical_scope": "Late eighteenth- and early nineteenth-century Spain and France",
+          "label": "Madrid and Bordeaux",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:28386296-3385-5ef8-a959-9f1ef8ae7bc9",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:francisco-de-goya-artistic-tradition",
+          "label": "Spanish painting and printmaking"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:francisco-de-goya-historical-period",
+          "label": "Modern transition"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:francisco-de-goya-identity-profile",
+          "text": "Francisco de Goya",
+          "time_scope": null
+        },
+        {
+          "language": "es",
+          "name_type": "original",
+          "script": "Latn",
+          "source_claim_id": "claim:francisco-de-goya-identity-profile",
+          "text": "Francisco José de Goya y Lucientes",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:francisco-de-goya-identity-profile",
+          "text": "弗朗西斯科·戈雅",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:francisco-de-goya-identity",
+        "review-signoff:francisco-de-goya-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:francisco-de-goya-identity-profile",
+      "claim:francisco-de-goya-birth",
+      "claim:francisco-de-goya-death",
+      "claim:francisco-de-goya-official-record",
+      "claim:francisco-de-goya-activity-scope",
+      "claim:francisco-de-goya-historical-period",
+      "claim:francisco-de-goya-artistic-tradition",
+      "claim:francisco-de-goya-loc-crosswalk",
+      "claim:francisco-de-goya-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n79003363",
+      "ulan": "500118936",
+      "wikidata": "Q5432"
+    },
+    "id": "artist:francisco-de-goya",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Francisco de Goya",
+      "es": "Francisco José de Goya y Lucientes",
+      "zh-Hans": "弗朗西斯科·戈雅"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:francisco-de-goya-birth",
+        "display_value": "1746",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:francisco-de-goya-death",
+        "display_value": "1828",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": null,
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "nl",
+        "script": "Latn",
+        "source_claim_id": "claim:vincent-van-gogh-identity-profile",
+        "text": "Gogh, Vincent van"
+      },
+      {
+        "alias_type": "alternate",
+        "language": "nl",
+        "script": "Latn",
+        "source_claim_id": "claim:vincent-van-gogh-identity-profile",
+        "text": "Vincent Willem van Gogh"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:vincent-van-gogh-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:vincent-van-gogh-activity-scope",
+          "historical_scope": "Nineteenth-century western Europe",
+          "label": "The Netherlands, Paris, Arles, and Auvers-sur-Oise",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:708f8528-dbac-53f5-8fc7-bb15e816c0a5",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:vincent-van-gogh-artistic-tradition",
+          "label": "Post-Impressionism"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:vincent-van-gogh-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:vincent-van-gogh-identity-profile",
+          "text": "Vincent van Gogh",
+          "time_scope": null
+        },
+        {
+          "language": "nl",
+          "name_type": "original",
+          "script": "Latn",
+          "source_claim_id": "claim:vincent-van-gogh-identity-profile",
+          "text": "Vincent van Gogh",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:vincent-van-gogh-identity-profile",
+          "text": "文森特·梵高",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:vincent-van-gogh-identity",
+        "review-signoff:vincent-van-gogh-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:vincent-van-gogh-identity-profile",
+      "claim:vincent-van-gogh-birth",
+      "claim:vincent-van-gogh-death",
+      "claim:vincent-van-gogh-official-record",
+      "claim:vincent-van-gogh-activity-scope",
+      "claim:vincent-van-gogh-historical-period",
+      "claim:vincent-van-gogh-artistic-tradition",
+      "claim:vincent-van-gogh-loc-crosswalk",
+      "claim:vincent-van-gogh-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n79022935",
+      "ulan": "500115588",
+      "wikidata": "Q5582"
+    },
+    "id": "artist:vincent-van-gogh",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Vincent van Gogh",
+      "nl": "Vincent van Gogh",
+      "zh-Hans": "文森特·梵高"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:vincent-van-gogh-birth",
+        "display_value": "1853",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:vincent-van-gogh-death",
+        "display_value": "1890",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": null,
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:mary-cassatt-identity-profile",
+        "text": "Cassatt, Mary"
+      },
+      {
+        "alias_type": "alternate",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:mary-cassatt-identity-profile",
+        "text": "Mary Stevenson Cassatt"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:mary-cassatt-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:mary-cassatt-activity-scope",
+          "historical_scope": "Nineteenth- and early twentieth-century United States and France",
+          "label": "Pennsylvania, Paris, and Île-de-France",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:f92e77cc-b45b-5998-9707-879503c1dabf",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:mary-cassatt-artistic-tradition",
+          "label": "American and French Impressionism"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:mary-cassatt-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:mary-cassatt-identity-profile",
+          "text": "Mary Cassatt",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:mary-cassatt-identity-profile",
+          "text": "玛丽·卡萨特",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:mary-cassatt-identity",
+        "review-signoff:mary-cassatt-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:mary-cassatt-identity-profile",
+      "claim:mary-cassatt-birth",
+      "claim:mary-cassatt-death",
+      "claim:mary-cassatt-official-record",
+      "claim:mary-cassatt-activity-scope",
+      "claim:mary-cassatt-historical-period",
+      "claim:mary-cassatt-artistic-tradition",
+      "claim:mary-cassatt-loc-crosswalk",
+      "claim:mary-cassatt-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n78096937",
+      "ulan": "500012368",
+      "wikidata": "Q173223"
+    },
+    "id": "artist:mary-cassatt",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Mary Cassatt",
+      "zh-Hans": "玛丽·卡萨特"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:mary-cassatt-birth",
+        "display_value": "1844",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:mary-cassatt-death",
+        "display_value": "1926",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "Historical Allegheny City and present-day Pittsburgh must not be treated as contradictory birthplaces.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "de",
+        "script": "Latn",
+        "source_claim_id": "claim:kathe-kollwitz-identity-profile",
+        "text": "Kollwitz, Käthe"
+      },
+      {
+        "alias_type": "historical",
+        "language": "de",
+        "script": "Latn",
+        "source_claim_id": "claim:kathe-kollwitz-identity-profile",
+        "text": "Käthe Schmidt"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:kathe-kollwitz-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:kathe-kollwitz-activity-scope",
+          "historical_scope": "East Prussia, the German Empire, and twentieth-century Germany",
+          "label": "Königsberg, Berlin, and Moritzburg",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:09ae6255-0541-57ef-9dcd-df1570ff2d62",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:kathe-kollwitz-artistic-tradition",
+          "label": "German modern printmaking"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:kathe-kollwitz-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "de",
+          "name_type": "original",
+          "script": "Latn",
+          "source_claim_id": "claim:kathe-kollwitz-identity-profile",
+          "text": "Käthe Kollwitz",
+          "time_scope": null
+        },
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:kathe-kollwitz-identity-profile",
+          "text": "Käthe Kollwitz",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:kathe-kollwitz-identity-profile",
+          "text": "凯绥·珂勒惠支",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:kathe-kollwitz-identity",
+        "review-signoff:kathe-kollwitz-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:kathe-kollwitz-identity-profile",
+      "claim:kathe-kollwitz-birth",
+      "claim:kathe-kollwitz-death",
+      "claim:kathe-kollwitz-official-record",
+      "claim:kathe-kollwitz-activity-scope",
+      "claim:kathe-kollwitz-historical-period",
+      "claim:kathe-kollwitz-artistic-tradition",
+      "claim:kathe-kollwitz-loc-crosswalk",
+      "claim:kathe-kollwitz-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n50044456",
+      "ulan": "500016751",
+      "wikidata": "Q142472"
+    },
+    "id": "artist:kathe-kollwitz",
+    "identity_status": "resolved",
+    "labels": {
+      "de": "Käthe Kollwitz",
+      "en": "Käthe Kollwitz",
+      "zh-Hans": "凯绥·珂勒惠支"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:kathe-kollwitz-birth",
+        "display_value": "1867",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:kathe-kollwitz-death",
+        "display_value": "1945",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:aic_api",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "aic_api:data:75df7e022b4e",
+        "scope_fields": [
+          "api_link",
+          "artist_display",
+          "copyright_notice",
+          "credit_line",
+          "date_display",
+          "department_title",
+          "id",
+          "image_id",
+          "is_public_domain",
+          "main_reference_number",
+          "medium_display",
+          "title"
+        ],
+        "scope_locator": "https://api.artic.edu/api/v1/artworks/60513?fields=api_link%2Cartist_display%2Ccopyright_notice%2Ccredit_line%2Cdate_display%2Cdepartment_title%2Cid%2Cimage_id%2Cis_public_domain%2Cmain_reference_number%2Cmedium_display%2Ctitle",
+        "source_id": "source:aic_api"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "This person is distinct from the Guerrilla Girls persona using the same surname.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:julia-margaret-cameron-identity-profile",
+        "text": "Cameron, Julia Margaret"
+      },
+      {
+        "alias_type": "historical",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:julia-margaret-cameron-identity-profile",
+        "text": "Julia Margaret Pattle"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:julia-margaret-cameron-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:julia-margaret-cameron-activity-scope",
+          "historical_scope": "British India, Victorian Britain, and British Ceylon",
+          "label": "Calcutta, the Isle of Wight, and Kalutara",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:f1757502-ff5e-5769-857a-e7e53cec7c60",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:julia-margaret-cameron-artistic-tradition",
+          "label": "British photography"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:julia-margaret-cameron-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:julia-margaret-cameron-identity-profile",
+          "text": "Julia Margaret Cameron",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:julia-margaret-cameron-identity-profile",
+          "text": "朱莉娅·玛格丽特·卡梅隆",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:julia-margaret-cameron-identity",
+        "review-signoff:julia-margaret-cameron-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:julia-margaret-cameron-identity-profile",
+      "claim:julia-margaret-cameron-birth",
+      "claim:julia-margaret-cameron-death",
+      "claim:julia-margaret-cameron-official-record",
+      "claim:julia-margaret-cameron-activity-scope",
+      "claim:julia-margaret-cameron-historical-period",
+      "claim:julia-margaret-cameron-artistic-tradition",
+      "claim:julia-margaret-cameron-loc-crosswalk",
+      "claim:julia-margaret-cameron-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n50031545",
+      "ulan": "500118804",
+      "wikidata": "Q230120"
+    },
+    "id": "artist:julia-margaret-cameron",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Julia Margaret Cameron",
+      "zh-Hans": "朱莉娅·玛格丽特·卡梅隆"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:julia-margaret-cameron-birth",
+        "display_value": "1815",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:julia-margaret-cameron-death",
+        "display_value": "1879",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "Historical place labels are retained; birthplace is not collapsed into a modern nationality.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:katsushika-hokusai-identity-profile",
+        "text": "Hokusai, Katsushika"
+      },
+      {
+        "alias_type": "source_form",
+        "language": "ja",
+        "script": "Jpan",
+        "source_claim_id": "claim:katsushika-hokusai-identity-profile",
+        "text": "葛飾北斎"
+      },
+      {
+        "alias_type": "historical",
+        "language": "ja-Latn",
+        "script": "Latn",
+        "source_claim_id": "claim:katsushika-hokusai-identity-profile",
+        "text": "Manji"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:katsushika-hokusai-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:katsushika-hokusai-activity-scope",
+          "historical_scope": "Tokugawa Japan; not normalized solely to modern Tokyo",
+          "label": "Edo",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:1942ecb6-ca0e-58c5-9fca-7785d500b8cf",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:katsushika-hokusai-artistic-tradition",
+          "label": "Japanese ukiyo-e"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:katsushika-hokusai-historical-period",
+          "label": "Edo period"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:katsushika-hokusai-identity-profile",
+          "text": "Katsushika Hokusai",
+          "time_scope": null
+        },
+        {
+          "language": "ja",
+          "name_type": "original",
+          "script": "Jpan",
+          "source_claim_id": "claim:katsushika-hokusai-identity-profile",
+          "text": "葛飾北斎",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:katsushika-hokusai-identity-profile",
+          "text": "葛饰北斋",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:katsushika-hokusai-identity",
+        "review-signoff:katsushika-hokusai-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:katsushika-hokusai-identity-profile",
+      "claim:katsushika-hokusai-birth",
+      "claim:katsushika-hokusai-death",
+      "claim:katsushika-hokusai-official-record",
+      "claim:katsushika-hokusai-activity-scope",
+      "claim:katsushika-hokusai-historical-period",
+      "claim:katsushika-hokusai-artistic-tradition",
+      "claim:katsushika-hokusai-loc-crosswalk",
+      "claim:katsushika-hokusai-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n80043599",
+      "ulan": "500060426",
+      "wikidata": "Q5586"
+    },
+    "id": "artist:katsushika-hokusai",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Katsushika Hokusai",
+      "ja": "葛飾北斎",
+      "zh-Hans": "葛饰北斋"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:katsushika-hokusai-birth",
+        "display_value": "1760",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:katsushika-hokusai-death",
+        "display_value": "1849",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "Traditional-calendar exact dates are not stored as Gregorian dates without an explicit conversion source.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:kitagawa-utamaro-identity-profile",
+        "text": "Utamaro, Kitagawa"
+      },
+      {
+        "alias_type": "source_form",
+        "language": "ja",
+        "script": "Jpan",
+        "source_claim_id": "claim:kitagawa-utamaro-identity-profile",
+        "text": "喜多川歌麿"
+      },
+      {
+        "alias_type": "historical",
+        "language": "ja-Latn",
+        "script": "Latn",
+        "source_claim_id": "claim:kitagawa-utamaro-identity-profile",
+        "text": "Toyoaki"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:kitagawa-utamaro-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:kitagawa-utamaro-activity-scope",
+          "historical_scope": "Tokugawa Japan; birthplace remains uncertain",
+          "label": "Edo",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:0ca3f12a-9ae9-5644-916f-3d599f1967f8",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:kitagawa-utamaro-artistic-tradition",
+          "label": "Japanese ukiyo-e"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:kitagawa-utamaro-historical-period",
+          "label": "Edo period"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:kitagawa-utamaro-identity-profile",
+          "text": "Kitagawa Utamaro",
+          "time_scope": null
+        },
+        {
+          "language": "ja",
+          "name_type": "original",
+          "script": "Jpan",
+          "source_claim_id": "claim:kitagawa-utamaro-identity-profile",
+          "text": "喜多川歌麿",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:kitagawa-utamaro-identity-profile",
+          "text": "喜多川歌麿",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:kitagawa-utamaro-identity",
+        "review-signoff:kitagawa-utamaro-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:kitagawa-utamaro-identity-profile",
+      "claim:kitagawa-utamaro-birth",
+      "claim:kitagawa-utamaro-death",
+      "claim:kitagawa-utamaro-official-record",
+      "claim:kitagawa-utamaro-activity-scope",
+      "claim:kitagawa-utamaro-historical-period",
+      "claim:kitagawa-utamaro-artistic-tradition",
+      "claim:kitagawa-utamaro-loc-crosswalk",
+      "claim:kitagawa-utamaro-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n50049864",
+      "ulan": "500054492",
+      "wikidata": "Q272045"
+    },
+    "id": "artist:kitagawa-utamaro",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Kitagawa Utamaro",
+      "ja": "喜多川歌麿",
+      "zh-Hans": "喜多川歌麿"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:kitagawa-utamaro-birth",
+        "display_value": "mid-1750s (often c. 1753)",
+        "precision": "uncertain"
+      },
+      "death": {
+        "claim_id": "claim:kitagawa-utamaro-death",
+        "display_value": "1806",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "Getty reports 1753, the Met commonly reports ca. 1754, and institutional scholarship describes the exact birth date as unknown; no exact birthplace is asserted.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "zh-Hant",
+        "script": "Hant",
+        "source_claim_id": "claim:shen-zhou-identity-profile",
+        "text": "沈周"
+      },
+      {
+        "alias_type": "transliteration",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:shen-zhou-identity-profile",
+        "text": "Shen Chou"
+      },
+      {
+        "alias_type": "historical",
+        "language": "zh-Hant",
+        "script": "Hant",
+        "source_claim_id": "claim:shen-zhou-identity-profile",
+        "text": "沈石田"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:shen-zhou-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:shen-zhou-activity-scope",
+          "historical_scope": "Ming China; not modern Changzhou city",
+          "label": "Suzhou region (historical Changzhou County)",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:da02db61-430f-5d73-a97f-64b0e7a5ce26",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:shen-zhou-artistic-tradition",
+          "label": "Chinese literati painting and calligraphy"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:shen-zhou-historical-period",
+          "label": "Ming dynasty"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:shen-zhou-identity-profile",
+          "text": "Shen Zhou",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:shen-zhou-identity-profile",
+          "text": "沈周",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hant",
+          "name_type": "original",
+          "script": "Hant",
+          "source_claim_id": "claim:shen-zhou-identity-profile",
+          "text": "沈周",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:shen-zhou-identity",
+        "review-signoff:shen-zhou-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:shen-zhou-identity-profile",
+      "claim:shen-zhou-birth",
+      "claim:shen-zhou-death",
+      "claim:shen-zhou-official-record",
+      "claim:shen-zhou-activity-scope",
+      "claim:shen-zhou-historical-period",
+      "claim:shen-zhou-artistic-tradition",
+      "claim:shen-zhou-loc-crosswalk",
+      "claim:shen-zhou-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n81093497",
+      "ulan": "500121310",
+      "wikidata": "Q558863"
+    },
+    "id": "artist:shen-zhou",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Shen Zhou",
+      "zh-Hans": "沈周",
+      "zh-Hant": "沈周"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:shen-zhou-birth",
+        "display_value": "1427",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:shen-zhou-death",
+        "display_value": "1509",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "Historical county and modern city names are kept distinct.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:raja-ravi-varma-identity-profile",
+        "text": "Varma, Ravi"
+      },
+      {
+        "alias_type": "transliteration",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:raja-ravi-varma-identity-profile",
+        "text": "Iravivarmā"
+      },
+      {
+        "alias_type": "source_form",
+        "language": "ml",
+        "script": "Mlym",
+        "source_claim_id": "claim:raja-ravi-varma-identity-profile",
+        "text": "രവിവർമ്മ"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:raja-ravi-varma-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:raja-ravi-varma-activity-scope",
+          "historical_scope": "Princely Travancore and British India",
+          "label": "Kilimanoor and Bombay",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:f25c47aa-47bd-5009-b3fe-508b6cc9b039",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:raja-ravi-varma-artistic-tradition",
+          "label": "Indian academic painting and print culture"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:raja-ravi-varma-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:raja-ravi-varma-identity-profile",
+          "text": "Raja Ravi Varma",
+          "time_scope": null
+        },
+        {
+          "language": "ml",
+          "name_type": "original",
+          "script": "Mlym",
+          "source_claim_id": "claim:raja-ravi-varma-identity-profile",
+          "text": "രവിവർമ്മ",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:raja-ravi-varma-identity-profile",
+          "text": "拉贾·拉维·瓦尔玛",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:raja-ravi-varma-identity",
+        "review-signoff:raja-ravi-varma-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:raja-ravi-varma-identity-profile",
+      "claim:raja-ravi-varma-birth",
+      "claim:raja-ravi-varma-death",
+      "claim:raja-ravi-varma-official-record",
+      "claim:raja-ravi-varma-activity-scope",
+      "claim:raja-ravi-varma-historical-period",
+      "claim:raja-ravi-varma-artistic-tradition",
+      "claim:raja-ravi-varma-loc-crosswalk",
+      "claim:raja-ravi-varma-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n89146283",
+      "ulan": "500122641",
+      "wikidata": "Q333453"
+    },
+    "id": "artist:raja-ravi-varma",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Raja Ravi Varma",
+      "ml": "രവിവർമ്മ",
+      "zh-Hans": "拉贾·拉维·瓦尔玛"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:raja-ravi-varma-birth",
+        "display_value": "1848",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:raja-ravi-varma-death",
+        "display_value": "1906",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "The reviewed projection adopts 1906 from ULAN/LOC and official Indian institutional evidence. The Met's 1907 constituent display and posthumous ca. 1910 object attribution remain explicit counter-evidence; no confirmed personal authorship is inferred.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "es",
+        "script": "Latn",
+        "source_claim_id": "claim:jose-guadalupe-posada-identity-profile",
+        "text": "Posada, José Guadalupe"
+      },
+      {
+        "alias_type": "alternate",
+        "language": "es",
+        "script": "Latn",
+        "source_claim_id": "claim:jose-guadalupe-posada-identity-profile",
+        "text": "José Guadalupe Posada Aguilar"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:jose-guadalupe-posada-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:jose-guadalupe-posada-activity-scope",
+          "historical_scope": "Late nineteenth- and early twentieth-century Mexico",
+          "label": "Aguascalientes and Mexico City",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:ad5f2cda-6489-55d4-aa81-37be10697f58",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:jose-guadalupe-posada-artistic-tradition",
+          "label": "Mexican print culture"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:jose-guadalupe-posada-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:jose-guadalupe-posada-identity-profile",
+          "text": "José Guadalupe Posada",
+          "time_scope": null
+        },
+        {
+          "language": "es",
+          "name_type": "original",
+          "script": "Latn",
+          "source_claim_id": "claim:jose-guadalupe-posada-identity-profile",
+          "text": "José Guadalupe Posada",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:jose-guadalupe-posada-identity-profile",
+          "text": "何塞·瓜达卢佩·波萨达",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:jose-guadalupe-posada-identity",
+        "review-signoff:jose-guadalupe-posada-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-identity-profile",
+      "claim:jose-guadalupe-posada-birth",
+      "claim:jose-guadalupe-posada-death",
+      "claim:jose-guadalupe-posada-official-record",
+      "claim:jose-guadalupe-posada-activity-scope",
+      "claim:jose-guadalupe-posada-historical-period",
+      "claim:jose-guadalupe-posada-artistic-tradition",
+      "claim:jose-guadalupe-posada-loc-crosswalk",
+      "claim:jose-guadalupe-posada-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n81019064",
+      "ulan": "500032573",
+      "wikidata": "Q732526"
+    },
+    "id": "artist:jose-guadalupe-posada",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "José Guadalupe Posada",
+      "es": "José Guadalupe Posada",
+      "zh-Hans": "何塞·瓜达卢佩·波萨达"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:jose-guadalupe-posada-birth",
+        "display_value": "1852",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:jose-guadalupe-posada-death",
+        "display_value": "1913",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "A legacy 1851 value is superseded by the reviewed 1852 authority convergence.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  },
+  {
+    "aliases": [
+      {
+        "alias_type": "source_form",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:henry-ossawa-tanner-identity-profile",
+        "text": "Tanner, Henry Ossawa"
+      },
+      {
+        "alias_type": "alternate",
+        "language": "fr",
+        "script": "Latn",
+        "source_claim_id": "claim:henry-ossawa-tanner-identity-profile",
+        "text": "Henri Ossawa Tanner"
+      },
+      {
+        "alias_type": "alternate",
+        "language": "en",
+        "script": "Latn",
+        "source_claim_id": "claim:henry-ossawa-tanner-identity-profile",
+        "text": "H. O. Tanner"
+      }
+    ],
+    "artist_kind": "individual",
+    "artwork_or_history_claim_ids": [
+      "claim:henry-ossawa-tanner-official-record"
+    ],
+    "at_least_one_verified_work_or_record": true,
+    "branch_extensions": {
+      "activity_places": [
+        {
+          "claim_id": "claim:henry-ossawa-tanner-activity-scope",
+          "historical_scope": "Late nineteenth- and early twentieth-century United States and France",
+          "label": "Philadelphia and Paris",
+          "precision": "broad"
+        }
+      ],
+      "approved_candidate_id": "artist-candidate:0bfcdd78-5be2-5903-9819-d3a3a1406698",
+      "artistic_traditions": [
+        {
+          "claim_id": "claim:henry-ossawa-tanner-artistic-tradition",
+          "label": "African American and transatlantic painting"
+        }
+      ],
+      "authority_source_ids": [
+        "source:getty_ulan"
+      ],
+      "future_publishable_eligibility": "eligible_after_release_gates",
+      "historical_periods": [
+        {
+          "claim_id": "claim:henry-ossawa-tanner-historical-period",
+          "label": "Modern"
+        }
+      ],
+      "name_records": [
+        {
+          "language": "en",
+          "name_type": "preferred",
+          "script": "Latn",
+          "source_claim_id": "claim:henry-ossawa-tanner-identity-profile",
+          "text": "Henry Ossawa Tanner",
+          "time_scope": null
+        },
+        {
+          "language": "zh-Hans",
+          "name_type": "translated_display",
+          "script": "Hans",
+          "source_claim_id": "claim:henry-ossawa-tanner-identity-profile",
+          "text": "亨利·奥萨瓦·坦纳",
+          "time_scope": null
+        }
+      ],
+      "review_signoff_ids": [
+        "review-signoff:henry-ossawa-tanner-identity",
+        "review-signoff:henry-ossawa-tanner-art-history"
+      ],
+      "source_independence_note": "Getty supplies the identity role; the named official collection source supplies a separate collection-record role. The latter is not counted as independent biographical confirmation.",
+      "status_history": [
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": null,
+          "reason": "Created from the exact approved candidate and fixed source records.",
+          "role": "identity collector",
+          "to": "candidate"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "candidate",
+          "reason": "Claim, evidence, source, and raw snapshot locators were closed.",
+          "role": "identity reviewer",
+          "to": "sourced"
+        },
+        {
+          "changed_at": "2026-07-13T13:20:00+08:00",
+          "changed_by": "codex-primary-agent",
+          "from": "sourced",
+          "reason": "Identity, life precision, official-record role, and conflicts were reviewed without automated verification.",
+          "role": "art-history reviewer",
+          "to": "reviewed"
+        }
+      ]
+    },
+    "branch_id": "art",
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-identity-profile",
+      "claim:henry-ossawa-tanner-birth",
+      "claim:henry-ossawa-tanner-death",
+      "claim:henry-ossawa-tanner-official-record",
+      "claim:henry-ossawa-tanner-activity-scope",
+      "claim:henry-ossawa-tanner-historical-period",
+      "claim:henry-ossawa-tanner-artistic-tradition",
+      "claim:henry-ossawa-tanner-loc-crosswalk",
+      "claim:henry-ossawa-tanner-wikidata-crosswalk"
+    ],
+    "created_at": "2026-07-13T13:20:00+08:00",
+    "data_version": "1.0.0",
+    "deceased_status": "confirmed_deceased",
+    "entity_type": "artist",
+    "external_ids": {
+      "loc": "n50008686",
+      "ulan": "500005351",
+      "wikidata": "Q1374436"
+    },
+    "id": "artist:henry-ossawa-tanner",
+    "identity_status": "resolved",
+    "labels": {
+      "en": "Henry Ossawa Tanner",
+      "zh-Hans": "亨利·奥萨瓦·坦纳"
+    },
+    "life_dates": {
+      "birth": {
+        "claim_id": "claim:henry-ossawa-tanner-birth",
+        "display_value": "1859",
+        "precision": "year"
+      },
+      "death": {
+        "claim_id": "claim:henry-ossawa-tanner-death",
+        "display_value": "1937",
+        "precision": "year"
+      }
+    },
+    "lifecycle_status": "reviewed",
+    "review_status": "reviewed",
+    "schema_version": "1.1.0",
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "uncertainty_note": "Getty ULAN currently emits a bad same-as link to Q15487281 (Roger Brown). It is quarantined; Q1374436 is retained because its entity identity and reciprocal ULAN 500005351 assertion close correctly.",
+    "updated_at": "2026-07-13T13:20:00+08:00"
+  }
+]

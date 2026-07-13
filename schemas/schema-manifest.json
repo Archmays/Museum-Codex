@@ -26,7 +26,7 @@
     {
       "path": "schemas/common/evidence.schema.json",
       "id": "https://museum-codex.example/schemas/common/evidence.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "common",
       "depends_on": ["schemas/common/entity.schema.json"]
     },
@@ -82,7 +82,7 @@
     {
       "path": "schemas/art/artist.schema.json",
       "id": "https://museum-codex.example/schemas/art/artist.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "art",
       "depends_on": ["schemas/common/entity.schema.json"]
     },
@@ -99,6 +99,27 @@
       "version": "1.0.0",
       "branch": "art",
       "depends_on": ["schemas/common/relationship.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/review-signoff.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/review-signoff.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/approved-identity-basis.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/approved-identity-basis.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/snapshot-receipt-ledger.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/snapshot-receipt-ledger.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
     },
     {
       "path": "schemas/curation/curation-common.schema.json",

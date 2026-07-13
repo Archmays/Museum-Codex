@@ -1,0 +1,879 @@
+{
+  "batch_id": "art-batch:museum-03b-first-slate-v1",
+  "content_hash": "sha256:7f374888eadfc9b6e693566ad2ba9ac065af4cdaf7430b92520b5346f43180ac",
+  "entity_type": "snapshot_receipt_ledger",
+  "entries": [
+    {
+      "body_bytes": 1203,
+      "body_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/06-kollwitz-object-1-60513.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/06-kollwitz-object-1-60513.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-60513-0ee6132005f3",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:60513:0ee6132005f3",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "60513"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 21083,
+      "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045630.576440Z-9a24ff1c2ac4/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045630.576440Z-9a24ff1c2ac4/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500005351-9a24ff1c2ac4",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500005351"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 37665,
+      "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045621.042208Z-7677dff36b57/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045621.042208Z-7677dff36b57/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500012368-7677dff36b57",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500012368"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 39383,
+      "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045622.319895Z-6c551fda4a5d/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045622.319895Z-6c551fda4a5d/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500016751-6c551fda4a5d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500016751"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 17826,
+      "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045629.453583Z-ca600b0ac822/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045629.453583Z-ca600b0ac822/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500032573-ca600b0ac822",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500032573"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 26996,
+      "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045626.221627Z-3ce744185fe3/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045626.221627Z-3ce744185fe3/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500054492-3ce744185fe3",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500054492"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 66136,
+      "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045624.997810Z-ec9d5a35231a/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045624.997810Z-ec9d5a35231a/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500060426-ec9d5a35231a",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500060426"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 170122,
+      "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/12/20260712T110105.159996Z-6a6d7dedc0b4/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045617.011633Z-6a6d7dedc0b4/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500115493-6a6d7dedc0b4",
+      "reused_body_snapshot_id": "snapshot:getty_ulan:20260712t110105.159996z:6a6d7dedc0b4",
+      "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500115493"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 54823,
+      "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045619.791264Z-92de392b5a63/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045619.791264Z-92de392b5a63/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500115588-92de392b5a63",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500115588"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 25133,
+      "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045623.538788Z-12eec69e2b91/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045623.538788Z-12eec69e2b91/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500118804-12eec69e2b91",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500118804"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 89136,
+      "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045618.440719Z-9dad7aa518fa/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045618.440719Z-9dad7aa518fa/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500118936-9dad7aa518fa",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500118936"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 17480,
+      "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045627.315294Z-53033c6b8c53/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045627.315294Z-53033c6b8c53/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500121310-53033c6b8c53",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500121310"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 8400,
+      "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/getty_ulan/2026/07/13/20260713T045628.347273Z-e2e4bf28ca40/response.body",
+      "raw_receipt_path": "data/raw/getty_ulan/2026/07/13/20260713T045628.347273Z-e2e4bf28ca40/manifest.json",
+      "receipt_id": "snapshot-receipt:getty_ulan-500122641-e2e4bf28ca40",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "getty_ulan",
+      "source_object_ids": [
+        "500122641"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2049,
+      "body_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-1-16947.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-1-16947.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-16947-113bbcf8513d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:16947:113bbcf8513d",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "16947"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2340,
+      "body_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-1-267426.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-1-267426.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-267426-77583671e597",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:267426:77583671e597",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "267426"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2040,
+      "body_sha256": "sha256:c3e40732ac1bcca5526c7d7205b9bfb4af7ecd74e74e3a6e635f3b1b41f0f70e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/07-cassatt-object-1-371803.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/07-cassatt-object-1-371803.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-371803-c3e40732ac1b",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:371803:c3e40732ac1b",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "371803"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2457,
+      "body_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-1-39799.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-1-39799.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-39799-b481c0d366b3",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:39799:b481c0d366b3",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "39799"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2407,
+      "body_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-1-436244.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-1-436244.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436244-fe0900945235",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436244:fe0900945235",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436244"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2153,
+      "body_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-1-436533.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-1-436533.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436533-cd0f5c8f8944",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436533:cd0f5c8f8944",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436533"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2609,
+      "body_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-2-436545.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-2-436545.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436545-3a403455b4ec",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436545:3a403455b4ec",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436545"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2225,
+      "body_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-2-53601.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-2-53601.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-53601-fc518eaa7f7b",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:53601:fc518eaa7f7b",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "53601"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2509,
+      "body_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-1-56716.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-1-56716.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-56716-2bc20d050789",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:56716:2bc20d050789",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "56716"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2342,
+      "body_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-1-717597.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-1-717597.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-717597-a25badf021e8",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:717597:a25badf021e8",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "717597"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1786,
+      "body_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/25-ravi-varma-object-1-851484.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/25-ravi-varma-object-1-851484.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-851484-10e5f77aabfc",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:851484:10e5f77aabfc",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "851484"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 165590,
+      "body_sha256": "sha256:d6459b2a98159e463090345373942780acc7631e2900c1afa09e96c2af9cd0ef",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/wikidata/2026/07/13/20260713T045743.459755Z-d6459b2a9815/response.body",
+      "raw_receipt_path": "data/raw/wikidata/2026/07/13/20260713T045743.459755Z-d6459b2a9815/manifest.json",
+      "receipt_id": "snapshot-receipt:wikidata-q1374436-d6459b2a9815",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:wikidata:20260713t045743.459755z:d6459b2a9815",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q1374436"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 267989,
+      "body_sha256": "sha256:2d914a7394d14c5646bc237cf59e9ca9123f0fbd260bf1e1d4922555025e2d22",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/06-kollwitz-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/06-kollwitz-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q142472-2d914a7394d1",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q142472:2d914a7394d1",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q142472"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 86701,
+      "body_sha256": "sha256:065f0950949d452eeadc8c8ce69195e5a28af709c0d2cd6c731ad9229e27e5ce",
+      "bundle_ref": null,
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/wikidata/2026/07/13/20260713T045744.866630Z-065f0950949d/response.body",
+      "raw_receipt_path": "data/raw/wikidata/2026/07/13/20260713T045744.866630Z-065f0950949d/manifest.json",
+      "receipt_id": "snapshot-receipt:wikidata-q15487281-065f0950949d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:wikidata:20260713t045744.866630z:065f0950949d",
+      "snapshot_id_basis": "pipeline_manifest",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q15487281"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 300128,
+      "body_sha256": "sha256:0df7708da1786912cafe0abee8859a6f749862a3a522703905ce492bb0fe4fed",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/07-cassatt-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/07-cassatt-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q173223-0df7708da178",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q173223:0df7708da178",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q173223"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 209945,
+      "body_sha256": "sha256:950ec0da7b6558cb110b2fcd251aca080b8236be2767cefd5e978058e7786210",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/09-cameron-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/09-cameron-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q230120-950ec0da7b65",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q230120:950ec0da7b65",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q230120"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 179674,
+      "body_sha256": "sha256:bf56f8098430fc50288627aab7050edd560fa0a57edd827a5e57276987f43b27",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/15-utamaro-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/15-utamaro-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q272045-bf56f8098430",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q272045:bf56f8098430",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q272045"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 79483,
+      "body_sha256": "sha256:f0469cc12bf8a88fc49adfb2b7f298f2b529242214594d7fc17e82707428d5fd",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/25-ravi-varma-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/25-ravi-varma-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q333453-f0469cc12bf8",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q333453:f0469cc12bf8",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q333453"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 376702,
+      "body_sha256": "sha256:abe72aee8c3c59cba8ba2ead274a853e61fc1af8ce1e8d97f81d15b41798dfd4",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/03-goya-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/03-goya-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q5432-abe72aee8c3c",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q5432:abe72aee8c3c",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q5432"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 507893,
+      "body_sha256": "sha256:f18434a57afc0fe5c3f318e2f20b5596fc733690b464fbda69026f0841b2d769",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/01-albrecht-durer-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/01-albrecht-durer-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q5580-f18434a57afc",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q5580:f18434a57afc",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q5580"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 445255,
+      "body_sha256": "sha256:8d1477f487d4e73f9965a80d717b00d81de53bcf0104e6a3d94e79348ec5d1cc",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/05-van-gogh-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/05-van-gogh-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q5582-8d1477f487d4",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q5582:8d1477f487d4",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q5582"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 265892,
+      "body_sha256": "sha256:f86e158788534274503657bcafc94bae6326199a6e83ace9d8e3971e89e6cd4a",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/13-hokusai-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/13-hokusai-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q5586-f86e15878853",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q5586:f86e15878853",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q5586"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 113817,
+      "body_sha256": "sha256:6c9a76583f14d5c6f76cf980fe692efcb177a1d0a4db01fdb69c90d7949e01e1",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/17-shen-zhou-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/17-shen-zhou-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q558863-6c9a76583f14",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q558863:6c9a76583f14",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q558863"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 106672,
+      "body_sha256": "sha256:0b5244c01a7cbcb9b0fca98d83caad3549e98467c1b2cd058f536f68f81631ae",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json; charset=UTF-8",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/27-posada-entity-1.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/wikidata/27-posada-entity-1.metadata.json",
+      "receipt_id": "snapshot-receipt:wikidata-q732526-0b5244c01a7c",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:wikidata:q732526:0b5244c01a7c",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "wikidata",
+      "source_object_ids": [
+        "Q732526"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    }
+  ],
+  "id": "snapshot-receipt-ledger:museum-03b-first-slate-v1",
+  "schema_version": "1.0.0",
+  "verified_at": "2026-07-13T13:35:00+08:00"
+}

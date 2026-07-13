@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/snapshot-receipt-ledger.schema.json",
+  "title": "MUSEUM-03B tracked raw snapshot receipt ledger",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "batch_id", "verified_at", "entries", "content_hash"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^snapshot-receipt-ledger:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "snapshot_receipt_ledger" },
+    "batch_id": { "type": "string", "pattern": "^art-batch:[a-z0-9][a-z0-9._-]*$" },
+    "verified_at": { "type": "string", "format": "date-time" },
+    "entries": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "receipt_id", "snapshot_id", "snapshot_id_basis", "source_id", "source_object_ids",
+          "body_sha256", "body_bytes", "content_type", "raw_receipt_path", "raw_body_path",
+          "reused_body_snapshot_id", "bundle_ref", "verification"
+        ],
+        "properties": {
+          "receipt_id": { "type": "string", "pattern": "^snapshot-receipt:[a-z0-9][a-z0-9._-]*$" },
+          "snapshot_id": { "type": "string", "pattern": "^snapshot:[a-z][a-z0-9_]*:[a-z0-9.:_-]+$" },
+          "snapshot_id_basis": { "enum": ["pipeline_manifest", "legacy_receipt_derived"] },
+          "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "source_object_ids": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "body_sha256": { "$ref": "#/$defs/hash" },
+          "body_bytes": { "type": "integer", "minimum": 1 },
+          "content_type": { "type": "string", "minLength": 1 },
+          "raw_receipt_path": { "$ref": "#/$defs/path" },
+          "raw_body_path": { "$ref": "#/$defs/path" },
+          "reused_body_snapshot_id": { "type": ["string", "null"], "pattern": "^snapshot:" },
+          "bundle_ref": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": ["bundle_id", "bundle_hash", "source_snapshots_sha256"],
+                "properties": {
+                  "bundle_id": { "type": "string", "minLength": 1 },
+                  "bundle_hash": { "$ref": "#/$defs/hash" },
+                  "source_snapshots_sha256": { "$ref": "#/$defs/hash" }
+                },
+                "additionalProperties": false
+              },
+              { "type": "null" }
+            ]
+          },
+          "verification": {
+            "type": "object",
+            "required": ["body_present", "hash_match", "byte_count_match"],
+            "properties": {
+              "body_present": { "const": true },
+              "hash_match": { "const": true },
+              "byte_count_match": { "const": true }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "content_hash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "path": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" }
+  },
+  "additionalProperties": false
+}

@@ -164,6 +164,17 @@ class AdapterTests(unittest.TestCase):
         self.assertNotIn("identity_status", candidate["fields"])
         self.assertIn("constituent_assertions", candidate["fields"])
 
+    def test_met_null_constituents_normalizes_to_empty_array(self) -> None:
+        document = json.loads((VALID / FIXTURES["met_open_access"]).read_text(encoding="utf-8"))
+        document["constituents"] = None
+        adapter = get_adapter("met_open_access")
+        validated = adapter.validate_response_contract(response_for("met_open_access", document))
+        candidate = adapter.normalize(validated, snapshot_id="snapshot:met:fixture", observed_at="2026-07-13T00:00:00Z")
+        self.assertEqual([], candidate["fields"]["constituent_assertions"])
+        provenance = next(item for item in candidate["field_provenance"] if item["field_pointer"] == "/fields/constituent_assertions")
+        self.assertIsNone(provenance["raw_value"])
+        self.assertEqual("null_to_empty_array", provenance["transform_id"])
+
     def test_met_primary_image_is_only_unknown_media_hint(self) -> None:
         document = json.loads((VALID / FIXTURES["met_open_access"]).read_text(encoding="utf-8"))
         document["primaryImage"] = "https://images.metmuseum.org/fixture.jpg"

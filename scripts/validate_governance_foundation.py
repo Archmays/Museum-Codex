@@ -47,7 +47,7 @@ DIRECT_HISTORICAL_TYPES = {
 }
 
 HIGH_RISK_PREDICATES = {
-    "birth_date", "birth_year", "death_date", "death_year", "identity_same_as",
+    "birth_date", "birth_year", "birth_period", "death_date", "death_year", "death_period", "identity_same_as",
     "creator_attribution", "attributed_to", "student_of", "teacher_of",
     "worked_in_studio_of", "collaborated_with", "explicitly_influenced_by",
     "explicitly_influenced", "referenced_or_quoted",
@@ -72,6 +72,9 @@ TARGET_SCHEMA_BY_ENTITY_TYPE = {
     "dataset_release": "schemas/common/dataset-release.schema.json",
     "artist": "schemas/art/artist.schema.json",
     "artwork": "schemas/art/artwork.schema.json",
+    "review_signoff": "schemas/art/batch/review-signoff.schema.json",
+    "approved_identity_basis": "schemas/art/batch/approved-identity-basis.schema.json",
+    "snapshot_receipt_ledger": "schemas/art/batch/snapshot-receipt-ledger.schema.json",
     "taxon": "schemas/biology/taxon.schema.json",
     "species": "schemas/biology/taxon.schema.json",
 }
@@ -212,6 +215,9 @@ def record_identity_issues(data: dict[str, Any], prefix: str) -> list[Validation
         "rel": {"relationship"},
         "media": {"media_asset"},
         "release": {"dataset_release"},
+        "review-signoff": {"review_signoff"},
+        "approved-identity-basis": {"approved_identity_basis"},
+        "snapshot-receipt-ledger": {"snapshot_receipt_ledger"},
         "taxon": {"taxon", "species"},
     }.get(id_prefix, {id_prefix})
     if entity_type in expected_types:
@@ -965,14 +971,18 @@ def reference_graph_issues(records: list[dict[str, Any]]) -> list[ValidationIssu
                         issues.append(ValidationIssue("artist_life_or_work_claim_missing", f"Artist required claim {claim_id} is absent", prefix))
                 life_sort_keys: dict[str, tuple[int, int, int]] = {}
                 for life_field, predicates in {
-                    "birth": {"birth_date", "birth_year"},
-                    "death": {"death_date", "death_year"},
+                    "birth": {"birth_date", "birth_year", "birth_period"},
+                    "death": {"death_date", "death_year", "death_period"},
                 }.items():
                     life_value = life_dates.get(life_field, {})
                     claim = indexed.get(life_value.get("claim_id"), {})
                     claim_object = claim.get("object") if isinstance(claim.get("object"), dict) else {}
                     predicate = claim.get("predicate")
-                    expected_datatype = "date" if predicate and predicate.endswith("_date") else "year"
+                    expected_datatype = (
+                        "date" if predicate and predicate.endswith("_date")
+                        else "string" if predicate and predicate.endswith("_period")
+                        else "year"
+                    )
                     sort_key = claim_temporal_sort_key(claim_object)
                     if sort_key is not None:
                         life_sort_keys[life_field] = sort_key

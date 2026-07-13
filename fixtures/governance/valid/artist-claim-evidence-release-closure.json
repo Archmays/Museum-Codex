@@ -82,7 +82,7 @@
     {
       "target_schema": "schemas/common/evidence.schema.json",
       "data": {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "id": "evidence:fixture-artist-birth",
         "entity_type": "evidence",
         "claim_ids": [
@@ -121,7 +121,7 @@
     {
       "target_schema": "schemas/common/evidence.schema.json",
       "data": {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "id": "evidence:fixture-artist-death",
         "entity_type": "evidence",
         "claim_ids": [
@@ -160,7 +160,7 @@
     {
       "target_schema": "schemas/common/evidence.schema.json",
       "data": {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "id": "evidence:fixture-artist-work",
         "entity_type": "evidence",
         "claim_ids": [
@@ -454,7 +454,7 @@
     {
       "target_schema": "schemas/art/artist.schema.json",
       "data": {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "id": "artist:fixture-closure-artist",
         "entity_type": "artist",
         "branch_id": "art",
@@ -517,11 +517,11 @@
         "entity_type": "dataset_release",
         "version": "0.1.0",
         "schema_versions": {
-          "art/artist": "1.0.0",
+          "art/artist": "1.1.0",
           "common/attribution-manifest": "1.0.0",
           "common/claim": "1.0.0",
           "common/dataset-release": "1.0.0",
-          "common/evidence": "1.0.0",
+          "common/evidence": "1.1.0",
           "common/license-decision-registry": "1.0.0",
           "common/source-rules-snapshot": "1.0.0",
           "common/source": "1.0.0",

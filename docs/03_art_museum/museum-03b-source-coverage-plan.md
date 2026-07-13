@@ -1,7 +1,9 @@
 # MUSEUM-03B source coverage plan
 
-Status: reviewed source plan, not a public release  
-Verified: 2026-07-13  
+Status: reviewed source plan, not a public release
+
+Verified: 2026-07-13
+
 Batch: `art-batch:museum-03b-first-slate-v1`
 
 This plan covers exactly the twelve artists in the submitted Recommended Slate. It does not approve a substitute, download media, or authorize public-runtime access. Formal facts must still close through `Claim -> Evidence -> Source` and receive the role-specific reviews described below.
@@ -15,7 +17,8 @@ This plan covers exactly the twelve artists in the submitted Recommended Slate. 
 | `aic_api` | Tier 1 official collection objects and object-level media status | `reference_adapter_ready` | `aic_api:data:75df7e022b4e`; descriptions use separate CC BY rule; `aic_api:media:98cceb1965b8` | Exact object `60513` returned HTTP 200 through adapter `0.1.0`; no description field was requested |
 | `wikidata` | Tier 3 discovery and external-ID conflict checking only | `discovery_only` | `wikidata:data:dab022172e7e`; media rule prohibits use | Exact Tanner QIDs were captured to investigate a cross-link conflict; Tier 3 is not used to establish death, authorship, or influence |
 
-Endpoint registry SHA-256: `sha256:77f33683b9eabe64e5e3f18900bdf949240fe71387ae08ad12d98cd83d31a114`  
+Endpoint registry SHA-256: `sha256:77f33683b9eabe64e5e3f18900bdf949240fe71387ae08ad12d98cd83d31a114`
+
 License rules SHA-256: `sha256:19d10386405abf971c5712e955f60c08d2bd43e6f8060a29035033ff3c33ada2`
 
 Getty's official obtain/LOD pages were rechecked: current individual-record JSON/Linked Data and ODC-By 1.0 remain available; the discontinued XML services remain prohibited. The Met API still exposes selected collection data under CC0 and requires object-level Open Access evidence for images. AIC remains field-sensitive: artwork `description` is not silently treated as CC0, and IIIF availability is not media permission.

@@ -1,0 +1,1058 @@
+[
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Albrecht Dürer: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:albrecht-durer-identity",
+    "record_ids": [
+      "artist:albrecht-durer",
+      "claim:albrecht-durer-identity-profile",
+      "claim:albrecht-durer-birth",
+      "claim:albrecht-durer-death",
+      "claim:albrecht-durer-loc-crosswalk",
+      "claim:albrecht-durer-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Albrecht Dürer: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:albrecht-durer-art-history",
+    "record_ids": [
+      "artist:albrecht-durer",
+      "claim:albrecht-durer-death",
+      "claim:albrecht-durer-official-record",
+      "claim:albrecht-durer-activity-scope",
+      "claim:albrecht-durer-historical-period",
+      "claim:albrecht-durer-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Francisco de Goya: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:francisco-de-goya-identity",
+    "record_ids": [
+      "artist:francisco-de-goya",
+      "claim:francisco-de-goya-identity-profile",
+      "claim:francisco-de-goya-birth",
+      "claim:francisco-de-goya-death",
+      "claim:francisco-de-goya-loc-crosswalk",
+      "claim:francisco-de-goya-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Francisco de Goya: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:francisco-de-goya-art-history",
+    "record_ids": [
+      "artist:francisco-de-goya",
+      "claim:francisco-de-goya-death",
+      "claim:francisco-de-goya-official-record",
+      "claim:francisco-de-goya-activity-scope",
+      "claim:francisco-de-goya-historical-period",
+      "claim:francisco-de-goya-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Vincent van Gogh: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:vincent-van-gogh-identity",
+    "record_ids": [
+      "artist:vincent-van-gogh",
+      "claim:vincent-van-gogh-identity-profile",
+      "claim:vincent-van-gogh-birth",
+      "claim:vincent-van-gogh-death",
+      "claim:vincent-van-gogh-loc-crosswalk",
+      "claim:vincent-van-gogh-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Vincent van Gogh: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:vincent-van-gogh-art-history",
+    "record_ids": [
+      "artist:vincent-van-gogh",
+      "claim:vincent-van-gogh-death",
+      "claim:vincent-van-gogh-official-record",
+      "claim:vincent-van-gogh-activity-scope",
+      "claim:vincent-van-gogh-historical-period",
+      "claim:vincent-van-gogh-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Mary Cassatt: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:mary-cassatt-identity",
+    "record_ids": [
+      "artist:mary-cassatt",
+      "claim:mary-cassatt-identity-profile",
+      "claim:mary-cassatt-birth",
+      "claim:mary-cassatt-death",
+      "claim:mary-cassatt-loc-crosswalk",
+      "claim:mary-cassatt-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Mary Cassatt: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:mary-cassatt-art-history",
+    "record_ids": [
+      "artist:mary-cassatt",
+      "claim:mary-cassatt-death",
+      "claim:mary-cassatt-official-record",
+      "claim:mary-cassatt-activity-scope",
+      "claim:mary-cassatt-historical-period",
+      "claim:mary-cassatt-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Käthe Kollwitz: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:kathe-kollwitz-identity",
+    "record_ids": [
+      "artist:kathe-kollwitz",
+      "claim:kathe-kollwitz-identity-profile",
+      "claim:kathe-kollwitz-birth",
+      "claim:kathe-kollwitz-death",
+      "claim:kathe-kollwitz-loc-crosswalk",
+      "claim:kathe-kollwitz-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Käthe Kollwitz: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:kathe-kollwitz-art-history",
+    "record_ids": [
+      "artist:kathe-kollwitz",
+      "claim:kathe-kollwitz-death",
+      "claim:kathe-kollwitz-official-record",
+      "claim:kathe-kollwitz-activity-scope",
+      "claim:kathe-kollwitz-historical-period",
+      "claim:kathe-kollwitz-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Julia Margaret Cameron: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:julia-margaret-cameron-identity",
+    "record_ids": [
+      "artist:julia-margaret-cameron",
+      "claim:julia-margaret-cameron-identity-profile",
+      "claim:julia-margaret-cameron-birth",
+      "claim:julia-margaret-cameron-death",
+      "claim:julia-margaret-cameron-loc-crosswalk",
+      "claim:julia-margaret-cameron-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Julia Margaret Cameron: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:julia-margaret-cameron-art-history",
+    "record_ids": [
+      "artist:julia-margaret-cameron",
+      "claim:julia-margaret-cameron-death",
+      "claim:julia-margaret-cameron-official-record",
+      "claim:julia-margaret-cameron-activity-scope",
+      "claim:julia-margaret-cameron-historical-period",
+      "claim:julia-margaret-cameron-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Katsushika Hokusai: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:katsushika-hokusai-identity",
+    "record_ids": [
+      "artist:katsushika-hokusai",
+      "claim:katsushika-hokusai-identity-profile",
+      "claim:katsushika-hokusai-birth",
+      "claim:katsushika-hokusai-death",
+      "claim:katsushika-hokusai-loc-crosswalk",
+      "claim:katsushika-hokusai-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Katsushika Hokusai: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:katsushika-hokusai-art-history",
+    "record_ids": [
+      "artist:katsushika-hokusai",
+      "claim:katsushika-hokusai-death",
+      "claim:katsushika-hokusai-official-record",
+      "claim:katsushika-hokusai-activity-scope",
+      "claim:katsushika-hokusai-historical-period",
+      "claim:katsushika-hokusai-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Kitagawa Utamaro: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:kitagawa-utamaro-identity",
+    "record_ids": [
+      "artist:kitagawa-utamaro",
+      "claim:kitagawa-utamaro-identity-profile",
+      "claim:kitagawa-utamaro-birth",
+      "claim:kitagawa-utamaro-death",
+      "claim:kitagawa-utamaro-loc-crosswalk",
+      "claim:kitagawa-utamaro-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Kitagawa Utamaro: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:kitagawa-utamaro-art-history",
+    "record_ids": [
+      "artist:kitagawa-utamaro",
+      "claim:kitagawa-utamaro-death",
+      "claim:kitagawa-utamaro-official-record",
+      "claim:kitagawa-utamaro-activity-scope",
+      "claim:kitagawa-utamaro-historical-period",
+      "claim:kitagawa-utamaro-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Shen Zhou: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:shen-zhou-identity",
+    "record_ids": [
+      "artist:shen-zhou",
+      "claim:shen-zhou-identity-profile",
+      "claim:shen-zhou-birth",
+      "claim:shen-zhou-death",
+      "claim:shen-zhou-loc-crosswalk",
+      "claim:shen-zhou-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Shen Zhou: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:shen-zhou-art-history",
+    "record_ids": [
+      "artist:shen-zhou",
+      "claim:shen-zhou-death",
+      "claim:shen-zhou-official-record",
+      "claim:shen-zhou-activity-scope",
+      "claim:shen-zhou-historical-period",
+      "claim:shen-zhou-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Raja Ravi Varma: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:raja-ravi-varma-identity",
+    "record_ids": [
+      "artist:raja-ravi-varma",
+      "claim:raja-ravi-varma-identity-profile",
+      "claim:raja-ravi-varma-birth",
+      "claim:raja-ravi-varma-death",
+      "claim:raja-ravi-varma-loc-crosswalk",
+      "claim:raja-ravi-varma-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Raja Ravi Varma: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:raja-ravi-varma-art-history",
+    "record_ids": [
+      "artist:raja-ravi-varma",
+      "claim:raja-ravi-varma-death",
+      "claim:raja-ravi-varma-official-record",
+      "claim:raja-ravi-varma-activity-scope",
+      "claim:raja-ravi-varma-historical-period",
+      "claim:raja-ravi-varma-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "José Guadalupe Posada: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:jose-guadalupe-posada-identity",
+    "record_ids": [
+      "artist:jose-guadalupe-posada",
+      "claim:jose-guadalupe-posada-identity-profile",
+      "claim:jose-guadalupe-posada-birth",
+      "claim:jose-guadalupe-posada-death",
+      "claim:jose-guadalupe-posada-loc-crosswalk",
+      "claim:jose-guadalupe-posada-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "José Guadalupe Posada: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:jose-guadalupe-posada-art-history",
+    "record_ids": [
+      "artist:jose-guadalupe-posada",
+      "claim:jose-guadalupe-posada-death",
+      "claim:jose-guadalupe-posada-official-record",
+      "claim:jose-guadalupe-posada-activity-scope",
+      "claim:jose-guadalupe-posada-historical-period",
+      "claim:jose-guadalupe-posada-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "approved_identity_binding",
+        "note": "Candidate ID, approved labels, candidate input hash, stable artist ID, and authority identifiers were checked against the fixed identity basis.",
+        "result": "pass"
+      },
+      {
+        "check": "name_and_external_id_resolution",
+        "note": "Preferred/source names and external identifiers retain source locators and any competing identity evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "life_date_precision_and_death",
+        "note": "Birth precision and the Tier 1/2-supported death projection were reviewed without exactness inflation.",
+        "result": "pass"
+      },
+      {
+        "check": "no_identity_public_promotion",
+        "note": "The judgment is accepted_reviewed only; it does not independently verify or publish any Claim.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Henry Ossawa Tanner: Identity, names, life-date precision, external identifiers, and deceased-individual status were reviewed for internal use only.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:henry-ossawa-tanner-identity",
+    "record_ids": [
+      "artist:henry-ossawa-tanner",
+      "claim:henry-ossawa-tanner-identity-profile",
+      "claim:henry-ossawa-tanner-birth",
+      "claim:henry-ossawa-tanner-death",
+      "claim:henry-ossawa-tanner-loc-crosswalk",
+      "claim:henry-ossawa-tanner-wikidata-crosswalk"
+    ],
+    "review_role": "identity_reviewer",
+    "reviewed_at": "2026-07-13T13:20:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  },
+  {
+    "authority_basis": "Mays authorized execution of MUSEUM-03B and the exact Recommended Slate; factual records remain internal reviewed and are not auto-verified.",
+    "checklist": [
+      {
+        "check": "death_and_history_consistency",
+        "note": "The accepted death projection was checked against the dated official collection record and retained counter-evidence.",
+        "result": "pass"
+      },
+      {
+        "check": "official_record_association",
+        "note": "The exact official object record is associated with the identity; artwork authorship remains subject to the separate attribution wave.",
+        "result": "pass"
+      },
+      {
+        "check": "context_classification_scope",
+        "note": "Activity, period, and tradition labels are explicitly project-reviewed classifications, not verbatim source assertions.",
+        "result": "pass"
+      },
+      {
+        "check": "no_artwork_attribution_promotion",
+        "note": "This judgment does not convert a collection-record association into confirmed artwork authorship or publication.",
+        "result": "pass"
+      }
+    ],
+    "data_version": "1.0.0",
+    "decision": "accepted_reviewed",
+    "decision_note": "Henry Ossawa Tanner: Death, official collection-record association, and broad contextual classifications were reviewed as a separate art-history judgment.",
+    "entity_type": "review_signoff",
+    "id": "review-signoff:henry-ossawa-tanner-art-history",
+    "record_ids": [
+      "artist:henry-ossawa-tanner",
+      "claim:henry-ossawa-tanner-death",
+      "claim:henry-ossawa-tanner-official-record",
+      "claim:henry-ossawa-tanner-activity-scope",
+      "claim:henry-ossawa-tanner-historical-period",
+      "claim:henry-ossawa-tanner-artistic-tradition"
+    ],
+    "review_role": "art_history_reviewer",
+    "reviewed_at": "2026-07-13T13:27:00+08:00",
+    "reviewer_id": "codex-primary-agent",
+    "reviewer_kind": "ai_assisted_operator",
+    "schema_version": "1.0.0",
+    "single_operator_multi_role": true
+  }
+]

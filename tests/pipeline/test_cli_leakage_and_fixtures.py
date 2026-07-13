@@ -225,7 +225,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(34, len(environment.by_path))
+        self.assertEqual(37, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))

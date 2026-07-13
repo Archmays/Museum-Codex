@@ -31,6 +31,9 @@ PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "selection_decision": "schemas/curation/selection-decision.schema.json",
     "selection_decision_application": "schemas/curation/selection-decision-application.schema.json",
     "selection_review_bundle": "schemas/curation/selection-review-bundle.schema.json",
+    "review_signoff": "schemas/art/batch/review-signoff.schema.json",
+    "approved_identity_basis": "schemas/art/batch/approved-identity-basis.schema.json",
+    "snapshot_receipt_ledger": "schemas/art/batch/snapshot-receipt-ledger.schema.json",
 }
 
 

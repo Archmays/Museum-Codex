@@ -17,7 +17,7 @@
       "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
     },
     "stance": { "enum": ["supports", "contradicts", "contextualizes"] },
-    "evidence_kind": { "enum": ["archival_record", "correspondence", "collection_record", "catalogue", "scholarly_analysis", "observation", "dataset_record", "computational_result", "image_technical_record", "other"] },
+    "evidence_kind": { "enum": ["archival_record", "correspondence", "collection_record", "catalogue", "scholarly_analysis", "curatorial_assessment", "observation", "dataset_record", "computational_result", "image_technical_record", "other"] },
     "source_ids": {
       "type": "array", "minItems": 1, "uniqueItems": true,
       "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
@@ -40,6 +40,20 @@
     },
     "summary": { "type": "string", "minLength": 1 },
     "short_excerpt": { "type": ["string", "null"] },
+    "raw_snapshot_refs": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["snapshot_id", "body_sha256", "source_object_id", "raw_locator"],
+        "properties": {
+          "snapshot_id": { "type": "string", "pattern": "^snapshot:[a-z][a-z0-9_]*:[a-z0-9.:_-]+$" },
+          "body_sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+          "source_object_id": { "type": "string", "minLength": 1 },
+          "raw_locator": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
     "original_language": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/languageTag" },
     "extracted_at": { "type": "string", "format": "date-time" },
     "extraction_method": { "enum": ["manual", "api_field", "ocr_reviewed", "computed"] },

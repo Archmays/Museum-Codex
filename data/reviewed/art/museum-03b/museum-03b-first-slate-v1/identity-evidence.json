@@ -1,0 +1,4538 @@
+[
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:albrecht-durer-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115493",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:albrecht-durer-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115493",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:albrecht-durer-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115493",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:albrecht-durer-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "436244",
+      "section": "https://www.metmuseum.org/art/collection/search/436244"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436244:fe0900945235",
+        "source_object_id": "436244"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Virgin and Child with Saint Anne as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-activity-scope",
+      "claim:albrecht-durer-historical-period",
+      "claim:albrecht-durer-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:albrecht-durer-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115493 + 436244",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      },
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      },
+      {
+        "body_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436244:fe0900945235",
+        "source_object_id": "436244"
+      },
+      {
+        "body_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436244:fe0900945235",
+        "source_object_id": "436244"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:albrecht-durer-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115493",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n79118011."
+  },
+  {
+    "claim_ids": [
+      "claim:albrecht-durer-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:albrecht-durer-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115493 + Q5580",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6a6d7dedc0b40ebc8b7e888d618a25258348413a707a1b4ff5c7892604c05dd3",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045617.011633z:6a6d7dedc0b4",
+        "source_object_id": "500115493"
+      },
+      {
+        "body_sha256": "sha256:f18434a57afc0fe5c3f318e2f20b5596fc733690b464fbda69026f0841b2d769",
+        "raw_locator": "/entities/Q5580/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q5580:f18434a57afc",
+        "source_object_id": "Q5580"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500115493 links to Wikidata Q5580, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:francisco-de-goya-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118936",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:francisco-de-goya-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118936",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:francisco-de-goya-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118936",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:francisco-de-goya-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "436545",
+      "section": "https://www.metmuseum.org/art/collection/search/436545"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436545:3a403455b4ec",
+        "source_object_id": "436545"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Manuel Osorio Manrique de Zuñiga (1784–1792) as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-activity-scope",
+      "claim:francisco-de-goya-historical-period",
+      "claim:francisco-de-goya-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:francisco-de-goya-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118936 + 436545",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      },
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      },
+      {
+        "body_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436545:3a403455b4ec",
+        "source_object_id": "436545"
+      },
+      {
+        "body_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436545:3a403455b4ec",
+        "source_object_id": "436545"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:francisco-de-goya-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118936",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n79003363."
+  },
+  {
+    "claim_ids": [
+      "claim:francisco-de-goya-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:francisco-de-goya-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118936 + Q5432",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9dad7aa518fa20c73f28dfca5afbba0f7fc9550a6cc5e2e000c47b38ed2a96f6",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045618.440719z:9dad7aa518fa",
+        "source_object_id": "500118936"
+      },
+      {
+        "body_sha256": "sha256:abe72aee8c3c59cba8ba2ead274a853e61fc1af8ce1e8d97f81d15b41798dfd4",
+        "raw_locator": "/entities/Q5432/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q5432:abe72aee8c3c",
+        "source_object_id": "Q5432"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500118936 links to Wikidata Q5432, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:vincent-van-gogh-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115588",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:vincent-van-gogh-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115588",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:vincent-van-gogh-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115588",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:vincent-van-gogh-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "436533",
+      "section": "https://www.metmuseum.org/art/collection/search/436533"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436533:cd0f5c8f8944",
+        "source_object_id": "436533"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Shoes as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-activity-scope",
+      "claim:vincent-van-gogh-historical-period",
+      "claim:vincent-van-gogh-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:vincent-van-gogh-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115588 + 436533",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      },
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      },
+      {
+        "body_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436533:cd0f5c8f8944",
+        "source_object_id": "436533"
+      },
+      {
+        "body_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:436533:cd0f5c8f8944",
+        "source_object_id": "436533"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:vincent-van-gogh-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115588",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n79022935."
+  },
+  {
+    "claim_ids": [
+      "claim:vincent-van-gogh-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:vincent-van-gogh-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500115588 + Q5582",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:92de392b5a63d3fb03e8761db6613d837b8f140c16ff4a0d0eb5353443ce19c7",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045619.791264z:92de392b5a63",
+        "source_object_id": "500115588"
+      },
+      {
+        "body_sha256": "sha256:8d1477f487d4e73f9965a80d717b00d81de53bcf0104e6a3d94e79348ec5d1cc",
+        "raw_locator": "/entities/Q5582/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q5582:8d1477f487d4",
+        "source_object_id": "Q5582"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500115588 links to Wikidata Q5582, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:mary-cassatt-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500012368",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:mary-cassatt-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500012368",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:mary-cassatt-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500012368",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:mary-cassatt-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "371803",
+      "section": "https://www.metmuseum.org/art/collection/search/371803"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:c3e40732ac1bcca5526c7d7205b9bfb4af7ecd74e74e3a6e635f3b1b41f0f70e",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:371803:c3e40732ac1b",
+        "source_object_id": "371803"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies In the Opera Box as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-activity-scope",
+      "claim:mary-cassatt-historical-period",
+      "claim:mary-cassatt-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:mary-cassatt-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500012368 + 371803",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      },
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      },
+      {
+        "body_sha256": "sha256:c3e40732ac1bcca5526c7d7205b9bfb4af7ecd74e74e3a6e635f3b1b41f0f70e",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:371803:c3e40732ac1b",
+        "source_object_id": "371803"
+      },
+      {
+        "body_sha256": "sha256:c3e40732ac1bcca5526c7d7205b9bfb4af7ecd74e74e3a6e635f3b1b41f0f70e",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:371803:c3e40732ac1b",
+        "source_object_id": "371803"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:mary-cassatt-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500012368",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n78096937."
+  },
+  {
+    "claim_ids": [
+      "claim:mary-cassatt-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:mary-cassatt-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500012368 + Q173223",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:7677dff36b57c7ec3538ac13e08bc24d18200a3865ce0f4f32013c6c7c94bc85",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045621.042208z:7677dff36b57",
+        "source_object_id": "500012368"
+      },
+      {
+        "body_sha256": "sha256:0df7708da1786912cafe0abee8859a6f749862a3a522703905ce492bb0fe4fed",
+        "raw_locator": "/entities/Q173223/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q173223:0df7708da178",
+        "source_object_id": "Q173223"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500012368 links to Wikidata Q173223, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kathe-kollwitz-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500016751",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kathe-kollwitz-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500016751",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kathe-kollwitz-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500016751",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kathe-kollwitz-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "60513",
+      "section": "https://api.artic.edu/api/v1/artworks/60513?fields=api_link%2Cartist_display%2Ccopyright_notice%2Ccredit_line%2Cdate_display%2Cdepartment_title%2Cid%2Cimage_id%2Cis_public_domain%2Cmain_reference_number%2Cmedium_display%2Ctitle"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+        "raw_locator": "/data/artist_title",
+        "snapshot_id": "snapshot:curation_museum03a:aic_api:60513:0ee6132005f3",
+        "source_object_id": "60513"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:aic_api"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "aic_api:data:75df7e022b4e",
+        "scope_fields": [
+          "api_link",
+          "artist_display",
+          "copyright_notice",
+          "credit_line",
+          "date_display",
+          "department_title",
+          "id",
+          "image_id",
+          "is_public_domain",
+          "main_reference_number",
+          "medium_display",
+          "title"
+        ],
+        "scope_locator": "https://api.artic.edu/api/v1/artworks/60513?fields=api_link%2Cartist_display%2Ccopyright_notice%2Ccredit_line%2Cdate_display%2Cdepartment_title%2Cid%2Cimage_id%2Cis_public_domain%2Cmain_reference_number%2Cmedium_display%2Ctitle",
+        "source_id": "source:aic_api"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Self-Portrait as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-activity-scope",
+      "claim:kathe-kollwitz-historical-period",
+      "claim:kathe-kollwitz-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:kathe-kollwitz-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500016751 + 60513",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      },
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      },
+      {
+        "body_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+        "raw_locator": "/data/medium_display",
+        "snapshot_id": "snapshot:curation_museum03a:aic_api:60513:0ee6132005f3",
+        "source_object_id": "60513"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:aic_api"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "aic_api:data:75df7e022b4e",
+        "scope_fields": [
+          "api_link",
+          "artist_display",
+          "copyright_notice",
+          "credit_line",
+          "date_display",
+          "department_title",
+          "id",
+          "image_id",
+          "is_public_domain",
+          "main_reference_number",
+          "medium_display",
+          "title"
+        ],
+        "scope_locator": "https://api.artic.edu/api/v1/artworks/60513?fields=api_link%2Cartist_display%2Ccopyright_notice%2Ccredit_line%2Cdate_display%2Cdepartment_title%2Cid%2Cimage_id%2Cis_public_domain%2Cmain_reference_number%2Cmedium_display%2Ctitle",
+        "source_id": "source:aic_api"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kathe-kollwitz-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500016751",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n50044456."
+  },
+  {
+    "claim_ids": [
+      "claim:kathe-kollwitz-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:kathe-kollwitz-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500016751 + Q142472",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:6c551fda4a5d1fab02808e495d9a4ce0ab1e0848d2416b169c551c97e3fc8bff",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045622.319895z:6c551fda4a5d",
+        "source_object_id": "500016751"
+      },
+      {
+        "body_sha256": "sha256:2d914a7394d14c5646bc237cf59e9ca9123f0fbd260bf1e1d4922555025e2d22",
+        "raw_locator": "/entities/Q142472/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q142472:2d914a7394d1",
+        "source_object_id": "Q142472"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500016751 links to Wikidata Q142472, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:julia-margaret-cameron-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118804",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:julia-margaret-cameron-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118804",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:julia-margaret-cameron-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118804",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:julia-margaret-cameron-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "267426",
+      "section": "https://www.metmuseum.org/art/collection/search/267426"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:267426:77583671e597",
+        "source_object_id": "267426"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Julia Jackson as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-activity-scope",
+      "claim:julia-margaret-cameron-historical-period",
+      "claim:julia-margaret-cameron-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:julia-margaret-cameron-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118804 + 267426",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      },
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      },
+      {
+        "body_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:267426:77583671e597",
+        "source_object_id": "267426"
+      },
+      {
+        "body_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:267426:77583671e597",
+        "source_object_id": "267426"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:julia-margaret-cameron-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118804",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n50031545."
+  },
+  {
+    "claim_ids": [
+      "claim:julia-margaret-cameron-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:julia-margaret-cameron-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500118804 + Q230120",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:12eec69e2b91a2bd69705ddd2d6b77289d79c2d2f58f41227dec49234eeec73a",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045623.538788z:12eec69e2b91",
+        "source_object_id": "500118804"
+      },
+      {
+        "body_sha256": "sha256:950ec0da7b6558cb110b2fcd251aca080b8236be2767cefd5e978058e7786210",
+        "raw_locator": "/entities/Q230120/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q230120:950ec0da7b65",
+        "source_object_id": "Q230120"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500118804 links to Wikidata Q230120, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:katsushika-hokusai-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500060426",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:katsushika-hokusai-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500060426",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:katsushika-hokusai-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500060426",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:katsushika-hokusai-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "39799",
+      "section": "https://www.metmuseum.org/art/collection/search/39799"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:39799:b481c0d366b3",
+        "source_object_id": "39799"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Under the Wave off Kanagawa as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-activity-scope",
+      "claim:katsushika-hokusai-historical-period",
+      "claim:katsushika-hokusai-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:katsushika-hokusai-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500060426 + 39799",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      },
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      },
+      {
+        "body_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:39799:b481c0d366b3",
+        "source_object_id": "39799"
+      },
+      {
+        "body_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:39799:b481c0d366b3",
+        "source_object_id": "39799"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:katsushika-hokusai-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500060426",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n80043599."
+  },
+  {
+    "claim_ids": [
+      "claim:katsushika-hokusai-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:katsushika-hokusai-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500060426 + Q5586",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ec9d5a35231acbab55e5d4ddbc92306a13f8afe874462942e9078456d57b6c72",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045624.997810z:ec9d5a35231a",
+        "source_object_id": "500060426"
+      },
+      {
+        "body_sha256": "sha256:f86e158788534274503657bcafc94bae6326199a6e83ace9d8e3971e89e6cd4a",
+        "raw_locator": "/entities/Q5586/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q5586:f86e15878853",
+        "source_object_id": "Q5586"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500060426 links to Wikidata Q5586, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kitagawa-utamaro-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500054492",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kitagawa-utamaro-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500054492",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kitagawa-utamaro-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500054492",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kitagawa-utamaro-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "56716",
+      "section": "https://www.metmuseum.org/art/collection/search/56716"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:56716:2bc20d050789",
+        "source_object_id": "56716"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies A couple making love beside a shamisen as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-activity-scope",
+      "claim:kitagawa-utamaro-historical-period",
+      "claim:kitagawa-utamaro-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:kitagawa-utamaro-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500054492 + 56716",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      },
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      },
+      {
+        "body_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:56716:2bc20d050789",
+        "source_object_id": "56716"
+      },
+      {
+        "body_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:56716:2bc20d050789",
+        "source_object_id": "56716"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kitagawa-utamaro-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500054492",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n50049864."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:kitagawa-utamaro-birth-counter",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "56716",
+      "section": "/artistDisplayBio"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+        "raw_locator": "/artistDisplayBio",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:56716:2bc20d050789",
+        "source_object_id": "56716"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contradicts",
+    "summary": "The official collection record presents the competing display value ca. 1754; it is preserved rather than overwritten."
+  },
+  {
+    "claim_ids": [
+      "claim:kitagawa-utamaro-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:kitagawa-utamaro-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500054492 + Q272045",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:3ce744185fe39644548d58646f3491d140a163c7b4c66308a4c04bd9d3c398f6",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045626.221627z:3ce744185fe3",
+        "source_object_id": "500054492"
+      },
+      {
+        "body_sha256": "sha256:bf56f8098430fc50288627aab7050edd560fa0a57edd827a5e57276987f43b27",
+        "raw_locator": "/entities/Q272045/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q272045:bf56f8098430",
+        "source_object_id": "Q272045"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500054492 links to Wikidata Q272045, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:shen-zhou-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500121310",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:shen-zhou-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500121310",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:shen-zhou-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500121310",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:shen-zhou-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "53601",
+      "section": "https://www.metmuseum.org/art/collection/search/53601"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:53601:fc518eaa7f7b",
+        "source_object_id": "53601"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Landscape with Pavilion and Willows as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-activity-scope",
+      "claim:shen-zhou-historical-period",
+      "claim:shen-zhou-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:shen-zhou-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500121310 + 53601",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      },
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      },
+      {
+        "body_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:53601:fc518eaa7f7b",
+        "source_object_id": "53601"
+      },
+      {
+        "body_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:53601:fc518eaa7f7b",
+        "source_object_id": "53601"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:shen-zhou-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500121310",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n81093497."
+  },
+  {
+    "claim_ids": [
+      "claim:shen-zhou-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:shen-zhou-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500121310 + Q558863",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:53033c6b8c5334d74ca010f9b9c2b9ddd7c2718692d73b167e9bed5ea2369cb8",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045627.315294z:53033c6b8c53",
+        "source_object_id": "500121310"
+      },
+      {
+        "body_sha256": "sha256:6c9a76583f14d5c6f76cf980fe692efcb177a1d0a4db01fdb69c90d7949e01e1",
+        "raw_locator": "/entities/Q558863/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q558863:6c9a76583f14",
+        "source_object_id": "Q558863"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500121310 links to Wikidata Q558863, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:raja-ravi-varma-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500122641",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:raja-ravi-varma-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500122641",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:raja-ravi-varma-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500122641",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:raja-ravi-varma-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "851484",
+      "section": "https://www.metmuseum.org/art/collection/search/851484"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:851484:10e5f77aabfc",
+        "source_object_id": "851484"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Nala and Damayanti resting as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-activity-scope",
+      "claim:raja-ravi-varma-historical-period",
+      "claim:raja-ravi-varma-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:raja-ravi-varma-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500122641 + 851484",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      },
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      },
+      {
+        "body_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:851484:10e5f77aabfc",
+        "source_object_id": "851484"
+      },
+      {
+        "body_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:851484:10e5f77aabfc",
+        "source_object_id": "851484"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:raja-ravi-varma-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500122641",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n89146283."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:raja-ravi-varma-death-counter",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "851484",
+      "section": "/artistDisplayBio"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+        "raw_locator": "/artistDisplayBio",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:851484:10e5f77aabfc",
+        "source_object_id": "851484"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contradicts",
+    "summary": "The official collection record presents the competing display value 1907; it is preserved rather than overwritten."
+  },
+  {
+    "claim_ids": [
+      "claim:raja-ravi-varma-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:raja-ravi-varma-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500122641 + Q333453",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:e2e4bf28ca40e9cc6b5530bfb323372f15743c5c8d554969d4e1c77d014f682a",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045628.347273z:e2e4bf28ca40",
+        "source_object_id": "500122641"
+      },
+      {
+        "body_sha256": "sha256:f0469cc12bf8a88fc49adfb2b7f298f2b529242214594d7fc17e82707428d5fd",
+        "raw_locator": "/entities/Q333453/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q333453:f0469cc12bf8",
+        "source_object_id": "Q333453"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500122641 links to Wikidata Q333453, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-identity-profile"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:jose-guadalupe-posada-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500032573",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:jose-guadalupe-posada-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500032573",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:jose-guadalupe-posada-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500032573",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:jose-guadalupe-posada-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "717597",
+      "section": "https://www.metmuseum.org/art/collection/search/717597"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:717597:a25badf021e8",
+        "source_object_id": "717597"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Elegantly dressed male and female skeletons arm in arm as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-activity-scope",
+      "claim:jose-guadalupe-posada-historical-period",
+      "claim:jose-guadalupe-posada-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:jose-guadalupe-posada-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500032573 + 717597",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      },
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      },
+      {
+        "body_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:717597:a25badf021e8",
+        "source_object_id": "717597"
+      },
+      {
+        "body_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:717597:a25badf021e8",
+        "source_object_id": "717597"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:jose-guadalupe-posada-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500032573",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n81019064."
+  },
+  {
+    "claim_ids": [
+      "claim:jose-guadalupe-posada-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:jose-guadalupe-posada-wikidata-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500032573 + Q732526",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:ca600b0ac822bbb0c747459913d7d70ca18e6014d3f3d9bdc4b1f46e5a51af69",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045629.453583z:ca600b0ac822",
+        "source_object_id": "500032573"
+      },
+      {
+        "body_sha256": "sha256:0b5244c01a7cbcb9b0fca98d83caad3549e98467c1b2cd058f536f68f81631ae",
+        "raw_locator": "/entities/Q732526/claims/P245",
+        "snapshot_id": "snapshot:curation_museum03a:wikidata:q732526:0b5244c01a7c",
+        "source_object_id": "Q732526"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "Reviewed identity crosswalk: ULAN 500032573 links to Wikidata Q732526, whose reciprocal P245 value identifies the same ULAN record. Wikidata is corroborating Tier 3 evidence only."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-identity-profile",
+      "claim:henry-ossawa-tanner-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-ulan-profile",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500005351",
+      "section": "/identified_by"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/identified_by",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies controlled names, roles, authority links, and identity context."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-birth"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-ulan-birth",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500005351",
+      "section": "/born/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/born/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed birth observation at the recorded precision."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-death"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-ulan-death",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500005351",
+      "section": "/died/timespan"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/died/timespan",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN record supplies the reviewed death observation and confirms the person is deceased."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-official-record"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "collection_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-collection-record",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "16947",
+      "section": "https://www.metmuseum.org/art/collection/search/16947"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+        "raw_locator": "/artistDisplayName",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:16947:113bbcf8513d",
+        "source_object_id": "16947"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The official collection record identifies Flight Into Egypt as a record associated with the approved artist identity; attribution is reviewed separately in the artwork wave."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-activity-scope",
+      "claim:henry-ossawa-tanner-historical-period",
+      "claim:henry-ossawa-tanner-artistic-tradition"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "curatorial_assessment",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "manual",
+    "id": "evidence:henry-ossawa-tanner-context-classification",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500005351 + 16947",
+      "section": "project-reviewed synthesis from the exact raw locators listed in raw_snapshot_refs"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/carried_out",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      },
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/classified_as",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      },
+      {
+        "body_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+        "raw_locator": "/medium",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:16947:113bbcf8513d",
+        "source_object_id": "16947"
+      },
+      {
+        "body_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+        "raw_locator": "/classification",
+        "snapshot_id": "snapshot:curation_museum03a:met_open_access:16947:113bbcf8513d",
+        "source_object_id": "16947"
+      }
+    ],
+    "reliability_note": "This is a bounded project-reviewed synthesis. It does not promote broad context labels into direct historical influence, and each underlying source remains limited to its registered remit.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan",
+      "source:met_open_access"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      },
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "met_open_access:data:8924a3c83dc7",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "Open Access collection API/CSV fields",
+        "source_id": "source:met_open_access"
+      }
+    ],
+    "stance": "contextualizes",
+    "summary": "Project-reviewed contextual classification based on the exact ULAN activity/role record and the exact official collection record. The activity, period, and tradition labels are synthesis fields, not verbatim source assertions."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-loc-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-loc-crosswalk",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500005351",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The exact ULAN authority record links the approved identity to Library of Congress name authority n50008686."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-wikidata-crosswalk-support",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "Q1374436",
+      "section": "/entities/Q1374436/claims/P245"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:d6459b2a98159e463090345373942780acc7631e2900c1afa09e96c2af9cd0ef",
+        "raw_locator": "/entities/Q1374436/claims/P245",
+        "snapshot_id": "snapshot:wikidata:20260713t045743.459755z:d6459b2a9815",
+        "source_object_id": "Q1374436"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "supports",
+    "summary": "The accepted Wikidata entity names Henry Ossawa Tanner and reciprocally asserts ULAN 500005351."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-getty-wikidata-crosswalk-counter",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "500005351",
+      "section": "/equivalent"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:9a24ff1c2ac4a237f42a6cd55fe77cb163923f29f5e7f0f7d22324958b6611c0",
+        "raw_locator": "/equivalent",
+        "snapshot_id": "snapshot:getty_ulan:20260713t045630.576440z:9a24ff1c2ac4",
+        "source_object_id": "500005351"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:getty_ulan"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "getty_ulan:data:eb25ddb4d400",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "ULAN N-Triples/SPARQL/per-record exports",
+        "source_id": "source:getty_ulan"
+      }
+    ],
+    "stance": "contradicts",
+    "summary": "The ULAN record emits Q15487281 as an equivalent link; that assertion is preserved as rejected counter-evidence."
+  },
+  {
+    "claim_ids": [
+      "claim:henry-ossawa-tanner-wikidata-crosswalk"
+    ],
+    "data_version": "1.0.0",
+    "entity_type": "evidence",
+    "evidence_kind": "dataset_record",
+    "extracted_at": "2026-07-13T13:20:00+08:00",
+    "extraction_method": "api_field",
+    "id": "evidence:henry-ossawa-tanner-wikidata-crosswalk-counter",
+    "lifecycle_status": "reviewed",
+    "locator": {
+      "record_id": "Q15487281",
+      "section": "/entities/Q15487281/labels/en"
+    },
+    "original_language": "und",
+    "raw_snapshot_refs": [
+      {
+        "body_sha256": "sha256:065f0950949d452eeadc8c8ce69195e5a28af709c0d2cd6c731ad9229e27e5ce",
+        "raw_locator": "/entities/Q15487281/labels/en",
+        "snapshot_id": "snapshot:wikidata:20260713t045744.866630z:065f0950949d",
+        "source_object_id": "Q15487281"
+      }
+    ],
+    "reliability_note": "The assertion is limited to the registered source's institutional or authority remit and is not generalized beyond that scope.",
+    "schema_version": "1.1.0",
+    "short_excerpt": null,
+    "source_ids": [
+      "source:wikidata"
+    ],
+    "source_license_bindings": [
+      {
+        "content_class": "data",
+        "permission_resolution": "rule_direct",
+        "rule_id": "wikidata:data:dab022172e7e",
+        "scope_fields": [
+          "record"
+        ],
+        "scope_locator": "main/property/lexeme/entity-schema structured data",
+        "source_id": "source:wikidata"
+      }
+    ],
+    "stance": "contradicts",
+    "summary": "The quarantined QID resolves to Roger Brown, proving the ULAN same-as link is not Tanner."
+  }
+]

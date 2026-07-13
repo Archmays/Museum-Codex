@@ -24,7 +24,7 @@ class MetOpenAccessAdapter(SourceAdapter):
     _optional_contract_types = {
         "primaryImageSmall": str,
         "additionalImages": list,
-        "constituents": list,
+        "constituents": (list, type(None)),
         "artistWikidata_URL": str,
         "artistULAN_URL": str,
         "objectWikidata_URL": str,
@@ -65,7 +65,7 @@ class MetOpenAccessAdapter(SourceAdapter):
                 raise PipelineError("contract_type_changed", f"The Met field changed type: {field}")
         if any(not isinstance(item, str) for item in document.get("additionalImages", [])):
             raise PipelineError("contract_type_changed", "The Met additionalImages entries must remain strings")
-        if any(not isinstance(item, dict) for item in document.get("constituents", [])):
+        if any(not isinstance(item, dict) for item in (document.get("constituents") or [])):
             raise PipelineError("contract_type_changed", "The Met constituents entries must remain objects")
         expected_id = urlsplit(response.final_url).path.rsplit("/", 1)[-1]
         if str(document["objectID"]) != expected_id:
@@ -93,14 +93,16 @@ class MetOpenAccessAdapter(SourceAdapter):
         for normalized_name, source_name in field_map.items():
             if source_name not in document:
                 continue
-            value = document[source_name]
+            raw_value = document[source_name]
+            value = [] if source_name == "constituents" and raw_value is None else raw_value
             fields[normalized_name] = value
             pointer = f"/{json_pointer_part(source_name)}"
             provenance.append(provenance_entry(
                 candidate_id=candidate_id, field_pointer=f"/fields/{normalized_name}",
                 source_id=self.source_id, source_object_id=source_object_id, snapshot_id=snapshot_id,
-                raw_locator=pointer, raw_value=value, normalized_value=value,
+                raw_locator=pointer, raw_value=raw_value, normalized_value=value,
                 rule_id=rule["rule_id"], content_class="data", observed_at=observed_at,
+                transform_id="null_to_empty_array" if source_name == "constituents" and raw_value is None else "identity",
             ))
             claims.append(candidate_claim(
                 candidate_id=candidate_id, predicate=f"source_{normalized_name}", value=value,
