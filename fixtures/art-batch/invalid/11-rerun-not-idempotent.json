@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-11",
+  "case_number": 11,
+  "behavior": "rerun not idempotent",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_rerun_not_idempotent",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/application/rerun_output_hash",
+      "value": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ]
+}

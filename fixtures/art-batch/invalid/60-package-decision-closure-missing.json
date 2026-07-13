@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-60",
+  "case_number": 60,
+  "behavior": "package decision closure missing",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_decision_closure_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/package/decision_ref",
+      "value": null
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "fixture_id": "art-batch-valid-complete",
+  "expected_valid": true,
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "mutations": []
+}

@@ -1,0 +1,18 @@
+{
+  "fixture_id": "art-batch-invalid-64",
+  "case_number": 64,
+  "behavior": "museum label in public",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "formal_art_data_publicly_exposed",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/public_artifact/files",
+      "value": {
+        "path": "museum-label.html",
+        "content": "MUSEUM-03B"
+      }
+    }
+  ]
+}

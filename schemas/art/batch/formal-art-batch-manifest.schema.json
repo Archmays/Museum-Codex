@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/formal-art-batch-manifest.schema.json",
+  "title": "MUSEUM-03B formal art batch manifest",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "batch_id", "selection_decision_id",
+    "selection_application_id", "input_bundle_hash", "code_commit", "adapter_versions",
+    "source_registry_hash", "license_rules_hash", "schema_manifest_hash", "raw_snapshots",
+    "normalized_ids", "artist_ids", "artwork_ids", "context_ids", "relationship_ids",
+    "claim_ids", "evidence_ids", "source_ids", "rights_record_ids", "review_record_ids",
+    "exclusions", "blocked_records", "counts", "content_hash", "generated_at",
+    "reviewer_signoff_ids", "predecessor", "no_media_declaration",
+    "no_public_release_declaration", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^art-batch-manifest:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "formal_art_batch_manifest" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "batch_id": { "$ref": "#/$defs/batchId" },
+    "selection_decision_id": { "type": "string", "pattern": "^selection-decision:[a-f0-9-]{36}$" },
+    "selection_application_id": { "type": "string", "pattern": "^selection-decision-application:[a-f0-9-]{36}$" },
+    "input_bundle_hash": { "$ref": "#/$defs/hash" },
+    "code_commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "adapter_versions": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "adapter_id", "version"],
+        "properties": {
+          "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+          "adapter_id": { "type": "string", "pattern": "^[a-z][a-z0-9._-]*$" },
+          "version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "source_registry_hash": { "$ref": "#/$defs/hash" },
+    "license_rules_hash": { "$ref": "#/$defs/hash" },
+    "schema_manifest_hash": { "$ref": "#/$defs/hash" },
+    "raw_snapshots": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["snapshot_id", "body_sha256"],
+        "properties": {
+          "snapshot_id": { "type": "string", "pattern": "^snapshot:[a-z][a-z0-9_]*:[a-z0-9.:_-]+$" },
+          "body_sha256": { "$ref": "#/$defs/hash" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "normalized_ids": { "$ref": "#/$defs/stableIds" },
+    "artist_ids": {
+      "type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "artwork_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "context_ids": { "$ref": "#/$defs/contextIds" },
+    "relationship_ids": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "claim_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "evidence_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "source_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "rights_record_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^media-assessment:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "review_record_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "exclusions": { "$ref": "#/$defs/dispositionRecords" },
+    "blocked_records": { "$ref": "#/$defs/dispositionRecords" },
+    "counts": {
+      "type": "object",
+      "required": [
+        "raw_snapshots", "normalized", "artists", "artworks", "contexts", "relationships",
+        "claims", "evidence", "sources", "rights_records", "review_records", "exclusions", "blocked_records"
+      ],
+      "properties": {
+        "raw_snapshots": { "type": "integer", "minimum": 0 },
+        "normalized": { "type": "integer", "minimum": 0 },
+        "artists": { "const": 12 },
+        "artworks": { "type": "integer", "minimum": 0 },
+        "contexts": { "type": "integer", "minimum": 0 },
+        "relationships": { "type": "integer", "minimum": 0 },
+        "claims": { "type": "integer", "minimum": 0 },
+        "evidence": { "type": "integer", "minimum": 0 },
+        "sources": { "type": "integer", "minimum": 0 },
+        "rights_records": { "type": "integer", "minimum": 0 },
+        "review_records": { "type": "integer", "minimum": 0 },
+        "exclusions": { "type": "integer", "minimum": 0 },
+        "blocked_records": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "content_hash": { "$ref": "#/$defs/hash" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "reviewer_signoff_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "predecessor": {
+      "oneOf": [
+        { "type": "string", "pattern": "^art-batch-manifest:[a-z0-9][a-z0-9._-]*$" },
+        { "type": "null" }
+      ]
+    },
+    "no_media_declaration": {
+      "type": "object",
+      "required": ["media_bytes_downloaded", "media_bytes_in_package"],
+      "properties": {
+        "media_bytes_downloaded": { "const": false },
+        "media_bytes_in_package": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "no_public_release_declaration": {
+      "type": "object",
+      "required": ["formal_public_release_created", "pages_art_content_added"],
+      "properties": {
+        "formal_public_release_created": { "const": false },
+        "pages_art_content_added": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "$defs": {
+    "batchId": { "type": "string", "pattern": "^art-batch:museum-03b-[a-z0-9][a-z0-9._-]*$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "stableIds": {
+      "type": "array", "uniqueItems": true,
+      "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" }
+    },
+    "contextIds": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(art_movement|art_group|museum_institution|organization|place|exhibition|exhibition_event|material|technique|subject|time_period|person):[a-z0-9][a-z0-9._-]*$"
+      }
+    },
+    "dispositionRecords": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["record_id", "reason"],
+        "properties": {
+          "record_id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

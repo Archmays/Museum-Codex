@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-56",
+  "case_number": 56,
+  "behavior": "metadata only forced quota",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_metadata_only_forced_to_quota",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/eligibility",
+      "value": "metadata_only"
+    },
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/forced_image_quota",
+      "value": true
+    }
+  ]
+}

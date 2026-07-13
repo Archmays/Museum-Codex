@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-23",
+  "case_number": 23,
+  "behavior": "official object missing",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_official_object_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/official_object_url",
+      "value": ""
+    }
+  ]
+}

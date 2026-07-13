@@ -1,0 +1,318 @@
+{
+  "schema_version": "1.0.0",
+  "id": "relationship-lead-closure:museum-03b-v5",
+  "entity_type": "relationship_lead_closure_set",
+  "phase_id": "MUSEUM-03B",
+  "input_bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+  "input_lead_set_hash": "sha256:8145c4f5bd3b074997a7bd248bde195271a1b07fdfd57abd249200550ee2f067",
+  "input_lead_count": 45,
+  "inherited_in_slate_lead_count": 18,
+  "allowed_dispositions": [
+    "promoted_to_formal_relationship",
+    "retained_for_more_evidence",
+    "rejected",
+    "superseded",
+    "out_of_scope"
+  ],
+  "disposition_counts": {
+    "promoted_to_formal_relationship": 12,
+    "retained_for_more_evidence": 1,
+    "rejected": 2,
+    "superseded": 3,
+    "out_of_scope": 27
+  },
+  "privacy_rule": "Entries contain only opaque inherited lead IDs, canonical hashes, dispositions, rationales, and optional opaque closure links. Unapproved endpoint candidate IDs and names are excluded.",
+  "generated_at": "2026-07-13T14:21:00+08:00",
+  "review_status": "accepted_reviewed",
+  "entries": [
+    {
+      "lead_id": "relationship-lead:b967ad60-9ae8-5d44-9964-6a49d329f0fa",
+      "lead_canonical_hash": "sha256:6fecaf9b4c58796d1ee7c88f03924d5230f5fd2522ba3f98e708a57324e2bee9",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:d9f56796-4349-5059-b642-be89b8cbaf77",
+      "lead_canonical_hash": "sha256:3acbc3302f227eaa97092005fea7c958a60c33ca387e689630c3308033333b71",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:a6b99400-4ab0-5001-973a-ca0a4af6a18a",
+      "lead_canonical_hash": "sha256:85c9e463a858e24cce4f32d8aaa84afeeee86e8fe207f1ae627c667aadaa9786",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:1c9e9aaf-a2b4-53cb-bb1f-84607aca84d9",
+      "lead_canonical_hash": "sha256:42df22e3b5f411e141fbb2a1cec5e34fc14b5b7eeab5784fade79cc823f988e2",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:217d5837-e7d2-5540-8abc-1fe42cdfc54b",
+      "lead_canonical_hash": "sha256:31e99087c0282dfa9acd328bda05a557f69505aa2dec0f77ff1f860d7c241287",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Promoted after exact selected objects 436533 and 111442 closed the shared oil-and-canvas material evidence.",
+      "formal_relationship_id": "art-rel:m03b-001"
+    },
+    {
+      "lead_id": "relationship-lead:f1c6c87f-7ddf-5d3e-86bd-37a49deeb530",
+      "lead_canonical_hash": "sha256:9a37e899e36aa6093f9f188e21aed509f7a5d8540779973d378961d1d08353f6",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from shared material to shared subject after exact selected titles in objects 28826 and 267426 supported portraiture but their media did not match.",
+      "formal_relationship_id": "art-rel:m03b-002"
+    },
+    {
+      "lead_id": "relationship-lead:221b16ed-c476-5786-9015-26d23744a2ad",
+      "lead_canonical_hash": "sha256:50505188f8815091659d461b76edcd474c2e2c693db3068bfb83024b64829355",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:9333fb63-e8c1-5f82-bc20-7187a70058d1",
+      "lead_canonical_hash": "sha256:ddc2caa42f7830a7f3443db50c371516c6ab4ade30a08f8eebd375507b60cc11",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:bda32b8b-c7f6-5fcf-a49d-6a3ef370e95d",
+      "lead_canonical_hash": "sha256:5c2626f4142bf29814705cb05a34363797665cdcd6834d060a3c5a6f95584621",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified to shared technique after exact selected objects 39799 and 56716 both recorded woodblock print.",
+      "formal_relationship_id": "art-rel:m03b-003"
+    },
+    {
+      "lead_id": "relationship-lead:caa0739b-39b9-58a2-ab4b-76bc2c48a4c7",
+      "lead_canonical_hash": "sha256:d8df37999a5ffe4de1695281976364947706be2e8f59ea565b740153c3055ec4",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:72de3eb2-6fbf-51df-b6db-2cf0f692c570",
+      "lead_canonical_hash": "sha256:ecc53703ee32517dddede81d5fd0defec2c8ffb8b91645aeb5671e931796c5d2",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:4aa6f486-b336-5e67-9c3d-d3482479c835",
+      "lead_canonical_hash": "sha256:8d4f32c955f187222dc4f078b6d0c668ae118f594bce3248bbf6fe4afee06384",
+      "disposition": "rejected",
+      "rationale": "Exact selected objects 53601 and 717597 do not establish the inherited shared-material proposal, and no narrower evidence-backed comparison was accepted."
+    },
+    {
+      "lead_id": "relationship-lead:5de572eb-58b0-5fe4-9b89-fbf3027cad7b",
+      "lead_canonical_hash": "sha256:28ed9dd7b104d256660ba208b1ce20ea904f21b1b931dbea9facf745bba4b0e2",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from shared material to shared technique after objects 717597 and 372068 documented distinct engraving and etching print processes.",
+      "formal_relationship_id": "art-rel:m03b-004"
+    },
+    {
+      "lead_id": "relationship-lead:955ce486-8378-558f-b9d7-acffe579ea46",
+      "lead_canonical_hash": "sha256:ccc8dfe1b22912eba106302e11b2c8cc05283f1161080640c6c1c514d0f5aded",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:7c9546e4-bfba-57cd-944c-43aa821a9394",
+      "lead_canonical_hash": "sha256:7894a87eefe714d5f9fd1d4ee67912c2080afa4b61e649fad15119fd4d185150",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:1231018a-d6a4-5bbf-ad03-d6a5b6a8de00",
+      "lead_canonical_hash": "sha256:e8058452aafee3ff9460058ef3b2f2258ba02e47573e7f39774fdd534507a80b",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:e6c353f8-5893-526a-8320-f6f943c72c94",
+      "lead_canonical_hash": "sha256:de1bda096af8bad4170bd26fbf453ca9603a6374141f1595c1c70b31dae41035",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:a9a5b3c1-e481-57f8-9116-1e5c966e2bf5",
+      "lead_canonical_hash": "sha256:c32076dc4a64e63022400e1fa1a40e0755a5494685147ec49359cbc30fe7fe92",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:06913aeb-04f7-58f7-a7f0-5edc2901c11a",
+      "lead_canonical_hash": "sha256:8f4a9a2e80b6d2137873b9298f54cba3b2dc8de0a291be27a1e818048bd7cf68",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:bfb848a0-c8a0-5d0e-998f-23e9196c9ed6",
+      "lead_canonical_hash": "sha256:6525a5cbbdcc2ac1d70e54afbba376f194fcf8e29dacc3681e95017e2e7887e0",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:3ac03998-a9df-5a03-8b0b-4c66e5b3fe51",
+      "lead_canonical_hash": "sha256:c499165f93f47ba9dbdd0e384faa19215498ed56fc3f3c2aabb5544cc86a8de6",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:1adf0e93-6706-50b3-a889-0e39984c9f11",
+      "lead_canonical_hash": "sha256:538e38b5ebf138a322e3b390c3b3358de034ac0c02797215ee9088b92e927f44",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:d99b3a1d-9331-50b5-8081-d7099e73f63e",
+      "lead_canonical_hash": "sha256:c0c115aec4f2bf0d6529026022f6b3b346c84c2d229a340ac40c2e5628fa4256",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:b367fb5a-b24e-52e6-a645-1171dec2cc35",
+      "lead_canonical_hash": "sha256:3d4ef72241fdff47d1502e89933cb55ea313a84b1836b2a2d4fc7365a8bc2af6",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:0f572f83-4473-550f-a5e6-f157bdde2cef",
+      "lead_canonical_hash": "sha256:286a04ad4200b7c034550a34ac94f2832bef703e949acee5f90a22438b6e8f88",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:84bf54f7-cd57-5158-b9fe-aaede172df01",
+      "lead_canonical_hash": "sha256:710af6c885e0b6189484b498fe613a8cf1cddfc7e2525ab0f8ab479d9f30db1f",
+      "disposition": "retained_for_more_evidence",
+      "rationale": "The proposed same-place/time relation remains plausible, but the tracked authority and selected-object evidence does not close an exact overlapping Paris activity interval; no B-level relationship is created."
+    },
+    {
+      "lead_id": "relationship-lead:6cfe3e43-90a3-53fd-8997-3407e10a20a2",
+      "lead_canonical_hash": "sha256:291e105931f551698eb898dfcb0d698882c33b845cb610b4768f2229260b08b9",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:c64ffd92-d822-5b92-8b23-64e1c65cbf3d",
+      "lead_canonical_hash": "sha256:bf7a689c7d6439e73c7326cf038a64f424e0d576f9630dcc797989816a3b95f5",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:0827911e-bedd-5642-97b1-b2daf34bee8b",
+      "lead_canonical_hash": "sha256:42d6a8af43dcf08f12793abc1cd4f403bca2d1a8016cccdc99a03eb74705b047",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:ab35e4a0-ae1e-5bbe-89b5-c0c877956bb4",
+      "lead_canonical_hash": "sha256:46a2de3301927b2a7dbdf7b1d51f20fbc75f7d558d5d4712e756e8603f6aec25",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:2d0e4ae7-8c0f-5449-b581-c10806629bd5",
+      "lead_canonical_hash": "sha256:ad858e41587af2ee28e05b8c49fa4e6588ed35ff73f221dad57182dd2bc3576f",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:355103a2-f469-5e8a-92ef-170afc29dd34",
+      "lead_canonical_hash": "sha256:fdd231cd4f792adb19e990983ac7c1109ea95dbca88df679633cb2037fbcd690",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:a74f2c0d-6598-54fc-aad0-4683e76a4d69",
+      "lead_canonical_hash": "sha256:59353bcb512530fb8c3b6bb6514182f73b585ede0dace3acfa362a2a2c11ce0b",
+      "disposition": "out_of_scope",
+      "rationale": "At least one endpoint is outside the user-approved 12-person slate. Endpoint identifiers and names are intentionally omitted from this privacy-safe tracked closure."
+    },
+    {
+      "lead_id": "relationship-lead:c1536d7c-dcf5-5b59-bac1-f38fc084c8cf",
+      "lead_canonical_hash": "sha256:cff1c1c748104640d54f8a2f17cd955924a825726e066dc73db8c6da767f9f51",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to shared oil material using exact selected objects 436244 and 436545.",
+      "formal_relationship_id": "art-rel:m03b-005"
+    },
+    {
+      "lead_id": "relationship-lead:c5d5a7bc-1cc8-53c6-b147-0716d342bf71",
+      "lead_canonical_hash": "sha256:e63ba11ec9bd27c1546a9ae82cde733a7a59f874bbf158f3cf5d6a1d1e46c297",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to shared oil-and-canvas material using exact selected objects 436545 and 436533.",
+      "formal_relationship_id": "art-rel:m03b-006"
+    },
+    {
+      "lead_id": "relationship-lead:12de7ab3-eac9-59f4-97ff-696fe45d6448",
+      "lead_canonical_hash": "sha256:923f4b3f3002da56f0cfe662a7ad8a2a5279512e08b5898a5e1106514551ce7e",
+      "disposition": "superseded",
+      "rationale": "This inherited unsupported scholarly-comparison lead duplicates the approved endpoint pair already closed by a narrower exact material comparison.",
+      "superseded_by_lead_id": "relationship-lead:217d5837-e7d2-5540-8abc-1fe42cdfc54b",
+      "formal_relationship_id": "art-rel:m03b-001"
+    },
+    {
+      "lead_id": "relationship-lead:43c1291b-8513-5146-814a-82a8f1a9218a",
+      "lead_canonical_hash": "sha256:252f0e8daaad32d90779d50c6357ec26e56aad4b5ad0b97a3217f31b5504c9df",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to shared paper support using exact selected objects 13506 and 60513; printer credit remains preserved.",
+      "formal_relationship_id": "art-rel:m03b-007"
+    },
+    {
+      "lead_id": "relationship-lead:f25c98f0-de96-576a-874c-a1f325ad7322",
+      "lead_canonical_hash": "sha256:beee7c5c7c7c532fa795e2c207259b20edb7d454742459bddd6fdbe893269bb8",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to portraiture using exact selected titles in objects 60513 and 267426.",
+      "formal_relationship_id": "art-rel:m03b-008"
+    },
+    {
+      "lead_id": "relationship-lead:3b83ef91-b9ca-5f34-82ca-86ad616bf65c",
+      "lead_canonical_hash": "sha256:b8f73d27f1e41b328727b5ceb1ae56e577527f70fc7d373413a8bb603bf93261",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to a narrowly title-derived figures-of-women subject using exact selected objects 267426 and 56128.",
+      "formal_relationship_id": "art-rel:m03b-009"
+    },
+    {
+      "lead_id": "relationship-lead:2383fcef-8cf2-5207-9982-aa11de45ea3e",
+      "lead_canonical_hash": "sha256:a1b82b35bcf8a2045b15be9a2bfaeb8eb1343a58de5e1937c14e068b60afbfb3",
+      "disposition": "superseded",
+      "rationale": "This inherited unsupported scholarly-comparison lead duplicates the approved endpoint pair already closed by exact woodblock-technique evidence.",
+      "superseded_by_lead_id": "relationship-lead:bda32b8b-c7f6-5fcf-a49d-6a3ef370e95d",
+      "formal_relationship_id": "art-rel:m03b-003"
+    },
+    {
+      "lead_id": "relationship-lead:638f665d-ea80-5bd2-abc2-54689b2495d1",
+      "lead_canonical_hash": "sha256:000743f9b5cd701aae6ff9e35c5e98c88c36885be973f0d1a4744dce1677bbbf",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to shared ink-and-paper material using exact selected objects 45323 and 53601; the latter remains attributed and undated.",
+      "formal_relationship_id": "art-rel:m03b-010"
+    },
+    {
+      "lead_id": "relationship-lead:407f3573-d0a1-5c93-99ef-0c951ffc8901",
+      "lead_canonical_hash": "sha256:3045f2a19ba71d73204dca943e099bdd236d0a9cd1bcd548784b9a280eae7959",
+      "disposition": "rejected",
+      "rationale": "The inherited scholarly-comparison proposal has no scholarly source, and exact selected objects 53601 and 851484 do not support a sufficiently specific replacement context."
+    },
+    {
+      "lead_id": "relationship-lead:25fdb3ac-e39b-5db5-a965-53fb4bbc5a02",
+      "lead_canonical_hash": "sha256:e7c28901fe21e7b1674eb3e6dc8b6becc13a03f8560121435b6257db6faaab79",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to printmaking using exact selected objects 851484 and 717597; the posthumous collection association remains explicit.",
+      "formal_relationship_id": "art-rel:m03b-011"
+    },
+    {
+      "lead_id": "relationship-lead:b5c9a209-83cb-52fe-8d86-654aa84d89a4",
+      "lead_canonical_hash": "sha256:b65f3be6f90f58ac09514ba3ef01c944cb45903799b7ae76c909be8b571af087",
+      "disposition": "superseded",
+      "rationale": "This inherited unsupported scholarly-comparison lead duplicates the approved endpoint pair already closed by a narrower exact printmaking comparison.",
+      "superseded_by_lead_id": "relationship-lead:5de572eb-58b0-5fe4-9b89-fbf3027cad7b",
+      "formal_relationship_id": "art-rel:m03b-004"
+    },
+    {
+      "lead_id": "relationship-lead:f056aa85-cfa1-59dd-82bf-6d52b423d2fe",
+      "lead_canonical_hash": "sha256:c9a6658d0a6b67a5654fabe400e1e84d5975c5f89d1ce205e948e5e603ff37aa",
+      "disposition": "promoted_to_formal_relationship",
+      "rationale": "Reclassified from unsupported scholarly comparison to shared oil material using exact selected objects 16947 and 436244.",
+      "formal_relationship_id": "art-rel:m03b-012"
+    }
+  ],
+  "content_hash": "sha256:92074d4bc3dcefb40a9c05b96d2ad30edbde380a5a47cec650ec6c7609fc6ad6"
+}

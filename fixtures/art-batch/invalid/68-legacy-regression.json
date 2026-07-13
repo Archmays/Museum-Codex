@@ -1,0 +1,13 @@
+{
+  "fixture_id": "art-batch-invalid-68",
+  "case_number": 68,
+  "behavior": "legacy governance pipeline and curation regression tripwire",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "legacy_regression_probe",
+  "expected_error": "legacy_fixture_regression_detected",
+  "mutations": [],
+  "simulated_contract_drift": {
+    "family": "pipeline",
+    "required_code": "synthetic-regression-sentinel"
+  }
+}

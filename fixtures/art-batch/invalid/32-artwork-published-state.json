@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-32",
+  "case_number": 32,
+  "behavior": "artwork published state",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_published_state_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/state",
+      "value": "published"
+    }
+  ]
+}

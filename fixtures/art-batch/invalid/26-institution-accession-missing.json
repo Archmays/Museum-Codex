@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-26",
+  "case_number": 26,
+  "behavior": "institution accession missing",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_institution_accession_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/institution_id",
+      "value": null
+    },
+    {
+      "op": "replace",
+      "path": "/artworks/0/accession_number",
+      "value": null
+    }
+  ]
+}

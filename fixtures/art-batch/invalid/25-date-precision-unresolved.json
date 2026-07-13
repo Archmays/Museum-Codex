@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-25",
+  "case_number": 25,
+  "behavior": "date precision unresolved",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_date_precision_unresolved",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/creation_date/precision",
+      "value": "unknown"
+    }
+  ]
+}

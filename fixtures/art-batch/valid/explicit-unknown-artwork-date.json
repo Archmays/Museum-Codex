@@ -1,0 +1,21 @@
+{
+  "fixture_id": "art-batch-valid-unknown-date",
+  "expected_valid": true,
+  "covers": [
+    25
+  ],
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/creation_date/value",
+      "value": null
+    },
+    {
+      "op": "replace",
+      "path": "/artworks/0/creation_date/precision",
+      "value": "unknown"
+    }
+  ]
+}

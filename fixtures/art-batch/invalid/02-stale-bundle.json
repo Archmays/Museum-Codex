@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-02",
+  "case_number": 2,
+  "behavior": "stale bundle",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_bundle_stale",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/bundle_stale",
+      "value": true
+    }
+  ]
+}

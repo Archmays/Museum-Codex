@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-43",
+  "case_number": 43,
+  "behavior": "level a without direct evidence",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_level_a_direct_evidence_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/evidence_level",
+      "value": "A"
+    }
+  ]
+}

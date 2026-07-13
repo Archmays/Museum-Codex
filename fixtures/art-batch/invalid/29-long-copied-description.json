@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-29",
+  "case_number": 29,
+  "behavior": "long copied description",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_long_copied_description",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/description_origin",
+      "value": "copied_upstream"
+    },
+    {
+      "op": "replace",
+      "path": "/artworks/0/description",
+      "value": "Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. Copied synthetic prose. "
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-19",
+  "case_number": 19,
+  "behavior": "wrong approved artist",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_not_in_approved_slate",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/candidate_id",
+      "value": "artist-candidate:synthetic-unapproved"
+    }
+  ]
+}

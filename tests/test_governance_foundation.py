@@ -58,6 +58,16 @@ class GovernanceFoundationTests(unittest.TestCase):
             "schemas/art/batch/review-signoff.schema.json",
             "schemas/art/batch/approved-identity-basis.schema.json",
             "schemas/art/batch/snapshot-receipt-ledger.schema.json",
+            "schemas/art/context/art-context.schema.json",
+            "schemas/art/batch/artwork-selection-basis.schema.json",
+            "schemas/art/batch/manual-evidence-capture.schema.json",
+            "schemas/art/batch/relationship-research-disposition.schema.json",
+            "schemas/art/batch/media-eligibility-assessment.schema.json",
+            "schemas/art/batch/formal-art-batch-manifest.schema.json",
+            "schemas/art/batch/reviewed-package-manifest.schema.json",
+            "schemas/art/batch/graph-input.schema.json",
+            "schemas/art/batch/replacement-review-request.schema.json",
+            "schemas/art/batch/public-leakage-label-set.schema.json",
             "schemas/curation/curation-common.schema.json",
             "schemas/curation/artist-candidate-preflight.schema.json",
             "schemas/curation/artwork-rights-preflight.schema.json",
@@ -86,10 +96,12 @@ class GovernanceFoundationTests(unittest.TestCase):
         entries = {entry["path"]: entry for entry in manifest["schemas"]}
         self.assertEqual(set(self.environment.by_path), set(entries))
         self.assertEqual(
-            ["schemas/common/relationship.schema.json"],
+            ["schemas/common/relationship.schema.json", "schemas/common/entity.schema.json"],
             entries["schemas/art/artist-relationship.schema.json"]["depends_on"],
         )
         self.assertEqual("1.1.0", entries["schemas/common/entity.schema.json"]["version"])
+        self.assertEqual("1.1.0", entries["schemas/art/artwork.schema.json"]["version"])
+        self.assertEqual("1.1.0", entries["schemas/art/artist-relationship.schema.json"]["version"])
 
     def test_open_decisions_register_exactly_eight_unresolved_items(self) -> None:
         text = (ROOT / "docs" / "05_roadmap" / "open-decisions.md").read_text(encoding="utf-8")
@@ -127,6 +139,20 @@ class GovernanceFoundationTests(unittest.TestCase):
         self.assertEqual(
             "schemas/biology/ecosystem-interaction.schema.json",
             expected_target_schema({"entity_type": "relationship", "branch_id": "biology", "id": "bio-rel:probe"}),
+        )
+
+    def test_museum_03b_context_and_batch_dispatch_is_concrete(self) -> None:
+        for entity_type in (
+            "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
+            "exhibition_event", "material", "technique", "subject", "time_period", "person",
+        ):
+            self.assertEqual(
+                "schemas/art/context/art-context.schema.json",
+                expected_target_schema({"entity_type": entity_type, "branch_id": "art", "id": f"{entity_type}:probe"}),
+            )
+        self.assertEqual(
+            "schemas/art/batch/formal-art-batch-manifest.schema.json",
+            expected_target_schema({"entity_type": "formal_art_batch_manifest", "id": "art-batch-manifest:probe"}),
         )
 
     def test_all_valid_fixtures_pass(self) -> None:

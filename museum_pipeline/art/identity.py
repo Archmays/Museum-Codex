@@ -771,6 +771,10 @@ def _source_record(source_id: str) -> dict[str, Any]:
     details = SOURCE_DETAILS[source_id]
     rules = source_license_rules(source_id)
     data_rule = next(rule for rule in rules if rule["content_class"] == "data" and (source_id != "aic_api" or rule["scope_match"]["field_policy"] == "exclude"))
+    selected_rule_ids = [data_rule["rule_id"]]
+    if source_id in {"met_open_access", "aic_api"}:
+        media_rule = next(rule for rule in rules if rule["content_class"] == "media")
+        selected_rule_ids.append(media_rule["rule_id"])
     return {
         "schema_version": "1.0.0",
         "id": SOURCE_RECORD_IDS[source_id],
@@ -796,7 +800,7 @@ def _source_record(source_id: str) -> dict[str, Any]:
         },
         "license_rules": rules,
         "license_rules_snapshot_hash": canonical_sha256(rules),
-        "selected_license_rule_ids": [data_rule["rule_id"]],
+        "selected_license_rule_ids": selected_rule_ids,
         "terms_url": config["terms_url"],
         "terms_version": "live-2026-07-13",
         "terms_snapshot_hash": None,

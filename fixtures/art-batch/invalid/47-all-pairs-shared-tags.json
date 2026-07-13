@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-47",
+  "case_number": 47,
+  "behavior": "all pairs shared tags",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_all_pairs_generation_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/generated_method",
+      "value": "all_pairs_shared_tags"
+    }
+  ]
+}

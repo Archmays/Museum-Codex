@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-18",
+  "case_number": 18,
+  "behavior": "approximate date promoted",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_approximate_date_promoted",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/death_date/source_precision",
+      "value": "approximate"
+    }
+  ]
+}

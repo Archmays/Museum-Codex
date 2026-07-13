@@ -1,0 +1,36 @@
+{
+  "fixture_id": "art-batch-invalid-44",
+  "case_number": 44,
+  "behavior": "duplicate inverse",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_duplicate_inverse",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/relationships",
+      "value": {
+        "id": "art-rel:synthetic-inverse",
+        "source_entity_id": "artist:synthetic-02",
+        "target_entity_id": "artist:synthetic-01",
+        "relationship_type": "shared_context",
+        "relationship_semantics": "historical_context",
+        "evidence_level": "B",
+        "specific_context_ids": [
+          "subject:synthetic-observation"
+        ],
+        "place_context_id": "place:synthetic-city",
+        "time_scope": {
+          "start": "1800",
+          "end": "1950",
+          "precision": "range"
+        },
+        "direct_evidence": false,
+        "is_algorithmic": false,
+        "generated_method": "human_review",
+        "public_display": false,
+        "claim_reviewed": true
+      }
+    }
+  ]
+}

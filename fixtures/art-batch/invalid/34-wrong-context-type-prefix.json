@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-34",
+  "case_number": 34,
+  "behavior": "wrong context type prefix",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "context_type_prefix_mismatch",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/contexts/4/context_type",
+      "value": "technique"
+    }
+  ]
+}

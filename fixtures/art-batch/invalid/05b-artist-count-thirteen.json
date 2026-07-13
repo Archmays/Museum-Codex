@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-05b",
+  "case_number": 5,
+  "behavior": "13 approved artists",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_artist_count_invalid",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/decision/selected_candidate_ids",
+      "value": "artist-candidate:synthetic-13"
+    }
+  ]
+}

@@ -1,0 +1,977 @@
+{
+  "schema_version": "1.0.0",
+  "id": "context-decision-set:museum-03b-first-slate-v1",
+  "entity_type": "context_decision_set",
+  "phase_id": "MUSEUM-03B",
+  "status": "accepted_reviewed",
+  "generated_at": "2026-07-13T14:10:00+08:00",
+  "review_sessions": {
+    "context_reviewer": {
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "role": "context_taxonomy_reviewer",
+      "reviewed_at": "2026-07-13T14:00:00+08:00",
+      "decision": "accepted_reviewed",
+      "decision_note": "Only typed contexts actually referenced by the 36 deliberate C-level relationships were accepted; no empty or quantity-padding contexts were created."
+    },
+    "source_reviewer": {
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "role": "context_source_reviewer",
+      "reviewed_at": "2026-07-13T14:05:00+08:00",
+      "decision": "accepted_reviewed",
+      "decision_note": "Every context was checked against exact official object IDs, raw JSON locators, snapshot hashes, date precision, and attribution caveats."
+    }
+  },
+  "contexts": [
+    {
+      "id": "material:oil-paint",
+      "entity_type": "material",
+      "labels": {
+        "en": "Oil paint",
+        "zh-Hans": "油画颜料"
+      },
+      "scope_note": "Material label is taken only from official object-record medium fields; it does not imply a shared workshop, contact, or transmission.",
+      "educational_value": "Lets learners compare how oil-based paint operates on different supports and in different periods without turning material similarity into historical influence.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited batch examples are dated from probably 1519 through 1923; the material category itself is not assigned an origin or end date."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436244",
+          "snapshot_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium and display-date fields explicitly record oil paint."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium and display-date fields explicitly record oil paint."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436533",
+          "snapshot_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium and display-date fields explicitly record oil paint."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "111442",
+          "snapshot_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium and display-date fields explicitly record oil paint."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "16947",
+          "snapshot_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium and display-date fields explicitly record oil paint."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "material:canvas",
+      "entity_type": "material",
+      "labels": {
+        "en": "Canvas",
+        "zh-Hans": "画布"
+      },
+      "scope_note": "Support label is taken only where the official medium field explicitly says canvas.",
+      "educational_value": "Supports a focused comparison of paintings sharing a canvas support while keeping artist, place, and historical causation separate.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited batch examples are dated from 1787–88 through 1923."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium field explicitly records canvas."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436533",
+          "snapshot_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium field explicitly records canvas."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "111442",
+          "snapshot_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium field explicitly records canvas."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "16947",
+          "snapshot_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium field explicitly records canvas."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "material:paper",
+      "entity_type": "material",
+      "labels": {
+        "en": "Paper",
+        "zh-Hans": "纸张"
+      },
+      "scope_note": "Support label is taken only where the official medium field explicitly says paper; board and other mounts are not silently normalized to paper.",
+      "educational_value": "Makes differences among drawing, watercolor, woodcut, and woodblock-print processes legible through their recorded supports.",
+      "time_scope": {
+        "precision": "mixed_dated_and_undated",
+        "historical_scope": "The cited examples span 1522 through 1920, with one undated attributed album leaf retained as undated."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "459211",
+          "snapshot_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "13506",
+          "snapshot_sha256": "sha256:a580102413e015e2392366c9aedbc823b84e27ebcd370b68127593e7a0bd5e47",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "45323",
+          "snapshot_sha256": "sha256:590f13f1e0c21531e33a7a12a7a33b0ef2b2f9fb2c5113e7969526231c182fc5",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "53601",
+          "snapshot_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium says paper; the date is null and the attribution prefix is retained separately."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "12774",
+          "snapshot_sha256": "sha256:c64197ac70c5f5aa26a134bfc268eff6856a5c5737e42403b18e6c089078d345",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium explicitly records paper."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "material:ink",
+      "entity_type": "material",
+      "labels": {
+        "en": "Ink",
+        "zh-Hans": "墨"
+      },
+      "scope_note": "Material label is taken only from official medium fields that explicitly state ink.",
+      "educational_value": "Enables comparison of ink within printed-book and attributed album-leaf records without collapsing their techniques or traditions.",
+      "time_scope": {
+        "precision": "mixed_dated_and_undated",
+        "historical_scope": "One cited object is dated 1789, eighth month; the attributed album leaf is undated."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "45323",
+          "snapshot_sha256": "sha256:590f13f1e0c21531e33a7a12a7a33b0ef2b2f9fb2c5113e7969526231c182fc5",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium says ink and color on paper."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "53601",
+          "snapshot_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+          "raw_locators": [
+            "/medium",
+            "/objectDate",
+            "/artistPrefix"
+          ],
+          "evidence_note": "Official medium says ink and color on paper; record is explicitly 'Attributed to' and undated."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "technique:woodblock-relief-printing",
+      "entity_type": "technique",
+      "labels": {
+        "en": "Woodblock and woodcut relief printing",
+        "zh-Hans": "木版与木刻凸版印刷"
+      },
+      "scope_note": "A reviewed relief-print family used for comparison only; the source-specific terms 'woodblock print' and 'woodcut' remain visible in evidence.",
+      "educational_value": "Lets learners compare distinct relief-print practices while preserving differences in place, period, production, and terminology.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples span 1799 through 1920."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium field records woodblock print or woodcut."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/medium",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium field records woodblock print or woodcut."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium field records woodblock print or woodcut."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "technique:printmaking",
+      "entity_type": "technique",
+      "labels": {
+        "en": "Printmaking",
+        "zh-Hans": "版画制作"
+      },
+      "scope_note": "An umbrella technique context applied only to records explicitly classified as prints or described with a named print process.",
+      "educational_value": "Supports deliberate comparison across aquatint, drypoint, woodcut, woodblock, chromolithograph, engraving, and etching without equating the processes.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples span 1799 through a broad late-nineteenth- to mid-twentieth-century display date; date uncertainty remains attached to each object."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "13506",
+          "snapshot_sha256": "sha256:a580102413e015e2392366c9aedbc823b84e27ebcd370b68127593e7a0bd5e47",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium/classification records a named print process."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official medium/classification records a named print process."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium/classification records a named print process."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium/classification records a named print process."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate"
+          ],
+          "evidence_note": "Official record classifies the posthumously dated chromolithograph as a print; this does not establish personal execution by the named artist."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium/classification records a named print process."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate"
+          ],
+          "evidence_note": "Official medium/classification records a named print process."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:portraiture",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Portraiture",
+        "zh-Hans": "肖像"
+      },
+      "scope_note": "Reviewed title-derived subject category; it does not assert sitter identity beyond the official title or imply a shared portrait tradition.",
+      "educational_value": "Enables cross-media study of named and self-directed portrait subjects in painting, drawing, pastel, watercolor, and photography.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples span 1522 through about 1900."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "459211",
+          "snapshot_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436532",
+          "snapshot_sha256": "sha256:9d2c89655f36a1e1f520d669ab038afffaab33d5a5b2a30c0c4e19db0ac42e70",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "28826",
+          "snapshot_sha256": "sha256:a277bea7c652d1471261d24260999ac07f817d35826b971f8284a953074f1ccc",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "283099",
+          "snapshot_sha256": "sha256:b8f34e4cb634bf48de065b9fc17aafa707fe37a3f48fe851cf49604ebf01eece",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title supplies the figure or self-portrait basis for reviewed portrait classification."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:figures-of-women",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Figures of women",
+        "zh-Hans": "女性形象"
+      },
+      "scope_note": "Title-derived comparison used only where an official title names a woman; it does not infer biography, identity, or gender beyond the source wording.",
+      "educational_value": "Supports a bounded comparison across photographic portraiture and woodblock print without implying contact or shared social context.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples are dated 1867 and the 1830s."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title provides the explicit subject wording."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56128",
+          "snapshot_sha256": "sha256:48cef5118f152df8b1b3e5cd90f3920de94f3b7354db0e7c27fefa236b755cef",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title provides the explicit subject wording."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:caregiver-and-child",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Caregiver and child",
+        "zh-Hans": "照护者与儿童"
+      },
+      "scope_note": "Reviewed subject category derived from titles that explicitly identify a child, baby, Virgin and Child, or bathing care; it does not claim identical iconography.",
+      "educational_value": "Supports careful comparison of care, proximity, and child figures across painting and woodblock print while preserving cultural differences.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples span probably 1519 through 1893, including an 1830s display date."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436244",
+          "snapshot_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title provides the explicit child or baby subject basis."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "111442",
+          "snapshot_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official title provides the explicit child or baby subject basis."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56128",
+          "snapshot_sha256": "sha256:48cef5118f152df8b1b3e5cd90f3920de94f3b7354db0e7c27fefa236b755cef",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title provides the explicit child or baby subject basis."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:flowers-and-plants",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Flowers and plants",
+        "zh-Hans": "花卉与植物"
+      },
+      "scope_note": "Title-derived botanical subject context; it does not assert a shared genre genealogy.",
+      "educational_value": "Lets learners compare plant subjects across oil painting and woodblock print as a question of depiction and medium, not influence.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples are dated 1890 and approximately 1799–1810."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436528",
+          "snapshot_sha256": "sha256:554980cf21cae46acd5fbcb203a3d5f8b3479b310437e9f5da09d2a0ecd275e7",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly names irises or flowers."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "54303",
+          "snapshot_sha256": "sha256:db0050807c92065ba5de0cd3579c5a1ebdc80c61110ac2b122c0332e0a332631",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly names irises or flowers."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:music-making-figures",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Music-making figures",
+        "zh-Hans": "音乐演奏者"
+      },
+      "scope_note": "Title-derived subject context limited to figures explicitly described as music-making or musicians.",
+      "educational_value": "Creates a focused learning comparison across drawing and woodblock print without treating a common subject as historical contact.",
+      "time_scope": {
+        "precision": "mixed_dated_and_undated",
+        "historical_scope": "The drawing is dated 1521; the woodblock print has no display date and remains undated."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "334816",
+          "snapshot_sha256": "sha256:82fc637fb19fae25bbd0222368af3182d26134e9d49e72000f1f86d9e25812a5",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly identifies angels making music or itinerant women musicians."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "54876",
+          "snapshot_sha256": "sha256:5e155267d9778a4d8bd595d2dd4ab68e76cf95f4057c53a6c2174d5f1c2d099d",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly identifies angels making music or itinerant women musicians."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:self-portraiture",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Self-portraiture",
+        "zh-Hans": "自画像"
+      },
+      "scope_note": "Title-derived self-portrait category; no stylistic or biographical similarity is inferred.",
+      "educational_value": "Supports comparison of self-representation across oil painting and watercolor-on-paper records.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples are dated 1887 and 1891/92."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436532",
+          "snapshot_sha256": "sha256:9d2c89655f36a1e1f520d669ab038afffaab33d5a5b2a30c0c4e19db0ac42e70",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly identifies a self-portrait."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official title explicitly identifies a self-portrait."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:death-and-remembrance",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Death and remembrance",
+        "zh-Hans": "死亡与纪念"
+      },
+      "scope_note": "Reviewed title-derived subject context joining memorial and feast-of-the-dead records only as a learning comparison; it does not equate their cultural meanings.",
+      "educational_value": "Invites learners to examine how print media can address remembrance and death while preserving distinct historical contexts.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples are dated 1920 and approximately 1894."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display"
+          ],
+          "evidence_note": "Official title explicitly supplies the memorial or feast-of-the-dead basis."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly supplies the memorial or feast-of-the-dead basis."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:water",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Water",
+        "zh-Hans": "水"
+      },
+      "scope_note": "Title-derived subject context limited to objects whose official titles explicitly name a wave or walking on water.",
+      "educational_value": "Supports comparison of water as landscape force and narrative setting without implying stylistic or historical transmission.",
+      "time_scope": {
+        "precision": "broad_object_date_bounded",
+        "historical_scope": "One example is dated about 1830–32; the other retains the broad display date 'late 19th–mid 20th century'."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly names a wave or water."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly names a wave or water."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:paired-figures",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Paired figures",
+        "zh-Hans": "成对人物"
+      },
+      "scope_note": "Title-derived subject context limited to titles that explicitly name a couple, two figures, or a male and female pair; it does not equate relationships or social meanings.",
+      "educational_value": "Supports comparison of paired figures across erotic book, chromolithograph, and feast-of-the-dead print records.",
+      "time_scope": {
+        "precision": "object_date_bounded",
+        "historical_scope": "The cited examples are dated 1799, about 1894, and about 1910; the posthumous 1910 association remains explicit."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly describes a couple or paired figures."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title names Nala and Damayanti; posthumous display date is retained and no personal execution is inferred."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title explicitly describes a couple or paired figures."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:landscape",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Landscape",
+        "zh-Hans": "风景"
+      },
+      "scope_note": "Reviewed subject context based on an official landscape title and a wave/Mount Fuji title; it does not claim a shared landscape tradition.",
+      "educational_value": "Supports cross-cultural comparison of represented terrain and water while preventing visual similarity from becoming a historical claim.",
+      "time_scope": {
+        "precision": "mixed_dated_and_undated",
+        "historical_scope": "One example is dated about 1830–32; the attributed album leaf is undated."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/title",
+            "/objectDate"
+          ],
+          "evidence_note": "Official title names the wave and Mount Fuji."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "53601",
+          "snapshot_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistPrefix"
+          ],
+          "evidence_note": "Official title names a landscape; record is explicitly 'Attributed to' and undated."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "id": "subject:sacred-narrative",
+      "entity_type": "subject",
+      "labels": {
+        "en": "Sacred narrative",
+        "zh-Hans": "神圣叙事"
+      },
+      "scope_note": "Reviewed cross-tradition subject context derived from titles naming Krishna and Christ; it is a comparison category, not an assertion that the narratives or traditions are equivalent.",
+      "educational_value": "Lets learners compare how print records frame sacred narratives while preserving religious, production, attribution, and chronological differences.",
+      "time_scope": {
+        "precision": "broad_object_date_bounded",
+        "historical_scope": "One example is dated about 1910 after the associated artist's death; the other retains a broad late-nineteenth- to mid-twentieth-century display date."
+      },
+      "place_scope": {
+        "precision": "not_applicable",
+        "description": "This reviewed comparison context does not assert a shared historical place."
+      },
+      "source_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/medium"
+          ],
+          "evidence_note": "Official title names Krishna; the posthumous date is retained and no personal execution is inferred."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/medium"
+          ],
+          "evidence_note": "Official title names Christ walking on water."
+        }
+      ],
+      "review_status": "accepted_reviewed"
+    }
+  ],
+  "content_hash": "sha256:fb4473f0957112eea53262a663a5551bcd84ceef0e99a20f6b477bc32a71c818"
+}

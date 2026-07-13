@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/context/art-context.schema.json",
+  "title": "MUSEUM-03B typed art context entity",
+  "allOf": [
+    { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json" },
+    {
+      "type": "object",
+      "required": [
+        "name_records", "claim_ids", "source_ids", "source_license_bindings",
+        "review_status", "reviewed_by", "reviewed_at", "review_signoff_ids", "status_history"
+      ],
+      "properties": {
+        "branch_id": { "const": "art" },
+        "labels": {
+          "type": "object",
+          "required": ["en", "zh-Hans"],
+          "minProperties": 2,
+          "properties": {
+            "en": { "type": "string", "minLength": 1 },
+            "zh-Hans": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "name_records": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["text", "language", "script", "name_type", "source_claim_id", "time_scope"],
+            "properties": {
+              "text": { "type": "string", "minLength": 1 },
+              "language": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/languageTag" },
+              "script": { "type": ["string", "null"] },
+              "name_type": {
+                "enum": ["original", "preferred", "alternate", "historical", "transliteration", "translated_display"]
+              },
+              "source_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+              "time_scope": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          },
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name_type": { "enum": ["original", "preferred"] } },
+                "required": ["name_type"]
+              },
+              "minContains": 1
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name_type": { "const": "translated_display" } },
+                "required": ["name_type"]
+              },
+              "minContains": 1
+            }
+          ]
+        },
+        "claim_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "source_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "source_license_bindings": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/sourceLicenseBinding" }
+        },
+        "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "disputed", "withdrawn"] },
+        "reviewed_by": { "type": "string", "minLength": 1 },
+        "reviewed_at": { "type": "string", "format": "date-time" },
+        "review_signoff_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "status_history": {
+          "type": "array", "minItems": 1,
+          "items": { "$ref": "#/$defs/statusHistoryEntry" }
+        },
+        "branch_extensions": false
+      }
+    },
+    {
+      "oneOf": [
+        { "$ref": "#/$defs/artMovement" },
+        { "$ref": "#/$defs/artGroup" },
+        { "$ref": "#/$defs/museumInstitution" },
+        { "$ref": "#/$defs/organization" },
+        { "$ref": "#/$defs/place" },
+        { "$ref": "#/$defs/exhibition" },
+        { "$ref": "#/$defs/exhibitionEvent" },
+        { "$ref": "#/$defs/material" },
+        { "$ref": "#/$defs/technique" },
+        { "$ref": "#/$defs/subject" },
+        { "$ref": "#/$defs/timePeriod" },
+        { "$ref": "#/$defs/person" }
+      ]
+    }
+  ],
+  "$defs": {
+    "statusHistoryEntry": {
+      "type": "object",
+      "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+      "properties": {
+        "from": { "type": ["string", "null"] },
+        "to": { "enum": ["candidate", "sourced", "reviewed", "verified", "disputed", "withdrawn"] },
+        "changed_at": { "type": "string", "format": "date-time" },
+        "changed_by": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "artMovement": {
+      "type": "object",
+      "required": ["id", "entity_type", "time_scope", "place_ids"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^art_movement:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "art_movement" },
+        "time_scope": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "place_ids": { "$ref": "#/$defs/placeIds" }
+      }
+    },
+    "artGroup": {
+      "type": "object",
+      "required": ["id", "entity_type", "time_scope", "place_ids"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^art_group:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "art_group" },
+        "time_scope": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "place_ids": { "$ref": "#/$defs/placeIds" }
+      }
+    },
+    "museumInstitution": {
+      "type": "object",
+      "required": ["id", "entity_type", "active_span", "place_id"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^museum_institution:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "museum_institution" },
+        "active_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "place_id": { "type": "string", "pattern": "^place:[a-z0-9][a-z0-9._-]*$" }
+      }
+    },
+    "organization": {
+      "type": "object",
+      "required": ["id", "entity_type", "active_span", "place_ids"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^organization:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "organization" },
+        "active_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "place_ids": { "$ref": "#/$defs/placeIds" }
+      }
+    },
+    "place": {
+      "type": "object",
+      "required": ["id", "entity_type", "place_kind", "historical_time_scope_required", "historical_time_scope"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^place:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "place" },
+        "place_kind": { "enum": ["country", "region", "city", "district", "site"] },
+        "historical_time_scope_required": { "type": "boolean" },
+        "historical_time_scope": {
+          "oneOf": [
+            { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "historical_time_scope_required": { "const": true } },
+            "required": ["historical_time_scope_required"]
+          },
+          "then": {
+            "properties": {
+              "historical_time_scope": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" }
+            }
+          }
+        }
+      ]
+    },
+    "exhibition": {
+      "type": "object",
+      "required": ["id", "entity_type", "event_span", "venue_ids"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^exhibition:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "exhibition" },
+        "event_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "venue_ids": { "$ref": "#/$defs/institutionOrOrganizationIds" }
+      }
+    },
+    "exhibitionEvent": {
+      "type": "object",
+      "required": ["id", "entity_type", "event_span", "venue_ids"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^exhibition_event:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "exhibition_event" },
+        "event_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "venue_ids": { "$ref": "#/$defs/institutionOrOrganizationIds" }
+      }
+    },
+    "material": {
+      "type": "object",
+      "required": ["id", "entity_type"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^material:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "material" }
+      }
+    },
+    "technique": {
+      "type": "object",
+      "required": ["id", "entity_type"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^technique:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "technique" }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "required": ["id", "entity_type"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^subject:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "subject" }
+      }
+    },
+    "timePeriod": {
+      "type": "object",
+      "required": ["id", "entity_type", "period_span"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^time_period:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "time_period" },
+        "period_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" }
+      }
+    },
+    "person": {
+      "type": "object",
+      "required": ["id", "entity_type", "context_role", "life_span"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^person:[a-z0-9][a-z0-9._-]*$" },
+        "entity_type": { "const": "person" },
+        "context_role": { "enum": ["patron", "other_context"] },
+        "life_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" }
+      }
+    },
+    "placeIds": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^place:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "institutionOrOrganizationIds": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^(museum_institution|organization):[a-z0-9][a-z0-9._-]*$" }
+    }
+  },
+  "if": {
+    "properties": { "lifecycle_status": { "enum": ["publishable", "published"] } },
+    "required": ["lifecycle_status"]
+  },
+  "then": false,
+  "unevaluatedProperties": false
+}

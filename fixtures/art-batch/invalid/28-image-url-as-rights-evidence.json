@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-28",
+  "case_number": 28,
+  "behavior": "image url as rights evidence",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_image_url_used_as_rights_evidence",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/rights_evidence",
+      "value": [
+        {
+          "kind": "image_url",
+          "url": "https://fixtures.invalid/image.jpg"
+        }
+      ]
+    }
+  ]
+}

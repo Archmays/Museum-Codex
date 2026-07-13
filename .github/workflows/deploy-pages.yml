@@ -51,8 +51,14 @@ jobs:
       - name: Validate MUSEUM-03A curation schemas, synthetic fixtures, and private-package boundaries
         run: python scripts/validate_artist_selection_preflight.py
 
-      - name: Scan static public inputs for candidate data
-        run: python scripts/scan_public_artifact_for_candidate_data.py public
+      - name: Validate MUSEUM-03B formal art-batch synthetic fixtures
+        run: python scripts/validate_museum_03b_fixtures.py
+
+      - name: Validate sealed internal MUSEUM-03B reviewed package
+        run: python scripts/validate_museum_03b_batch.py data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1
+
+      - name: Scan static public inputs for candidate and formal art data
+        run: python scripts/scan_public_artifact_for_candidate_data.py public --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
       - name: Run Python tests
         run: python scripts/run_offline_python_tests.py
@@ -82,8 +88,8 @@ jobs:
       - name: Check built asset paths and external runtime dependencies
         run: npm run check:build
 
-      - name: Scan production artifact for raw, candidate, review, and media leakage
-        run: python scripts/scan_public_artifact_for_candidate_data.py dist
+      - name: Scan production artifact for raw, candidate, formal art, review, and media leakage
+        run: python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
       - name: Scan repository for credentials and large files
         run: npm run check:safety

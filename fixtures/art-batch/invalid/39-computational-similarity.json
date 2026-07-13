@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-39",
+  "case_number": 39,
+  "behavior": "computational similarity",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_computational_similarity_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/relationship_type",
+      "value": "computationally_similar_to"
+    }
+  ]
+}

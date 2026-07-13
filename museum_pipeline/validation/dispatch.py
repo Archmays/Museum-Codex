@@ -13,7 +13,18 @@ from museum_pipeline.errors import PipelineError
 from museum_pipeline.hashing import canonical_sha256
 
 
+ART_CONTEXT_ENTITY_TYPES = {
+    "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
+    "exhibition_event", "material", "technique", "subject", "time_period", "person",
+}
+
+
 PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
+    "claim": "schemas/common/claim.schema.json",
+    "evidence": "schemas/common/evidence.schema.json",
+    "source": "schemas/common/source.schema.json",
+    "media_asset": "schemas/common/media-asset.schema.json",
+    "dataset_release": "schemas/common/dataset-release.schema.json",
     "adapter_contract": "schemas/pipeline/adapter-contract.schema.json",
     "acquisition_request": "schemas/pipeline/acquisition-request.schema.json",
     "raw_snapshot_manifest": "schemas/pipeline/raw-snapshot-manifest.schema.json",
@@ -34,6 +45,24 @@ PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "review_signoff": "schemas/art/batch/review-signoff.schema.json",
     "approved_identity_basis": "schemas/art/batch/approved-identity-basis.schema.json",
     "snapshot_receipt_ledger": "schemas/art/batch/snapshot-receipt-ledger.schema.json",
+    "artwork_selection_basis": "schemas/art/batch/artwork-selection-basis.schema.json",
+    "manual_evidence_capture": "schemas/art/batch/manual-evidence-capture.schema.json",
+    "relationship_research_disposition": "schemas/art/batch/relationship-research-disposition.schema.json",
+    "media_eligibility_assessment": "schemas/art/batch/media-eligibility-assessment.schema.json",
+    "formal_art_batch_manifest": "schemas/art/batch/formal-art-batch-manifest.schema.json",
+    "reviewed_package_manifest": "schemas/art/batch/reviewed-package-manifest.schema.json",
+    "graph_input": "schemas/art/batch/graph-input.schema.json",
+    "replacement_review_request": "schemas/art/batch/replacement-review-request.schema.json",
+    "public_leakage_label_set": "schemas/art/batch/public-leakage-label-set.schema.json",
+    "artist": "schemas/art/artist.schema.json",
+    "artwork": "schemas/art/artwork.schema.json",
+    **{
+        entity_type: "schemas/art/context/art-context.schema.json"
+        for entity_type in (
+            "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
+            "exhibition_event", "material", "technique", "subject", "time_period", "person",
+        )
+    },
 }
 
 
@@ -63,7 +92,20 @@ def load_schema_environment(root: Path = ROOT) -> SchemaEnvironment:
 
 
 def canonical_schema_path(record: dict[str, Any]) -> str | None:
-    return PIPELINE_SCHEMA_BY_ENTITY_TYPE.get(str(record.get("entity_type")))
+    entity_type = str(record.get("entity_type"))
+    if entity_type in ART_CONTEXT_ENTITY_TYPES:
+        if record.get("branch_id") == "art":
+            return "schemas/art/context/art-context.schema.json"
+        return "schemas/common/entity.schema.json"
+    if record.get("entity_type") == "relationship":
+        record_id = str(record.get("id", ""))
+        branch = record.get("branch_id")
+        if record_id.startswith("art-rel:") or branch == "art":
+            return "schemas/art/artist-relationship.schema.json"
+        if record_id.startswith("bio-rel:") or branch == "biology":
+            return "schemas/biology/ecosystem-interaction.schema.json"
+        return "schemas/common/relationship.schema.json"
+    return PIPELINE_SCHEMA_BY_ENTITY_TYPE.get(entity_type)
 
 
 def validate_record(
@@ -209,6 +251,8 @@ def _semantic_issues(record: dict[str, Any]) -> list[ValidationIssue]:
         })
         if record.get("bundle_hash") != expected_bundle_hash:
             issues.append(ValidationIssue("review_bundle_hash_mismatch", "Review bundle hash does not match its exact inputs", "$.bundle_hash"))
+    elif entity_type == "media_eligibility_assessment":
+        issues.extend(_media_assessment_semantic_issues(record))
     if str(entity_type) in {
         "artist_candidate_preflight", "artwork_rights_preflight", "relationship_lead",
         "selection_scenario", "selection_decision", "selection_decision_application", "selection_review_bundle",
@@ -217,6 +261,117 @@ def _semantic_issues(record: dict[str, Any]) -> list[ValidationIssue]:
 
         issues.extend(ValidationIssue(code, message, location) for code, message, location in curation_semantic_issues(record))
     return issues
+
+
+def _media_assessment_semantic_issues(record: dict[str, Any]) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    source_record_id = str(record.get("source_id", ""))
+    source_key = source_record_id.removeprefix("source:")
+    bindings = [item for item in record.get("source_license_bindings", []) if isinstance(item, dict)]
+    try:
+        media_rules = [rule for rule in source_license_rules(source_key) if rule.get("content_class") == "media"]
+    except PipelineError:
+        media_rules = []
+    if len(media_rules) != 1:
+        issues.append(ValidationIssue("media_assessment_canonical_media_rule_missing", "Source must have exactly one canonical media rule", "$.source_license_bindings"))
+    if len(bindings) != 1:
+        issues.append(ValidationIssue("media_assessment_source_binding_count", "Media assessment requires exactly one canonical media binding", "$.source_license_bindings"))
+    elif media_rules:
+        binding = bindings[0]
+        rule = media_rules[0]
+        expected_fields = {
+            "met_open_access": ["isPublicDomain", "primaryImage"],
+            "aic_api": ["is_public_domain", "image_id"],
+        }.get(source_key)
+        if binding.get("source_id") != source_record_id:
+            issues.append(ValidationIssue("media_assessment_binding_source_mismatch", "Media binding source differs from assessment source", "$.source_license_bindings[0].source_id"))
+        if binding.get("rule_id") != rule.get("rule_id") or binding.get("content_class") != "media":
+            issues.append(ValidationIssue("media_assessment_source_rule_mismatch", "Media binding must use the canonical source media rule", "$.source_license_bindings[0].rule_id"))
+        if binding.get("scope_locator") != rule.get("applies_to") or (expected_fields is not None and binding.get("scope_fields") != expected_fields):
+            issues.append(ValidationIssue("media_assessment_source_scope_mismatch", "Media binding scope must match the canonical object-media decision contract", "$.source_license_bindings[0].scope_locator"))
+        if binding.get("permission_resolution") != "object_level":
+            issues.append(ValidationIssue("media_assessment_permission_resolution_invalid", "Mixed source media rules require object_level resolution", "$.source_license_bindings[0].permission_resolution"))
+
+    outcome = record.get("outcome")
+    future_public = record.get("future_public_media_eligible") is True
+    open_candidate = future_public or outcome in {"external_iiif_candidate", "self_hosted_open_media_eligible"}
+    rights_status = record.get("media_rights_status")
+    media_license = record.get("media_license")
+    permissions = record.get("permissions") if isinstance(record.get("permissions"), dict) else {}
+    withdrawal = record.get("withdrawal_or_revocation") if isinstance(record.get("withdrawal_or_revocation"), dict) else {}
+    open_statuses = {"public_domain", "cc0", "cc_by", "cc_by_sa", "licensed"}
+    if open_candidate:
+        if rights_status not in open_statuses:
+            issues.append(ValidationIssue("media_assessment_open_status_invalid", "Future-public media requires a coherent open or approved licensed status", "$.media_rights_status"))
+        if not isinstance(media_license, dict):
+            issues.append(ValidationIssue("media_assessment_license_missing", "Future-public media requires a resolved object media license", "$.media_license"))
+        if permissions.get("redistribution") != "allowed":
+            issues.append(ValidationIssue("media_assessment_redistribution_blocked", "Future-public media must allow redistribution", "$.permissions.redistribution"))
+        if record.get("permission_status") not in {"approved", "not_applicable"}:
+            issues.append(ValidationIssue("media_assessment_permission_status_invalid", "Future-public media cannot have pending, denied, revoked, or expired permission", "$.permission_status"))
+        if withdrawal.get("status") != "active":
+            issues.append(ValidationIssue("media_assessment_withdrawal_inactive", "Future-public media requires an active non-revoked decision", "$.withdrawal_or_revocation.status"))
+        if record.get("risk") not in {"low", "medium"}:
+            issues.append(ValidationIssue("media_assessment_risk_unbounded", "Future-public media risk must remain low or medium", "$.risk"))
+        if not record.get("rights_evidence"):
+            issues.append(ValidationIssue("media_assessment_rights_evidence_missing", "Future-public media requires object-level rights evidence", "$.rights_evidence"))
+        if record.get("block_reasons"):
+            issues.append(ValidationIssue("media_assessment_block_reason_conflict", "Future-public media cannot retain a blocking reason", "$.block_reasons"))
+
+    if isinstance(media_license, dict):
+        if not _media_license_matches_status(str(rights_status), media_license):
+            issues.append(ValidationIssue("media_assessment_license_status_mismatch", "Resolved media license does not match media_rights_status", "$.media_license"))
+        permission_pairs = {
+            "redistribution": ("redistribution_allowed", "allowed", "prohibited"),
+            "modification": ("modification_allowed", "allowed", "prohibited"),
+            "commercial_use": ("commercial_use_allowed", "allowed", "prohibited"),
+            "share_alike": ("share_alike", "required", "not_required"),
+        }
+        for permission_name, (license_name, true_value, false_value) in permission_pairs.items():
+            expected = true_value if media_license.get(license_name) is True else false_value
+            if permissions.get(permission_name) != expected:
+                issues.append(ValidationIssue("media_assessment_license_permission_mismatch", f"permissions.{permission_name} disagrees with media_license.{license_name}", f"$.permissions.{permission_name}"))
+        if media_license.get("attribution_required") is True and not str(record.get("attribution", "")).strip():
+            issues.append(ValidationIssue("media_assessment_attribution_missing", "Resolved media license requires non-empty attribution", "$.attribution"))
+    elif rights_status in open_statuses:
+        issues.append(ValidationIssue("media_assessment_license_missing", "Open media status requires a resolved media license", "$.media_license"))
+
+    if rights_status == "licensed":
+        if not isinstance(record.get("license_scope"), dict) or record.get("permission_status") != "approved":
+            issues.append(ValidationIssue("media_assessment_license_scope_invalid", "Licensed media requires an approved explicit license scope", "$.license_scope"))
+    elif rights_status in {"public_domain", "cc0", "cc_by", "cc_by_sa"} and record.get("license_scope") is not None:
+        issues.append(ValidationIssue("media_assessment_license_scope_unexpected", "Canonical open licenses do not use a separate permission scope", "$.license_scope"))
+    if rights_status == "unknown" and media_license is not None:
+        issues.append(ValidationIssue("media_assessment_unknown_rights_escalation", "Unknown rights cannot carry a resolved media license", "$.media_license"))
+    if record.get("metadata_inherited_as_media_rights") is True:
+        issues.append(ValidationIssue("media_assessment_metadata_inheritance_forbidden", "Metadata rights cannot be inherited as media rights", "$.metadata_inherited_as_media_rights"))
+    if record.get("bytes_downloaded") is not False or record.get("media_bytes_present") is not False or (record.get("technical_delivery") or {}).get("cache_bytes") is not False:
+        issues.append(ValidationIssue("media_assessment_bytes_forbidden", "MUSEUM-03B assessments cannot download, cache, or include media bytes", "$.technical_delivery"))
+    return issues
+
+
+def _media_license_matches_status(status: str, descriptor: dict[str, Any]) -> bool:
+    identifier = descriptor.get("identifier")
+    version = descriptor.get("version")
+    url = descriptor.get("url")
+    if status == "cc0":
+        return (identifier, version, url) == (
+            "CC0-1.0",
+            "1.0",
+            "https://creativecommons.org/publicdomain/zero/1.0/",
+        )
+    if status == "public_domain":
+        return (identifier, version, url) == (
+            "PDM-1.0",
+            "1.0",
+            "https://creativecommons.org/publicdomain/mark/1.0/",
+        )
+    allowed_versions = {"1.0", "2.0", "2.5", "3.0", "4.0"}
+    if status == "cc_by" and version in allowed_versions:
+        return identifier == f"CC-BY-{version}" and url == f"https://creativecommons.org/licenses/by/{version}/"
+    if status == "cc_by_sa" and version in allowed_versions:
+        return identifier == f"CC-BY-SA-{version}" and url == f"https://creativecommons.org/licenses/by-sa/{version}/"
+    return status == "licensed"
 
 
 def _json_path(path: Iterable[Any]) -> str:

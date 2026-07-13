@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-37",
+  "case_number": 37,
+  "behavior": "place time scope missing",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "context_historical_time_scope_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/contexts/0/historical_time_scope",
+      "value": null
+    }
+  ]
+}

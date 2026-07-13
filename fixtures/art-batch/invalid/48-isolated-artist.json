@@ -1,0 +1,14 @@
+{
+  "fixture_id": "art-batch-invalid-48",
+  "case_number": 48,
+  "behavior": "isolated artist",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_isolated_artist_without_exception",
+  "mutations": [
+    {
+      "op": "remove_relationships_for_entity",
+      "entity_id": "artist:synthetic-12"
+    }
+  ]
+}

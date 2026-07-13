@@ -1,0 +1,21 @@
+{
+  "fixture_id": "art-batch-valid-metadata-only",
+  "expected_valid": true,
+  "covers": [
+    56
+  ],
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/eligibility",
+      "value": "metadata_only"
+    },
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/counted_clear",
+      "value": false
+    }
+  ]
+}

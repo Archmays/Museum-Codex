@@ -1,0 +1,10 @@
+{
+  "fixture_id": "art-batch-valid-idempotent-rerun",
+  "expected_valid": true,
+  "covers": [
+    11
+  ],
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "mutations": []
+}

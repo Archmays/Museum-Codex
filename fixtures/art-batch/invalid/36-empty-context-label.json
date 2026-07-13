@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-36",
+  "case_number": 36,
+  "behavior": "empty context label",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "context_label_empty",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/contexts/1/labels/en",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-01",
+  "case_number": 1,
+  "behavior": "bundle hash mismatch",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_bundle_hash_mismatch",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/input_bundle_hash",
+      "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

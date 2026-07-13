@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/relationship-research-disposition.schema.json",
+  "title": "MUSEUM-03B relationship lead research disposition",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "batch_id", "origin_kind",
+    "lead_id", "research_candidate_id", "disposition",
+    "formal_relationship_id", "superseded_by_lead_id", "evidence_gaps", "rationale",
+    "reviewed_by", "reviewed_at", "review_signoff_id", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^relationship-disposition:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "relationship_research_disposition" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "batch_id": { "$ref": "#/$defs/batchId" },
+    "origin_kind": { "enum": ["inherited_lead", "new_curated_candidate"] },
+    "lead_id": {
+      "oneOf": [
+        { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/lead_id" },
+        { "type": "null" }
+      ]
+    },
+    "research_candidate_id": {
+      "oneOf": [
+        { "type": "string", "pattern": "^relationship-candidate:[a-z0-9][a-z0-9._-]*$" },
+        { "type": "null" }
+      ]
+    },
+    "disposition": {
+      "enum": [
+        "promoted_to_formal_relationship", "retained_for_more_evidence", "rejected", "superseded", "out_of_scope"
+      ]
+    },
+    "formal_relationship_id": {
+      "oneOf": [
+        { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" },
+        { "type": "null" }
+      ]
+    },
+    "superseded_by_lead_id": {
+      "oneOf": [
+        { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/lead_id" },
+        { "type": "null" }
+      ]
+    },
+    "evidence_gaps": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "rationale": { "type": "string", "minLength": 1 },
+    "reviewed_by": { "type": "string", "minLength": 1 },
+    "reviewed_at": { "type": "string", "format": "date-time" },
+    "review_signoff_id": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "origin_kind": { "const": "inherited_lead" } }, "required": ["origin_kind"] },
+      "then": {
+        "properties": {
+          "lead_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/lead_id" },
+          "research_candidate_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "origin_kind": { "const": "new_curated_candidate" } }, "required": ["origin_kind"] },
+      "then": {
+        "properties": {
+          "lead_id": { "type": "null" },
+          "research_candidate_id": { "type": "string", "pattern": "^relationship-candidate:[a-z0-9][a-z0-9._-]*$" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "disposition": { "const": "promoted_to_formal_relationship" } }, "required": ["disposition"] },
+      "then": {
+        "properties": {
+          "formal_relationship_id": { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" },
+          "superseded_by_lead_id": { "type": "null" },
+          "evidence_gaps": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "disposition": { "const": "retained_for_more_evidence" } }, "required": ["disposition"] },
+      "then": {
+        "properties": {
+          "formal_relationship_id": { "type": "null" },
+          "superseded_by_lead_id": { "type": "null" },
+          "evidence_gaps": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "disposition": { "enum": ["rejected", "out_of_scope"] } }, "required": ["disposition"] },
+      "then": {
+        "properties": {
+          "formal_relationship_id": { "type": "null" },
+          "superseded_by_lead_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "disposition": { "const": "superseded" } }, "required": ["disposition"] },
+      "then": {
+        "properties": {
+          "formal_relationship_id": { "type": "null" },
+          "superseded_by_lead_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/lead_id" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "batchId": { "type": "string", "pattern": "^art-batch:museum-03b-[a-z0-9][a-z0-9._-]*$" }
+  },
+  "additionalProperties": false
+}

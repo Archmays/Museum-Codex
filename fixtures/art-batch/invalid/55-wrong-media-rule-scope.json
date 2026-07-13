@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-55",
+  "case_number": 55,
+  "behavior": "wrong media rule scope",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_rule_scope_invalid",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/rule_scope",
+      "value": "metadata"
+    }
+  ]
+}

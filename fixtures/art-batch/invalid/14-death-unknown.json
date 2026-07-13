@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-14",
+  "case_number": 14,
+  "behavior": "death unknown",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_death_unresolved",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/deceased_status",
+      "value": "unknown"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/reviewed-package-manifest.schema.json",
+  "title": "MUSEUM-03B reviewed package physical-closure manifest",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "batch_id", "formal_batch_manifest_id",
+    "package_root", "files", "declared_file_count", "total_bytes", "canonical_json",
+    "no_undeclared_files", "safe_relative_paths", "no_symlink_escape", "stable_ids_closed",
+    "schema_versions_closed", "reference_closure", "source_license_binding_closure",
+    "decision_closure", "no_media_bytes", "no_published_state", "review_signoff_ids",
+    "content_hash", "generated_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^reviewed-package-manifest:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "reviewed_package_manifest" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "batch_id": { "$ref": "#/$defs/batchId" },
+    "formal_batch_manifest_id": { "type": "string", "pattern": "^art-batch-manifest:[a-z0-9][a-z0-9._-]*$" },
+    "package_root": { "$ref": "#/$defs/safeRelativePath" },
+    "files": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["path", "bytes", "sha256", "canonical_json", "schema_id", "schema_version", "record_ids"],
+        "properties": {
+          "path": { "$ref": "#/$defs/safeRelativePath" },
+          "bytes": { "type": "integer", "minimum": 1 },
+          "sha256": { "$ref": "#/$defs/hash" },
+          "canonical_json": { "const": true },
+          "schema_id": { "type": "string", "format": "uri", "pattern": "^https://museum-codex\\.example/schemas/" },
+          "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+          "record_ids": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "declared_file_count": { "type": "integer", "minimum": 1 },
+    "total_bytes": { "type": "integer", "minimum": 1 },
+    "canonical_json": { "const": true },
+    "no_undeclared_files": { "const": true },
+    "safe_relative_paths": { "const": true },
+    "no_symlink_escape": { "const": true },
+    "stable_ids_closed": { "const": true },
+    "schema_versions_closed": { "const": true },
+    "reference_closure": { "const": true },
+    "source_license_binding_closure": { "const": true },
+    "decision_closure": { "const": true },
+    "no_media_bytes": { "const": true },
+    "no_published_state": { "const": true },
+    "review_signoff_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "content_hash": { "$ref": "#/$defs/hash" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "$defs": {
+    "batchId": { "type": "string", "pattern": "^art-batch:museum-03b-[a-z0-9][a-z0-9._-]*$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "safeRelativePath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    }
+  },
+  "additionalProperties": false
+}

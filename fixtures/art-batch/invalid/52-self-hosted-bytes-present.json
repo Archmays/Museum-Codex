@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-52",
+  "case_number": 52,
+  "behavior": "self hosted bytes present",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_self_hosted_bytes_forbidden_in_phase",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/self_hosted_bytes_present",
+      "value": true
+    }
+  ]
+}

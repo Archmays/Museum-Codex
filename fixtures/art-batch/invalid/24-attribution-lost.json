@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-24",
+  "case_number": 24,
+  "behavior": "attribution lost",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_attribution_lost",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/attribution/preserved",
+      "value": false
+    }
+  ]
+}

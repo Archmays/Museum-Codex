@@ -1,0 +1,18 @@
+{
+  "fixture_id": "art-batch-invalid-07",
+  "case_number": 7,
+  "behavior": "replacement nonempty",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_replacements_forbidden",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/decision/replacements",
+      "value": {
+        "removed": "artist-candidate:synthetic-01",
+        "added": "artist-candidate:synthetic-13"
+      }
+    }
+  ]
+}

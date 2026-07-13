@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-45",
+  "case_number": 45,
+  "behavior": "public display unreviewed claim",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_public_display_claim_unreviewed",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/public_display",
+      "value": true
+    },
+    {
+      "op": "replace",
+      "path": "/relationships/0/claim_reviewed",
+      "value": false
+    }
+  ]
+}

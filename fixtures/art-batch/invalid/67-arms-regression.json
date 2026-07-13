@@ -1,0 +1,18 @@
+{
+  "fixture_id": "art-batch-invalid-67",
+  "case_number": 67,
+  "behavior": "arms regression",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "operational_arms_content",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/public_artifact/files",
+      "value": {
+        "path": "arms.html",
+        "content": "how to build a weapon"
+      }
+    }
+  ]
+}

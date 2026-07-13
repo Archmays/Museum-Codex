@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-06",
+  "case_number": 6,
+  "behavior": "duplicate candidate",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_candidate_duplicate",
+  "mutations": [
+    {
+      "op": "copy",
+      "from": "/decision/selected_candidate_ids/0",
+      "path": "/decision/selected_candidate_ids/11"
+    }
+  ]
+}

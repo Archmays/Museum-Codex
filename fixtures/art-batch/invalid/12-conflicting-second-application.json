@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-12",
+  "case_number": 12,
+  "behavior": "conflicting second application",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_conflicting_second_application",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/application/conflicting_reapply",
+      "value": true
+    }
+  ]
+}

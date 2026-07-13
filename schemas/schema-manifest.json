@@ -89,16 +89,16 @@
     {
       "path": "schemas/art/artwork.schema.json",
       "id": "https://museum-codex.example/schemas/art/artwork.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "art",
-      "depends_on": ["schemas/common/entity.schema.json"]
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
     },
     {
       "path": "schemas/art/artist-relationship.schema.json",
       "id": "https://museum-codex.example/schemas/art/artist-relationship.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "art",
-      "depends_on": ["schemas/common/relationship.schema.json"]
+      "depends_on": ["schemas/common/relationship.schema.json", "schemas/common/entity.schema.json"]
     },
     {
       "path": "schemas/art/batch/review-signoff.schema.json",
@@ -117,6 +117,76 @@
     {
       "path": "schemas/art/batch/snapshot-receipt-ledger.schema.json",
       "id": "https://museum-codex.example/schemas/art/batch/snapshot-receipt-ledger.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/context/art-context.schema.json",
+      "id": "https://museum-codex.example/schemas/art/context/art-context.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/artwork-selection-basis.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/artwork-selection-basis.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/manual-evidence-capture.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/manual-evidence-capture.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/relationship-research-disposition.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/relationship-research-disposition.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/media-eligibility-assessment.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/media-eligibility-assessment.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/common/media-asset.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/formal-art-batch-manifest.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/formal-art-batch-manifest.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/reviewed-package-manifest.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/reviewed-package-manifest.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/graph-input.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/graph-input.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/replacement-review-request.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/replacement-review-request.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
+    },
+    {
+      "path": "schemas/art/batch/public-leakage-label-set.schema.json",
+      "id": "https://museum-codex.example/schemas/art/batch/public-leakage-label-set.schema.json",
       "version": "1.0.0",
       "branch": "art",
       "depends_on": ["schemas/common/entity.schema.json"]

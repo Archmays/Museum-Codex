@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-38",
+  "case_number": 38,
+  "behavior": "generic related to",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_generic_related_to_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/relationship_type",
+      "value": "related_to"
+    }
+  ]
+}

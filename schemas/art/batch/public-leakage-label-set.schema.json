@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/public-leakage-label-set.schema.json",
+  "title": "MUSEUM-03B public artifact leakage label set",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "batch_id", "terms", "content_hash"],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^public-leakage-label-set:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "public_leakage_label_set" },
+    "batch_id": { "$ref": "#/$defs/batchId" },
+    "terms": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["value", "category", "match_mode"],
+        "properties": {
+          "value": { "type": "string", "minLength": 1 },
+          "category": {
+            "enum": [
+              "batch_id", "artist_id", "artwork_id", "relationship_id", "context_id", "source_id",
+              "rights_record_id", "formal_record_id", "approved_label", "alias", "external_id", "candidate_id"
+            ]
+          },
+          "match_mode": { "enum": ["casefold_substring", "exact_token"] }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "category": { "enum": ["approved_label", "alias"] } },
+              "required": ["category"]
+            },
+            "then": { "properties": { "match_mode": { "const": "casefold_substring" } } }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "enum": [
+                    "batch_id", "artist_id", "artwork_id", "relationship_id", "context_id", "source_id",
+                    "rights_record_id", "formal_record_id", "external_id", "candidate_id"
+                  ]
+                }
+              },
+              "required": ["category"]
+            },
+            "then": { "properties": { "match_mode": { "const": "exact_token" } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "content_hash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "batchId": { "type": "string", "pattern": "^art-batch:museum-03b-[a-z0-9][a-z0-9._-]*$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  },
+  "additionalProperties": false
+}

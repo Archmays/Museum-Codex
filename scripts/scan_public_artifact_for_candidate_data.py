@@ -11,7 +11,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TEXT_SUFFIXES = {".html", ".css", ".js", ".json", ".svg", ".txt", ".xml"}
+TEXT_SUFFIXES = {
+    ".cjs", ".css", ".csv", ".htm", ".html", ".js", ".json", ".jsx", ".map", ".md", ".mjs",
+    ".svg", ".ts", ".tsv", ".tsx", ".txt", ".webmanifest", ".xhtml", ".xml", ".yaml", ".yml",
+}
+MAX_SCANNABLE_TEXT_BYTES = 5 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
@@ -36,7 +40,12 @@ FORBIDDEN_CONTENT = {
 }
 
 
-def scan_public_artifact(root: Path, *, private_candidate_terms: set[str] | None = None) -> list[dict[str, str]]:
+def scan_public_artifact(
+    root: Path,
+    *,
+    private_candidate_terms: set[str] | None = None,
+    formal_art_terms: list[dict[str, str]] | None = None,
+) -> list[dict[str, str]]:
     if not root.exists() or not root.is_dir():
         return [{"code": "public_artifact_missing", "path": root.name}]
     files = sorted(path for path in root.rglob("*") if path.is_file())
@@ -49,7 +58,10 @@ def scan_public_artifact(root: Path, *, private_candidate_terms: set[str] | None
             findings.append({"code": "candidate_zone_in_public_artifact", "path": relative})
         if path.suffix.lower() in THIRD_PARTY_MEDIA_SUFFIXES:
             findings.append({"code": "third_party_media_in_public_artifact", "path": relative})
-        if path.suffix.lower() not in TEXT_SUFFIXES or path.stat().st_size > 5 * 1024 * 1024:
+        if path.suffix.lower() not in TEXT_SUFFIXES:
+            continue
+        if path.stat().st_size > MAX_SCANNABLE_TEXT_BYTES:
+            findings.append({"code": "public_text_too_large_to_scan", "path": relative})
             continue
         try:
             text = path.read_text(encoding="utf-8")
@@ -63,6 +75,10 @@ def scan_public_artifact(root: Path, *, private_candidate_terms: set[str] | None
         for term in sorted(private_candidate_terms or set(), key=str.casefold):
             if len(term) >= 4 and term.casefold() in text.casefold():
                 findings.append({"code": "candidate_name_publicly_exposed", "path": relative})
+        for term in formal_art_terms or []:
+            value = term["value"]
+            if _term_matches(text, value, term["match_mode"]):
+                findings.append({"code": "formal_art_data_publicly_exposed", "path": relative})
     unique = {(item["code"], item["path"]): item for item in findings}
     return [unique[key] for key in sorted(unique)]
 
@@ -71,10 +87,14 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("root", nargs="?", type=Path, default=ROOT / "dist")
     parser.add_argument("--selection-bundle", type=Path, help="optional ignored bundle whose labels must not appear in the public artifact")
+    parser.add_argument("--label-set", type=Path, help="tracked MUSEUM-03B leakage-label set for approved formal data")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
     terms = candidate_terms_from_bundle(args.selection_bundle) if args.selection_bundle else set()
-    findings = scan_public_artifact(args.root, private_candidate_terms=terms)
+    formal_terms, label_error = formal_art_terms_from_label_set(args.label_set) if args.label_set else ([], None)
+    findings = scan_public_artifact(args.root, private_candidate_terms=terms, formal_art_terms=formal_terms)
+    if label_error:
+        findings.append({"code": "public_label_set_invalid", "path": args.label_set.name})
     payload = {"ok": not findings, "root": args.root.name, "findings": findings}
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
@@ -97,6 +117,32 @@ def candidate_terms_from_bundle(bundle: Path) -> set[str]:
         for item in candidate.get("preferred_labels", []) + candidate.get("aliases", [])
         if isinstance(item, dict) and isinstance(item.get("text"), str)
     }
+
+
+def formal_art_terms_from_label_set(path: Path) -> tuple[list[dict[str, str]], str | None]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, UnicodeDecodeError):
+        return [], "unreadable"
+    values = payload.get("terms") if isinstance(payload, dict) else None
+    if not isinstance(values, list) or not values:
+        return [], "terms_missing"
+    result: list[dict[str, str]] = []
+    for item in values:
+        if not isinstance(item, dict):
+            return [], "term_invalid"
+        value = item.get("value")
+        match_mode = item.get("match_mode")
+        if not isinstance(value, str) or len(value.strip()) < 2 or match_mode not in {"casefold_substring", "exact_token"}:
+            return [], "term_invalid"
+        result.append({"value": value.strip(), "match_mode": match_mode})
+    return result, None
+
+
+def _term_matches(text: str, value: str, match_mode: str) -> bool:
+    if match_mode == "casefold_substring":
+        return value.casefold() in text.casefold()
+    return re.search(rf"(?<![A-Za-z0-9]){re.escape(value)}(?![A-Za-z0-9])", text, re.IGNORECASE) is not None
 
 
 if __name__ == "__main__":

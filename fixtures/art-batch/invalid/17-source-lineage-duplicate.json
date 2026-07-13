@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-17",
+  "case_number": 17,
+  "behavior": "source lineage duplicate",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_source_lineage_duplicate",
+  "mutations": [
+    {
+      "op": "copy",
+      "from": "/artists/0/source_lineages/0/id",
+      "path": "/artists/0/source_lineages/1/id"
+    }
+  ]
+}

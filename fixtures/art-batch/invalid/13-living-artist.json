@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-13",
+  "case_number": 13,
+  "behavior": "living artist",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_living_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/deceased_status",
+      "value": "living"
+    }
+  ]
+}

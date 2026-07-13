@@ -1,0 +1,14 @@
+{
+  "fixture_id": "art-batch-invalid-30",
+  "case_number": 30,
+  "behavior": "fewer than two works",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_minimum_per_artist_not_met",
+  "mutations": [
+    {
+      "op": "remove",
+      "path": "/artworks/16"
+    }
+  ]
+}

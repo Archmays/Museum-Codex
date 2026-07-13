@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-57",
+  "case_number": 57,
+  "behavior": "undeclared package file",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_undeclared_file",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/package/actual_files",
+      "value": "extra.json"
+    }
+  ]
+}

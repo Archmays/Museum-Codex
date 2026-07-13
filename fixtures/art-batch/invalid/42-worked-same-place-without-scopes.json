@@ -1,0 +1,25 @@
+{
+  "fixture_id": "art-batch-invalid-42",
+  "case_number": 42,
+  "behavior": "worked same place without scopes",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_shared_place_scope_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/relationship_type",
+      "value": "worked_same_place"
+    },
+    {
+      "op": "replace",
+      "path": "/relationships/0/place_context_id",
+      "value": null
+    },
+    {
+      "op": "replace",
+      "path": "/relationships/0/time_scope",
+      "value": null
+    }
+  ]
+}

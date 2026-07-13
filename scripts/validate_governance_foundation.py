@@ -75,8 +75,29 @@ TARGET_SCHEMA_BY_ENTITY_TYPE = {
     "review_signoff": "schemas/art/batch/review-signoff.schema.json",
     "approved_identity_basis": "schemas/art/batch/approved-identity-basis.schema.json",
     "snapshot_receipt_ledger": "schemas/art/batch/snapshot-receipt-ledger.schema.json",
+    "artwork_selection_basis": "schemas/art/batch/artwork-selection-basis.schema.json",
+    "manual_evidence_capture": "schemas/art/batch/manual-evidence-capture.schema.json",
+    "relationship_research_disposition": "schemas/art/batch/relationship-research-disposition.schema.json",
+    "media_eligibility_assessment": "schemas/art/batch/media-eligibility-assessment.schema.json",
+    "formal_art_batch_manifest": "schemas/art/batch/formal-art-batch-manifest.schema.json",
+    "reviewed_package_manifest": "schemas/art/batch/reviewed-package-manifest.schema.json",
+    "graph_input": "schemas/art/batch/graph-input.schema.json",
+    "replacement_review_request": "schemas/art/batch/replacement-review-request.schema.json",
+    "public_leakage_label_set": "schemas/art/batch/public-leakage-label-set.schema.json",
+    **{
+        entity_type: "schemas/art/context/art-context.schema.json"
+        for entity_type in (
+            "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
+            "exhibition_event", "material", "technique", "subject", "time_period", "person",
+        )
+    },
     "taxon": "schemas/biology/taxon.schema.json",
     "species": "schemas/biology/taxon.schema.json",
+}
+
+ART_CONTEXT_ENTITY_TYPES = {
+    "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
+    "exhibition_event", "material", "technique", "subject", "time_period", "person",
 }
 
 ARTIFACT_SCHEMAS = {
@@ -171,6 +192,10 @@ def expected_target_schema(data: dict[str, Any]) -> str | None:
     if data.get("branch_id") == "arms":
         return None
     entity_type = data.get("entity_type")
+    if entity_type in ART_CONTEXT_ENTITY_TYPES:
+        if data.get("branch_id") == "art":
+            return "schemas/art/context/art-context.schema.json"
+        return "schemas/common/entity.schema.json"
     if entity_type == "relationship":
         record_id = str(data.get("id", ""))
         branch = data.get("branch_id")
@@ -218,6 +243,17 @@ def record_identity_issues(data: dict[str, Any], prefix: str) -> list[Validation
         "review-signoff": {"review_signoff"},
         "approved-identity-basis": {"approved_identity_basis"},
         "snapshot-receipt-ledger": {"snapshot_receipt_ledger"},
+        "artwork-selection-basis": {"artwork_selection_basis"},
+        "manual-evidence-capture": {"manual_evidence_capture"},
+        "relationship-disposition": {"relationship_research_disposition"},
+        "media-assessment": {"media_eligibility_assessment"},
+        "art-batch-manifest": {"formal_art_batch_manifest"},
+        "reviewed-package-manifest": {"reviewed_package_manifest"},
+        "graph-input": {"graph_input"},
+        "replacement-review-request": {"replacement_review_request"},
+        "public-leakage-label-set": {"public_leakage_label_set"},
+        "selection-decision": {"selection_decision"},
+        "selection-decision-application": {"selection_decision_application"},
         "taxon": {"taxon", "species"},
     }.get(id_prefix, {id_prefix})
     if entity_type in expected_types:
@@ -708,9 +744,16 @@ def source_license_binding_issues(
     prefix: str,
 ) -> list[ValidationIssue]:
     entity_type = data.get("entity_type")
-    if entity_type in {"source", "claim", "dataset_release"}:
+    if entity_type in {
+        "source",
+        "claim",
+        "dataset_release",
+        "formal_art_batch_manifest",
+        "graph_input",
+    }:
         return []
-    expected_source_ids = [data.get("source_id")] if entity_type == "media_asset" else list(data.get("source_ids", []))
+    is_media_contract = entity_type in {"media_asset", "media_eligibility_assessment"}
+    expected_source_ids = [data.get("source_id")] if is_media_contract else list(data.get("source_ids", []))
     expected_source_ids = [item for item in expected_source_ids if isinstance(item, str)]
     bindings = [item for item in data.get("source_license_bindings", []) if isinstance(item, dict)]
     bound_source_ids = {item.get("source_id") for item in bindings}
@@ -753,7 +796,7 @@ def source_license_binding_issues(
             )
         if not observed_scopes or any(not source_rule_scope_matches(rule, item, scope_fields) for item in observed_scopes):
             issues.append(ValidationIssue("source_license_scope_mismatch", "Binding and machine-readable record locators must match the selected rule's executable scope contract", f"{binding_prefix}.scope_locator"))
-        if entity_type == "media_asset":
+        if is_media_contract:
             if binding.get("content_class") != "media":
                 issues.append(ValidationIssue("media_source_rule_wrong_class", "Media must bind an object/media rule", f"{binding_prefix}.content_class"))
             if rule.get("redistribution") == "prohibited" or rule.get("rights_status") in {"restricted", "unknown", "not_applicable"}:
@@ -769,22 +812,26 @@ def source_license_binding_issues(
                     rule.get("redistribution"), rule.get("modification"), rule.get("commercial_use")
                 }:
                     issues.append(ValidationIssue("media_object_level_resolution_invalid", "object_level resolution is only valid for an explicitly mixed/conditional source rule", f"{binding_prefix}.permission_resolution"))
+                permission_values = data.get("permissions", {}) if entity_type == "media_eligibility_assessment" else data
                 for outer_field, rule_field in {
-                    "allow_redistribution": "redistribution",
-                    "allow_modification": "modification",
-                    "allow_commercial_use": "commercial_use",
+                    ("redistribution" if entity_type == "media_eligibility_assessment" else "allow_redistribution"): "redistribution",
+                    ("modification" if entity_type == "media_eligibility_assessment" else "allow_modification"): "modification",
+                    ("commercial_use" if entity_type == "media_eligibility_assessment" else "allow_commercial_use"): "commercial_use",
                 }.items():
-                    if data.get(outer_field) is True and rule.get(rule_field) in {"prohibited", "unknown"}:
+                    allowed = permission_values.get(outer_field) == ("allowed" if entity_type == "media_eligibility_assessment" else True)
+                    if allowed and rule.get(rule_field) in {"prohibited", "unknown"}:
                         issues.append(ValidationIssue("media_source_rule_permission_mismatch", f"Object-level resolution cannot override {rule_field}={rule.get(rule_field)!r}", f"{binding_prefix}.rule_id"))
             else:
                 if rule.get("rights_status") == "mixed":
                     issues.append(ValidationIssue("media_mixed_rule_requires_object_resolution", "A mixed media rule requires explicit object_level permission resolution", f"{binding_prefix}.permission_resolution"))
+                permission_values = data.get("permissions", {}) if entity_type == "media_eligibility_assessment" else data
                 for outer_field, rule_field in {
-                    "allow_redistribution": "redistribution",
-                    "allow_modification": "modification",
-                    "allow_commercial_use": "commercial_use",
+                    ("redistribution" if entity_type == "media_eligibility_assessment" else "allow_redistribution"): "redistribution",
+                    ("modification" if entity_type == "media_eligibility_assessment" else "allow_modification"): "modification",
+                    ("commercial_use" if entity_type == "media_eligibility_assessment" else "allow_commercial_use"): "commercial_use",
                 }.items():
-                    if data.get(outer_field) is True and rule.get(rule_field) != "allowed":
+                    allowed = permission_values.get(outer_field) == ("allowed" if entity_type == "media_eligibility_assessment" else True)
+                    if allowed and rule.get(rule_field) != "allowed":
                         issues.append(ValidationIssue("media_source_rule_permission_mismatch", f"{outer_field} exceeds bound rule permission {rule_field}={rule.get(rule_field)!r}", f"{binding_prefix}.rule_id"))
         else:
             if binding.get("permission_resolution") != "rule_direct":

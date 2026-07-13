@@ -1,0 +1,417 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/media-eligibility-assessment.schema.json",
+  "title": "MUSEUM-03B object-level media eligibility assessment",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "batch_id", "artwork_id",
+    "source_id", "source_license_bindings", "source_object_url", "rights_statement_url", "metadata_license", "media_license",
+    "media_rights_status", "media_rights_basis", "rights_holder", "attribution", "permissions",
+    "license_scope", "permission_status", "withdrawal_or_revocation", "technical_delivery",
+    "rights_evidence", "evidence_hash", "risk", "block_reasons", "outcome",
+    "future_public_media_eligible", "self_hosted_open_media_eligible", "development_only",
+    "metadata_inherited_as_media_rights", "bytes_downloaded", "media_bytes_present",
+    "verified_at", "reverify_by", "review_signoff_ids", "status_history", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-assessment:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_eligibility_assessment" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "batch_id": { "$ref": "#/$defs/batchId" },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "source_license_bindings": {
+      "type": "array", "minItems": 1, "maxItems": 1, "uniqueItems": true,
+      "items": {
+        "allOf": [
+          { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/sourceLicenseBinding" },
+          {
+            "type": "object",
+            "required": ["content_class", "permission_resolution"],
+            "properties": {
+              "content_class": { "const": "media" },
+              "permission_resolution": { "const": "object_level" }
+            }
+          }
+        ]
+      }
+    },
+    "source_object_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "rights_statement_url": {
+      "oneOf": [
+        { "type": "string", "format": "uri", "pattern": "^https://" },
+        { "type": "null" }
+      ]
+    },
+    "metadata_license": { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json#/$defs/licenseDescriptor" },
+    "media_license": {
+      "oneOf": [
+        { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json#/$defs/licenseDescriptor" },
+        { "type": "null" }
+      ]
+    },
+    "media_rights_status": {
+      "enum": [
+        "public_domain", "cc0", "cc_by", "cc_by_sa", "licensed",
+        "research_or_education_only", "restricted", "unknown", "revoked", "expired"
+      ]
+    },
+    "media_rights_basis": {
+      "enum": ["object_level_evidence", "metadata_inheritance", "image_url_only", "iiif_availability_only", "no_evidence"]
+    },
+    "rights_holder": { "type": ["string", "null"] },
+    "attribution": { "type": "string" },
+    "permissions": {
+      "type": "object",
+      "required": ["redistribution", "modification", "commercial_use", "share_alike"],
+      "properties": {
+        "redistribution": { "enum": ["allowed", "prohibited", "unknown"] },
+        "modification": { "enum": ["allowed", "prohibited", "unknown"] },
+        "commercial_use": { "enum": ["allowed", "prohibited", "unknown"] },
+        "share_alike": { "enum": ["required", "not_required", "unknown"] }
+      },
+      "additionalProperties": false
+    },
+    "license_scope": {
+      "oneOf": [
+        { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json#/$defs/licenseScope" },
+        { "type": "null" }
+      ]
+    },
+    "permission_status": { "enum": ["approved", "pending", "denied", "revoked", "expired", "not_applicable"] },
+    "withdrawal_or_revocation": {
+      "type": "object",
+      "required": ["status", "effective_at", "note"],
+      "properties": {
+        "status": { "enum": ["active", "revoked", "expired"] },
+        "effective_at": { "type": ["string", "null"], "format": "date" },
+        "note": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "technical_delivery": {
+      "type": "object",
+      "required": ["delivery_mode", "official_iiif_url", "cache_bytes"],
+      "properties": {
+        "delivery_mode": { "enum": ["metadata_only", "external_link_only", "external_iiif_candidate", "self_hosted_future_candidate"] },
+        "official_iiif_url": {
+          "oneOf": [
+            { "type": "string", "format": "uri", "pattern": "^https://" },
+            { "type": "null" }
+          ]
+        },
+        "cache_bytes": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "rights_evidence": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["evidence_type", "source_url", "locator", "snapshot_hash"],
+        "properties": {
+          "evidence_type": { "enum": ["object_rights_statement", "institution_policy_with_object_binding"] },
+          "source_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "locator": { "type": "string", "minLength": 1 },
+          "snapshot_hash": { "$ref": "#/$defs/hash" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence_hash": { "$ref": "#/$defs/hash" },
+    "risk": { "enum": ["low", "medium", "high", "blocked"] },
+    "block_reasons": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "enum": [
+          "unknown_rights", "restricted_rights", "research_or_education_only", "development_only",
+          "revoked", "expired", "no_object_level_evidence", "metadata_inherited_as_media_rights",
+          "image_url_without_rights_evidence", "iiif_without_rights_evidence"
+        ]
+      }
+    },
+    "outcome": { "enum": ["external_iiif_candidate", "self_hosted_open_media_eligible", "metadata_only", "blocked"] },
+    "future_public_media_eligible": { "type": "boolean" },
+    "self_hosted_open_media_eligible": { "type": "boolean" },
+    "development_only": { "type": "boolean" },
+    "metadata_inherited_as_media_rights": { "type": "boolean" },
+    "bytes_downloaded": { "const": false },
+    "media_bytes_present": { "const": false },
+    "verified_at": { "type": "string", "format": "date-time" },
+    "reverify_by": { "type": "string", "format": "date" },
+    "review_signoff_ids": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "status_history": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/statusHistoryEntry" }
+    },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "outcome": { "const": "external_iiif_candidate" } }, "required": ["outcome"] },
+      "then": {
+        "properties": {
+          "media_rights_basis": { "const": "object_level_evidence" },
+          "future_public_media_eligible": { "const": true },
+          "self_hosted_open_media_eligible": { "const": false },
+          "development_only": { "const": false },
+          "metadata_inherited_as_media_rights": { "const": false },
+          "rights_evidence": { "minItems": 1 },
+          "block_reasons": { "maxItems": 0 },
+          "technical_delivery": {
+            "properties": {
+              "delivery_mode": { "const": "external_iiif_candidate" },
+              "official_iiif_url": { "type": "string", "format": "uri", "pattern": "^https://" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "self_hosted_open_media_eligible" } }, "required": ["outcome"] },
+      "then": {
+        "properties": {
+          "media_rights_basis": { "const": "object_level_evidence" },
+          "future_public_media_eligible": { "const": true },
+          "self_hosted_open_media_eligible": { "const": true },
+          "development_only": { "const": false },
+          "metadata_inherited_as_media_rights": { "const": false },
+          "rights_evidence": { "minItems": 1 },
+          "block_reasons": { "maxItems": 0 },
+          "technical_delivery": { "properties": { "delivery_mode": { "const": "self_hosted_future_candidate" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "future_public_media_eligible": { "const": true } }, "required": ["future_public_media_eligible"] },
+      "then": {
+        "properties": {
+          "media_rights_status": { "enum": ["public_domain", "cc0", "cc_by", "cc_by_sa", "licensed"] },
+          "media_license": { "type": "object" },
+          "permissions": { "properties": { "redistribution": { "const": "allowed" } } },
+          "permission_status": { "enum": ["approved", "not_applicable"] },
+          "withdrawal_or_revocation": { "properties": { "status": { "const": "active" } } },
+          "risk": { "enum": ["low", "medium"] },
+          "rights_evidence": { "minItems": 1 },
+          "block_reasons": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "metadata_only" } }, "required": ["outcome"] },
+      "then": {
+        "properties": {
+          "future_public_media_eligible": { "const": false },
+          "self_hosted_open_media_eligible": { "const": false },
+          "technical_delivery": { "properties": { "delivery_mode": { "const": "metadata_only" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "outcome": { "const": "blocked" } }, "required": ["outcome"] },
+      "then": {
+        "properties": {
+          "future_public_media_eligible": { "const": false },
+          "self_hosted_open_media_eligible": { "const": false },
+          "risk": { "const": "blocked" },
+          "block_reasons": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "media_rights_status": {
+            "enum": ["research_or_education_only", "restricted", "unknown"]
+          }
+        },
+        "required": ["media_rights_status"]
+      },
+      "then": {
+        "properties": {
+          "outcome": { "enum": ["metadata_only", "blocked"] },
+          "future_public_media_eligible": { "const": false },
+          "self_hosted_open_media_eligible": { "const": false },
+          "block_reasons": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "media_rights_status": { "enum": ["revoked", "expired"] } },
+        "required": ["media_rights_status"]
+      },
+      "then": {
+        "properties": {
+          "outcome": { "const": "blocked" },
+          "future_public_media_eligible": { "const": false },
+          "self_hosted_open_media_eligible": { "const": false }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          { "properties": { "development_only": { "const": true } }, "required": ["development_only"] },
+          { "properties": { "metadata_inherited_as_media_rights": { "const": true } }, "required": ["metadata_inherited_as_media_rights"] },
+          { "properties": { "withdrawal_or_revocation": { "properties": { "status": { "enum": ["revoked", "expired"] } }, "required": ["status"] } }, "required": ["withdrawal_or_revocation"] }
+        ]
+      },
+      "then": {
+        "properties": {
+          "outcome": { "const": "blocked" },
+          "future_public_media_eligible": { "const": false },
+          "self_hosted_open_media_eligible": { "const": false }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "enum": ["cc_by", "cc_by_sa"] } }, "required": ["media_rights_status"] },
+      "then": {
+        "properties": {
+          "attribution": { "type": "string", "minLength": 1 },
+          "rights_statement_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "media_license": { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json#/$defs/licenseDescriptor" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "const": "cc0" } }, "required": ["media_rights_status"] },
+      "then": {
+        "properties": {
+          "media_license": {
+            "type": "object",
+            "properties": {
+              "identifier": { "const": "CC0-1.0" },
+              "version": { "const": "1.0" },
+              "url": { "const": "https://creativecommons.org/publicdomain/zero/1.0/" },
+              "share_alike": { "const": false },
+              "redistribution_allowed": { "const": true },
+              "modification_allowed": { "const": true },
+              "commercial_use_allowed": { "const": true }
+            }
+          },
+          "permissions": {
+            "properties": {
+              "redistribution": { "const": "allowed" },
+              "modification": { "const": "allowed" },
+              "commercial_use": { "const": "allowed" },
+              "share_alike": { "const": "not_required" }
+            }
+          },
+          "license_scope": { "type": "null" },
+          "permission_status": { "const": "not_applicable" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "const": "public_domain" } }, "required": ["media_rights_status"] },
+      "then": {
+        "properties": {
+          "media_license": {
+            "type": "object",
+            "properties": {
+              "identifier": { "const": "PDM-1.0" },
+              "version": { "const": "1.0" },
+              "url": { "const": "https://creativecommons.org/publicdomain/mark/1.0/" },
+              "share_alike": { "const": false },
+              "redistribution_allowed": { "const": true }
+            }
+          },
+          "permissions": {
+            "properties": {
+              "redistribution": { "const": "allowed" },
+              "share_alike": { "const": "not_required" }
+            }
+          },
+          "license_scope": { "type": "null" },
+          "permission_status": { "const": "not_applicable" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "const": "cc_by" } }, "required": ["media_rights_status"] },
+      "then": {
+        "properties": {
+          "media_license": {
+            "type": "object",
+            "properties": {
+              "identifier": { "pattern": "^CC-BY-(1\\.0|2\\.0|2\\.5|3\\.0|4\\.0)$" },
+              "version": { "enum": ["1.0", "2.0", "2.5", "3.0", "4.0"] },
+              "share_alike": { "const": false },
+              "redistribution_allowed": { "const": true }
+            }
+          },
+          "permissions": {
+            "properties": {
+              "redistribution": { "const": "allowed" },
+              "share_alike": { "const": "not_required" }
+            }
+          },
+          "license_scope": { "type": "null" },
+          "permission_status": { "const": "not_applicable" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "const": "cc_by_sa" } }, "required": ["media_rights_status"] },
+      "then": {
+        "properties": {
+          "media_license": {
+            "type": "object",
+            "properties": {
+              "identifier": { "pattern": "^CC-BY-SA-(1\\.0|2\\.0|2\\.5|3\\.0|4\\.0)$" },
+              "version": { "enum": ["1.0", "2.0", "2.5", "3.0", "4.0"] },
+              "share_alike": { "const": true },
+              "redistribution_allowed": { "const": true }
+            }
+          },
+          "permissions": {
+            "properties": {
+              "redistribution": { "const": "allowed" },
+              "share_alike": { "const": "required" }
+            }
+          },
+          "license_scope": { "type": "null" },
+          "permission_status": { "const": "not_applicable" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "const": "licensed" } }, "required": ["media_rights_status"] },
+      "then": {
+        "properties": {
+          "media_license": { "type": "object" },
+          "license_scope": { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json#/$defs/licenseScope" },
+          "permission_status": { "const": "approved" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "media_rights_status": { "const": "unknown" } }, "required": ["media_rights_status"] },
+      "then": { "properties": { "media_license": { "type": "null" } } }
+    }
+  ],
+  "$defs": {
+    "batchId": { "type": "string", "pattern": "^art-batch:museum-03b-[a-z0-9][a-z0-9._-]*$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "statusHistoryEntry": {
+      "type": "object",
+      "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+      "properties": {
+        "from": { "type": ["string", "null"] },
+        "to": { "enum": ["candidate", "reviewed", "verified", "blocked", "withdrawn"] },
+        "changed_at": { "type": "string", "format": "date-time" },
+        "changed_by": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

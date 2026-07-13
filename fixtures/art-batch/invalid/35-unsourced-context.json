@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-35",
+  "case_number": 35,
+  "behavior": "unsourced context",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "context_source_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/contexts/1/source_ids",
+      "value": []
+    }
+  ]
+}

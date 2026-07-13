@@ -41,6 +41,7 @@ def validate_identity_stage(
     application_path: Path = DEFAULT_APPLICATION,
     seed_path: Path = DEFAULT_SEED,
     identity_basis_path: Path = DEFAULT_IDENTITY_BASIS,
+    verify_raw_files: bool = False,
 ) -> dict[str, Any]:
     package_dir = _resolve_path(package_dir)
     application_path = _resolve_path(application_path)
@@ -98,7 +99,11 @@ def validate_identity_stage(
         failures.append("snapshot_receipt_ledger_hash_mismatch")
     if snapshot_receipts.get("batch_id") != application.get("resulting_batch_id"):
         failures.append("snapshot_receipt_batch_mismatch")
-    snapshot_by_id, snapshot_by_object = _validate_snapshot_receipts(snapshot_receipts, failures)
+    snapshot_by_id, snapshot_by_object = _validate_snapshot_receipts(
+        snapshot_receipts,
+        failures,
+        verify_raw_files=verify_raw_files,
+    )
 
     artists = records.get("artists.json", [])
     claims = records.get("identity-claims.json", [])
@@ -378,6 +383,8 @@ def validate_identity_stage(
 def _validate_snapshot_receipts(
     ledger: dict[str, Any],
     failures: list[str],
+    *,
+    verify_raw_files: bool,
 ) -> tuple[dict[str, dict[str, Any]], dict[tuple[str, str], dict[str, Any]]]:
     by_snapshot: dict[str, dict[str, Any]] = {}
     by_object: dict[tuple[str, str], dict[str, Any]] = {}
@@ -399,7 +406,8 @@ def _validate_snapshot_receipts(
                 failures.append(f"snapshot_object_duplicate:{source_id}:{source_object_id}")
             else:
                 by_object[key] = entry
-        _verify_tracked_raw_file(entry, failures)
+        if verify_raw_files:
+            _verify_tracked_raw_file(entry, failures)
     return by_snapshot, by_object
 
 

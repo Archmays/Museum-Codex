@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "id": "batch-review-signoff-set:museum-03b-first-slate-v1",
+  "entity_type": "batch_review_signoff_set",
+  "phase_id": "MUSEUM-03B",
+  "batch_id": "art-batch:museum-03b-first-slate-v1",
+  "review_basis": {
+    "input_record_hashes": {
+      "selection_decision": "sha256:20dd0bf806dc06cc110140ece1b29838cf38ef8134ffa3f08f5ea82d256ba727",
+      "selection_application": "sha256:7902776391d00d06e5144d6f57a78fca83a63e91a5db796cb535f26f49e0303c",
+      "approved_identity_basis": "sha256:054fc11dd32083beb181c64a59bb3848cf1e8345381c741e47852af832656284",
+      "artwork_research_basis": "sha256:3f8c55a27481bc3b70b7f5124a9f53270b86dd91d47a0ed7881a17cf59fd331f",
+      "relationship_decisions": "sha256:73c0c8f86b9ad5fb6d182382fd800d87a036c0e28277a6a5ba143d3c7c20209c",
+      "relationship_lead_closure": "sha256:92074d4bc3dcefb40a9c05b96d2ad30edbde380a5a47cec650ec6c7609fc6ad6"
+    },
+    "record_id_set_hashes": {
+      "artists": "sha256:7d7918473192445ed3bd6cb1b150baa37b51126889bd86036bdfb9303192e8bd",
+      "artworks": "sha256:f14dd4bcc6c863b753f1390a499e71e2088fbb80b32533f83ebab3103c591748",
+      "contexts": "sha256:73d837523a09df2a14b59a1cb7b7f2bf11a1db6e37b74cf2b380bfd75c66af73",
+      "relationships": "sha256:32d8f61b925612c9952ef2296f8f30ee99b31e130ae269fd6d0cf415f3c5d277",
+      "claims": "sha256:a94535eb1e9f46e3c900aa357fbba8dcbdd884f9ee6d346a205015a8434a1cfa",
+      "evidence": "sha256:db2a057c0ead5ebbbb6a1a03952e71d54c3c962aadbe3aa291b30cbf5c76e9bb",
+      "sources": "sha256:d526ae7f44a7848a21d2c185c72f07c8104ed6f4284c91427308c7863966e270",
+      "media_assessments": "sha256:89e114a6c29cd9869af8f6635faa15c949048d814cb99fd15e43c720cbf2266b",
+      "relationship_dispositions": "sha256:e311fce3d12e901a579e682c66c88797ed7723c7cac8e8350b8aba76a6c3ca6e"
+    },
+    "relationship_closure_hashes": {
+      "inherited_lead_id_set": "sha256:39387eb8fb051ba11d9bcfd6b6f3b23074b40e9d3d05d317c27e7c065a5b530b",
+      "curated_candidate_id_set": "sha256:0e4b7f09396b5c098b1d456ff26502992640cf03c7cd074cf12a7dcf8ed149fd",
+      "inherited_disposition_projection": "sha256:b98c96d7fc3cdfa074acc4a8defa8668deb3836d3303c11016d191cf71aa22c7",
+      "curated_disposition_projection": "sha256:8d5b444fa45bc5deeec882fab1ba7e421b4dfaeaee26493e653797e82f589ed1",
+      "formal_relationship_id_set": "sha256:32d8f61b925612c9952ef2296f8f30ee99b31e130ae269fd6d0cf415f3c5d277"
+    },
+    "artwork_selection_tuple_hash": "sha256:8ed60b48d56aaaa8feefd0bd4a9c2d807827bc202db108e91df3b2a56a4bdb9f"
+  },
+  "review_basis_hash": "sha256:4803aa9f22e917492ce0822abd6de198d0cad1d8e1185262f1d5b773df19e78a",
+  "signoffs": [
+    {
+      "schema_version": "1.0.0",
+      "entity_type": "review_signoff",
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "single_operator_multi_role": true,
+      "decision": "accepted_reviewed",
+      "authority_basis": "Mays authorized MUSEUM-03B internal reviewed-batch execution; review basis sha256:4803aa9f22e917492ce0822abd6de198d0cad1d8e1185262f1d5b773df19e78a binds the exact inputs and record sets and does not authorize publication.",
+      "data_version": "1.0.0",
+      "id": "review-signoff:museum-03b-batch-data",
+      "record_ids": [
+        "artwork-selection-basis:museum-03b-first-slate-v1",
+        "graph-input:museum-03b-first-slate-v1",
+        "art-batch-manifest:museum-03b-first-slate-v1"
+      ],
+      "review_role": "data_reviewer",
+      "reviewed_at": "2026-07-13T15:30:00+08:00",
+      "checklist": [
+        {
+          "check": "physical_and_reference_closure",
+          "result": "pass",
+          "note": "Canonical files, hashes, IDs, schemas, and references are required to match the hash-bound review basis."
+        },
+        {
+          "check": "exact_approved_slate",
+          "result": "pass",
+          "note": "The graph primary nodes must exactly equal the approved 12-person slate with zero replacements."
+        }
+      ],
+      "decision_note": "The exact deterministic internal batch inputs and graph projection are accepted as reviewed, subject to fail-closed build validation."
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_type": "review_signoff",
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "single_operator_multi_role": true,
+      "decision": "accepted_reviewed",
+      "authority_basis": "Mays authorized MUSEUM-03B internal reviewed-batch execution; review basis sha256:4803aa9f22e917492ce0822abd6de198d0cad1d8e1185262f1d5b773df19e78a binds the exact inputs and record sets and does not authorize publication.",
+      "data_version": "1.0.0",
+      "id": "review-signoff:museum-03b-batch-relationship",
+      "record_ids": [
+        "graph-input:museum-03b-first-slate-v1",
+        "art-rel:m03b-001",
+        "art-rel:m03b-002",
+        "art-rel:m03b-003",
+        "art-rel:m03b-004",
+        "art-rel:m03b-005",
+        "art-rel:m03b-006",
+        "art-rel:m03b-007",
+        "art-rel:m03b-008",
+        "art-rel:m03b-009",
+        "art-rel:m03b-010",
+        "art-rel:m03b-011",
+        "art-rel:m03b-012",
+        "art-rel:m03b-013",
+        "art-rel:m03b-014",
+        "art-rel:m03b-015",
+        "art-rel:m03b-016",
+        "art-rel:m03b-017",
+        "art-rel:m03b-018",
+        "art-rel:m03b-019",
+        "art-rel:m03b-020",
+        "art-rel:m03b-021",
+        "art-rel:m03b-022",
+        "art-rel:m03b-023",
+        "art-rel:m03b-024",
+        "art-rel:m03b-025",
+        "art-rel:m03b-026",
+        "art-rel:m03b-027",
+        "art-rel:m03b-028",
+        "art-rel:m03b-029",
+        "art-rel:m03b-030",
+        "art-rel:m03b-031",
+        "art-rel:m03b-032",
+        "art-rel:m03b-033",
+        "art-rel:m03b-034",
+        "art-rel:m03b-035",
+        "art-rel:m03b-036"
+      ],
+      "review_role": "relationship_reviewer",
+      "reviewed_at": "2026-07-13T15:31:00+08:00",
+      "checklist": [
+        {
+          "check": "evidence_level_separation",
+          "result": "pass",
+          "note": "Historical strength, evidence confidence, computational similarity, and curatorial relevance remain separate."
+        },
+        {
+          "check": "curatorial_comparison_boundary",
+          "result": "pass",
+          "note": "Level C edges are evidence-backed comparisons and do not assert contact, transmission, or influence."
+        }
+      ],
+      "decision_note": "The exact 36 reviewed relationship IDs and their static graph projection are accepted against the bound disposition closures."
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_type": "review_signoff",
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "single_operator_multi_role": true,
+      "decision": "accepted_reviewed",
+      "authority_basis": "Mays authorized MUSEUM-03B internal reviewed-batch execution; review basis sha256:4803aa9f22e917492ce0822abd6de198d0cad1d8e1185262f1d5b773df19e78a binds the exact inputs and record sets and does not authorize publication.",
+      "data_version": "1.0.0",
+      "id": "review-signoff:museum-03b-batch-release",
+      "record_ids": [
+        "artwork-selection-basis:museum-03b-first-slate-v1",
+        "graph-input:museum-03b-first-slate-v1",
+        "art-batch-manifest:museum-03b-first-slate-v1"
+      ],
+      "review_role": "release_reviewer",
+      "reviewed_at": "2026-07-13T15:32:00+08:00",
+      "checklist": [
+        {
+          "check": "no_media_bytes",
+          "result": "pass",
+          "note": "The reviewed package must contain no media bytes, cache files, or media assets."
+        },
+        {
+          "check": "no_public_promotion",
+          "result": "pass",
+          "note": "No record may be published and no Pages art content may be created by this batch."
+        }
+      ],
+      "decision_note": "Accepted only as an internal reviewed MUSEUM-03B package; public release remains prohibited."
+    }
+  ],
+  "signoff_set_hash": "sha256:e46d1a1b5d4d21783a57c6cb44d76166e20f609d9fc8aba22ee7925d20054d99",
+  "content_hash": "sha256:56bc78aab591f82c566e369e0c2a0104237d982ca23d4c2d66db14d1e1713761"
+}

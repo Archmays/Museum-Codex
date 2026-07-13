@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-53",
+  "case_number": 53,
+  "behavior": "cc by attribution missing",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_cc_by_attribution_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/license_id",
+      "value": "CC-BY-4.0"
+    },
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/attribution",
+      "value": ""
+    }
+  ]
+}

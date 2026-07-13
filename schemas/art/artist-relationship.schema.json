@@ -9,11 +9,17 @@
       "properties": {
         "id": { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" },
         "branch_id": { "const": "art" },
+        "phase_id": { "const": "MUSEUM-03B" },
+        "research_disposition_id": { "type": "string", "pattern": "^relationship-disposition:[a-z0-9][a-z0-9._-]*$" },
+        "generation_method": { "enum": ["manual_source_research", "reviewed_curatorial_synthesis"] },
         "source_entity_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
         "context_entity_ids": {
           "type": "array",
           "uniqueItems": true,
-          "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" }
+          "items": {
+            "type": "string",
+            "pattern": "^(art_movement|art_group|museum_institution|organization|place|exhibition|exhibition_event|material|technique|subject|time_period|person):[a-z0-9][a-z0-9._-]*$"
+          }
         },
         "relationship_type": {
           "enum": [
@@ -23,7 +29,26 @@
             "shared_institution", "shared_subject", "shared_technique", "shared_material",
             "scholarly_compared_with", "computationally_similar_to"
           ]
-        }
+        },
+        "educational_rationale": {
+          "type": "object",
+          "required": ["en", "zh-Hans"],
+          "properties": {
+            "en": { "type": "string", "minLength": 1 },
+            "zh-Hans": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "review_signoff_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "status_history": {
+          "type": "array", "minItems": 1,
+          "items": { "$ref": "#/$defs/statusHistoryEntry" }
+        },
+        "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "deprecated", "withdrawn"] },
+        "lifecycle_status": { "enum": ["candidate", "reviewed", "publishable", "published", "disputed", "deprecated", "withdrawn"] }
       }
     },
     {
@@ -144,7 +169,50 @@
           "directed": { "const": false }
         }
       }
+    },
+    {
+      "if": { "properties": { "relationship_type": { "const": "scholarly_compared_with" } }, "required": ["relationship_type"] },
+      "then": {
+        "required": ["context_entity_ids"],
+        "properties": {
+          "context_entity_ids": {
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^(subject|technique|material):[a-z0-9][a-z0-9._-]*$" }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "phase_id": { "const": "MUSEUM-03B" } }, "required": ["phase_id"] },
+      "then": {
+        "required": [
+          "phase_id", "research_disposition_id", "generation_method", "context_entity_ids",
+          "educational_rationale", "review_signoff_ids", "status_history"
+        ],
+        "properties": {
+          "relationship_type": { "not": { "const": "computationally_similar_to" } },
+          "is_algorithmic": { "const": false },
+          "computational_similarity": { "type": "null" },
+          "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "disputed", "deprecated", "withdrawn"] },
+          "lifecycle_status": { "enum": ["candidate", "reviewed", "publishable", "disputed", "deprecated", "withdrawn"] }
+        }
+      }
     }
   ],
+  "$defs": {
+    "statusHistoryEntry": {
+      "type": "object",
+      "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+      "properties": {
+        "from": { "type": ["string", "null"] },
+        "to": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "disputed", "deprecated", "withdrawn"] },
+        "changed_at": { "type": "string", "format": "date-time" },
+        "changed_by": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
   "unevaluatedProperties": false
 }

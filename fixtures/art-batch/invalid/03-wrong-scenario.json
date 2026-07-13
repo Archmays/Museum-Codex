@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-03",
+  "case_number": 3,
+  "behavior": "wrong scenario",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_wrong_scenario",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/selected_scenario_id",
+      "value": "selection-scenario:synthetic-wrong"
+    }
+  ]
+}

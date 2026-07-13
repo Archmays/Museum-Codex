@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-33",
+  "case_number": 33,
+  "behavior": "common context fallback",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "context_common_fallback_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/contexts/0/id",
+      "value": "context:common-fallback"
+    },
+    {
+      "op": "replace",
+      "path": "/contexts/0/context_type",
+      "value": "common"
+    }
+  ]
+}

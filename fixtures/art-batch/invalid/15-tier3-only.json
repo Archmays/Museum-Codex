@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-15",
+  "case_number": 15,
+  "behavior": "tier3 only",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_tier3_only",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/source_lineages/0/tier",
+      "value": 3
+    },
+    {
+      "op": "replace",
+      "path": "/artists/0/source_lineages/1/tier",
+      "value": 3
+    }
+  ]
+}

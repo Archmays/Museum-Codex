@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-08",
+  "case_number": 8,
+  "behavior": "wrong authority",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_authority_mismatch",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/decision_authority",
+      "value": "Synthetic Other Authority"
+    }
+  ]
+}

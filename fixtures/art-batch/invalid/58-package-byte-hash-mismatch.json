@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-58",
+  "case_number": 58,
+  "behavior": "package byte hash mismatch",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_byte_hash_mismatch",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/package/files/0/actual_sha256",
+      "value": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+    }
+  ]
+}

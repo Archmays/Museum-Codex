@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-46",
+  "case_number": 46,
+  "behavior": "relationship missing entity",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_entity_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/target_entity_id",
+      "value": "artist:synthetic-missing"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-41",
+  "case_number": 41,
+  "behavior": "level b without context",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_level_b_context_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/specific_context_ids",
+      "value": []
+    }
+  ]
+}

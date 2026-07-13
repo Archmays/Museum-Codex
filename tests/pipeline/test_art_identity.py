@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from museum_pipeline.art.identity import DEFAULT_APPLICATION, DEFAULT_SEED, build_identity_stage
+from museum_pipeline.config import source_license_rules
 from museum_pipeline.art.validation import validate_identity_stage
 from museum_pipeline.errors import PipelineError
 
@@ -36,6 +37,16 @@ class ArtIdentityStageTests(unittest.TestCase):
                 first["artist_count"], first["claim_count"], first["evidence_count"],
                 first["review_signoff_count"], first["source_count"],
             ))
+            sources = {record["registry_source_id"]: record for record in _load(package / "sources.json")}
+            for source_key in ("met_open_access", "aic_api"):
+                canonical_rules = {rule["rule_id"]: rule for rule in source_license_rules(source_key)}
+                selected = sources[source_key]["selected_license_rule_ids"]
+                self.assertEqual(2, len(selected))
+                self.assertEqual({"data", "media"}, {canonical_rules[rule_id]["content_class"] for rule_id in selected})
+            for source_key in ("getty_ulan", "wikidata"):
+                canonical_rules = {rule["rule_id"]: rule for rule in source_license_rules(source_key)}
+                selected = sources[source_key]["selected_license_rule_ids"]
+                self.assertEqual(["data"], [canonical_rules[rule_id]["content_class"] for rule_id in selected])
             second = build_identity_stage(output_dir=package)
             self.assertEqual([], second["written"])
             self.assertEqual(6, len(second["reused"]))

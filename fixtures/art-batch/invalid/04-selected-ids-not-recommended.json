@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-04",
+  "case_number": 4,
+  "behavior": "selected ids not recommended",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_selected_ids_not_recommended",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/selected_candidate_ids/11",
+      "value": "artist-candidate:synthetic-unapproved"
+    }
+  ]
+}

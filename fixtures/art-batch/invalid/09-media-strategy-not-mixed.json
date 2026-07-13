@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-09",
+  "case_number": 9,
+  "behavior": "media strategy not mixed",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "decision_media_strategy_not_mixed",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/media_strategy",
+      "value": "metadata_first"
+    }
+  ]
+}

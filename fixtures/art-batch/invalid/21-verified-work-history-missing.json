@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-21",
+  "case_number": 21,
+  "behavior": "verified work history missing",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_verified_work_history_missing",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/verified_work_history",
+      "value": false
+    }
+  ]
+}

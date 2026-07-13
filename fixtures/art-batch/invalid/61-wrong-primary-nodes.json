@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-61",
+  "case_number": 61,
+  "behavior": "wrong primary nodes",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_primary_artist_nodes_invalid",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/package/primary_node_ids/11",
+      "value": "context:synthetic-not-an-artist"
+    }
+  ]
+}

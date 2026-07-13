@@ -1,0 +1,1110 @@
+{
+  "batch_id": "art-batch:museum-03b-first-slate-v1",
+  "content_hash": "sha256:7722189c1ae58b28109c6f78ae6c86a654f73a11f7926b86d5f63c831ae6e429",
+  "entity_type": "snapshot_receipt_ledger",
+  "entries": [
+    {
+      "body_bytes": 2407,
+      "body_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-1-436244.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-1-436244.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436244-fe0900945235",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436244:fe0900945235",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436244"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2444,
+      "body_sha256": "sha256:61fed9483d0f04e8886d0154e7705b9ec826df19f12e96cf9234be8884ac9b41",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-2-436243.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-2-436243.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436243-61fed9483d0f",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436243:61fed9483d0f",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436243"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2355,
+      "body_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-3-459211.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-3-459211.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-459211-efaa75a4dca8",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:459211:efaa75a4dca8",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "459211"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2301,
+      "body_sha256": "sha256:82fc637fb19fae25bbd0222368af3182d26134e9d49e72000f1f86d9e25812a5",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-4-334816.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/01-albrecht-durer-object-4-334816.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-334816-82fc637fb19f",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:334816:82fc637fb19f",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "334816"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2609,
+      "body_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-2-436545.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-2-436545.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436545-3a403455b4ec",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436545:3a403455b4ec",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436545"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2553,
+      "body_sha256": "sha256:49fec470cb6d97909999fc611f26663e380ebd4960f3b932817e668dcfc2c511",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-3-436544.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-3-436544.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436544-49fec470cb6d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436544:49fec470cb6d",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436544"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2748,
+      "body_sha256": "sha256:55893f5f170daa7370dda5ee35b2d3714fdce8af48ff5d477c51b026d01acc9b",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-4-436546.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-4-436546.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436546-55893f5f170d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436546:55893f5f170d",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436546"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2548,
+      "body_sha256": "sha256:1496fcda4d197939d56a2fc798979df5d2e7e3c4afcc3b61f9cc1942e47eaf4f",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-5-436543.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/03-goya-object-5-436543.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436543-1496fcda4d19",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436543:1496fcda4d19",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436543"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2153,
+      "body_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-1-436533.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-1-436533.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436533-cd0f5c8f8944",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436533:cd0f5c8f8944",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436533"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2362,
+      "body_sha256": "sha256:9d2c89655f36a1e1f520d669ab038afffaab33d5a5b2a30c0c4e19db0ac42e70",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-2-436532.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-2-436532.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436532-9d2c89655f36",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436532:9d2c89655f36",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436532"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2371,
+      "body_sha256": "sha256:554980cf21cae46acd5fbcb203a3d5f8b3479b310437e9f5da09d2a0ecd275e7",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-3-436528.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-3-436528.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-436528-554980cf21ca",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:436528:554980cf21ca",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "436528"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2580,
+      "body_sha256": "sha256:1567a603faabacefa099a96655b5ebae03ac92264ac4ca9e91f84ace1e6ab632",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-4-437984.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/05-van-gogh-object-4-437984.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-437984-1567a603faab",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:437984:1567a603faab",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "437984"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 988,
+      "body_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-1-111442.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-1-111442.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-111442-746966bfbf52",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:111442:746966bfbf52",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "111442"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1093,
+      "body_sha256": "sha256:a580102413e015e2392366c9aedbc823b84e27ebcd370b68127593e7a0bd5e47",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-2-13506.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-2-13506.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-13506-a580102413e0",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:13506:a580102413e0",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "13506"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1045,
+      "body_sha256": "sha256:6c9088bd70c9fb8fc1387282f3d1cfa032d67fd4ab39c697182369551cd03cba",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-3-26650.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-3-26650.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-26650-6c9088bd70c9",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:26650:6c9088bd70c9",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "26650"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1040,
+      "body_sha256": "sha256:a277bea7c652d1471261d24260999ac07f817d35826b971f8284a953074f1ccc",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-4-28826.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/07-cassatt-force-object-4-28826.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-28826-a277bea7c652",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:28826:a277bea7c652",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "28826"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1203,
+      "body_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/06-kollwitz-object-1-60513.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/06-kollwitz-object-1-60513.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-60513-0ee6132005f3",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:60513:0ee6132005f3",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "60513"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1148,
+      "body_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/06-kollwitz-object-2-158971.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/aic_api/06-kollwitz-object-2-158971.metadata.json",
+      "receipt_id": "snapshot-receipt:aic_api-158971-88b1e697381a",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:aic_api:158971:88b1e697381a",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "aic_api",
+      "source_object_ids": [
+        "158971"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2340,
+      "body_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-1-267426.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-1-267426.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-267426-77583671e597",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:267426:77583671e597",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "267426"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2428,
+      "body_sha256": "sha256:10a6c5f814e4f23880ddb95ffab6f5b7b769bf492edf83c1ee75e75b7d278c56",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-2-282043.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-2-282043.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-282043-10a6c5f814e4",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:282043:10a6c5f814e4",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "282043"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2617,
+      "body_sha256": "sha256:b8f34e4cb634bf48de065b9fc17aafa707fe37a3f48fe851cf49604ebf01eece",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-3-283099.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-3-283099.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-283099-b8f34e4cb634",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:283099:b8f34e4cb634",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "283099"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2233,
+      "body_sha256": "sha256:d0e7b06422fb4e13430faa9a1fbe432f711118d644f30d5d52d21d76c65df8c0",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-4-268690.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/09-cameron-object-4-268690.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-268690-d0e7b06422fb",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:268690:d0e7b06422fb",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "268690"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2457,
+      "body_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-1-39799.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-1-39799.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-39799-b481c0d366b3",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:39799:b481c0d366b3",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "39799"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2636,
+      "body_sha256": "sha256:154b29a8a3c49af7554ba88d41aa3e06a2b14b1100da84d7aff61e3043d50841",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-2-54305.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-2-54305.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-54305-154b29a8a3c4",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:54305:154b29a8a3c4",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "54305"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2191,
+      "body_sha256": "sha256:db0050807c92065ba5de0cd3579c5a1ebdc80c61110ac2b122c0332e0a332631",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-3-54303.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-3-54303.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-54303-db0050807c92",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:54303:db0050807c92",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "54303"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2292,
+      "body_sha256": "sha256:48cef5118f152df8b1b3e5cd90f3920de94f3b7354db0e7c27fefa236b755cef",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-4-56128.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/13-hokusai-object-4-56128.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-56128-48cef5118f15",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:56128:48cef5118f15",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "56128"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2509,
+      "body_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-1-56716.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-1-56716.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-56716-2bc20d050789",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:56716:2bc20d050789",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "56716"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2322,
+      "body_sha256": "sha256:5e155267d9778a4d8bd595d2dd4ab68e76cf95f4057c53a6c2174d5f1c2d099d",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-2-54876.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-2-54876.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-54876-5e155267d977",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:54876:5e155267d977",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "54876"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 3195,
+      "body_sha256": "sha256:590f13f1e0c21531e33a7a12a7a33b0ef2b2f9fb2c5113e7969526231c182fc5",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-3-45323.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-3-45323.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-45323-590f13f1e0c2",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:45323:590f13f1e0c2",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "45323"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2372,
+      "body_sha256": "sha256:3a9630c697a9dd99e903cd562b2875bd4955da980a7253d16bf301a69f52614b",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-4-37110.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/15-utamaro-object-4-37110.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-37110-3a9630c697a9",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:37110:3a9630c697a9",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "37110"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2225,
+      "body_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-2-53601.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-2-53601.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-53601-fc518eaa7f7b",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:53601:fc518eaa7f7b",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "53601"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2346,
+      "body_sha256": "sha256:08b4c48956fa18ede7aa53ea1e71017ca688b72de3dea7b74fab57453d51208e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-3-53602.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-3-53602.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-53602-08b4c48956fa",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:53602:08b4c48956fa",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "53602"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2340,
+      "body_sha256": "sha256:34e10f3abc10731bac03192b49209daee4d6198fdd372dec4069e4805f7737f0",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-4-53603.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-4-53603.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-53603-34e10f3abc10",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:53603:34e10f3abc10",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "53603"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2474,
+      "body_sha256": "sha256:3d5a01b9b006c97bb74eeaffcb90d88f0d12ec7cb518fca15cc3b5187f89b8d3",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-5-51858.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/17-shen-zhou-object-5-51858.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-51858-3d5a01b9b006",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:51858:3d5a01b9b006",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "51858"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1786,
+      "body_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/25-ravi-varma-object-1-851484.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/25-ravi-varma-object-1-851484.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-851484-10e5f77aabfc",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:851484:10e5f77aabfc",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "851484"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 1786,
+      "body_sha256": "sha256:da83531b967d082ddc18f0a3303fe08640a9bd490232bb5bd3329d1fa9db83c9",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/25-ravi-varma-object-2-851486.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/25-ravi-varma-object-2-851486.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-851486-da83531b967d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:851486:da83531b967d",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "851486"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2342,
+      "body_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-1-717597.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-1-717597.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-717597-a25badf021e8",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:717597:a25badf021e8",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "717597"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2713,
+      "body_sha256": "sha256:35856d60b4761db63b642406dc114821c5001df4daa0672426dd37c2d3e17473",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-2-729644.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-2-729644.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-729644-35856d60b476",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:729644:35856d60b476",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "729644"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2262,
+      "body_sha256": "sha256:67e9e4c6a2df593008ebaa21ffa6abe8806390e5a0d7a947faee7d701585601d",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-3-358856.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-3-358856.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-358856-67e9e4c6a2df",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:358856:67e9e4c6a2df",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "358856"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2642,
+      "body_sha256": "sha256:770f99f4d8c83c04d0cd4d626ecdf0ed44053f6589f20c691304574f4c81e4cf",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-4-735905.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/27-posada-object-4-735905.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-735905-770f99f4d8c8",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:735905:770f99f4d8c8",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "735905"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2049,
+      "body_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-1-16947.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-1-16947.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-16947-113bbcf8513d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:16947:113bbcf8513d",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "16947"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2207,
+      "body_sha256": "sha256:eb5a12104f4ef72be9cae001d549615594ea1b5a99ebbd5225d5f2cb88d6448b",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-2-17016.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-2-17016.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-17016-eb5a12104f4e",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:17016:eb5a12104f4e",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "17016"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2380,
+      "body_sha256": "sha256:c64197ac70c5f5aa26a134bfc268eff6856a5c5737e42403b18e6c089078d345",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-3-12774.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-3-12774.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-12774-c64197ac70c5",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:12774:c64197ac70c5",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "12774"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    },
+    {
+      "body_bytes": 2103,
+      "body_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+      "bundle_ref": {
+        "bundle_hash": "sha256:ba7640dbfe554c938fc9bf65ac5fa1eb42514ced015e0b4e56598870428072c7",
+        "bundle_id": "selection-review-bundle:3843c34b-7a65-5581-baec-1385d53326c5",
+        "source_snapshots_sha256": "sha256:e8d1bcc06c6fe00e5660d7966aea08e385b0ff50d788e1b13cfc5f5cebcff38d"
+      },
+      "content_type": "application/json",
+      "raw_body_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-4-372068.body",
+      "raw_receipt_path": "data/raw/curation_museum03a/20260713-survey-final/met_open_access/34-tanner-object-4-372068.metadata.json",
+      "receipt_id": "snapshot-receipt:met_open_access-372068-787588d9da5d",
+      "reused_body_snapshot_id": null,
+      "snapshot_id": "snapshot:curation_museum03a:met_open_access:372068:787588d9da5d",
+      "snapshot_id_basis": "legacy_receipt_derived",
+      "source_id": "met_open_access",
+      "source_object_ids": [
+        "372068"
+      ],
+      "verification": {
+        "body_present": true,
+        "byte_count_match": true,
+        "hash_match": true
+      }
+    }
+  ],
+  "id": "snapshot-receipt-ledger:museum-03b-artworks-v1",
+  "schema_version": "1.0.0",
+  "verified_at": "2026-07-13T14:35:00+08:00"
+}

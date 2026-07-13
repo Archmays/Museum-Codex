@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-51",
+  "case_number": 51,
+  "behavior": "external iiif cache bytes",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_external_iiif_cache_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/eligibility",
+      "value": "external_iiif_candidate"
+    },
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/external_iiif_cache_bytes",
+      "value": true
+    }
+  ]
+}

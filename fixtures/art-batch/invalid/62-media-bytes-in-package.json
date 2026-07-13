@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-62",
+  "case_number": 62,
+  "behavior": "media bytes in package",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_media_bytes_forbidden",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/package/media_byte_paths",
+      "value": "media/synthetic.jpg"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "fixture_id": "art-batch-invalid-66",
+  "case_number": 66,
+  "behavior": "raw review source in pages",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "candidate_zone_in_public_artifact",
+  "mutations": [
+    {
+      "op": "append",
+      "path": "/public_artifact/files",
+      "value": {
+        "path": "raw/source.json",
+        "content": "{}"
+      }
+    }
+  ]
+}

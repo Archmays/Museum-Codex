@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-59",
+  "case_number": 59,
+  "behavior": "package symlink escape",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_path_escape_or_symlink",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/package/contains_symlink",
+      "value": true
+    }
+  ]
+}

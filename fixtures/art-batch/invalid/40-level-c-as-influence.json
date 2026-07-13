@@ -1,0 +1,20 @@
+{
+  "fixture_id": "art-batch-invalid-40",
+  "case_number": 40,
+  "behavior": "level c as influence",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "relationship_level_c_cannot_assert_influence",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/relationships/0/relationship_type",
+      "value": "explicitly_influenced_by"
+    },
+    {
+      "op": "replace",
+      "path": "/relationships/0/evidence_level",
+      "value": "C"
+    }
+  ]
+}

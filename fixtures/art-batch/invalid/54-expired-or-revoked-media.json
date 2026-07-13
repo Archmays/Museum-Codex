@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-54",
+  "case_number": 54,
+  "behavior": "expired or revoked media",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_permission_expired_or_revoked",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/revoked_or_expired",
+      "value": true
+    }
+  ]
+}

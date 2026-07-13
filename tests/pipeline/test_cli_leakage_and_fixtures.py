@@ -12,6 +12,8 @@ from unittest.mock import patch
 
 from museum_pipeline.adapters import get_adapter
 from museum_pipeline.adapters.base import ResponseContract
+from museum_pipeline.art.cli import _explain_record
+from museum_pipeline.art.leakage import build_public_leakage_label_set
 from museum_pipeline.canonical_json import write_canonical_json
 from museum_pipeline.cli import build_parser, main
 from museum_pipeline.config import INTERMEDIATE_ROOT, RAW_ROOT, ROOT, endpoint_registry
@@ -19,10 +21,10 @@ from museum_pipeline.errors import PipelineError
 from museum_pipeline.hashing import sha256_file
 from museum_pipeline.snapshots import write_snapshot
 from museum_pipeline.source_registry import REFERENCE_SOURCE_IDS, verify_sources
-from museum_pipeline.validation.dispatch import load_schema_environment, validate_record
+from museum_pipeline.validation.dispatch import canonical_schema_path, load_schema_environment, validate_record
 from museum_pipeline.validation.fixtures import evaluate_invalid_fixture
 from museum_pipeline.validation.physical import validate_run_directory
-from scripts.scan_public_artifact_for_candidate_data import scan_public_artifact
+from scripts.scan_public_artifact_for_candidate_data import MAX_SCANNABLE_TEXT_BYTES, scan_public_artifact
 from scripts.validate_pipeline_foundation import validate_pipeline_foundation
 
 
@@ -161,6 +163,124 @@ class LeakageTests(unittest.TestCase):
             (root / "index.html").write_text("candidate:22222222-2222-5222-8222-222222222222", encoding="utf-8")
             self.assertIn("candidate_data_publicly_exposed", {item["code"] for item in scan_public_artifact(root)})
 
+    def test_formal_art_label_set_detects_approved_name_and_stable_id(self) -> None:
+        formal_terms = [
+            {"value": "Synthetic Approved Artist", "match_mode": "casefold_substring"},
+            {"value": "artist:synthetic-approved", "match_mode": "exact_token"},
+        ]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "index.html").write_text(
+                "Synthetic Approved Artist artist:synthetic-approved",
+                encoding="utf-8",
+            )
+            codes = {
+                item["code"]
+                for item in scan_public_artifact(root, formal_art_terms=formal_terms)
+            }
+        self.assertIn("formal_art_data_publicly_exposed", codes)
+
+    def test_formal_art_label_set_does_not_match_partial_exact_token(self) -> None:
+        formal_terms = [{"value": "Q123", "match_mode": "exact_token"}]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "index.html").write_text("Q1234", encoding="utf-8")
+            findings = scan_public_artifact(root, formal_art_terms=formal_terms)
+        self.assertNotIn("formal_art_data_publicly_exposed", {item["code"] for item in findings})
+
+    def test_formal_art_label_set_includes_packaged_record_ids(self) -> None:
+        label_set = build_public_leakage_label_set(
+            identity_seed={"batch_id": "art-batch:museum-03b-fixture", "artists": []},
+            identity_basis={"bindings": []},
+            application={
+                "id": "selection-decision-application:fixture",
+                "submitted_decision_id": "selection-decision:fixture",
+            },
+            formal_records=[
+                {
+                    "id": "artwork:fixture-object",
+                    "entity_type": "artwork",
+                    "title_records": [{"text": "Synthetic Formal Artwork Title"}],
+                    "external_ids": {"met_object": "123456"},
+                    "official_object_record": {"source_object_id": "123456"},
+                    "accession_number": "TEST.1",
+                    "rights_preflight_id": "artwork-preflight:fixture-object",
+                },
+                {
+                    "id": "artist:fixture-artist",
+                    "entity_type": "artist",
+                    "labels": {"en": "Synthetic Formal Artist"},
+                    "aliases": [{"text": "Synthetic Formal Alias"}],
+                },
+                {
+                    "id": "subject:fixture-context",
+                    "entity_type": "subject",
+                    "labels": {"en": "Synthetic Formal Context"},
+                },
+                {"id": "source:fixture-official", "entity_type": "source"},
+            ],
+        )
+        observed = {(item["value"], item["category"]) for item in label_set["terms"]}
+        self.assertIn(("artwork:fixture-object", "artwork_id"), observed)
+        self.assertIn(("source:fixture-official", "source_id"), observed)
+        self.assertIn(("selection-decision:fixture", "formal_record_id"), observed)
+        self.assertIn(("123456", "external_id"), observed)
+        self.assertIn(("TEST.1", "external_id"), observed)
+        self.assertIn(("artwork-preflight:fixture-object", "rights_record_id"), observed)
+        self.assertIn(("Synthetic Formal Artwork Title", "approved_label"), observed)
+        self.assertIn(("Synthetic Formal Artist", "approved_label"), observed)
+        self.assertIn(("Synthetic Formal Alias", "alias"), observed)
+        self.assertIn(("Synthetic Formal Context", "approved_label"), observed)
+
+    def test_source_map_is_scanned_for_formal_art_terms(self) -> None:
+        formal_terms = [{"value": "artist:synthetic-approved", "match_mode": "exact_token"}]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "app.js.map").write_text(
+                '{"sourcesContent":["artist:synthetic-approved"]}',
+                encoding="utf-8",
+            )
+            codes = {item["code"] for item in scan_public_artifact(root, formal_art_terms=formal_terms)}
+        self.assertIn("formal_art_data_publicly_exposed", codes)
+
+    def test_oversized_javascript_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "app.js").write_text("x" * (MAX_SCANNABLE_TEXT_BYTES + 1), encoding="utf-8")
+            findings = scan_public_artifact(root)
+        self.assertIn("public_text_too_large_to_scan", {item["code"] for item in findings})
+
+    def test_explain_media_assessment_reports_actual_rights_fields(self) -> None:
+        record_id = "media-eligibility-assessment:fixture"
+        record = {
+            "id": record_id,
+            "entity_type": "media_eligibility_assessment",
+            "outcome": "metadata_only",
+            "metadata_license": "CC0-1.0",
+            "media_license": "CC-BY-4.0",
+            "media_rights_status": "permission_verified",
+            "media_rights_basis": "license",
+            "permissions": ["reproduce", "distribute"],
+            "permission_status": "verified",
+            "bytes_downloaded": False,
+            "media_bytes_present": False,
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "media-assessments.json").write_text(json.dumps([record]), encoding="utf-8")
+            (root / "package-manifest.json").write_text(
+                json.dumps({"files": [{"path": "media-assessments.json", "record_ids": [record_id]}]}),
+                encoding="utf-8",
+            )
+            rights = _explain_record(root, record_id)["rights"]
+        self.assertEqual("CC0-1.0", rights["metadata_license"])
+        self.assertEqual("CC-BY-4.0", rights["media_license"])
+        self.assertEqual("permission_verified", rights["media_rights_status"])
+        self.assertEqual(["reproduce", "distribute"], rights["permissions"])
+        self.assertEqual("verified", rights["permission_status"])
+        self.assertNotIn("metadata_rights", rights)
+        self.assertNotIn("media_rights", rights)
+
     def test_qid_and_ulan_identifiers_are_detected_in_public_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -202,6 +322,24 @@ class LeakageTests(unittest.TestCase):
         self.assertNotIn("--live", workflow)
         self.assertNotIn("curl ", workflow)
 
+    def test_workflow_validates_tracked_museum_03b_package_and_leakage_labels(self) -> None:
+        workflow = (ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
+        package = "data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1"
+        label_set = f"{package}/public-leakage-label-set.json"
+        self.assertIn("python scripts/validate_museum_03b_fixtures.py", workflow)
+        self.assertIn(f"python scripts/validate_museum_03b_batch.py {package}", workflow)
+        self.assertIn(
+            f"python scripts/scan_public_artifact_for_candidate_data.py public --label-set {label_set}",
+            workflow,
+        )
+        self.assertIn(
+            f"python scripts/scan_public_artifact_for_candidate_data.py dist --label-set {label_set}",
+            workflow,
+        )
+        self.assertEqual(2, workflow.count(f"--label-set {label_set}"))
+        self.assertNotIn("build-approved-batch", workflow)
+        self.assertNotIn("build-graph-input", workflow)
+
     def test_gitignore_blocks_raw_intermediate_and_staging(self) -> None:
         text = (ROOT / ".gitignore").read_text(encoding="utf-8")
         for value in ("data/raw/**", "data/intermediate/**", "data/staging/**"):
@@ -225,12 +363,20 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(37, len(environment.by_path))
+        self.assertEqual(47, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))
         issues = validate_record(record, requested_schema="schemas/common/entity.schema.json")
         self.assertEqual(["schema_target_mismatch"], [issue.code for issue in issues])
+
+    def test_art_context_dispatch_is_branch_aware(self) -> None:
+        art_context = {"id": "place:fixture", "entity_type": "place", "branch_id": "art"}
+        generic_context = {"id": "place:fixture", "entity_type": "place", "branch_id": "biology"}
+        self.assertEqual("schemas/art/context/art-context.schema.json", canonical_schema_path(art_context))
+        self.assertEqual("schemas/common/entity.schema.json", canonical_schema_path(generic_context))
+        issues = validate_record(art_context, requested_schema="schemas/common/entity.schema.json")
+        self.assertEqual("schema_target_mismatch", issues[0].code)
 
     def test_endpoint_registry_has_only_four_real_reference_adapters(self) -> None:
         sources = endpoint_registry()["sources"]

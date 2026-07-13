@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-10",
+  "case_number": 10,
+  "behavior": "application without submitted decision",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "application_requires_submitted_decision",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/decision/status",
+      "value": "pending_user_decision"
+    }
+  ]
+}

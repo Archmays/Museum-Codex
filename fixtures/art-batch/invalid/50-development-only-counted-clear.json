@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-50",
+  "case_number": 50,
+  "behavior": "development only counted clear",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "media_development_only_counted_clear",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/media_assessments/0/development_only",
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/batch/graph-input.schema.json",
+  "title": "MUSEUM-03B static no-media graph input candidate",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "batch_id", "approved_artist_ids",
+    "primary_nodes", "context_nodes", "edges", "claim_ids", "evidence_ids", "source_ids",
+    "review_signoff_ids", "no_auto_replacement", "no_algorithmic_edges", "no_media_dependency",
+    "public_release", "review_status", "content_hash", "generated_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^graph-input:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "graph_input" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "batch_id": { "$ref": "#/$defs/batchId" },
+    "approved_artist_ids": {
+      "type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "primary_nodes": {
+      "type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true,
+      "items": { "$ref": "#/$defs/primaryNode" }
+    },
+    "context_nodes": {
+      "type": "array", "uniqueItems": true,
+      "items": { "$ref": "#/$defs/contextNode" }
+    },
+    "edges": {
+      "type": "array", "uniqueItems": true,
+      "items": { "$ref": "#/$defs/edge" }
+    },
+    "claim_ids": { "$ref": "#/$defs/claimIds" },
+    "evidence_ids": { "$ref": "#/$defs/evidenceIds" },
+    "source_ids": { "$ref": "#/$defs/sourceIds" },
+    "review_signoff_ids": {
+      "type": "array", "minItems": 2, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "no_auto_replacement": { "const": true },
+    "no_algorithmic_edges": { "const": true },
+    "no_media_dependency": { "const": true },
+    "public_release": { "const": false },
+    "review_status": { "enum": ["candidate", "reviewed", "verified"] },
+    "content_hash": { "$ref": "#/$defs/hash" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" }
+  },
+  "$defs": {
+    "batchId": { "type": "string", "pattern": "^art-batch:museum-03b-[a-z0-9][a-z0-9._-]*$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "labels": {
+      "type": "object",
+      "required": ["en", "zh-Hans"],
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "zh-Hans": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "filterValues": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "properties": {
+          "key": { "enum": ["evidence_level", "relationship_type", "context_type", "time_period", "place"] },
+          "value": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "primaryNode": {
+      "type": "object",
+      "required": ["artist_id", "node_role", "labels", "claim_ids", "filter_values"],
+      "properties": {
+        "artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "node_role": { "const": "primary_artist" },
+        "labels": { "$ref": "#/$defs/labels" },
+        "claim_ids": { "$ref": "#/$defs/claimIds" },
+        "filter_values": { "$ref": "#/$defs/filterValues" }
+      },
+      "additionalProperties": false
+    },
+    "contextNode": {
+      "type": "object",
+      "required": ["context_id", "entity_type", "node_role", "labels", "claim_ids", "filter_values"],
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "pattern": "^(art_movement|art_group|museum_institution|organization|place|exhibition|exhibition_event|material|technique|subject|time_period|person):[a-z0-9][a-z0-9._-]*$"
+        },
+        "entity_type": {
+          "enum": [
+            "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
+            "exhibition_event", "material", "technique", "subject", "time_period", "person"
+          ]
+        },
+        "node_role": { "const": "supporting_context" },
+        "labels": { "$ref": "#/$defs/labels" },
+        "claim_ids": { "$ref": "#/$defs/claimIds" },
+        "filter_values": { "$ref": "#/$defs/filterValues" }
+      },
+      "additionalProperties": false
+    },
+    "edge": {
+      "type": "object",
+      "required": [
+        "relationship_id", "source_artist_id", "target_entity_id", "relationship_type", "directed",
+        "evidence_level", "explanation", "context_entity_ids", "temporal_scope", "place_ids",
+        "historical_relationship_strength", "evidence_confidence", "computational_similarity",
+        "curatorial_relevance", "claim_ids", "evidence_ids", "source_ids", "filter_values",
+        "is_algorithmic", "media_dependency"
+      ],
+      "properties": {
+        "relationship_id": { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" },
+        "source_artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "target_entity_id": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/stableId" },
+        "relationship_type": { "$ref": "#/$defs/relationshipType" },
+        "directed": { "type": "boolean" },
+        "evidence_level": { "enum": ["A", "B", "C"] },
+        "explanation": { "$ref": "#/$defs/labels" },
+        "context_entity_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(art_movement|art_group|museum_institution|organization|place|exhibition|exhibition_event|material|technique|subject|time_period|person):[a-z0-9][a-z0-9._-]*$"
+          }
+        },
+        "temporal_scope": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "place_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^place:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "historical_relationship_strength": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "evidence_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "computational_similarity": { "type": "null" },
+        "curatorial_relevance": { "type": "number", "minimum": 0, "maximum": 1 },
+        "claim_ids": { "$ref": "#/$defs/claimIds" },
+        "evidence_ids": { "$ref": "#/$defs/evidenceIds" },
+        "source_ids": { "$ref": "#/$defs/sourceIds" },
+        "filter_values": { "$ref": "#/$defs/filterValues" },
+        "is_algorithmic": { "const": false },
+        "media_dependency": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "claimIds": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "evidenceIds": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "sourceIds": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "relationshipType": {
+      "enum": [
+        "student_of", "teacher_of", "worked_in_studio_of", "collaborated_with", "member_of",
+        "associated_with_movement", "participated_in_same_exhibition", "worked_in_same_place_period",
+        "explicitly_influenced_by", "explicitly_influenced", "referenced_or_quoted", "shared_patron",
+        "shared_institution", "shared_subject", "shared_technique", "shared_material", "scholarly_compared_with"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

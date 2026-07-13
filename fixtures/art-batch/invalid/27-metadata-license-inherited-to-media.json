@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-27",
+  "case_number": 27,
+  "behavior": "metadata license inherited to media",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artwork_metadata_media_rights_inherited",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artworks/0/media_rights_basis",
+      "value": "inherited_from_metadata"
+    }
+  ]
+}

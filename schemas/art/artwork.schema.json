@@ -14,6 +14,50 @@
         "id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
         "entity_type": { "const": "artwork" },
         "branch_id": { "const": "art" },
+        "phase_id": { "const": "MUSEUM-03B" },
+        "approved_artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "approved_artist_association_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+        "official_object_record": {
+          "type": "object",
+          "required": [
+            "source_id", "source_object_id", "official_object_url", "raw_snapshot_id",
+            "raw_snapshot_hash", "accessed_at"
+          ],
+          "properties": {
+            "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+            "source_object_id": { "type": "string", "minLength": 1 },
+            "official_object_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+            "raw_snapshot_id": { "type": "string", "pattern": "^snapshot:[a-z][a-z0-9_]*:[a-z0-9.:_-]+$" },
+            "raw_snapshot_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+            "accessed_at": { "type": "string", "format": "date-time" }
+          },
+          "additionalProperties": false
+        },
+        "title_records": {
+          "type": "array", "minItems": 2, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/titleRecord" },
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "title_type": { "enum": ["original", "preferred"] } },
+                "required": ["title_type"]
+              },
+              "minContains": 1
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "title_type": { "const": "translated_display" },
+                  "language": { "const": "zh-Hans" }
+                },
+                "required": ["title_type", "language"]
+              },
+              "minContains": 1
+            }
+          ]
+        },
         "creator_attributions": {
           "type": "array", "minItems": 1,
           "items": {
@@ -51,15 +95,171 @@
           }
         },
         "creation_span": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/timeSpan" },
+        "creation_date_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
         "holding_institution_id": { "type": "string", "pattern": "^museum_institution:[a-z0-9][a-z0-9._-]*$" },
+        "holding_institution_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
         "accession_number": { "type": "string", "minLength": 1 },
+        "accession_number_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
         "material_ids": { "type": "array", "items": { "type": "string", "pattern": "^material:[a-z0-9][a-z0-9._-]*$" }, "uniqueItems": true },
+        "material_records": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/materialRecord" }
+        },
         "technique_ids": { "type": "array", "items": { "type": "string", "pattern": "^technique:[a-z0-9][a-z0-9._-]*$" }, "uniqueItems": true },
+        "technique_records": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/techniqueRecord" }
+        },
+        "subject_ids": { "type": "array", "items": { "type": "string", "pattern": "^subject:[a-z0-9][a-z0-9._-]*$" }, "uniqueItems": true },
+        "subject_records": {
+          "type": "array", "uniqueItems": true,
+          "items": { "$ref": "#/$defs/subjectRecord" }
+        },
+        "claim_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "source_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "source_license_bindings": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/sourceLicenseBinding" }
+        },
+        "rights_preflight_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/artwork_id" },
+        "rights_preflight_status": {
+          "enum": [
+            "rights_path_clear_candidate", "external_iiif_candidate", "external_link_only_candidate",
+            "metadata_only_candidate", "rights_review_required", "blocked_unknown", "blocked_restricted"
+          ]
+        },
         "media_asset_ids": { "type": "array", "items": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" }, "uniqueItems": true },
-        "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "withdrawn"] }
+        "media_eligibility_assessment_id": { "type": "string", "pattern": "^media-assessment:[a-z0-9][a-z0-9._-]*$" },
+        "uncertainty_note": { "type": ["string", "null"] },
+        "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "withdrawn"] },
+        "reviewed_by": { "type": "string", "minLength": 1 },
+        "reviewed_at": { "type": "string", "format": "date-time" },
+        "review_signoff_ids": {
+          "type": "array", "minItems": 3, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "status_history": {
+          "type": "array", "minItems": 1,
+          "items": { "$ref": "#/$defs/statusHistoryEntry" }
+        },
+        "branch_extensions": false
+      }
+    },
+    {
+      "if": { "properties": { "phase_id": { "const": "MUSEUM-03B" } }, "required": ["phase_id"] },
+      "then": {
+        "required": [
+          "phase_id", "approved_artist_id", "approved_artist_association_claim_id",
+          "official_object_record", "title_records", "creation_date_claim_id",
+          "holding_institution_claim_id", "accession_number_claim_id", "material_records",
+          "technique_records", "subject_ids", "subject_records", "claim_ids", "source_ids",
+          "source_license_bindings", "rights_preflight_id", "rights_preflight_status",
+          "media_eligibility_assessment_id", "uncertainty_note", "reviewed_by", "reviewed_at",
+          "review_signoff_ids", "status_history"
+        ],
+        "properties": {
+          "lifecycle_status": { "enum": ["candidate", "reviewed", "publishable", "disputed", "deprecated", "withdrawn"] },
+          "review_status": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "disputed", "withdrawn"] }
+        }
       }
     }
   ],
+  "$defs": {
+    "titleRecord": {
+      "type": "object",
+      "required": [
+        "text", "language", "script", "title_type", "provenance_type", "source_id",
+        "source_locator", "source_claim_id", "translated_from_claim_id", "translation_review_signoff_id"
+      ],
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "language": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/languageTag" },
+        "script": { "type": ["string", "null"] },
+        "title_type": { "enum": ["original", "preferred", "alternate", "historical", "translated_display"] },
+        "provenance_type": { "enum": ["official_source", "authoritative_publication", "project_curatorial_translation"] },
+        "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+        "source_locator": { "type": "string", "minLength": 1 },
+        "source_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+        "translated_from_claim_id": {
+          "oneOf": [
+            { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+            { "type": "null" }
+          ]
+        },
+        "translation_review_signoff_id": {
+          "oneOf": [
+            { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "provenance_type": { "const": "project_curatorial_translation" } }, "required": ["provenance_type"] },
+          "then": {
+            "properties": {
+              "title_type": { "const": "translated_display" },
+              "translated_from_claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" },
+              "translation_review_signoff_id": { "type": "string", "pattern": "^review-signoff:[a-z0-9][a-z0-9._-]*$" }
+            }
+          },
+          "else": {
+            "properties": {
+              "translated_from_claim_id": { "type": "null" },
+              "translation_review_signoff_id": { "type": "null" }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "materialRecord": {
+      "type": "object",
+      "required": ["material_id", "claim_id"],
+      "properties": {
+        "material_id": { "type": "string", "pattern": "^material:[a-z0-9][a-z0-9._-]*$" },
+        "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+      },
+      "additionalProperties": false
+    },
+    "techniqueRecord": {
+      "type": "object",
+      "required": ["technique_id", "claim_id"],
+      "properties": {
+        "technique_id": { "type": "string", "pattern": "^technique:[a-z0-9][a-z0-9._-]*$" },
+        "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+      },
+      "additionalProperties": false
+    },
+    "subjectRecord": {
+      "type": "object",
+      "required": ["subject_id", "claim_id"],
+      "properties": {
+        "subject_id": { "type": "string", "pattern": "^subject:[a-z0-9][a-z0-9._-]*$" },
+        "claim_id": { "type": "string", "pattern": "^claim:[a-z0-9][a-z0-9._-]*$" }
+      },
+      "additionalProperties": false
+    },
+    "statusHistoryEntry": {
+      "type": "object",
+      "required": ["from", "to", "changed_at", "changed_by", "role", "reason"],
+      "properties": {
+        "from": { "type": ["string", "null"] },
+        "to": { "enum": ["candidate", "sourced", "reviewed", "verified", "publishable", "published", "disputed", "withdrawn"] },
+        "changed_at": { "type": "string", "format": "date-time" },
+        "changed_by": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
   "if": {
     "properties": { "lifecycle_status": { "enum": ["publishable", "published"] } },
     "required": ["lifecycle_status"]

@@ -1,0 +1,2039 @@
+{
+  "schema_version": "1.0.0",
+  "id": "relationship-decision-set:museum-03b-first-slate-v1",
+  "entity_type": "relationship_decision_set",
+  "phase_id": "MUSEUM-03B",
+  "status": "accepted_reviewed",
+  "generated_at": "2026-07-13T14:20:00+08:00",
+  "input_lead_count": 45,
+  "added_candidate_count": 24,
+  "research_candidate_count": 69,
+  "formal_relationship_count": 36,
+  "evidence_level_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 36
+  },
+  "review_sessions": {
+    "relationship_reviewer": {
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "role": "relationship_semantics_reviewer",
+      "reviewed_at": "2026-07-13T14:12:00+08:00",
+      "decision": "accepted_reviewed",
+      "decision_note": "All 36 records were reviewed as deliberate C-level curatorial comparisons; there are no A/B claims, causal wording, self-relations, inverse duplicates, or algorithmic/all-pairs generation."
+    },
+    "source_reviewer": {
+      "reviewer_id": "codex-primary-agent",
+      "reviewer_kind": "ai_assisted_operator",
+      "role": "relationship_evidence_reviewer",
+      "reviewed_at": "2026-07-13T14:16:00+08:00",
+      "decision": "accepted_reviewed",
+      "decision_note": "Each comparison binds two selected-batch official object IDs, exact raw locators and snapshot hashes; Shen Zhou attribution, Cassatt printer credit, Ravi Varma posthumous association, undated fields, and broad dates remain explicit."
+    }
+  },
+  "decisions": [
+    {
+      "decision_id": "relationship-decision:m03b-001",
+      "relationship_id": "art-rel:m03b-001",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:217d5837-e7d2-5540-8abc-1fe42cdfc54b",
+        "inherited_lead_hash": "sha256:31e99087c0282dfa9acd328bda05a557f69505aa2dec0f77ff1f860d7c241287"
+      },
+      "source_artist_id": "artist:vincent-van-gogh",
+      "target_artist_id": "artist:mary-cassatt",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:oil-paint",
+        "material:canvas"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436533",
+          "snapshot_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "111442",
+          "snapshot_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Target example: official medium says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited material lead is promoted only after replacing its old alternative-object evidence with two selected-batch objects whose official medium fields exactly agree on oil and canvas.",
+      "educational_value": "Compare handling of the same recorded paint/support combination across two modern paintings without implying historical contact.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.97,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.88,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-002",
+      "relationship_id": "art-rel:m03b-002",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:f1c6c87f-7ddf-5d3e-86bd-37a49deeb530",
+        "inherited_lead_hash": "sha256:9a37e899e36aa6093f9f188e21aed509f7a5d8540779973d378961d1d08353f6"
+      },
+      "source_artist_id": "artist:mary-cassatt",
+      "target_artist_id": "artist:julia-margaret-cameron",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:portraiture"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "28826",
+          "snapshot_sha256": "sha256:a277bea7c652d1471261d24260999ac07f817d35826b971f8284a953074f1ccc",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source example: the official title names the depicted sitter.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: the official title names the depicted sitter.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited shared-material proposal is reclassified because the selected objects do not share a recorded material. Their exact titles instead support a bounded portraiture comparison.",
+      "educational_value": "Compare a pastel portrait record with a photographic portrait record while retaining medium and sitter differences.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.9,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.9,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-003",
+      "relationship_id": "art-rel:m03b-003",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:bda32b8b-c7f6-5fcf-a49d-6a3ef370e95d",
+        "inherited_lead_hash": "sha256:5c2626f4142bf29814705cb05a34363797665cdcd6834d060a3c5a6f95584621"
+      },
+      "source_artist_id": "artist:katsushika-hokusai",
+      "target_artist_id": "artist:kitagawa-utamaro",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:woodblock-relief-printing"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium explicitly records a woodblock print.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official medium explicitly records a woodblock print.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited material lead is reclassified to the more precise shared technique because both selected official records explicitly state woodblock print.",
+      "educational_value": "Compare two documented woodblock-print formats and subjects without treating a shared process as influence.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.98,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-004",
+      "relationship_id": "art-rel:m03b-004",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:5de572eb-58b0-5fe4-9b89-fbf3027cad7b",
+        "inherited_lead_hash": "sha256:28ed9dd7b104d256660ba208b1ce20ea904f21b1b931dbea9facf745bba4b0e2"
+      },
+      "source_artist_id": "artist:jose-guadalupe-posada",
+      "target_artist_id": "artist:henry-ossawa-tanner",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:printmaking"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium records type-metal engraving.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official medium records etching.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited shared-material proposal is reclassified to printmaking because the selected records name distinct print processes and do not establish a shared material.",
+      "educational_value": "Compare engraving and etching as different print processes; the broad date on the etching remains explicit.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.94,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.86,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-005",
+      "relationship_id": "art-rel:m03b-005",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:c1536d7c-dcf5-5b59-bac1-f38fc084c8cf",
+        "inherited_lead_hash": "sha256:cff1c1c748104640d54f8a2f17cd955924a825726e066dc73db8c6da767f9f51"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:francisco-de-goya",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:oil-paint"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436244",
+          "snapshot_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium says oil on linden.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official medium says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is therefore reclassified. Exact selected-object medium fields support only the narrower oil-paint comparison.",
+      "educational_value": "Compare oil paint on different supports across widely separated periods without causal language.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.97,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.85,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-006",
+      "relationship_id": "art-rel:m03b-006",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:c5d5a7bc-1cc8-53c6-b147-0716d342bf71",
+        "inherited_lead_hash": "sha256:e63ba11ec9bd27c1546a9ae82cde733a7a59f874bbf158f3cf5d6a1d1e46c297"
+      },
+      "source_artist_id": "artist:francisco-de-goya",
+      "target_artist_id": "artist:vincent-van-gogh",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:oil-paint",
+        "material:canvas"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436533",
+          "snapshot_sha256": "sha256:cd0f5c8f8944a7a0010bc8b942ad4ca91703b23f32c0bef00bca753be08cefe2",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official medium says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to the exact shared oil-and-canvas medium recorded for both selected objects.",
+      "educational_value": "Compare two documented oil-on-canvas objects while separating material coincidence from historical relationship.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.98,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.86,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-007",
+      "relationship_id": "art-rel:m03b-007",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:43c1291b-8513-5146-814a-82a8f1a9218a",
+        "inherited_lead_hash": "sha256:252f0e8daaad32d90779d50c6357ec26e56aad4b5ad0b97a3217f31b5504c9df"
+      },
+      "source_artist_id": "artist:mary-cassatt",
+      "target_artist_id": "artist:kathe-kollwitz",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:paper"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "13506",
+          "snapshot_sha256": "sha256:a580102413e015e2392366c9aedbc823b84e27ebcd370b68127593e7a0bd5e47",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source example: official medium explicitly says off-white laid paper and preserves the printer credit.",
+          "attribution_scope": "collaborative_print_record",
+          "attribution_note": "The AIC artist display says the print was printed with Leroy; the comparison preserves that production credit."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Target example: official medium explicitly says brown wove paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to a paper-support comparison backed by exact official medium fields.",
+      "educational_value": "Compare aquatint/drypoint and watercolor on different recorded paper supports while preserving collaborative printing credit.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.96,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.88,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-008",
+      "relationship_id": "art-rel:m03b-008",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:f25c98f0-de96-576a-874c-a1f325ad7322",
+        "inherited_lead_hash": "sha256:beee7c5c7c7c532fa795e2c207259b20edb7d454742459bddd6fdbe893269bb8"
+      },
+      "source_artist_id": "artist:kathe-kollwitz",
+      "target_artist_id": "artist:julia-margaret-cameron",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:portraiture"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source example: official title is Self-Portrait.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official title names Julia Jackson.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to portraiture using exact selected-object titles.",
+      "educational_value": "Compare self-portrait watercolor and photographic portrait records without implying a common portrait lineage.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.91,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.91,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-009",
+      "relationship_id": "art-rel:m03b-009",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:3b83ef91-b9ca-5f34-82ca-86ad616bf65c",
+        "inherited_lead_hash": "sha256:b8f73d27f1e41b328727b5ceb1ae56e577527f70fc7d373413a8bb603bf93261"
+      },
+      "source_artist_id": "artist:julia-margaret-cameron",
+      "target_artist_id": "artist:katsushika-hokusai",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:figures-of-women"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official title names Julia Jackson.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56128",
+          "snapshot_sha256": "sha256:48cef5118f152df8b1b3e5cd90f3920de94f3b7354db0e7c27fefa236b755cef",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official title explicitly says A Woman and Baby.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to a narrowly title-derived comparison of figures of women.",
+      "educational_value": "Compare the framing of a named photographic sitter and a title-described woman in woodblock print without generalizing either tradition.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.87,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.86,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-010",
+      "relationship_id": "art-rel:m03b-010",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:638f665d-ea80-5bd2-abc2-54689b2495d1",
+        "inherited_lead_hash": "sha256:000743f9b5cd701aae6ff9e35c5e98c88c36885be973f0d1a4744dce1677bbbf"
+      },
+      "source_artist_id": "artist:kitagawa-utamaro",
+      "target_artist_id": "artist:shen-zhou",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:ink",
+        "material:paper"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "45323",
+          "snapshot_sha256": "sha256:590f13f1e0c21531e33a7a12a7a33b0ef2b2f9fb2c5113e7969526231c182fc5",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium says ink and color on paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "53601",
+          "snapshot_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName",
+            "/artistPrefix"
+          ],
+          "evidence_role": "Target example: official medium says ink and color on paper; attributed and undated status are retained.",
+          "attribution_scope": "attributed_to",
+          "attribution_note": "The official object record is explicitly 'Attributed to Shen Zhou'; the comparison does not promote authorship."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to exact ink-and-paper material fields. The attributed Shen Zhou record is not promoted to confirmed authorship.",
+      "educational_value": "Compare ink and paper across printed-book and attributed album-leaf records while foregrounding attribution and format differences.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.94,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.9,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-011",
+      "relationship_id": "art-rel:m03b-011",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:25fdb3ac-e39b-5db5-a965-53fb4bbc5a02",
+        "inherited_lead_hash": "sha256:e7c28901fe21e7b1674eb3e6dc8b6becc13a03f8560121435b6257db6faaab79"
+      },
+      "source_artist_id": "artist:raja-ravi-varma",
+      "target_artist_id": "artist:jose-guadalupe-posada",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:printmaking"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official record classifies a posthumously dated chromolithograph as a print.",
+          "attribution_scope": "posthumous_collection_association",
+          "attribution_note": "The official object is dated about 1910, after Ravi Varma's 1906 death; it supports only a collection-record association and no personal execution claim."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official medium records type-metal engraving and classifies it as a print.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to the documented print processes. The Ravi Varma object is treated only as a posthumous collection association.",
+      "educational_value": "Compare chromolithograph and type-metal engraving production while keeping press association and personal execution separate.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.9,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.91,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-012",
+      "relationship_id": "art-rel:m03b-012",
+      "origin": {
+        "kind": "inherited_lead",
+        "inherited_lead_id": "relationship-lead:f056aa85-cfa1-59dd-82bf-6d52b423d2fe",
+        "inherited_lead_hash": "sha256:c9a6658d0a6b67a5654fabe400e1e84d5975c5f89d1ce205e948e5e603ff37aa"
+      },
+      "source_artist_id": "artist:henry-ossawa-tanner",
+      "target_artist_id": "artist:albrecht-durer",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:oil-paint"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "16947",
+          "snapshot_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source example: official medium says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436244",
+          "snapshot_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target example: official medium says oil on linden.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "The inherited scholarly-comparison lead has no scholarly source and is reclassified to the exact oil material recorded for both selected objects.",
+      "educational_value": "Compare oil paint across canvas and linden supports and across different historical settings without influence language.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.97,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.84,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-013",
+      "relationship_id": "art-rel:m03b-013",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-001"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:mary-cassatt",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:caregiver-and-child"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436244",
+          "snapshot_sha256": "sha256:fe09009452359081da6b24bdca013c47f27d3803831085d34d9ef0e15ba9e7be",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly names Virgin and Child with Saint Anne.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "111442",
+          "snapshot_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Target title explicitly names The Child's Bath.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was deliberately selected from exact titles because both include a child in a caregiving context; the religious and domestic subjects are not equated.",
+      "educational_value": "Ask how care and proximity are structured differently in a sacred family scene and a domestic bathing scene.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.89,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-014",
+      "relationship_id": "art-rel:m03b-014",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-002"
+      },
+      "source_artist_id": "artist:mary-cassatt",
+      "target_artist_id": "artist:katsushika-hokusai",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:caregiver-and-child"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "111442",
+          "snapshot_sha256": "sha256:746966bfbf52a0a2912c984c2f9a7c3a31f2a96e73d7f155208dcbabf2686c7c",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source title explicitly names The Child's Bath.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56128",
+          "snapshot_sha256": "sha256:48cef5118f152df8b1b3e5cd90f3920de94f3b7354db0e7c27fefa236b755cef",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly names A Woman and Baby.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This new candidate was curated from two explicit titles and not generated from a shared tag list.",
+      "educational_value": "Compare caregiver-child proximity across oil painting and monochrome woodblock print while preserving cultural context.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.9,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.93,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-015",
+      "relationship_id": "art-rel:m03b-015",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-003"
+      },
+      "source_artist_id": "artist:vincent-van-gogh",
+      "target_artist_id": "artist:katsushika-hokusai",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:flowers-and-plants"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436528",
+          "snapshot_sha256": "sha256:554980cf21cae46acd5fbcb203a3d5f8b3479b310437e9f5da09d2a0ecd275e7",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly names Irises.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "54303",
+          "snapshot_sha256": "sha256:db0050807c92065ba5de0cd3579c5a1ebdc80c61110ac2b122c0332e0a332631",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly names a Basket of Flowers.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This new candidate uses exact botanical wording in two official titles; it is not based on image similarity.",
+      "educational_value": "Compare the role of plant subjects across oil painting and surimono woodblock print.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.93,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.91,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-016",
+      "relationship_id": "art-rel:m03b-016",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-004"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:kitagawa-utamaro",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:music-making-figures"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "334816",
+          "snapshot_sha256": "sha256:82fc637fb19fae25bbd0222368af3182d26134e9d49e72000f1f86d9e25812a5",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly names Music-Making Angels.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "54876",
+          "snapshot_sha256": "sha256:5e155267d9778a4d8bd595d2dd4ab68e76cf95f4057c53a6c2174d5f1c2d099d",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly names itinerant women musicians; the object remains undated.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was deliberately selected because both official titles explicitly identify music-making figures; the social and sacred settings remain distinct.",
+      "educational_value": "Explore how music-making figures carry different narrative and social meanings across drawing and woodblock print.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.9,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-017",
+      "relationship_id": "art-rel:m03b-017",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-005"
+      },
+      "source_artist_id": "artist:vincent-van-gogh",
+      "target_artist_id": "artist:kathe-kollwitz",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:self-portraiture"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436532",
+          "snapshot_sha256": "sha256:9d2c89655f36a1e1f520d669ab038afffaab33d5a5b2a30c0c4e19db0ac42e70",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly identifies a self-portrait.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Target title explicitly identifies a self-portrait.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This new candidate is grounded in two exact self-portrait titles and does not infer stylistic relationship.",
+      "educational_value": "Compare self-representation across oil painting and watercolor-on-paper records.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.96,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-018",
+      "relationship_id": "art-rel:m03b-018",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-006"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:julia-margaret-cameron",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:portraiture"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "459211",
+          "snapshot_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title identifies a head of a young woman.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title names Julia Jackson.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This portrait pair was selected to support a drawing-versus-photography comparison using exact titles.",
+      "educational_value": "Study how head-focused drawing and photographic portrait records name and frame human subjects.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.88,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.88,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-019",
+      "relationship_id": "art-rel:m03b-019",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-007"
+      },
+      "source_artist_id": "artist:francisco-de-goya",
+      "target_artist_id": "artist:julia-margaret-cameron",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:portraiture"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title names Manuel Osorio Manrique de Zuñiga.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "283099",
+          "snapshot_sha256": "sha256:b8f34e4cb634bf48de065b9fc17aafa707fe37a3f48fe851cf49604ebf01eece",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title names Philip Stanhope Worsley.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was deliberately chosen from named-sitter titles to compare painted and photographic portrait records.",
+      "educational_value": "Examine how two institution records encode named sitters across painting and photography.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.91,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.87,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-020",
+      "relationship_id": "art-rel:m03b-020",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-008"
+      },
+      "source_artist_id": "artist:vincent-van-gogh",
+      "target_artist_id": "artist:julia-margaret-cameron",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:portraiture"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436532",
+          "snapshot_sha256": "sha256:9d2c89655f36a1e1f520d669ab038afffaab33d5a5b2a30c0c4e19db0ac42e70",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly identifies a self-portrait.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "267426",
+          "snapshot_sha256": "sha256:77583671e597b0e5349f2a410625339c4b75ca6dee34825a822038613360baad",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title names Julia Jackson.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair contrasts self-portrait and named-sitter portrait records; it was selected manually rather than from visual similarity.",
+      "educational_value": "Ask how authorship and sitter identification differ between self-portrait painting and photographic portraiture.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.92,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.9,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-021",
+      "relationship_id": "art-rel:m03b-021",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-009"
+      },
+      "source_artist_id": "artist:mary-cassatt",
+      "target_artist_id": "artist:jose-guadalupe-posada",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:printmaking"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "13506",
+          "snapshot_sha256": "sha256:a580102413e015e2392366c9aedbc823b84e27ebcd370b68127593e7a0bd5e47",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source medium records color aquatint and drypoint; printer credit is preserved.",
+          "attribution_scope": "collaborative_print_record",
+          "attribution_note": "The AIC artist display says the print was printed with Leroy; the comparison preserves that production credit."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium records type-metal engraving.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was curated to compare two explicitly named print processes; the shared umbrella does not erase collaborative production or process differences.",
+      "educational_value": "Compare aquatint/drypoint with type-metal engraving as distinct ways of making printed lines and tones.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.95,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.93,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-022",
+      "relationship_id": "art-rel:m03b-022",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-010"
+      },
+      "source_artist_id": "artist:mary-cassatt",
+      "target_artist_id": "artist:henry-ossawa-tanner",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:paper"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "13506",
+          "snapshot_sha256": "sha256:a580102413e015e2392366c9aedbc823b84e27ebcd370b68127593e7a0bd5e47",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source medium explicitly names off-white laid paper and printer credit.",
+          "attribution_scope": "collaborative_print_record",
+          "attribution_note": "The AIC artist display says the print was printed with Leroy; the comparison preserves that production credit."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "12774",
+          "snapshot_sha256": "sha256:c64197ac70c5f5aa26a134bfc268eff6856a5c5737e42403b18e6c089078d345",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium explicitly names white wove paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair uses exact support terms from two selected object records and does not imply shared training or contact.",
+      "educational_value": "Compare how different paper supports serve print and watercolor/gouache processes.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.97,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.87,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-023",
+      "relationship_id": "art-rel:m03b-023",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-011"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:kathe-kollwitz",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:paper"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "459211",
+          "snapshot_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source medium explicitly says prepared paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "aic_api",
+          "source_object_id": "60513",
+          "snapshot_sha256": "sha256:0ee6132005f3f06705e76418235bc7dfa1c9963d4045c365752ea585256e192e",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Target medium explicitly says brown wove paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was selected to compare prepared and wove paper supports across two drawing/watercolor records.",
+      "educational_value": "Make support preparation and paper type visible as material evidence rather than a stylistic claim.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.97,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.85,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-024",
+      "relationship_id": "art-rel:m03b-024",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-012"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:katsushika-hokusai",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:paper"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "459211",
+          "snapshot_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source medium explicitly says prepared paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium explicitly says ink and color on paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair uses exact paper-support wording to compare drawing and woodblock-print records across distant periods and places.",
+      "educational_value": "Ask how paper functions differently as a prepared drawing ground and a printed support.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.97,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.89,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-025",
+      "relationship_id": "art-rel:m03b-025",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-013"
+      },
+      "source_artist_id": "artist:albrecht-durer",
+      "target_artist_id": "artist:shen-zhou",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:paper"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "459211",
+          "snapshot_sha256": "sha256:efaa75a4dca8250473869eee9459f701e14558514a54cfcaf3c6973467d885c5",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source medium explicitly says prepared paper.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "53601",
+          "snapshot_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName",
+            "/artistPrefix"
+          ],
+          "evidence_role": "Target medium explicitly says ink and color on paper; attributed and undated status are retained.",
+          "attribution_scope": "attributed_to",
+          "attribution_note": "The official object record is explicitly 'Attributed to Shen Zhou'; the comparison does not promote authorship."
+        }
+      ],
+      "rationale": "This pair compares exact paper-support fields while explicitly retaining the Shen Zhou attribution qualifier and missing date.",
+      "educational_value": "Compare prepared-paper drawing with an attributed album leaf without upgrading attribution or inferring contact.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.93,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.87,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-026",
+      "relationship_id": "art-rel:m03b-026",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-014"
+      },
+      "source_artist_id": "artist:kathe-kollwitz",
+      "target_artist_id": "artist:katsushika-hokusai",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:woodblock-relief-printing"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source medium records woodcut with brush-and-ink additions.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium records woodblock print.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was selected to compare named relief-print techniques while retaining additions, support, and historical differences.",
+      "educational_value": "Compare woodcut and woodblock printing as related relief processes without calling them identical traditions.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.95,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-027",
+      "relationship_id": "art-rel:m03b-027",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-015"
+      },
+      "source_artist_id": "artist:kathe-kollwitz",
+      "target_artist_id": "artist:kitagawa-utamaro",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:woodblock-relief-printing"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source medium records woodcut with brush-and-ink additions.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium records a woodblock print from an illustrated erotic book.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair deliberately contrasts woodcut and book-leaf woodblock production using exact medium fields.",
+      "educational_value": "Explore how relief printing participates in memorial-sheet and illustrated-book formats without historical-causality claims.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.94,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.92,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-028",
+      "relationship_id": "art-rel:m03b-028",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-016"
+      },
+      "source_artist_id": "artist:kathe-kollwitz",
+      "target_artist_id": "artist:jose-guadalupe-posada",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:death-and-remembrance"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source title explicitly identifies a memorial sheet.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly identifies skeletons and the feast of the dead.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was curated from exact title language around memorial and feast-of-the-dead subjects; the cultural meanings are not equated.",
+      "educational_value": "Compare how print records approach remembrance and death in distinct historical contexts.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.88,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.95,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-029",
+      "relationship_id": "art-rel:m03b-029",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-017"
+      },
+      "source_artist_id": "artist:kathe-kollwitz",
+      "target_artist_id": "artist:henry-ossawa-tanner",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:printmaking"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "aic_api",
+          "source_object_id": "158971",
+          "snapshot_sha256": "sha256:88b1e697381abc5625a74df3ff58919aca7a545c7daf4abbc3bc1f5f8d157529",
+          "raw_locators": [
+            "/data/medium_display",
+            "/data/department_title",
+            "/data/date_display",
+            "/data/artist_display"
+          ],
+          "evidence_role": "Source medium records woodcut with additions.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium records etching and a broad date.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair uses two explicitly named print processes and retains the Tanner object's broad date rather than sharpening it.",
+      "educational_value": "Compare relief and intaglio print processes through their exact official medium terms.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.95,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.9,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-030",
+      "relationship_id": "art-rel:m03b-030",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-018"
+      },
+      "source_artist_id": "artist:katsushika-hokusai",
+      "target_artist_id": "artist:raja-ravi-varma",
+      "relationship_type": "shared_technique",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "technique:printmaking"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source medium records woodblock print.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium records chromolithograph; the posthumous date limits the claim to collection association.",
+          "attribution_scope": "posthumous_collection_association",
+          "attribution_note": "The official object is dated about 1910, after Ravi Varma's 1906 death; it supports only a collection-record association and no personal execution claim."
+        }
+      ],
+      "rationale": "This pair was deliberately selected to compare recorded woodblock and chromolithographic processes. It does not claim Ravi Varma personally executed the posthumous print.",
+      "educational_value": "Compare two systems for multiplying color images while preserving their distinct production histories.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.9,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-031",
+      "relationship_id": "art-rel:m03b-031",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-019"
+      },
+      "source_artist_id": "artist:katsushika-hokusai",
+      "target_artist_id": "artist:henry-ossawa-tanner",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:water"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly names a wave.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly names walking on water and retains a broad date.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This title-derived pair compares water as landscape force and narrative setting; no visual or historical similarity is asserted.",
+      "educational_value": "Ask how water organizes action and meaning across landscape and sacred narrative subjects.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.89,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.95,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-032",
+      "relationship_id": "art-rel:m03b-032",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-020"
+      },
+      "source_artist_id": "artist:kitagawa-utamaro",
+      "target_artist_id": "artist:raja-ravi-varma",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:paired-figures"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly identifies a couple.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly names Nala and Damayanti; posthumous date caveat retained.",
+          "attribution_scope": "posthumous_collection_association",
+          "attribution_note": "The official object is dated about 1910, after Ravi Varma's 1906 death; it supports only a collection-record association and no personal execution claim."
+        }
+      ],
+      "rationale": "This pair uses exact titles naming two figures. The relationship between the depicted figures and the production histories remain distinct.",
+      "educational_value": "Compare how paired figures are placed within erotic-book and chromolithographic narrative records.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.85,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.9,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-033",
+      "relationship_id": "art-rel:m03b-033",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-021"
+      },
+      "source_artist_id": "artist:kitagawa-utamaro",
+      "target_artist_id": "artist:jose-guadalupe-posada",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:paired-figures"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "56716",
+          "snapshot_sha256": "sha256:2bc20d050789a11cef944b0d9c462dcfb0c9ac0cfdc3d604f60fb66d0c32b7c3",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title explicitly identifies a couple.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "717597",
+          "snapshot_sha256": "sha256:a25badf021e82c7412f9af330d5677713058d1cb6d8bc3643087a1511221a981",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title explicitly identifies male and female skeletons arm in arm.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair was selected from explicit paired-figure titles and does not equate the figures' social, erotic, or ritual meanings.",
+      "educational_value": "Compare how paired figures operate in an illustrated book leaf and a feast-of-the-dead print.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.89,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.94,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-034",
+      "relationship_id": "art-rel:m03b-034",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-022"
+      },
+      "source_artist_id": "artist:katsushika-hokusai",
+      "target_artist_id": "artist:shen-zhou",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:landscape"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "39799",
+          "snapshot_sha256": "sha256:b481c0d366b3b5644ef55d54edefbeb55103671ef25bc1d93e8ce54f7ee389da",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title names the wave and Mount Fuji.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "53601",
+          "snapshot_sha256": "sha256:fc518eaa7f7b2c05b68c192d04c4ac07df54fa101bc360bb97fb2efb823079f4",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName",
+            "/artistPrefix"
+          ],
+          "evidence_role": "Target title explicitly names a landscape; attributed and undated status are retained.",
+          "attribution_scope": "attributed_to",
+          "attribution_note": "The official object record is explicitly 'Attributed to Shen Zhou'; the comparison does not promote authorship."
+        }
+      ],
+      "rationale": "This landscape comparison is grounded in exact titles. It does not claim common lineage, influence, or confirmed Shen Zhou authorship.",
+      "educational_value": "Compare represented terrain, water, and viewing structure across woodblock print and attributed album-leaf records.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.88,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.96,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-035",
+      "relationship_id": "art-rel:m03b-035",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-023"
+      },
+      "source_artist_id": "artist:francisco-de-goya",
+      "target_artist_id": "artist:henry-ossawa-tanner",
+      "relationship_type": "shared_material",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "material:oil-paint",
+        "material:canvas"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "436545",
+          "snapshot_sha256": "sha256:3a403455b4ec18fcf0e40ec45528e06378075b1743dccfc3cba8b51474086f8e",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source medium explicitly says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "16947",
+          "snapshot_sha256": "sha256:113bbcf8513dcd4507a96a0643f8ad71c4ecef59259d2813a62b04041ff6a7fd",
+          "raw_locators": [
+            "/medium",
+            "/classification",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target medium explicitly says oil on canvas.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This pair uses exact oil-and-canvas medium agreement and remains only a material comparison.",
+      "educational_value": "Compare oil-on-canvas objects separated by period, subject, and institutional history without inferring contact.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.98,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.86,
+      "review_status": "accepted_reviewed"
+    },
+    {
+      "decision_id": "relationship-decision:m03b-036",
+      "relationship_id": "art-rel:m03b-036",
+      "origin": {
+        "kind": "curated_new",
+        "curated_candidate_id": "relationship-candidate:m03b-new-024"
+      },
+      "source_artist_id": "artist:raja-ravi-varma",
+      "target_artist_id": "artist:henry-ossawa-tanner",
+      "relationship_type": "shared_subject",
+      "evidence_level": "C",
+      "relationship_semantics": "curatorial_comparison",
+      "directed": false,
+      "is_algorithmic": false,
+      "context_entity_ids": [
+        "subject:sacred-narrative"
+      ],
+      "evidence_bindings": [
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "851484",
+          "snapshot_sha256": "sha256:10e5f77aabfc5866970f1c21e1e3ddfbd2ce37e3f0046bb5b8fe97fced63118e",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Source title names Krishna; posthumous collection-association caveat retained.",
+          "attribution_scope": "posthumous_collection_association",
+          "attribution_note": "The official object is dated about 1910, after Ravi Varma's 1906 death; it supports only a collection-record association and no personal execution claim."
+        },
+        {
+          "source_key": "met_open_access",
+          "source_object_id": "372068",
+          "snapshot_sha256": "sha256:787588d9da5d9b882bcd9b265fd74aeda447c0aa97f7a75e303a852cccd737fa",
+          "raw_locators": [
+            "/title",
+            "/objectDate",
+            "/artistDisplayName"
+          ],
+          "evidence_role": "Target title names Christ walking on water and retains a broad date.",
+          "attribution_scope": "official_attribution_record",
+          "attribution_note": "The official collection record supplies the object association; no broader authorship claim is added here."
+        }
+      ],
+      "rationale": "This cross-tradition subject comparison is derived from exact sacred-narrative titles. It does not equate religions or claim personal execution of the posthumous Ravi Varma-associated print.",
+      "educational_value": "Support careful comparison of narrative framing across distinct sacred traditions while foregrounding production and date limits.",
+      "wording_restriction": "Curatorial comparison only; do not state contact, influence, transmission, instruction, or causality.",
+      "historical_relationship_strength": null,
+      "evidence_confidence": 0.84,
+      "computational_similarity": null,
+      "curatorial_relevance": 0.95,
+      "review_status": "accepted_reviewed"
+    }
+  ],
+  "content_hash": "sha256:73c0c8f86b9ad5fb6d182382fd800d87a036c0e28277a6a5ba143d3c7c20209c"
+}

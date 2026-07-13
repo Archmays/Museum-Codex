@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-63",
+  "case_number": 63,
+  "behavior": "package published state",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "package_published_state_forbidden",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/package/state",
+      "value": "published"
+    }
+  ]
+}

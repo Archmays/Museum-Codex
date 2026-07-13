@@ -1,0 +1,15 @@
+{
+  "fixture_id": "art-batch-invalid-16",
+  "case_number": 16,
+  "behavior": "identity conflict",
+  "template": "synthetic-museum-03b-v1",
+  "operation": "validate_synthetic_batch",
+  "expected_error": "artist_identity_conflict_unresolved",
+  "mutations": [
+    {
+      "op": "replace",
+      "path": "/artists/0/identity_conflict",
+      "value": true
+    }
+  ]
+}
