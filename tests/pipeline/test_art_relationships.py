@@ -2,12 +2,10 @@ from __future__ import annotations
 
 import copy
 import json
-import tempfile
 import unittest
 from collections import Counter
 from pathlib import Path
 
-from museum_pipeline.art.artworks import build_artwork_stage
 from museum_pipeline.art.relationships import build_relationship_stage
 from museum_pipeline.config import ROOT
 from museum_pipeline.errors import PipelineError
@@ -16,6 +14,7 @@ from scripts.validate_governance_foundation import reference_graph_issues
 
 
 IDENTITY_DIR = ROOT / "data" / "reviewed" / "art" / "museum-03b" / "museum-03b-first-slate-v1"
+PACKAGE_DIR = IDENTITY_DIR / "package-v1"
 
 
 def _load(path: Path):
@@ -25,16 +24,32 @@ def _load(path: Path):
 class ArtRelationshipStageTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.temporary = tempfile.TemporaryDirectory(prefix="museum-03b-relationship-tests-")
-        cls.artwork_output = Path(cls.temporary.name) / "artworks"
-        cls.artwork_stage = build_artwork_stage(output_dir=cls.artwork_output)
-        cls.result = build_relationship_stage(artwork_stage=cls.artwork_stage)
-        cls.sources = _load(IDENTITY_DIR / "sources.json")
-        cls.artists = _load(IDENTITY_DIR / "artists.json")
-
-    @classmethod
-    def tearDownClass(cls) -> None:
-        cls.temporary.cleanup()
+        artworks = _load(PACKAGE_DIR / "artworks.json")
+        claims = _load(PACKAGE_DIR / "claims.json")
+        evidence = _load(PACKAGE_DIR / "evidence.json")
+        artwork_claim_ids = {claim_id for artwork in artworks for claim_id in artwork["claim_ids"]}
+        artwork_claims = [item for item in claims if item["id"] in artwork_claim_ids]
+        artwork_evidence_prefixes = tuple(
+            f"evidence:{artwork['id'].split(':', 1)[1]}-"
+            for artwork in artworks
+        )
+        artwork_evidence = [item for item in evidence if item["id"].startswith(artwork_evidence_prefixes)]
+        if (len(artworks), len(artwork_claims), len(artwork_evidence)) != (44, 413, 134):
+            raise AssertionError("Sealed artwork-stage projection is not the reviewed 44/413/134 set")
+        cls.artwork_stage = {
+            "payloads": {
+                "artworks.json": artworks,
+                "artwork-claims.json": artwork_claims,
+                "artwork-evidence.json": artwork_evidence,
+            }
+        }
+        cls.sources = _load(PACKAGE_DIR / "sources.json")
+        cls.artists = _load(PACKAGE_DIR / "artists.json")
+        cls.result = build_relationship_stage(
+            artwork_stage=cls.artwork_stage,
+            sources=cls.sources,
+            artists=cls.artists,
+        )
 
     def test_exact_counts_levels_and_graph_degrees(self) -> None:
         self.assertEqual(
@@ -232,18 +247,21 @@ class ArtRelationshipStageTests(unittest.TestCase):
         )
 
     def test_builder_is_deterministic_and_write_free(self) -> None:
-        before = sorted(path.relative_to(self.artwork_output).as_posix() for path in self.artwork_output.rglob("*"))
-        repeated = build_relationship_stage(artwork_stage=self.artwork_stage)
-        after = sorted(path.relative_to(self.artwork_output).as_posix() for path in self.artwork_output.rglob("*"))
+        before = copy.deepcopy(self.artwork_stage)
+        repeated = build_relationship_stage(
+            artwork_stage=self.artwork_stage,
+            sources=self.sources,
+            artists=self.artists,
+        )
         self.assertEqual(repeated, self.result)
-        self.assertEqual(after, before)
+        self.assertEqual(self.artwork_stage, before)
 
     def test_tampered_artwork_snapshot_evidence_fails_closed(self) -> None:
         tampered = copy.deepcopy(self.artwork_stage)
         raw_ref = tampered["payloads"]["artwork-evidence.json"][0]["raw_snapshot_refs"][0]
         raw_ref["body_sha256"] = "sha256:" + "0" * 64
         with self.assertRaises(PipelineError) as raised:
-            build_relationship_stage(artwork_stage=tampered)
+            build_relationship_stage(artwork_stage=tampered, sources=self.sources, artists=self.artists)
         self.assertEqual(raised.exception.code, "artwork_evidence_snapshot_hash_mismatch")
 
 

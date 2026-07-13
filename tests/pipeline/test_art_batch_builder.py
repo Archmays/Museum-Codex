@@ -9,14 +9,12 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import museum_pipeline.art.batch_validation as batch_validation
-import museum_pipeline.art.artworks as artwork_builder
 from museum_pipeline.art.batch import (
     _directories_equal,
     _exclusive_lock,
     _formal_exclusions,
     _load_batch_review_signoffs,
     _normalize_components,
-    _production_components,
     _publish_directory,
     _validate_batch_review_basis,
     _verify_code_commit,
@@ -46,11 +44,34 @@ class ArtBatchBuilderTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
-        cls.component_workspace = tempfile.TemporaryDirectory(prefix="m03b-batch-tests-")
-        cls.addClassCleanup(cls.component_workspace.cleanup)
-        with patch.object(artwork_builder, "_validate_outputs"):
-            raw = _production_components(Path(cls.component_workspace.name) / "stages")
+        root = Path(__file__).resolve().parents[2]
+        package = root / "data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1"
+
+        def load(name: str):
+            return json.loads((package / name).read_text(encoding="utf-8"))
+
+        raw = {
+            "decision": load("selection-decision.json"),
+            "application": load("selection-application.json"),
+            "identity_basis": load("identity-basis.json"),
+            "artwork_selection_basis": json.loads(
+                (root / "research/art/museum-03b-artwork-selection-basis.json").read_text(encoding="utf-8")
+            ),
+            "artists": load("artists.json"),
+            "artworks": load("artworks.json"),
+            "contexts": load("contexts.json"),
+            "relationships": load("relationships.json"),
+            "claims": load("claims.json"),
+            "evidence": load("evidence.json"),
+            "sources": load("sources.json"),
+            "media_assessments": load("media-assessments.json"),
+            "relationship_dispositions": load("relationship-dispositions.json"),
+            "signoffs": load("review-signoffs.json"),
+            "snapshot_receipt_ledgers": load("snapshot-receipt-ledgers.json"),
+        }
         cls.components = _normalize_components(raw)
+        cls.sealed_formal_artwork_basis = load("artwork-selection-basis.json")
+        cls.sealed_graph = load("graph-input.json")
         cls.formal_artwork_basis = build_artwork_selection_basis(
             research_basis=cls.components["artwork_research_basis"],
             artworks=cls.components["artworks"],
@@ -72,6 +93,10 @@ class ArtBatchBuilderTests(unittest.TestCase):
             ],
             generated_at="2026-07-13T15:32:00+08:00",
         )
+
+    def test_rebuilt_aggregates_equal_the_sealed_package(self) -> None:
+        self.assertEqual(self.sealed_formal_artwork_basis, self.formal_artwork_basis)
+        self.assertEqual(self.sealed_graph, self.graph)
 
     def test_batch_aggregate_records_use_governed_identity_without_factual_binding_duplication(self) -> None:
         self.assertEqual(
