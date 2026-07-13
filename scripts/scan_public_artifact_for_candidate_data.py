@@ -133,7 +133,7 @@ def formal_art_terms_from_label_set(path: Path) -> tuple[list[dict[str, str]], s
             return [], "term_invalid"
         value = item.get("value")
         match_mode = item.get("match_mode")
-        if not isinstance(value, str) or len(value.strip()) < 2 or match_mode not in {"casefold_substring", "exact_token"}:
+        if not isinstance(value, str) or len(value.strip()) < 2 or match_mode not in {"casefold_substring", "exact_token", "serialized_string"}:
             return [], "term_invalid"
         result.append({"value": value.strip(), "match_mode": match_mode})
     return result, None
@@ -142,6 +142,8 @@ def formal_art_terms_from_label_set(path: Path) -> tuple[list[dict[str, str]], s
 def _term_matches(text: str, value: str, match_mode: str) -> bool:
     if match_mode == "casefold_substring":
         return value.casefold() in text.casefold()
+    if match_mode == "serialized_string":
+        return re.search(rf"(?P<quote>[\"'`])\s*{re.escape(value)}\s*(?P=quote)", text, re.IGNORECASE) is not None
     return re.search(rf"(?<![A-Za-z0-9]){re.escape(value)}(?![A-Za-z0-9])", text, re.IGNORECASE) is not None
 
 

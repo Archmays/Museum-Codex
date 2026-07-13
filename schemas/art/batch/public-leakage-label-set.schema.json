@@ -19,10 +19,10 @@
           "category": {
             "enum": [
               "batch_id", "artist_id", "artwork_id", "relationship_id", "context_id", "source_id",
-              "rights_record_id", "formal_record_id", "approved_label", "alias", "external_id", "candidate_id"
+              "rights_record_id", "formal_record_id", "approved_label", "context_label", "alias", "external_id", "candidate_id"
             ]
           },
-          "match_mode": { "enum": ["casefold_substring", "exact_token"] }
+          "match_mode": { "enum": ["casefold_substring", "exact_token", "serialized_string"] }
         },
         "allOf": [
           {
@@ -31,6 +31,13 @@
               "required": ["category"]
             },
             "then": { "properties": { "match_mode": { "const": "casefold_substring" } } }
+          },
+          {
+            "if": {
+              "properties": { "category": { "const": "context_label" } },
+              "required": ["category"]
+            },
+            "then": { "properties": { "match_mode": { "const": "serialized_string" } } }
           },
           {
             "if": {

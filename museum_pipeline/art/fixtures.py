@@ -146,6 +146,7 @@ def build_synthetic_batch() -> dict[str, Any]:
     ]
     formal_terms = [
         {"value": "MUSEUM-03B", "match_mode": "casefold_substring"},
+        {"value": "Canvas", "match_mode": "serialized_string"},
         *(
             {"value": alias, "match_mode": "casefold_substring"}
             for artist in artists
@@ -199,7 +200,7 @@ def build_synthetic_batch() -> dict[str, Any]:
             "files": [
                 {
                     "path": "index.html",
-                    "content": "Seven-museum synthetic portal; the art antechamber remains empty.",
+                    "content": "Seven-museum synthetic portal; begin with canvas and material; the art antechamber remains empty.",
                 }
             ],
             "formal_terms": formal_terms,

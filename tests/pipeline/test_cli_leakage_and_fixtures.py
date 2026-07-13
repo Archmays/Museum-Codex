@@ -188,6 +188,17 @@ class LeakageTests(unittest.TestCase):
             findings = scan_public_artifact(root, formal_art_terms=formal_terms)
         self.assertNotIn("formal_art_data_publicly_exposed", {item["code"] for item in findings})
 
+    def test_context_label_requires_a_standalone_serialized_string(self) -> None:
+        formal_terms = [{"value": "Canvas", "match_mode": "serialized_string"}]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "safe.css").write_text("--surface: Canvas; --art-canvas: 1;", encoding="utf-8")
+            (root / "safe.html").write_text("Begin with canvas and material.", encoding="utf-8")
+            self.assertEqual([], scan_public_artifact(root, formal_art_terms=formal_terms))
+            (root / "leaked.js").write_text('const record = {label: "Canvas"};', encoding="utf-8")
+            codes = {item["code"] for item in scan_public_artifact(root, formal_art_terms=formal_terms)}
+        self.assertIn("formal_art_data_publicly_exposed", codes)
+
     def test_formal_art_label_set_includes_packaged_record_ids(self) -> None:
         label_set = build_public_leakage_label_set(
             identity_seed={"batch_id": "art-batch:museum-03b-fixture", "artists": []},
@@ -230,7 +241,9 @@ class LeakageTests(unittest.TestCase):
         self.assertIn(("Synthetic Formal Artwork Title", "approved_label"), observed)
         self.assertIn(("Synthetic Formal Artist", "approved_label"), observed)
         self.assertIn(("Synthetic Formal Alias", "alias"), observed)
-        self.assertIn(("Synthetic Formal Context", "approved_label"), observed)
+        self.assertIn(("Synthetic Formal Context", "context_label"), observed)
+        context_term = next(item for item in label_set["terms"] if item["value"] == "Synthetic Formal Context")
+        self.assertEqual("serialized_string", context_term["match_mode"])
 
     def test_source_map_is_scanned_for_formal_art_terms(self) -> None:
         formal_terms = [{"value": "artist:synthetic-approved", "match_mode": "exact_token"}]

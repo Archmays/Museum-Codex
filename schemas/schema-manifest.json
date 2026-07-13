@@ -187,7 +187,7 @@
     {
       "path": "schemas/art/batch/public-leakage-label-set.schema.json",
       "id": "https://museum-codex.example/schemas/art/batch/public-leakage-label-set.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "art",
       "depends_on": ["schemas/common/entity.schema.json"]
     },

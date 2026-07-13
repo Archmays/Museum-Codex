@@ -43,6 +43,10 @@ Selection considers chronology, medium, material, subject, comparison questions,
 
 The artwork gate fails if an object record is absent, an attribution display is flattened, date precision is inflated, institution/accession closure is missing, any approved artist has fewer than two records, an unapproved artist is introduced, metadata rights are inherited by media, a long museum description is copied, a media URL is treated as permission, or any record is promoted to `published`.
 
+## Public leakage matching
+
+The tracked public-artifact deny-list uses strict substring matching for approved artist labels, artist aliases, and artwork titles, and exact-token matching for formal IDs and external IDs. Context labels remain in the deny-list but use standalone serialized-string matching because common vocabulary such as `Canvas` or `Ink` can already occur legitimately in CSS, accessibility keywords, or an empty-antechamber description. A context label serialized as a data value still fails closed; an ordinary prose or CSS occurrence does not by itself establish reviewed-record leakage.
+
 ## Phase boundary
 
 The output is reviewed metadata. No image, tile, IIIF payload, derivative, or generated substitute enters Git or Pages in MUSEUM-03B.
