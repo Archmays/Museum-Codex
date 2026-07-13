@@ -23,5 +23,9 @@
 | D-0019 | 2026-07-12 | accepted | Candidate 使用 source namespace UUIDv5，跨来源只生成人审 proposal，merge 保留全部 loser alias 且可逆 | 名称无关、fixture 可复现、错误身份可撤销 | MUSEUM-03 真实审核证明 signal/alias 模型不足 |
 | D-0020 | 2026-07-12 | accepted | CI 使用带双 hash/notice 的最小 recorded projections；真实 probe 仅显式 live 且 raw 不提交 | 同时满足离线稳定与当前接口证据 | 来源提供签名测试 endpoint 或 fixture 需独立仓库 |
 | D-0021 | 2026-07-12 | accepted | Normalized field、Claim 和 media candidate 均绑定 canonical source rule/content class；AIC 使用 exact-field selector | 阻断 metadata/media 继承和字段级许可绕过 | 引入书面授权覆盖或复杂组合许可 |
+| D-0022 | 2026-07-13 | accepted | MUSEUM-03B 首批 12 人采用用户批准的 MUSEUM-03A Recommended Slate | 该组合用于验证首个正式试点批次，不构成艺术价值、重要性或影响力排名 | 任一成员硬门槛失败时阻断并提交替换建议，不自动改名单 |
+| D-0023 | 2026-07-13 | accepted | 媒体采用 Option D `Mixed`，首轮默认 `metadata-first` | 先闭合知识、证据与权利；external IIIF 和未来 self-hosted 必须逐对象决定 | 对象级许可、技术交付或撤回条件变化时 |
+| D-0024 | 2026-07-13 | accepted | MUSEUM-03B 不下载媒体字节、不创建 public release、不向 Pages 添加正式艺术内容 | OD-001/002 未关闭，MUSEUM-04 体验与发布闭包尚未完成 | 后续获授权的媒体或公开发布阶段 |
+| D-0025 | 2026-07-13 | accepted | 正式批次任一艺术家失败时不得自动替换或降低门槛 | 保持用户批准名单、审计与失败语义真实 | 用户审阅 replacement request 并明确批准新名单 |
 
 状态使用 `proposed / accepted / superseded / rejected`。被替代决策保留原行并链接后继 ID，不覆写历史。

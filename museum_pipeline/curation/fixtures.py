@@ -21,6 +21,7 @@ def evaluate_curation_invalid_fixture(case: dict) -> set[str]:
     lead = _load("relationship-lead-b.json")
     scenario = _load("selection-scenario-twelve.json")
     decision = _load("selection-decision-pending.json")
+    application = _load("selection-decision-application.json")
     record = None
     if operation == "living_candidate":
         candidate["deceased_status"] = "living"; record = candidate
@@ -56,6 +57,8 @@ def evaluate_curation_invalid_fixture(case: dict) -> set[str]:
         del decision["input_bundle_hash"]; record = decision
     elif operation == "decision_not_twelve":
         decision.update({"status": "submitted", "decision_type": "approve_named_scenario", "decision_authority": "fixture-user", "decision_date": "2026-07-13T00:00:00Z", "selected_scenario_id": scenario["id"], "selected_candidate_ids": scenario["candidate_ids"][:11], "media_strategy": "metadata_first", "rationale": "Fixture."}); record = decision
+    elif operation == "application_candidate_closure":
+        application["candidate_input_hashes"][0]["candidate_id"] = application["selected_candidate_ids"][1]; record = application
     elif operation == "formal_relationship":
         lead["formal_relationship_created"] = True; record = lead
     elif operation == "computational_similarity":

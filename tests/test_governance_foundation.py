@@ -61,6 +61,7 @@ class GovernanceFoundationTests(unittest.TestCase):
             "schemas/curation/relationship-lead.schema.json",
             "schemas/curation/selection-scenario.schema.json",
             "schemas/curation/selection-decision.schema.json",
+            "schemas/curation/selection-decision-application.schema.json",
             "schemas/curation/selection-review-bundle.schema.json",
             "schemas/pipeline/adapter-contract.schema.json",
             "schemas/pipeline/acquisition-request.schema.json",
@@ -87,12 +88,12 @@ class GovernanceFoundationTests(unittest.TestCase):
         )
         self.assertEqual("1.1.0", entries["schemas/common/entity.schema.json"]["version"])
 
-    def test_open_decisions_register_exactly_ten_unresolved_items(self) -> None:
+    def test_open_decisions_register_exactly_eight_unresolved_items(self) -> None:
         text = (ROOT / "docs" / "05_roadmap" / "open-decisions.md").read_text(encoding="utf-8")
         unresolved = text.split("## 已关闭事项", 1)[0]
         ids = re.findall(r"^\| (OD-\d{3}) \|", unresolved, flags=re.MULTILINE)
         self.assertEqual(
-            ["OD-001", "OD-002", "OD-004", "OD-005", "OD-006", "OD-007", "OD-008", "OD-009", "OD-010", "OD-011"],
+            ["OD-001", "OD-002", "OD-005", "OD-006", "OD-008", "OD-009", "OD-010", "OD-011"],
             ids,
         )
 

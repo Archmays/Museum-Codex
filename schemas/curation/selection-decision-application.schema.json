@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/curation/selection-decision-application.schema.json",
+  "title": "Applied MUSEUM-03B selection decision receipt",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "application_status",
+    "submitted_decision_id", "submitted_decision_hash", "input_bundle_id",
+    "input_bundle_hash", "recommended_slate_id", "recommended_slate_hash",
+    "selected_candidate_ids", "candidate_input_hashes", "resolved_artists",
+    "application_timestamp", "applying_tool", "validation_result", "stale_check",
+    "replacement_count", "media_strategy", "media_execution_default", "public_scope",
+    "authority", "resulting_batch_id", "application_basis_hash", "audit_log"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^selection-decision-application:[0-9a-f-]{36}$" },
+    "entity_type": { "const": "selection_decision_application" },
+    "phase_id": { "const": "MUSEUM-03B" },
+    "application_status": { "const": "applied" },
+    "submitted_decision_id": { "type": "string", "pattern": "^selection-decision:[0-9a-f-]{36}$" },
+    "submitted_decision_hash": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/hash" },
+    "input_bundle_id": { "type": "string", "pattern": "^selection-review-bundle:[0-9a-f-]{36}$" },
+    "input_bundle_hash": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/hash" },
+    "recommended_slate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/scenario_id" },
+    "recommended_slate_hash": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/hash" },
+    "selected_candidate_ids": {
+      "type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true,
+      "items": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" }
+    },
+    "candidate_input_hashes": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": {
+        "type": "object", "required": ["candidate_id", "canonical_hash"],
+        "properties": {
+          "candidate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" },
+          "canonical_hash": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/hash" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "resolved_artists": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": {
+        "type": "object", "required": ["candidate_id", "labels"],
+        "properties": {
+          "candidate_id": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/candidate_id" },
+          "labels": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/localizedText" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "application_timestamp": { "type": "string", "format": "date-time" },
+    "applying_tool": {
+      "type": "object", "required": ["name", "version", "code_commit"],
+      "properties": {
+        "name": { "const": "museum_pipeline.curation.apply_selection_decision" },
+        "version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
+        "code_commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" }
+      },
+      "additionalProperties": false
+    },
+    "validation_result": { "const": "pass" },
+    "stale_check": {
+      "type": "object", "required": ["status", "bundle_revalidated", "decision_hash_verified"],
+      "properties": {
+        "status": { "const": "fresh" },
+        "bundle_revalidated": { "const": true },
+        "decision_hash_verified": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "replacement_count": { "const": 0 },
+    "media_strategy": { "const": "mixed" },
+    "media_execution_default": { "const": "metadata_first" },
+    "public_scope": {
+      "type": "object", "required": ["artist_metadata", "artwork_metadata", "media"],
+      "properties": {
+        "artist_metadata": { "const": true },
+        "artwork_metadata": { "const": true },
+        "media": { "const": "mixed" }
+      },
+      "additionalProperties": false
+    },
+    "authority": { "const": "Mays" },
+    "resulting_batch_id": { "type": "string", "pattern": "^art-batch:[a-z0-9][a-z0-9._-]*$" },
+    "application_basis_hash": { "$ref": "https://museum-codex.example/schemas/curation/curation-common.schema.json#/$defs/hash" },
+    "audit_log": {
+      "type": "array", "minItems": 4,
+      "items": {
+        "type": "object", "required": ["event", "status", "recorded_at"],
+        "properties": {
+          "event": { "enum": ["bundle_validated", "decision_validated", "selection_locked", "decision_applied"] },
+          "status": { "const": "pass" },
+          "recorded_at": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

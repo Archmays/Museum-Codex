@@ -7,6 +7,7 @@ from typing import Any
 
 from museum_pipeline.canonical_json import write_canonical_json
 from museum_pipeline.curation.bundle import build_selection_bundle, validate_selection_bundle
+from museum_pipeline.curation.decision_application import apply_selection_decision
 from museum_pipeline.hashing import sha256_file
 from museum_pipeline.config import ROOT
 from museum_pipeline.errors import PipelineError
@@ -48,6 +49,16 @@ def register_curation_commands(subparsers: argparse._SubParsersAction) -> None:
     decision.add_argument("--output", type=Path)
     decision.add_argument("--json", action="store_true")
     decision.set_defaults(handler=_cmd_decision)
+
+    apply_decision = subparsers.add_parser("apply-selection-decision", help="apply one validated submitted Recommended Slate decision exactly once")
+    apply_decision.add_argument("bundle", type=Path)
+    apply_decision.add_argument("decision", type=Path)
+    apply_decision.add_argument("--output", required=True, type=Path)
+    apply_decision.add_argument("--resulting-batch-id", required=True)
+    apply_decision.add_argument("--applied-at")
+    apply_decision.add_argument("--code-commit")
+    apply_decision.add_argument("--json", action="store_true")
+    apply_decision.set_defaults(handler=_cmd_apply_decision)
 
 
 def _cmd_build(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
@@ -122,3 +133,27 @@ def _cmd_decision(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
     if args.output:
         write_canonical_json(args.output, template)
     return {"ok": True, "summary": "pending user decision template", "template": template, "output_written": bool(args.output)}, 0
+
+
+def _cmd_apply_decision(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
+    receipt, idempotent = apply_selection_decision(
+        bundle_root=args.bundle,
+        decision_path=args.decision,
+        output_path=args.output,
+        resulting_batch_id=args.resulting_batch_id,
+        applied_at=args.applied_at,
+        code_commit=args.code_commit,
+    )
+    return {
+        "ok": True,
+        "summary": "approved selection decision applied",
+        "submitted_decision_id": receipt["submitted_decision_id"],
+        "application_receipt_id": receipt["id"],
+        "resulting_batch_id": receipt["resulting_batch_id"],
+        "approved_artist_count": len(receipt["selected_candidate_ids"]),
+        "application_basis_hash": receipt["application_basis_hash"],
+        "idempotent": idempotent,
+        "replacement_count": receipt["replacement_count"],
+        "media_strategy": receipt["media_strategy"],
+        "media_execution_default": receipt["media_execution_default"],
+    }, 0

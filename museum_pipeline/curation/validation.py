@@ -104,6 +104,17 @@ def curation_semantic_issues(record: dict[str, Any]) -> list[tuple[str, str, str
             if len(record.get("selected_candidate_ids", [])) != 12:
                 issues.append(("decision_selection_count", "An approval decision must select exactly twelve candidates", "$.selected_candidate_ids"))
 
+    elif entity_type == "selection_decision_application":
+        selected = record.get("selected_candidate_ids", [])
+        candidate_hash_ids = [item.get("candidate_id") for item in record.get("candidate_input_hashes", []) if isinstance(item, dict)]
+        resolved_ids = [item.get("candidate_id") for item in record.get("resolved_artists", []) if isinstance(item, dict)]
+        if selected != candidate_hash_ids or selected != resolved_ids:
+            issues.append(("selection_application_candidate_closure", "Receipt hashes and resolved artists must match the ordered selected candidate IDs", "$.selected_candidate_ids"))
+        events = [item.get("event") for item in record.get("audit_log", []) if isinstance(item, dict)]
+        expected_events = ["bundle_validated", "decision_validated", "selection_locked", "decision_applied"]
+        if events != expected_events:
+            issues.append(("selection_application_audit_closure", "Receipt audit events must appear exactly once in application order", "$.audit_log"))
+
     return sorted(set(issues), key=lambda item: (item[2], item[0], item[1]))
 
 

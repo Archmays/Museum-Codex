@@ -143,6 +143,13 @@
       "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json"]
     },
     {
+      "path": "schemas/curation/selection-decision-application.schema.json",
+      "id": "https://museum-codex.example/schemas/curation/selection-decision-application.schema.json",
+      "version": "1.0.0",
+      "branch": "curation",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/curation/curation-common.schema.json", "schemas/curation/selection-decision.schema.json"]
+    },
+    {
       "path": "schemas/curation/selection-review-bundle.schema.json",
       "id": "https://museum-codex.example/schemas/curation/selection-review-bundle.schema.json",
       "version": "1.0.0",

@@ -10,7 +10,9 @@ from pathlib import Path
 
 from museum_pipeline.cli import build_parser, main
 from museum_pipeline.curation.bundle import build_selection_bundle, validate_selection_bundle
+from museum_pipeline.curation.decision_application import apply_selection_decision, validate_committed_selection_application
 from museum_pipeline.curation.fixtures import evaluate_curation_invalid_fixture
+from museum_pipeline.errors import PipelineError
 from museum_pipeline.hashing import sha256_file
 from museum_pipeline.validation.dispatch import load_schema_environment, validate_record
 from scripts.scan_public_artifact_for_candidate_data import candidate_terms_from_bundle, scan_public_artifact
@@ -113,7 +115,7 @@ def synthetic_input() -> dict:
 
 
 class CurationSchemaFixtureTests(unittest.TestCase):
-    def test_all_five_valid_synthetic_fixtures_validate(self) -> None:
+    def test_all_six_valid_synthetic_fixtures_validate(self) -> None:
         for path in sorted(VALID.glob("*.json")):
             with self.subTest(path=path.name):
                 self.assertEqual([], validate_record(json.loads(path.read_text(encoding="utf-8"))))
@@ -125,11 +127,11 @@ class CurationSchemaFixtureTests(unittest.TestCase):
             with self.subTest(path=path.name):
                 self.assertIn(case["expected_error"], evaluate_curation_invalid_fixture(case))
 
-    def test_schema_manifest_registers_all_seven_curation_schemas(self) -> None:
+    def test_schema_manifest_registers_all_eight_curation_schemas(self) -> None:
         environment = load_schema_environment()
         curation = [path for path in environment.by_path if path.startswith("schemas/curation/")]
-        self.assertEqual(7, len(curation))
-        self.assertEqual(33, len(environment.by_path))
+        self.assertEqual(8, len(curation))
+        self.assertEqual(34, len(environment.by_path))
 
     def test_readiness_scores_are_not_art_value_rankings(self) -> None:
         candidate = load("artist-candidate-qualified.json")
@@ -206,7 +208,7 @@ class SelectionBundleTests(unittest.TestCase):
 class CurationCliTests(unittest.TestCase):
     def test_help_lists_curation_commands_and_no_approve_command(self) -> None:
         help_text = build_parser().format_help()
-        for command in ("build-selection-pool", "validate-selection-bundle", "compare-scenarios", "render-selection-handoff", "explain-candidate", "selection-decision-template"):
+        for command in ("build-selection-pool", "validate-selection-bundle", "compare-scenarios", "render-selection-handoff", "explain-candidate", "selection-decision-template", "apply-selection-decision"):
             self.assertIn(command, help_text)
         self.assertNotIn("approve-selection", help_text)
 
@@ -229,8 +231,78 @@ class CurationCliTests(unittest.TestCase):
     def test_public_preflight_validator_is_offline_and_passes(self) -> None:
         result = validate_artist_selection_preflight(verbose=False)
         self.assertTrue(result["ok"], result["failures"])
-        self.assertEqual(5, result["valid_fixtures"])
+        self.assertEqual(6, result["valid_fixtures"])
         self.assertGreaterEqual(result["invalid_fixtures"], 12)
+
+    def test_apply_recommended_decision_is_idempotent_and_conflict_safe(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            bundle = root / "bundle"
+            build_selection_bundle(synthetic_input(), bundle)
+            decision = json.loads((bundle / "selection-decision-template.json").read_text(encoding="utf-8"))
+            recommended = json.loads((bundle / "recommended-slate.json").read_text(encoding="utf-8"))
+            decision.update({
+                "status": "submitted",
+                "decision_type": "approve_recommended_slate",
+                "decision_authority": "Mays",
+                "decision_date": "2026-07-13T12:00:00+08:00",
+                "selected_scenario_id": recommended["id"],
+                "selected_candidate_ids": recommended["candidate_ids"],
+                "media_strategy": "mixed",
+                "public_scope": {"artist_metadata": True, "artwork_metadata": True, "media": "mixed"},
+                "rationale": "Synthetic approval for application testing.",
+                "acknowledged_limitations": ["fixture"] * 5,
+                "additional_constraints": ["no automatic artist replacement"],
+            })
+            decision_path = root / "decision.json"
+            decision_path.write_text(json.dumps(decision), encoding="utf-8")
+            output = root / "application.json"
+            receipt, repeated = apply_selection_decision(
+                bundle_root=bundle, decision_path=decision_path, output_path=output,
+                resulting_batch_id="art-batch:synthetic-first-slate-v1",
+                applied_at="2026-07-13T04:00:00Z", code_commit="a" * 40,
+            )
+            self.assertFalse(repeated)
+            self.assertEqual([], validate_record(receipt))
+            before = output.read_bytes()
+            repeated_receipt, repeated = apply_selection_decision(
+                bundle_root=bundle, decision_path=decision_path, output_path=output,
+                resulting_batch_id="art-batch:synthetic-first-slate-v1",
+                applied_at="2026-07-13T05:00:00Z", code_commit="b" * 40,
+            )
+            self.assertTrue(repeated)
+            self.assertEqual(receipt, repeated_receipt)
+            self.assertEqual(before, output.read_bytes())
+            self.assertEqual([], validate_committed_selection_application(decision_path, output))
+            with self.assertRaisesRegex(PipelineError, "different inputs"):
+                apply_selection_decision(
+                    bundle_root=bundle, decision_path=decision_path, output_path=output,
+                    resulting_batch_id="art-batch:conflicting-v2",
+                    applied_at="2026-07-13T05:00:00Z", code_commit="b" * 40,
+                )
+
+    def test_apply_rejects_wrong_authority(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            bundle = root / "bundle"
+            build_selection_bundle(synthetic_input(), bundle)
+            decision = json.loads((bundle / "selection-decision-template.json").read_text(encoding="utf-8"))
+            recommended = json.loads((bundle / "recommended-slate.json").read_text(encoding="utf-8"))
+            decision.update({
+                "status": "submitted", "decision_type": "approve_recommended_slate",
+                "decision_authority": "Someone Else", "decision_date": "2026-07-13T12:00:00+08:00",
+                "selected_scenario_id": recommended["id"], "selected_candidate_ids": recommended["candidate_ids"],
+                "media_strategy": "mixed", "public_scope": {"artist_metadata": True, "artwork_metadata": True, "media": "mixed"},
+                "rationale": "Synthetic invalid authority.",
+            })
+            decision_path = root / "decision.json"
+            decision_path.write_text(json.dumps(decision), encoding="utf-8")
+            with self.assertRaisesRegex(PipelineError, "does not match"):
+                apply_selection_decision(
+                    bundle_root=bundle, decision_path=decision_path, output_path=root / "application.json",
+                    resulting_batch_id="art-batch:synthetic-first-slate-v1",
+                    applied_at="2026-07-13T04:00:00Z", code_commit="a" * 40,
+                )
 
 
 if __name__ == "__main__":

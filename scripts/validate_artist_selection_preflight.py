@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from museum_pipeline.curation.fixtures import evaluate_curation_invalid_fixture
+from museum_pipeline.curation.decision_application import validate_committed_selection_application
 from museum_pipeline.validation.dispatch import load_schema_environment, validate_record
 from scripts.scan_public_artifact_for_candidate_data import scan_public_artifact
 
@@ -31,7 +32,7 @@ def validate_artist_selection_preflight(*, verbose: bool = True) -> dict:
     if manifest_paths != schema_paths:
         failures.append("schema_manifest_set_mismatch")
     curation_schemas = sorted(path for path in environment.by_path if path.startswith("schemas/curation/"))
-    if len(curation_schemas) != 7:
+    if len(curation_schemas) != 8:
         failures.append(f"curation_schema_count:{len(curation_schemas)}")
 
     valid_count = 0
@@ -64,6 +65,15 @@ def validate_artist_selection_preflight(*, verbose: bool = True) -> dict:
     workflow = (ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
     if "--live" in workflow or "build-selection-pool" in workflow:
         failures.append("live_or_private_selection_in_ci")
+    decision_path = ROOT / "governance" / "decisions" / "museum-03b-selection-decision.json"
+    application_path = ROOT / "governance" / "decisions" / "museum-03b-selection-application.json"
+    if decision_path.exists() != application_path.exists():
+        failures.append("museum_03b_selection_records_incomplete")
+    elif decision_path.exists():
+        failures.extend(
+            f"museum_03b_selection:{issue}"
+            for issue in validate_committed_selection_application(decision_path, application_path)
+        )
 
     return {
         "ok": not failures, "schemas": len(environment.by_path), "curation_schemas": len(curation_schemas),

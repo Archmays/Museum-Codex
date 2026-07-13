@@ -29,6 +29,7 @@ PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "relationship_lead": "schemas/curation/relationship-lead.schema.json",
     "selection_scenario": "schemas/curation/selection-scenario.schema.json",
     "selection_decision": "schemas/curation/selection-decision.schema.json",
+    "selection_decision_application": "schemas/curation/selection-decision-application.schema.json",
     "selection_review_bundle": "schemas/curation/selection-review-bundle.schema.json",
 }
 
@@ -207,7 +208,7 @@ def _semantic_issues(record: dict[str, Any]) -> list[ValidationIssue]:
             issues.append(ValidationIssue("review_bundle_hash_mismatch", "Review bundle hash does not match its exact inputs", "$.bundle_hash"))
     if str(entity_type) in {
         "artist_candidate_preflight", "artwork_rights_preflight", "relationship_lead",
-        "selection_scenario", "selection_decision", "selection_review_bundle",
+        "selection_scenario", "selection_decision", "selection_decision_application", "selection_review_bundle",
     }:
         from museum_pipeline.curation.validation import curation_semantic_issues
 
