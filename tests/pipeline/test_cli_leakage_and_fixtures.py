@@ -339,6 +339,7 @@ class LeakageTests(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
         package = "data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1"
         label_set = f"{package}/public-leakage-label-set.json"
+        self.assertIn("fetch-depth: 0", workflow)
         self.assertIn("python scripts/validate_museum_03b_fixtures.py", workflow)
         self.assertIn(f"python scripts/validate_museum_03b_batch.py {package}", workflow)
         self.assertIn(
