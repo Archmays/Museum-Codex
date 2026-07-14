@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1117" />
+    <style>.noscript-fallback { display: none; }</style>
+    <script>
+      if (location.hash.startsWith("#/art/constellation")) {
+        const files = ["manifest.json", "artists.json"];
+        const base = new URL("/Museum-Codex/releases/art-constellation-0.1.0/", location.origin);
+        const artifacts = globalThis.__MUSEUM04_BOOTSTRAP__ = new Map();
+        for (const name of files) {
+          const url = new URL(name, base).href;
+          artifacts.set(url, fetch(url, { headers: { Accept: "application/json" } }).then(async (response) => ({
+            status: response.status,
+            ok: response.ok,
+            bytes: await response.arrayBuffer(),
+          })));
+        }
+      }
+    </script>
     <meta
       name="description"
       content="博物馆 Museum：从作品、生命、声音、规则、文明、科学与器物之间的联系开始探索。"
@@ -17,10 +33,25 @@
         <h1>博物馆 · Museum</h1>
         <p>七个分馆从作品、生命、声音、规则、文明、科学与器物之间的联系开始探索。</p>
         <p>Seven museums begin with connections among art, life, sound, play, civilizations, inquiry, and material culture.</p>
+        <nav aria-label="无脚本参观导航 / No-script visit navigation">
+          <a href="#art-noscript">美术馆 / Art Museum</a>
+          <a href="#rights-noscript">权利 / Rights</a>
+        </nav>
+        <section id="art-noscript">
+          <h2>艺术星海：观察与比较</h2>
+          <p>当前公开版本以文字元数据说明 12 位艺术家之间 36 条经审核的 C 级策展比较；不含作品图片、历史因果边或算法相似。</p>
+          <p>The current metadata-only edition describes 36 reviewed C-level curatorial comparisons among 12 artists. It contains no artwork images, historical-causality edges, or algorithmic similarity.</p>
+          <p>完整的图形、艺术家列表与关系表探索需要启用 JavaScript；来源、权利和限制仍由同一固定 release 管理。</p>
+        </section>
+        <section id="rights-noscript">
+          <h2>权利与署名 / Rights &amp; attribution</h2>
+          <p>项目代码与原创策展内容保留所有权利。第三方元数据继续适用各自的来源规则与署名；本版本不发布任何第三方媒体字节。</p>
+          <p>Project code and original curatorial content are all rights reserved. Third-party metadata retains its own source rules and attribution. This edition publishes no third-party media bytes.</p>
+        </section>
       </main>
     </div>
     <noscript>
-      <style>#root { display: block !important; }</style>
+      <style>#root, .noscript-fallback { display: block !important; }</style>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

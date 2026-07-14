@@ -1,3 +1,4 @@
 # Governance validation runtime; versions verified on Python 3.12.7.
 jsonschema==4.23.0
 referencing==0.30.2
+PyYAML==6.0.3

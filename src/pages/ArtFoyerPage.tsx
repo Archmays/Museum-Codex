@@ -27,7 +27,14 @@ export function ArtFoyerPage() {
       </section>
       <aside className="empty-notice">
         <div className="notice-symbol" aria-hidden="true"><span /></div>
-        <div><h2>{t.art.noticeTitle}</h2><p>{t.art.noticeText}</p></div>
+        <div>
+          <h2>{t.art.noticeTitle}</h2>
+          <p>{t.art.noticeText}</p>
+          <Link className="constellation-entry" to="/art/constellation">
+            <span>{t.art.constellationLink}</span>
+            <small>{t.art.constellationLinkHint}</small>
+          </Link>
+        </div>
       </aside>
       <Link className="text-link" to="/">← {t.common.backHome}</Link>
     </main>

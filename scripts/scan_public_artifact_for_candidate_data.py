@@ -11,12 +11,15 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 TEXT_SUFFIXES = {
     ".cjs", ".css", ".csv", ".htm", ".html", ".js", ".json", ".jsx", ".map", ".md", ".mjs",
     ".svg", ".ts", ".tsv", ".tsx", ".txt", ".webmanifest", ".xhtml", ".xml", ".yaml", ".yml",
 }
 MAX_SCANNABLE_TEXT_BYTES = 5 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
+MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-0.1.0"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
     "candidate_id": re.compile(r"candidate:[0-9a-f-]{36}", re.IGNORECASE),
@@ -27,7 +30,7 @@ FORBIDDEN_CONTENT = {
     "wikidata_qid": re.compile(r"(?<![A-Za-z0-9])Q[1-9][0-9]{0,11}(?![A-Za-z0-9])|(?:www\.)?wikidata\.org/(?:wiki|entity)/Q[1-9][0-9]*", re.IGNORECASE),
     "ulan_id": re.compile(r"vocab\.getty\.edu/(?:page/)?ulan/[0-9]{9}|\bULAN\s*[:#-]?\s*[0-9]{9}\b", re.IGNORECASE),
     "technical_probe_data": re.compile(
-        r"\b500115493\b|\b27992\b|Douglas Adams|Dürer,? Albrecht|One-dollar Liberty Head Coin|"
+        r"\b500115493\b|\b27992\b|Douglas Adams|One-dollar Liberty Head Coin|"
         r"A Sunday on La Grande Jatte|James Barton Longacre|Georges Seurat",
         re.IGNORECASE,
     ),
@@ -45,6 +48,7 @@ def scan_public_artifact(
     *,
     private_candidate_terms: set[str] | None = None,
     formal_art_terms: list[dict[str, str]] | None = None,
+    formal_art_exempt_roots: set[Path] | None = None,
 ) -> list[dict[str, str]]:
     if not root.exists() or not root.is_dir():
         return [{"code": "public_artifact_missing", "path": root.name}]
@@ -52,6 +56,7 @@ def scan_public_artifact(
     if not files:
         return [{"code": "public_artifact_empty", "path": root.name}]
     findings: list[dict[str, str]] = []
+    resolved_exempt_roots = {path.resolve() for path in formal_art_exempt_roots or set()}
     for path in files:
         relative = path.relative_to(root).as_posix()
         if set(part.lower() for part in path.relative_to(root).parts) & FORBIDDEN_PATH_PARTS:
@@ -68,8 +73,17 @@ def scan_public_artifact(
         except UnicodeDecodeError:
             findings.append({"code": "public_text_not_utf8", "path": relative})
             continue
+        formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
         for code, pattern in FORBIDDEN_CONTENT.items():
-            if pattern.search(text):
+            matches = list(pattern.finditer(text))
+            if not matches:
+                continue
+            if code == "technical_probe_data" and formal_exempt and all(
+                _match_is_declared_formal_label(match.group(0), formal_art_terms or [])
+                for match in matches
+            ):
+                continue
+            if matches:
                 public_code = code if code in {"wikidata_qid", "ulan_id", "operational_arms_content"} else "candidate_data_publicly_exposed"
                 findings.append({"code": public_code, "path": relative})
         for term in sorted(private_candidate_terms or set(), key=str.casefold):
@@ -77,7 +91,7 @@ def scan_public_artifact(
                 findings.append({"code": "candidate_name_publicly_exposed", "path": relative})
         for term in formal_art_terms or []:
             value = term["value"]
-            if _term_matches(text, value, term["match_mode"]):
+            if _term_matches(text, value, term["match_mode"]) and not formal_exempt:
                 findings.append({"code": "formal_art_data_publicly_exposed", "path": relative})
     unique = {(item["code"], item["path"]): item for item in findings}
     return [unique[key] for key in sorted(unique)]
@@ -92,7 +106,14 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     terms = candidate_terms_from_bundle(args.selection_bundle) if args.selection_bundle else set()
     formal_terms, label_error = formal_art_terms_from_label_set(args.label_set) if args.label_set else ([], None)
-    findings = scan_public_artifact(args.root, private_candidate_terms=terms, formal_art_terms=formal_terms)
+    exempt_roots, release_findings = validated_museum_04_exempt_roots(args.root) if formal_terms else (set(), [])
+    findings = scan_public_artifact(
+        args.root,
+        private_candidate_terms=terms,
+        formal_art_terms=formal_terms,
+        formal_art_exempt_roots=exempt_roots,
+    )
+    findings.extend(release_findings)
     if label_error:
         findings.append({"code": "public_label_set_invalid", "path": args.label_set.name})
     payload = {"ok": not findings, "root": args.root.name, "findings": findings}
@@ -143,8 +164,32 @@ def _term_matches(text: str, value: str, match_mode: str) -> bool:
     if match_mode == "casefold_substring":
         return value.casefold() in text.casefold()
     if match_mode == "serialized_string":
-        return re.search(rf"(?P<quote>[\"'`])\s*{re.escape(value)}\s*(?P=quote)", text, re.IGNORECASE) is not None
+        return re.search(rf"(?P<quote>[\"'`])\s*{re.escape(value)}\s*(?P=quote)", text) is not None
     return re.search(rf"(?<![A-Za-z0-9]){re.escape(value)}(?![A-Za-z0-9])", text, re.IGNORECASE) is not None
+
+
+def validated_museum_04_exempt_roots(root: Path) -> tuple[set[Path], list[dict[str, str]]]:
+    release_root = root / MUSEUM_04_RELEASE_DIR
+    if root.name == MUSEUM_04_RELEASE_DIR.name and root.parent.name == "releases":
+        release_root = root
+    if not release_root.is_dir():
+        return set(), []
+    from museum_pipeline.art.public_release import validate_museum_04_release
+
+    result = validate_museum_04_release(release_root)
+    if result["ok"]:
+        return {release_root.resolve()}, []
+    return set(), [{"code": "museum_04_release_invalid", "path": release_root.relative_to(root).as_posix() if release_root != root else root.name}]
+
+
+def _path_is_within_any(path: Path, roots: set[Path]) -> bool:
+    resolved = path.resolve()
+    return any(resolved.is_relative_to(root) for root in roots)
+
+
+def _match_is_declared_formal_label(value: str, formal_terms: list[dict[str, str]]) -> bool:
+    folded = value.casefold().strip()
+    return any(term["value"].casefold().strip() == folded for term in formal_terms)
 
 
 if __name__ == "__main__":

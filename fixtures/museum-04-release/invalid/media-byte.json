@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-media-byte",
+  "mutation": "media_byte",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_file_set_mismatch"]
+}

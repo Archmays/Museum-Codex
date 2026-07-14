@@ -948,6 +948,24 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   text-underline-offset: 0.35rem;
 }
 
+.constellation-entry {
+  display: grid;
+  width: min(100%, 34rem);
+  min-height: 64px;
+  margin-top: 1.75rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(216, 181, 109, 0.36);
+  border-radius: 0.35rem;
+  background: rgba(216, 181, 109, 0.08);
+  color: var(--gold-soft);
+  text-decoration: none;
+}
+
+.constellation-entry span { font-family: var(--display); font-size: 1.18rem; }
+.constellation-entry small { margin-top: 0.35rem; color: var(--ink-muted); line-height: 1.5; }
+.constellation-entry:hover { border-color: var(--gold); background: rgba(216, 181, 109, 0.14); }
+.rights-notices-link { margin-top: 1.25rem; }
+
 .principles {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1127,7 +1145,7 @@ html[data-motion="reduced"] * {
 @media (forced-colors: active) {
   :root { --ink: CanvasText; --ink-muted: CanvasText; --ink-faint: CanvasText; --night: Canvas; --surface: Canvas; --gold: LinkText; --gold-soft: LinkText; --verdigris: Highlight; --line: CanvasText; --line-strong: CanvasText; }
   .ambient-field, .hall-motif, .hero-orbit, .foyer-composition { display: none; }
-  .hall-portal, .empty-notice, .rights-panel, .bandwidth-panel { border: 1px solid CanvasText; box-shadow: none; }
+  .hall-portal, .empty-notice, .rights-panel, .bandwidth-panel, .constellation-entry { border: 1px solid CanvasText; box-shadow: none; }
   .primary-nav a.active { text-decoration: underline; }
   :focus-visible { outline: 3px solid Highlight; }
 }

@@ -93,11 +93,23 @@ TARGET_SCHEMA_BY_ENTITY_TYPE = {
     },
     "taxon": "schemas/biology/taxon.schema.json",
     "species": "schemas/biology/taxon.schema.json",
+    **{
+        entity_type: "schemas/art/release/public-constellation-record.schema.json"
+        for entity_type in (
+            "art_constellation_artist", "art_constellation_context", "art_constellation_artwork",
+            "art_constellation_relationship", "art_constellation_claim", "art_constellation_evidence",
+        )
+    },
 }
 
 ART_CONTEXT_ENTITY_TYPES = {
     "art_movement", "art_group", "museum_institution", "organization", "place", "exhibition",
     "exhibition_event", "material", "technique", "subject", "time_period", "person",
+}
+
+PUBLIC_CONSTELLATION_ENTITY_TYPES = {
+    "art_constellation_artist", "art_constellation_context", "art_constellation_artwork",
+    "art_constellation_relationship", "art_constellation_claim", "art_constellation_evidence",
 }
 
 ARTIFACT_SCHEMAS = {
@@ -174,12 +186,36 @@ def license_decision_registry() -> dict[str, dict[str, Any]]:
 
 
 def schema_manifest_versions() -> dict[str, str]:
-    manifest = load_json(ROOT / "schemas" / "schema-manifest.json")
     return {
         item["path"]: item["version"]
-        for item in manifest.get("schemas", [])
+        for item in schema_manifest_entries(ROOT)
         if isinstance(item, dict) and isinstance(item.get("path"), str) and isinstance(item.get("version"), str)
     }
+
+
+def schema_manifest_entries(root: Path) -> list[dict[str, Any]]:
+    manifest_paths = sorted((root / "schemas").rglob("schema-manifest.json"))
+    if root / "schemas" / "schema-manifest.json" not in manifest_paths:
+        raise ValueError("Missing schemas/schema-manifest.json")
+    entries: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for manifest_path in manifest_paths:
+        manifest = load_json(manifest_path)
+        document_entries = manifest.get("schemas")
+        if (
+            manifest.get("dialect") != "https://json-schema.org/draft/2020-12/schema"
+            or not isinstance(document_entries, list)
+        ):
+            relative = manifest_path.relative_to(root).as_posix()
+            raise ValueError(f"Schema manifest has an invalid dialect or schemas list: {relative}")
+        for entry in document_entries:
+            if not isinstance(entry, dict) or not isinstance(entry.get("path"), str):
+                raise ValueError(f"Schema manifest contains an invalid entry: {manifest_path}")
+            if entry["path"] in seen:
+                raise ValueError(f"Schema manifest path is declared more than once: {entry['path']}")
+            seen.add(entry["path"])
+            entries.append(entry)
+    return entries
 
 
 def schema_version_key(path: str) -> str:
@@ -235,7 +271,11 @@ def record_identity_issues(data: dict[str, Any], prefix: str) -> list[Validation
         return [ValidationIssue("record_id_invalid", "Record needs a stable string ID and entity_type", f"{prefix}.id")]
     id_prefix = record_id.split(":", 1)[0]
     expected_types = {
-        "art-rel": {"relationship"},
+        "artist": {"artist", "art_constellation_artist"},
+        "artwork": {"artwork", "art_constellation_artwork"},
+        "claim": {"claim", "art_constellation_claim"},
+        "evidence": {"evidence", "art_constellation_evidence"},
+        "art-rel": {"relationship", "art_constellation_relationship"},
         "bio-rel": {"relationship"},
         "rel": {"relationship"},
         "media": {"media_asset"},
@@ -255,6 +295,11 @@ def record_identity_issues(data: dict[str, Any], prefix: str) -> list[Validation
         "selection-decision": {"selection_decision"},
         "selection-decision-application": {"selection_decision_application"},
         "taxon": {"taxon", "species"},
+        "material": {"material", "art_constellation_context"},
+        "technique": {"technique", "art_constellation_context"},
+        "subject": {"subject", "art_constellation_context"},
+        "museum_institution": {"museum_institution", "art_constellation_context"},
+        "place": {"place", "art_constellation_context"},
     }.get(id_prefix, {id_prefix})
     if entity_type in expected_types:
         return []
@@ -338,14 +383,7 @@ def source_rule_scope_matches(rule: dict[str, Any], locator: str, scope_fields: 
 
 
 def validate_schema_manifest(root: Path, by_path: dict[str, dict[str, Any]]) -> None:
-    manifest_path = root / "schemas" / "schema-manifest.json"
-    if not manifest_path.exists():
-        raise ValueError("Missing schemas/schema-manifest.json")
-    manifest = load_json(manifest_path)
-    entries = manifest.get("schemas")
-    if manifest.get("dialect") != "https://json-schema.org/draft/2020-12/schema" or not isinstance(entries, list):
-        raise ValueError("Schema manifest has an invalid dialect or schemas list")
-    by_manifest_path = {entry.get("path"): entry for entry in entries if isinstance(entry, dict)}
+    by_manifest_path = {entry["path"]: entry for entry in schema_manifest_entries(root)}
     if set(by_manifest_path) != set(by_path):
         missing = sorted(set(by_path) - set(by_manifest_path))
         extra = sorted(set(by_manifest_path) - set(by_path))
@@ -510,7 +548,21 @@ def source_publish_issues(
         if data.get("id") != expected_id:
             issues.append(ValidationIssue("source_registry_id_mismatch", f"Canonical registry source {registry_id!r} must use ID {expected_id}", f"{prefix}.id"))
         expected_rules = canonical[registry_id]
-        if stable_json_hash(expected_rules) != data.get("license_rules_snapshot_hash") or stable_json_hash(expected_rules) != stable_json_hash(rules):
+        selected_id_set = {
+            rule_id for rule_id in selected_ids if isinstance(rule_id, str)
+        }
+        if set(rules_by_id) == selected_id_set:
+            expected_snapshot_rules = [
+                rule for rule in expected_rules if rule.get("rule_id") in selected_id_set
+            ]
+        else:
+            expected_snapshot_rules = expected_rules
+        expected_snapshot_hash = stable_json_hash(expected_snapshot_rules)
+        if (
+            len(expected_snapshot_rules) != len(rules)
+            or expected_snapshot_hash != data.get("license_rules_snapshot_hash")
+            or expected_snapshot_hash != stable_json_hash(rules)
+        ):
             issues.append(ValidationIssue("canonical_source_rules_mismatch", "Release source rules do not match the verified canonical registry snapshot", f"{prefix}.license_rules_snapshot_hash"))
         if registry_id == "iucn_red_list":
             issues.append(ValidationIssue("iucn_public_redistribution_blocked", "Canonical IUCN rules prohibit static public redistribution; a future separately governed permission override is required", f"{prefix}.registry_source_id"))
@@ -711,10 +763,14 @@ def policy_issues(data: dict[str, Any], mode: str, prefix: str) -> list[Validati
 
 def record_category(data: dict[str, Any]) -> str:
     entity_type = data.get("entity_type")
-    if entity_type == "relationship":
+    if entity_type in {"relationship", "art_constellation_relationship"}:
         return "relationship"
-    if entity_type in {"claim", "evidence", "source"}:
-        return str(entity_type)
+    if entity_type in {"claim", "art_constellation_claim"}:
+        return "claim"
+    if entity_type in {"evidence", "art_constellation_evidence"}:
+        return "evidence"
+    if entity_type == "source":
+        return "source"
     if entity_type == "media_asset":
         return "media"
     if entity_type == "dataset_release":
@@ -873,6 +929,10 @@ def reference_graph_issues(records: list[dict[str, Any]]) -> list[ValidationIssu
         entity_type = data.get("entity_type")
         issues.extend(record_identity_issues(data, prefix))
         issues.extend(source_license_binding_issues(data, indexed, prefix))
+        if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
+            # Public projection records have a purpose-built, fail-closed schema and
+            # MUSEUM-04 semantic closure validator; common-entity fields are not inferred.
+            continue
         if entity_type == "claim":
             support_ids = data.get("evidence_ids", [])
             counter_ids = data.get("counter_evidence_ids", [])
@@ -1141,7 +1201,12 @@ def record_is_publishable(data: dict[str, Any]) -> bool:
     return data.get("lifecycle_status") in {"publishable", "published"}
 
 
-def release_bundle_issues(records: list[dict[str, Any]], release: dict[str, Any]) -> list[ValidationIssue]:
+def release_bundle_issues(
+    records: list[dict[str, Any]],
+    release: dict[str, Any],
+    *,
+    require_publishable: bool = True,
+) -> list[ValidationIssue]:
     indexed, issues = index_records(records)
     target_schema_by_id: dict[str, str] = {}
     for index, record in enumerate(records):
@@ -1181,7 +1246,7 @@ def release_bundle_issues(records: list[dict[str, Any]], release: dict[str, Any]
                 continue
             if record_category(data) != category:
                 issues.append(ValidationIssue("release_record_type_mismatch", f"Record {record_id} belongs to {record_category(data)}, not {category}", f"$.data.{RELEASE_LISTS[category]}"))
-            if not record_is_publishable(data):
+            if require_publishable and not record_is_publishable(data):
                 issues.append(ValidationIssue("release_record_not_publishable", f"Record {record_id} is not in an allowed publish state", f"$.data.{RELEASE_LISTS[category]}"))
 
     for claim_id in expected_by_category["claim"]:
@@ -1485,7 +1550,11 @@ def validate_release_directory(release_root: Path, environment: SchemaEnvironmen
 
     if release.get("content_hash") != release_content_hash(release.get("manifest_files", [])):
         issues.append(ValidationIssue("release_content_hash_mismatch", "Release content_hash does not match the manifest file set", "$.manifest.content_hash"))
-    issues.extend(release_bundle_issues(records, release))
+    require_publishable = (
+        release.get("status") in {"publishable", "published"}
+        or release.get("public_release") is True
+    )
+    issues.extend(release_bundle_issues(records, release, require_publishable=require_publishable))
 
     indexed, _ = index_records(records)
     manifest_by_path = {item.get("path"): item for item in release.get("manifest_files", [])}

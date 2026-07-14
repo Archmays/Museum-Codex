@@ -1,0 +1,503 @@
+.constellation-page {
+  position: relative;
+  width: min(94vw, 92rem);
+  min-height: 72vh;
+  margin: 0 auto;
+  padding: 5.5rem 0 8rem;
+}
+
+.constellation-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.55fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: end;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.constellation-hero h1 {
+  max-width: 64rem;
+  margin-top: 1rem;
+  font-size: clamp(3rem, 6.5vw, 6.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.constellation-hero > div > p:last-child {
+  max-width: 52rem;
+  margin-top: 1.7rem;
+  color: var(--ink-muted);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.85;
+}
+
+.constellation-experience-placeholder { min-height: 100vh; }
+
+.release-stamp {
+  margin: 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.release-stamp div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.release-stamp dt { color: var(--ink-muted); font-size: 0.76rem; }
+.release-stamp dd { margin: 0; color: var(--gold-soft); font-variant-numeric: tabular-nums; }
+
+.semantic-notice {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) auto;
+  gap: 1.4rem;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid rgba(216, 181, 109, 0.22);
+  background: linear-gradient(90deg, rgba(216, 181, 109, 0.08), rgba(18, 29, 35, 0.52));
+}
+
+.semantic-mark {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 1px dotted var(--gold);
+  border-radius: 50%;
+  color: var(--gold-soft);
+  font-family: var(--display);
+  font-size: 1.5rem;
+}
+
+.semantic-notice h2 { font-size: 1.25rem; }
+.semantic-notice p { margin-top: 0.35rem; color: var(--ink-muted); line-height: 1.65; }
+.semantic-notice button,
+.reset-control,
+.panel-actions a,
+.panel-load-state button {
+  min-height: 44px;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--gold-soft);
+  cursor: pointer;
+}
+
+.constellation-controls {
+  margin-top: 3rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 34rem;
+}
+
+.view-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.view-tabs button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem;
+  align-items: center;
+  min-height: 64px;
+  padding: 0 1.2rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  text-align: left;
+}
+
+.view-tabs button:last-child { border-right: 0; }
+.view-tabs button span { color: var(--ink-faint); font-family: var(--display); font-size: 0.72rem; }
+.view-tabs button[aria-selected="true"] { background: rgba(127, 196, 189, 0.08); color: var(--ink); box-shadow: inset 0 -2px var(--verdigris); }
+.view-tabs button:disabled { cursor: not-allowed; opacity: 0.45; }
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1.6fr) repeat(3, minmax(9rem, 1fr));
+  gap: 0.8rem;
+  align-items: end;
+  margin-top: 1.5rem;
+}
+
+.filter-grid label { display: grid; gap: 0.45rem; min-width: 0; }
+.reset-control { justify-self: start; }
+.filter-grid label > span { color: var(--ink-muted); font-size: 0.72rem; }
+.filter-grid input,
+.filter-grid select {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.2rem;
+  background: var(--surface-solid);
+  color: var(--ink);
+}
+
+.constellation-status-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  min-height: 3.25rem;
+  margin-top: 1rem;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.constellation-status-line button { border: 0; background: transparent; color: var(--gold-soft); text-decoration: underline; cursor: pointer; }
+
+.constellation-workspace {
+  display: grid;
+  grid-template-columns: minmax(12.5rem, 0.22fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1.4rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 58rem;
+}
+
+.constellation-legend {
+  position: sticky;
+  top: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: rgba(13, 23, 29, 0.74);
+}
+
+.constellation-legend h2 { font-size: 1.3rem; }
+.constellation-legend ul { display: grid; gap: 0.65rem; margin: 1rem 0 1.3rem; padding: 0; list-style: none; }
+.constellation-legend li { display: grid; grid-template-columns: 2.8rem 1fr; gap: 0.6rem; align-items: center; color: var(--ink-muted); font-size: 0.75rem; }
+.constellation-legend p { margin-top: 0.65rem; color: var(--ink-muted); font-size: 0.72rem; line-height: 1.55; }
+
+.legend-edge,
+.edge-sample {
+  height: 4px;
+  background: radial-gradient(circle, currentColor 0 1.5px, transparent 1.8px) 0 50% / 9px 4px repeat-x;
+}
+
+.legend-edge.subject { color: #d8b56d; }
+.legend-edge.material { color: #7fc4bd; }
+.legend-edge.technique { color: #c9a7d8; }
+
+.constellation-view { position: relative; min-width: 0; }
+.constellation-retained-graph[hidden],
+.constellation-retained-list[hidden] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  visibility: hidden;
+  pointer-events: none;
+}
+.constellation-graph-stage {
+  position: relative;
+  min-height: 35rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(127, 196, 189, 0.07), transparent 45%),
+    rgba(8, 16, 21, 0.64);
+}
+
+.constellation-canvas { position: absolute; inset: 0; }
+.constellation-graph-loading { display: grid; min-height: 35rem; place-items: center; color: var(--ink-muted); }
+.constellation-graph-caption {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+  background: rgba(8, 16, 21, 0.86);
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+  pointer-events: none;
+}
+
+.constellation-graph-caption .edge-sample { width: 2.8rem; color: var(--gold); }
+.constellation-graph-instruction { margin: 0.9rem 0; color: var(--ink-muted); font-size: 0.78rem; line-height: 1.6; }
+
+.artist-navigator {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.artist-navigator button {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  min-height: 58px;
+  padding: 0.65rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  text-align: left;
+}
+
+.artist-navigator button > span { color: var(--ink-faint); font-size: 0.67rem; }
+.artist-navigator button strong { overflow: hidden; color: var(--ink); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.artist-navigator button small { color: var(--verdigris); }
+.artist-navigator button.is-selected { background: rgba(216, 181, 109, 0.09); box-shadow: inset 3px 0 var(--gold); }
+
+.artist-list-view > ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+.artist-list-view > ol > li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: 1.5rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 16rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.artist-list-view > ol > li.is-selected { background: linear-gradient(90deg, rgba(216, 181, 109, 0.09), transparent 68%); }
+.artist-list-index { color: var(--gold); font-family: var(--display); font-size: 0.75rem; }
+.artist-list-kicker { color: var(--verdigris); font-size: 0.72rem; }
+.artist-list-view h2 { margin-top: 0.4rem; font-size: clamp(1.8rem, 3vw, 2.8rem); }
+.artist-list-view h2 + p { max-width: 52rem; margin-top: 0.8rem; color: var(--ink-muted); line-height: 1.8; }
+.artist-list-view dl { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 1rem 0 0; }
+.artist-list-view dl div { display: flex; gap: 0.5rem; }
+.artist-list-view dt { color: var(--ink-faint); font-size: 0.72rem; }
+.artist-list-view dd { margin: 0; color: var(--ink-muted); font-size: 0.72rem; }
+.artist-list-view button,
+.related-relation-list button,
+.relationship-table-view button {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--gold-soft);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.match-reason { margin-top: 0.75rem; color: var(--verdigris); font-size: 0.72rem; }
+
+.relationship-table-scroll { overflow-x: auto; border: 1px solid var(--line); }
+.relationship-table-view table { width: 100%; min-width: 62rem; border-collapse: collapse; }
+.relationship-table-view th,
+.relationship-table-view td { padding: 0.85rem; border-bottom: 1px solid var(--line); color: var(--ink-muted); font-size: 0.76rem; line-height: 1.55; text-align: left; vertical-align: top; }
+.relationship-table-view thead th { position: sticky; top: 0; z-index: 1; background: var(--surface-solid); color: var(--ink); }
+.relationship-table-view tbody th { min-width: 13rem; color: var(--ink); font-weight: 600; }
+.relationship-table-view td:nth-child(2) { min-width: 14rem; }
+.relationship-table-view td:nth-child(2) span { margin: 0 0.35rem; }
+.level-badge { display: inline-grid; width: 2rem; height: 2rem; place-items: center; border: 1px dotted var(--gold); border-radius: 50%; color: var(--gold-soft); }
+.tabular-value { font-variant-numeric: tabular-nums; }
+
+.constellation-empty,
+.constellation-inline-loading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  min-height: 16rem;
+  place-content: center;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  color: var(--ink-muted);
+}
+
+.constellation-empty > span { color: var(--gold); font-family: var(--display); font-size: 3rem; }
+.constellation-empty h2 { color: var(--ink); font-size: 2rem; }
+.constellation-empty p { max-width: 32rem; margin-top: 0.6rem; line-height: 1.7; }
+.constellation-inline-loading { display: grid; grid-template-columns: 1fr; place-items: center; }
+
+.constellation-detail-panel {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(46rem, 94vw);
+  border-left: 1px solid var(--line-strong);
+  box-shadow: -24px 0 80px rgba(0, 0, 0, 0.42);
+  background: #0c171d;
+}
+
+.panel-close {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-solid);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.panel-close > span:first-child { font-size: 1.5rem; font-weight: 300; }
+.panel-scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 5.5rem clamp(1.4rem, 5vw, 4rem) 5rem; }
+.panel-kicker { color: var(--verdigris); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.panel-scroll > h2 { max-width: 36rem; margin-top: 0.7rem; font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1.05; }
+.panel-lede { margin-top: 1.4rem; color: var(--gold-soft); font-family: var(--display); font-size: 1.15rem; line-height: 1.75; }
+.panel-endpoints { margin-top: 0.9rem; color: var(--ink-muted); }
+.panel-facts { margin: 2rem 0 0; border-top: 1px solid var(--line-strong); }
+.panel-facts div { display: grid; grid-template-columns: minmax(8rem, 0.38fr) 1fr; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
+.panel-facts dt { color: var(--ink-faint); font-size: 0.74rem; }
+.panel-facts dd { margin: 0; color: var(--ink-muted); line-height: 1.65; }
+.gallery-preparing { margin-top: 1.5rem; padding: 1rem; border-left: 2px solid var(--verdigris); background: rgba(127, 196, 189, 0.06); color: var(--ink-muted); line-height: 1.7; }
+
+.panel-section { margin-top: 2.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line-strong); }
+.panel-section h3 { font-size: 1.45rem; }
+.panel-section > p { margin-top: 0.8rem; color: var(--ink-muted); line-height: 1.8; }
+.panel-section.is-caution { padding: 1.2rem; border: 1px solid rgba(216, 181, 109, 0.28); background: rgba(216, 181, 109, 0.05); }
+.related-relation-list,
+.source-list ol,
+.artwork-metadata-list,
+.evidence-list,
+.notice-list ol { margin: 1rem 0 0; padding: 0; list-style: none; }
+.related-relation-list li,
+.source-list li,
+.artwork-metadata-list li,
+.evidence-list li,
+.notice-list li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.related-relation-list button { display: grid; gap: 0.35rem; width: 100%; text-decoration: none; }
+.related-relation-list button span { color: var(--verdigris); font-size: 0.7rem; }
+.related-relation-list button strong { color: var(--ink); font-weight: 600; }
+.source-list h4,
+.artwork-metadata-list h4 { margin: 0; color: var(--ink); font-family: var(--display); font-size: 1.1rem; font-weight: 400; }
+.source-list li > p,
+.artwork-metadata-list li > p,
+.evidence-list li > p,
+.notice-list li > p { margin-top: 0.45rem; color: var(--ink-muted); line-height: 1.65; }
+.source-list dl { margin: 0.8rem 0; }
+.source-list dl div { display: grid; grid-template-columns: 8rem 1fr; gap: 0.8rem; margin-top: 0.45rem; }
+.source-list dt { color: var(--ink-faint); font-size: 0.72rem; }
+.source-list dd { margin: 0; color: var(--ink-muted); }
+.source-list a,
+.artwork-metadata-list a,
+.notice-list a { display: inline-flex; min-height: 44px; align-items: center; color: var(--gold-soft); }
+.context-chips { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.context-chips li { padding: 0.5rem 0.75rem; border: 1px solid var(--line); color: var(--ink-muted); font-size: 0.75rem; }
+.identifier-closure ul { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.8rem 0 1.2rem; padding: 0; list-style: none; }
+.identifier-closure li { max-width: 100%; }
+.identifier-closure code,
+.artwork-facts code { overflow-wrap: anywhere; color: var(--gold-soft); font-size: 0.72rem; }
+.artwork-facts { margin: 0.9rem 0 0; }
+.artwork-facts div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 0.8rem; padding: 0.45rem 0; }
+.artwork-facts dt { color: var(--ink-faint); font-size: 0.72rem; }
+.artwork-facts dd { margin: 0; color: var(--ink-muted); line-height: 1.6; }
+.evidence-list small { display: block; margin-top: 0.55rem; color: var(--ink-faint); line-height: 1.5; }
+.panel-load-state { margin-top: 1.5rem; padding: 1rem; border: 1px solid var(--line); color: var(--ink-muted); line-height: 1.7; }
+.panel-load-state.is-error { border-color: rgba(216, 181, 109, 0.34); }
+.panel-load-state button { margin-top: 0.8rem; }
+.panel-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+.panel-actions a { display: inline-flex; align-items: center; text-decoration: none; }
+.constellation-back-link { margin-top: 3rem; }
+
+.constellation-load-state {
+  display: grid;
+  max-width: 52rem;
+  align-content: center;
+  padding: 8rem 0;
+}
+
+.constellation-load-state h1 { margin-top: 1rem; font-size: clamp(2.5rem, 6vw, 5rem); }
+.constellation-load-state > p:not(.eyebrow) { margin-top: 1.2rem; color: var(--ink-muted); line-height: 1.8; }
+.constellation-load-state .primary-button { width: max-content; }
+
+@media (max-width: 1180px) {
+  .filter-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .search-control { grid-column: span 2; }
+  .constellation-workspace { grid-template-columns: 1fr; }
+  .constellation-legend { position: static; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem 1.2rem; }
+  .constellation-legend h2 { grid-column: 1 / -1; }
+  .constellation-legend ul { grid-column: span 2; margin: 0; }
+  .constellation-legend p { margin: 0; }
+}
+
+@media (max-width: 760px) {
+  .constellation-page { width: min(92vw, 42rem); padding: 4rem 0 6rem; }
+  .constellation-hero { display: block; }
+  .constellation-hero h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .release-stamp { margin-top: 2rem; }
+  .semantic-notice { grid-template-columns: 3.2rem 1fr; padding: 1rem; }
+  .semantic-mark { width: 2.8rem; height: 2.8rem; }
+  .semantic-notice button { grid-column: 1 / -1; }
+  .view-tabs button { display: block; padding: 0.7rem; text-align: center; }
+  .view-tabs button span { display: block; margin-bottom: 0.25rem; }
+  .filter-grid { grid-template-columns: 1fr 1fr; }
+  .search-control { grid-column: 1 / -1; }
+  .reset-control { grid-column: 1 / -1; }
+  .constellation-legend { display: block; }
+  .constellation-legend ul { margin: 1rem 0; }
+  .constellation-graph-stage,
+  .constellation-graph-loading { min-height: 28rem; }
+  .artist-navigator { grid-template-columns: 1fr 1fr; }
+  .artist-navigator button { grid-template-columns: 1.7rem 1fr; }
+  .artist-navigator button small { grid-column: 2; }
+  .artist-list-view > ol > li { grid-template-columns: 2rem minmax(0, 1fr); gap: 0.8rem; padding: 1.5rem 0; }
+  .relationship-table-scroll { overflow: visible; border: 0; }
+  .relationship-table-view table,
+  .relationship-table-view thead,
+  .relationship-table-view tbody,
+  .relationship-table-view tr,
+  .relationship-table-view th,
+  .relationship-table-view td { display: block; min-width: 0; }
+  .relationship-table-view thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .relationship-table-view tr { margin-bottom: 1rem; padding: 1rem; border: 1px solid var(--line); }
+  .relationship-table-view th,
+  .relationship-table-view td { position: relative; padding: 0.5rem 0 0.5rem 7rem; border: 0; }
+  .relationship-table-view th::before,
+  .relationship-table-view td::before { content: attr(data-label); position: absolute; left: 0; width: 6.4rem; color: var(--ink-faint); font-size: 0.68rem; }
+  .relationship-table-view tbody th { min-width: 0; }
+  .constellation-detail-panel { top: 8vh; width: 100%; max-width: none; border-top: 1px solid var(--line-strong); border-left: 0; box-shadow: 0 -22px 70px rgba(0, 0, 0, 0.48); }
+  .panel-scroll { padding: 5rem 1.3rem 4rem; }
+  .panel-facts div { grid-template-columns: 7rem 1fr; }
+}
+
+@media (max-width: 390px) {
+  .constellation-page { width: 88vw; }
+  .filter-grid { grid-template-columns: 1fr; }
+  .search-control,
+  .reset-control { grid-column: 1; }
+  .artist-navigator { grid-template-columns: 1fr; }
+  .constellation-graph-stage,
+  .constellation-graph-loading { min-height: 25rem; }
+  .panel-facts div { display: block; }
+  .panel-facts dd { margin-top: 0.35rem; }
+}
+
+@media (forced-colors: active) {
+  .constellation-graph-view { display: none; }
+  .semantic-notice,
+  .view-tabs,
+  .filter-grid input,
+  .filter-grid select,
+  .constellation-legend,
+  .artist-navigator,
+  .artist-list-view > ol,
+  .relationship-table-scroll,
+  .constellation-detail-panel,
+  .panel-section.is-caution { border: 1px solid CanvasText; background: Canvas; box-shadow: none; }
+  .view-tabs button[aria-selected="true"],
+  .artist-navigator button.is-selected,
+  .artist-list-view > ol > li.is-selected { outline: 3px solid Highlight; background: Canvas; box-shadow: none; }
+  .legend-edge,
+  .edge-sample { border-top: 3px dotted CanvasText; background: none; }
+  .level-badge,
+  .semantic-mark { border: 2px dotted CanvasText; }
+}

@@ -59,6 +59,20 @@ jobs:
       - name: Validate sealed internal MUSEUM-03B reviewed package
         run: python scripts/validate_museum_03b_batch.py data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1
 
+      - name: Validate public rights-request issue form
+        run: python scripts/validate_museum_04_issue_form.py
+
+      - name: Rebuild and compare the deterministic MUSEUM-04 release
+        run: |
+          python scripts/build_museum_04_release.py --output tmp/museum-04-ci-release
+          diff -ru public/releases/art-constellation-0.1.0 tmp/museum-04-ci-release
+
+      - name: Validate the physical MUSEUM-04 metadata-only release
+        run: python scripts/validate_museum_04_release.py public/releases/art-constellation-0.1.0 --require-public
+
+      - name: Validate committed performance and scale evidence
+        run: python scripts/validate_museum_04_performance_evidence.py
+
       - name: Scan static public inputs for candidate and formal art data
         run: python scripts/scan_public_artifact_for_candidate_data.py public --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
@@ -84,17 +98,29 @@ jobs:
       - name: Run frontend tests
         run: npm test
 
+      - name: Run performance-runner contract tests
+        run: node --test tests/test_museum_04_*_lab_runner.mjs
+
       - name: Build production site
         run: npm run build
 
       - name: Check built asset paths and external runtime dependencies
         run: npm run check:build
 
+      - name: Enforce MUSEUM-04 home, route, data, and media budgets
+        run: node scripts/verify-museum-04-budgets.mjs
+
       - name: Scan production artifact for raw, candidate, formal art, review, and media leakage
         run: python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
       - name: Scan repository for credentials and large files
         run: npm run check:safety
+
+      - name: Install Chromium for functional release QA
+        run: npx playwright install --with-deps chromium
+
+      - name: Run MUSEUM-04 functional, fallback, and no-script QA
+        run: npm run test:e2e
 
       - name: Configure Pages
         # actions/configure-pages v6.0.0

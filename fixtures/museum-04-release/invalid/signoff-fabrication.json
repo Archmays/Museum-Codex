@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-signoff-fabrication",
+  "mutation": "signoff_fabrication",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_release_signoff_contract"]
+}

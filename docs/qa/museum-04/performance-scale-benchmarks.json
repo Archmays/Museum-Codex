@@ -1,0 +1,388 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_id": "museum-04-synthetic-scale",
+  "evidence_class": "controlled_lab_not_rum",
+  "real_user_metric": false,
+  "real_device_status": "not_available",
+  "real_device_note": "No physical approximately 4 GB Android device was exposed to this runtime.",
+  "captured_at": "2026-07-14T11:53:10.215Z",
+  "environment": {
+    "host_os": "win32 10.0.22631",
+    "cpu": "13th Gen Intel(R) Core(TM) i9-13900H",
+    "memory_gb": 31.73,
+    "browser": "Chromium",
+    "browser_version": "149.0.7827.55",
+    "node_version": "v24.16.0",
+    "playwright_version": "1.61.1",
+    "runner": "scripts/run-museum-04-scale-lab.mjs",
+    "measurement_method": "Playwright Chromium; fresh context and disabled cache per sample; navigation start to the rendered interactive-ready boundary; post-ready interaction and FPS QA excluded from first-interactive timing",
+    "commit_sha": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+    "source_worktree_dirty": true,
+    "implementation_input_files": [
+      "benchmarks/museum-04/main.ts",
+      "museum_pipeline/art/public_release.py",
+      "package-lock.json",
+      "public/releases/art-constellation-0.1.0/performance-contract.json",
+      "schemas/art/release/art-constellation-artifact.schema.json",
+      "scripts/generate_museum_04_scale_fixture.py",
+      "scripts/run-museum-04-scale-lab.mjs",
+      "scripts/validate_museum_04_performance_evidence.py"
+    ],
+    "implementation_input_hash": "sha256:698443b07526a9903b7c619cfed74aaea2326bac7ca955d1a9629d3b122d423c"
+  },
+  "lab_configuration": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "cpu_throttle_rate": 4,
+    "network_profile": "fast_4g",
+    "network": {
+      "latency_ms": 20,
+      "download_bits_per_second": 4000000,
+      "upload_bits_per_second": 3000000
+    },
+    "cold_browser_context_per_sample": true,
+    "synthetic_data_generated_in_browser": true
+  },
+  "release_performance_contract": {
+    "path": "public/releases/art-constellation-0.1.0/performance-contract.json",
+    "sha256": "sha256:503a16e69a6bd27fe1fbd06a4baa061779cf05cc21dbe1981d1709e2c1ee1f92"
+  },
+  "profiles": [
+    {
+      "profile": "1k",
+      "vertices": 1000,
+      "edges": 5000,
+      "fixture_sample_hash": "sha256:c5d743fd4321bcfdd0336a1254f1ad9c435c8e031ca6b37ca88f560df1e19cf7",
+      "synthetic": true,
+      "shipped": false,
+      "full_initial_render": false,
+      "visible_caps": {
+        "mobile": {
+          "vertices": 150,
+          "edges": 600
+        },
+        "desktop": {
+          "vertices": 300,
+          "edges": 1200
+        }
+      },
+      "governance_fields_preserved": [
+        "claim_ids",
+        "computational_similarity",
+        "curatorial_relevance",
+        "evidence_confidence",
+        "evidence_ids",
+        "evidence_level",
+        "historical_relationship_strength",
+        "limitations",
+        "source_ids"
+      ],
+      "sample_count": 3,
+      "actual_renderer": true,
+      "renderer": "sigma@3.0.3",
+      "device_class": "mobile",
+      "rendering_mode": "capped_progressive",
+      "visible_rendered": {
+        "vertices": 150,
+        "edges": 600
+      },
+      "no_crash": true,
+      "interactions_pass": true,
+      "metrics": {
+        "first_interactive_ms": {
+          "unit": "ms",
+          "samples": [
+            3586.2973,
+            3458.5905999999995,
+            3397.6029000000017
+          ],
+          "median": 3458.5905999999995,
+          "p95": 3586.2973,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 5000,
+            "passed": true
+          }
+        },
+        "interaction_ms": {
+          "unit": "ms",
+          "samples": [
+            74.09999999403954,
+            53.600000001490116,
+            48.70000000298023
+          ],
+          "median": 53.600000001490116,
+          "p95": 74.09999999403954
+        }
+      },
+      "supplemental_metrics": {
+        "renderer_ready_ms": {
+          "unit": "ms",
+          "samples": [
+            306.70000000298023,
+            239.19999999552965,
+            221
+          ],
+          "median": 239.19999999552965,
+          "p95": 306.70000000298023
+        },
+        "node_selection_ms": {
+          "unit": "ms",
+          "samples": [
+            74.09999999403954,
+            53.600000001490116,
+            48.70000000298023
+          ],
+          "median": 53.600000001490116,
+          "p95": 74.09999999403954
+        },
+        "filter_ms": {
+          "unit": "ms",
+          "samples": [
+            51.399999998509884,
+            45.600000001490116,
+            41.399999998509884
+          ],
+          "median": 45.600000001490116,
+          "p95": 51.399999998509884
+        },
+        "fps": {
+          "unit": "fps",
+          "samples": [
+            51.92407546298968,
+            54.54876053094125,
+            56.253515844740306
+          ],
+          "median": 54.54876053094125,
+          "p95": 56.253515844740306
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            11.48333740234375,
+            9.088714599609375,
+            8.91976547241211
+          ],
+          "median": 9.088714599609375,
+          "p95": 11.48333740234375
+        }
+      }
+    },
+    {
+      "profile": "10k",
+      "vertices": 10000,
+      "edges": 60000,
+      "fixture_sample_hash": "sha256:c5d743fd4321bcfdd0336a1254f1ad9c435c8e031ca6b37ca88f560df1e19cf7",
+      "synthetic": true,
+      "shipped": false,
+      "full_initial_render": false,
+      "visible_caps": {
+        "mobile": {
+          "vertices": 150,
+          "edges": 600
+        },
+        "desktop": {
+          "vertices": 300,
+          "edges": 1200
+        }
+      },
+      "governance_fields_preserved": [
+        "claim_ids",
+        "computational_similarity",
+        "curatorial_relevance",
+        "evidence_confidence",
+        "evidence_ids",
+        "evidence_level",
+        "historical_relationship_strength",
+        "limitations",
+        "source_ids"
+      ],
+      "sample_count": 3,
+      "actual_full_renderer": false,
+      "full_render_request_allowed": false,
+      "partitioned_index": true,
+      "search_ready": true,
+      "local_neighborhood_rendered": true,
+      "strategy": "partition_search_then_render_capped_neighborhood",
+      "visible_rendered": {
+        "vertices": 150,
+        "edges": 600
+      },
+      "metrics": {
+        "model_build_ms": {
+          "unit": "ms",
+          "samples": [
+            470.09999999403954,
+            394.5,
+            469.70000000298023
+          ],
+          "median": 469.70000000298023,
+          "p95": 470.09999999403954
+        },
+        "index_build_ms": {
+          "unit": "ms",
+          "samples": [
+            21,
+            21.599999994039536,
+            23.69999999552965
+          ],
+          "median": 21.599999994039536,
+          "p95": 23.69999999552965
+        },
+        "filtered_render_ms": {
+          "unit": "ms",
+          "samples": [
+            214.40000000596046,
+            191.60000000149012,
+            226.5
+          ],
+          "median": 214.40000000596046,
+          "p95": 226.5
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            56.5257568359375,
+            56.54993438720703,
+            56.54288864135742
+          ],
+          "median": 56.54288864135742,
+          "p95": 56.54993438720703
+        }
+      }
+    },
+    {
+      "profile": "50k",
+      "vertices": 50000,
+      "edges": 300000,
+      "fixture_sample_hash": "sha256:c5d743fd4321bcfdd0336a1254f1ad9c435c8e031ca6b37ca88f560df1e19cf7",
+      "synthetic": true,
+      "shipped": false,
+      "full_initial_render": false,
+      "visible_caps": {
+        "mobile": {
+          "vertices": 150,
+          "edges": 600
+        },
+        "desktop": {
+          "vertices": 300,
+          "edges": 1200
+        }
+      },
+      "governance_fields_preserved": [
+        "claim_ids",
+        "computational_similarity",
+        "curatorial_relevance",
+        "evidence_confidence",
+        "evidence_ids",
+        "evidence_level",
+        "historical_relationship_strength",
+        "limitations",
+        "source_ids"
+      ],
+      "sample_count": 3,
+      "actual_full_webgl_render": false,
+      "rendered_300k_edges": false,
+      "full_render_request_allowed": false,
+      "safe_fallback": true,
+      "no_freeze": true,
+      "no_blank_page": true,
+      "mobile_full_render_request": "refused",
+      "strategy": "refuse_full_render_use_partition_or_list",
+      "model_execution": "bounded_typed_array_model_and_chunk_plan",
+      "model_facts": {
+        "constructed_vertices": 50000,
+        "constructed_edges": 300000,
+        "storage_bytes": 2600000,
+        "checksum": "uint32:c0495795"
+      },
+      "chunk_plan": {
+        "vertex_chunks": 334,
+        "edge_chunks": 500,
+        "planned_vertices": 50000,
+        "planned_edges": 300000,
+        "max_vertices_per_chunk": 150,
+        "max_edges_per_chunk": 600
+      },
+      "work_slice_limit_ms": 50,
+      "fallback_visible_during_work": true,
+      "assertion_basis": {
+        "safe_fallback": "executed_exact_model_and_bounded_plan_without_webgl",
+        "no_freeze": "each_model_work_slice_at_or_below_50ms_with_frame_yields",
+        "no_blank_page": "fallback_visible_before_during_and_after_model_work"
+      },
+      "metrics": {
+        "model_build_ms": {
+          "unit": "ms",
+          "samples": [
+            1815.2999999970198,
+            1814.3999999985099,
+            1821.7999999970198
+          ],
+          "median": 1815.2999999970198,
+          "p95": 1821.7999999970198
+        },
+        "chunk_plan_ms": {
+          "unit": "ms",
+          "samples": [
+            0.7000000029802322,
+            0.6999999955296516,
+            0.7000000029802322
+          ],
+          "median": 0.7000000029802322,
+          "p95": 0.7000000029802322
+        },
+        "max_work_slice_ms": {
+          "unit": "ms",
+          "samples": [
+            2.7999999970197678,
+            3.2999999970197678,
+            2.899999998509884
+          ],
+          "median": 2.899999998509884,
+          "p95": 3.2999999970197678,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 50,
+            "passed": true
+          }
+        },
+        "fallback_paint_ms": {
+          "unit": "ms",
+          "samples": [
+            31.5,
+            33.19999999552965,
+            27
+          ],
+          "median": 31.5,
+          "p95": 33.19999999552965
+        },
+        "yield_count": {
+          "unit": "count",
+          "samples": [
+            110,
+            110,
+            110
+          ],
+          "median": 110,
+          "p95": 110
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            8.74210262298584,
+            8.739741325378418,
+            8.857451438903809
+          ],
+          "median": 8.74210262298584,
+          "p95": 8.857451438903809
+        }
+      }
+    }
+  ],
+  "overall_status": "pass"
+}

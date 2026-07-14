@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-missing-evidence",
+  "mutation": "missing_evidence",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_claim_evidence_closure"]
+}

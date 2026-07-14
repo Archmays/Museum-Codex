@@ -4,6 +4,8 @@
 
 代码、项目原创文字、第三方元数据、图片、视频、音频、模型/字体、用户取得的授权分别建账。一个页面可以同时包含多种权利；项目许可证只覆盖项目有权许可的部分。
 
+自 2026-07-14 起，OD-001 与 OD-002 均由 Mays 决定为 `ALL-RIGHTS-RESERVED`：项目原创代码和原创策展内容不授予开放许可，仓库保持无项目级 `LICENSE` 文件。公开源码可见性不构成复制、修改、再发布或商业使用授权；第三方组件、metadata 与 media 的独立许可和署名义务不受该决定覆盖。完整范围见根目录 `RIGHTS.md` 与公开 About & Rights 页面。
+
 ## 逐媒体资产字段
 
 稳定 ID、source/source object URL、`delivery_mode=self_hosted/external_link/iiif_external`、是否缓存字节、content hash、rights holder、`rights_status`、结构化 metadata/media license identifier/URL/version、对象级 rights evidence 与快照 hash、署名、再发布/修改/商业使用允许值、地域/用途/平台限制、授权状态/文档引用、开始/到期/撤销日、下架计划、`development_only`、审核者/日期和撤回信息。
@@ -37,11 +39,11 @@
 
 ## 构建门禁
 
-发布构建验证所有引用资产存在、状态允许、非开发、可再发布、字节 hash/外链模式、对象级权利证据、署名、许可范围/时效/衍生兼容、Source 再发布条款和 withdrawal。Dataset Release 必带代码/原创内容许可 decision ID 与范围声明、第三方 notices manifest、逐资产 attribution manifest。公开 release 的相关 decision 仍 pending 时失败。失败列 ID/原因并非零退出；空目录、缺路径或零媒体的发布扫描同样失败。
+发布构建验证所有引用资产存在、状态允许、非开发、可再发布、字节 hash/外链模式、对象级权利证据、署名、许可范围/时效/衍生兼容、Source 再发布条款和 withdrawal。Dataset Release 必带代码/原创内容许可 decision ID 与范围声明、第三方 notices manifest、逐资产 attribution manifest。公开 release 的相关 decision 仍 pending 时失败。失败列 ID/原因并非零退出；普通媒体发布扫描在找不到 media record 时仍 fail closed。明确声明的 metadata-only/zero-media release 则由完整物理 release validator 核对 no-media declaration、空 media ID 集合、零媒体 manifest/bytes/URL 和空媒体 attribution 闭包，不借 `--allow-empty` 绕过发布验证。
 
 ## 权利投诉与撤回
 
-接收后立即隔离资产和衍生物，记录请求、作用范围与时间；必要时发布新 release 移除字节/引用并处理缓存。事实记录可以保留最小审计信息，但不继续分发受限内容。恢复需要新的权利审核记录。
+请求通过 Rights or attribution Issue Form 接收；公开 Issue 不要求身份证件、合同、授权原件、地址、电话、文件上传或其他敏感证明。目标为 7 个自然日内初步确认、14 个自然日内一般初评；明显误授权、隐私、安全或持续高风险分发立即隔离，并以 72 小时内临时下架或移除引用为目标。必要时发布新 release 移除字节/引用并处理缓存。事实记录可以保留最小审计信息，但不继续分发受限内容。恢复需要新的权利审核记录和新的 release。完整流程见 `rights-request-and-takedown-procedure.md`。
 
 ## 机器可执行的发布闭包
 
@@ -49,7 +51,7 @@
 - Tier 4 永不进入公开 release。IUCN canonical 规则保持禁止再发布；不得通过在 release 中自报 CC 许可绕过。未来书面许可须作为独立、可核验且有起始日、范围、到期与撤销状态的治理记录扩展后才能放行。
 - `self_hosted` Media 必须声明 `storage_path`，且恰好对应一个 `record_type=media` 的真实文件；文件 SHA-256 必须等于资产 `content_hash`。外链与外部 IIIF 不得声明本地路径或缓存字节。
 - CC0、CC BY、CC BY-SA 与 PDM 使用 canonical identifier/version/URL 组合；前缀相似但不存在的许可证（如 `*-FAKE`）失败。改编必须闭合到父资产、父 hash 与可修改权利，并拒绝衍生循环。
-- 代码与原创内容决策解析到 `governance/license-decisions.json`；物理 release 携带其哈希快照。OD-001/OD-002 仍 pending，所以真实公开 release 失败；合成 fixture 的 `not_applicable` 决策不代表项目许可证。
+- 代码与原创内容决策解析到 `governance/license-decisions.json`；物理 release 携带其哈希快照。OD-001/OD-002 自 2026-07-14 起为 `decided`、`ALL-RIGHTS-RESERVED`，不得把该 identifier 呈现为 SPDX 或开放许可证；合成 fixture 的 `not_applicable` 决策不代表项目许可证，也不能覆盖真实 release。
 - `third-party-notices.json` 与 `attributions.json` 按独立 schema 解析，逐 ID 与 Source/Media、来源 URL、许可标识、署名及改动说明核对；只同步文件 hash 而内容为空或非 JSON 仍失败。
 - Rule binding 还记录实际 `scope_locator` 并执行每条规则的通用 `scope_match`；绝对 URL 同时校验 HTTPS 与精确官方 host。AIC `/description` 必须绑定专用 CC BY 规则，不能借外域同路径、伪 host 后缀、scheme-relative、其他 endpoint、URL 编码或明确排除该字段的 CC0 规则。Media 的对象许可必须与绑定的具体 Source media rule 一致。
 - Binding 的 `permission_resolution` 区分 `rule_direct` 与 `object_level`：直接规则下，媒体不得超过 rule 的 redistribution/modification/commercial_use；`conditional` 或 `prohibited` 不能自报为 allowed。只有明确 `mixed + conditional` 的对象规则才能走 object-level，并仍需对象级权利证据与 canonical Media license。

@@ -61,14 +61,19 @@ describe("museum portal", () => {
     await user.click(screen.getByRole("link", { name: /进入序厅/ }));
     await waitFor(() => expect(window.location.hash).toBe("#/art"));
     expect(screen.getByRole("heading", { level: 1, name: "在一件作品前，打开许多条路" })).toBeInTheDocument();
-    expect(screen.getByText("当前序厅介绍美术馆未来的探索方式，正式馆藏正在整理。")).toBeInTheDocument();
+    expect(screen.getByText(/十二位艺术家与三十六条经审核的策展比较/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /进入艺术星海/ })).toHaveAttribute("href", "#/art/constellation");
   });
 
   it("shows the current rights statement on the about route", () => {
     window.location.hash = "#/about";
     render(<App />);
-    expect(screen.getByText(/除另有明确说明外，本项目内容未授予再利用许可/)).toBeInTheDocument();
-    expect(screen.getByText(/第三方馆藏内容尚未上线/)).toBeInTheDocument();
+    expect(screen.getByText(/项目代码与原创策展内容均保留所有权利/)).toBeInTheDocument();
+    expect(screen.getByText(/第三方元数据继续遵守各来源的独立规则/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "查看第三方通知" })).toHaveAttribute(
+      "href",
+      `${import.meta.env.BASE_URL}THIRD_PARTY_NOTICES.md`,
+    );
   });
 
   it("provides a persistent low-bandwidth mode and reduced-motion hook", async () => {

@@ -5,6 +5,7 @@ export default defineConfig({
   base: "/Museum-Codex/",
   plugins: [react()],
   build: {
+    manifest: true,
     sourcemap: false,
     target: "es2022",
   },

@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-media-url",
+  "mutation": "media_url",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_media_url"]
+}

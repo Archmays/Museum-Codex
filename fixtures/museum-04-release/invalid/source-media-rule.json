@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-source-media-rule",
+  "mutation": "source_media_rule",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_source_rule_scope"]
+}

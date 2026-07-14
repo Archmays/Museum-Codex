@@ -23,6 +23,7 @@ dist/
 .vite/
 coverage/
 test-results/
+output/playwright/
 
 # IDE / OS
 .DS_Store

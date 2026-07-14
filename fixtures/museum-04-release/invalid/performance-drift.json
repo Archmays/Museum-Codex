@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-performance-contract-drift",
+  "mutation": "performance_drift",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_performance_contract"]
+}

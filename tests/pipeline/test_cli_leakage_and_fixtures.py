@@ -194,6 +194,7 @@ class LeakageTests(unittest.TestCase):
             root = Path(temporary)
             (root / "safe.css").write_text("--surface: Canvas; --art-canvas: 1;", encoding="utf-8")
             (root / "safe.html").write_text("Begin with canvas and material.", encoding="utf-8")
+            (root / "safe.js").write_text("document.createElement(`canvas`);", encoding="utf-8")
             self.assertEqual([], scan_public_artifact(root, formal_art_terms=formal_terms))
             (root / "leaked.js").write_text('const record = {label: "Canvas"};', encoding="utf-8")
             codes = {item["code"] for item in scan_public_artifact(root, formal_art_terms=formal_terms)}
@@ -377,7 +378,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(47, len(environment.by_path))
+        self.assertEqual(49, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))

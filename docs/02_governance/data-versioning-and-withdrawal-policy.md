@@ -17,6 +17,12 @@
 
 撤回原因可为 factual_error、rights_request、privacy/safety、cultural_sensitivity、source_retraction、duplicate_identity 或 legal_hold。公开说明最小化敏感细节。
 
+## 权利请求响应
+
+权利、署名或撤回请求通过公开 Rights or attribution Issue Form 进入，但公开 Issue 不要求身份证件、合同、授权原件、地址、电话、文件上传或其他敏感证明。初步确认目标为 7 个自然日，一般初评目标为 14 个自然日；明显误授权、隐私、安全或持续高风险分发立即隔离，并以 72 小时内临时下架或移除引用为目标。需要证明时转入受控非公开渠道。
+
+确认撤回时创建新 release，在结构化 withdrawal 中记录 request、scope、临时措施、结论、replacement、release、缓存处置与恢复条件；不改写旧 release 或原始快照。缓存无法直接控制时记录平台、请求和剩余风险。恢复必须有新的权利审核记录并产生新的 release。详细职责与升级流程见 `rights-request-and-takedown-procedure.md`。
+
 ## 回滚
 
 发布失败或回归时将站点构建固定到上一通过门禁的 release；不把 main 强制重写。随后创建修正 release。回滚记录 actor、时间、from/to、原因、受影响范围和后续动作。

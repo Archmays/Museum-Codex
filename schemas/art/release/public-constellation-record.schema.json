@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json",
+  "title": "MUSEUM-04 public art constellation record",
+  "oneOf": [
+    { "$ref": "#/$defs/artist" },
+    { "$ref": "#/$defs/context" },
+    { "$ref": "#/$defs/artwork" },
+    { "$ref": "#/$defs/relationship" },
+    { "$ref": "#/$defs/claim" },
+    { "$ref": "#/$defs/evidence" }
+  ],
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
+    "stableId": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$" },
+    "releaseId": { "const": "release:art-constellation-0.1.0" },
+    "idList": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/stableId" } },
+    "localizedText": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "bilingualText": {
+      "type": "object",
+      "required": ["zh-Hans", "en"],
+      "properties": {
+        "zh-Hans": { "type": "string", "minLength": 1, "maxLength": 600 },
+        "en": { "type": "string", "minLength": 1, "maxLength": 600 }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["reviewed_at", "reviewer_id", "reviewer_kind"],
+      "properties": {
+        "reviewed_at": { "type": "string", "format": "date" },
+        "reviewer_id": { "const": "codex-primary-agent" },
+        "reviewer_kind": { "const": "ai_assisted_operator" }
+      },
+      "additionalProperties": false
+    },
+    "sourceBinding": {
+      "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/sourceLicenseBinding"
+    },
+    "sourceBindings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sourceBinding" }
+    },
+    "base": {
+      "type": "object",
+      "required": ["schema_version", "id", "entity_type", "phase_id", "release_id", "data_version"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "id": { "$ref": "#/$defs/stableId" },
+        "entity_type": { "type": "string" },
+        "phase_id": { "const": "MUSEUM-04" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "data_version": { "const": "0.1.0" },
+        "lifecycle_status": { "enum": ["reviewed", "publishable"] },
+        "review_status": { "enum": ["reviewed", "publishable"] },
+        "labels": { "$ref": "#/$defs/localizedText" },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "source_license_bindings": { "$ref": "#/$defs/sourceBindings" },
+        "review": { "$ref": "#/$defs/review" }
+      }
+    },
+    "artist": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["labels", "aliases", "life_dates", "activity_places", "historical_periods", "artistic_traditions", "media_practice", "summary", "verified_claim_ids", "source_ids", "source_license_bindings", "summary_provenance", "relation_count", "review", "review_status", "lifecycle_status"],
+          "properties": {
+            "entity_type": { "const": "art_constellation_artist" },
+            "aliases": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": ["text", "language"],
+                "properties": {
+                  "text": { "type": "string", "minLength": 1 },
+                  "language": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$" }
+                },
+                "additionalProperties": false
+              }
+            },
+            "life_dates": {
+              "type": "object",
+              "required": ["birth", "death"],
+              "properties": {
+                "birth": { "$ref": "#/$defs/lifeDate" },
+                "death": { "$ref": "#/$defs/lifeDate" }
+              },
+              "additionalProperties": false
+            },
+            "activity_places": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["label", "historical_scope", "precision"],
+                "properties": {
+                  "label": { "type": "string", "minLength": 1 },
+                  "historical_scope": { "type": ["string", "null"] },
+                  "precision": { "type": ["string", "null"] }
+                },
+                "additionalProperties": false
+              }
+            },
+            "historical_periods": { "$ref": "#/$defs/stringList" },
+            "artistic_traditions": { "$ref": "#/$defs/stringList" },
+            "media_practice": { "$ref": "#/$defs/bilingualText" },
+            "summary": { "$ref": "#/$defs/bilingualText" },
+            "verified_claim_ids": { "$ref": "#/$defs/idList" },
+            "summary_provenance": {
+              "type": "object",
+              "required": ["authority_basis", "claim_ids", "source_ids", "reviewed_at", "reviewer_id", "reviewer_kind", "human_reviewed", "copied_museum_label"],
+              "properties": {
+                "authority_basis": { "const": "deterministic_claim_bounded_assembly_from_museum_03b_accepted_reviewed_records" },
+                "claim_ids": { "$ref": "#/$defs/idList" },
+                "source_ids": {
+                  "type": "array", "minItems": 1, "uniqueItems": true,
+                  "items": { "type": "string", "pattern": "^source:" }
+                },
+                "reviewed_at": { "type": "string", "format": "date" },
+                "reviewer_id": { "type": "string", "minLength": 1 },
+                "reviewer_kind": { "enum": ["ai_assisted_operator", "human_editorial_reviewer"] },
+                "human_reviewed": { "type": "boolean" },
+                "copied_museum_label": { "const": false }
+              },
+              "additionalProperties": false
+            },
+            "relation_count": { "type": "integer", "minimum": 1 }
+          },
+          "oneOf": [
+            {
+              "properties": {
+                "review_status": { "const": "reviewed" },
+                "lifecycle_status": { "const": "reviewed" },
+                "summary_provenance": {
+                  "properties": {
+                    "reviewer_id": { "const": "codex-primary-agent" },
+                    "reviewer_kind": { "const": "ai_assisted_operator" },
+                    "human_reviewed": { "const": false }
+                  },
+                  "required": ["reviewer_id", "reviewer_kind", "human_reviewed"]
+                }
+              }
+            },
+            {
+              "properties": {
+                "review_status": { "const": "publishable" },
+                "lifecycle_status": { "const": "publishable" },
+                "summary_provenance": {
+                  "properties": {
+                    "reviewer_id": { "type": "string", "minLength": 1, "not": { "const": "codex-primary-agent" } },
+                    "reviewer_kind": { "const": "human_editorial_reviewer" },
+                    "human_reviewed": { "const": true }
+                  },
+                  "required": ["reviewer_id", "reviewer_kind", "human_reviewed"]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "lifeDate": {
+      "type": "object",
+      "required": ["claim_id", "display_value", "precision"],
+      "properties": {
+        "claim_id": { "type": "string", "pattern": "^claim:" },
+        "display_value": { "type": "string", "minLength": 1 },
+        "precision": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "stringList": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "context": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["context_type", "labels", "definition", "source_ids", "source_license_bindings", "relation_count", "review_status", "lifecycle_status"],
+          "properties": {
+            "entity_type": { "const": "art_constellation_context" },
+            "context_type": { "enum": ["material", "technique", "subject", "museum_institution", "place"] },
+            "definition": { "$ref": "#/$defs/bilingualText" },
+            "relation_count": { "type": "integer", "minimum": 0 }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "contextRef": {
+      "type": "object",
+      "required": ["id", "labels"],
+      "properties": {
+        "id": { "$ref": "#/$defs/stableId" },
+        "labels": { "$ref": "#/$defs/localizedText" }
+      },
+      "additionalProperties": false
+    },
+    "artwork": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["labels", "artist_id", "creation", "institution", "accession_number", "materials", "techniques", "subjects", "official_object_url", "metadata_license", "source_ids", "source_license_bindings", "attribution_status", "limitations", "review_status", "lifecycle_status"],
+          "properties": {
+            "entity_type": { "const": "art_constellation_artwork" },
+            "artist_id": { "type": "string", "pattern": "^artist:" },
+            "creation": {
+              "type": "object",
+              "required": ["start", "end", "precision", "uncertain", "description"],
+              "properties": {
+                "start": { "type": ["string", "null"] },
+                "end": { "type": ["string", "null"] },
+                "precision": { "enum": ["day", "month", "year", "decade", "century", "range", "unknown"] },
+                "uncertain": { "type": "boolean" },
+                "description": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            },
+            "institution": {
+              "type": "object",
+              "required": ["id", "label"],
+              "properties": {
+                "id": { "$ref": "#/$defs/stableId" },
+                "label": { "$ref": "#/$defs/localizedText" }
+              },
+              "additionalProperties": false
+            },
+            "accession_number": { "type": "string", "minLength": 1 },
+            "materials": { "$ref": "#/$defs/contextRefs" },
+            "techniques": { "$ref": "#/$defs/contextRefs" },
+            "subjects": { "$ref": "#/$defs/contextRefs" },
+            "official_object_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+            "metadata_license": {
+              "type": "object",
+              "required": ["source_id", "rule_id"],
+              "properties": {
+                "source_id": { "type": "string", "pattern": "^source:" },
+                "rule_id": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            },
+            "attribution_status": { "enum": ["reviewed", "disputed"] },
+            "limitations": { "$ref": "#/$defs/bilingualText" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "contextRefs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/contextRef" } },
+    "relationship": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["source_artist_id", "target_artist_id", "type", "level", "level_label", "title", "short_explanation", "what_it_means", "what_it_does_not_mean", "context_ids", "supporting_artwork_ids", "claim_ids", "evidence_ids", "source_ids", "source_license_bindings", "evidence_confidence", "curatorial_relevance", "historical_relationship_strength", "computational_similarity", "directed", "is_algorithmic", "limitations", "review", "review_status", "lifecycle_status"],
+          "properties": {
+            "entity_type": { "const": "art_constellation_relationship" },
+            "source_artist_id": { "type": "string", "pattern": "^artist:" },
+            "target_artist_id": { "type": "string", "pattern": "^artist:" },
+            "type": { "enum": ["shared_subject", "shared_material", "shared_technique"] },
+            "level": { "const": "C" },
+            "level_label": { "$ref": "#/$defs/bilingualText" },
+            "title": { "$ref": "#/$defs/bilingualText" },
+            "short_explanation": { "$ref": "#/$defs/bilingualText" },
+            "what_it_means": { "$ref": "#/$defs/bilingualText" },
+            "what_it_does_not_mean": { "$ref": "#/$defs/bilingualText" },
+            "context_ids": { "$ref": "#/$defs/idList" },
+            "supporting_artwork_ids": { "allOf": [{ "$ref": "#/$defs/idList" }], "minItems": 2 },
+            "claim_ids": { "$ref": "#/$defs/idList" },
+            "evidence_ids": { "$ref": "#/$defs/idList" },
+            "evidence_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+            "curatorial_relevance": { "type": "number", "minimum": 0, "maximum": 1 },
+            "historical_relationship_strength": { "type": "null" },
+            "computational_similarity": { "type": "null" },
+            "directed": { "const": false },
+            "is_algorithmic": { "const": false },
+            "limitations": { "$ref": "#/$defs/bilingualText" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "claimObject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["entity_id"],
+          "properties": { "entity_id": { "$ref": "#/$defs/stableId" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["value", "datatype", "precision"],
+          "properties": {
+            "value": { "type": ["string", "number", "boolean"] },
+            "datatype": { "type": "string", "minLength": 1 },
+            "precision": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "claim": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["subject_id", "predicate", "object", "claim_text", "applicability_scope", "evidence_ids", "counter_evidence_ids", "status", "publish_status", "disputed", "review"],
+          "properties": {
+            "entity_type": { "const": "art_constellation_claim" },
+            "subject_id": { "$ref": "#/$defs/stableId" },
+            "predicate": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+            "object": { "$ref": "#/$defs/claimObject" },
+            "claim_text": { "$ref": "#/$defs/bilingualText" },
+            "applicability_scope": { "type": "string", "minLength": 1 },
+            "evidence_ids": { "$ref": "#/$defs/idList" },
+            "counter_evidence_ids": { "type": "array", "maxItems": 0 },
+            "status": { "const": "publishable" },
+            "publish_status": { "const": "publishable" },
+            "disputed": { "const": false }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "evidence": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["claim_ids", "stance", "evidence_kind", "source_ids", "source_license_bindings", "locator", "summary", "reliability_note", "review", "lifecycle_status"],
+          "properties": {
+            "entity_type": { "const": "art_constellation_evidence" },
+            "claim_ids": { "$ref": "#/$defs/idList" },
+            "stance": { "enum": ["supports", "contradicts", "contextualizes"] },
+            "evidence_kind": { "type": "string", "minLength": 1 },
+            "locator": {
+              "type": "object",
+              "required": ["record_id", "section"],
+              "properties": {
+                "record_id": { "type": "string", "pattern": "^evidence:[a-z0-9][a-z0-9._-]*$" },
+                "section": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            },
+            "summary": { "$ref": "#/$defs/bilingualText" },
+            "reliability_note": { "$ref": "#/$defs/bilingualText" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

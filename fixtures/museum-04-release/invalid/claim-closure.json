@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-claim-closure",
+  "mutation": "claim_closure",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_relationship_reference_closure"]
+}

@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-zero-media-valid",
+  "mutation": "none",
+  "expected_valid": true,
+  "expected_counts": {"artists": 12, "contexts": 31, "relationships": 36, "artworks": 44, "media": 0, "media_bytes": 0}
+}

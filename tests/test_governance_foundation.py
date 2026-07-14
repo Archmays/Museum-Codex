@@ -24,6 +24,7 @@ from scripts.validate_governance_foundation import (
     record_is_publishable,
     release_bundle_issues,
     release_content_hash,
+    schema_manifest_entries,
     schema_issues,
     source_publish_issues,
     target_schema_binding_issues,
@@ -55,6 +56,8 @@ class GovernanceFoundationTests(unittest.TestCase):
             "schemas/art/artist.schema.json",
             "schemas/art/artwork.schema.json",
             "schemas/art/artist-relationship.schema.json",
+            "schemas/art/release/art-constellation-artifact.schema.json",
+            "schemas/art/release/public-constellation-record.schema.json",
             "schemas/art/batch/review-signoff.schema.json",
             "schemas/art/batch/approved-identity-basis.schema.json",
             "schemas/art/batch/snapshot-receipt-ledger.schema.json",
@@ -68,6 +71,8 @@ class GovernanceFoundationTests(unittest.TestCase):
             "schemas/art/batch/graph-input.schema.json",
             "schemas/art/batch/replacement-review-request.schema.json",
             "schemas/art/batch/public-leakage-label-set.schema.json",
+            "schemas/art/release/public-constellation-record.schema.json",
+            "schemas/art/release/art-constellation-artifact.schema.json",
             "schemas/curation/curation-common.schema.json",
             "schemas/curation/artist-candidate-preflight.schema.json",
             "schemas/curation/artwork-rights-preflight.schema.json",
@@ -92,8 +97,7 @@ class GovernanceFoundationTests(unittest.TestCase):
         self.assertEqual(required, set(self.environment.by_path))
 
     def test_schema_manifest_tracks_all_dependencies(self) -> None:
-        manifest = json.loads((ROOT / "schemas" / "schema-manifest.json").read_text(encoding="utf-8"))
-        entries = {entry["path"]: entry for entry in manifest["schemas"]}
+        entries = {entry["path"]: entry for entry in schema_manifest_entries(ROOT)}
         self.assertEqual(set(self.environment.by_path), set(entries))
         self.assertEqual(
             ["schemas/common/relationship.schema.json", "schemas/common/entity.schema.json"],
@@ -103,14 +107,44 @@ class GovernanceFoundationTests(unittest.TestCase):
         self.assertEqual("1.1.0", entries["schemas/art/artwork.schema.json"]["version"])
         self.assertEqual("1.1.0", entries["schemas/art/artist-relationship.schema.json"]["version"])
 
-    def test_open_decisions_register_exactly_eight_unresolved_items(self) -> None:
+    def test_open_decisions_register_exactly_four_unresolved_items(self) -> None:
         text = (ROOT / "docs" / "05_roadmap" / "open-decisions.md").read_text(encoding="utf-8")
         unresolved = text.split("## 已关闭事项", 1)[0]
         ids = re.findall(r"^\| (OD-\d{3}) \|", unresolved, flags=re.MULTILINE)
-        self.assertEqual(
-            ["OD-001", "OD-002", "OD-005", "OD-006", "OD-008", "OD-009", "OD-010", "OD-011"],
-            ids,
-        )
+        self.assertEqual(["OD-006", "OD-008", "OD-009", "OD-011"], ids)
+
+    def test_museum_04_rights_decisions_are_closed_without_open_license(self) -> None:
+        registry = json.loads((ROOT / "governance" / "license-decisions.json").read_text(encoding="utf-8"))
+        decisions = {item["decision_id"]: item for item in registry["decisions"]}
+        for decision_id, subject in (
+            ("license-decision:od-001", "code"),
+            ("license-decision:od-002", "original_content"),
+        ):
+            decision = decisions[decision_id]
+            self.assertEqual(subject, decision["subject"])
+            self.assertEqual("decided", decision["status"])
+            self.assertEqual(
+                {
+                    "identifier": "ALL-RIGHTS-RESERVED",
+                    "version": None,
+                    "url": "https://archmays.github.io/Museum-Codex/#/about",
+                },
+                decision["license"],
+            )
+            self.assertEqual("Mays", decision["approver"])
+            self.assertEqual("2026-07-14", decision["effective_at"])
+            self.assertEqual("project", decision["scope_constraint"]["release_kind"])
+        self.assertTrue((ROOT / "RIGHTS.md").is_file())
+        self.assertFalse((ROOT / "LICENSE").exists())
+        self.assertFalse((ROOT / "LICENSE.md").exists())
+
+    def test_rights_issue_form_does_not_request_sensitive_proof(self) -> None:
+        text = (ROOT / ".github" / "ISSUE_TEMPLATE" / "rights-or-attribution.yml").read_text(encoding="utf-8")
+        self.assertIn("id: contact_preference", text)
+        self.assertIn("Do not attach identity documents, contracts, authorization originals", text)
+        self.assertIn("non-public channel", text)
+        for forbidden in ("type: file", "id: email", "id: phone", "id: address", "id: upload"):
+            self.assertNotIn(forbidden, text)
 
     def test_arms_branch_is_registered_but_concrete_dispatch_fails_closed(self) -> None:
         record = {

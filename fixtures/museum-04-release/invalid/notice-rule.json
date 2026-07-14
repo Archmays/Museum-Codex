@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-missing-notice-rule",
+  "mutation": "missing_notice",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_notice_rule_set"]
+}

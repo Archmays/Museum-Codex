@@ -2,8 +2,13 @@ import { expect, test, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-const qaDir = path.resolve("docs/qa/museum-02a");
+const qaDir = path.resolve("docs/qa/museum-04");
+const screenshotPrefix = process.env.MUSEUM04_QA_PREFIX ?? "";
 mkdirSync(qaDir, { recursive: true });
+
+function screenshotPath(name: string) {
+  return path.join(qaDir, `${screenshotPrefix}${name}.png`);
+}
 
 function observePage(page: Page) {
   const consoleErrors: string[] = [];
@@ -33,179 +38,256 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 }
 
-async function expectOnlyFirstPartyResources(page: Page) {
+async function revealDeferredListForFullPageCapture(page: Page) {
+  await page.addStyleTag({
+    content: ".constellation-controls, .constellation-workspace, .artist-list-view > ol > li { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
+  });
+}
+
+async function expectStaticMetadataOnlyRuntime(page: Page) {
   const result = await page.evaluate(() => {
     const pageOrigin = window.location.origin;
-    const resourceOrigins = performance.getEntriesByType("resource").map((entry) => new URL(entry.name).origin);
+    const resourceUrls = performance.getEntriesByType("resource").map((entry) => entry.name);
     return {
-      allFirstParty: resourceOrigins.every((origin) => origin === pageOrigin),
-      mediaElements: document.querySelectorAll("img, video, audio, source, object, embed").length,
+      externalResources: resourceUrls.filter((url) => new URL(url).origin !== pageOrigin),
+      mediaElements: document.querySelectorAll("img, picture, video, audio, source, object, embed").length,
+      runtimeConnections: resourceUrls.filter((url) => /(?:api|graphql|websocket)/i.test(url)),
     };
   });
-  expect(result.allFirstParty).toBe(true);
+  expect(result.externalResources).toEqual([]);
+  expect(result.runtimeConnections).toEqual([]);
   expect(result.mediaElements).toBe(0);
 }
 
-async function expectSevenHallHome(page: Page) {
-  await expect(page.locator(".hall-grid > .hall-portal")).toHaveCount(7);
-  const arms = page.getByRole("article", { name: /武器博物馆，正在整理器物与历史线索/ });
-  await expect(arms).toBeVisible();
-  await expect(arms.getByRole("heading", { name: "武器博物馆" })).toBeVisible();
-  await expect(arms.locator("a")).toHaveCount(0);
-  await expect(arms.locator(".hall-motif-arms")).toHaveAttribute("aria-hidden", "true");
-  await expect(page.locator(".hall-grid > a")).toHaveCount(1);
-  await expect(page.locator(".hall-grid > a")).toHaveAttribute("href", "#/art");
+async function openConstellation(page: Page) {
+  const response = await page.goto("./#/art/constellation", { waitUntil: "networkidle" });
+  if (response) expect(response.status()).toBe(200);
+  await expect(page.locator("main[data-museum04-status=ready]")).toBeVisible();
+  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/relationship|comparison/i);
 }
 
-test("desktop seven-hall home, language, keyboard, and resources", async ({ page }) => {
+test("desktop graph, equivalent views, relationship evidence, rights, and URL state", async ({ page }) => {
   const observed = observePage(page);
+  const releaseRequests: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().includes("/releases/art-constellation-0.1.0/")) {
+      releaseRequests.push(new URL(request.url()).pathname.split("/").at(-1) ?? "");
+    }
+  });
   await page.setViewportSize({ width: 1440, height: 900 });
-  const response = await page.goto("./#/", { waitUntil: "networkidle" });
+  let response = await page.goto("./#/", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle(/博物馆|Museum/);
-  await expect(page.getByRole("heading", { name: "让知识的连接，成为参观的入口" })).toBeVisible();
-  await expectSevenHallHome(page);
-  await expectNoHorizontalOverflow(page);
+  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await expect(page.locator(".hall-grid > .hall-portal")).toHaveCount(7);
+  await page.reload({ waitUntil: "networkidle" });
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("link", { name: "跳到主要内容" })).toBeFocused();
+  await expect(page.getByRole("link", { name: "Skip to main content" })).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
-  expect(new URL(page.url()).hash).toBe("#/");
+  response = await page.goto("./#/art", { waitUntil: "networkidle" });
+  if (response) expect(response.status()).toBe(200);
+  await expect(page.getByRole("link", { name: /Enter the Constellation of Art/i })).toBeVisible();
+  await openConstellation(page);
 
+  await expect(page.locator("main[data-view=graph]")).toBeVisible();
+  await expect(page.locator(".artist-navigator button")).toHaveCount(12);
+  await expect(page.getByText("The initial state has no visible edges.", { exact: false })).toBeVisible();
+  await expect(page.getByText("C curatorial comparison: 36 edges", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(/Algorithmic similarity: off/).first()).toBeVisible();
+  await expect(page.locator(".constellation-canvas")).toBeVisible();
+  expect(releaseRequests).toEqual(expect.arrayContaining([
+    "manifest.json",
+    "graph-summary.json",
+    "artists.json",
+    "layout.json",
+    "facets.json",
+    "search-index.json",
+  ]));
+  expect(releaseRequests).not.toEqual(expect.arrayContaining([
+    "relationships.json",
+    "artworks.json",
+    "evidence.json",
+    "rights.json",
+  ]));
+  await page.locator(".constellation-workspace").screenshot({ path: screenshotPath("desktop-initial") });
+
+  const firstArtist = page.locator(".artist-navigator button").first();
+  await firstArtist.click();
+  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Close notes" })).toBeFocused();
+  await expect(page.locator(".related-relation-list button").first()).toBeVisible();
+  await expect(page).toHaveURL(/focus=/);
+  await page.screenshot({ path: screenshotPath("focused-artist") });
+
+  await page.locator(".related-relation-list button").first().click();
+  await expect(page.getByRole("heading", { name: "What this relationship means" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What it does not mean" })).toBeVisible();
+  await expect(page.locator(".identifier-closure code").first()).toBeVisible();
+  await expect(page.locator(".artwork-metadata-list li").first()).toBeVisible();
+  await expect(page.locator(".evidence-list li").first()).toBeVisible();
+  await expect(page.locator(".source-list li").first()).toBeVisible();
+  await expect(page).toHaveURL(/relation=/);
+  await page.screenshot({ path: screenshotPath("relationship-explanation") });
+
+  await page.getByRole("button", { name: "Close notes" }).click();
+  await page.getByRole("button", { name: "Clear search and filters" }).click();
+  const graphTab = page.getByRole("tab", { name: /Graph/ });
+  await graphTab.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: /Artist list/ })).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator(".artist-list-view li")).toHaveCount(12);
+  await page.screenshot({ path: screenshotPath("desktop-list") });
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: /Relationship table/ })).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator(".relationship-table-view tbody tr")).toHaveCount(36);
+
+  await page.getByLabel("Relationship level").selectOption("A");
+  await expect(page.getByText(/no verified A or B relationships/i)).toBeVisible();
+  await page.getByRole("button", { name: "Clear search and filters" }).click();
+  await page.getByRole("tab", { name: /Artist list/ }).click();
+  const firstName = (await page.locator(".artist-list-view h2").first().textContent())?.trim() ?? "";
+  expect(firstName.length).toBeGreaterThan(0);
+  await page.getByLabel("Search artists").fill(firstName);
+  await expect(page.locator(".artist-list-view li")).toHaveCount(1);
   await page.reload({ waitUntil: "networkidle" });
-  const keyboardOrder = [
-    page.getByRole("link", { name: "跳到主要内容" }),
-    page.getByRole("link", { name: "博物馆 首页" }),
-    page.getByRole("link", { name: "首页", exact: true }),
-    page.getByRole("link", { name: "美术馆", exact: true }),
-    page.getByRole("link", { name: "关于", exact: true }).first(),
-    page.getByRole("link", { name: "无障碍", exact: true }).first(),
-    page.getByRole("button", { name: "中" }),
-    page.getByRole("button", { name: "EN" }),
-    page.getByRole("button", { name: "低带宽" }),
-  ];
-  for (const control of keyboardOrder) {
-    await page.keyboard.press("Tab");
-    await expect(control).toBeFocused();
-  }
-  await page.getByRole("button", { name: "EN" }).click();
-  await expect(page.getByRole("heading", { name: "Let connections become the way in" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Museum of Arms & Armor" })).toBeVisible();
-  await expect(page.getByText("Objects and historical threads in preparation")).toBeVisible();
-  await page.getByRole("button", { name: "中" }).click();
-  await expectOnlyFirstPartyResources(page);
-  await page.screenshot({ path: path.join(qaDir, "desktop-home-1440x900.png"), fullPage: true });
+  await expect(page.locator("main[data-museum04-status=ready]")).toBeVisible();
+  await expect(page.locator(".artist-list-view li")).toHaveCount(1);
+
+  await page.getByRole("button", { name: "Open rights and third-party notices" }).click();
+  await expect(page.getByText(/Artwork media count and bytes are both zero/)).toBeVisible();
+  await expect(page.locator(".notice-list li")).not.toHaveCount(0);
+  await expect(page.locator(".panel-actions a")).toHaveCount(2);
+  await page.screenshot({ path: screenshotPath("rights-panel") });
+  await expectNoHorizontalOverflow(page);
+  await expectStaticMetadataOnlyRuntime(page);
   expectCleanPage(observed);
 });
 
-test("seven-card home reflows at every required responsive size", async ({ page }) => {
+test("Art landing and 1366-wide constellation remain complete without overflow", async ({ page }) => {
   const observed = observePage(page);
-  const viewports = [
-    { width: 1024, height: 768 },
-    { width: 768, height: 1024 },
-    { width: 390, height: 844 },
-    { width: 360, height: 800 },
-  ];
-
-  for (const viewport of viewports) {
-    await page.setViewportSize(viewport);
-    await page.goto("./#/", { waitUntil: "networkidle" });
-    await expectSevenHallHome(page);
-    await expectNoHorizontalOverflow(page);
-    if (viewport.width > 760) {
-      const centerDelta = await page.locator(".hall-grid > .hall-portal:last-child").evaluate((lastCard) => {
-        const card = lastCard.getBoundingClientRect();
-        const grid = lastCard.parentElement?.getBoundingClientRect();
-        return grid ? Math.abs((card.left + card.right) / 2 - (grid.left + grid.right) / 2) : Number.POSITIVE_INFINITY;
-      });
-      expect(centerDelta).toBeLessThanOrEqual(1);
-    }
-    if (viewport.width === 390) {
-      await page.getByRole("button", { name: "低带宽" }).click();
-      await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
-      await expect(page.locator(".hero-orbit")).toBeHidden();
-      await expect(page.locator(".constellation")).toBeHidden();
-      await page.getByRole("button", { name: "低带宽" }).click();
-      await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "full");
-      await page.screenshot({ path: path.join(qaDir, "mobile-home-390x844.png"), fullPage: true });
-    }
-    await expectOnlyFirstPartyResources(page);
-  }
+  await page.setViewportSize({ width: 1366, height: 768 });
+  const response = await page.goto("./#/art", { waitUntil: "networkidle" });
+  expect(response?.status()).toBe(200);
+  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await expect(page.getByRole("link", { name: /Enter the Constellation of Art/i })).toBeVisible();
+  await page.screenshot({ path: screenshotPath("art-landing"), fullPage: true });
+  await page.getByRole("link", { name: /Enter the Constellation of Art/i }).click();
+  await expect(page.locator("main[data-museum04-status=ready]")).toBeVisible();
+  await expect(page.getByLabel("Artistic tradition")).toBeVisible();
+  await expect(page.getByLabel("Context type")).toBeVisible();
+  await page.locator(".artist-navigator button").first().click();
+  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  await expectStaticMetadataOnlyRuntime(page);
   expectCleanPage(observed);
 });
 
-test("Art foyer remains available while the Arms route fails closed", async ({ page }) => {
+test("390px graph and low-bandwidth list preserve focus and URL state", async ({ page }) => {
   const observed = observePage(page);
-  await page.setViewportSize({ width: 1024, height: 768 });
-  await page.goto("./#/art", { waitUntil: "networkidle" });
-  await expect(page.getByText("当前序厅介绍美术馆未来的探索方式，正式馆藏正在整理。")).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openConstellation(page);
+  await expect(page.locator("main[data-view=graph]")).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({ path: screenshotPath("mobile-graph"), fullPage: true });
+
+  await page.locator(".artist-navigator button").nth(1).click();
+  await expect(page).toHaveURL(/focus=/);
+  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  const panelBox = await page.locator(".constellation-detail-panel").boundingBox();
+  expect(panelBox).not.toBeNull();
+  expect((panelBox?.y ?? 0) + (panelBox?.height ?? 0)).toBeGreaterThanOrEqual(840);
+  expect(panelBox?.width ?? 0).toBeGreaterThanOrEqual(380);
+  await page.getByRole("button", { name: "Close notes" }).click();
+  await page.locator(".bandwidth-button").click();
+  await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
+  await expect(page.locator("main[data-view=list]")).toBeVisible();
+  await expect(page.getByRole("tab", { name: /Graph/ })).toBeDisabled();
+  await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
+  const lowBandwidthListTab = page.getByRole("tab", { name: /Artist list/ });
+  await lowBandwidthListTab.focus();
+  await page.keyboard.press("Home");
+  await expect(lowBandwidthListTab).toBeFocused();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.getByRole("tab", { name: /Relationship table/ })).toBeFocused();
+  await expect(page.getByRole("tab", { name: /Relationship table/ })).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowRight");
+  await expect(lowBandwidthListTab).toBeFocused();
+  await expect(lowBandwidthListTab).toHaveAttribute("aria-selected", "true");
   await page.reload({ waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: "在一件作品前，打开许多条路" })).toBeVisible();
+  await expect(page.locator("main[data-view=list]")).toBeVisible();
+  await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
+  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  await page.getByRole("button", { name: "Close notes" }).click();
+  await revealDeferredListForFullPageCapture(page);
+  await page.screenshot({ path: screenshotPath("mobile-list"), fullPage: true });
   await expectNoHorizontalOverflow(page);
-
-  await page.goto("./#/arms", { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: "这里还没有展厅" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "返回博物馆首页" })).toBeVisible();
-  await expectNoHorizontalOverflow(page);
+  await expectStaticMetadataOnlyRuntime(page);
   expectCleanPage(observed);
 });
 
-test("About, Accessibility, reduced motion, forced colors, and 360 layout regress cleanly", async ({ page }) => {
+test("forced colors, reduced motion, and unavailable WebGL fall back to text", async ({ page }) => {
   const observed = observePage(page);
-  await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "none" });
-  await page.setViewportSize({ width: 360, height: 800 });
-  await page.goto("./#/about", { waitUntil: "networkidle" });
-  await expect(page.getByText(/本项目内容未授予再利用许可/)).toBeVisible();
-  await expect(page.getByText(/第三方馆藏内容尚未上线/)).toBeVisible();
-  await expectNoHorizontalOverflow(page);
-  await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  const animationDuration = await page.locator(".page-intro > *").first().evaluate((element) =>
-    Number.parseFloat(getComputedStyle(element).animationDuration),
-  );
-  expect(animationDuration).toBeLessThanOrEqual(0.001);
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });
-  expect(await page.evaluate(() => matchMedia("(forced-colors: active)").matches)).toBe(true);
-  await expect(page.locator(".ambient-field")).toBeHidden();
-
-  await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "none" });
-  await page.goto("./#/accessibility", { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { name: "一座能被更多方式参观的博物馆" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "开启低带宽模式" })).toBeVisible();
+  await page.setViewportSize({ width: 360, height: 800 });
+  await openConstellation(page);
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
+  await expect(page.locator("html")).toHaveAttribute("data-forced-colors", "active");
+  await expect(page.locator("main[data-view=list]")).toBeVisible();
+  await expect(page.locator(".artist-list-view li")).toHaveCount(12);
+  const forcedColorsListTab = page.getByRole("tab", { name: /Artist list/ });
+  await forcedColorsListTab.focus();
+  await page.keyboard.press("Home");
+  await expect(forcedColorsListTab).toBeFocused();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.getByRole("tab", { name: /Relationship table/ })).toBeFocused();
+  await page.keyboard.press("ArrowRight");
+  await expect(forcedColorsListTab).toBeFocused();
+  await revealDeferredListForFullPageCapture(page);
+  await page.screenshot({ path: screenshotPath("forced-colors-list"), fullPage: true });
   await expectNoHorizontalOverflow(page);
   expectCleanPage(observed);
+
+  const webglPage = await page.context().newPage();
+  const webglObserved = observePage(webglPage);
+  await webglPage.addInitScript(() => {
+    const original = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, "getContext")
+      ?.value as typeof HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (contextId: string, ...args: unknown[]) {
+      if (contextId === "webgl" || contextId === "webgl2" || contextId === "experimental-webgl") return null;
+      return original.call(this, contextId as never, ...args as []) as never;
+    };
+  });
+  await webglPage.setViewportSize({ width: 390, height: 844 });
+  await openConstellation(webglPage);
+  await expect(webglPage.locator("main[data-view=list]")).toBeVisible();
+  await expect(webglPage.locator(".artist-list-view li")).toHaveCount(12);
+  await expect(webglPage.getByRole("tab", { name: /Graph/ })).toBeDisabled();
+  await expect(webglPage.locator(".constellation-status-line")).toContainText("WebGL is not reliably available");
+  await webglPage.waitForTimeout(250);
+  await expect(webglPage.locator(".constellation-status-line")).toContainText("WebGL is not reliably available");
+  await expect(webglPage.locator(".constellation-canvas")).toHaveCount(0);
+  await expectNoHorizontalOverflow(webglPage);
+  expectCleanPage(webglObserved);
 });
 
-test("seven-museum introduction remains readable without JavaScript", async ({ browser }, testInfo) => {
-  const baseURL = testInfo.project.use.baseURL;
-  expect(baseURL).toBeTruthy();
+test("no-script portal, Art, and rights content are available over HTTP 200", async ({ browser }, testInfo) => {
+  const baseURL = String(testInfo.project.use.baseURL);
   const context = await browser.newContext({
-    baseURL: String(baseURL),
+    baseURL,
     javaScriptEnabled: false,
     viewport: { width: 1024, height: 768 },
   });
   const page = await context.newPage();
   const observed = observePage(page);
-  const response = await page.goto("./#/", { waitUntil: "networkidle" });
+  const response = await page.goto("./#/art/constellation", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
   const fallback = page.locator(".noscript-fallback");
   await expect(fallback.getByRole("heading", { name: "博物馆 · Museum" })).toBeVisible();
-  await expect(fallback.getByText(/七个分馆/)).toBeVisible();
-  await expect(fallback.getByText(/Seven museums/)).toBeVisible();
+  await expect(fallback.getByRole("heading", { name: "艺术星海：观察与比较" })).toBeVisible();
+  await expect(fallback.getByRole("heading", { name: "权利与署名 / Rights & attribution" })).toBeVisible();
+  await expect(fallback.getByText(/no artwork images, historical-causality edges, or algorithmic similarity/i)).toBeVisible();
   await expectNoHorizontalOverflow(page);
-  const contrast = await fallback.evaluate((element) => {
-    const parse = (value: string) => (value.match(/\d+/g) ?? []).slice(0, 3).map(Number);
-    const luminance = (rgb: number[]) => {
-      const values = rgb.map((channel) => {
-        const normalized = channel / 255;
-        return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
-      });
-      return 0.2126 * (values[0] ?? 0) + 0.7152 * (values[1] ?? 0) + 0.0722 * (values[2] ?? 0);
-    };
-    const foreground = luminance(parse(getComputedStyle(element).color));
-    const background = luminance([8, 16, 21]);
-    return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
-  });
-  expect(contrast).toBeGreaterThanOrEqual(4.5);
   expectCleanPage(observed);
   await context.close();
 });

@@ -1,0 +1,102 @@
+name: Rights or attribution request
+description: Report a rights, attribution, correction, privacy, or withdrawal concern without posting sensitive proof.
+title: "[Rights/Attribution] "
+labels: []
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping us correct rights and attribution information. Keep this public report limited to non-sensitive facts. Do not attach identity documents, contracts, authorization originals, home addresses, telephone numbers, or other sensitive proof. Maintainers may arrange a non-public channel if evidence is needed.
+
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: Request type
+      options:
+        - Rights or permission concern
+        - Attribution correction
+        - Factual or record correction
+        - Withdrawal request
+        - Privacy or safety concern
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: affected_url
+    attributes:
+      label: Affected public URL
+      description: Link to the public page or release. Do not paste a local or private path.
+      placeholder: https://archmays.github.io/Museum-Codex/...
+    validations:
+      required: true
+
+  - type: input
+    id: affected_record
+    attributes:
+      label: Affected artist, artwork, relationship, or release
+      description: Give the public title or stable public ID when known.
+    validations:
+      required: false
+
+  - type: textarea
+    id: public_description
+    attributes:
+      label: Public description
+      description: Explain the concern using only information that is safe to publish.
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired_correction
+    attributes:
+      label: Desired correction or outcome
+      description: Describe the correction, attribution, isolation, or withdrawal you are requesting.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: rights_holder_relationship
+    attributes:
+      label: Relationship to the rights holder
+      description: Optional; do not provide sensitive proof here.
+      options:
+        - Prefer not to state publicly
+        - Rights holder
+        - Authorized representative
+        - Institution or source representative
+        - Researcher or concerned visitor
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: urgency
+    attributes:
+      label: Urgency or safety concern
+      description: Describe any ongoing high-risk distribution, privacy, or safety concern without including sensitive personal details.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contact_preference
+    attributes:
+      label: Contact preference
+      description: No public email address is required.
+      options:
+        - Continue in this public Issue
+        - Ask maintainers to arrange a non-public channel
+        - No preference
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: sensitive_information
+    attributes:
+      label: Sensitive information
+      options:
+        - label: I have not submitted identity documents, contracts, authorization originals, addresses, telephone numbers, or other sensitive proof in this public Issue.
+          required: true
+        - label: I understand that maintainers may move evidence handling to a non-public channel.
+          required: true

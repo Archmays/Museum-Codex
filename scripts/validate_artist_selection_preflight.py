@@ -17,6 +17,7 @@ from museum_pipeline.curation.fixtures import evaluate_curation_invalid_fixture
 from museum_pipeline.curation.decision_application import validate_committed_selection_application
 from museum_pipeline.validation.dispatch import load_schema_environment, validate_record
 from scripts.scan_public_artifact_for_candidate_data import scan_public_artifact
+from scripts.validate_governance_foundation import schema_manifest_entries
 
 
 VALID = ROOT / "fixtures" / "curation" / "valid"
@@ -26,8 +27,7 @@ INVALID = ROOT / "fixtures" / "curation" / "invalid"
 def validate_artist_selection_preflight(*, verbose: bool = True) -> dict:
     failures: list[str] = []
     environment = load_schema_environment()
-    manifest = json.loads((ROOT / "schemas" / "schema-manifest.json").read_text(encoding="utf-8"))
-    manifest_paths = {item["path"] for item in manifest["schemas"]}
+    manifest_paths = {item["path"] for item in schema_manifest_entries(ROOT)}
     schema_paths = {path.relative_to(ROOT).as_posix() for path in (ROOT / "schemas").rglob("*.schema.json")}
     if manifest_paths != schema_paths:
         failures.append("schema_manifest_set_mismatch")

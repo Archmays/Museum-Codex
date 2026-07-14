@@ -28,26 +28,34 @@
     {
       "decision_id": "license-decision:od-001",
       "subject": "code",
-      "status": "pending",
-      "license": null,
-      "scope": "Museum-Codex project code excluding third-party components.",
+      "status": "decided",
+      "license": {
+        "identifier": "ALL-RIGHTS-RESERVED",
+        "version": null,
+        "url": "https://archmays.github.io/Museum-Codex/#/about"
+      },
+      "scope": "Museum-Codex project code excluding third-party components; public source visibility grants no permission to copy, modify, redistribute, or use commercially.",
       "scope_constraint": { "release_kind": "project", "release_id_pattern": "^release:[a-z0-9][a-z0-9._-]*$" },
-      "effective_at": null,
-      "approver": null,
-      "evidence_reference": "docs/05_roadmap/open-decisions.md#od-001",
-      "reason": "The user has not selected a final code license."
+      "effective_at": "2026-07-14",
+      "approver": "Mays",
+      "evidence_reference": "RIGHTS.md#project-code",
+      "reason": "Mays approved retention of all rights in project code without adding an open-source license."
     },
     {
       "decision_id": "license-decision:od-002",
       "subject": "original_content",
-      "status": "pending",
-      "license": null,
-      "scope": "Museum-Codex original prose and curatorial content only.",
+      "status": "decided",
+      "license": {
+        "identifier": "ALL-RIGHTS-RESERVED",
+        "version": null,
+        "url": "https://archmays.github.io/Museum-Codex/#/about"
+      },
+      "scope": "Museum-Codex original curatorial prose, translations, relationship explanations, interface copy, and original design content; third-party metadata and media remain governed independently.",
       "scope_constraint": { "release_kind": "project", "release_id_pattern": "^release:[a-z0-9][a-z0-9._-]*$" },
-      "effective_at": null,
-      "approver": null,
-      "evidence_reference": "docs/05_roadmap/open-decisions.md#od-002",
-      "reason": "The user has not selected a final original-content license."
+      "effective_at": "2026-07-14",
+      "approver": "Mays",
+      "evidence_reference": "RIGHTS.md#original-curatorial-content",
+      "reason": "Mays approved retention of all rights in original curatorial content while preserving independent third-party terms and attribution."
     }
   ]
 }

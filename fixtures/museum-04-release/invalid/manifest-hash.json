@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-manifest-hash",
+  "mutation": "manifest_hash",
+  "expected_valid": false,
+  "expected_error_codes": ["generic_manifest_hash_mismatch"]
+}

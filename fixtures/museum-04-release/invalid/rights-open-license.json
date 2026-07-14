@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-rights-open-license",
+  "mutation": "rights_open_license",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_rights_contract"]
+}

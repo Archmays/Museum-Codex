@@ -1,0 +1,495 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/art-constellation-artifact.schema.json",
+  "title": "MUSEUM-04 public art constellation artifact",
+  "oneOf": [
+    { "$ref": "#/$defs/graphSummary" },
+    { "$ref": "#/$defs/artists" },
+    { "$ref": "#/$defs/contexts" },
+    { "$ref": "#/$defs/relationships" },
+    { "$ref": "#/$defs/artworks" },
+    { "$ref": "#/$defs/evidence" },
+    { "$ref": "#/$defs/sources" },
+    { "$ref": "#/$defs/claims" },
+    { "$ref": "#/$defs/searchIndex" },
+    { "$ref": "#/$defs/layout" },
+    { "$ref": "#/$defs/facets" },
+    { "$ref": "#/$defs/rights" },
+    { "$ref": "#/$defs/releaseSignoff" },
+    { "$ref": "#/$defs/performance" }
+  ],
+  "$defs": {
+    "schemaVersion": { "const": "1.0.0" },
+    "releaseId": { "const": "release:art-constellation-0.1.0" },
+    "stableId": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$" },
+    "bilingual": {
+      "type": "object",
+      "required": ["zh-Hans", "en"],
+      "properties": {
+        "zh-Hans": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "counts": {
+      "type": "object",
+      "required": ["artists", "contexts", "relationships", "artworks", "claims", "evidence", "sources", "media", "media_bytes", "levels", "relationship_types"],
+      "properties": {
+        "artists": { "const": 12 },
+        "contexts": { "const": 31 },
+        "relationships": { "const": 36 },
+        "artworks": { "const": 44 },
+        "claims": { "type": "integer", "minimum": 1 },
+        "evidence": { "type": "integer", "minimum": 1 },
+        "sources": { "const": 4 },
+        "media": { "const": 0 },
+        "media_bytes": { "const": 0 },
+        "levels": {
+          "type": "object",
+          "required": ["A", "B", "C"],
+          "properties": { "A": { "const": 0 }, "B": { "const": 0 }, "C": { "const": 36 } },
+          "additionalProperties": false
+        },
+        "relationship_types": {
+          "type": "object",
+          "required": ["shared_material", "shared_subject", "shared_technique"],
+          "properties": {
+            "shared_material": { "const": 11 },
+            "shared_subject": { "const": 17 },
+            "shared_technique": { "const": 8 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "graphSummary": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "release_version", "profile", "title", "counts", "semantics", "initial_state", "artifact_paths"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "release_version": { "const": "0.1.0" },
+        "profile": { "const": "metadata_only" },
+        "title": { "$ref": "#/$defs/bilingual" },
+        "counts": { "$ref": "#/$defs/counts" },
+        "semantics": {
+          "type": "object",
+          "required": ["level_label", "what_it_means", "what_it_does_not_mean", "algorithmic", "causal", "directed"],
+          "properties": {
+            "level_label": { "$ref": "#/$defs/bilingual" },
+            "what_it_means": { "$ref": "#/$defs/bilingual" },
+            "what_it_does_not_mean": { "$ref": "#/$defs/bilingual" },
+            "algorithmic": { "const": false },
+            "causal": { "const": false },
+            "directed": { "const": false }
+          },
+          "additionalProperties": false
+        },
+        "initial_state": {
+          "type": "object",
+          "required": ["view", "edges_visible", "focused_artist_id"],
+          "properties": {
+            "view": { "const": "graph" },
+            "edges_visible": { "const": false },
+            "focused_artist_id": { "type": "null" }
+          },
+          "additionalProperties": false
+        },
+        "artifact_paths": {
+          "type": "object",
+          "required": ["artists", "contexts", "relationships", "artworks", "evidence", "sources", "search_index", "layout", "facets", "rights"],
+          "properties": {
+            "artists": { "const": "artists.json" },
+            "contexts": { "const": "contexts.json" },
+            "relationships": { "const": "relationships.json" },
+            "artworks": { "const": "artworks.json" },
+            "evidence": { "const": "evidence.json" },
+            "sources": { "const": "sources.json" },
+            "search_index": { "const": "search-index.json" },
+            "layout": { "const": "layout.json" },
+            "facets": { "const": "facets.json" },
+            "rights": { "const": "rights.json" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "artists": { "$ref": "#/$defs/artistCollection" },
+    "artistCollection": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "artists"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "artists": { "type": "array", "minItems": 12, "maxItems": 12, "items": { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json#/$defs/artist" } }
+      },
+      "additionalProperties": false
+    },
+    "contexts": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "contexts"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "contexts": { "type": "array", "minItems": 31, "maxItems": 31, "items": { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json#/$defs/context" } }
+      },
+      "additionalProperties": false
+    },
+    "relationships": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "relationships"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "relationships": { "type": "array", "minItems": 36, "maxItems": 36, "items": { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json#/$defs/relationship" } }
+      },
+      "additionalProperties": false
+    },
+    "artworks": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "artworks"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "artworks": { "type": "array", "minItems": 44, "maxItems": 44, "items": { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json#/$defs/artwork" } }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "evidence"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json#/$defs/evidence" } }
+      },
+      "additionalProperties": false
+    },
+    "sourceDto": {
+      "type": "object",
+      "required": ["id", "title", "publisher", "official_url", "accessed_at", "tier", "license", "attribution", "locator", "release_id"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^source:" },
+        "title": { "type": "string", "minLength": 1 },
+        "publisher": { "type": "string", "minLength": 1 },
+        "official_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "accessed_at": { "type": "string", "format": "date" },
+        "tier": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "license": {
+          "type": "object",
+          "required": ["rule_ids", "identifiers", "attribution_texts"],
+          "properties": {
+            "rule_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+            "identifiers": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+            "attribution_texts": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+          },
+          "additionalProperties": false
+        },
+        "attribution": { "type": "string", "minLength": 1 },
+        "locator": {
+          "type": "object",
+          "required": ["label", "url"],
+          "properties": {
+            "label": { "$ref": "#/$defs/bilingual" },
+            "url": { "type": "string", "format": "uri", "pattern": "^https://" }
+          },
+          "additionalProperties": false
+        },
+        "release_id": { "$ref": "#/$defs/releaseId" }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "sources"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "sources": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/sourceDto" } }
+      },
+      "additionalProperties": false
+    },
+    "recordEnvelope": {
+      "type": "object",
+      "required": ["target_schema", "data"],
+      "properties": {
+        "target_schema": { "enum": ["schemas/art/release/public-constellation-record.schema.json", "schemas/common/source.schema.json"] },
+        "data": {
+          "oneOf": [
+            { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json" },
+            { "$ref": "https://museum-codex.example/schemas/common/source.schema.json" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "claims", "records"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "claims": { "type": "array", "minItems": 1, "items": { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json#/$defs/claim" } },
+        "records": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/recordEnvelope" } }
+      },
+      "additionalProperties": false
+    },
+    "searchIndex": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "normalization", "entries"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "normalization": { "const": "NFKD-casefold-strip-marks-v1" },
+        "entries": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "labels", "aliases", "normalized_keys"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^artist:" },
+              "type": { "const": "artist" },
+              "labels": {
+                "type": "object", "minProperties": 1,
+                "additionalProperties": { "type": "string", "minLength": 1 }
+              },
+              "aliases": {
+                "type": "array", "uniqueItems": true,
+                "items": {
+                  "type": "object", "required": ["text", "language"],
+                  "properties": {
+                    "text": { "type": "string", "minLength": 1 },
+                    "language": { "type": "string", "minLength": 2 }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "normalized_keys": {
+                "type": "array", "minItems": 1, "uniqueItems": true,
+                "items": {
+                  "type": "object", "required": ["value", "locale", "reason", "normalized_key"],
+                  "properties": {
+                    "value": { "type": "string", "minLength": 1 },
+                    "locale": { "type": "string", "minLength": 2 },
+                    "reason": { "enum": ["preferred", "alias"] },
+                    "normalized_key": { "type": "string", "minLength": 1 }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "layout": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "algorithm", "seed", "coordinate_space", "nodes", "content_hash"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "algorithm": { "const": "deterministic_circle_v1" },
+        "seed": { "const": "museum-04-art-constellation-0.1.0" },
+        "coordinate_space": {
+          "type": "object", "required": ["width", "height"],
+          "properties": { "width": { "const": 1000 }, "height": { "const": 1000 } },
+          "additionalProperties": false
+        },
+        "nodes": {
+          "type": "array", "minItems": 12, "maxItems": 12,
+          "items": {
+            "type": "object", "required": ["artist_id", "x", "y", "order"],
+            "properties": {
+              "artist_id": { "type": "string", "pattern": "^artist:" },
+              "x": { "type": "number", "minimum": 0, "maximum": 1000 },
+              "y": { "type": "number", "minimum": 0, "maximum": 1000 },
+              "order": { "type": "integer", "minimum": 0, "maximum": 11 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "facetEntry": {
+      "type": "object",
+      "required": ["value", "count", "label"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1 },
+        "count": { "type": "integer", "minimum": 0 },
+        "label": { "$ref": "#/$defs/bilingual" }
+      },
+      "additionalProperties": false
+    },
+    "facets": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "facets"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "facets": {
+          "type": "object",
+          "required": ["levels", "relationship_types", "periods", "regions", "traditions"],
+          "properties": {
+            "levels": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/facetEntry" } },
+            "relationship_types": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/facetEntry" } },
+            "periods": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/facetEntry" } },
+            "regions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/facetEntry" } },
+            "traditions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/facetEntry" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "rightsDecision": {
+      "type": "object",
+      "required": ["identifier", "status", "statement"],
+      "properties": {
+        "identifier": { "const": "ALL-RIGHTS-RESERVED" },
+        "status": { "const": "decided" },
+        "statement": { "$ref": "#/$defs/bilingual" }
+      },
+      "additionalProperties": false
+    },
+    "rights": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "code_rights", "original_content_rights", "third_party_metadata", "media", "rights_request", "attributions_path", "public_scope"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "code_rights": { "$ref": "#/$defs/rightsDecision" },
+        "original_content_rights": { "$ref": "#/$defs/rightsDecision" },
+        "third_party_metadata": {
+          "type": "object", "required": ["statement", "notices_path", "source_rules_path"],
+          "properties": {
+            "statement": { "$ref": "#/$defs/bilingual" },
+            "notices_path": { "const": "third-party-notices.json" },
+            "source_rules_path": { "const": "source-rules-snapshot.json" }
+          },
+          "additionalProperties": false
+        },
+        "media": {
+          "type": "object", "required": ["count", "bytes", "downloaded", "statement"],
+          "properties": {
+            "count": { "const": 0 }, "bytes": { "const": 0 }, "downloaded": { "const": false },
+            "statement": { "$ref": "#/$defs/bilingual" }
+          },
+          "additionalProperties": false
+        },
+        "rights_request": {
+          "type": "object", "required": ["url", "label", "sensitive_evidence_public_issue"],
+          "properties": {
+            "url": { "type": "string", "format": "uri", "pattern": "^https://github.com/Archmays/Museum-Codex/issues/new\\?template=rights-or-attribution.yml$" },
+            "label": { "$ref": "#/$defs/bilingual" },
+            "sensitive_evidence_public_issue": { "const": false }
+          },
+          "additionalProperties": false
+        },
+        "attributions_path": { "const": "attributions.json" },
+        "public_scope": { "$ref": "#/$defs/bilingual" }
+      },
+      "additionalProperties": false
+    },
+    "releaseSignoff": {
+      "type": "object",
+      "required": ["schema_version", "id", "release_id", "phase_id", "decision", "reviewer_id", "reviewer_kind", "human_reviewer_claimed", "editorial_review_status", "summary_digest", "reviewed_at", "m03b_package_hash", "m03b_graph_hash", "counts", "checks", "limitations"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "id": { "const": "release-signoff:art-constellation-0.1.0" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "phase_id": { "const": "MUSEUM-04" },
+        "decision": { "enum": ["candidate_pending_human_editorial_review", "accepted_for_public_release"] },
+        "reviewer_id": { "type": "string", "minLength": 1 },
+        "reviewer_kind": { "enum": ["ai_assisted_operator", "human_editorial_reviewer"] },
+        "human_reviewer_claimed": { "type": "boolean" },
+        "editorial_review_status": { "enum": ["pending", "approved"] },
+        "summary_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "reviewed_at": { "type": "string", "format": "date-time" },
+        "m03b_package_hash": { "const": "sha256:1f0f00a0d7f6162fcb0d716e6b86fbcfe42a4e04a0422d7c1c0df63b70c97b86" },
+        "m03b_graph_hash": { "const": "sha256:58fe40930ab6f0e84019bbb0c3f378a2e73d7f3fbd4f810a66aa78f0481d1dd3" },
+        "counts": { "$ref": "#/$defs/counts" },
+        "checks": { "type": "array", "minItems": 14, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "limitations": { "type": "string", "minLength": 1 }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "decision": { "const": "candidate_pending_human_editorial_review" },
+            "reviewer_id": { "const": "codex-primary-agent" },
+            "reviewer_kind": { "const": "ai_assisted_operator" },
+            "human_reviewer_claimed": { "const": false },
+            "editorial_review_status": { "const": "pending" }
+          }
+        },
+        {
+          "properties": {
+            "decision": { "const": "accepted_for_public_release" },
+            "reviewer_id": { "type": "string", "minLength": 1, "not": { "const": "codex-primary-agent" } },
+            "reviewer_kind": { "const": "human_editorial_reviewer" },
+            "human_reviewer_claimed": { "const": true },
+            "editorial_review_status": { "const": "approved" }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "performance": {
+      "type": "object",
+      "required": ["schema_version", "release_id", "profile", "budgets", "scale_boundaries", "continuous_force_layout", "external_runtime_api", "media_requests"],
+      "properties": {
+        "schema_version": { "$ref": "#/$defs/schemaVersion" },
+        "release_id": { "$ref": "#/$defs/releaseId" },
+        "profile": { "const": "museum-04-current-graph" },
+        "budgets": { "type": "object", "minProperties": 6, "additionalProperties": { "type": "integer", "minimum": 1 } },
+        "scale_boundaries": {
+          "type": "object", "required": ["one_k", "ten_k", "fifty_k"],
+          "properties": {
+            "one_k": {
+              "type": "object",
+              "required": ["vertices", "edges", "full_initial_render", "rendering_mode", "initial_visible_vertices", "initial_visible_edges"],
+              "properties": {
+                "vertices": { "const": 1000 },
+                "edges": { "const": 5000 },
+                "full_initial_render": { "const": false },
+                "rendering_mode": { "const": "capped_progressive" },
+                "initial_visible_vertices": { "const": 150 },
+                "initial_visible_edges": { "const": 600 }
+              },
+              "additionalProperties": false
+            },
+            "ten_k": { "$ref": "#/$defs/scaleBoundary" },
+            "fifty_k": {
+              "type": "object", "required": ["vertices", "edges", "mobile_full_render"],
+              "properties": {
+                "vertices": { "const": 50000 }, "edges": { "const": 300000 }, "mobile_full_render": { "const": "refused" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "continuous_force_layout": { "const": false },
+        "external_runtime_api": { "const": false },
+        "media_requests": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "scaleBoundary": {
+      "type": "object", "required": ["vertices", "edges", "full_initial_render"],
+      "properties": {
+        "vertices": { "type": "integer", "minimum": 1000 },
+        "edges": { "type": "integer", "minimum": 5000 },
+        "full_initial_render": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

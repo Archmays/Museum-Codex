@@ -22,6 +22,37 @@ describe("static release loader", () => {
     expect(result.status).toBe("loaded");
   });
 
+  it("keeps reviewed candidates behind an explicit opt-in and rejects other non-public states", async () => {
+    const candidate = { ...physicalManifest, status: "reviewed", public_release: false };
+    const defaultResult = await loadStaticRelease(
+      "/manifest.json",
+      vi.fn().mockResolvedValue(response(candidate)),
+    );
+    expect(defaultResult.status).toBe("failed");
+
+    const optedInResult = await loadStaticRelease(
+      "/manifest.json",
+      vi.fn().mockResolvedValue(response(candidate)),
+      undefined,
+      undefined,
+      { allowReviewedCandidate: true },
+    );
+    expect(optedInResult.status).toBe("loaded");
+    if (optedInResult.status === "loaded") {
+      expect(optedInResult.manifest.public_release).toBe(false);
+      expect(optedInResult.manifest.status).toBe("reviewed");
+    }
+
+    const draftResult = await loadStaticRelease(
+      "/manifest.json",
+      vi.fn().mockResolvedValue(response({ ...candidate, status: "draft" })),
+      undefined,
+      undefined,
+      { allowReviewedCandidate: true },
+    );
+    expect(draftResult.status).toBe("failed");
+  });
+
   it("reports a canonical release with no display records as an empty museum", async () => {
     const emptyHash = "0".repeat(64);
     const artifact = (path: string, recordType: string, recordIds: string[]) => ({

@@ -1,0 +1,1079 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_id": "museum-04-current-graph",
+  "evidence_class": "controlled_lab_not_rum",
+  "real_user_metric": false,
+  "real_device_status": "not_available",
+  "real_device_note": "No physical approximately 4 GB Android device was exposed to this runtime; Chromium CDP throttling is a lab proxy only.",
+  "captured_at": "2026-07-14T12:18:38.393Z",
+  "environment": {
+    "host_os": "win32 10.0.22631",
+    "cpu": "13th Gen Intel(R) Core(TM) i9-13900H",
+    "memory_gb": 31.73,
+    "browser": "Chromium",
+    "browser_version": "149.0.7827.55",
+    "node_version": "v24.16.0",
+    "playwright_version": "1.61.1",
+    "runner": "scripts/run-museum-04-current-lab.mjs",
+    "measurement_method": "Playwright Chromium; fresh context, disabled cache, CDP CPU/network controls, PerformanceObserver, Resource Timing, and deterministic static gzip",
+    "commit_sha": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+    "source_worktree_dirty": true
+  },
+  "lab_configuration": {
+    "tested_url": "http://127.0.0.1:52372/Museum-Codex/",
+    "cold_browser_context_per_sample": true,
+    "browser_cache_disabled": true,
+    "service_workers_blocked": true,
+    "real_user_monitoring": false,
+    "analytics_or_telemetry_added": false,
+    "profiles": [
+      {
+        "profile_id": "mobile-390x844",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "initial_experience": "graph",
+        "cpu_throttle_rate": 4,
+        "network_profile": "fast_4g",
+        "network": {
+          "latency_ms": 20,
+          "download_bits_per_second": 4000000,
+          "upload_bits_per_second": 3000000
+        }
+      },
+      {
+        "profile_id": "mobile-360x800",
+        "viewport": {
+          "width": 360,
+          "height": 800
+        },
+        "initial_experience": "list",
+        "cpu_throttle_rate": 6,
+        "network_profile": "constrained_network",
+        "network": {
+          "latency_ms": 150,
+          "download_bits_per_second": 1600000,
+          "upload_bits_per_second": 750000
+        }
+      },
+      {
+        "profile_id": "desktop-1366x768",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "initial_experience": "graph",
+        "cpu_throttle_rate": 1,
+        "network_profile": "unthrottled",
+        "network": null
+      },
+      {
+        "profile_id": "desktop-1440x900",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "initial_experience": "graph",
+        "cpu_throttle_rate": 1,
+        "network_profile": "unthrottled",
+        "network": null
+      }
+    ],
+    "metric_definitions": {
+      "route_load_ms": "Navigation time origin to museum04-route-module evaluation.",
+      "data_load_ms": "museum04-route-module to museum04-initial-data-ready.",
+      "chunk_load_ms": "Resource Timing duration for the mode-specific lazy experience chunk: SigmaGraphRenderer for graph profiles and ArtConstellationPage for the compact semantic-list profile.",
+      "first_interactive_ms": "Navigation time origin to the first museum04-experience-ready mark for the graph or semantic-list path.",
+      "node_selection_ms": "Artist activation in the graph navigator or equivalent semantic list to the visible artist panel; URL focus persistence is asserted separately.",
+      "filter_ms": "Relationship-type change to committed URL filter state.",
+      "relationship_detail_ms": "Relationship activation to the visible relationship-specific title with panel close focus established; URL relation persistence and deferred evidence closure are asserted separately.",
+      "keyboard_focus_ms": "ArrowRight on the selected List tab to focus on the Relationship Table tab; selected state and rendered equivalent table are asserted separately.",
+      "list_switch_ms": "List-tab activation to rendered artist-list equivalent view.",
+      "fps": "requestAnimationFrame rate during repeated wheel input for one second on the active experience: Sigma canvas for graph profiles or the semantic artist list for the 360px compact profile.",
+      "interaction_proxy_ms": "Maximum of node selection, filter, meaningful relationship panel, keyboard focus, and list-switch response in each sample; controlled script proxy, not INP or RUM.",
+      "lcp_ms": "Buffered LargestContentfulPaint before the first interaction.",
+      "cls": "Cumulative layout-shift score from navigation through initial experience readiness, before scripted interaction begins and excluding entries with recent input.",
+      "long_tasks_count": "Count of PerformanceObserver longtask entries across the sampled flow.",
+      "transferred_bytes": "Navigation plus resource transferSize across initial and exercised deferred-detail requests.",
+      "gzip_bytes": "Deterministic route JS, CSS, and initial-data gzip total from the static level-9 budget gate.",
+      "js_heap_mb": "Chromium CDP JSHeapUsedSize after the sampled flow."
+    },
+    "deterministic_gzip_budget": {
+      "algorithm": "node:zlib gzip level 9; each file compressed independently",
+      "home_initial_gzip_bytes": 95131,
+      "constellation_route_gzip_bytes": 72418,
+      "initial_data_gzip_bytes": 14587,
+      "graph_summary_gzip_bytes": 766,
+      "manifest": ".vite/manifest.json",
+      "status": "pass"
+    }
+  },
+  "runs": [
+    {
+      "profile_id": "mobile-390x844",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "device_class": "mobile",
+      "initial_experience": "graph",
+      "cpu_throttle_rate": 4,
+      "network_profile": "fast_4g",
+      "sample_count": 3,
+      "metrics": {
+        "route_load_ms": {
+          "unit": "ms",
+          "samples": [
+            626,
+            634.2999999970198,
+            676.8000000119209
+          ],
+          "median": 634.2999999970198,
+          "p95": 676.8000000119209
+        },
+        "data_load_ms": {
+          "unit": "ms",
+          "samples": [
+            205.6000000089407,
+            183.70000000298023,
+            147.29999999701977
+          ],
+          "median": 183.70000000298023,
+          "p95": 205.6000000089407
+        },
+        "chunk_load_ms": {
+          "unit": "ms",
+          "samples": [
+            118.59999999403954,
+            109.09999999403954,
+            129.29999999701977
+          ],
+          "median": 118.59999999403954,
+          "p95": 129.29999999701977
+        },
+        "first_interactive_ms": {
+          "unit": "ms",
+          "samples": [
+            1253.7000000029802,
+            1332.5,
+            1280.9000000059605
+          ],
+          "median": 1280.9000000059605,
+          "p95": 1332.5,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "node_selection_ms": {
+          "unit": "ms",
+          "samples": [
+            3.2000000029802322,
+            2.8999999910593033,
+            2.2000000029802322
+          ],
+          "median": 2.8999999910593033,
+          "p95": 3.2000000029802322,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "filter_ms": {
+          "unit": "ms",
+          "samples": [
+            9.600000008940697,
+            11.700000002980232,
+            7.899999991059303
+          ],
+          "median": 9.600000008940697,
+          "p95": 11.700000002980232,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "relationship_detail_ms": {
+          "unit": "ms",
+          "samples": [
+            102.40000000596046,
+            112.40000000596046,
+            114.79999999701977
+          ],
+          "median": 112.40000000596046,
+          "p95": 114.79999999701977,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "keyboard_focus_ms": {
+          "unit": "ms",
+          "samples": [
+            5.200000002980232,
+            7,
+            6.600000008940697
+          ],
+          "median": 6.600000008940697,
+          "p95": 7,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "list_switch_ms": {
+          "unit": "ms",
+          "samples": [
+            9.699999988079071,
+            15.5,
+            13.299999997019768
+          ],
+          "median": 13.299999997019768,
+          "p95": 15.5
+        },
+        "fps": {
+          "unit": "fps",
+          "samples": [
+            58.994100589940984,
+            58.99410058994101,
+            60.00393468424159
+          ],
+          "median": 58.99410058994101,
+          "p95": 60.00393468424159,
+          "target": {
+            "statistic": "p95",
+            "operator": "gte",
+            "value": 30,
+            "passed": true
+          }
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            8.713512420654297,
+            8.809612274169922,
+            8.748207092285156
+          ],
+          "median": 8.748207092285156,
+          "p95": 8.809612274169922,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 150,
+            "passed": true
+          }
+        },
+        "cls": {
+          "unit": "score",
+          "samples": [
+            0.09978057837442313,
+            0.09978057837442313,
+            0.09978057837442313
+          ],
+          "median": 0.09978057837442313,
+          "p95": 0.09978057837442313,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "long_tasks_count": {
+          "unit": "count",
+          "samples": [
+            10,
+            11,
+            9
+          ],
+          "median": 10,
+          "p95": 11
+        },
+        "transferred_bytes": {
+          "unit": "bytes",
+          "samples": [
+            197831,
+            197831,
+            197831
+          ],
+          "median": 197831,
+          "p95": 197831
+        },
+        "gzip_bytes": {
+          "unit": "bytes",
+          "samples": [
+            72418,
+            72418,
+            72418
+          ],
+          "median": 72418,
+          "p95": 72418
+        },
+        "lcp_ms": {
+          "unit": "ms",
+          "samples": [
+            920,
+            912,
+            912
+          ],
+          "median": 912,
+          "p95": 920,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "interaction_proxy_ms": {
+          "unit": "ms",
+          "samples": [
+            102.40000000596046,
+            112.40000000596046,
+            114.79999999701977
+          ],
+          "median": 112.40000000596046,
+          "p95": 114.79999999701977,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        }
+      }
+    },
+    {
+      "profile_id": "mobile-360x800",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "device_class": "mobile",
+      "initial_experience": "list",
+      "cpu_throttle_rate": 6,
+      "network_profile": "constrained_network",
+      "sample_count": 3,
+      "metrics": {
+        "route_load_ms": {
+          "unit": "ms",
+          "samples": [
+            1367.5999999940395,
+            1381.4000000059605,
+            1504.300000011921
+          ],
+          "median": 1381.4000000059605,
+          "p95": 1504.300000011921
+        },
+        "data_load_ms": {
+          "unit": "ms",
+          "samples": [
+            365.30000001192093,
+            245.09999999403954,
+            280.59999999403954
+          ],
+          "median": 280.59999999403954,
+          "p95": 365.30000001192093
+        },
+        "chunk_load_ms": {
+          "unit": "ms",
+          "samples": [
+            260.79999999701977,
+            260.5,
+            278.5
+          ],
+          "median": 260.79999999701977,
+          "p95": 278.5
+        },
+        "first_interactive_ms": {
+          "unit": "ms",
+          "samples": [
+            1776.7000000029802,
+            1980.300000011921,
+            2187.5
+          ],
+          "median": 1980.300000011921,
+          "p95": 2187.5,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "node_selection_ms": {
+          "unit": "ms",
+          "samples": [
+            4.800000011920929,
+            8,
+            4.9000000059604645
+          ],
+          "median": 4.9000000059604645,
+          "p95": 8,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "filter_ms": {
+          "unit": "ms",
+          "samples": [
+            18,
+            14.5,
+            16.400000005960464
+          ],
+          "median": 16.400000005960464,
+          "p95": 18,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "relationship_detail_ms": {
+          "unit": "ms",
+          "samples": [
+            162.59999999403954,
+            157,
+            125
+          ],
+          "median": 157,
+          "p95": 162.59999999403954,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "keyboard_focus_ms": {
+          "unit": "ms",
+          "samples": [
+            6.799999997019768,
+            6.700000002980232,
+            6.4000000059604645
+          ],
+          "median": 6.700000002980232,
+          "p95": 6.799999997019768,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "list_switch_ms": {
+          "unit": "ms",
+          "samples": [
+            16.099999994039536,
+            14.200000002980232,
+            15
+          ],
+          "median": 15,
+          "p95": 16.099999994039536
+        },
+        "fps": {
+          "unit": "fps",
+          "samples": [
+            60,
+            59.99999999999997,
+            60
+          ],
+          "median": 60,
+          "p95": 60,
+          "target": {
+            "statistic": "p95",
+            "operator": "gte",
+            "value": 30,
+            "passed": true
+          }
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            6.813556671142578,
+            5.642024993896484,
+            6.6454010009765625
+          ],
+          "median": 6.6454010009765625,
+          "p95": 6.813556671142578,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 150,
+            "passed": true
+          }
+        },
+        "cls": {
+          "unit": "score",
+          "samples": [
+            0.09129159722222223,
+            0.09129159722222223,
+            0.09129159722222223
+          ],
+          "median": 0.09129159722222223,
+          "p95": 0.09129159722222223,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "long_tasks_count": {
+          "unit": "count",
+          "samples": [
+            13,
+            14,
+            14
+          ],
+          "median": 14,
+          "p95": 14
+        },
+        "transferred_bytes": {
+          "unit": "bytes",
+          "samples": [
+            158781,
+            158781,
+            158781
+          ],
+          "median": 158781,
+          "p95": 158781
+        },
+        "gzip_bytes": {
+          "unit": "bytes",
+          "samples": [
+            72418,
+            72418,
+            72418
+          ],
+          "median": 72418,
+          "p95": 72418
+        },
+        "lcp_ms": {
+          "unit": "ms",
+          "samples": [
+            1744,
+            1748,
+            1908
+          ],
+          "median": 1748,
+          "p95": 1908,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "interaction_proxy_ms": {
+          "unit": "ms",
+          "samples": [
+            162.59999999403954,
+            157,
+            125
+          ],
+          "median": 157,
+          "p95": 162.59999999403954,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        }
+      }
+    },
+    {
+      "profile_id": "desktop-1366x768",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "device_class": "desktop",
+      "initial_experience": "graph",
+      "cpu_throttle_rate": 1,
+      "network_profile": "unthrottled",
+      "sample_count": 3,
+      "metrics": {
+        "route_load_ms": {
+          "unit": "ms",
+          "samples": [
+            74.3999999910593,
+            70.8999999910593,
+            70.79999999701977
+          ],
+          "median": 70.8999999910593,
+          "p95": 74.3999999910593
+        },
+        "data_load_ms": {
+          "unit": "ms",
+          "samples": [
+            275.6000000089407,
+            282.5,
+            282.59999999403954
+          ],
+          "median": 282.5,
+          "p95": 282.59999999403954
+        },
+        "chunk_load_ms": {
+          "unit": "ms",
+          "samples": [
+            6.799999997019768,
+            5.899999991059303,
+            5.9000000059604645
+          ],
+          "median": 5.9000000059604645,
+          "p95": 6.799999997019768
+        },
+        "first_interactive_ms": {
+          "unit": "ms",
+          "samples": [
+            449.70000000298023,
+            451.69999998807907,
+            457
+          ],
+          "median": 451.69999998807907,
+          "p95": 457,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 1500,
+            "passed": true
+          }
+        },
+        "node_selection_ms": {
+          "unit": "ms",
+          "samples": [
+            0.4000000059604645,
+            0.5,
+            0.6000000089406967
+          ],
+          "median": 0.5,
+          "p95": 0.6000000089406967,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "filter_ms": {
+          "unit": "ms",
+          "samples": [
+            1.7000000029802322,
+            1.4000000059604645,
+            1.6000000089406967
+          ],
+          "median": 1.6000000089406967,
+          "p95": 1.7000000029802322,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "relationship_detail_ms": {
+          "unit": "ms",
+          "samples": [
+            68.5,
+            70.3999999910593,
+            54.599999994039536
+          ],
+          "median": 68.5,
+          "p95": 70.3999999910593,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "keyboard_focus_ms": {
+          "unit": "ms",
+          "samples": [
+            0.6000000089406967,
+            0.7000000029802322,
+            0.7999999970197678
+          ],
+          "median": 0.7000000029802322,
+          "p95": 0.7999999970197678,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "list_switch_ms": {
+          "unit": "ms",
+          "samples": [
+            2.7999999970197678,
+            5.299999997019768,
+            2.7999999970197678
+          ],
+          "median": 2.7999999970197678,
+          "p95": 5.299999997019768
+        },
+        "fps": {
+          "unit": "fps",
+          "samples": [
+            59.99803285138193,
+            60.003934684241585,
+            60.003934684241585
+          ],
+          "median": 60.003934684241585,
+          "p95": 60.003934684241585,
+          "target": {
+            "statistic": "p95",
+            "operator": "gte",
+            "value": 45,
+            "passed": true
+          }
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            8.423603057861328,
+            8.44131851196289,
+            8.457344055175781
+          ],
+          "median": 8.44131851196289,
+          "p95": 8.457344055175781
+        },
+        "cls": {
+          "unit": "score",
+          "samples": [
+            0.07910471422568127,
+            0.07910471422568127,
+            0.07910471422568127
+          ],
+          "median": 0.07910471422568127,
+          "p95": 0.07910471422568127,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "long_tasks_count": {
+          "unit": "count",
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0
+        },
+        "transferred_bytes": {
+          "unit": "bytes",
+          "samples": [
+            197831,
+            197831,
+            197831
+          ],
+          "median": 197831,
+          "p95": 197831
+        },
+        "gzip_bytes": {
+          "unit": "bytes",
+          "samples": [
+            72418,
+            72418,
+            72418
+          ],
+          "median": 72418,
+          "p95": 72418
+        },
+        "lcp_ms": {
+          "unit": "ms",
+          "samples": [
+            392,
+            404,
+            396
+          ],
+          "median": 396,
+          "p95": 404,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "interaction_proxy_ms": {
+          "unit": "ms",
+          "samples": [
+            68.5,
+            70.3999999910593,
+            54.599999994039536
+          ],
+          "median": 68.5,
+          "p95": 70.3999999910593,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        }
+      }
+    },
+    {
+      "profile_id": "desktop-1440x900",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "device_class": "desktop",
+      "initial_experience": "graph",
+      "cpu_throttle_rate": 1,
+      "network_profile": "unthrottled",
+      "sample_count": 3,
+      "metrics": {
+        "route_load_ms": {
+          "unit": "ms",
+          "samples": [
+            77,
+            73.20000000298023,
+            74.5
+          ],
+          "median": 74.5,
+          "p95": 77
+        },
+        "data_load_ms": {
+          "unit": "ms",
+          "samples": [
+            277.5,
+            279.20000000298023,
+            272.19999998807907
+          ],
+          "median": 277.5,
+          "p95": 279.20000000298023
+        },
+        "chunk_load_ms": {
+          "unit": "ms",
+          "samples": [
+            4.299999997019768,
+            6.299999997019768,
+            6.200000002980232
+          ],
+          "median": 6.200000002980232,
+          "p95": 6.299999997019768
+        },
+        "first_interactive_ms": {
+          "unit": "ms",
+          "samples": [
+            448.5,
+            459.59999999403954,
+            448.3999999910593
+          ],
+          "median": 448.5,
+          "p95": 459.59999999403954,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 1500,
+            "passed": true
+          }
+        },
+        "node_selection_ms": {
+          "unit": "ms",
+          "samples": [
+            0.5,
+            0.3999999910593033,
+            0.6000000089406967
+          ],
+          "median": 0.5,
+          "p95": 0.6000000089406967,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "filter_ms": {
+          "unit": "ms",
+          "samples": [
+            1.6000000089406967,
+            2.5999999940395355,
+            1.8999999910593033
+          ],
+          "median": 1.8999999910593033,
+          "p95": 2.5999999940395355,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "relationship_detail_ms": {
+          "unit": "ms",
+          "samples": [
+            62.30000001192093,
+            50.20000000298023,
+            46.599999994039536
+          ],
+          "median": 50.20000000298023,
+          "p95": 62.30000001192093,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        },
+        "keyboard_focus_ms": {
+          "unit": "ms",
+          "samples": [
+            0.7000000029802322,
+            0.5999999940395355,
+            0.5
+          ],
+          "median": 0.5999999940395355,
+          "p95": 0.7000000029802322,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 100,
+            "passed": true
+          }
+        },
+        "list_switch_ms": {
+          "unit": "ms",
+          "samples": [
+            2.9000000059604645,
+            8.600000008940697,
+            6.200000002980232
+          ],
+          "median": 6.200000002980232,
+          "p95": 8.600000008940697
+        },
+        "fps": {
+          "unit": "fps",
+          "samples": [
+            60.00192793079909,
+            60.003934684241585,
+            60
+          ],
+          "median": 60.00192793079909,
+          "p95": 60.003934684241585,
+          "target": {
+            "statistic": "p95",
+            "operator": "gte",
+            "value": 45,
+            "passed": true
+          }
+        },
+        "js_heap_mb": {
+          "unit": "MB",
+          "samples": [
+            8.468421936035156,
+            8.450366973876953,
+            8.424087524414062
+          ],
+          "median": 8.450366973876953,
+          "p95": 8.468421936035156
+        },
+        "cls": {
+          "unit": "score",
+          "samples": [
+            0.08062519169560185,
+            0.08062519169560185,
+            0.08062519169560185
+          ],
+          "median": 0.08062519169560185,
+          "p95": 0.08062519169560185,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "long_tasks_count": {
+          "unit": "count",
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0
+        },
+        "transferred_bytes": {
+          "unit": "bytes",
+          "samples": [
+            197831,
+            197831,
+            197831
+          ],
+          "median": 197831,
+          "p95": 197831
+        },
+        "gzip_bytes": {
+          "unit": "bytes",
+          "samples": [
+            72418,
+            72418,
+            72418
+          ],
+          "median": 72418,
+          "p95": 72418
+        },
+        "lcp_ms": {
+          "unit": "ms",
+          "samples": [
+            388,
+            388,
+            384
+          ],
+          "median": 388,
+          "p95": 388,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "interaction_proxy_ms": {
+          "unit": "ms",
+          "samples": [
+            62.30000001192093,
+            50.20000000298023,
+            46.599999994039536
+          ],
+          "median": 50.20000000298023,
+          "p95": 62.30000001192093,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 200,
+            "passed": true
+          }
+        }
+      }
+    }
+  ],
+  "overall_status": "pass"
+}

@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-private-path",
+  "mutation": "private_path",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_private_path"]
+}

@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-evidence-long-summary",
+  "mutation": "evidence_long_summary",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_evidence_summary_length"]
+}

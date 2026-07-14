@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-withdrawal-contract",
+  "mutation": "withdrawal_contract",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_withdrawal_contract"]
+}

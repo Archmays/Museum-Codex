@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-causal-wording",
+  "mutation": "causal_wording",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_causal_wording"]
+}

@@ -3,8 +3,10 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 const STORAGE_KEY = "museum-low-bandwidth";
 
 type PreferencesContextValue = {
+  compactViewport: boolean;
   lowBandwidth: boolean;
   reducedMotion: boolean;
+  forcedColors: boolean;
   toggleLowBandwidth: () => void;
 };
 
@@ -22,9 +24,19 @@ function getReducedMotionPreference() {
   return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function getForcedColorsPreference() {
+  return typeof matchMedia === "function" && matchMedia("(forced-colors: active)").matches;
+}
+
+function getCompactViewportPreference() {
+  return typeof matchMedia === "function" && matchMedia("(max-width: 374px)").matches;
+}
+
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [lowBandwidth, setLowBandwidth] = useState(readLowBandwidth);
   const [reducedMotion, setReducedMotion] = useState(getReducedMotionPreference);
+  const [forcedColors, setForcedColors] = useState(getForcedColorsPreference);
+  const [compactViewport, setCompactViewport] = useState(getCompactViewportPreference);
 
   useEffect(() => {
     const query = matchMedia("(prefers-reduced-motion: reduce)");
@@ -34,9 +46,25 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const query = matchMedia("(forced-colors: active)");
+    const update = () => setForcedColors(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const query = matchMedia("(max-width: 374px)");
+    const update = () => setCompactViewport(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
     document.documentElement.dataset.bandwidth = lowBandwidth ? "low" : "full";
+    document.documentElement.dataset.compactViewport = compactViewport ? "active" : "none";
     document.documentElement.dataset.motion = reducedMotion ? "reduced" : "full";
-  }, [lowBandwidth, reducedMotion]);
+    document.documentElement.dataset.forcedColors = forcedColors ? "active" : "none";
+  }, [compactViewport, forcedColors, lowBandwidth, reducedMotion]);
 
   const toggleLowBandwidth = () => {
     setLowBandwidth((current) => {
@@ -51,8 +79,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   };
 
   const value = useMemo(
-    () => ({ lowBandwidth, reducedMotion, toggleLowBandwidth }),
-    [lowBandwidth, reducedMotion],
+    () => ({ compactViewport, lowBandwidth, reducedMotion, forcedColors, toggleLowBandwidth }),
+    [compactViewport, forcedColors, lowBandwidth, reducedMotion],
   );
 
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;

@@ -18,10 +18,13 @@ export function AboutPage() {
       <section className="rights-panel" aria-labelledby="rights-title">
         <div className="rights-mark" aria-hidden="true"><span>R</span></div>
         <div>
-          <p className="eyebrow">Rights &amp; access</p>
+          <p className="eyebrow">{t.about.rightsEyebrow}</p>
           <h2 id="rights-title">{t.about.nowTitle}</h2>
           <p className="rights-primary">{t.about.nowText}</p>
           <p>{t.about.nowDetail}</p>
+          <a className="text-link rights-notices-link" href={`${import.meta.env.BASE_URL}THIRD_PARTY_NOTICES.md`}>
+            {t.constellation.noticesLink}
+          </a>
         </div>
       </section>
     </main>

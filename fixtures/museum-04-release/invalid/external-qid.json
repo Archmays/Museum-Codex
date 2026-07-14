@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-external-qid",
+  "mutation": "external_qid",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_external_id"]
+}
