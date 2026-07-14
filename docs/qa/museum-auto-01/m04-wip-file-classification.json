@@ -1,0 +1,213 @@
+{
+  "schema_version": "1.0.0",
+  "classification_basis": {
+    "base_commit": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+    "checkpoint_commit": "15617a1d4bf4117f2d418424d7cda0ef6c8e0eae",
+    "method": "reconstructed_from_exact_parent_diff",
+    "direct_dirty_snapshot_observed": false
+  },
+  "counts": {
+    "A": 100,
+    "B": 0,
+    "C": 31,
+    "D": 3,
+    "total": 134
+  },
+  "categories": {
+    "A": {
+      "description": "Valuable source code, governance, contracts, fixtures, tests, configuration, and source QA material to preserve and revise.",
+      "paths": [
+        ".github/ISSUE_TEMPLATE/rights-or-attribution.yml",
+        ".github/workflows/deploy-pages.yml",
+        ".gitignore",
+        "README.md",
+        "RIGHTS.md",
+        "benchmarks/museum-04/README.md",
+        "benchmarks/museum-04/index.html",
+        "benchmarks/museum-04/main.ts",
+        "benchmarks/museum-04/vite.config.ts",
+        "docs/00_project/decision-log.md",
+        "docs/01_architecture/adr/ADR-0002-knowledge-graph-engine.md",
+        "docs/02_governance/data-versioning-and-withdrawal-policy.md",
+        "docs/02_governance/license-decision-memo.md",
+        "docs/02_governance/rights-and-licensing-policy.md",
+        "docs/02_governance/rights-request-and-takedown-procedure.md",
+        "docs/03_art_museum/artist-star-map-interaction-spec.md",
+        "docs/03_art_museum/relationship-graph-visual-rules.md",
+        "docs/05_roadmap/open-decisions.md",
+        "docs/qa/museum-04/dependency-verification.md",
+        "docs/qa/museum-04/implementation-notes.md",
+        "e2e/online.spec.ts",
+        "fixtures/museum-04-release/invalid/causal-title.json",
+        "fixtures/museum-04-release/invalid/causal-wording.json",
+        "fixtures/museum-04-release/invalid/claim-closure.json",
+        "fixtures/museum-04-release/invalid/evidence-long-summary.json",
+        "fixtures/museum-04-release/invalid/extensionless-media-url.json",
+        "fixtures/museum-04-release/invalid/external-qid.json",
+        "fixtures/museum-04-release/invalid/manifest-hash.json",
+        "fixtures/museum-04-release/invalid/manifest-private-path.json",
+        "fixtures/museum-04-release/invalid/media-byte.json",
+        "fixtures/museum-04-release/invalid/media-url.json",
+        "fixtures/museum-04-release/invalid/missing-evidence.json",
+        "fixtures/museum-04-release/invalid/notice-rule.json",
+        "fixtures/museum-04-release/invalid/performance-drift.json",
+        "fixtures/museum-04-release/invalid/private-path.json",
+        "fixtures/museum-04-release/invalid/rights-open-license.json",
+        "fixtures/museum-04-release/invalid/signoff-fabrication.json",
+        "fixtures/museum-04-release/invalid/signoff-overclaim.json",
+        "fixtures/museum-04-release/invalid/source-media-rule.json",
+        "fixtures/museum-04-release/invalid/withdrawal-contract.json",
+        "fixtures/museum-04-release/valid/zero-media.json",
+        "governance/license-decisions.json",
+        "index.html",
+        "museum_pipeline/art/public_release.py",
+        "package-lock.json",
+        "package.json",
+        "playwright.config.ts",
+        "public/THIRD_PARTY_NOTICES.md",
+        "requirements-dev.txt",
+        "schemas/art/release/art-constellation-artifact.schema.json",
+        "schemas/art/release/public-constellation-record.schema.json",
+        "schemas/art/release/schema-manifest.json",
+        "scripts/build_museum_04_release.py",
+        "scripts/generate_museum_04_scale_fixture.py",
+        "scripts/run-museum-04-current-lab.mjs",
+        "scripts/run-museum-04-scale-lab.mjs",
+        "scripts/scan_public_artifact_for_candidate_data.py",
+        "scripts/validate_artist_selection_preflight.py",
+        "scripts/validate_governance_foundation.py",
+        "scripts/validate_museum_04_fixtures.py",
+        "scripts/validate_museum_04_issue_form.py",
+        "scripts/validate_museum_04_performance_evidence.py",
+        "scripts/validate_museum_04_release.py",
+        "scripts/verify-museum-04-budgets.mjs",
+        "src/App.tsx",
+        "src/data/art-constellation-bootstrap.ts",
+        "src/data/release-loader.ts",
+        "src/features/art-constellation/ArtConstellationPage.tsx",
+        "src/features/art-constellation/DetailPanel.tsx",
+        "src/features/art-constellation/DottedEdgeProgram.ts",
+        "src/features/art-constellation/SigmaGraphRenderer.tsx",
+        "src/features/art-constellation/Views.tsx",
+        "src/features/art-constellation/art-constellation.css",
+        "src/features/art-constellation/labels.ts",
+        "src/features/art-constellation/model.ts",
+        "src/features/art-constellation/route-loader.ts",
+        "src/features/art-constellation/types.ts",
+        "src/i18n/translations.ts",
+        "src/main.tsx",
+        "src/pages/AboutPage.tsx",
+        "src/pages/ArtFoyerPage.tsx",
+        "src/preferences/PreferencesProvider.tsx",
+        "src/styles/global.css",
+        "src/tests/art-constellation.test.tsx",
+        "src/tests/portal.test.tsx",
+        "src/tests/release-loader.test.ts",
+        "tests/pipeline/test_cli_leakage_and_fixtures.py",
+        "tests/pipeline/test_curation_preflight.py",
+        "tests/test_governance_foundation.py",
+        "tests/test_museum_04_budgets.py",
+        "tests/test_museum_04_current_lab_runner.mjs",
+        "tests/test_museum_04_dependencies.py",
+        "tests/test_museum_04_issue_form.py",
+        "tests/test_museum_04_performance_evidence.py",
+        "tests/test_museum_04_release.py",
+        "tests/test_museum_04_scale.py",
+        "tests/test_museum_04_scale_lab_runner.mjs",
+        "tests/test_museum_04_workflow.py",
+        "tsconfig.json",
+        "vite.config.ts"
+      ]
+    },
+    "B": {
+      "description": "Raw, private, sensitive, secret, or oversized paths inside the 134-path checkpoint diff.",
+      "paths": []
+    },
+    "C": {
+      "description": "Reproducible release and QA outputs. Backed up before later regeneration.",
+      "paths": [
+        "docs/qa/museum-04/art-landing.png",
+        "docs/qa/museum-04/desktop-initial.png",
+        "docs/qa/museum-04/desktop-list.png",
+        "docs/qa/museum-04/focused-artist.png",
+        "docs/qa/museum-04/forced-colors-list.png",
+        "docs/qa/museum-04/mobile-graph.png",
+        "docs/qa/museum-04/mobile-list.png",
+        "docs/qa/museum-04/performance-current-graph.json",
+        "docs/qa/museum-04/performance-scale-benchmarks.json",
+        "docs/qa/museum-04/playwright-results.json",
+        "docs/qa/museum-04/relationship-explanation.png",
+        "docs/qa/museum-04/rights-panel.png",
+        "public/releases/art-constellation-0.1.0/artists.json",
+        "public/releases/art-constellation-0.1.0/artworks.json",
+        "public/releases/art-constellation-0.1.0/attributions.json",
+        "public/releases/art-constellation-0.1.0/claims.json",
+        "public/releases/art-constellation-0.1.0/contexts.json",
+        "public/releases/art-constellation-0.1.0/evidence.json",
+        "public/releases/art-constellation-0.1.0/facets.json",
+        "public/releases/art-constellation-0.1.0/graph-summary.json",
+        "public/releases/art-constellation-0.1.0/layout.json",
+        "public/releases/art-constellation-0.1.0/license-decisions.json",
+        "public/releases/art-constellation-0.1.0/manifest.json",
+        "public/releases/art-constellation-0.1.0/performance-contract.json",
+        "public/releases/art-constellation-0.1.0/relationships.json",
+        "public/releases/art-constellation-0.1.0/release-signoff.json",
+        "public/releases/art-constellation-0.1.0/rights.json",
+        "public/releases/art-constellation-0.1.0/search-index.json",
+        "public/releases/art-constellation-0.1.0/source-rules-snapshot.json",
+        "public/releases/art-constellation-0.1.0/sources.json",
+        "public/releases/art-constellation-0.1.0/third-party-notices.json"
+      ]
+    },
+    "D": {
+      "description": "Stale or contract-conflicting documents that must be superseded or rewritten rather than treated as current evidence.",
+      "paths": [
+        "docs/phase-reports/phase-museum-04-report.md",
+        "docs/qa/museum-04/adversarial-review.md",
+        "docs/qa/museum-04/artist-summary-human-editorial-review-packet.md"
+      ]
+    }
+  },
+  "ignored_workspace_paths": {
+    "protected_B": [
+      {
+        "path": "data/raw",
+        "action": "backup_and_preserve_untouched"
+      },
+      {
+        "path": "data/intermediate",
+        "action": "backup_and_preserve_untouched"
+      },
+      {
+        "path": "data/review",
+        "action": "backup_and_preserve_untouched"
+      }
+    ],
+    "regenerable_C": [
+      "dist",
+      "test-results",
+      "output/playwright",
+      "tmp",
+      ".pytest_cache"
+    ],
+    "excluded_from_backup_and_git": [
+      {
+        "path": "node_modules",
+        "reason": "dependency install, reproducible, explicitly forbidden from Git"
+      }
+    ]
+  },
+  "systemic_revision_flags": {
+    "zero_media_contract_is_cross_cutting": true,
+    "old_public_release_must_be_regenerated": true,
+    "old_phase_report_is_formal_evidence": false,
+    "manual_item_approval_is_default_blocker": false,
+    "sealed_m03b_paths_may_be_modified": false
+  },
+  "recovery": {
+    "root": "D:\\ChatGPT-Codex-Projects\\Museum-Codex-Recovery\\MUSEUM-AUTO-01-20260714T192611Z",
+    "wip_manifest_sha256": "sha256:f44338ad78102db0d0217127b58d9a84f904315df48b570890636758c8983ab9",
+    "protected_manifest_sha256": "sha256:f046b4e75124aecd20f54fdae96076035fb38cbe7c2ab27337b3b51f9050a751",
+    "all_source_destination_hashes_verified": true
+  }
+}

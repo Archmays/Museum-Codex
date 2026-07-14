@@ -1,6 +1,6 @@
 # Museum-Codex Rights / 权利说明
 
-Effective date / 生效日期：2026-07-14  
+Effective date / 生效日期：2026-07-14
 Decision authority / 决策人：Mays
 
 This repository is publicly visible, but public visibility is not an open-source or open-content grant. Except where a separate notice expressly says otherwise, no permission is granted to copy, modify, redistribute, sublicense, or commercially use Museum-Codex project code or original curatorial content.

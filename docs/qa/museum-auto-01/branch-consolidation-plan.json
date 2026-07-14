@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at": "2026-07-15T03:26:11+08:00",
+  "repository": "Archmays/Museum-Codex",
+  "required_branch": "main",
+  "current_branch": "main",
+  "current_head": "15617a1d4bf4117f2d418424d7cda0ef6c8e0eae",
+  "remote_main": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+  "merge_base": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+  "ahead": 1,
+  "behind": 0,
+  "local_branches": [
+    {
+      "name": "main",
+      "head": "15617a1d4bf4117f2d418424d7cda0ef6c8e0eae"
+    }
+  ],
+  "remote_branches": [
+    {
+      "name": "origin/main",
+      "head": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+      "live_verified_with_ls_remote": true
+    }
+  ],
+  "non_main_branches": [],
+  "non_main_unique_commits": [],
+  "merges_required": [],
+  "main_only_commits": [
+    {
+      "commit": "15617a1d4bf4117f2d418424d7cda0ef6c8e0eae",
+      "parent": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+      "subject": "Refine museum release data and validation pipeline",
+      "classification": "pre_existing_local_m04_wip_checkpoint",
+      "changed_paths": 134,
+      "added_paths": 98,
+      "modified_paths": 36,
+      "deployable_alone": false
+    }
+  ],
+  "plan": "No merge action. Preserve the linear local main commit, add an explicit validated Stage A checkpoint, and do not push until all final gates pass.",
+  "forbidden_actions_observed": {
+    "branch_created": false,
+    "worktree_created": false,
+    "stash_used": false,
+    "history_rewritten": false,
+    "force_push_used": false
+  }
+}
