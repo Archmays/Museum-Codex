@@ -5,7 +5,9 @@ export default defineConfig({
   fullyParallel: false,
   retries: 0,
   outputDir: "output/playwright",
-  reporter: [["list"], ["json", { outputFile: "docs/qa/museum-04/playwright-results.json" }]],
+  reporter: [["list"], ["json", {
+    outputFile: process.env.PLAYWRIGHT_JSON_OUTPUT ?? "docs/qa/museum-04/playwright-results.json",
+  }]],
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:4173/Museum-Codex/",
     screenshot: "only-on-failure",

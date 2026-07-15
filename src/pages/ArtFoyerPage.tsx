@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { PageIntro } from "../components/PageIntro";
 import { useI18n } from "../i18n/I18nProvider";
+import { galleryCopy } from "../features/art-gallery/copy";
 
 export function ArtFoyerPage() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
+  const gallery = galleryCopy[locale];
   return (
     <main id="main-content" className="inner-page art-foyer" tabIndex={-1}>
       <PageIntro eyebrow={t.art.eyebrow} title={t.art.title} intro={t.art.intro} />
@@ -33,6 +35,10 @@ export function ArtFoyerPage() {
           <Link className="constellation-entry" to="/art/constellation">
             <span>{t.art.constellationLink}</span>
             <small>{t.art.constellationLinkHint}</small>
+          </Link>
+          <Link className="constellation-entry" to="/art/artists">
+            <span>{gallery.artistIndex}</span>
+            <small>{locale === "zh-CN" ? "进入十二位艺术家的数字展厅、作品详情与双作比较。" : "Enter twelve artist galleries, artwork details, and two-work comparison."}</small>
           </Link>
         </div>
       </aside>

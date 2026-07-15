@@ -162,6 +162,35 @@ describe("MUSEUM-04 formal public release", () => {
     expect(requestedNames(fetcher)).toEqual(expect.arrayContaining(["rights.json", "third-party-notices.json"]));
   });
 
+  it("provides a 44-work M05A catalog and claim-evidence-source detail closure", async () => {
+    const { dataSource, fetcher } = await loadActualRelease();
+    const catalogResult = await dataSource.loadArtworkCatalog();
+    expect(catalogResult.status).toBe("loaded");
+    if (catalogResult.status !== "loaded") return;
+    expect(catalogResult.data.artworks).toHaveLength(44);
+    expect(catalogResult.data.media).toHaveLength(242);
+    const approvedWork = catalogResult.data.artworks.find(
+      (artwork) => artwork.media.decision === "approved_self_hosted",
+    );
+    expect(approvedWork).toBeDefined();
+    if (!approvedWork) return;
+
+    const details = await dataSource.loadArtworkDetails(approvedWork.id);
+    expect(details.status).toBe("loaded");
+    expect(requestedNames(fetcher)).toEqual(expect.arrayContaining([
+      "claims.json", "evidence.json", "sources.json", "artworks.json", "media-index.json",
+    ]));
+    if (details.status !== "loaded") return;
+    expect(details.data.artist.artworkIds).toContain(approvedWork.id);
+    expect(details.data.claims.length).toBeGreaterThan(0);
+    expect(details.data.evidence.length).toBeGreaterThan(0);
+    expect(details.data.sources.length).toBeGreaterThan(0);
+    expect(details.data.media.length).toBeGreaterThan(0);
+    expect(details.data.claims.every((claim) =>
+      claim.evidenceIds.every((evidenceId) => details.data.evidence.some((item) => item.id === evidenceId)),
+    )).toBe(true);
+  });
+
   it.each([
     ["non-HTTPS scheme", "http://api.artic.edu/api/v1/artworks/111442", "artwork_official_object_url_not_https"],
     ["script scheme", "javascript:alert(1)", "artwork_official_object_url_not_https"],

@@ -3,8 +3,11 @@ import type {
   ArtConstellationRelease,
   ArtistRecord,
   ArtistSources,
+  ArtworkCatalog,
+  ArtworkDetails,
   ArtworkMediaDecision,
   ArtworkRecord,
+  ClaimRecord,
   ContextRecord,
   DetailLoadResult,
   EvidenceRecord,
@@ -341,6 +344,7 @@ const ART_CONSTELLATION_DECLARED_ARTIFACTS = [
   "contexts.json",
   "relationships.json",
   "artworks.json",
+  "claims.json",
   "evidence.json",
   "sources.json",
   "rights.json",
@@ -616,11 +620,29 @@ function parseArtworks(raw: unknown, releaseId: string): ArtworkRecord[] {
   });
 }
 
+function parseClaims(raw: unknown, releaseId: string): ClaimRecord[] {
+  return assertEnvelope(requiredRecord(raw, "claims_root"), releaseId, "claims").map((claim) => {
+    if (claim.status !== "publishable" || claim.publish_status !== "publishable") {
+      throw new Error("claim_not_publishable");
+    }
+    const object = requiredRecord(claim.object, "claim_object");
+    return {
+      id: requiredString(claim.id, "claim_id"),
+      subjectId: requiredString(claim.subject_id, "claim_subject_id"),
+      predicate: requiredString(claim.predicate, "claim_predicate"),
+      objectId: requiredString(object.entity_id ?? object.value, "claim_object_value"),
+      evidenceIds: stringList(claim.evidence_ids, "claim_evidence_ids"),
+      text: localized(claim.claim_text, "claim_text"),
+    };
+  });
+}
+
 function parseEvidence(raw: unknown, releaseId: string): EvidenceRecord[] {
   return assertEnvelope(requiredRecord(raw, "evidence_root"), releaseId, "evidence").map((evidence) => {
     const locator = requiredRecord(evidence.locator, "evidence_locator");
     return {
       id: requiredString(evidence.id, "evidence_id"),
+      claimIds: stringList(evidence.claim_ids, "evidence_claim_ids"),
       sourceIds: stringList(evidence.source_ids, "evidence_source_ids"),
       summary: localized(evidence.summary, "evidence_summary"),
       locator: [optionalString(locator.record_id), optionalString(locator.section)].filter(Boolean).join(" · ") || null,
@@ -1219,6 +1241,8 @@ export async function loadArtConstellationRelease(
     let relationshipIndexCache: RelationshipIndex | null = null;
     let sourcesCache: SourceRecord[] | null = null;
     let artworkMediaCache: { artworks: ArtworkRecord[]; media: MediaAsset[] } | null = null;
+    let claimsCache: ClaimRecord[] | null = null;
+    let evidenceCache: EvidenceRecord[] | null = null;
     const loadRelationshipIndex = async (detailSignal?: AbortSignal): Promise<DetailLoadResult<RelationshipIndex>> =>
       detailResult(async () => {
         if (relationshipIndexCache) return relationshipIndexCache;
@@ -1271,8 +1295,59 @@ export async function loadArtConstellationRelease(
       return artworkMediaCache;
     };
 
+    const loadClaimsArtifact = async (detailSignal?: AbortSignal) => {
+      if (claimsCache) return claimsCache;
+      claimsCache = parseClaims(await artifact("claims.json", detailSignal), manifest.id);
+      return claimsCache;
+    };
+
+    const loadEvidenceArtifact = async (detailSignal?: AbortSignal) => {
+      if (evidenceCache) return evidenceCache;
+      evidenceCache = parseEvidence(await artifact("evidence.json", detailSignal), manifest.id);
+      return evidenceCache;
+    };
+
     const dataSource: ArtConstellationDataSource = {
       loadRelationshipIndex,
+      loadArtworkCatalog: (detailSignal) => detailResult<ArtworkCatalog>(
+        () => loadArtworkMediaArtifacts(detailSignal),
+        detailSignal,
+      ),
+      loadArtworkDetails: (artworkId, detailSignal) => detailResult<ArtworkDetails>(async () => {
+        const [artworkMedia, claims, evidence, sources] = await Promise.all([
+          loadArtworkMediaArtifacts(detailSignal),
+          loadClaimsArtifact(detailSignal),
+          loadEvidenceArtifact(detailSignal),
+          loadSourcesArtifact(detailSignal),
+        ]);
+        const artwork = artworkMedia.artworks.find((candidate) => candidate.id === artworkId);
+        if (!artwork) throw new Error("unknown_artwork_id");
+        const artist = release.artists.find((candidate) => candidate.id === artwork.artistId);
+        if (!artist || !artist.artworkIds.includes(artwork.id)) throw new Error("artwork_artist_reference_closure");
+        const selectedClaims = claims.filter((claim) => claim.subjectId === artwork.id);
+        if (selectedClaims.length === 0) throw new Error("artwork_claim_closure");
+        const evidenceIds = new Set(selectedClaims.flatMap((claim) => claim.evidenceIds));
+        const selectedEvidence = evidence.filter((item) => evidenceIds.has(item.id));
+        if (
+          selectedEvidence.length !== evidenceIds.size ||
+          selectedClaims.some((claim) => claim.evidenceIds.some((id) => !selectedEvidence.some((item) => item.id === id))) ||
+          selectedEvidence.some((item) => !item.claimIds.some((id) => selectedClaims.some((claim) => claim.id === id)))
+        ) throw new Error("artwork_evidence_reference_closure");
+        const sourceIds = new Set([
+          ...artwork.sourceIds,
+          ...selectedEvidence.flatMap((item) => item.sourceIds),
+        ]);
+        const selectedSources = sources.filter((source) => sourceIds.has(source.id));
+        if (selectedSources.length !== sourceIds.size) throw new Error("artwork_source_reference_closure");
+        return {
+          artwork,
+          artist,
+          media: artworkMedia.media.filter((asset) => asset.artworkId === artwork.id),
+          claims: selectedClaims,
+          evidence: selectedEvidence,
+          sources: selectedSources,
+        };
+      }, detailSignal),
       loadArtistSources: (artistId, detailSignal) => detailResult<ArtistSources>(async () => {
         const artist = release.artists.find((candidate) => candidate.id === artistId);
         if (!artist) throw new Error("unknown_artist_id");
@@ -1298,10 +1373,10 @@ export async function loadArtConstellationRelease(
         if (!relationship) throw new Error("unknown_relationship_id");
         const [artworkMedia, evidenceRaw, sources] = await Promise.all([
           loadArtworkMediaArtifacts(detailSignal),
-          artifact("evidence.json", detailSignal),
+          loadEvidenceArtifact(detailSignal),
           loadSourcesArtifact(detailSignal),
         ]);
-        const evidence = parseEvidence(evidenceRaw, manifest.id);
+        const evidence = evidenceRaw;
         assertDetailClosure(relationship, artworkMedia.artworks, evidence, sources);
         const selectedArtworks = artworkMedia.artworks.filter((artwork) => relationship.supportingArtworkIds.includes(artwork.id));
         const selectedEvidence = evidence.filter((item) => relationship.evidenceIds.includes(item.id));

@@ -838,6 +838,11 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   padding: 7rem 0 9rem;
 }
 
+.route-loading {
+  min-height: calc(100vh - 6.5rem);
+  min-height: calc(100svh - 6.5rem);
+}
+
 .page-intro {
   position: relative;
   z-index: 1;

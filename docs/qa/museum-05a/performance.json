@@ -1,0 +1,747 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-05A",
+  "evidence_class": "controlled_lab",
+  "real_user_metric": false,
+  "real_device_status": "not_available",
+  "real_assistive_technology_status": "not_available",
+  "captured_at": "2026-07-15T07:49:20.308Z",
+  "environment": {
+    "browser": "chromium",
+    "source_worktree_dirty": true,
+    "implementation_input_files": [
+      "index.html",
+      "package-lock.json",
+      "package.json",
+      "public/releases/art-constellation-1.0.0/manifest.json",
+      "scripts/run-museum-05a-lab.mjs",
+      "scripts/validate_museum_05a_performance.py",
+      "src/App.tsx",
+      "src/components/AmbientField.tsx",
+      "src/components/HallMotif.tsx",
+      "src/components/HallPortal.tsx",
+      "src/components/PageIntro.tsx",
+      "src/components/SiteChrome.tsx",
+      "src/data/art-constellation-bootstrap.ts",
+      "src/data/release-loader.ts",
+      "src/features/art-constellation/ArtConstellationPage.tsx",
+      "src/features/art-constellation/ArtworkImage.tsx",
+      "src/features/art-constellation/DetailPanel.tsx",
+      "src/features/art-constellation/DottedEdgeProgram.ts",
+      "src/features/art-constellation/SigmaGraphRenderer.tsx",
+      "src/features/art-constellation/Views.tsx",
+      "src/features/art-constellation/art-constellation.css",
+      "src/features/art-constellation/labels.ts",
+      "src/features/art-constellation/model.ts",
+      "src/features/art-constellation/route-loader.ts",
+      "src/features/art-constellation/types.ts",
+      "src/features/art-gallery/ArtGalleryRoute.tsx",
+      "src/features/art-gallery/art-gallery-shell.css",
+      "src/features/art-gallery/artists/ArtistGalleryPage.tsx",
+      "src/features/art-gallery/artists/ArtistIndexPage.tsx",
+      "src/features/art-gallery/artists/artists.css",
+      "src/features/art-gallery/artists/index.ts",
+      "src/features/art-gallery/artwork/ArtworkDetailPage.tsx",
+      "src/features/art-gallery/artwork/ArtworkZoom.tsx",
+      "src/features/art-gallery/artwork/artwork.css",
+      "src/features/art-gallery/artwork/index.ts",
+      "src/features/art-gallery/compare/ComparePage.tsx",
+      "src/features/art-gallery/compare/compare.css",
+      "src/features/art-gallery/copy.ts",
+      "src/features/art-gallery/gallery-data.ts",
+      "src/features/art-gallery/gallery-types.ts",
+      "src/features/art-gallery/media.ts",
+      "src/features/art-gallery/route-loader.ts",
+      "src/i18n/I18nProvider.tsx",
+      "src/i18n/translations.ts",
+      "src/main.tsx",
+      "src/pages/AboutPage.tsx",
+      "src/pages/AccessibilityPage.tsx",
+      "src/pages/ArtFoyerPage.tsx",
+      "src/pages/HomePage.tsx",
+      "src/pages/NotFoundPage.tsx",
+      "src/preferences/PreferencesProvider.tsx",
+      "src/styles/global.css",
+      "vite.config.ts"
+    ],
+    "implementation_input_hash": "sha256:6e46380dbcd207af68bf077825a122179652cdc413a2aaf510339a357413abb9",
+    "tested_url": "http://127.0.0.1:4173/Museum-Codex/"
+  },
+  "profiles": [
+    {
+      "profile_id": "desktop-artist-index",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "#/art/artists",
+      "low_bandwidth": false,
+      "cpu_throttle_rate": 1,
+      "network_profile": {
+        "id": "unthrottled",
+        "emulation_enabled": false,
+        "connection_type": null
+      },
+      "sample_count": 3,
+      "metrics": {
+        "first_interactive_ms": {
+          "samples": [
+            1017.0375,
+            998.0219000000002,
+            1026.0301999999997
+          ],
+          "median": 1017.0375,
+          "p95": 1026.0301999999997,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2000,
+            "passed": true
+          }
+        },
+        "lcp_ms": {
+          "samples": [
+            780,
+            764,
+            780
+          ],
+          "median": 780,
+          "p95": 780,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "cls": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "initial_image_requests": {
+          "samples": [
+            6,
+            6,
+            6
+          ],
+          "median": 6,
+          "p95": 6,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 8,
+            "passed": true
+          }
+        },
+        "initial_image_bytes": {
+          "samples": [
+            83878,
+            83878,
+            83878
+          ],
+          "median": 83878,
+          "p95": 83878,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 2000000,
+            "passed": true
+          }
+        },
+        "transferred_bytes": {
+          "samples": [
+            271597,
+            271597,
+            271597
+          ],
+          "median": 271597,
+          "p95": 271597,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 3000000,
+            "passed": true
+          }
+        },
+        "horizontal_overflow_px": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        }
+      },
+      "assertions": {
+        "lcp_observed": true,
+        "transfer_observed": true,
+        "no_console_or_network_errors": true,
+        "no_external_requests": true,
+        "no_horizontal_overflow": true
+      },
+      "issues": [],
+      "external_requests": [],
+      "status": "pass"
+    },
+    {
+      "profile_id": "mobile-artist-index-low-bandwidth",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/art/artists",
+      "low_bandwidth": true,
+      "cpu_throttle_rate": 4,
+      "network_profile": {
+        "id": "fast_4g",
+        "emulation_enabled": true,
+        "connection_type": "cellular4g",
+        "latency_ms": 20,
+        "download_throughput_bytes_per_second": 500000,
+        "upload_throughput_bytes_per_second": 375000
+      },
+      "sample_count": 3,
+      "metrics": {
+        "first_interactive_ms": {
+          "samples": [
+            2494.0344000000005,
+            2508.2699000000002,
+            2505.6854000000003
+          ],
+          "median": 2505.6854000000003,
+          "p95": 2508.2699000000002,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 3500,
+            "passed": true
+          }
+        },
+        "lcp_ms": {
+          "samples": [
+            1976,
+            1984,
+            1992
+          ],
+          "median": 1984,
+          "p95": 1992,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "cls": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "initial_image_requests": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        },
+        "initial_image_bytes": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        },
+        "transferred_bytes": {
+          "samples": [
+            187719,
+            187719,
+            187719
+          ],
+          "median": 187719,
+          "p95": 187719,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 3000000,
+            "passed": true
+          }
+        },
+        "horizontal_overflow_px": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        }
+      },
+      "assertions": {
+        "lcp_observed": true,
+        "transfer_observed": true,
+        "no_console_or_network_errors": true,
+        "no_external_requests": true,
+        "no_horizontal_overflow": true
+      },
+      "issues": [],
+      "external_requests": [],
+      "status": "pass"
+    },
+    {
+      "profile_id": "desktop-artwork-detail",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "route": "#/art/artworks/artwork%3Amet-334816",
+      "low_bandwidth": false,
+      "cpu_throttle_rate": 1,
+      "network_profile": {
+        "id": "unthrottled",
+        "emulation_enabled": false,
+        "connection_type": null
+      },
+      "sample_count": 3,
+      "metrics": {
+        "first_interactive_ms": {
+          "samples": [
+            951.3697000000011,
+            948.338099999999,
+            1003.4095000000016
+          ],
+          "median": 951.3697000000011,
+          "p95": 1003.4095000000016,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2000,
+            "passed": true
+          }
+        },
+        "lcp_ms": {
+          "samples": [
+            828,
+            804,
+            832
+          ],
+          "median": 828,
+          "p95": 832,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "cls": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "initial_image_requests": {
+          "samples": [
+            1,
+            1,
+            1
+          ],
+          "median": 1,
+          "p95": 1,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 2,
+            "passed": true
+          }
+        },
+        "initial_image_bytes": {
+          "samples": [
+            404230,
+            404230,
+            404230
+          ],
+          "median": 404230,
+          "p95": 404230,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 1000000,
+            "passed": true
+          }
+        },
+        "transferred_bytes": {
+          "samples": [
+            667535,
+            667535,
+            667535
+          ],
+          "median": 667535,
+          "p95": 667535,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 3000000,
+            "passed": true
+          }
+        },
+        "horizontal_overflow_px": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        }
+      },
+      "assertions": {
+        "lcp_observed": true,
+        "transfer_observed": true,
+        "no_console_or_network_errors": true,
+        "no_external_requests": true,
+        "no_horizontal_overflow": true
+      },
+      "issues": [],
+      "external_requests": [],
+      "status": "pass"
+    },
+    {
+      "profile_id": "mobile-artwork-detail",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/art/artworks/artwork%3Amet-334816",
+      "low_bandwidth": false,
+      "cpu_throttle_rate": 4,
+      "network_profile": {
+        "id": "fast_4g",
+        "emulation_enabled": true,
+        "connection_type": "cellular4g",
+        "latency_ms": 20,
+        "download_throughput_bytes_per_second": 500000,
+        "upload_throughput_bytes_per_second": 375000
+      },
+      "sample_count": 3,
+      "metrics": {
+        "first_interactive_ms": {
+          "samples": [
+            1790.8292000000001,
+            1807.7272000000012,
+            1912.2345999999998
+          ],
+          "median": 1807.7272000000012,
+          "p95": 1912.2345999999998,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 3500,
+            "passed": true
+          }
+        },
+        "lcp_ms": {
+          "samples": [
+            1804,
+            1812,
+            1920
+          ],
+          "median": 1812,
+          "p95": 1920,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 3500,
+            "passed": true
+          }
+        },
+        "cls": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "initial_image_requests": {
+          "samples": [
+            1,
+            1,
+            1
+          ],
+          "median": 1,
+          "p95": 1,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 2,
+            "passed": true
+          }
+        },
+        "initial_image_bytes": {
+          "samples": [
+            74246,
+            74246,
+            74246
+          ],
+          "median": 74246,
+          "p95": 74246,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 750000,
+            "passed": true
+          }
+        },
+        "transferred_bytes": {
+          "samples": [
+            337551,
+            337551,
+            337551
+          ],
+          "median": 337551,
+          "p95": 337551,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 3000000,
+            "passed": true
+          }
+        },
+        "horizontal_overflow_px": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        }
+      },
+      "assertions": {
+        "lcp_observed": true,
+        "transfer_observed": true,
+        "no_console_or_network_errors": true,
+        "no_external_requests": true,
+        "no_horizontal_overflow": true
+      },
+      "issues": [],
+      "external_requests": [],
+      "status": "pass"
+    },
+    {
+      "profile_id": "mobile-compare-low-bandwidth",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "route": "#/art/compare?left=artwork%3Amet-334816&right=artwork%3Amet-436243",
+      "low_bandwidth": true,
+      "cpu_throttle_rate": 4,
+      "network_profile": {
+        "id": "fast_4g",
+        "emulation_enabled": true,
+        "connection_type": "cellular4g",
+        "latency_ms": 20,
+        "download_throughput_bytes_per_second": 500000,
+        "upload_throughput_bytes_per_second": 375000
+      },
+      "sample_count": 3,
+      "metrics": {
+        "first_interactive_ms": {
+          "samples": [
+            1829.4425999999985,
+            1673.171699999999,
+            2360.2875999999997
+          ],
+          "median": 1829.4425999999985,
+          "p95": 2360.2875999999997,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 3500,
+            "passed": true
+          }
+        },
+        "lcp_ms": {
+          "samples": [
+            1828,
+            1672,
+            1852
+          ],
+          "median": 1828,
+          "p95": 1852,
+          "target": {
+            "statistic": "median",
+            "operator": "lte",
+            "value": 2500,
+            "passed": true
+          }
+        },
+        "cls": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0.1,
+            "passed": true
+          }
+        },
+        "initial_image_requests": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        },
+        "initial_image_bytes": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        },
+        "transferred_bytes": {
+          "samples": [
+            190533,
+            190533,
+            190533
+          ],
+          "median": 190533,
+          "p95": 190533,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 3000000,
+            "passed": true
+          }
+        },
+        "horizontal_overflow_px": {
+          "samples": [
+            0,
+            0,
+            0
+          ],
+          "median": 0,
+          "p95": 0,
+          "target": {
+            "statistic": "p95",
+            "operator": "lte",
+            "value": 0,
+            "passed": true
+          }
+        }
+      },
+      "assertions": {
+        "lcp_observed": true,
+        "transfer_observed": true,
+        "no_console_or_network_errors": true,
+        "no_external_requests": true,
+        "no_horizontal_overflow": true
+      },
+      "issues": [],
+      "external_requests": [],
+      "status": "pass"
+    }
+  ],
+  "overall_status": "pass"
+}

@@ -9,8 +9,16 @@ import { HomePage } from "./pages/HomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PreferencesProvider } from "./preferences/PreferencesProvider";
 import { preloadArtConstellationRoute } from "./features/art-constellation/route-loader";
+import { preloadArtGalleryRoute } from "./features/art-gallery/route-loader";
 
 const ArtConstellationPage = lazy(preloadArtConstellationRoute);
+const ArtGalleryRoute = lazy(preloadArtGalleryRoute);
+
+const galleryFallback = (
+  <main id="main-content" className="inner-page route-loading" tabIndex={-1}>
+    <p role="status">正在加载数字展厅…… / Loading digital galleries…</p>
+  </main>
+);
 
 export function App() {
   return (
@@ -29,6 +37,10 @@ export function App() {
                   </Suspense>
                 }
               />
+              <Route path="/art/artists" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
+              <Route path="/art/artists/:artistId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
+              <Route path="/art/artworks/:artworkId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
+              <Route path="/art/compare" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/accessibility" element={<AccessibilityPage />} />
               <Route path="*" element={<NotFoundPage />} />

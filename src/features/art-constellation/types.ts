@@ -112,10 +112,20 @@ export type MediaAsset = {
 
 export type EvidenceRecord = {
   id: string;
+  claimIds: string[];
   sourceIds: string[];
   summary: LocalizedText;
   locator: string | null;
   reliabilityNote: LocalizedText;
+};
+
+export type ClaimRecord = {
+  id: string;
+  subjectId: string;
+  predicate: string;
+  objectId: string;
+  evidenceIds: string[];
+  text: LocalizedText;
 };
 
 export type SourceRecord = {
@@ -221,6 +231,20 @@ export type ArtistSources = {
   sources: SourceRecord[];
 };
 
+export type ArtworkCatalog = {
+  artworks: ArtworkRecord[];
+  media: MediaAsset[];
+};
+
+export type ArtworkDetails = {
+  artwork: ArtworkRecord;
+  artist: ArtistRecord;
+  media: MediaAsset[];
+  claims: ClaimRecord[];
+  evidence: EvidenceRecord[];
+  sources: SourceRecord[];
+};
+
 export type RightsDetails = {
   rights: RightsRecord;
   notices: ThirdPartyNotice[];
@@ -232,6 +256,8 @@ export type DetailLoadResult<T> =
 
 export type ArtConstellationDataSource = {
   loadRelationshipIndex: (signal?: AbortSignal) => Promise<DetailLoadResult<RelationshipIndex>>;
+  loadArtworkCatalog: (signal?: AbortSignal) => Promise<DetailLoadResult<ArtworkCatalog>>;
+  loadArtworkDetails: (artworkId: string, signal?: AbortSignal) => Promise<DetailLoadResult<ArtworkDetails>>;
   loadArtistSources: (artistId: string, signal?: AbortSignal) => Promise<DetailLoadResult<ArtistSources>>;
   loadRelationshipDetails: (
     relationshipId: string,

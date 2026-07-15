@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { preloadArtConstellationData } from "./data/art-constellation-bootstrap";
 import { preloadArtConstellationRoute } from "./features/art-constellation/route-loader";
+import { preloadArtGalleryRoute } from "./features/art-gallery/route-loader";
 import "./styles/global.css";
 
 const root = document.getElementById("root");
@@ -12,6 +13,11 @@ if (!root) {
 
 if (window.location.hash.startsWith("#/art/constellation")) {
   void preloadArtConstellationRoute();
+  preloadArtConstellationData(`${import.meta.env.BASE_URL}releases/art-constellation-1.0.0/`);
+}
+
+if (/^#\/art\/(?:artists|artworks|compare)(?:\/|$|\?)/.test(window.location.hash)) {
+  void preloadArtGalleryRoute();
   preloadArtConstellationData(`${import.meta.env.BASE_URL}releases/art-constellation-1.0.0/`);
 }
 
