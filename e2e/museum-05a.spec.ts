@@ -71,7 +71,9 @@ function observeRuntime(page: Page, origin: string) {
       consoleIssues.push(`${message.type()}: ${message.text()}`);
     }
   });
-  page.on("requestfailed", (request) => failedRequests.push(`${request.method()} ${request.url()}`));
+  page.on("requestfailed", (request) => {
+    failedRequests.push(`${request.method()} ${request.url()} (${request.failure()?.errorText ?? "unknown"})`);
+  });
   page.on("response", (response) => {
     if (response.status() >= 400) httpErrors.push(`${response.status()} ${response.url()}`);
   });
@@ -164,6 +166,7 @@ test("artist index exposes 12 reviewed entries, useful filters, and all 12 artis
     expect(artist.artwork_ids.length).toBeGreaterThanOrEqual(2);
     expect(artist.artwork_ids.length).toBeLessThanOrEqual(4);
     await expect(main.getByRole("heading", { name: "Sources and rights" })).toBeVisible();
+    await expect(main.locator(".artist-source-list li").first()).toBeVisible();
     await expect(main.locator(".gallery-release-tally")).toContainText(/\d+\s*.*\s*C/);
     await expect(main.locator(".artist-related-boundary")).toContainText(/does not prove.*influence/i);
     if (artist.id === "artist:katsushika-hokusai") {

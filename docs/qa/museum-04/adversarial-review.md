@@ -31,7 +31,7 @@ m04_live_qa_performed: false
 
 The complete 28-fixture MUSEUM-04 matrix passed in four disjoint shards: exit codes `0/0/0/0`, 28 unique fixture IDs, 27 expected-invalid fixtures rejected, and one expected-valid fixture accepted. Durable evidence is `fixture-matrix.json`, run ID `fff290ead038447096fcc9b1cc337639`. With no open P0/P1, MUSEUM-04 is `completed/pass` and the M05A gate is open.
 
-`formal_publication_allowed=true` authorizes continuation inside the AUTO-01 unified release flow; it does not claim that a push, Pages deployment, or live QA has already occurred.
+`formal_publication_allowed=true` authorized continuation inside the AUTO-01 unified release flow; the later push, Pages deployment and live QA are independently evidenced by Actions run `29420441620`, deployment `5458604781` and `docs/qa/museum-auto-01/final-online/`.
 
 The pre-media `0.1.0` human-editorial P0 was not completed by a human. It is **superseded** by the MUSEUM-AUTO-01 automated-release contract. The formal signoff states `automated_pass`, `human_review_dependency=false`, and `human_reviewer_claimed=false`; no human approval is fabricated.
 
@@ -93,7 +93,7 @@ Status meanings:
 | M04-F-002 | former P0 | SUPERSEDED | The derived publication block depended only on the removed `0.1.0` human-review finding. The old candidate is gone from `public/`; the retained worksheet explicitly says it is not approval or current evidence. | Do not revive the zero-media or pending-curator contract. Do not claim a human resolved it. |
 | M04-F-003 | P1 | RESOLVED | Loader and scanner accept only exact local release assets, verify hashes/DTOs, defer media index/governance data, reject hotlinks/private fields, and preserve Pages base-path/HashRouter behavior. The final dist candidate-label scan passes across 287 files; final local M04/public Playwright is 6/6. | Keep public/private leakage and runtime-network gates in CI. |
 | M04-F-004 | gate | RESOLVED | The complete matrix passed in four disjoint 7-fixture shards with exit codes `0/0/0/0`: 28 unique IDs, 28 passed, 27 expected-invalid rejected and one expected-valid accepted. Evidence is `fixture-matrix.json`, run ID `fff290ead038447096fcc9b1cc337639`. | Keep exact fixture-ID closure and fail if any expected-invalid fixture is accepted. |
-| M04-F-005 | release sequencing | RESOLVED | No M04-only push or Pages deployment was attempted. MUSEUM-AUTO-01 requires one final push after M03C, M04, optional M05A and full-repo gates. | Keep `pages_deployment_status=deferred_to_museum_auto_01_final_push`; perform Actions and online QA only after the unified push. |
+| M04-F-005 | release sequencing | RESOLVED | No M04-only push or Pages deployment was attempted. MUSEUM-AUTO-01 performed the unified push only after M03C, M04, M05A and full-repo gates; Actions run `29420441620` and deployment `5458604781` succeeded. | Keep `pages_deployment_status=completed_via_museum_auto_01` and retain the final-online evidence. |
 
 ## Remaining P3 register
 
@@ -111,5 +111,5 @@ Status meanings:
 - Current and scale performance validation: pass.
 - 28-fixture matrix: **pass 28/28**; 27 expected-invalid rejected and one expected-valid accepted.
 - Overall MUSEUM-04 completion: **completed/pass**.
-- Git/Pages/live: this review is recorded by the enclosing M04 commit; no push, no M04-only Pages deployment and no live M04 QA; those remain deferred to MUSEUM-AUTO-01 unified closeout.
+- Git/Pages/live: this review was recorded by the enclosing M04 commit without an M04-only push; the deferred boundary was later closed by MUSEUM-AUTO-01 unified Actions, Pages deployment and real-site QA.
 - MUSEUM-05A gate: **consumed and completed via MUSEUM-AUTO-01**.

@@ -6,8 +6,9 @@ report_date: 2026-07-15
 runtime_model: not_exposed_by_runtime
 runtime_reasoning: not_exposed_by_runtime
 baseline_commit: 2be73011cb1dca64cb8d3a2d5830f495671d755b
-implementation_commit: recorded_by_enclosing_git_commit
-final_commit: null
+implementation_commit: 9a7f38a3bdcfcfb222116f2ead4438e81073f0af
+final_commit: recorded_by_museum_auto_01_closeout_commit
+deployed_runtime_commit: 00a8539ea0d5e901fc2b6be993ea400ff36a0b19
 public_release_created: true
 public_release_id: release:art-constellation-1.0.0
 public_release_hash: sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462
@@ -34,7 +35,8 @@ performance_current_graph_status: pass
 performance_scale_status: pass
 real_device_status: not_available
 real_assistive_technology_status: not_available
-pages_deployment_status: deferred_to_museum_auto_01_final_push
+pages_deployment_status: completed_via_museum_auto_01
+pages_url: https://archmays.github.io/Museum-Codex/
 museum_05_gate_status: completed_via_museum_auto_01
 ---
 
@@ -48,7 +50,7 @@ MUSEUM-04 已生成并单独验证正式、media-aware、静态的 `release:art-
 
 MUSEUM-04 当前结论为 **`completed/pass`**。28-fixture matrix 以四个互斥 shard 完整执行：4×7 个 fixture、四个进程退出码均为 0、28 个唯一 fixture ID 全部通过；其中 27 个 expected-invalid 均被拒绝，1 个 expected-valid 被接受。持久证据为 `docs/qa/museum-04/fixture-matrix.json`，run ID 为 `fff290ead038447096fcc9b1cc337639`，且不依赖人工逐项审核。
 
-Pages 未在本阶段单独推送或部署。按照 MUSEUM-AUTO-01 的单一 `main` 线性流程，MUSEUM-04 与后续通过门禁的工作将在最终全仓验证后统一 push，并等待同一 GitHub Actions/Pages 部署。当前公开 Pages 不能作为本 release 已上线的证据。
+Pages 未在本阶段单独推送或部署，这是原阶段边界。随后 MUSEUM-AUTO-01 按单一 `main` 线性流程完成统一 push；Actions run `29420441620` 与 Pages deployment `5458604781` 成功，真实站点与本地 public-served `dist` 已逐字节闭合，因此当前公开 Pages 是本 release 的正式上线证据。
 
 ## 2. 正式 release 身份与物理闭包
 
@@ -158,9 +160,9 @@ MUSEUM-AUTO-01 的正式契约要求自动交叉验证、禁止 `waiting for man
 
 当前 `docs/qa/museum-04/playwright-results.json` 记录 5 个本地场景全部通过，覆盖 desktop graph/list/table/relation/rights/URL、1366 无溢出、390 low-bandwidth、forced colors/reduced motion/WebGL fallback 与 no-script HTTP 200。
 
-`docs/qa/museum-04/` 下的 art landing、desktop、mobile、focus、relationship、rights 和 forced-colors 截图是本地 media-aware QA 证据，不是最终线上截图。最终 online screenshots 必须在统一 push、Actions 成功和真实 Pages QA 后写入 MUSEUM-AUTO-01 的 final-online 目录。
+`docs/qa/museum-04/` 下的截图仍是本地 media-aware QA 证据；统一 push 后的最终线上证据已写入 `docs/qa/museum-auto-01/final-online/`，包含 15 张真实 Pages 截图、11/11 Playwright 结果与 286-file byte closure。
 
-## 13. 已通过的阶段门禁与仍延后的全流程门禁
+## 13. 已通过的阶段门禁与全流程门禁
 
 MUSEUM-04 阶段内已直接观察并通过：
 
@@ -173,11 +175,11 @@ MUSEUM-04 阶段内已直接观察并通过：
 - final local M04/public-route Playwright：6/6 pass；
 - 已知未修复 P0/P1：0。
 
-最终 clean install、全仓离线 Python、前端 check、release/rights/performance/budget/scanner 与本地浏览器门禁已由 MUSEUM-AUTO-01 统一收尾通过；最终 Git clean state、Actions、Pages 与 online QA 仍须在统一 push 后记录，不能由本地阶段证据替代。
+最终 clean install、全仓离线 Python、前端 check、release/rights/performance/budget/scanner、本地浏览器、GitHub Actions、Pages 与真实线上 11/11 门禁均由 MUSEUM-AUTO-01 统一收尾通过；Actions run 为 `29420441620`，deployment 为 `5458604781`。
 
 ## 14. Git、Pages 与下一阶段
 
-本报告由 `Phase MUSEUM-04 media-aware art constellation` 的 enclosing Git commit 记录；具体 commit SHA 以 Git history 为准，AUTO-01 最终 commit 仍保持 `null`。本阶段不 push；Pages deployment 明确延后到 MUSEUM-AUTO-01 最终统一 push。当前 release 的本地 formal validation 不等于远端或线上状态。
+MUSEUM-04 implementation commit 为 `9a7f38a3bdcfcfb222116f2ead4438e81073f0af`。本阶段没有单独 push；统一 AUTO-01 runtime commit `00a8539ea0d5e901fc2b6be993ea400ff36a0b19` 已通过 Actions 并部署，最终线上证据由 AUTO-01 closeout enclosing commit 记录。
 
 fixture matrix 与其余 M04 final gates 已实际 pass，已知 P0/P1 为 0，public release valid 且本地 Pages build 可用；MUSEUM-05A gate 已被 AUTO-01 消费并完成。仍未进入 MUSEUM-05B、MUSEUM-06、武器馆或生物馆。
 

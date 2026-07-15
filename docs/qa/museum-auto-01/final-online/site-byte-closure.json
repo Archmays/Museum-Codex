@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "captured_at": "2026-07-15T14:31:06.506094Z",
+  "pages_url": "https://archmays.github.io/Museum-Codex/",
+  "local_dist_file_count": 287,
+  "public_served_file_count": 286,
+  "matched_file_count": 286,
+  "matched_bytes": 40085615,
+  "failed_file_count": 0,
+  "tree_hash_algorithm": "sha256(path\\0size\\0file_sha256\\n)",
+  "tree_hash": "sha256:6cbd5575deeb1e16f4a25e5853404e2a5825186411ca7d4ebbc17b209c0e1aeb",
+  "request_policy": {
+    "accept_encoding": "identity",
+    "concurrency": 4,
+    "timeout_seconds": 90,
+    "maximum_attempts": 4,
+    "https_only": true
+  },
+  "retried_files": [
+    {
+      "path": "releases/art-constellation-1.0.0/assets/met-282043/320w.webp",
+      "attempts": 2,
+      "result": "matched"
+    },
+    {
+      "path": "releases/art-constellation-1.0.0/assets/met-283099/320w.webp",
+      "attempts": 2,
+      "result": "matched"
+    },
+    {
+      "path": "releases/art-constellation-1.0.0/assets/met-283099/640w.jpg",
+      "attempts": 2,
+      "result": "matched"
+    },
+    {
+      "path": "releases/art-constellation-1.0.0/assets/met-283099/640w.webp",
+      "attempts": 2,
+      "result": "matched"
+    }
+  ],
+  "excluded_files": [
+    {
+      "path": ".vite/manifest.json",
+      "http_status": 404,
+      "reason": "Internal Vite build metadata in a dot-directory is intentionally not served by GitHub Pages and is not referenced by the public runtime."
+    }
+  ]
+}

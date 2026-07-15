@@ -1,15 +1,24 @@
 ---
 phase_id: MUSEUM-AUTO-01
-status: local_release_candidate_pass
+status: completed
 validation_status: pass
 report_date: 2026-07-15
 runtime_model: not_exposed_by_runtime
 runtime_reasoning: not_exposed_by_runtime
 branch: main
-final_commit: pending_online_evidence
-actions_run: pending
+final_commit: recorded_by_enclosing_git_commit
+release_candidate_commit: 406665f19c1f041cace733962a33e49dddaa3d66
+deployed_runtime_commit: 00a8539ea0d5e901fc2b6be993ea400ff36a0b19
+actions_run: "29420441620"
+actions_run_url: https://github.com/Archmays/Museum-Codex/actions/runs/29420441620
+actions_run_conclusion: success
+prior_failed_actions_run: "29418392249"
+prior_failed_actions_run_url: https://github.com/Archmays/Museum-Codex/actions/runs/29418392249
+pages_deployment_id: "5458604781"
+pages_deployment_status: success
 pages_url: https://archmays.github.io/Museum-Codex/
-online_qa_status: pending
+online_qa_status: pass_11_of_11
+online_screenshot_count: 15
 ---
 
 # MUSEUM-AUTO-01 单一 main 连续执行总报告
@@ -18,7 +27,7 @@ online_qa_status: pending
 
 ## 1. AUTO-01 总体状态
 
-四个实施阶段及最终本地 clean-install、全仓回归、构建、release/rights/performance/budget/scanner 和浏览器门禁均达到 `completed/pass`。当前状态是未推送的本地 release candidate；Actions、Pages 与线上 QA 在统一 push 后才可完成，本文不提前声称上线。
+四个实施阶段、最终 clean-install、全仓回归、构建、release/rights/performance/budget/scanner、浏览器门禁、统一 `main` push、GitHub Actions、Pages 部署与真实线上 QA 均达到 `completed/pass`。成功部署的 runtime commit 为 `00a8539ea0d5e901fc2b6be993ea400ff36a0b19`；线上 11/11 浏览器场景、15 张截图与 286 个 public-served 文件逐字节闭合共同构成正式上线证据。
 
 ## 2. 初始 dirty 文件统计
 
@@ -35,6 +44,9 @@ online_qa_status: pending
 - `df68399`：`Phase MUSEUM-03C automated media acquisition and validation`。
 - `9a7f38a`：`Phase MUSEUM-04 media-aware art constellation`。
 - `4acbe2e`：`Phase MUSEUM-05A first digital artist galleries`。
+- `406665f`：`Complete MUSEUM-AUTO-01 release candidate`。
+- `00a8539`：`Fix CI dependency order for Python contracts`，也是已成功部署的 runtime commit。
+- `recorded_by_enclosing_git_commit`：最终线上证据与本报告 closeout commit；具体 SHA 由 Git history 与最终交付记录解析。
 
 未创建 branch、worktree、stash、PR 或临时远端 branch；未 reset、clean、改写历史或 force push。
 
@@ -132,44 +144,51 @@ M04 current graph 与 1k/10k/50k scale evidence 均 pass；M05A 五个受控 pro
 
 ## 21. Final commit
 
-Release-candidate commit 由本报告的 enclosing Git commit 记录；最终 commit 需在 Pages 部署及线上证据回填后确定，不改写既有 checkpoint 历史。
+Release-candidate commit 为 `406665f19c1f041cace733962a33e49dddaa3d66`；成功部署的 runtime commit 为 `00a8539ea0d5e901fc2b6be993ea400ff36a0b19`。本报告、线上截图、浏览器结果和字节闭合证据由 `recorded_by_enclosing_git_commit` 记录；其具体 SHA 在提交后由 Git history 与最终回复给出，不通过自引用伪造。既有 checkpoint 历史未被改写。
 
 ## 22. Actions run
 
-`pending`。只在最终本地 clean/pass 后 push；随后记录真实 Actions run ID、URL 与结论。
+首次统一 push 触发 [Actions run 29418392249](https://github.com/Archmays/Museum-Codex/actions/runs/29418392249)，head `406665f19c1f041cace733962a33e49dddaa3d66`，结论 `failure`。根因为 workflow 在 `npm ci` 前执行完整 Python contracts，其中两个测试会调用 Node performance runner，clean Linux runner 因而无法解析 Playwright；其余测试没有显示产品回归。
+
+`00a8539ea0d5e901fc2b6be993ea400ff36a0b19` 将 pinned Node setup 与 `npm ci` 移到 offline Python suite 之前，并增加 workflow 顺序断言；没有删测试或放宽门禁。随后 [Actions run 29420441620](https://github.com/Archmays/Museum-Codex/actions/runs/29420441620) 成功，build job `87369223523` 与 deploy job `87378295007` 全部通过；GitHub Pages deployment `5458604781` 状态为 `success`。
 
 ## 23. Actual Pages URL
 
-[https://archmays.github.io/Museum-Codex/](https://archmays.github.io/Museum-Codex/)。当前报告在新 release 部署完成前不把旧线上内容作为本任务上线证据。
+[https://archmays.github.io/Museum-Codex/](https://archmays.github.io/Museum-Codex/)。Deployment `5458604781` 于 2026-07-15 14:20:16 UTC 成功发布已验证 runtime commit `00a8539ea0d5e901fc2b6be993ea400ff36a0b19`；HTTPS enforced，Pages build type 为 workflow。
 
 ## 24. Online QA
 
-`pending`。部署后检查 home、Art、constellation、artist index、12 artist pages、artwork detail、compare、About/Rights、Accessibility、mobile/desktop、keyboard、low bandwidth、forced colors、reduced motion、WebGL fallback、console/network/image/rights 与 local-dist 一致性。
+真实 Pages Playwright 最终 11/11 通过，耗时 24.051 秒，unexpected/skipped/flaky 均为 0。覆盖 home、Art landing、constellation、artist index、12 artist pages、44 artwork details、compare、About/Rights、Accessibility、mobile/desktop、keyboard、low bandwidth、forced colors、reduced motion、WebGL fallback、no-script、image decode fallback 与 rights/attribution。最终 console warning/error、HTTP ≥400、failed request、external API、WebSocket、unexpected hotlink 和 blocked asset request 均为 0。
+
+本地 `dist` 的 286 个 public-served 文件、40,085,615 bytes 与真实 Pages 逐文件长度/SHA-256 完全一致，tree hash 为 `sha256:6cbd5575deeb1e16f4a25e5853404e2a5825186411ca7d4ebbc17b209c0e1aeb`。唯一不在公开闭包中的 `.vite/manifest.json` 是未被 runtime 引用且由 Pages 按 dot-directory 规则不提供的内部 Vite 构建元数据；不将其 404 伪装成公开文件匹配。证据见 `docs/qa/museum-auto-01/final-online/site-byte-closure.json`。
 
 ## 25. Screenshots
 
-本地阶段截图已在 `docs/qa/museum-04/` 与 `docs/qa/museum-05a/screenshots/`。最终线上截图将写入 `docs/qa/museum-auto-01/final-online/` 并在在线 QA 后回填数量。
+最终线上目录 `docs/qa/museum-auto-01/final-online/` 包含 15 张 PNG（12,472,976 bytes）、Playwright JSON、线上 QA summary 与 site byte closure。截图覆盖桌面/移动星海、列表、focus、关系、rights、Art landing、artist index/gallery、artwork detail、desktop/mobile compare 与 forced colors；只读视觉复核未发现错位、裁切、占位图冒充作品或移动端横向溢出，P0/P1 为 0。
 
 ## 26. Reviewer findings
 
-独立 A–F/静态审计确认 M03B hash、M03C bundle、M04 release、M05A routes 与 safety closure。最终审计发现并关闭：M05A CI 门禁缺失、no-script 标题漂移、3 个新增 release schema 未同步全仓 required 清单、Cleveland/Rijksmuseum 缺可执行 source gate、移动 loading-state CLS 回归、About/Rights 与 Accessibility 缺浏览器路由证据、workflow tests 未锁定 M05A 门禁，以及 compiled loader 暴露两个正式候选 source label。所有 P0/P1/P2 finding 均已关闭；线上部署复验仍按 FINAL 流程执行。
+独立 A–F/静态审计确认 M03B hash、M03C bundle、M04 release、M05A routes 与 safety closure。最终审计发现并关闭：M05A CI 门禁缺失、no-script 标题漂移、3 个新增 release schema 未同步全仓 required 清单、Cleveland/Rijksmuseum 缺可执行 source gate、移动 loading-state CLS 回归、About/Rights 与 Accessibility 缺浏览器路由证据、workflow tests 未锁定 M05A 门禁，以及 compiled loader 暴露两个正式候选 source label。
+
+部署阶段另关闭两项：一是首次 Actions 的 dependency-order 问题；二是首次 live E2E 9/11 中，测试在主动导航/关闭页面前没有等待 source list 与响应式图片 decode，产生 `ERR_ABORTED`。没有忽略 abort，而是记录 `request.failure().errorText`，等待必需来源列表、`decode()` 和 `naturalWidth` 后重跑；最终全量 11/11、failed request 0。所有已知 P0/P1/P2 finding 均已关闭。
 
 ## 27. Remaining P3
 
 - M03C：4 个 AIC IIIF 在当前环境 HTTP 403；AVIF 不可用；watermark/site-chrome heuristic 不等同 OCR。
 - M04：无真实低内存 Android、无真实 AT；1k supplemental FPS median 27。
 - M05A：正常带宽 decode/srcset 为代表性抽测；无真实触摸/AT；未单独构造重签恶意 bundle 触发 `blocked_runtime_ids` 的专项 fixture，仍由上游 M04 fail-closed gate 覆盖。
+- Online visual：桌面 compare 的长短标题会使两张图顶端不齐；超长作品标题使详情主图落在首屏下方；移动星海可增加跳到图形/折叠高级筛选；密集 rights 说明可增加行高与段距。
 - Cleveland/Rijksmuseum 合同已做 synthetic 正负门禁，并分别以官方 Cleveland `141444` 与 Rijksmuseum Night Watch 示例完成真实 metadata smoke；Rijks 三个 resolver 均 HTTP 200 并闭合 `200107928 → 202107928 → 500711199912110510799100 → PJEZO`。当前批次没有 Cleveland/Rijks 对象，因此没有对应 original bytes；现有 bundle collector 也不会收集未来 Rijks 的两个 follow-up metadata event，未来正式批次纳入 Rijks 前必须扩展该 closure。
 
 以上均为非阻断 P3；已知未解决 P0/P1/P2 为 0。
 
 ## 28. Worktree clean
 
-`pending`。最终 commit 前将停止本任务 preview、仅清理已核实的 ignored tmp/trace/log 产物、重跑 diff/secret/large/symlink 检查并要求 clean。
+最终线上证据由本报告的 enclosing commit 收口；提交前仅移除已核实的 ignored Playwright tmp/trace/log，并重跑 diff、secret、large-file、symlink、protected-package 与 public-artifact 检查。enclosing commit 后要求 `git status --porcelain` 为空；实际 post-commit clean 结果由最终交付记录确认。
 
 ## 29. Local / origin / remote 一致
 
-`pending`。发布前 live remote baseline 仍为 `2be73011cb1dca64cb8d3a2d5830f495671d755b`，local `main` 是其线性后代；最终在 Actions/线上证据 commit 后要求 local HEAD = `origin/main` = `git ls-remote origin main`。
+成功部署时 local `main`、`origin/main` 与 live remote 均为 `00a8539ea0d5e901fc2b6be993ea400ff36a0b19`，且是 baseline `2be73011cb1dca64cb8d3a2d5830f495671d755b` 的线性后代。enclosing evidence commit 推送后再次要求 local HEAD = `origin/main` = `git ls-remote origin main`；实际最终 SHA 与一致性由最终交付记录确认。
 
 ## 30. 未进入的后续阶段
 

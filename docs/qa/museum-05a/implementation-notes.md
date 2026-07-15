@@ -42,4 +42,4 @@ Automated checks cover DOM semantics, keyboard paths, forced colors, reduced mot
 - Build budget evidence: `docs/qa/museum-05a/bundle-budget.json`
 - Controlled performance evidence: `docs/qa/museum-05a/performance.json`
 
-These local artifacts are phase evidence, not proof of the final GitHub Pages deployment. Online evidence is recorded separately under `docs/qa/museum-auto-01/final-online/` only after the final unified push.
+These local artifacts remain phase evidence rather than deployment proof. The final unified push has now completed, and the separate real-Pages evidence is recorded under `docs/qa/museum-auto-01/final-online/`.

@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "captured_at": "2026-07-15T14:25:04.672Z",
+  "pages": {
+    "url": "https://archmays.github.io/Museum-Codex/",
+    "https_enforced": true,
+    "build_type": "workflow",
+    "deployment_id": 5458604781,
+    "deployment_sha": "00a8539ea0d5e901fc2b6be993ea400ff36a0b19",
+    "deployment_status": "success",
+    "deployment_completed_at": "2026-07-15T14:20:16Z"
+  },
+  "actions_runs": [
+    {
+      "id": 29418392249,
+      "head_sha": "406665f19c1f041cace733962a33e49dddaa3d66",
+      "conclusion": "failure",
+      "url": "https://github.com/Archmays/Museum-Codex/actions/runs/29418392249",
+      "finding": "Python contract tests ran before npm dependencies were installed; two Node-backed performance contracts could not resolve Playwright."
+    },
+    {
+      "id": 29420441620,
+      "head_sha": "00a8539ea0d5e901fc2b6be993ea400ff36a0b19",
+      "conclusion": "success",
+      "url": "https://github.com/Archmays/Museum-Codex/actions/runs/29420441620",
+      "finding": "Pinned Node setup and npm ci now precede the offline Python contract suite."
+    }
+  ],
+  "playwright": {
+    "version": "1.61.1",
+    "result_file": "playwright-results.json",
+    "result_file_sha256": "sha256:194f1ede657480e7e8332cabffed0214e0e9b2eb9492a004e9cecc50c07605f6",
+    "tests": 11,
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "duration_ms": 24051.266,
+    "coverage": {
+      "artist_pages": 12,
+      "artwork_routes": 44,
+      "desktop_and_mobile": true,
+      "keyboard": true,
+      "low_bandwidth": true,
+      "forced_colors": true,
+      "reduced_motion": true,
+      "webgl_fallback": true,
+      "no_script_http": true,
+      "about_rights": true,
+      "accessibility_route": true,
+      "zoom": true,
+      "compare": true
+    },
+    "network_and_console": {
+      "console_error_or_warning_count": 0,
+      "failed_request_count": 0,
+      "http_error_response_count": 0,
+      "external_api_request_count": 0,
+      "unexpected_hotlink_count": 0,
+      "blocked_asset_request_count": 0
+    }
+  },
+  "screenshots": {
+    "count": 15,
+    "bytes": 12472976,
+    "visual_review": "pass",
+    "p0_findings": 0,
+    "p1_findings": 0,
+    "files": [
+      {"path": "artist-gallery-hokusai-desktop.png", "sha256": "133b5135db11ffe6fcc8530038cc806bce1d8d5a04d86e76925ddde86a204fff"},
+      {"path": "artist-index-desktop.png", "sha256": "236ca661215e6f050a4a0ee4f7513b2c7b012f4d1046709f61da77a21ae5d38b"},
+      {"path": "artist-index-forced-colors-360.png", "sha256": "ed39cad21160d361ce732e30b6beca3a8151f835873c29010761cb37bf07b3f9"},
+      {"path": "artwork-detail-desktop.png", "sha256": "f5131403b8416d991f48d3e44572e3f869a17f6b24c55d9ba0bef6576c0dd99c"},
+      {"path": "compare-desktop.png", "sha256": "136ff9733493515c8a586392dbc08af97279954ae142730b8f82da1a0a7f18d1"},
+      {"path": "compare-mobile-390.png", "sha256": "bff5b7973b712331c2bd7aef4b442130b95d6ab80572f0e73f323302d3829f84"},
+      {"path": "online-art-landing.png", "sha256": "f362c64e367d33c0e457819f82c9e42eba67e0c9078816f42408c99a52ed30b5"},
+      {"path": "online-desktop-initial.png", "sha256": "34da8c193a5313eeb5f28691ec2c02aa868a41a4dcea8e69fee8e0b2fd943791"},
+      {"path": "online-desktop-list.png", "sha256": "2d3996148a9bcbecca195aa45a1f3888a7c1c31faa91187bfb85dabb3c7c180d"},
+      {"path": "online-focused-artist.png", "sha256": "aeaca45d6d1de4d27635e8cfd776e694cd535c8fe318d5e863d64724446dd596"},
+      {"path": "online-forced-colors-list.png", "sha256": "aaefa402e5ac899dfcd17e33be2371fa04ff7b65467f8e5d611fa94ea7b6bfa2"},
+      {"path": "online-mobile-graph.png", "sha256": "91581c9d287eb481c74ed668e64924f37343e441bb9e3e6543c26a1a28ee1a2b"},
+      {"path": "online-mobile-list.png", "sha256": "6d907b2098ed3e89194b95e5f56d46792e91369d7029f07291dea1f77210a1bd"},
+      {"path": "online-relationship-explanation.png", "sha256": "5b942f084ada28cd3dbde94aa2639c3c4986b340b35da7f499ce49e0a98dd1b9"},
+      {"path": "online-rights-panel.png", "sha256": "3d6d9a72b7ed119b30ce1f58ea8fba5ef1098676af46a848b031b41f3024a34b"}
+    ]
+  },
+  "byte_closure": {
+    "evidence_file": "site-byte-closure.json",
+    "matched_files": 286,
+    "matched_bytes": 40085615,
+    "tree_hash": "sha256:6cbd5575deeb1e16f4a25e5853404e2a5825186411ca7d4ebbc17b209c0e1aeb"
+  },
+  "remaining_findings": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "p3": [
+      "Align the two compare-image top edges when one artwork has a much longer title.",
+      "Bring the artwork image closer to the initial desktop viewport when the formal title is unusually long.",
+      "Offer a mobile jump-to-graph control or collapse advanced filters.",
+      "Increase line height and spacing in dense rights-processing explanations."
+    ]
+  }
+}

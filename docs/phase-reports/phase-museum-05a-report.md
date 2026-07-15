@@ -5,7 +5,8 @@ validation_status: pass
 report_date: 2026-07-15
 runtime_model: not_exposed_by_runtime
 runtime_reasoning: not_exposed_by_runtime
-implementation_commit: recorded_by_enclosing_git_commit
+implementation_commit: 4acbe2e5435261e5e9779c71e70f0e20d001a4ac
+deployed_runtime_commit: 00a8539ea0d5e901fc2b6be993ea400ff36a0b19
 public_release_id: release:art-constellation-1.0.0
 public_release_hash: sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462
 m03c_media_bundle_hash: sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565
@@ -22,7 +23,8 @@ browser_e2e_status: pass_5_of_5
 performance_status: pass_5_of_5
 real_device_status: not_available
 real_assistive_technology_status: not_available
-pages_deployment_status: deferred_to_museum_auto_01_final_push
+pages_deployment_status: completed_via_museum_auto_01
+pages_url: https://archmays.github.io/Museum-Codex/
 ---
 
 # MUSEUM-05A 首版数字艺术家展厅阶段报告
@@ -31,7 +33,7 @@ pages_deployment_status: deferred_to_museum_auto_01_final_push
 
 MUSEUM-05A 达到 `completed/pass`。首版数字展厅在 MUSEUM-04 正式静态 release 上实现艺术家索引、12 个艺术家展厅、44 个作品详情、基础放大观察和双作比较。31 件通过权利门禁的作品使用正式本地衍生图；13 件 metadata-only 或 blocked 作品保持完整无图卡、元数据、权利状态和官方来源。没有进入 MUSEUM-05B、MUSEUM-06、武器馆或生物馆。
 
-运行时没有暴露模型或 Reasoning 选择，记录为 `not_exposed_by_runtime`。本阶段没有单独 push 或部署；Pages 延后到 MUSEUM-AUTO-01 的最终统一门禁。
+运行时没有暴露模型或 Reasoning 选择，记录为 `not_exposed_by_runtime`。本阶段没有单独 push 或部署；随后 Pages 已由 MUSEUM-AUTO-01 统一门禁通过后部署，Actions run `29420441620` 与 deployment `5458604781` 均成功。
 
 ## 2. 正式输入与路由闭合
 
@@ -106,7 +108,7 @@ Gallery shell 和四个 page chunk 均保持 lazy，不进入 home initial closu
 - Playwright：5/5 pass，16.66 秒；覆盖 12 artist routes、44 artwork routes、focus、zoom、compare、decode failure、390/360、forced colors、reduced motion、runtime network 和 overflow。
 - 六张本地截图位于 `docs/qa/museum-05a/screenshots/`，包含 artist index、artist gallery、artwork detail、desktop/mobile compare 和 forced-colors。
 
-完整 A–F 审查见 `docs/qa/museum-05a/adversarial-review.md`。最终 clean install、全仓离线 Python、前端 check、release/rights/performance/budget/scanner 与本地浏览器门禁已由 MUSEUM-AUTO-01 FINAL 通过；Git push、Actions、Pages 和 online screenshots 仍不能由本地阶段证据替代。
+完整 A–F 审查见 `docs/qa/museum-05a/adversarial-review.md`。最终 clean install、全仓离线 Python、前端 check、release/rights/performance/budget/scanner 与本地浏览器门禁已由 MUSEUM-AUTO-01 FINAL 通过；真实 Git push、Actions、Pages、线上 11/11 Playwright、15 张截图与 286-file byte closure 也已补齐在 `docs/qa/museum-auto-01/final-online/`。
 
 ## 8. Remaining P3
 

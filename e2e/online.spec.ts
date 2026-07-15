@@ -21,7 +21,9 @@ function observePage(page: Page) {
       consoleIssues.push(`${message.type()}: ${message.text()}`);
     }
   });
-  page.on("requestfailed", (request) => failedRequests.push(`${request.method()} ${request.url()}`));
+  page.on("requestfailed", (request) => {
+    failedRequests.push(`${request.method()} ${request.url()} (${request.failure()?.errorText ?? "unknown"})`);
+  });
   page.on("response", (response) => {
     if (response.status() >= 400) httpErrors.push(`${response.status()} ${response.url()}`);
   });
@@ -249,6 +251,13 @@ test("390px graph and low-bandwidth list preserve focus and URL state", async ({
   expect(panelBox).not.toBeNull();
   expect((panelBox?.y ?? 0) + (panelBox?.height ?? 0)).toBeGreaterThanOrEqual(840);
   expect(panelBox?.width ?? 0).toBeGreaterThanOrEqual(380);
+  await expect(page.locator(".related-relation-list button").first()).toBeVisible();
+  const representativeImage = page.locator(".artist-representative img");
+  await expect(representativeImage).toBeVisible();
+  await representativeImage.evaluate((element: HTMLImageElement) => element.decode());
+  await expect.poll(
+    async () => representativeImage.evaluate((element: HTMLImageElement) => element.naturalWidth),
+  ).toBeGreaterThan(0);
   await page.getByRole("button", { name: "Close notes" }).click();
   await page.locator(".bandwidth-button").click();
   await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");

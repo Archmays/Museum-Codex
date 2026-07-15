@@ -95,3 +95,21 @@
 - Conservative choice: retain exact namespace/name/two-segment validation, but parse source IDs structurally from separately compiled tokens; do not alter the scanner, label set or release exemption. Add a negative unit test proving a Met source ID cannot authorize an AIC object URL.
 - Consequence: loader behavior remains fail-closed, while the public chunk no longer contains the two complete internal labels.
 - Validation: Vitest 58/58, production build closure, repository safety scan and the final candidate-label scan across all 287 dist files pass; the scan required 166.2 seconds and returned zero findings.
+
+## Entry 11
+
+- Entry type: GitHub Actions dependency-order failure and resolution.
+- Expected: the clean Linux workflow would reproduce the complete local gate before deploying Pages.
+- Discovered: run `29418392249` executed the offline Python contracts before `npm ci`; two Python tests invoke the Node performance runner, so the clean runner could not resolve Playwright. This was a workflow dependency-order defect, not a product-test failure.
+- Conservative choice: move pinned Node setup and `npm ci` before the offline Python suite and add order assertions to the existing workflow contract test; do not remove tests, relax the offline gate or bypass deployment checks.
+- Consequence: commit `00a8539ea0d5e901fc2b6be993ea400ff36a0b19` triggered run `29420441620`; build job `87369223523`, deploy job `87378295007` and Pages deployment `5458604781` all succeeded.
+- Validation: the related local workflow tests passed 16/16 before push, and the complete GitHub Actions workflow concluded `success`.
+
+## Entry 12
+
+- Entry type: live Pages navigation and image-load synchronization closure.
+- Expected: the final online E2E would prove zero failed requests while navigating all artist, artwork, responsive image and fallback paths.
+- Discovered: the first live run passed 9/11; the two failures were `ERR_ABORTED` caused by the test navigating or closing before source lists and responsive images finished, not HTTP errors. Ignoring aborted requests would have weakened the gate.
+- Conservative choice: record `request.failure().errorText`, wait for each gallery source list, and require responsive image `decode()` plus positive `naturalWidth` before navigation/close.
+- Consequence: the final full live suite passed 11/11 in 24.051 seconds with zero failed request, HTTP error, console warning/error, external API, unexpected hotlink or blocked asset request; 15 screenshots were retained.
+- Validation: 286/286 public-served files and 40,085,615 bytes matched local `dist` exactly; deterministic tree hash `sha256:6cbd5575deeb1e16f4a25e5853404e2a5825186411ca7d4ebbc17b209c0e1aeb`.
