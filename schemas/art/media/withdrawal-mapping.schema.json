@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/withdrawal-mapping.schema.json",
+  "title": "MUSEUM-03C media withdrawal mapping",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "bundle_id", "mappings", "procedure_url", "generated_at",
+    "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^withdrawal-map:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_withdrawal_mapping" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "bundle_id": { "type": "string", "pattern": "^media-bundle:[a-z0-9][a-z0-9._-]*$" },
+    "mappings": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "media_id", "artwork_id", "derivative_paths", "source_id", "rights_record_id",
+          "status", "effective_at", "replacement_media_id", "public_notice"
+        ],
+        "properties": {
+          "media_id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+          "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+          "derivative_paths": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/safePath" } },
+          "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+          "rights_record_id": { "type": "string", "pattern": "^media-cross-check:[a-z0-9][a-z0-9._-]*$" },
+          "status": { "enum": ["active", "withdrawn"] },
+          "effective_at": { "type": ["string", "null"], "format": "date-time" },
+          "replacement_media_id": { "type": ["string", "null"], "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+          "public_notice": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "procedure_url": { "$ref": "#/$defs/httpsUrl" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "httpsUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "safePath": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" }
+  },
+  "additionalProperties": false
+}

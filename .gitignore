@@ -37,6 +37,7 @@ data/intermediate/**
 data/review/**
 data/staging/**
 data/downloads/**
+data/media-source/**
 media/third-party/**
 tmp/
 *.log

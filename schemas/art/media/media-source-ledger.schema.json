@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/media-source-ledger.schema.json",
+  "title": "MUSEUM-03C tracked 44-work media source ledger",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "m03b_package_hash", "m03b_graph_hash", "total_artworks",
+    "entries", "counts", "original_downloads", "original_bytes", "derivative_count",
+    "derivative_bytes", "content_hash", "generated_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-ledger:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_source_ledger" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "m03b_package_hash": { "$ref": "#/$defs/hash" },
+    "m03b_graph_hash": { "$ref": "#/$defs/hash" },
+    "total_artworks": { "const": 44 },
+    "entries": {
+      "type": "array", "minItems": 44, "maxItems": 44,
+      "items": {
+        "type": "object",
+        "required": [
+          "artwork_id", "source_id", "baseline_outcome", "request_id", "byte_record_id",
+          "cross_check_id", "quality_assessment_id", "review_id", "final_decision",
+          "original_bytes", "derivative_ids", "error_codes"
+        ],
+        "properties": {
+          "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+          "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+          "baseline_outcome": { "enum": ["self_hosted_open_media_eligible", "external_iiif_candidate", "metadata_only"] },
+          "request_id": { "type": "string", "pattern": "^media-request:[a-z0-9][a-z0-9._-]*$" },
+          "byte_record_id": { "type": ["string", "null"], "pattern": "^media-byte:[a-z0-9][a-z0-9._-]*$" },
+          "cross_check_id": { "type": "string", "pattern": "^media-cross-check:[a-z0-9][a-z0-9._-]*$" },
+          "quality_assessment_id": { "type": ["string", "null"], "pattern": "^media-quality:[a-z0-9][a-z0-9._-]*$" },
+          "review_id": { "type": "string", "pattern": "^media-review:[a-z0-9][a-z0-9._-]*$" },
+          "final_decision": { "$ref": "#/$defs/finalDecision" },
+          "original_bytes": { "type": "integer", "minimum": 0 },
+          "derivative_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^media-derivative:[a-z0-9][a-z0-9._-]*$" } },
+          "error_codes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "approved_self_hosted", "approved_external_delivery", "metadata_only_after_automated_review",
+        "blocked_rights_conflict", "blocked_identity_conflict", "blocked_quality_failure",
+        "blocked_source_unavailable"
+      ],
+      "properties": {
+        "approved_self_hosted": { "$ref": "#/$defs/count" },
+        "approved_external_delivery": { "$ref": "#/$defs/count" },
+        "metadata_only_after_automated_review": { "$ref": "#/$defs/count" },
+        "blocked_rights_conflict": { "$ref": "#/$defs/count" },
+        "blocked_identity_conflict": { "$ref": "#/$defs/count" },
+        "blocked_quality_failure": { "$ref": "#/$defs/count" },
+        "blocked_source_unavailable": { "$ref": "#/$defs/count" }
+      },
+      "additionalProperties": false
+    },
+    "original_downloads": { "$ref": "#/$defs/count" },
+    "original_bytes": { "type": "integer", "minimum": 0 },
+    "derivative_count": { "type": "integer", "minimum": 0, "maximum": 352 },
+    "derivative_bytes": { "type": "integer", "minimum": 0 },
+    "content_hash": { "$ref": "#/$defs/hash" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "count": { "type": "integer", "minimum": 0, "maximum": 44 },
+    "finalDecision": {
+      "enum": [
+        "approved_self_hosted", "approved_external_delivery", "metadata_only_after_automated_review",
+        "blocked_rights_conflict", "blocked_identity_conflict", "blocked_quality_failure",
+        "blocked_source_unavailable"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

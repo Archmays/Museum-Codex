@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/media-bundle-manifest.schema.json",
+  "title": "MUSEUM-03C physical media bundle manifest",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "bundle_version", "m03b_package_hash", "m03b_graph_hash",
+    "ledger_path", "ledger_sha256", "manifest_files", "approved_media_ids", "counts",
+    "attribution_path", "notices_path", "source_rules_path", "withdrawal_mapping_path",
+    "content_hash", "release_allowed", "generated_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-bundle:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_bundle_manifest" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "bundle_version": { "$ref": "#/$defs/semver" },
+    "m03b_package_hash": { "$ref": "#/$defs/hash" },
+    "m03b_graph_hash": { "$ref": "#/$defs/hash" },
+    "ledger_path": { "$ref": "#/$defs/safePath" },
+    "ledger_sha256": { "$ref": "#/$defs/hash" },
+    "manifest_files": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256", "bytes", "record_type", "schema_path", "record_ids"],
+        "properties": {
+          "path": { "$ref": "#/$defs/safePath" },
+          "sha256": { "$ref": "#/$defs/hash" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "record_type": { "enum": ["data", "media", "attributions", "notices", "source_rules", "withdrawals"] },
+          "schema_path": { "type": ["string", "null"], "pattern": "^schemas/[A-Za-z0-9._/-]+\\.schema\\.json$" },
+          "record_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "approved_media_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" } },
+    "counts": {
+      "type": "object",
+      "required": ["artworks_reviewed", "approved_media", "media_files", "media_bytes"],
+      "properties": {
+        "artworks_reviewed": { "const": 44 },
+        "approved_media": { "type": "integer", "minimum": 0 },
+        "media_files": { "type": "integer", "minimum": 0 },
+        "media_bytes": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "attribution_path": { "$ref": "#/$defs/safePath" },
+    "notices_path": { "$ref": "#/$defs/safePath" },
+    "source_rules_path": { "$ref": "#/$defs/safePath" },
+    "withdrawal_mapping_path": { "$ref": "#/$defs/safePath" },
+    "content_hash": { "$ref": "#/$defs/hash" },
+    "release_allowed": { "type": "boolean" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "safePath": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" }
+  },
+  "additionalProperties": false
+}

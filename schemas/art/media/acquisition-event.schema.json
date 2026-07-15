@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/acquisition-event.schema.json",
+  "title": "MUSEUM-03C immutable media acquisition event",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "request_id", "artwork_id", "event_type", "occurred_at",
+    "request_url", "final_url", "redirect_chain", "resolved_public_ips", "connected_peer_ip",
+    "status_code", "response_headers", "bytes_received", "body_sha256", "error_code",
+    "terminal", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-event:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_acquisition_event" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "request_id": { "type": "string", "pattern": "^media-request:[a-z0-9][a-z0-9._-]*$" },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "event_type": {
+      "enum": [
+        "planned", "request_started", "redirect_validated", "retry_scheduled", "not_modified",
+        "download_completed", "download_failed", "reused_existing_bytes"
+      ]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "request_url": { "$ref": "#/$defs/httpsUrl" },
+    "final_url": { "oneOf": [{ "$ref": "#/$defs/httpsUrl" }, { "type": "null" }] },
+    "redirect_chain": {
+      "type": "array", "maxItems": 5,
+      "items": { "$ref": "#/$defs/httpsUrl" }
+    },
+    "resolved_public_ips": {
+      "type": "array", "uniqueItems": true,
+      "items": { "$ref": "#/$defs/ip" }
+    },
+    "connected_peer_ip": { "oneOf": [{ "$ref": "#/$defs/ip" }, { "type": "null" }] },
+    "status_code": { "type": ["integer", "null"], "minimum": 100, "maximum": 599 },
+    "response_headers": {
+      "type": "object",
+      "properties": {
+        "content-type": { "type": "string", "maxLength": 256 },
+        "content-length": { "type": "string", "pattern": "^[0-9]+$" },
+        "etag": { "type": "string", "maxLength": 512 },
+        "last-modified": { "type": "string", "maxLength": 128 },
+        "retry-after": { "type": "string", "maxLength": 128 },
+        "location": { "type": "string", "maxLength": 2048 }
+      },
+      "additionalProperties": false
+    },
+    "bytes_received": { "type": "integer", "minimum": 0 },
+    "body_sha256": { "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }] },
+    "error_code": { "type": ["string", "null"], "pattern": "^[a-z][a-z0-9_]*$" },
+    "terminal": { "type": "boolean" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "httpsUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "ip": {
+      "oneOf": [
+        { "type": "string", "format": "ipv4" },
+        { "type": "string", "format": "ipv6" }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

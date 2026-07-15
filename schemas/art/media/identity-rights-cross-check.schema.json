@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/identity-rights-cross-check.schema.json",
+  "title": "MUSEUM-03C mandatory identity and rights cross-check",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "artwork_id", "source_id", "byte_record_id", "identity",
+    "rights", "closure_status", "checked_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-cross-check:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_identity_rights_cross_check" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "byte_record_id": {
+      "type": ["string", "null"],
+      "pattern": "^media-byte:[a-z0-9][a-z0-9._-]*$"
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "official_object_id", "accession", "artist", "title", "date", "institution",
+        "object_url", "media_id", "source_identity", "snapshot_hash", "object_id_match",
+        "accession_match", "artist_match", "title_match", "date_match", "institution_match",
+        "media_id_match", "source_identity_match"
+      ],
+      "properties": {
+        "official_object_id": { "type": "string", "minLength": 1 },
+        "accession": { "type": ["string", "null"], "minLength": 1 },
+        "artist": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "date": { "type": "string", "minLength": 1 },
+        "institution": { "type": "string", "minLength": 1 },
+        "object_url": { "$ref": "#/$defs/httpsUrl" },
+        "media_id": { "type": ["string", "null"], "minLength": 1 },
+        "source_identity": { "type": "string", "minLength": 1 },
+        "snapshot_hash": { "$ref": "#/$defs/hash" },
+        "object_id_match": { "type": "boolean" },
+        "accession_match": { "type": "boolean" },
+        "artist_match": { "type": "boolean" },
+        "title_match": { "type": "boolean" },
+        "date_match": { "type": "boolean" },
+        "institution_match": { "type": "boolean" },
+        "media_id_match": { "type": "boolean" },
+        "source_identity_match": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "rights": {
+      "type": "object",
+      "required": [
+        "object_status", "license", "rights_url", "source_rule_id", "redistribution",
+        "derivatives", "commercial_use", "attribution", "share_alike", "platforms",
+        "purposes", "territories", "revoked_at", "expires_at", "verified_at",
+        "reverify_by", "evidence_hash"
+      ],
+      "properties": {
+        "object_status": { "enum": ["public_domain", "cc0", "cc_by", "cc_by_sa", "licensed", "restricted", "unknown", "revoked", "expired"] },
+        "license": { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json#/$defs/licenseDescriptor" },
+        "rights_url": { "$ref": "#/$defs/httpsUrl" },
+        "source_rule_id": { "type": "string", "pattern": "^[a-z0-9_]+:media:[a-f0-9]{12}$" },
+        "redistribution": { "enum": ["allowed", "prohibited", "unknown"] },
+        "derivatives": { "enum": ["allowed", "prohibited", "unknown"] },
+        "commercial_use": { "enum": ["allowed", "prohibited", "unknown"] },
+        "attribution": { "type": "string" },
+        "share_alike": { "enum": ["required", "not_required", "unknown"] },
+        "platforms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "purposes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "territories": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "revoked_at": { "type": ["string", "null"], "format": "date" },
+        "expires_at": { "type": ["string", "null"], "format": "date" },
+        "verified_at": { "type": "string", "format": "date" },
+        "reverify_by": { "type": "string", "format": "date" },
+        "evidence_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "closure_status": { "enum": ["pass", "identity_conflict", "rights_conflict", "source_unavailable"] },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "httpsUrl": { "type": "string", "format": "uri", "pattern": "^https://" }
+  },
+  "additionalProperties": false
+}

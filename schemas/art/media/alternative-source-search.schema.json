@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/alternative-source-search.schema.json",
+  "title": "MUSEUM-03C governed alternative official-source search",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "artwork_id", "original_source_id", "query_basis",
+    "sources_attempted", "search_status", "selected_source_id", "selected_media_id",
+    "selected_media_url", "recommended_terminal_decision", "searched_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^alternative-search:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_alternative_source_search" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "original_source_id": { "$ref": "#/$defs/sourceId" },
+    "query_basis": {
+      "type": "object",
+      "required": ["artist", "title", "date", "institution", "accession", "identity_hash"],
+      "properties": {
+        "artist": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "date": { "type": "string", "minLength": 1 },
+        "institution": { "type": "string", "minLength": 1 },
+        "accession": { "type": ["string", "null"], "minLength": 1 },
+        "identity_hash": { "$ref": "#/$defs/hash" }
+      },
+      "additionalProperties": false
+    },
+    "sources_attempted": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id", "source_class", "registry_profile_hash", "official_endpoint",
+          "identity_result", "rights_result", "candidate_media_id", "candidate_media_url",
+          "attempted_at"
+        ],
+        "properties": {
+          "source_id": { "$ref": "#/$defs/sourceId" },
+          "source_class": { "const": "registered_official_source" },
+          "registry_profile_hash": { "$ref": "#/$defs/hash" },
+          "official_endpoint": { "$ref": "#/$defs/httpsUrl" },
+          "identity_result": { "enum": ["exact_match", "conflict", "not_found", "source_unavailable"] },
+          "rights_result": { "enum": ["approved", "conflict", "unknown", "not_evaluated"] },
+          "candidate_media_id": { "type": ["string", "null"], "minLength": 1 },
+          "candidate_media_url": { "oneOf": [{ "$ref": "#/$defs/httpsUrl" }, { "type": "null" }] },
+          "attempted_at": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "search_status": { "enum": ["approved_candidate_found", "no_approved_alternative", "source_unavailable"] },
+    "selected_source_id": { "type": ["string", "null"], "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "selected_media_id": { "type": ["string", "null"], "minLength": 1 },
+    "selected_media_url": { "oneOf": [{ "$ref": "#/$defs/httpsUrl" }, { "type": "null" }] },
+    "recommended_terminal_decision": { "$ref": "#/$defs/finalDecision" },
+    "searched_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "sourceId": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "httpsUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "finalDecision": {
+      "enum": [
+        "approved_self_hosted", "approved_external_delivery", "metadata_only_after_automated_review",
+        "blocked_rights_conflict", "blocked_identity_conflict", "blocked_quality_failure",
+        "blocked_source_unavailable"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

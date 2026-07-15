@@ -482,6 +482,32 @@ class ArtBatchBuilderTests(unittest.TestCase):
                 _verify_code_commit("a" * 40)
         self.assertEqual("code_commit_implementation_mismatch", mismatch.exception.code)
 
+    def test_sealed_package_code_anchor_requires_known_ancestor_commit(self) -> None:
+        commit = "a" * 40
+        failures: list[dict[str, str]] = []
+        with patch.object(
+            batch_validation.subprocess,
+            "run",
+            side_effect=[Mock(returncode=0), Mock(returncode=0)],
+        ) as run:
+            batch_validation._validate_code_commit(commit, failures)
+        self.assertEqual([], failures)
+        self.assertEqual(["git", "merge-base", "--is-ancestor", commit, "HEAD"], run.call_args_list[1].args[0])
+
+        failures = []
+        with patch.object(batch_validation.subprocess, "run", return_value=Mock(returncode=1)):
+            batch_validation._validate_code_commit(commit, failures)
+        self.assertEqual({"code_commit_unknown"}, {item["code"] for item in failures})
+
+        failures = []
+        with patch.object(
+            batch_validation.subprocess,
+            "run",
+            side_effect=[Mock(returncode=0), Mock(returncode=1)],
+        ):
+            batch_validation._validate_code_commit(commit, failures)
+        self.assertEqual({"code_commit_not_ancestor"}, {item["code"] for item in failures})
+
     def test_builder_consumes_tracked_hash_bound_signoffs(self) -> None:
         review_set, signoffs = _load_batch_review_signoffs(self.components)
         self.assertEqual(

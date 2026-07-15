@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/byte-record.schema.json",
+  "title": "MUSEUM-03C validated original media byte record",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "request_id", "event_id", "artwork_id", "source_id",
+    "source_url", "final_url", "status_code", "mime_declared", "magic_mime", "byte_length",
+    "sha256", "phash", "width", "height", "pixels", "decode_passed", "html_error",
+    "placeholder", "tracking_pixel", "immutable", "vault_relative_path", "acquired_at",
+    "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-byte:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_byte_record" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "request_id": { "type": "string", "pattern": "^media-request:[a-z0-9][a-z0-9._-]*$" },
+    "event_id": { "type": "string", "pattern": "^media-event:[a-z0-9][a-z0-9._-]*$" },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "source_url": { "$ref": "#/$defs/httpsUrl" },
+    "final_url": { "$ref": "#/$defs/httpsUrl" },
+    "status_code": { "const": 200 },
+    "mime_declared": { "$ref": "#/$defs/imageMime" },
+    "magic_mime": { "$ref": "#/$defs/imageMime" },
+    "byte_length": { "type": "integer", "minimum": 1, "maximum": 536870912 },
+    "sha256": { "$ref": "#/$defs/hash" },
+    "phash": { "type": "string", "pattern": "^phash:[a-f0-9]{16}$" },
+    "width": { "type": "integer", "minimum": 1, "maximum": 50000 },
+    "height": { "type": "integer", "minimum": 1, "maximum": 50000 },
+    "pixels": { "type": "integer", "minimum": 1, "maximum": 250000000 },
+    "decode_passed": { "const": true },
+    "html_error": { "const": false },
+    "placeholder": { "const": false },
+    "tracking_pixel": { "const": false },
+    "immutable": { "const": true },
+    "vault_relative_path": { "$ref": "#/$defs/safePath" },
+    "acquired_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "httpsUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "safePath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*:)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    },
+    "imageMime": { "enum": ["image/jpeg", "image/png", "image/tiff", "image/webp", "image/avif"] }
+  },
+  "additionalProperties": false
+}

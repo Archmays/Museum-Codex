@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/automated-review.schema.json",
+  "title": "MUSEUM-03C final automated media review",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "artwork_id", "cross_check_id", "byte_record_id",
+    "quality_assessment_id", "alternative_source_search_id", "mandatory_closure", "decision",
+    "decision_reason_codes", "derivative_ids", "decided_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-review:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_automated_review" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "cross_check_id": { "type": "string", "pattern": "^media-cross-check:[a-z0-9][a-z0-9._-]*$" },
+    "byte_record_id": { "type": ["string", "null"], "pattern": "^media-byte:[a-z0-9][a-z0-9._-]*$" },
+    "quality_assessment_id": { "type": ["string", "null"], "pattern": "^media-quality:[a-z0-9][a-z0-9._-]*$" },
+    "alternative_source_search_id": { "type": ["string", "null"], "pattern": "^alternative-search:[a-z0-9][a-z0-9._-]*$" },
+    "mandatory_closure": {
+      "type": "object",
+      "required": ["identity", "rights", "bytes", "quality"],
+      "properties": {
+        "identity": { "$ref": "#/$defs/closure" },
+        "rights": { "$ref": "#/$defs/closure" },
+        "bytes": { "$ref": "#/$defs/closure" },
+        "quality": { "$ref": "#/$defs/closure" }
+      },
+      "additionalProperties": false
+    },
+    "decision": { "$ref": "#/$defs/finalDecision" },
+    "decision_reason_codes": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "derivative_ids": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^media-derivative:[a-z0-9][a-z0-9._-]*$" }
+    },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "decision": { "enum": ["approved_self_hosted", "approved_external_delivery"] } },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "mandatory_closure": {
+            "properties": {
+              "identity": { "const": "pass" },
+              "rights": { "const": "pass" },
+              "bytes": { "const": "pass" },
+              "quality": { "const": "pass" }
+            }
+          },
+          "byte_record_id": { "type": "string" },
+          "quality_assessment_id": { "type": "string" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "decision": { "const": "approved_self_hosted" } }, "required": ["decision"] },
+      "then": { "properties": { "derivative_ids": { "minItems": 1 } } }
+    }
+  ],
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "closure": { "enum": ["pass", "fail", "not_applicable"] },
+    "finalDecision": {
+      "enum": [
+        "approved_self_hosted", "approved_external_delivery", "metadata_only_after_automated_review",
+        "blocked_rights_conflict", "blocked_identity_conflict", "blocked_quality_failure",
+        "blocked_source_unavailable"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

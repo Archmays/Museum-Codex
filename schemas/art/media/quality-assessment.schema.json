@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/quality-assessment.schema.json",
+  "title": "MUSEUM-03C automated image quality assessment",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "executor",
+    "human_review_dependency", "artwork_id", "byte_record_id", "checks", "metrics", "observations",
+    "quality_status", "failure_codes", "assessed_at", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/semver" },
+    "id": { "type": "string", "pattern": "^media-quality:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "media_quality_assessment" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-03C" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "human_review_dependency": { "const": false },
+    "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "byte_record_id": { "type": "string", "pattern": "^media-byte:[a-z0-9][a-z0-9._-]*$" },
+    "checks": {
+      "type": "object",
+      "required": [
+        "decode", "mime_match", "aspect_ratio", "blur", "entropy", "blank_or_monochrome",
+        "corrupt_scanlines", "placeholder", "watermark", "site_chrome", "borders",
+        "orientation", "duplicate", "wrong_crop", "decompression_bomb"
+      ],
+      "properties": {
+        "decode": { "$ref": "#/$defs/check" },
+        "mime_match": { "$ref": "#/$defs/check" },
+        "aspect_ratio": { "$ref": "#/$defs/check" },
+        "blur": { "$ref": "#/$defs/check" },
+        "entropy": { "$ref": "#/$defs/check" },
+        "blank_or_monochrome": { "$ref": "#/$defs/check" },
+        "corrupt_scanlines": { "$ref": "#/$defs/check" },
+        "placeholder": { "$ref": "#/$defs/check" },
+        "watermark": { "$ref": "#/$defs/check" },
+        "site_chrome": { "$ref": "#/$defs/check" },
+        "borders": { "$ref": "#/$defs/check" },
+        "orientation": { "$ref": "#/$defs/check" },
+        "duplicate": { "$ref": "#/$defs/check" },
+        "wrong_crop": { "$ref": "#/$defs/check" },
+        "decompression_bomb": { "$ref": "#/$defs/check" }
+      },
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["width", "height", "pixels", "aspect_ratio", "blur_score", "entropy", "phash", "near_duplicate_distance"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "pixels": { "type": "integer", "minimum": 1, "maximum": 250000000 },
+        "aspect_ratio": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 },
+        "blur_score": { "type": "number", "minimum": 0 },
+        "entropy": { "type": "number", "minimum": 0, "maximum": 8 },
+        "phash": { "type": "string", "pattern": "^phash:[a-f0-9]{16}$" },
+        "near_duplicate_distance": { "type": ["integer", "null"], "minimum": 0, "maximum": 64 }
+      },
+      "additionalProperties": false
+    },
+    "observations": {
+      "type": "object",
+      "required": [
+        "preview_available", "preview_phash_distance", "monochrome", "border_suspected",
+        "border_edges", "border_interpretation", "watermark_overlay_suspected",
+        "site_chrome_suspected", "corrupt_scanlines_suspected"
+      ],
+      "properties": {
+        "preview_available": { "type": "boolean" },
+        "preview_phash_distance": { "type": ["integer", "null"], "minimum": 0, "maximum": 64 },
+        "monochrome": { "type": "boolean" },
+        "border_suspected": { "type": "boolean" },
+        "border_edges": {
+          "type": "array", "uniqueItems": true,
+          "items": { "enum": ["top", "bottom", "left", "right"] }
+        },
+        "border_interpretation": {
+          "enum": ["none", "official_preview_matched_artwork_margin", "unexpected_border_geometry"]
+        },
+        "watermark_overlay_suspected": { "type": "boolean" },
+        "site_chrome_suspected": { "type": "boolean" },
+        "corrupt_scanlines_suspected": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "quality_status": { "enum": ["pass", "low_resolution", "fail"] },
+    "failure_codes": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "assessed_at": { "type": "string", "format": "date-time" },
+    "data_version": { "$ref": "#/$defs/semver" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "check": { "enum": ["pass", "fail", "not_applicable"] }
+  },
+  "additionalProperties": false
+}

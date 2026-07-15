@@ -192,6 +192,93 @@
       "depends_on": ["schemas/common/entity.schema.json"]
     },
     {
+      "path": "schemas/art/media/acquisition-request.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/acquisition-request.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/batch/media-eligibility-assessment.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/acquisition-event.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/acquisition-event.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/acquisition-request.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/byte-record.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/byte-record.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/acquisition-event.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/identity-rights-cross-check.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/identity-rights-cross-check.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/common/media-asset.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/quality-assessment.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/quality-assessment.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/byte-record.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/derivative-record.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/derivative-record.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/byte-record.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/alternative-source-search.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/alternative-source-search.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/identity-rights-cross-check.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/automated-review.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/automated-review.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": [
+        "schemas/common/entity.schema.json",
+        "schemas/art/media/identity-rights-cross-check.schema.json",
+        "schemas/art/media/quality-assessment.schema.json",
+        "schemas/art/media/derivative-record.schema.json",
+        "schemas/art/media/alternative-source-search.schema.json"
+      ]
+    },
+    {
+      "path": "schemas/art/media/media-source-ledger.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/media-source-ledger.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/automated-review.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/withdrawal-mapping.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/withdrawal-mapping.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json", "schemas/art/media/derivative-record.schema.json"]
+    },
+    {
+      "path": "schemas/art/media/media-bundle-manifest.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/media-bundle-manifest.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": [
+        "schemas/common/entity.schema.json",
+        "schemas/art/media/media-source-ledger.schema.json",
+        "schemas/art/media/withdrawal-mapping.schema.json"
+      ]
+    },
+    {
       "path": "schemas/curation/curation-common.schema.json",
       "id": "https://museum-codex.example/schemas/curation/curation-common.schema.json",
       "version": "1.0.0",

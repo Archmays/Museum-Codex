@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "id": "media-review:fixture-manual-review",
+  "entity_type": "media_automated_review",
+  "branch_id": "art",
+  "phase_id": "MUSEUM-03C",
+  "executor": "automated_cross_validation_pipeline",
+  "human_review_dependency": true,
+  "artwork_id": "artwork:fixture",
+  "cross_check_id": "media-cross-check:fixture",
+  "byte_record_id": null,
+  "quality_assessment_id": null,
+  "alternative_source_search_id": "alternative-search:fixture",
+  "mandatory_closure": {
+    "identity": "pass",
+    "rights": "not_applicable",
+    "bytes": "not_applicable",
+    "quality": "not_applicable"
+  },
+  "decision": "pending_curator",
+  "decision_reason_codes": ["manual_review_requested"],
+  "derivative_ids": [],
+  "decided_at": "2026-07-15T00:00:00Z",
+  "data_version": "1.0.0"
+}

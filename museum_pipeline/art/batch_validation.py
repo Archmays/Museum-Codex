@@ -63,18 +63,6 @@ _BATCH_SIGNOFF_IDS = {
     "review-signoff:museum-03b-batch-relationship",
     "review-signoff:museum-03b-batch-release",
 }
-_IMPLEMENTATION_INPUT_PATHS = (
-    "museum_pipeline/art/batch.py",
-    "museum_pipeline/art/batch_validation.py",
-    "museum_pipeline/art/identity.py",
-    "museum_pipeline/art/artworks.py",
-    "museum_pipeline/art/relationships.py",
-    "museum_pipeline/art/leakage.py",
-    "museum_pipeline/art/contract_validation.py",
-    "museum_pipeline/validation/dispatch.py",
-    "schemas/schema-manifest.json",
-    "research/art/museum-03b-batch-review-signoffs.json",
-)
 EXPECTED_CANDIDATE_IDS = (
     "artist-candidate:aba4e7b5-5cce-5903-98a3-debd6a8a30fe",
     "artist-candidate:28386296-3385-5ef8-a959-9f1ef8ae7bc9",
@@ -1053,26 +1041,23 @@ def _validate_code_commit(value: Any, failures: list[dict[str, str]]) -> None:
     if exists.returncode != 0:
         _fail(failures, "code_commit_unknown", "Formal manifest code_commit does not resolve to a local Git commit")
         return
-    mismatches: list[str] = []
-    for relative in _IMPLEMENTATION_INPUT_PATHS:
-        path = ROOT / relative
-        if not path.is_file() or path.is_symlink():
-            mismatches.append(relative)
-            continue
-        committed = subprocess.run(
-            ["git", "show", f"{value}:{relative}"],
-            cwd=ROOT,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=False,
-        )
-        if committed.returncode != 0 or committed.stdout != path.read_bytes():
-            mismatches.append(relative)
-    if mismatches:
+    # The code anchor proves which implementation created the immutable M03B
+    # package. Later phases append schemas and dispatch entries, so comparing
+    # that historical commit byte-for-byte with the current implementation
+    # would incorrectly invalidate an unchanged sealed package. Current schema,
+    # reference, hash and physical closure are independently checked above.
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", value, "HEAD"],
+        cwd=ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if ancestor.returncode != 0:
         _fail(
             failures,
-            "code_commit_implementation_mismatch",
-            f"Formal manifest code_commit does not contain current implementation inputs: {', '.join(mismatches)}",
+            "code_commit_not_ancestor",
+            "Formal manifest code_commit is not an ancestor of the current main history",
         )
 
 

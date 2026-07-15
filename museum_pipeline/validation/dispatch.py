@@ -19,6 +19,27 @@ ART_CONTEXT_ENTITY_TYPES = {
 }
 
 
+ART_MEDIA_SCHEMA_BY_ENTITY_TYPE = {
+    "media_acquisition_request": ("schemas/art/media/acquisition-request.schema.json", "media-request:"),
+    "media_acquisition_event": ("schemas/art/media/acquisition-event.schema.json", "media-event:"),
+    "media_byte_record": ("schemas/art/media/byte-record.schema.json", "media-byte:"),
+    "media_automated_review": ("schemas/art/media/automated-review.schema.json", "media-review:"),
+    "media_identity_rights_cross_check": (
+        "schemas/art/media/identity-rights-cross-check.schema.json",
+        "media-cross-check:",
+    ),
+    "media_quality_assessment": ("schemas/art/media/quality-assessment.schema.json", "media-quality:"),
+    "media_derivative_record": ("schemas/art/media/derivative-record.schema.json", "media-derivative:"),
+    "media_source_ledger": ("schemas/art/media/media-source-ledger.schema.json", "media-ledger:"),
+    "media_bundle_manifest": ("schemas/art/media/media-bundle-manifest.schema.json", "media-bundle:"),
+    "media_alternative_source_search": (
+        "schemas/art/media/alternative-source-search.schema.json",
+        "alternative-search:",
+    ),
+    "media_withdrawal_mapping": ("schemas/art/media/withdrawal-mapping.schema.json", "withdrawal-map:"),
+}
+
+
 PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "claim": "schemas/common/claim.schema.json",
     "evidence": "schemas/common/evidence.schema.json",
@@ -93,6 +114,13 @@ def load_schema_environment(root: Path = ROOT) -> SchemaEnvironment:
 
 def canonical_schema_path(record: dict[str, Any]) -> str | None:
     entity_type = str(record.get("entity_type"))
+    media_schema = ART_MEDIA_SCHEMA_BY_ENTITY_TYPE.get(entity_type)
+    if media_schema is not None:
+        schema_path, id_prefix = media_schema
+        record_id = str(record.get("id", ""))
+        if record.get("branch_id") != "art" or not record_id.startswith(id_prefix):
+            return None
+        return schema_path
     if entity_type in ART_CONTEXT_ENTITY_TYPES:
         if record.get("branch_id") == "art":
             return "schemas/art/context/art-context.schema.json"
