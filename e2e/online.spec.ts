@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-const qaDir = path.resolve("docs/qa/museum-04");
+const qaDir = path.resolve(process.env.MUSEUM_QA_DIR ?? "docs/qa/museum-04");
 const screenshotPrefix = process.env.MUSEUM04_QA_PREFIX ?? "";
 mkdirSync(qaDir, { recursive: true });
 
@@ -202,6 +202,38 @@ test("Art landing and 1366-wide constellation remain complete without overflow",
   expectCleanPage(observed);
 });
 
+test("About, rights, and accessibility routes expose their public controls", async ({ page }) => {
+  const observed = observePage(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  let response = await page.goto("./#/about", { waitUntil: "networkidle" });
+  if (response) expect(response.status()).toBe(200);
+  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Not an ordinary encyclopedia or image library" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Current art data scope" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Read third-party notices" })).toHaveAttribute(
+    "href",
+    /\/Museum-Codex\/THIRD_PARTY_NOTICES\.md$/,
+  );
+  await expect(page.getByRole("link", { name: "Rights request and withdrawal" })).toHaveAttribute(
+    "href",
+    "https://github.com/Archmays/Museum-Codex/issues/new?template=rights-or-attribution.yml",
+  );
+  await expectNoHorizontalOverflow(page);
+
+  response = await page.goto("./#/accessibility", { waitUntil: "networkidle" });
+  if (response) expect(response.status()).toBe(200);
+  await expect(page.getByRole("heading", { level: 1, name: "A museum that welcomes more ways of visiting" })).toBeVisible();
+  const bandwidthButton = page.getByRole("button", { name: "Turn on low-bandwidth mode" });
+  await expect(bandwidthButton).toHaveAttribute("aria-pressed", "false");
+  await bandwidthButton.click();
+  await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
+  await expect(page.getByRole("button", { name: "Turn off low-bandwidth mode" })).toHaveAttribute("aria-pressed", "true");
+  await expectNoHorizontalOverflow(page);
+  await expectStaticSameOriginRuntime(page);
+  expectCleanPage(observed);
+});
+
 test("390px graph and low-bandwidth list preserve focus and URL state", async ({ page }) => {
   const observed = observePage(page);
   await page.setViewportSize({ width: 390, height: 844 });
@@ -315,7 +347,9 @@ test("no-script portal, Art, and rights content are available over HTTP 200", as
   expect(response?.status()).toBe(200);
   const fallback = page.locator(".noscript-fallback");
   await expect(fallback.getByRole("heading", { name: "博物馆 · Museum" })).toBeVisible();
-  await expect(fallback.getByRole("heading", { name: "艺术星海：观察与比较" })).toBeVisible();
+  await expect(fallback.getByRole("heading", {
+    name: "艺术星海与数字展厅 / Constellation & digital galleries",
+  })).toBeVisible();
   await expect(fallback.getByRole("heading", { name: "权利与署名 / Rights & attribution" })).toBeVisible();
   await expect(fallback.getByText(/self-hosted derivatives that passed identity, rights, byte, and quality gates/i)).toBeVisible();
   await expectNoHorizontalOverflow(page);

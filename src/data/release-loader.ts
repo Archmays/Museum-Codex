@@ -398,6 +398,13 @@ function httpsUrl(value: string, label: string) {
   return url;
 }
 
+function hasCanonicalSourceId(sourceIds: string[], sourceName: string) {
+  return sourceIds.some((sourceId) => {
+    const [entityType, name, extra] = sourceId.split(":");
+    return entityType === "source" && name === sourceName && extra === undefined;
+  });
+}
+
 function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]) {
   const rawUrl = optionalString(value);
   if (!rawUrl) return null;
@@ -405,11 +412,11 @@ function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]
   const aicId = /^artwork:aic-(\d+)$/.exec(artworkId)?.[1];
   const metId = /^artwork:met-(\d+)$/.exec(artworkId)?.[1];
   const matchesAic = Boolean(
-    aicId && sourceIds.includes("source:aic_api") && url.origin === "https://api.artic.edu" &&
+    aicId && hasCanonicalSourceId(sourceIds, "aic_api") && url.origin === "https://api.artic.edu" &&
     url.pathname === `/api/v1/artworks/${aicId}` && !url.search && !url.hash,
   );
   const matchesMet = Boolean(
-    metId && sourceIds.includes("source:met_open_access") && url.origin === "https://www.metmuseum.org" &&
+    metId && hasCanonicalSourceId(sourceIds, "met_open_access") && url.origin === "https://www.metmuseum.org" &&
     url.pathname === `/art/collection/search/${metId}` && !url.search && !url.hash,
   );
   if (!matchesAic && !matchesMet) throw new Error("artwork_official_object_source_mismatch");

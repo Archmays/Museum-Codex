@@ -16,7 +16,11 @@ if str(ROOT) not in sys.path:
 from museum_pipeline.curation.fixtures import evaluate_curation_invalid_fixture
 from museum_pipeline.curation.decision_application import validate_committed_selection_application
 from museum_pipeline.validation.dispatch import load_schema_environment, validate_record
-from scripts.scan_public_artifact_for_candidate_data import scan_public_artifact
+from scripts.scan_public_artifact_for_candidate_data import (
+    formal_art_terms_from_label_set,
+    scan_public_artifact,
+    validated_museum_04_exempt_roots,
+)
 from scripts.validate_governance_foundation import schema_manifest_entries
 
 
@@ -56,7 +60,27 @@ def validate_artist_selection_preflight(*, verbose: bool = True) -> dict:
             if verbose:
                 print(f"[PASS] {path.relative_to(ROOT).as_posix()} (expected {case['expected_error']})")
 
-    public_findings = scan_public_artifact(ROOT / "public")
+    public_root = ROOT / "public"
+    label_set = (
+        ROOT
+        / "data"
+        / "reviewed"
+        / "art"
+        / "museum-03b"
+        / "museum-03b-first-slate-v1"
+        / "package-v1"
+        / "public-leakage-label-set.json"
+    )
+    formal_terms, label_error = formal_art_terms_from_label_set(label_set) if label_set.exists() else ([], None)
+    exempt_roots, release_findings = validated_museum_04_exempt_roots(public_root) if formal_terms else (set(), [])
+    public_findings = scan_public_artifact(
+        public_root,
+        formal_art_terms=formal_terms,
+        formal_art_exempt_roots=exempt_roots,
+    )
+    public_findings.extend(release_findings)
+    if label_error:
+        failures.append(f"public_label_set_invalid:{label_error}")
     if public_findings:
         failures.extend(f"public:{item['code']}:{item['path']}" for item in public_findings)
     tracked = _tracked_private_paths()

@@ -27,7 +27,9 @@ const artworks = (JSON.parse(readFileSync(path.join(releaseDirectory, "artworks.
 }).artworks;
 const approvedArtworks = artworks.filter((artwork) => artwork.media.decision === "approved_self_hosted");
 const noImageArtworks = artworks.filter((artwork) => artwork.media.decision !== "approved_self_hosted");
-const screenshotDirectory = path.resolve("docs/qa/museum-05a/screenshots");
+const screenshotDirectory = path.resolve(
+  process.env.MUSEUM05_QA_DIR ?? "docs/qa/museum-05a/screenshots",
+);
 
 mkdirSync(screenshotDirectory, { recursive: true });
 

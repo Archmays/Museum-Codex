@@ -66,5 +66,32 @@
 - Expected: media-aware panels and governance data would remain deferred without weakening the approved current/scale budgets.
 - Discovered: the initial implementation had avoidable sequential bootstrap fetches and panel-transition latency; repeated current-lab runs also exposed real threshold failures before optimization.
 - Conservative choice: preload only the small initial manifest/artist/graph/search/layout/facet artifacts, keep all media/governance payloads deferred, render the panel shell immediately, swap already-open panel state synchronously, and preserve the original thresholds and visible render caps.
-- Consequence: all current profiles pass with zero initial image bytes and zero initial deferred-governance requests. The constrained 360×800 profile reaches first-interactive median 2,288.6 ms and interaction p95 137.6 ms; 1k first-interactive median is 3,737.49 ms. Supplemental 1k FPS median 27.00 remains an explicit non-blocking P3.
-- Validation: canonical current/scale evidence validators pass; the performance runner tests, static budgets and 5/5 local Playwright flows pass.
+- Consequence: all final current profiles pass with zero initial image bytes and zero initial deferred-governance requests. The constrained 360×800 profile reaches first-interactive median 1,994.6 ms and interaction p95 109.8 ms; 1k first-interactive median is 3,737.49 ms. Supplemental 1k FPS median 27.00 remains an explicit non-blocking P3.
+- Validation: canonical current/scale evidence validators pass; the performance runner tests, static budgets, 6/6 M04/public Playwright and 5/5 M05A Playwright flows pass.
+
+## Entry 8
+
+- Entry type: final-tree layout stability regression and resolution.
+- Expected: the M04 current-graph evidence would remain valid after M05A integration.
+- Discovered: the exact implementation-input validator correctly rejected the pre-M05A hash. A fresh lab then measured deterministic mobile 390×844 CLS `0.112758` because the intermediate release-loading state exposed the footer before the ready constellation pushed it below the viewport.
+- Conservative choice: give only `.constellation-load-state` the same viewport reservation already used by the Suspense fallback; retain the `CLS p95 ≤ 0.1` gate unchanged.
+- Consequence: three formal cold samples per profile record CLS p95 0 for both mobile profiles and 1366×768, while 1440×900 records 0.000221, still far below the unchanged 0.1 gate; the final-tree input hash is `sha256:a79b9170e0a50818ff5e3ce70804bf54119d73b593a7040fcddc63e24d6aec26`.
+- Validation: the canonical current lab, current/scale validator, fresh build and M04/M05A static budget gates pass.
+
+## Entry 9
+
+- Entry type: live source-contract smoke.
+- Expected: the strict Cleveland and Rijksmuseum gates should match current official production responses rather than only synthetic envelopes.
+- Discovered: Cleveland object `141444` returned exact HTTP 200/API/object/CDN closure, accession `1964.88`, CC0, credit line and response hash `sha256:fb9bbb0c72de04fc3233cf8b601ea6837b8c5d92517bfc1e0906589fd081c1a0`. The official Rijksmuseum Night Watch sample resolved `200107928 → 202107928 → 500711199912110510799100`, with exact final URLs, HTTP 200 on all three hops, response hashes `sha256:5a2fbcea88a2cb070c633abede23c22340c93cbcb8fde21577930767bd250e55`, `sha256:b35e23242b95bde1de6f2fdda4def89ad345fed34fa5da2a09669adc52c8fee9`, and `sha256:dd02d413afce2250e338a5b1942f0b045d760a9f84796191f9c6545ebe79d77d`.
+- Conservative choice: use this only as a source-contract smoke; do not add the sample to the formal 44-work release or claim a new approved artwork.
+- Consequence: parsing closes accession `SK-C-5`, official IIIF `https://iiif.micr.io/PJEZO/full/max/0/default.jpg`, Public Domain Mark and no rights conflict. The current batch remains Met/AIC only.
+- Validation: all requests used the production `data.rijksmuseum.nl` resolver through the pipeline's direct HTTPS/public-peer/host/rate-limit transport; no media bytes were downloaded or committed.
+
+## Entry 10
+
+- Entry type: public-artifact leakage closure.
+- Expected: the validated release may contain its declared source IDs, while executable runtime chunks must not expose formal candidate labels outside the scanner's release exemption.
+- Discovered: the first final `dist` scan correctly rejected two complete internal source IDs compiled into `release-loader` even though the loader used them for a valid institution/object-URL pairing check.
+- Conservative choice: retain exact namespace/name/two-segment validation, but parse source IDs structurally from separately compiled tokens; do not alter the scanner, label set or release exemption. Add a negative unit test proving a Met source ID cannot authorize an AIC object URL.
+- Consequence: loader behavior remains fail-closed, while the public chunk no longer contains the two complete internal labels.
+- Validation: Vitest 58/58, production build closure, repository safety scan and the final candidate-label scan across all 287 dist files pass; the scan required 166.2 seconds and returned zero findings.

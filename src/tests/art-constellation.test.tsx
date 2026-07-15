@@ -207,6 +207,18 @@ describe("MUSEUM-04 formal public release", () => {
     expect(detail).toEqual({ status: "failed", reason: expectedReason });
   });
 
+  it("rejects an official object URL paired with another institution source ID", async () => {
+    const fetcher = await publicReleaseFetcherWithMutation("artworks.json", (raw) => {
+      const root = raw as { artworks: Array<{ source_ids: string[] }> };
+      root.artworks[0].source_ids = ["source:met_open_access"];
+    });
+    const result = await loadArtConstellationRelease(releaseBaseUrl(), fetcher);
+    expect(result.status).toBe("loaded");
+    if (result.status !== "loaded") return;
+    const detail = await result.dataSource.loadArtistSources(result.release.artists[0].id);
+    expect(detail).toEqual({ status: "failed", reason: "artwork_official_object_source_mismatch" });
+  });
+
   it.each([
     ["script scheme", "javascript:alert(1)", "rights_request_url_not_approved"],
     ["unapproved HTTPS host", "https://example.invalid/rights", "rights_request_url_not_approved"],

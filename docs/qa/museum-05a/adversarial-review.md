@@ -49,7 +49,7 @@ Status: pass within automated evidence; real AT/device status remains `not_avail
 ## E — Performance and layout stability
 
 - The gallery shell and four pages are direct lazy chunks and absent from the home initial closure.
-- Home is 98,678 bytes gzip against 102,942; gallery initial JSON is 63,263 against 131,072; the largest gallery route is compare at 84,155 against 460,800.
+- Home is 98,684 bytes gzip against 102,942; gallery initial JSON is 63,263 against 131,072; the largest gallery route is compare at 84,204 against 460,800.
 - Home embeds zero of 242 media locators. Low-bandwidth index and compare request zero images.
 - Zoom uses approved JPEG `srcset`/`sizes`; the mobile normal-bandwidth profile transfers a 74,246-byte image, while the on-demand desktop observation route may choose the approved 1600w derivative and remains below its one-megabyte image budget.
 - Initial loading states reserve the route viewport and detail loading keeps the final page width. Controlled-lab CLS is 0 for all five profiles; the first run's 0.13–0.85 regression was not waived.

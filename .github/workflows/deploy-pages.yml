@@ -76,6 +76,12 @@ jobs:
       - name: Validate committed performance and scale evidence
         run: python scripts/validate_museum_04_performance_evidence.py
 
+      - name: Validate MUSEUM-05A gallery release closure
+        run: python scripts/validate_museum_05a.py
+
+      - name: Validate committed MUSEUM-05A performance evidence
+        run: python scripts/validate_museum_05a_performance.py
+
       - name: Scan static public inputs for candidate and formal art data
         run: python scripts/scan_public_artifact_for_candidate_data.py public --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
@@ -113,6 +119,9 @@ jobs:
       - name: Enforce MUSEUM-04 home, route, data, and media budgets
         run: node scripts/verify-museum-04-budgets.mjs
 
+      - name: Enforce MUSEUM-05A gallery route, data, and media budgets
+        run: node scripts/verify-museum-05a-budgets.mjs
+
       - name: Scan production artifact for raw, candidate, formal art, review, and media leakage
         run: python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
@@ -122,7 +131,7 @@ jobs:
       - name: Install Chromium for functional release QA
         run: npx playwright install --with-deps chromium
 
-      - name: Run MUSEUM-04 functional, fallback, and no-script QA
+      - name: Run MUSEUM-04 and MUSEUM-05A functional, fallback, and no-script QA
         run: npm run test:e2e
 
       - name: Configure Pages

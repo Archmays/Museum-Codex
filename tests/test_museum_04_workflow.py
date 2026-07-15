@@ -30,15 +30,21 @@ class Museum04WorkflowTests(unittest.TestCase):
     def test_performance_loader_and_fallback_gates_run_before_upload(self) -> None:
         required = (
             "python scripts/validate_museum_04_performance_evidence.py",
+            "python scripts/validate_museum_05a.py",
+            "python scripts/validate_museum_05a_performance.py",
             "node --test tests/test_museum_04_*_lab_runner.mjs",
             "node scripts/verify-museum-04-budgets.mjs",
+            "node scripts/verify-museum-05a-budgets.mjs",
             "npm run test:e2e",
         )
         upload_index = self.text.index("actions/upload-pages-artifact")
+        deploy_index = self.text.index("actions/deploy-pages")
         for command in required:
             with self.subTest(command=command):
                 self.assertLess(self.text.index(command), upload_index)
+                self.assertLess(self.text.index(command), deploy_index)
         self.assertIn("path: dist", self.text)
+        self.assertIn("deploy:\n    needs: build", self.text)
 
     def test_ci_remains_offline_and_never_acquires_live_media(self) -> None:
         forbidden = (

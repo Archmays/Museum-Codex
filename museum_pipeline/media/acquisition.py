@@ -3,8 +3,9 @@ from __future__ import annotations
 import json
 from dataclasses import asdict
 from pathlib import Path
-from typing import Any, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping
 
+from museum_pipeline.canonical_json import canonical_json_bytes
 from museum_pipeline.errors import PipelineError
 from museum_pipeline.hashing import canonical_sha256, sha256_bytes
 from museum_pipeline.media.constants import (
@@ -24,6 +25,9 @@ from museum_pipeline.media.discovery import (
     commons_search_url,
     metadata_request_url,
     parse_commons_search,
+    rijks_object_pid,
+    rijks_resolver_url,
+    validate_rijks_chain_step,
 )
 from museum_pipeline.media.image_processing import (
     ImageProcessingError,
@@ -53,6 +57,26 @@ _COMMONS_PROFILE = {
     "auto_promotion": False,
     "version": "1.0.0",
 }
+_RIJKS_METADATA_FILES = {
+    "object": (
+        "official-metadata-response.json",
+        "official-metadata-headers.json",
+        "metadata-acquisition-event.json",
+        "metadata",
+    ),
+    "visual_item": (
+        "official-metadata-visual-item-response.json",
+        "official-metadata-visual-item-headers.json",
+        "metadata-visual-item-acquisition-event.json",
+        "metadata-visual-item",
+    ),
+    "digital_object": (
+        "official-metadata-digital-object-response.json",
+        "official-metadata-digital-object-headers.json",
+        "metadata-digital-object-acquisition-event.json",
+        "metadata-digital-object",
+    ),
+}
 
 
 def media_transport() -> MediaTransport:
@@ -65,7 +89,9 @@ def media_transport() -> MediaTransport:
             max_retries=3,
             source_min_interval_seconds={
                 "source:aic_api": 1.0,
+                "source:cleveland_open_access": 1.0,
                 "source:met_open_access": 0.25,
+                "source:rijksmuseum": 1.0,
                 "source:wikimedia_commons": 1.0,
             },
         )
@@ -88,28 +114,70 @@ def discover_all(*, live: bool, transport: MediaTransport | None = None) -> dict
         request = load_json(directory / "acquisition-request.json")
         url = metadata_request_url(request["source_id"], request["source_object_id"])
         try:
-            result = client.fetch_metadata(
-                MetadataFetchRequest(
-                    url=url,
-                    source_id=request["source_id"],
-                    trusted_hosts=frozenset({SOURCE_POLICIES[request["source_id"]]["metadata_host"]}),
+            metadata_chain: list[dict[str, Any]] | None = None
+            if request["source_id"] == "source:rijksmuseum":
+                resolved = _resolve_rijks_metadata_chain(
+                    client,
+                    request,
+                    persist_step=lambda step: _persist_rijks_metadata_step(directory, step),
                 )
-            )
-            if result.status_code != 200:
-                raise PipelineError("media_metadata_status", "Official metadata endpoint did not return HTTP 200", exit_code=5)
+                response_body = resolved["body"]
+                response_sha256 = resolved["response_sha256"]
+                event = resolved["steps"][0]["event"]
+                metadata_hops = [
+                    hop
+                    for step in resolved["steps"]
+                    for hop in step["hop_evidence"]
+                ]
+                metadata_chain = [
+                    {
+                        "role": step["role"],
+                        "request_url": step["request_url"],
+                        "final_url": step["event"]["final_url"],
+                        "response_sha256": step["response_sha256"],
+                        "event_id": step["event"]["id"],
+                        "response_file": step["response_file"],
+                        "headers_file": step["headers_file"],
+                        "event_file": step["event_file"],
+                        "network_hops": step["hop_evidence"],
+                    }
+                    for step in resolved["steps"]
+                ]
+                write_bytes_once(directory / "official-metadata-envelope.json", response_body)
+            else:
+                result = client.fetch_metadata(
+                    MetadataFetchRequest(
+                        url=url,
+                        source_id=request["source_id"],
+                        trusted_hosts=frozenset({SOURCE_POLICIES[request["source_id"]]["metadata_host"]}),
+                    )
+                )
+                if result.status_code != 200:
+                    raise PipelineError("media_metadata_status", "Official metadata endpoint did not return HTTP 200", exit_code=5)
+                observed_at = utc_now()
+                write_bytes_once(directory / "official-metadata-response.json", result.body)
+                write_once(directory / "official-metadata-headers.json", dict(result.response_headers))
+                event = _metadata_event(request, result, observed_at)
+                write_once(directory / "metadata-acquisition-event.json", event)
+                response_body = result.body
+                response_sha256 = sha256_bytes(result.body)
+                metadata_hops = [asdict(hop) for hop in result.hop_evidence]
+
             observed_at = utc_now()
-            write_bytes_once(directory / "official-metadata-response.json", result.body)
-            write_once(directory / "official-metadata-headers.json", dict(result.response_headers))
-            event = _metadata_event(request, result, observed_at)
-            write_once(directory / "metadata-acquisition-event.json", event)
-            discovery = build_discovery_record(request, result.body, response_sha256=sha256_bytes(result.body))
+            discovery = build_discovery_record(
+                request,
+                response_body,
+                response_sha256=response_sha256,
+            )
             discovery.update(
                 {
                     "metadata_event_id": event["id"],
                     "discovered_at": observed_at,
-                    "metadata_hops": [asdict(hop) for hop in result.hop_evidence],
+                    "metadata_hops": metadata_hops,
                 }
             )
+            if metadata_chain is not None:
+                discovery["metadata_chain"] = metadata_chain
             if not discovery["media"]["source_url"]:
                 alternative = _search_alternative(client, request, discovery, directory, observed_at)
                 discovery["alternative_source_search_id"] = alternative["id"]
@@ -379,13 +447,115 @@ def _validate_existing_byte_record(
         )
 
 
+def _resolve_rijks_metadata_chain(
+    client: MediaTransport,
+    request: dict[str, Any],
+    *,
+    persist_step: Callable[[dict[str, Any]], None] | None = None,
+) -> dict[str, Any]:
+    if request.get("source_id") != "source:rijksmuseum":
+        raise ValueError("Rijksmuseum metadata resolver received a different source")
+
+    policy = SOURCE_POLICIES["source:rijksmuseum"]
+    trusted_hosts = frozenset({policy["metadata_host"]})
+    expected_pid = rijks_object_pid(request["source_object_id"])
+    request_url = metadata_request_url(request["source_id"], request["source_object_id"])
+    documents: dict[str, dict[str, Any]] = {}
+    steps: list[dict[str, Any]] = []
+
+    for role in ("object", "visual_item", "digital_object"):
+        response_file, headers_file, event_file, event_suffix = _RIJKS_METADATA_FILES[role]
+        result = client.fetch_metadata(
+            MetadataFetchRequest(
+                url=request_url,
+                source_id=request["source_id"],
+                trusted_hosts=trusted_hosts,
+            )
+        )
+        if result.status_code != 200:
+            raise PipelineError(
+                "media_metadata_status",
+                "Rijksmuseum resolver did not return HTTP 200",
+                exit_code=5,
+            )
+
+        event = _metadata_event_for_url(
+            request,
+            result,
+            utc_now(),
+            request_url=request_url,
+            event_suffix=event_suffix,
+        )
+        step = {
+            "role": role,
+            "request_url": request_url,
+            "response_body": result.body,
+            "response_sha256": sha256_bytes(result.body),
+            "response_headers": dict(result.response_headers),
+            "hop_evidence": [asdict(hop) for hop in result.hop_evidence],
+            "event": event,
+            "response_file": response_file,
+            "headers_file": headers_file,
+            "event_file": event_file,
+        }
+        if persist_step is not None:
+            persist_step(step)
+
+        if result.final_url != request_url or result.redirect_chain:
+            raise PipelineError(
+                "rijks_metadata_endpoint_mismatch",
+                "Rijksmuseum resolver changed the exact governed PID endpoint",
+                exit_code=5,
+            )
+        document, next_pid = validate_rijks_chain_step(
+            result.body,
+            role=role,
+            expected_pid=expected_pid,
+        )
+        documents[role] = document
+        steps.append(step)
+        if next_pid is not None:
+            expected_pid = next_pid
+            request_url = rijks_resolver_url(next_pid)
+
+    body = canonical_json_bytes(documents)
+    return {
+        "body": body,
+        "response_sha256": sha256_bytes(body),
+        "steps": steps,
+    }
+
+
+def _persist_rijks_metadata_step(directory: Path, step: Mapping[str, Any]) -> None:
+    write_bytes_once(directory / str(step["response_file"]), step["response_body"])
+    write_once(directory / str(step["headers_file"]), step["response_headers"])
+    write_once(directory / str(step["event_file"]), step["event"])
+
+
 def _metadata_event(request: dict[str, Any], result: MetadataFetchResult, occurred_at: str) -> dict[str, Any]:
+    return _metadata_event_for_url(
+        request,
+        result,
+        occurred_at,
+        request_url=metadata_request_url(request["source_id"], request["source_object_id"]),
+        event_suffix="metadata",
+    )
+
+
+def _metadata_event_for_url(
+    request: dict[str, Any],
+    result: MetadataFetchResult,
+    occurred_at: str,
+    *,
+    request_url: str,
+    event_suffix: str,
+) -> dict[str, Any]:
     return _event(
         request,
-        event_id=f"media-event:{artwork_slug(request['artwork_id'])}-metadata",
+        event_id=f"media-event:{artwork_slug(request['artwork_id'])}-{event_suffix}",
         event_type="download_completed",
         occurred_at=occurred_at,
-        request_url=metadata_request_url(request["source_id"], request["source_object_id"]),
+        request_url=request_url,
         final_url=result.final_url,
         redirects=result.redirect_chain,
         ips=result.resolved_public_ips,

@@ -471,6 +471,8 @@
 .constellation-load-state {
   display: grid;
   max-width: 52rem;
+  min-height: calc(100vh - 6.5rem);
+  min-height: calc(100svh - 6.5rem);
   align-content: center;
   padding: 8rem 0;
 }

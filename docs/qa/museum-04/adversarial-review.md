@@ -7,7 +7,7 @@ formal_release_created: true
 formal_release_validation: pass
 fixture_matrix_status: pass_28_of_28
 formal_publication_allowed: true
-museum_05_gate_status: open
+museum_05_gate_status: completed_via_museum_auto_01
 blocking_finding_ids: []
 pending_gate_ids: []
 release_id: release:art-constellation-1.0.0
@@ -64,14 +64,14 @@ Status meanings:
 | ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
 | M04-C-001 | P1 | RESOLVED | The graph is not the sole semantic route; list/table expose equivalent tasks. Keyboard navigation, Escape close, focus restoration, live regions, non-color status, visible focus, factual alt text and image failure fallback are implemented and covered by recorded local E2E. | Keep text views authoritative for accessible task completion. |
-| M04-C-002 | P1 | RESOLVED | 390/360 px, forced colors, reduced motion, WebGL unavailable/context loss, low bandwidth and no-JavaScript scenarios retain usable content; local Playwright evidence records 5/5 passed. | Preserve fail-safe text behavior and no horizontal overflow. |
+| M04-C-002 | P1 | RESOLVED | 390/360 px, forced colors, reduced motion, WebGL unavailable/context loss, low bandwidth, no-JavaScript, About/Rights and Accessibility scenarios retain usable content; final local M04/public Playwright evidence records 6/6 passed. | Preserve fail-safe text behavior and no horizontal overflow. |
 | M04-C-003 | P3 | OPEN_P3 | No real NVDA, JAWS, VoiceOver or TalkBack session was exposed. Automated semantics and keyboard checks are not a real-AT claim. | Add real-AT smoke when the environment becomes available; keep `real_assistive_technology_status=not_available`. |
 
 ### D — Performance engineering
 
 | ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-D-001 | P1 | RESOLVED | `performance-current-graph.json` reports `overall_status=pass` for four profiles. The constrained 360×800 list records first-interactive median 2,288.6 ms, LCP median 2,060 ms, interaction p95 137.6 ms and initial image requests 0. All four profiles have initial image requests/bytes 0. | Retain route/data/media deferral and low-bandwidth list default. |
+| M04-D-001 | P1 | RESOLVED | Final-tree `performance-current-graph.json` reports `overall_status=pass` for four profiles. The constrained 360×800 list records first-interactive median 1,994.6 ms, LCP median 1,756 ms, interaction p95 109.8 ms and CLS p95 0. All four profiles have initial image requests/bytes 0; the largest CLS p95 is 0.000221 at 1440×900. | Retain route/data/media deferral, viewport-height loading states and low-bandwidth list default. |
 | M04-D-002 | P1 | RESOLVED | 1k uses actual Sigma capped progressive rendering at 150 V/600 E; first-interactive median 3,737.49 ms and p95 3,806.75 ms pass the 5,000 ms gate. | Do not expand the mobile visible caps or treat full initial render as allowed. |
 | M04-D-003 | P3 | OPEN_P3 | 1k supplemental FPS median is 27.00; interaction p95 improved to 104.4 ms. FPS is diagnostic rather than a current pass/fail target, so it does not invalidate the first-interactive result but still shows optimization headroom. | Keep the diagnostic visible in future regressions; do not relabel it as a passing threshold. |
 | M04-D-004 | P1 | RESOLVED | 10k uses partition/search/local rendering with model/index/filtered-render medians 636.9/32.2/380.6 ms. 50k/300k full mobile WebGL is refused; bounded model/chunk work executes with fallback visible, model-build median 1,831.1 ms, max work-slice p95 5.0 ms, and no blank/freeze assertion failure. | Preserve exact input-hash binding, frame yielding and refusal policy. |
@@ -91,7 +91,7 @@ Status meanings:
 |---|---:|---|---|---|
 | M04-F-001 | P1 | RESOLVED | `release:art-constellation-1.0.0` is `publishable` and `public_release=true`; content hash `sha256:52835b…fc462`, manifest SHA `sha256:0fa704…c5346`, physical closure 264 files / 39,436,869 bytes. Direct `--require-public` validation returns `ok=true`, exact counts, and zero failures. | Preserve deterministic generation, atomic install and no-overwrite-with-different-bytes behavior. |
 | M04-F-002 | former P0 | SUPERSEDED | The derived publication block depended only on the removed `0.1.0` human-review finding. The old candidate is gone from `public/`; the retained worksheet explicitly says it is not approval or current evidence. | Do not revive the zero-media or pending-curator contract. Do not claim a human resolved it. |
-| M04-F-003 | P1 | RESOLVED | Loader and scanner accept only exact local release assets, verify hashes/DTOs, defer media index/governance data, reject hotlinks/private fields, and preserve Pages base-path/HashRouter behavior. Recorded local Playwright result is 5/5. | Keep public/private leakage and runtime-network gates in CI. |
+| M04-F-003 | P1 | RESOLVED | Loader and scanner accept only exact local release assets, verify hashes/DTOs, defer media index/governance data, reject hotlinks/private fields, and preserve Pages base-path/HashRouter behavior. The final dist candidate-label scan passes across 287 files; final local M04/public Playwright is 6/6. | Keep public/private leakage and runtime-network gates in CI. |
 | M04-F-004 | gate | RESOLVED | The complete matrix passed in four disjoint 7-fixture shards with exit codes `0/0/0/0`: 28 unique IDs, 28 passed, 27 expected-invalid rejected and one expected-valid accepted. Evidence is `fixture-matrix.json`, run ID `fff290ead038447096fcc9b1cc337639`. | Keep exact fixture-ID closure and fail if any expected-invalid fixture is accepted. |
 | M04-F-005 | release sequencing | RESOLVED | No M04-only push or Pages deployment was attempted. MUSEUM-AUTO-01 requires one final push after M03C, M04, optional M05A and full-repo gates. | Keep `pages_deployment_status=deferred_to_museum_auto_01_final_push`; perform Actions and online QA only after the unified push. |
 
@@ -112,4 +112,4 @@ Status meanings:
 - 28-fixture matrix: **pass 28/28**; 27 expected-invalid rejected and one expected-valid accepted.
 - Overall MUSEUM-04 completion: **completed/pass**.
 - Git/Pages/live: this review is recorded by the enclosing M04 commit; no push, no M04-only Pages deployment and no live M04 QA; those remain deferred to MUSEUM-AUTO-01 unified closeout.
-- MUSEUM-05A gate: **open**.
+- MUSEUM-05A gate: **consumed and completed via MUSEUM-AUTO-01**.

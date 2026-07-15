@@ -35,7 +35,7 @@ performance_scale_status: pass
 real_device_status: not_available
 real_assistive_technology_status: not_available
 pages_deployment_status: deferred_to_museum_auto_01_final_push
-museum_05_gate_status: open
+museum_05_gate_status: completed_via_museum_auto_01
 ---
 
 # MUSEUM-04 media-aware 艺术星海阶段报告
@@ -108,7 +108,7 @@ Artist panel 可在 focus 后加载一张批准的代表图；relation panel 只
 
 ## 7. 无障碍证据边界
 
-自动化证据覆盖 keyboard、Escape close、focus restore、live region、可见焦点、非颜色唯一表达、forced colors、reduced motion、390/360 px、WebGL unavailable/context loss、no-JavaScript 说明和 graph/list/table 等价任务。记录的本地 Playwright 结果为 5/5 passed。
+自动化证据覆盖 keyboard、Escape close、focus restore、live region、可见焦点、非颜色唯一表达、forced colors、reduced motion、390/360 px、WebGL unavailable/context loss、no-JavaScript 说明、About/Rights、Accessibility 和 graph/list/table 等价任务。最终本地 M04/公共路由 Playwright 结果为 6/6 passed。
 
 本运行环境没有暴露真实 assistive technology session，因此 `real_assistive_technology_status=not_available`。这里不把 DOM/keyboard/forced-colors 自动化等同于真实 NVDA、JAWS、VoiceOver 或 TalkBack 人工验证，也不伪造 screen-reader pass。
 
@@ -116,13 +116,13 @@ Artist panel 可在 focus 后加载一张批准的代表图；relation panel 只
 
 `docs/qa/museum-04/performance-current-graph.json` 的 `overall_status=pass`，覆盖四个受控 Chromium profile。关键结果包括：
 
-- 390×844 / 4×CPU / fast 4G graph：first interactive median 1,376.0 ms，LCP median 924 ms，interaction proxy p95 102.6 ms，FPS median 60，CLS p95 0.0998；
-- 360×800 / 6×CPU / constrained network list：first interactive median 2,288.6 ms，LCP median 2,060 ms，interaction proxy p95 137.6 ms，FPS median 60，CLS p95 0.0913；
-- 1366×768 desktop：first interactive median 564.2 ms，LCP median 448 ms，interaction proxy p95 28.2 ms，FPS median 48，CLS p95 0.0791；
-- 1440×900 desktop：first interactive median 543.0 ms，LCP median 452 ms，interaction proxy p95 34.9 ms，FPS median 45，CLS p95 0.0806；
+- 390×844 / 4×CPU / fast 4G graph：first interactive median 1,258.4 ms，LCP median 884 ms，interaction proxy p95 77.9 ms，FPS median 60，CLS p95 0；
+- 360×800 / 6×CPU / constrained network list：first interactive median 1,994.6 ms，LCP median 1,756 ms，interaction proxy p95 109.8 ms，FPS median 60.00，CLS p95 0；
+- 1366×768 desktop：first interactive median 448.7 ms，LCP median 392 ms，interaction proxy p95 24.2 ms，FPS median 60，CLS p95 0；
+- 1440×900 desktop：first interactive median 446.2 ms，LCP median 388 ms，interaction proxy p95 31.1 ms，FPS median 60.00，CLS p95 0.000221；
 - 四个 profile 的 initial image requests/bytes 与 initial deferred-governance requests 均为 0；媒体和 governance data 只在 focus/panel 后按需加载；
-- deterministic gzip budgets：home 95,816 ≤ 102,942 bytes；constellation route 94,722 ≤ 460,800 bytes，其中 initial JSON 32,897 bytes、graph summary 827 bytes；
-- 当前证据文件记录 `source_worktree_dirty=true`，并绑定 implementation input hash `sha256:a293333c53c3cbc5acb3165e370693141ff3bbeca40d5b448ec63f8e429f82df`；不能被描述为来自最终 commit 的 RUM 或真实设备数据。
+- deterministic gzip budgets：home 98,684 ≤ 102,942 bytes；current-lab constellation closure 116,892 ≤ 460,800 bytes，其中 initial JSON 32,897 bytes、graph summary 827 bytes；
+- 当前证据文件记录 `source_worktree_dirty=true`，并绑定最终 M05A 源码树 implementation input hash `sha256:a79b9170e0a50818ff5e3ce70804bf54119d73b593a7040fcddc63e24d6aec26`；不能被描述为来自最终 commit 的 RUM 或真实设备数据。
 
 ## 9. 1k / 10k / 50k scale evidence
 
@@ -170,16 +170,16 @@ MUSEUM-04 阶段内已直接观察并通过：
 - scale evidence：pass；
 - targeted Python M04 tests：19/19 pass；
 - lint、strict typecheck、Vitest 42/42、production build 与 static budgets：pass；
-- recorded local Playwright：5/5 pass；
+- final local M04/public-route Playwright：6/6 pass；
 - 已知未修复 P0/P1：0。
 
-最终全仓 clean-install suite、最终 Git clean state、Actions、Pages 与 online QA 属于 MUSEUM-AUTO-01 统一收尾，尚未在本阶段单独声明通过，也未被阶段证据替代。
+最终 clean install、全仓离线 Python、前端 check、release/rights/performance/budget/scanner 与本地浏览器门禁已由 MUSEUM-AUTO-01 统一收尾通过；最终 Git clean state、Actions、Pages 与 online QA 仍须在统一 push 后记录，不能由本地阶段证据替代。
 
 ## 14. Git、Pages 与下一阶段
 
 本报告由 `Phase MUSEUM-04 media-aware art constellation` 的 enclosing Git commit 记录；具体 commit SHA 以 Git history 为准，AUTO-01 最终 commit 仍保持 `null`。本阶段不 push；Pages deployment 明确延后到 MUSEUM-AUTO-01 最终统一 push。当前 release 的本地 formal validation 不等于远端或线上状态。
 
-fixture matrix 与其余 M04 final gates 已实际 pass，已知 P0/P1 为 0，public release valid 且本地 Pages build 可用，因此 MUSEUM-05A gate 已打开并可按 AUTO-01 自动继续。仍未进入 MUSEUM-05B、MUSEUM-06、武器馆或生物馆。
+fixture matrix 与其余 M04 final gates 已实际 pass，已知 P0/P1 为 0，public release valid 且本地 Pages build 可用；MUSEUM-05A gate 已被 AUTO-01 消费并完成。仍未进入 MUSEUM-05B、MUSEUM-06、武器馆或生物馆。
 
 ## 15. Remaining P3
 

@@ -15,27 +15,27 @@
     {
       "path": ".vite/manifest.json",
       "bytes": 4543,
-      "sha256": "sha256:3fd9f43503c707e9fc2e0cc41205ad0ae23d3e21974f51e27b5c415d6f556c0a"
+      "sha256": "sha256:26b2c6e21678639c429435afc3ae427e0c97b95b50f6910a7e9a9d6fb830a6e4"
     },
     {
       "path": "index.html",
       "bytes": 3752,
-      "sha256": "sha256:3240812ef47fc836bfda859842afc96651a19b159e534bfefdc186be546906fb"
+      "sha256": "sha256:52a70baa1b3029e48cd544312ae0be4d09530bcbc1281c0b36c32aeaab7f9a8d"
     },
     {
-      "path": "assets/ArtConstellationPage-DiRQFw-C.css",
-      "bytes": 18212,
-      "sha256": "sha256:2838d7311d94f44aa787d9ecb191456bf43c30a435093ebabcd0b70a74dbacb7"
+      "path": "assets/ArtConstellationPage-CnH7IstJ.css",
+      "bytes": 18277,
+      "sha256": "sha256:8e6512274821dd6854847e74e410639fe6b069269c6f0708f1f8f003a362545f"
     },
     {
-      "path": "assets/ArtConstellationPage-DysOfLwM.js",
+      "path": "assets/ArtConstellationPage-DbOXZEz8.js",
       "bytes": 43293,
-      "sha256": "sha256:88d61b18c1c0967fca3fde5f1646a7e800c6c2a217fd95a42b90e5939cf9b4b1"
+      "sha256": "sha256:3d2853fbbeadd206ba206dd6f27fa447edb503e7a3f8f357cd9d4e39a6fe34ee"
     },
     {
-      "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+      "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
       "bytes": 3826,
-      "sha256": "sha256:1b06a8528e5a476ba2ce1df558b2ac84bade108060642de52d757e2c2987f35f"
+      "sha256": "sha256:f8285b419fa5f5fdb326ab90f2d2a0c4a019f89584b8dcd89d3c6d910482a10e"
     },
     {
       "path": "assets/ArtGalleryRoute-IwHYJFAd.css",
@@ -43,29 +43,24 @@
       "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
     },
     {
-      "path": "assets/ArtistGalleryPage-CIi1JbkH.js",
+      "path": "assets/ArtistGalleryPage-vKmOYlWO.js",
       "bytes": 9698,
-      "sha256": "sha256:f4b4b5921128cc3bac9ead94f2300eb72cc2462036b146afd1a466d95a37eaa6"
+      "sha256": "sha256:041aea716bba1f2a86ea3abc4f71db9eac1073aa2b865b3d770321403ed06f08"
     },
     {
-      "path": "assets/ArtistIndexPage-upM1r1Gn.js",
+      "path": "assets/ArtistIndexPage-DIE2QKgh.js",
       "bytes": 6300,
-      "sha256": "sha256:5b9694e04e3703e5aabcc23c20b931bbcdc16744bf9cf9a21e57bd5fb2ba242c"
+      "sha256": "sha256:62c28aef38d6c37372d8a1a6f53e98c5a27a5db8b55ad8f8fdb72d5be1f8bbd0"
     },
     {
-      "path": "assets/ArtworkDetailPage-CxsUt-dW.js",
+      "path": "assets/ArtworkDetailPage-D3gXbTGi.js",
       "bytes": 6291,
-      "sha256": "sha256:780d061827295b5883d69d6edaaa2d3c4039ad465796ff674d5c4c2500ab52bc"
+      "sha256": "sha256:0927a06fb8852ab45063813d01ace9ec77235f6ddcba442b4d5fad61a9862029"
     },
     {
-      "path": "assets/ArtworkImage-DMJv5XJw.js",
+      "path": "assets/ArtworkImage-hdOZgrIr.js",
       "bytes": 2698,
-      "sha256": "sha256:776a3d27924102fb179c833edd972eb24120085a5bf0305ac666d8f5813b58bd"
-    },
-    {
-      "path": "assets/ComparePage-Cs_PlOzq.js",
-      "bytes": 7207,
-      "sha256": "sha256:256af473574452372208c127e4e239f2b2bdda91adccf62a8d936204af359769"
+      "sha256": "sha256:186a36155298dca19b9cd91c2c583ea5206c5ec8d0f329670f8c08019894a779"
     },
     {
       "path": "assets/ComparePage-Dhd-TQEm.css",
@@ -73,9 +68,14 @@
       "sha256": "sha256:b2ce4a5e589cfc2150faf8b6be6714abdae7344f869c19729cc9029d1af1f8d2"
     },
     {
-      "path": "assets/SigmaGraphRenderer-DWB_-7S1.js",
+      "path": "assets/ComparePage-ZqOq1HUO.js",
+      "bytes": 7207,
+      "sha256": "sha256:f2a27f7bbdb10ab99ca80470b7edb861e0465324ddba123ad8d51d622bbe448e"
+    },
+    {
+      "path": "assets/SigmaGraphRenderer-DCl3K5ZV.js",
       "bytes": 162088,
-      "sha256": "sha256:e3625cdf5f4d0cb262920beaf2f426403d6e0cb38b66373d5d81e0de4c1f4140"
+      "sha256": "sha256:341f3ec3a8a25cfdffa06a06e57dc25b13688141c9d6f978f1f03aa186915572"
     },
     {
       "path": "assets/artists-PNe0IB7o.css",
@@ -88,9 +88,9 @@
       "sha256": "sha256:78960b535e19215af272515abd60ff1edacd1677c81f8314e38d964b53ae0d3f"
     },
     {
-      "path": "assets/artwork-CEDt1o5g.js",
+      "path": "assets/artwork-CBR5g-K5.js",
       "bytes": 5924,
-      "sha256": "sha256:fa9c2a3da247d378e0c0010c0ea7b0f25bb8e77f4e84d015404a3e47fea77d9b"
+      "sha256": "sha256:cf43da37ee552bdebcdcb11db08809d5b82773f032bb02ba9da4f69710aab665"
     },
     {
       "path": "assets/index-B3jFLj5M.css",
@@ -98,9 +98,9 @@
       "sha256": "sha256:4f465c9277f122132f4b8a8b18c1194068ad2be90d2690c6715a1f348ff1c189"
     },
     {
-      "path": "assets/index-PYS9H4pj.js",
+      "path": "assets/index-CipM6NHF.js",
       "bytes": 286271,
-      "sha256": "sha256:0dee638022937122d26d1ec908bfe7820164a4ebb6238cbb298a0ac187468fd7"
+      "sha256": "sha256:822407b7939b81cf9d8e3d8c89d4b3c12e96f40e1670145a30038a6accef304f"
     },
     {
       "path": "assets/media-Cw37L_Nt.js",
@@ -108,9 +108,9 @@
       "sha256": "sha256:e3bf1404d90f710d364cf6100cdc148f4d9866ad1ecb690ba6488a7269c8839e"
     },
     {
-      "path": "assets/release-loader-DvHBov3_.js",
-      "bytes": 31807,
-      "sha256": "sha256:ef93186bcd8b9f65217a198e5f1dc1c9a0eec84938a549a6561ba1564281f2af"
+      "path": "assets/release-loader-VJvAq391.js",
+      "bytes": 31880,
+      "sha256": "sha256:86f1511a33392a9c06a98c274af606e6d7959786223521fb84c2e5ab02506412"
     },
     {
       "path": "assets/types-CbuEbNsj.js",
@@ -173,13 +173,13 @@
       "sha256": "sha256:c9929ecf4ace6d03a9e9d12acd820791b1aaf3bbd3e00d2edcf5e6ac30a6cd0e"
     }
   ],
-  "inputSha256": "sha256:1f86a4871577bbc58425069a4efc2c5e17dff4a5de974b34b71f12fd191ec8d8",
+  "inputSha256": "sha256:d64995659bb9d8a1331c24ff260ae99a501d4ff0ccad304e6c029e597370cb0a",
   "homeInitial": {
     "js": [
       {
-        "path": "assets/index-PYS9H4pj.js",
+        "path": "assets/index-CipM6NHF.js",
         "rawBytes": 286271,
-        "gzipBytes": 91704
+        "gzipBytes": 91710
       }
     ],
     "css": [
@@ -191,32 +191,32 @@
     ],
     "baselineGzipBytes": 89515,
     "limitGzipBytes": 102942,
-    "gzipBytes": 98678,
-    "growthPercent": 10.236,
+    "gzipBytes": 98684,
+    "growthPercent": 10.243,
     "pass": true
   },
   "m04Regression": {
     "constellationRoute": {
       "js": [
         {
-          "path": "assets/ArtConstellationPage-DysOfLwM.js",
+          "path": "assets/ArtConstellationPage-DbOXZEz8.js",
           "rawBytes": 43293,
-          "gzipBytes": 9868
+          "gzipBytes": 9869
         },
         {
-          "path": "assets/ArtworkImage-DMJv5XJw.js",
+          "path": "assets/ArtworkImage-hdOZgrIr.js",
           "rawBytes": 2698,
-          "gzipBytes": 1288
+          "gzipBytes": 1286
         },
         {
-          "path": "assets/SigmaGraphRenderer-DWB_-7S1.js",
+          "path": "assets/SigmaGraphRenderer-DCl3K5ZV.js",
           "rawBytes": 162088,
           "gzipBytes": 38658
         },
         {
-          "path": "assets/release-loader-DvHBov3_.js",
-          "rawBytes": 31807,
-          "gzipBytes": 9356
+          "path": "assets/release-loader-VJvAq391.js",
+          "rawBytes": 31880,
+          "gzipBytes": 9396
         },
         {
           "path": "assets/types-CbuEbNsj.js",
@@ -226,17 +226,17 @@
       ],
       "css": [
         {
-          "path": "assets/ArtConstellationPage-DiRQFw-C.css",
-          "rawBytes": 18212,
-          "gzipBytes": 4110
+          "path": "assets/ArtConstellationPage-CnH7IstJ.css",
+          "rawBytes": 18277,
+          "gzipBytes": 4128
         }
       ],
-      "jsGzipBytes": 59255,
-      "cssGzipBytes": 4110,
-      "assetGzipBytes": 63365,
+      "jsGzipBytes": 59294,
+      "cssGzipBytes": 4128,
+      "assetGzipBytes": 63422,
       "assetLimitGzipBytes": 460800,
       "initialJsonGzipBytes": 32897,
-      "totalGzipBytes": 96262,
+      "totalGzipBytes": 96319,
       "totalLimitGzipBytes": 460800,
       "pass": true,
       "initialData": [
@@ -366,14 +366,14 @@
   "galleryShell": {
     "js": [
       {
-        "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+        "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
         "rawBytes": 3826,
-        "gzipBytes": 1494
+        "gzipBytes": 1500
       },
       {
-        "path": "assets/release-loader-DvHBov3_.js",
-        "rawBytes": 31807,
-        "gzipBytes": 9356
+        "path": "assets/release-loader-VJvAq391.js",
+        "rawBytes": 31880,
+        "gzipBytes": 9396
       }
     ],
     "css": [
@@ -383,12 +383,12 @@
         "gzipBytes": 1087
       }
     ],
-    "jsGzipBytes": 10850,
+    "jsGzipBytes": 10896,
     "cssGzipBytes": 1087,
-    "assetGzipBytes": 11937,
+    "assetGzipBytes": 11983,
     "assetLimitGzipBytes": 131072,
     "initialJsonGzipBytes": 0,
-    "totalGzipBytes": 11937,
+    "totalGzipBytes": 11983,
     "totalLimitGzipBytes": 131072,
     "pass": true
   },
@@ -396,19 +396,19 @@
     "artistIndex": {
       "js": [
         {
-          "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+          "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
           "rawBytes": 3826,
-          "gzipBytes": 1494
+          "gzipBytes": 1500
         },
         {
-          "path": "assets/ArtistIndexPage-upM1r1Gn.js",
+          "path": "assets/ArtistIndexPage-DIE2QKgh.js",
           "rawBytes": 6300,
-          "gzipBytes": 1984
+          "gzipBytes": 1982
         },
         {
-          "path": "assets/ArtworkImage-DMJv5XJw.js",
+          "path": "assets/ArtworkImage-hdOZgrIr.js",
           "rawBytes": 2698,
-          "gzipBytes": 1288
+          "gzipBytes": 1286
         },
         {
           "path": "assets/media-Cw37L_Nt.js",
@@ -416,9 +416,9 @@
           "gzipBytes": 393
         },
         {
-          "path": "assets/release-loader-DvHBov3_.js",
-          "rawBytes": 31807,
-          "gzipBytes": 9356
+          "path": "assets/release-loader-VJvAq391.js",
+          "rawBytes": 31880,
+          "gzipBytes": 9396
         },
         {
           "path": "assets/types-CbuEbNsj.js",
@@ -438,31 +438,31 @@
           "gzipBytes": 2692
         }
       ],
-      "jsGzipBytes": 14600,
+      "jsGzipBytes": 14642,
       "cssGzipBytes": 3779,
-      "assetGzipBytes": 18379,
+      "assetGzipBytes": 18421,
       "assetLimitGzipBytes": 131072,
       "initialJsonGzipBytes": 63263,
-      "totalGzipBytes": 81642,
+      "totalGzipBytes": 81684,
       "totalLimitGzipBytes": 460800,
       "pass": true
     },
     "artistGallery": {
       "js": [
         {
-          "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+          "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
           "rawBytes": 3826,
-          "gzipBytes": 1494
+          "gzipBytes": 1500
         },
         {
-          "path": "assets/ArtistGalleryPage-CIi1JbkH.js",
+          "path": "assets/ArtistGalleryPage-vKmOYlWO.js",
           "rawBytes": 9698,
-          "gzipBytes": 2461
+          "gzipBytes": 2458
         },
         {
-          "path": "assets/ArtworkImage-DMJv5XJw.js",
+          "path": "assets/ArtworkImage-hdOZgrIr.js",
           "rawBytes": 2698,
-          "gzipBytes": 1288
+          "gzipBytes": 1286
         },
         {
           "path": "assets/media-Cw37L_Nt.js",
@@ -470,9 +470,9 @@
           "gzipBytes": 393
         },
         {
-          "path": "assets/release-loader-DvHBov3_.js",
-          "rawBytes": 31807,
-          "gzipBytes": 9356
+          "path": "assets/release-loader-VJvAq391.js",
+          "rawBytes": 31880,
+          "gzipBytes": 9396
         },
         {
           "path": "assets/types-CbuEbNsj.js",
@@ -492,31 +492,31 @@
           "gzipBytes": 2692
         }
       ],
-      "jsGzipBytes": 15077,
+      "jsGzipBytes": 15118,
       "cssGzipBytes": 3779,
-      "assetGzipBytes": 18856,
+      "assetGzipBytes": 18897,
       "assetLimitGzipBytes": 131072,
       "initialJsonGzipBytes": 63263,
-      "totalGzipBytes": 82119,
+      "totalGzipBytes": 82160,
       "totalLimitGzipBytes": 460800,
       "pass": true
     },
     "artworkDetail": {
       "js": [
         {
-          "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+          "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
           "rawBytes": 3826,
-          "gzipBytes": 1494
+          "gzipBytes": 1500
         },
         {
-          "path": "assets/ArtworkDetailPage-CxsUt-dW.js",
+          "path": "assets/ArtworkDetailPage-D3gXbTGi.js",
           "rawBytes": 6291,
-          "gzipBytes": 1980
+          "gzipBytes": 1981
         },
         {
-          "path": "assets/artwork-CEDt1o5g.js",
+          "path": "assets/artwork-CBR5g-K5.js",
           "rawBytes": 5924,
-          "gzipBytes": 2340
+          "gzipBytes": 2341
         },
         {
           "path": "assets/media-Cw37L_Nt.js",
@@ -524,9 +524,9 @@
           "gzipBytes": 393
         },
         {
-          "path": "assets/release-loader-DvHBov3_.js",
-          "rawBytes": 31807,
-          "gzipBytes": 9356
+          "path": "assets/release-loader-VJvAq391.js",
+          "rawBytes": 31880,
+          "gzipBytes": 9396
         },
         {
           "path": "assets/types-CbuEbNsj.js",
@@ -546,31 +546,31 @@
           "gzipBytes": 2148
         }
       ],
-      "jsGzipBytes": 15648,
+      "jsGzipBytes": 15696,
       "cssGzipBytes": 3235,
-      "assetGzipBytes": 18883,
+      "assetGzipBytes": 18931,
       "assetLimitGzipBytes": 131072,
       "initialJsonGzipBytes": 63263,
-      "totalGzipBytes": 82146,
+      "totalGzipBytes": 82194,
       "totalLimitGzipBytes": 460800,
       "pass": true
     },
     "compare": {
       "js": [
         {
-          "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+          "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
           "rawBytes": 3826,
-          "gzipBytes": 1494
+          "gzipBytes": 1500
         },
         {
-          "path": "assets/ComparePage-Cs_PlOzq.js",
+          "path": "assets/ComparePage-ZqOq1HUO.js",
           "rawBytes": 7207,
-          "gzipBytes": 2272
+          "gzipBytes": 2274
         },
         {
-          "path": "assets/artwork-CEDt1o5g.js",
+          "path": "assets/artwork-CBR5g-K5.js",
           "rawBytes": 5924,
-          "gzipBytes": 2340
+          "gzipBytes": 2341
         },
         {
           "path": "assets/media-Cw37L_Nt.js",
@@ -578,9 +578,9 @@
           "gzipBytes": 393
         },
         {
-          "path": "assets/release-loader-DvHBov3_.js",
-          "rawBytes": 31807,
-          "gzipBytes": 9356
+          "path": "assets/release-loader-VJvAq391.js",
+          "rawBytes": 31880,
+          "gzipBytes": 9396
         },
         {
           "path": "assets/types-CbuEbNsj.js",
@@ -605,12 +605,12 @@
           "gzipBytes": 2148
         }
       ],
-      "jsGzipBytes": 15940,
+      "jsGzipBytes": 15989,
       "cssGzipBytes": 4952,
-      "assetGzipBytes": 20892,
+      "assetGzipBytes": 20941,
       "assetLimitGzipBytes": 131072,
       "initialJsonGzipBytes": 63263,
-      "totalGzipBytes": 84155,
+      "totalGzipBytes": 84204,
       "totalLimitGzipBytes": 460800,
       "pass": true
     }
@@ -618,39 +618,39 @@
   "allGalleryLazyAssets": {
     "js": [
       {
-        "path": "assets/ArtGalleryRoute-BBvJStn6.js",
+        "path": "assets/ArtGalleryRoute-DdEKE-0b.js",
         "rawBytes": 3826,
-        "gzipBytes": 1494
+        "gzipBytes": 1500
       },
       {
-        "path": "assets/ArtistGalleryPage-CIi1JbkH.js",
+        "path": "assets/ArtistGalleryPage-vKmOYlWO.js",
         "rawBytes": 9698,
-        "gzipBytes": 2461
+        "gzipBytes": 2458
       },
       {
-        "path": "assets/ArtistIndexPage-upM1r1Gn.js",
+        "path": "assets/ArtistIndexPage-DIE2QKgh.js",
         "rawBytes": 6300,
-        "gzipBytes": 1984
+        "gzipBytes": 1982
       },
       {
-        "path": "assets/ArtworkDetailPage-CxsUt-dW.js",
+        "path": "assets/ArtworkDetailPage-D3gXbTGi.js",
         "rawBytes": 6291,
-        "gzipBytes": 1980
+        "gzipBytes": 1981
       },
       {
-        "path": "assets/ArtworkImage-DMJv5XJw.js",
+        "path": "assets/ArtworkImage-hdOZgrIr.js",
         "rawBytes": 2698,
-        "gzipBytes": 1288
+        "gzipBytes": 1286
       },
       {
-        "path": "assets/ComparePage-Cs_PlOzq.js",
+        "path": "assets/ComparePage-ZqOq1HUO.js",
         "rawBytes": 7207,
-        "gzipBytes": 2272
+        "gzipBytes": 2274
       },
       {
-        "path": "assets/artwork-CEDt1o5g.js",
+        "path": "assets/artwork-CBR5g-K5.js",
         "rawBytes": 5924,
-        "gzipBytes": 2340
+        "gzipBytes": 2341
       },
       {
         "path": "assets/media-Cw37L_Nt.js",
@@ -658,9 +658,9 @@
         "gzipBytes": 393
       },
       {
-        "path": "assets/release-loader-DvHBov3_.js",
-        "rawBytes": 31807,
-        "gzipBytes": 9356
+        "path": "assets/release-loader-VJvAq391.js",
+        "rawBytes": 31880,
+        "gzipBytes": 9396
       },
       {
         "path": "assets/types-CbuEbNsj.js",
@@ -690,7 +690,7 @@
         "gzipBytes": 2148
       }
     ],
-    "gzipBytes": 31297,
+    "gzipBytes": 31340,
     "informationalOnly": true
   },
   "mediaLocatorEmbedding": {

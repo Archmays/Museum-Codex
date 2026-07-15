@@ -24,7 +24,12 @@ from museum_pipeline.source_registry import REFERENCE_SOURCE_IDS, verify_sources
 from museum_pipeline.validation.dispatch import canonical_schema_path, load_schema_environment, validate_record
 from museum_pipeline.validation.fixtures import evaluate_invalid_fixture
 from museum_pipeline.validation.physical import validate_run_directory
-from scripts.scan_public_artifact_for_candidate_data import MAX_SCANNABLE_TEXT_BYTES, scan_public_artifact
+from scripts.scan_public_artifact_for_candidate_data import (
+    MAX_SCANNABLE_TEXT_BYTES,
+    formal_art_terms_from_label_set,
+    scan_public_artifact,
+    validated_museum_04_exempt_roots,
+)
 from scripts.validate_pipeline_foundation import validate_pipeline_foundation
 
 
@@ -154,8 +159,30 @@ class CliTests(unittest.TestCase):
 
 
 class LeakageTests(unittest.TestCase):
-    def test_current_public_inputs_have_no_candidate_or_third_party_media_leak(self) -> None:
-        self.assertEqual([], scan_public_artifact(ROOT / "public"))
+    def test_current_public_inputs_have_no_candidate_or_unvalidated_media_leak(self) -> None:
+        public_root = ROOT / "public"
+        label_set = (
+            ROOT
+            / "data"
+            / "reviewed"
+            / "art"
+            / "museum-03b"
+            / "museum-03b-first-slate-v1"
+            / "package-v1"
+            / "public-leakage-label-set.json"
+        )
+        formal_terms, label_error = formal_art_terms_from_label_set(label_set)
+        exempt_roots, release_findings = validated_museum_04_exempt_roots(public_root)
+        self.assertIsNone(label_error)
+        self.assertEqual([], release_findings)
+        self.assertEqual(
+            [],
+            scan_public_artifact(
+                public_root,
+                formal_art_terms=formal_terms,
+                formal_art_exempt_roots=exempt_roots,
+            ),
+        )
 
     def test_candidate_identifier_is_detected_in_public_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
