@@ -14,7 +14,7 @@ from museum_pipeline.art.public_release import DEFAULT_OUTPUT, build_museum_04_r
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build the deterministic MUSEUM-04 metadata-only public release")
+    parser = argparse.ArgumentParser(description="Build the deterministic media-aware MUSEUM-04 public release")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     result = build_museum_04_release(args.output)

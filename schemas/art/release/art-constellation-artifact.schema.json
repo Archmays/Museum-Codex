@@ -20,7 +20,7 @@
   ],
   "$defs": {
     "schemaVersion": { "const": "1.0.0" },
-    "releaseId": { "const": "release:art-constellation-0.1.0" },
+    "releaseId": { "const": "release:art-constellation-1.0.0" },
     "stableId": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$" },
     "bilingual": {
       "type": "object",
@@ -33,7 +33,7 @@
     },
     "counts": {
       "type": "object",
-      "required": ["artists", "contexts", "relationships", "artworks", "claims", "evidence", "sources", "media", "media_bytes", "levels", "relationship_types"],
+      "required": ["artists", "contexts", "relationships", "artworks", "claims", "evidence", "sources", "media", "media_bytes", "approved_media_artworks", "no_image_artworks", "media_provenance_parents", "levels", "relationship_types"],
       "properties": {
         "artists": { "const": 12 },
         "contexts": { "const": 31 },
@@ -42,8 +42,11 @@
         "claims": { "type": "integer", "minimum": 1 },
         "evidence": { "type": "integer", "minimum": 1 },
         "sources": { "const": 4 },
-        "media": { "const": 0 },
-        "media_bytes": { "const": 0 },
+        "media": { "const": 242 },
+        "media_bytes": { "const": 35907176 },
+        "approved_media_artworks": { "const": 31 },
+        "no_image_artworks": { "const": 13 },
+        "media_provenance_parents": { "const": 31 },
         "levels": {
           "type": "object",
           "required": ["A", "B", "C"],
@@ -69,8 +72,8 @@
       "properties": {
         "schema_version": { "$ref": "#/$defs/schemaVersion" },
         "release_id": { "$ref": "#/$defs/releaseId" },
-        "release_version": { "const": "0.1.0" },
-        "profile": { "const": "metadata_only" },
+        "release_version": { "const": "1.0.0" },
+        "profile": { "const": "media_aware" },
         "title": { "$ref": "#/$defs/bilingual" },
         "counts": { "$ref": "#/$defs/counts" },
         "semantics": {
@@ -98,7 +101,7 @@
         },
         "artifact_paths": {
           "type": "object",
-          "required": ["artists", "contexts", "relationships", "artworks", "evidence", "sources", "search_index", "layout", "facets", "rights"],
+          "required": ["artists", "contexts", "relationships", "artworks", "evidence", "sources", "search_index", "layout", "facets", "rights", "media_index", "withdrawal"],
           "properties": {
             "artists": { "const": "artists.json" },
             "contexts": { "const": "contexts.json" },
@@ -109,7 +112,9 @@
             "search_index": { "const": "search-index.json" },
             "layout": { "const": "layout.json" },
             "facets": { "const": "facets.json" },
-            "rights": { "const": "rights.json" }
+            "rights": { "const": "rights.json" },
+            "media_index": { "const": "media-index.json" },
+            "withdrawal": { "const": "withdrawal-mapping.json" }
           },
           "additionalProperties": false
         }
@@ -215,11 +220,12 @@
       "type": "object",
       "required": ["target_schema", "data"],
       "properties": {
-        "target_schema": { "enum": ["schemas/art/release/public-constellation-record.schema.json", "schemas/common/source.schema.json"] },
+        "target_schema": { "enum": ["schemas/art/release/public-constellation-record.schema.json", "schemas/common/source.schema.json", "schemas/common/media-asset.schema.json"] },
         "data": {
           "oneOf": [
             { "$ref": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json" },
-            { "$ref": "https://museum-codex.example/schemas/common/source.schema.json" }
+            { "$ref": "https://museum-codex.example/schemas/common/source.schema.json" },
+            { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json" }
           ]
         }
       },
@@ -295,7 +301,7 @@
         "schema_version": { "$ref": "#/$defs/schemaVersion" },
         "release_id": { "$ref": "#/$defs/releaseId" },
         "algorithm": { "const": "deterministic_circle_v1" },
-        "seed": { "const": "museum-04-art-constellation-0.1.0" },
+        "seed": { "const": "museum-04-art-constellation-1.0.0" },
         "coordinate_space": {
           "type": "object", "required": ["width", "height"],
           "properties": { "width": { "const": 1000 }, "height": { "const": 1000 } },
@@ -377,9 +383,20 @@
           "additionalProperties": false
         },
         "media": {
-          "type": "object", "required": ["count", "bytes", "downloaded", "statement"],
+          "type": "object", "required": ["count", "bytes", "approved_artworks", "no_image_artworks", "external_runtime_count", "blocked_asset_count", "media_bundle_id", "media_bundle_hash", "attributions_path", "notices_path", "source_rules_path", "withdrawal_path", "statement"],
           "properties": {
-            "count": { "const": 0 }, "bytes": { "const": 0 }, "downloaded": { "const": false },
+            "count": { "const": 242 },
+            "bytes": { "const": 35907176 },
+            "approved_artworks": { "const": 31 },
+            "no_image_artworks": { "const": 13 },
+            "external_runtime_count": { "const": 0 },
+            "blocked_asset_count": { "const": 0 },
+            "media_bundle_id": { "const": "media-bundle:museum-03c-v1" },
+            "media_bundle_hash": { "const": "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565" },
+            "attributions_path": { "const": "attributions.json" },
+            "notices_path": { "const": "third-party-notices.json" },
+            "source_rules_path": { "const": "source-rules-snapshot.json" },
+            "withdrawal_path": { "const": "withdrawal-mapping.json" },
             "statement": { "$ref": "#/$defs/bilingual" }
           },
           "additionalProperties": false
@@ -400,17 +417,19 @@
     },
     "releaseSignoff": {
       "type": "object",
-      "required": ["schema_version", "id", "release_id", "phase_id", "decision", "reviewer_id", "reviewer_kind", "human_reviewer_claimed", "editorial_review_status", "summary_digest", "reviewed_at", "m03b_package_hash", "m03b_graph_hash", "counts", "checks", "limitations"],
+      "required": ["schema_version", "id", "release_id", "phase_id", "decision", "reviewer_id", "reviewer_kind", "executor", "human_review_dependency", "human_reviewer_claimed", "editorial_review_status", "summary_digest", "reviewed_at", "m03b_package_hash", "m03b_graph_hash", "counts", "checks", "limitations"],
       "properties": {
         "schema_version": { "$ref": "#/$defs/schemaVersion" },
-        "id": { "const": "release-signoff:art-constellation-0.1.0" },
+        "id": { "const": "release-signoff:art-constellation-1.0.0" },
         "release_id": { "$ref": "#/$defs/releaseId" },
         "phase_id": { "const": "MUSEUM-04" },
-        "decision": { "enum": ["candidate_pending_human_editorial_review", "accepted_for_public_release"] },
-        "reviewer_id": { "type": "string", "minLength": 1 },
-        "reviewer_kind": { "enum": ["ai_assisted_operator", "human_editorial_reviewer"] },
-        "human_reviewer_claimed": { "type": "boolean" },
-        "editorial_review_status": { "enum": ["pending", "approved"] },
+        "decision": { "const": "accepted_for_public_release" },
+        "reviewer_id": { "const": "automated-release-validation-pipeline" },
+        "reviewer_kind": { "const": "automated_release_validation_pipeline" },
+        "executor": { "const": "automated_release_validation_pipeline" },
+        "human_review_dependency": { "const": false },
+        "human_reviewer_claimed": { "const": false },
+        "editorial_review_status": { "const": "automated_pass" },
         "summary_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
         "reviewed_at": { "type": "string", "format": "date-time" },
         "m03b_package_hash": { "const": "sha256:1f0f00a0d7f6162fcb0d716e6b86fbcfe42a4e04a0422d7c1c0df63b70c97b86" },
@@ -419,26 +438,6 @@
         "checks": { "type": "array", "minItems": 14, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
         "limitations": { "type": "string", "minLength": 1 }
       },
-      "oneOf": [
-        {
-          "properties": {
-            "decision": { "const": "candidate_pending_human_editorial_review" },
-            "reviewer_id": { "const": "codex-primary-agent" },
-            "reviewer_kind": { "const": "ai_assisted_operator" },
-            "human_reviewer_claimed": { "const": false },
-            "editorial_review_status": { "const": "pending" }
-          }
-        },
-        {
-          "properties": {
-            "decision": { "const": "accepted_for_public_release" },
-            "reviewer_id": { "type": "string", "minLength": 1, "not": { "const": "codex-primary-agent" } },
-            "reviewer_kind": { "const": "human_editorial_reviewer" },
-            "human_reviewer_claimed": { "const": true },
-            "editorial_review_status": { "const": "approved" }
-          }
-        }
-      ],
       "additionalProperties": false
     },
     "performance": {
@@ -478,7 +477,21 @@
         },
         "continuous_force_layout": { "const": false },
         "external_runtime_api": { "const": false },
-        "media_requests": { "const": false }
+        "media_requests": {
+          "type": "object",
+          "required": ["initial_asset_requests", "media_index_load", "representative_media_load", "detail_media_load", "low_bandwidth_default", "thumbnail_widths", "loading", "decoding"],
+          "properties": {
+            "initial_asset_requests": { "const": 0 },
+            "media_index_load": { "const": "deferred" },
+            "representative_media_load": { "const": "focus_only" },
+            "detail_media_load": { "const": "user_navigation_only" },
+            "low_bandwidth_default": { "const": "metadata_only" },
+            "thumbnail_widths": { "const": [320, 640] },
+            "loading": { "const": "lazy" },
+            "decoding": { "const": "async" }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     },

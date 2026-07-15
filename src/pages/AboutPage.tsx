@@ -25,6 +25,12 @@ export function AboutPage() {
           <a className="text-link rights-notices-link" href={`${import.meta.env.BASE_URL}THIRD_PARTY_NOTICES.md`}>
             {t.constellation.noticesLink}
           </a>
+          <a
+            className="text-link rights-notices-link"
+            href="https://github.com/Archmays/Museum-Codex/issues/new?template=rights-or-attribution.yml"
+          >
+            {t.constellation.rightsRequest}
+          </a>
         </div>
       </section>
     </main>

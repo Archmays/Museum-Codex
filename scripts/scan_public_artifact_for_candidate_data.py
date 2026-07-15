@@ -19,7 +19,7 @@ TEXT_SUFFIXES = {
 }
 MAX_SCANNABLE_TEXT_BYTES = 5 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
-MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-0.1.0"
+MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
     "candidate_id": re.compile(r"candidate:[0-9a-f-]{36}", re.IGNORECASE),
@@ -59,9 +59,10 @@ def scan_public_artifact(
     resolved_exempt_roots = {path.resolve() for path in formal_art_exempt_roots or set()}
     for path in files:
         relative = path.relative_to(root).as_posix()
+        formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
         if set(part.lower() for part in path.relative_to(root).parts) & FORBIDDEN_PATH_PARTS:
             findings.append({"code": "candidate_zone_in_public_artifact", "path": relative})
-        if path.suffix.lower() in THIRD_PARTY_MEDIA_SUFFIXES:
+        if path.suffix.lower() in THIRD_PARTY_MEDIA_SUFFIXES and not formal_exempt:
             findings.append({"code": "third_party_media_in_public_artifact", "path": relative})
         if path.suffix.lower() not in TEXT_SUFFIXES:
             continue
@@ -73,7 +74,6 @@ def scan_public_artifact(
         except UnicodeDecodeError:
             findings.append({"code": "public_text_not_utf8", "path": relative})
             continue
-        formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
         for code, pattern in FORBIDDEN_CONTENT.items():
             matches = list(pattern.finditer(text))
             if not matches:

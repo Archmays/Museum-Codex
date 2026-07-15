@@ -25,11 +25,11 @@ Third-party metadata, data, media, fonts, libraries, and other materials retain 
 
 第三方 metadata、数据、媒体、字体、程序库及其他资料保留各自独立的权利、许可、限制和署名要求。每个公开 release 必须携带与其实际使用字段和资料精确对应的来源规则、third-party notices 与 attribution 记录。项目保留权利状态不得覆盖第三方署名或许可义务。
 
-## MUSEUM-04 public scope
+## MUSEUM-04 public media scope
 
-The formal MUSEUM-04 art release is metadata-only. It contains no artwork images, thumbnails, audio, video, IIIF image delivery, or other artwork media bytes. A source or object URL is provenance metadata, not permission to download or republish media.
+The formal MUSEUM-04 art release is media-aware. It may include only derivatives approved by the MUSEUM-03C identity, rights, byte, and quality gates, plus an external-delivery reference only when the release contract separately permits that runtime use. Every included media asset must close to its official source identity, parent/source hash, derivative hash, exact source rule, attribution, notices, and withdrawal mapping. Metadata-only or blocked artworks carry no public image bytes. A source, object, IIIF, or image URL is provenance or delivery metadata, not permission to download or republish media.
 
-MUSEUM-04 正式美术 release 为 metadata-only：不包含作品图片、缩略图、音频、视频、IIIF 图像传输或其他作品媒体字节。来源或对象 URL 是 provenance metadata，不构成下载或再发布媒体的许可。
+MUSEUM-04 正式美术 release 支持经过审核的媒体。它只能包含通过 MUSEUM-03C 身份、权利、字节与质量门禁的衍生图像；仅当 release 合同另行允许相应运行时用途时，才可包含 external delivery 引用。每项公开媒体都必须闭合到官方来源身份、父级/来源哈希、衍生物哈希、精确来源规则、署名、notices 与撤回映射。metadata-only 或 blocked 作品不携带公开图像字节。来源、对象、IIIF 或图片 URL 只是 provenance 或 delivery metadata，不构成下载或再发布媒体的许可。
 
 ## Notices and attribution
 

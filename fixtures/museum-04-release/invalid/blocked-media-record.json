@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-blocked-media-record",
+  "mutation": "blocked_media_record",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_blocked_media"]
+}

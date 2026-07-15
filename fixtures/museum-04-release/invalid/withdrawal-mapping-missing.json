@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-withdrawal-mapping-missing",
+  "mutation": "withdrawal_mapping_missing",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_artifact_schema", "m04_withdrawal_mapping"]
+}

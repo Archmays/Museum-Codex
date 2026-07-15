@@ -11,21 +11,25 @@ function screenshotPath(name: string) {
 }
 
 function observePage(page: Page) {
-  const consoleErrors: string[] = [];
+  const consoleIssues: string[] = [];
   const failedRequests: string[] = [];
   const httpErrors: string[] = [];
   page.on("console", (message) => {
-    if (message.type() === "error") consoleErrors.push(message.text());
+    const expectedBrowserDiagnostic = message.type() === "warning"
+      && /^\[\.WebGL-[^\]]+\]GL Driver Message \(OpenGL, Performance, GL_CLOSE_PATH_NV, High\): GPU stall due to ReadPixels(?: \(this message will no longer repeat\))?$/.test(message.text());
+    if ((message.type() === "error" || message.type() === "warning") && !expectedBrowserDiagnostic) {
+      consoleIssues.push(`${message.type()}: ${message.text()}`);
+    }
   });
   page.on("requestfailed", (request) => failedRequests.push(`${request.method()} ${request.url()}`));
   page.on("response", (response) => {
     if (response.status() >= 400) httpErrors.push(`${response.status()} ${response.url()}`);
   });
-  return { consoleErrors, failedRequests, httpErrors };
+  return { consoleIssues, failedRequests, httpErrors };
 }
 
 function expectCleanPage(observed: ReturnType<typeof observePage>) {
-  expect(observed.consoleErrors).toEqual([]);
+  expect(observed.consoleIssues).toEqual([]);
   expect(observed.failedRequests).toEqual([]);
   expect(observed.httpErrors).toEqual([]);
 }
@@ -44,19 +48,17 @@ async function revealDeferredListForFullPageCapture(page: Page) {
   });
 }
 
-async function expectStaticMetadataOnlyRuntime(page: Page) {
+async function expectStaticSameOriginRuntime(page: Page) {
   const result = await page.evaluate(() => {
     const pageOrigin = window.location.origin;
     const resourceUrls = performance.getEntriesByType("resource").map((entry) => entry.name);
     return {
       externalResources: resourceUrls.filter((url) => new URL(url).origin !== pageOrigin),
-      mediaElements: document.querySelectorAll("img, picture, video, audio, source, object, embed").length,
       runtimeConnections: resourceUrls.filter((url) => /(?:api|graphql|websocket)/i.test(url)),
     };
   });
   expect(result.externalResources).toEqual([]);
   expect(result.runtimeConnections).toEqual([]);
-  expect(result.mediaElements).toBe(0);
 }
 
 async function openConstellation(page: Page) {
@@ -71,7 +73,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   const observed = observePage(page);
   const releaseRequests: string[] = [];
   page.on("request", (request) => {
-    if (request.url().includes("/releases/art-constellation-0.1.0/")) {
+    if (request.url().includes("/releases/art-constellation-1.0.0/")) {
       releaseRequests.push(new URL(request.url()).pathname.split("/").at(-1) ?? "");
     }
   });
@@ -91,6 +93,9 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await openConstellation(page);
 
   await expect(page.locator("main[data-view=graph]")).toBeVisible();
+  const liveRegion = page.locator(".sr-only[aria-live=polite]");
+  await expect(liveRegion).toHaveCSS("position", "absolute");
+  await expect(liveRegion).toHaveCSS("width", "1px");
   await expect(page.locator(".artist-navigator button")).toHaveCount(12);
   await expect(page.getByText("The initial state has no visible edges.", { exact: false })).toBeVisible();
   await expect(page.getByText("C curatorial comparison: 36 edges", { exact: true }).first()).toBeVisible();
@@ -107,16 +112,29 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   expect(releaseRequests).not.toEqual(expect.arrayContaining([
     "relationships.json",
     "artworks.json",
+    "media-index.json",
+    "attributions.json",
+    "withdrawal-mapping.json",
     "evidence.json",
     "rights.json",
   ]));
+  expect(releaseRequests.filter((name) => /\.(?:jpe?g|webp)$/i.test(name))).toEqual([]);
   await page.locator(".constellation-workspace").screenshot({ path: screenshotPath("desktop-initial") });
 
   const firstArtist = page.locator(".artist-navigator button").first();
   await firstArtist.click();
   await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  await expect(page.locator("#constellation-panel-accessible-title")).toHaveCSS("position", "absolute");
   await expect(page.getByRole("button", { name: "Close notes" })).toBeFocused();
   await expect(page.locator(".related-relation-list button").first()).toBeVisible();
+  await expect(page.locator(".artist-representative img")).toBeVisible();
+  await expect(page.locator(".artist-representative img")).toHaveAttribute(
+    "src",
+    /\/releases\/art-constellation-1\.0\.0\/assets\//,
+  );
+  expect(releaseRequests).toEqual(expect.arrayContaining([
+    "media-index.json", "attributions.json", "withdrawal-mapping.json",
+  ]));
   await expect(page).toHaveURL(/focus=/);
   await page.screenshot({ path: screenshotPath("focused-artist") });
 
@@ -155,12 +173,12 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await expect(page.locator(".artist-list-view li")).toHaveCount(1);
 
   await page.getByRole("button", { name: "Open rights and third-party notices" }).click();
-  await expect(page.getByText(/Artwork media count and bytes are both zero/)).toBeVisible();
+  await expect(page.getByText(/242 self-hosted derivatives for 31 artworks/)).toBeVisible();
   await expect(page.locator(".notice-list li")).not.toHaveCount(0);
   await expect(page.locator(".panel-actions a")).toHaveCount(2);
   await page.screenshot({ path: screenshotPath("rights-panel") });
   await expectNoHorizontalOverflow(page);
-  await expectStaticMetadataOnlyRuntime(page);
+  await expectStaticSameOriginRuntime(page);
   expectCleanPage(observed);
 });
 
@@ -178,8 +196,9 @@ test("Art landing and 1366-wide constellation remain complete without overflow",
   await expect(page.getByLabel("Context type")).toBeVisible();
   await page.locator(".artist-navigator button").first().click();
   await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  await expect(page.locator(".artist-representative img")).toBeVisible();
   await expectNoHorizontalOverflow(page);
-  await expectStaticMetadataOnlyRuntime(page);
+  await expectStaticSameOriginRuntime(page);
   expectCleanPage(observed);
 });
 
@@ -218,11 +237,23 @@ test("390px graph and low-bandwidth list preserve focus and URL state", async ({
   await expect(page.locator("main[data-view=list]")).toBeVisible();
   await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
   await expect(page.locator(".constellation-detail-panel")).toBeVisible();
+  await expect(page.locator(".constellation-detail-panel img")).toHaveCount(0);
+  await page.route("**/releases/art-constellation-1.0.0/assets/**", async (route) => {
+    await new Promise((resolveDelay) => setTimeout(resolveDelay, 250));
+    await route.continue();
+  });
+  await page.getByRole("button", { name: "Load this artwork image" }).click();
+  const imageStatus = page.locator(".artwork-image-status");
+  await expect(imageStatus).toBeFocused();
+  await expect(imageStatus).toHaveText("Loading the artwork image.");
+  await expect(page.locator(".constellation-detail-panel img")).toBeVisible();
+  await expect(imageStatus).toHaveText("Artwork image loaded.");
+  await page.unroute("**/releases/art-constellation-1.0.0/assets/**");
   await page.getByRole("button", { name: "Close notes" }).click();
   await revealDeferredListForFullPageCapture(page);
   await page.screenshot({ path: screenshotPath("mobile-list"), fullPage: true });
   await expectNoHorizontalOverflow(page);
-  await expectStaticMetadataOnlyRuntime(page);
+  await expectStaticSameOriginRuntime(page);
   expectCleanPage(observed);
 });
 
@@ -286,7 +317,7 @@ test("no-script portal, Art, and rights content are available over HTTP 200", as
   await expect(fallback.getByRole("heading", { name: "博物馆 · Museum" })).toBeVisible();
   await expect(fallback.getByRole("heading", { name: "艺术星海：观察与比较" })).toBeVisible();
   await expect(fallback.getByRole("heading", { name: "权利与署名 / Rights & attribution" })).toBeVisible();
-  await expect(fallback.getByText(/no artwork images, historical-causality edges, or algorithmic similarity/i)).toBeVisible();
+  await expect(fallback.getByText(/self-hosted derivatives that passed identity, rights, byte, and quality gates/i)).toBeVisible();
   await expectNoHorizontalOverflow(page);
   expectCleanPage(observed);
   await context.close();

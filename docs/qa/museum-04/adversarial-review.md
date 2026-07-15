@@ -1,19 +1,23 @@
 ---
 phase_id: MUSEUM-04
 review_kind: adversarial_A-F
-review_date: 2026-07-14
-overall_status: blocked
-formal_publication_allowed: false
-museum_05_allowed: false
-blocking_finding_ids:
-  - M04-A-001
-candidate_release_id: release:art-constellation-0.1.0
-candidate_release_hash: sha256:9467b5449e13fd3e89272a62bc614fe776b22d14745bdbf72c4540d5e84e0cc4
-candidate_summary_digest: sha256:42660e0a7a1d4a33548c82d8e942c747dbe42f20d3b2ef16ae92673114ea1da6
-candidate_release_validation: pass
-formal_public_release_validation: blocked_expected
+review_date: 2026-07-15
+overall_status: pass
+formal_release_created: true
+formal_release_validation: pass
+fixture_matrix_status: pass_28_of_28
+formal_publication_allowed: true
+museum_05_gate_status: open
+blocking_finding_ids: []
+pending_gate_ids: []
+release_id: release:art-constellation-1.0.0
+release_hash: sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462
+manifest_sha256: sha256:0fa7046a6b47eb9c73abc2279157f745888eeb76e7445fb18810269b04ec5346
+performance_current_validation: pass
 performance_scale_validation: pass
-m04_commits_created: false
+human_review_dependency: false
+human_reviewer_claimed: false
+m04_commit_created: true
 m04_push_performed: false
 m04_pages_deployed: false
 m04_live_qa_performed: false
@@ -23,71 +27,89 @@ m04_live_qa_performed: false
 
 ## Decision
 
-**BLOCKED.** The metadata-only bundle is a local reviewed candidate, not a formal public release. All 12 bilingual artist summaries have `human_reviewed=false`; the phase brief requires human review of AI-drafted summaries. The formal validator therefore fails closed with only `m04_human_editorial_review_required`. The candidate sign-off value `candidate_pending_human_editorial_review` is not publication authorization.
+**PASS.** Formal media-aware release `release:art-constellation-1.0.0` independently passes the `--require-public` validator with 12/44/31/36, A/B/C=`0/0/36`, 242 derivatives / 35,907,176 bytes, 31 approved-media artworks and 13 explicit no-image artworks. Current-graph and scale evidence both report `overall_status=pass`.
 
-No MUSEUM-04 commit, push, Pages deployment, or live MUSEUM-04 QA has occurred. Local `HEAD`, `main`, and `origin/main` remain at baseline `2be73011cb1dca64cb8d3a2d5830f495671d755b`. MUSEUM-05 remains unauthorized and was not entered.
+The complete 28-fixture MUSEUM-04 matrix passed in four disjoint shards: exit codes `0/0/0/0`, 28 unique fixture IDs, 27 expected-invalid fixtures rejected, and one expected-valid fixture accepted. Durable evidence is `fixture-matrix.json`, run ID `fff290ead038447096fcc9b1cc337639`. With no open P0/P1, MUSEUM-04 is `completed/pass` and the M05A gate is open.
 
-Status values: `RESOLVED` means the current local candidate has file, test, or evidence support; `OPEN_EXTERNAL` requires an accountable human; `BLOCKED_DERIVED` is withheld because of another open blocker.
+`formal_publication_allowed=true` authorizes continuation inside the AUTO-01 unified release flow; it does not claim that a push, Pages deployment, or live QA has already occurred.
+
+The pre-media `0.1.0` human-editorial P0 was not completed by a human. It is **superseded** by the MUSEUM-AUTO-01 automated-release contract. The formal signoff states `automated_pass`, `human_review_dependency=false`, and `human_reviewer_claimed=false`; no human approval is fabricated.
+
+Status meanings:
+
+- `RESOLVED`: current implementation and inspected evidence close the finding.
+- `SUPERSEDED`: the finding belonged to the removed pre-media contract and is not current; this is not a claim that its former human action occurred.
+- `OPEN_P3`: non-blocking follow-up with an honest environment or diagnostic limitation.
 
 ## Findings
 
-### A — Art history and relationships
+### A — Art history and relationship semantics
 
-| ID | Severity | Status | Evidence | Remediation / disposition |
+| ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-A-001 | P0 | OPEN_EXTERNAL | `artists.json` contains 12/12 `summary_provenance.human_reviewed=false`, all with `reviewer_kind=ai_assisted_operator`; `artist-summary-human-editorial-review-packet.md` remains pending; formal validation returns only `m04_human_editorial_review_required`. | An identified, accountable human must review all 12 Chinese/English pairs for factual accuracy, translation equivalence, neutral non-causal wording, unsupported influence/rank, and source traceability. Record every disposition and update the provenance/sign-off without backdating or AI self-approval; then rerun every formal gate. Blocks formal publication and MUSEUM-05. |
-| M04-A-002 | P1 | RESOLVED | `relationships.json` has exactly 36 unique, endpoint/context-specific Chinese explanations; every edge is C-level, non-algorithmic, has supporting artwork/source/claim/evidence closure, and states a non-causal boundary. `tests/test_museum_04_release.py` enforces specificity and non-causality; candidate release validation passes. | Retain the deterministic semantic test and strict validator. |
-| M04-A-003 | P2 | RESOLVED | Candidate counts are 12 artists, 44 artwork metadata records, 31 contexts, 36 relationships, A/B/C=`0/0/36`; relationship types are shared subject/material/technique only. | No action. |
+| M04-A-001 | former P0 | SUPERSEDED | The old unpublished `0.1.0` candidate proposed a human-editorial queue. Its worksheet now says `status: superseded`; `1.0.0/release-signoff.json` records `editorial_review_status=automated_pass`, `human_review_dependency=false`, `human_reviewer_claimed=false`. | Do not backfill a reviewer. Retain the worksheet only as audit history and preserve automated source/semantic validators. |
+| M04-A-002 | P1 | RESOLVED | Exactly 36 relationships, all C-level, non-causal, non-algorithmic and undirected; shared subject/material/technique only; each has endpoint/context-specific explanation and Claim → Evidence → Source closure. A/B=`0/0`. | Keep exact semantic reconstruction and reject influence, acquaintance, transmission, ranking or algorithm claims. |
+| M04-A-003 | P2 | RESOLVED | 31 works have approved media and 13 have explicit no-image states; graph nodes remain equal and media counts do not affect rank, size or relationship strength. | Preserve the separation between media availability and artistic status. |
 
-### B — Product and learning
+### B — Product and phase boundary
 
-| ID | Severity | Status | Evidence | Remediation / disposition |
+| ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-B-001 | P1 | RESOLVED | `ArtConstellationPage.tsx`, `Views.tsx`, `DetailPanel.tsx`, and `model.ts` implement graph/list/table, search and filters, one-hop focus, artist/relation/source panels, synchronized URL state, A/B-empty semantics, and visitor-facing language. `playwright-results.json` records 5/5 local E2E scenarios passed. | Preserve equivalent core tasks in all three views. |
-| M04-B-002 | P2 | RESOLVED | Local candidate and UI contain no gallery, dashboard/game/ranking, map, A/B path, generated relationship, or MUSEUM-05 experience. | Keep the phase boundary in regression checks. |
+| M04-B-001 | P1 | RESOLVED | Graph, artist list and relationship table support equivalent search/filter/focus/source/rights tasks and shared URL state. Initial graph contains 12 equal nodes and no visible edges; focus shows one-hop C edges only. | Preserve all three first-class experiences and their shared state contract. |
+| M04-B-002 | P1 | RESOLVED | Artist and relation panels defer approved representative/thumbnail media; low-bandwidth defaults to metadata-only and requires explicit media activation; 13 no-image records remain complete. | Never prefetch all 44 works or substitute generated/blocked imagery. |
+| M04-B-003 | P2 | RESOLVED | MUSEUM-04 contains no artist gallery/detail/zoom/compare route, A/B relation, algorithmic similarity, game/ranking, Arms, Biology or MUSEUM-06 implementation. | Keep M05A and later phases behind their explicit gates. |
 
 ### C — Accessibility
 
-| ID | Severity | Status | Evidence | Remediation / disposition |
+| ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-C-001 | P1 | RESOLVED | Graph canvas is decorative to assistive technology; the artist navigator, list, and relationship table expose equivalent tasks. Current code includes labeled tab/panel structures, sortable table headers, live status, keyboard tab navigation, Escape close, focus restore, and visible focus. `online.spec.ts` exercises keyboard/URL state and the recorded E2E run passes. | Retain semantic views as the source of accessible task equivalence. |
-| M04-C-002 | P1 | RESOLVED | Low-bandwidth, compact viewport, forced-colors, reduced-motion, unavailable WebGL, and context-loss paths fall back to text/list behavior. The 390×844, mobile-list, and forced-colors screenshots show complete content without horizontal overflow or blank deferred regions. | Keep WebGL optional and never make the graph the sole route to content. |
+| M04-C-001 | P1 | RESOLVED | The graph is not the sole semantic route; list/table expose equivalent tasks. Keyboard navigation, Escape close, focus restoration, live regions, non-color status, visible focus, factual alt text and image failure fallback are implemented and covered by recorded local E2E. | Keep text views authoritative for accessible task completion. |
+| M04-C-002 | P1 | RESOLVED | 390/360 px, forced colors, reduced motion, WebGL unavailable/context loss, low bandwidth and no-JavaScript scenarios retain usable content; local Playwright evidence records 5/5 passed. | Preserve fail-safe text behavior and no horizontal overflow. |
+| M04-C-003 | P3 | OPEN_P3 | No real NVDA, JAWS, VoiceOver or TalkBack session was exposed. Automated semantics and keyboard checks are not a real-AT claim. | Add real-AT smoke when the environment becomes available; keep `real_assistive_technology_status=not_available`. |
 
 ### D — Performance engineering
 
-| ID | Severity | Status | Evidence | Remediation / disposition |
+| ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-D-001 | P1 | RESOLVED | `performance-current-graph.json` reports `overall_status=pass`; current 12/36 mobile/desktop timing, interaction proxy, FPS, heap, CLS, and deterministic gzip gates pass. Home gzip is 95,131 B, route gzip 72,418 B, initial data gzip 14,587 B, and graph summary gzip 766 B. | Preserve lazy route/data staging and the no-graph-on-home constraint. |
-| M04-D-002 | P1 | RESOLVED | The 1k harness uses actual Sigma with capped progressive 150 V/600 E rendering and `full_initial_render=false`. Final uncontended navigation-first-interactive samples are 3,586.2973 / 3,458.5906 / 3,397.6029 ms; median 3,458.5906 ms and p95 3,586.2973 ms both remain below 5 s. Interaction p95 is 74.1 ms. | Preserve the navigation-to-interactive definition; keep post-ready interaction/FPS QA outside that interval and mandatory. |
-| M04-D-003 | P1 | RESOLVED | The final 10k/50k harness performs bounded model work, preserves governance fields, refuses 50k/300k mobile WebGL, plans chunks, yields work, keeps fallback visible, and reports no freeze/blank page. Evidence binds exact implementation input hash `sha256:698443b07526a9903b7c619cfed74aaea2326bac7ca955d1a9629d3b122d423c`; canonical evidence validation passes. | Retain the exact input-hash and executed-work assertions. |
+| M04-D-001 | P1 | RESOLVED | `performance-current-graph.json` reports `overall_status=pass` for four profiles. The constrained 360×800 list records first-interactive median 2,288.6 ms, LCP median 2,060 ms, interaction p95 137.6 ms and initial image requests 0. All four profiles have initial image requests/bytes 0. | Retain route/data/media deferral and low-bandwidth list default. |
+| M04-D-002 | P1 | RESOLVED | 1k uses actual Sigma capped progressive rendering at 150 V/600 E; first-interactive median 3,737.49 ms and p95 3,806.75 ms pass the 5,000 ms gate. | Do not expand the mobile visible caps or treat full initial render as allowed. |
+| M04-D-003 | P3 | OPEN_P3 | 1k supplemental FPS median is 27.00; interaction p95 improved to 104.4 ms. FPS is diagnostic rather than a current pass/fail target, so it does not invalidate the first-interactive result but still shows optimization headroom. | Keep the diagnostic visible in future regressions; do not relabel it as a passing threshold. |
+| M04-D-004 | P1 | RESOLVED | 10k uses partition/search/local rendering with model/index/filtered-render medians 636.9/32.2/380.6 ms. 50k/300k full mobile WebGL is refused; bounded model/chunk work executes with fallback visible, model-build median 1,831.1 ms, max work-slice p95 5.0 ms, and no blank/freeze assertion failure. | Preserve exact input-hash binding, frame yielding and refusal policy. |
+| M04-D-005 | P3 | OPEN_P3 | No approximately 4 GB Android physical device was available; Chromium throttling is controlled-lab evidence, not RUM or real-device evidence. | Keep `real_device_status=not_available` and append physical-device evidence later without rewriting this record. |
 
-### E — Rights
+### E — Rights, attribution and withdrawal
 
-| ID | Severity | Status | Evidence | Remediation / disposition |
+| ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-E-001 | P1 | RESOLVED | `RIGHTS.md` and the governance policy reserve project code and original content rights; there is no project `LICENSE`; `THIRD_PARTY_NOTICES.md`, exact metadata rule snapshots, attributions, and license decisions remain separate. Candidate release declares zero media and zero media bytes. | Do not let project rights statements override third-party metadata obligations. |
-| M04-E-002 | P1 | RESOLVED | `.github/ISSUE_TEMPLATE/rights-or-attribution.yml` requests no public sensitive proof or upload. The takedown procedure records 7-day acknowledgement, 14-day initial review, immediate high-risk isolation, and a 72-hour temporary-removal target. | Keep withdrawal and private-evidence handling operational before any publication. |
+| M04-E-001 | P1 | RESOLVED | Project code/original content remain All Rights Reserved with no project `LICENSE`; third-party metadata/media obligations remain separate. The release binds 31 provenance parents and 242 derivative children to exact source rule, rights, attribution, notice, changes and withdrawal rows. | Never let project rights text override third-party license obligations. |
+| M04-E-002 | P1 | RESOLVED | Runtime only exposes local approved derivatives. Source originals, blocked media, unknown-rights media, external runtime media/API and development-only records are absent. All 13 non-approved artworks are explicit no-image states. | Keep delivery allowlists and exact M03C reconstruction fail-closed. |
+| M04-E-003 | P2 | RESOLVED | Rights Issue Form avoids public sensitive proof; procedure retains 7-day acknowledgement, 14-day initial review, immediate high-risk isolation and a 72-hour temporary-removal target. | Preserve withdrawal mapping and private-evidence handling through later phases. |
 
-### F — Release and Pages
+### F — Formal release, tests and Pages
 
-| ID | Severity | Status | Evidence | Remediation / disposition |
+| ID | Severity | Status | Evidence | Disposition |
 |---|---:|---|---|---|
-| M04-F-001 | P1 | RESOLVED | The local candidate is physically closed and hash-bound with 19 files, exact typed/reference closure, source rules, notices, attribution, withdrawal contract, zero media, zero algorithmic edges, and preserved M03B hashes. Candidate validation passes with content hash `sha256:9467b5449e13fd3e89272a62bc614fe776b22d14745bdbf72c4540d5e84e0cc4`. | Keep it labeled `status=reviewed`, `public_release=false` until M04-A-001 is resolved. |
-| M04-F-002 | P0 | BLOCKED_DERIVED | The deploy workflow now invokes the formal validator with `--require-public`; the reviewed candidate is rejected before upload. No M04 commit/push/Pages run/live QA exists. | Resolve M04-A-001, rebuild a human-approved formal bundle, rerun A–F and all CI gates, then—and only then—commit, push, deploy, and perform live HTTP/assets/console/request/404 QA. |
-| M04-F-003 | P2 | RESOLVED | `release-loader.ts` verifies SHA-256 bytes and typed DTOs, rejects media/private fields, and permits reviewed candidates only for local candidate QA. HashRouter/base-path, no external runtime API/media requests, leakage scanning, and Arms/M05 regression gates are encoded in tests/workflow. | Preserve the formal workflow's fail-closed candidate rejection. |
+| M04-F-001 | P1 | RESOLVED | `release:art-constellation-1.0.0` is `publishable` and `public_release=true`; content hash `sha256:52835b…fc462`, manifest SHA `sha256:0fa704…c5346`, physical closure 264 files / 39,436,869 bytes. Direct `--require-public` validation returns `ok=true`, exact counts, and zero failures. | Preserve deterministic generation, atomic install and no-overwrite-with-different-bytes behavior. |
+| M04-F-002 | former P0 | SUPERSEDED | The derived publication block depended only on the removed `0.1.0` human-review finding. The old candidate is gone from `public/`; the retained worksheet explicitly says it is not approval or current evidence. | Do not revive the zero-media or pending-curator contract. Do not claim a human resolved it. |
+| M04-F-003 | P1 | RESOLVED | Loader and scanner accept only exact local release assets, verify hashes/DTOs, defer media index/governance data, reject hotlinks/private fields, and preserve Pages base-path/HashRouter behavior. Recorded local Playwright result is 5/5. | Keep public/private leakage and runtime-network gates in CI. |
+| M04-F-004 | gate | RESOLVED | The complete matrix passed in four disjoint 7-fixture shards with exit codes `0/0/0/0`: 28 unique IDs, 28 passed, 27 expected-invalid rejected and one expected-valid accepted. Evidence is `fixture-matrix.json`, run ID `fff290ead038447096fcc9b1cc337639`. | Keep exact fixture-ID closure and fail if any expected-invalid fixture is accepted. |
+| M04-F-005 | release sequencing | RESOLVED | No M04-only push or Pages deployment was attempted. MUSEUM-AUTO-01 requires one final push after M03C, M04, optional M05A and full-repo gates. | Keep `pages_deployment_status=deferred_to_museum_auto_01_final_push`; perform Actions and online QA only after the unified push. |
 
 ## Remaining P3 register
 
-| ID | Owner | Impact | Mitigation | Latest review phase | Blocks MUSEUM-05? |
-|---|---|---|---|---|---|
-| M04-P3-001 | MUSEUM release QA owner | No physical approximately 4 GB Android device was exposed; controlled Chromium throttling is lab evidence, not a real-device claim. | Run the same current/1k flows on a physical low-memory Android device when available and append results without rewriting this lab record. | MUSEUM-04 closeout | No by itself; the phase contract permits `real_device_status=not_available`. M04-A-001 still blocks MUSEUM-05. |
-
-No other P3 remains at this review snapshot. The earlier valid-fixture count weakness is resolved: `validate_museum_04_fixtures.py` now compares every declared `expected_counts` value.
+| ID | Owner | Impact | Mitigation | Blocks M04/M05A? |
+|---|---|---|---|---|
+| M04-P3-001 | MUSEUM release QA owner | No physical low-memory Android evidence. | Re-run current and 1k flows on an approximately 4 GB Android device when available. | No |
+| M04-P3-002 | Accessibility QA owner | No real assistive-technology session. | Add NVDA/JAWS/VoiceOver/TalkBack smoke when available; do not replace automated evidence. | No |
+| M04-P3-003 | Frontend performance owner | 1k supplemental FPS median 27.00 shows low-end sustained-interaction headroom; interaction p95 is 104.4 ms. | Preserve render caps and monitor/optimize without weakening current gates. | No |
 
 ## Gate summary
 
-- Open P0: `M04-A-001`; derived publication block: `M04-F-002`.
-- Performance P1 findings `M04-D-002` and `M04-D-003` are resolved by the final exact-input scale rerun.
-- Formal public release: **not created**.
-- Git/Pages/live status: **no M04 commits, no push, no M04 Pages deployment, no live M04 QA**.
-- MUSEUM-05: **not recommended while P0 remains open; not authorized; not entered**.
+- Identified current P0/P1 findings in inspected release/current/scale/E2E evidence: none open.
+- Superseded former P0s: `M04-A-001` and derived `M04-F-002`; neither represents completed human review.
+- Formal release validation: pass.
+- Current and scale performance validation: pass.
+- 28-fixture matrix: **pass 28/28**; 27 expected-invalid rejected and one expected-valid accepted.
+- Overall MUSEUM-04 completion: **completed/pass**.
+- Git/Pages/live: this review is recorded by the enclosing M04 commit; no push, no M04-only Pages deployment and no live M04 QA; those remain deferred to MUSEUM-AUTO-01 unified closeout.
+- MUSEUM-05A gate: **open**.

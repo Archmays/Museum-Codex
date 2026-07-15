@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/runtime-media-index.schema.json",
+  "title": "MUSEUM-04 runtime self-hosted media index",
+  "type": "object",
+  "required": ["schema_version", "release_id", "media_bundle_id", "media_bundle_hash", "delivery_policy", "counts", "artworks", "assets"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "release_id": { "const": "release:art-constellation-1.0.0" },
+    "media_bundle_id": { "const": "media-bundle:museum-03c-v1" },
+    "media_bundle_hash": { "const": "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565" },
+    "delivery_policy": {
+      "type": "object",
+      "required": ["external_runtime_api", "external_delivery_count", "blocked_asset_count", "preferred", "low_bandwidth_default"],
+      "properties": {
+        "external_runtime_api": { "const": false },
+        "external_delivery_count": { "const": 0 },
+        "blocked_asset_count": { "const": 0 },
+        "preferred": { "const": "self_hosted" },
+        "low_bandwidth_default": { "const": "metadata_only" }
+      },
+      "additionalProperties": false
+    },
+    "counts": {
+      "type": "object",
+      "required": ["approved_artworks", "no_image_artworks", "assets", "bytes"],
+      "properties": {
+        "approved_artworks": { "const": 31 },
+        "no_image_artworks": { "const": 13 },
+        "assets": { "const": 242 },
+        "bytes": { "const": 35907176 }
+      },
+      "additionalProperties": false
+    },
+    "artworks": {
+      "type": "array",
+      "minItems": 44,
+      "maxItems": 44,
+      "items": { "$ref": "#/$defs/artworkMedia" }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 242,
+      "maxItems": 242,
+      "items": { "$ref": "#/$defs/runtimeAsset" }
+    }
+  },
+  "$defs": {
+    "mediaId": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+    "artworkId": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+    "artworkMedia": {
+      "type": "object",
+      "required": ["artwork_id", "decision", "reason_codes", "representative_media_id", "media_ids"],
+      "properties": {
+        "artwork_id": { "$ref": "#/$defs/artworkId" },
+        "decision": { "enum": ["approved_self_hosted", "metadata_only_after_automated_review", "blocked_rights_conflict", "blocked_source_unavailable"] },
+        "reason_codes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "representative_media_id": { "oneOf": [{ "$ref": "#/$defs/mediaId" }, { "type": "null" }] },
+        "media_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/mediaId" } }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "decision": { "const": "approved_self_hosted" },
+            "representative_media_id": { "$ref": "#/$defs/mediaId" },
+            "media_ids": { "minItems": 1 }
+          }
+        },
+        {
+          "properties": {
+            "decision": { "enum": ["metadata_only_after_automated_review", "blocked_rights_conflict", "blocked_source_unavailable"] },
+            "representative_media_id": { "type": "null" },
+            "media_ids": { "maxItems": 0 }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "runtimeAsset": {
+      "type": "object",
+      "required": ["id", "artwork_id", "parent_media_id", "src", "format", "mime_type", "width", "height", "bytes", "sha256", "role"],
+      "properties": {
+        "id": { "$ref": "#/$defs/mediaId" },
+        "artwork_id": { "$ref": "#/$defs/artworkId" },
+        "parent_media_id": { "$ref": "#/$defs/mediaId" },
+        "src": { "type": "string", "pattern": "^assets/[a-z0-9._-]+/[0-9]+w\\.(?:jpg|webp)$" },
+        "format": { "enum": ["jpeg", "webp"] },
+        "mime_type": { "enum": ["image/jpeg", "image/webp"] },
+        "width": { "type": "integer", "minimum": 1, "maximum": 1600 },
+        "height": { "type": "integer", "minimum": 1 },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "role": { "enum": ["thumbnail", "detail", "zoom"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

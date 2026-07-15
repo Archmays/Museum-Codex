@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-synchronized-withdrawal-tamper",
+  "mutation": "synchronized_withdrawal_tamper",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_withdrawal_mapping_exact"]
+}

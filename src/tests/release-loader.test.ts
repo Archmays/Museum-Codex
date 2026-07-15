@@ -22,7 +22,7 @@ describe("static release loader", () => {
     expect(result.status).toBe("loaded");
   });
 
-  it("keeps reviewed candidates behind an explicit opt-in and rejects other non-public states", async () => {
+  it("rejects reviewed candidates and every other non-public lifecycle", async () => {
     const candidate = { ...physicalManifest, status: "reviewed", public_release: false };
     const defaultResult = await loadStaticRelease(
       "/manifest.json",
@@ -30,25 +30,9 @@ describe("static release loader", () => {
     );
     expect(defaultResult.status).toBe("failed");
 
-    const optedInResult = await loadStaticRelease(
-      "/manifest.json",
-      vi.fn().mockResolvedValue(response(candidate)),
-      undefined,
-      undefined,
-      { allowReviewedCandidate: true },
-    );
-    expect(optedInResult.status).toBe("loaded");
-    if (optedInResult.status === "loaded") {
-      expect(optedInResult.manifest.public_release).toBe(false);
-      expect(optedInResult.manifest.status).toBe("reviewed");
-    }
-
     const draftResult = await loadStaticRelease(
       "/manifest.json",
       vi.fn().mockResolvedValue(response({ ...candidate, status: "draft" })),
-      undefined,
-      undefined,
-      { allowReviewedCandidate: true },
     );
     expect(draftResult.status).toBe("failed");
   });

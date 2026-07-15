@@ -61,6 +61,12 @@ test("raw harness boundaries fail closed", () => {
     fps: 55,
   };
   assert.doesNotThrow(() => verifyRawResult("1k", validOneThousand));
+  assert.doesNotThrow(() => verifyRawResult("1k", {
+    ...validOneThousand,
+    interaction_ms: 105.1,
+    node_selection_ms: 105.1,
+    fps: 29.19,
+  }));
   assert.throws(
     () => verifyRawResult("1k", { ...validOneThousand, visible_rendered: { vertices: 151, edges: 600 } }),
     /visible cap/,

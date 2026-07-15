@@ -2,7 +2,7 @@
 
 生效日期：2026-07-14。决策人：Mays。
 
-本流程适用于公开页面、metadata、策展文字、关系解释、来源、署名、release 记录及未来可能获准的媒体。MUSEUM-04 是 zero-media release，但 metadata、来源、署名和原创内容仍可成为权利或更正请求的对象。
+本流程适用于公开页面、metadata、策展文字、关系解释、来源、署名、release 记录，以及经 MUSEUM-03C 门禁进入公开发布的媒体。MUSEUM-04 是 media-aware release，但只允许公开通过身份、权利、字节与质量审核的资产；metadata-only 或 blocked 作品不得携带公开图像。metadata、来源、署名、媒体和原创内容均可成为权利或更正请求的对象。
 
 ## 公开入口与敏感证明
 
@@ -20,7 +20,7 @@
 
 ## Triage 与记录
 
-Release manager 建立受控记录，至少包含：请求 ID、接收时间、请求类型、公开 URL、受影响 ID/release、请求范围、风险级别、联系偏好、临时措施、责任角色、证据存放类别、结论、replacement、目标 release、缓存处置与恢复条件。
+Release manager 建立受控记录，至少包含：请求 ID、接收时间、请求类型、公开 URL、受影响 ID/release、媒体资产与衍生物 ID/hash（如适用）、请求范围、风险级别、联系偏好、临时措施、责任角色、证据存放类别、结论、replacement、目标 release、缓存处置与恢复条件。
 
 初评区分：
 

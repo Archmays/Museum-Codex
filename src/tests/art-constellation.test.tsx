@@ -1,4 +1,4 @@
-import { webcrypto } from "node:crypto";
+import { createHash, webcrypto } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { render, screen, waitFor, within } from "@testing-library/react";
@@ -15,7 +15,7 @@ if (!globalThis.crypto?.subtle) {
   Object.defineProperty(globalThis, "crypto", { configurable: true, value: webcrypto });
 }
 
-const RELEASE_PREFIX = "/Museum-Codex/releases/art-constellation-0.1.0/";
+const RELEASE_PREFIX = "/Museum-Codex/releases/art-constellation-1.0.0/";
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -38,17 +38,33 @@ function publicReleaseFetcher() {
   });
 }
 
-function reviewedCandidateFetcher() {
-  const baseFetcher = publicReleaseFetcher();
+async function publicReleaseFetcherWithMutation(
+  artifactName: string,
+  mutate: (artifact: unknown) => void,
+) {
+  const releaseDirectory = resolve(process.cwd(), "public", "releases", "art-constellation-1.0.0");
+  const artifact = JSON.parse(await readFile(resolve(releaseDirectory, artifactName), "utf8")) as unknown;
+  mutate(artifact);
+  const artifactText = JSON.stringify(artifact);
+  const artifactHash = createHash("sha256").update(artifactText).digest("hex");
+  const manifest = JSON.parse(await readFile(resolve(releaseDirectory, "manifest.json"), "utf8")) as {
+    manifest_files: Array<{ path: string; sha256: string }>;
+  };
+  const manifestFile = manifest.manifest_files.find((file) => file.path === artifactName);
+  if (!manifestFile) throw new Error(`Missing ${artifactName} from test release manifest`);
+  manifestFile.sha256 = artifactHash;
+  const manifestText = JSON.stringify(manifest);
+  const fallback = publicReleaseFetcher();
   return vi.fn<typeof fetch>(async (input, init) => {
-    const original = await baseFetcher(input, init);
     const url = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url);
-    if (!url.pathname.endsWith("/manifest.json") || !original.ok) return original;
-    const manifest = await original.json() as Record<string, unknown>;
-    return new Response(JSON.stringify({ ...manifest, status: "reviewed", public_release: false }), {
-      status: original.status,
-      headers: { "Content-Type": "application/json" },
-    });
+    const name = url.pathname.slice(url.pathname.lastIndexOf("/") + 1);
+    if (name === "manifest.json") {
+      return new Response(manifestText, { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    if (name === artifactName) {
+      return new Response(artifactText, { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    return fallback(input, init);
   });
 }
 
@@ -66,30 +82,31 @@ async function loadActualRelease(fetcher = publicReleaseFetcher()) {
   return { ...result, fetcher };
 }
 
-describe("MUSEUM-04 staged public release", () => {
-  it("loads the reviewed candidate only through the constellation path and labels it in both languages", async () => {
-    const result = await loadArtConstellationRelease(releaseBaseUrl(), reviewedCandidateFetcher());
+describe("MUSEUM-04 formal public release", () => {
+  it("loads only the formal lifecycle and creates no initial image request", async () => {
+    const result = await loadArtConstellationRelease(releaseBaseUrl(), publicReleaseFetcher());
     expect(result.status).toBe("loaded");
     if (result.status !== "loaded") return;
-    expect(result.release.isPublicRelease).toBe(false);
+    expect(result.release.isPublicRelease).toBe(true);
 
     const user = userEvent.setup();
     localStorage.setItem("museum-locale", "zh-CN");
     localStorage.setItem("museum-low-bandwidth", "true");
-    vi.stubGlobal("fetch", reviewedCandidateFetcher());
+    const fetcher = publicReleaseFetcher();
+    vi.stubGlobal("fetch", fetcher);
     window.location.hash = "#/art/constellation";
     render(<App />);
 
     await screen.findByRole("heading", { level: 1, name: "艺术星海：观察与比较" });
-    expect(screen.getByText("发布候选 · 待人工审核")).toBeInTheDocument();
-    expect(screen.queryByText("正式发布")).not.toBeInTheDocument();
+    expect(screen.getByText("正式发布")).toBeInTheDocument();
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(requestedNames(fetcher)).not.toContain("media-index.json");
     const activeListTab = await screen.findByRole("tab", { name: /艺术家列表/ });
     expect(activeListTab).toHaveAttribute("aria-controls", "constellation-view-panel");
     expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", activeListTab.id);
 
     await user.click(screen.getByRole("button", { name: "EN" }));
-    expect(screen.getByText("Release candidate · human review pending")).toBeInTheDocument();
-    expect(screen.queryByText("Formal release")).not.toBeInTheDocument();
+    expect(screen.getByText("Formal release")).toBeInTheDocument();
   });
 
   it("loads only the six permitted initial files, then verifies detail groups on demand", async () => {
@@ -110,6 +127,9 @@ describe("MUSEUM-04 staged public release", () => {
       "evidence.json",
       "sources.json",
       "rights.json",
+      "media-index.json",
+      "attributions.json",
+      "withdrawal-mapping.json",
       "third-party-notices.json",
     ]));
 
@@ -118,9 +138,15 @@ describe("MUSEUM-04 staged public release", () => {
     expect(requestedNames(fetcher)).toEqual(expect.arrayContaining(["contexts.json", "relationships.json"]));
     if (indexResult.status !== "loaded") return;
 
-    const artistResult = await dataSource.loadArtistSources(release.artists[0].id);
+    const mediaArtist = release.artists.find((artist) => artist.representativeMediaId !== null);
+    expect(mediaArtist).toBeDefined();
+    if (!mediaArtist) return;
+    const artistResult = await dataSource.loadArtistSources(mediaArtist.id);
     expect(artistResult.status).toBe("loaded");
-    expect(requestedNames(fetcher)).toContain("sources.json");
+    expect(requestedNames(fetcher)).toEqual(expect.arrayContaining([
+      "sources.json", "artworks.json", "media-index.json", "attributions.json", "withdrawal-mapping.json",
+    ]));
+    if (artistResult.status === "loaded") expect(artistResult.data.media.length).toBeGreaterThan(0);
 
     const relationResult = await dataSource.loadRelationshipDetails(indexResult.data.relationships[0].id);
     expect(relationResult.status).toBe("loaded");
@@ -134,6 +160,53 @@ describe("MUSEUM-04 staged public release", () => {
     const rightsResult = await dataSource.loadRights();
     expect(rightsResult.status).toBe("loaded");
     expect(requestedNames(fetcher)).toEqual(expect.arrayContaining(["rights.json", "third-party-notices.json"]));
+  });
+
+  it.each([
+    ["non-HTTPS scheme", "http://api.artic.edu/api/v1/artworks/111442", "artwork_official_object_url_not_https"],
+    ["script scheme", "javascript:alert(1)", "artwork_official_object_url_not_https"],
+    ["unregistered official host", "https://example.invalid/artworks/111442", "artwork_official_object_source_mismatch"],
+  ])("rejects an artwork object URL with a %s", async (_label, objectUrl, expectedReason) => {
+    const fetcher = await publicReleaseFetcherWithMutation("artworks.json", (raw) => {
+      const root = raw as { artworks: Array<{ official_object_url: string }> };
+      root.artworks[0].official_object_url = objectUrl;
+    });
+    const result = await loadArtConstellationRelease(releaseBaseUrl(), fetcher);
+    expect(result.status).toBe("loaded");
+    if (result.status !== "loaded") return;
+    const detail = await result.dataSource.loadArtistSources(result.release.artists[0].id);
+    expect(detail).toEqual({ status: "failed", reason: expectedReason });
+  });
+
+  it.each([
+    ["script scheme", "javascript:alert(1)", "rights_request_url_not_approved"],
+    ["unapproved HTTPS host", "https://example.invalid/rights", "rights_request_url_not_approved"],
+    ["protocol-relative host", "//github.com/Archmays/Museum-Codex/issues/new", "rights_request_url_invalid"],
+  ])("rejects a rights-request URL with a %s", async (_label, requestUrl, expectedReason) => {
+    const fetcher = await publicReleaseFetcherWithMutation("rights.json", (raw) => {
+      const root = raw as { rights_request: { url: string } };
+      root.rights_request.url = requestUrl;
+    });
+    const result = await loadArtConstellationRelease(releaseBaseUrl(), fetcher);
+    expect(result.status).toBe("loaded");
+    if (result.status !== "loaded") return;
+    const detail = await result.dataSource.loadRights();
+    expect(detail).toEqual({ status: "failed", reason: expectedReason });
+  });
+
+  it("accepts a same-origin relative rights-request URL", async () => {
+    const fetcher = await publicReleaseFetcherWithMutation("rights.json", (raw) => {
+      const root = raw as { rights_request: { url: string } };
+      root.rights_request.url = "rights-request";
+    });
+    const result = await loadArtConstellationRelease(releaseBaseUrl(), fetcher);
+    expect(result.status).toBe("loaded");
+    if (result.status !== "loaded") return;
+    const detail = await result.dataSource.loadRights();
+    expect(detail.status).toBe("loaded");
+    if (detail.status === "loaded") {
+      expect(detail.data.rights.rightsRequestUrl).toBe(new URL("rights-request", releaseBaseUrl()).href);
+    }
   });
 
   it("keeps search, tradition, level, focus, and canonical URL state in one model", async () => {
@@ -199,7 +272,10 @@ describe("MUSEUM-04 staged public release", () => {
     await waitFor(() => expect(screen.queryByText(/正在按需核对与当前筛选一致的关系数量/)).not.toBeInTheDocument());
   });
 
-  it("defers relationship, evidence, source, and rights requests until visitor actions", async () => {
+  it("defers relationship, media, evidence, source, and rights requests until visitor actions", async () => {
+    const loaded = await loadActualRelease();
+    const mediaArtist = loaded.release.artists.find((artist) => artist.representativeMediaId !== null);
+    if (!mediaArtist) throw new Error("Expected at least one artist with approved representative media");
     const user = userEvent.setup();
     const fetcher = publicReleaseFetcher();
     vi.stubGlobal("fetch", fetcher);
@@ -213,16 +289,22 @@ describe("MUSEUM-04 staged public release", () => {
     ]));
     expect(screen.getByRole("main")).toHaveAttribute("data-view", "list");
 
-    const firstArtistButton = (await screen.findAllByRole("button", { name: "查看艺术家说明" }))[0];
+    const artistName = await screen.findByRole("heading", { name: mediaArtist.labels["zh-Hans"] });
+    const artistItem = artistName.closest("li");
+    if (!artistItem) throw new Error("Artist list item missing");
+    const firstArtistButton = within(artistItem).getByRole("button", { name: "查看艺术家说明" });
     await user.click(firstArtistButton);
     const artistPanel = await screen.findByRole("complementary", { name: "艺术家说明" });
     await waitFor(() => expect(within(artistPanel).getByRole("button", { name: "关闭说明" })).toHaveFocus());
     expect(await within(artistPanel).findByText("艺术传统")).toBeInTheDocument();
     await waitFor(() => expect(requestedNames(fetcher)).toEqual(expect.arrayContaining([
-      "relationships.json", "contexts.json", "sources.json",
+      "relationships.json", "contexts.json", "sources.json", "artworks.json", "media-index.json",
+      "attributions.json", "withdrawal-mapping.json",
     ])));
-    expect(requestedNames(fetcher)).not.toContain("artworks.json");
     expect(requestedNames(fetcher)).not.toContain("evidence.json");
+    expect(within(artistPanel).queryByRole("img")).not.toBeInTheDocument();
+    await user.click(within(artistPanel).getByRole("button", { name: "加载这件作品图像" }));
+    expect(await within(artistPanel).findByRole("img", { name: new RegExp(mediaArtist.labels["zh-Hans"]) })).toBeInTheDocument();
 
     const relationshipButton = await waitFor(() => {
       const currentArtistPanel = screen.getByRole("complementary", { name: "艺术家说明" });

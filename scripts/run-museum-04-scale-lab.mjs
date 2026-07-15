@@ -30,7 +30,7 @@ const VISIBLE_CAPS = {
   mobile: { vertices: 150, edges: 600 },
   desktop: { vertices: 300, edges: 1_200 },
 };
-const RELEASE_PERFORMANCE_CONTRACT_PATH = "public/releases/art-constellation-0.1.0/performance-contract.json";
+const RELEASE_PERFORMANCE_CONTRACT_PATH = "public/releases/art-constellation-1.0.0/performance-contract.json";
 const SCALE_IMPLEMENTATION_INPUT_FILES = [
   "benchmarks/museum-04/main.ts",
   "museum_pipeline/art/public_release.py",
@@ -224,7 +224,10 @@ async function readHeapMb(session) {
 function verifyRawResult(profile, result) {
   const counts = PROFILE_COUNTS[profile];
   assert(result && typeof result === "object", `${profile}: benchmark result is missing`);
-  assert(result.status === "pass", `${profile}: harness status=${String(result.status)} error=${String(result.error ?? "none")}`);
+  assert(
+    result.status === "pass",
+    `${profile}: harness status=${String(result.status)} error=${String(result.error ?? "none")} result=${JSON.stringify(result)}`,
+  );
   assert(result.profile === profile, `${profile}: result profile mismatch`);
   assert(result.synthetic === true && result.shipped === false, `${profile}: synthetic/non-shipping flags are invalid`);
   assert(result.vertices === counts.vertices && result.edges === counts.edges, `${profile}: vertex/edge counts are invalid`);

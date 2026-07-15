@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-malformed-media-asset",
+  "mutation": "malformed_media_asset",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_artifact_schema", "m04_validator_shape_error"]
+}

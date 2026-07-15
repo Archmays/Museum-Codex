@@ -39,7 +39,7 @@
 
 ## 构建门禁
 
-发布构建验证所有引用资产存在、状态允许、非开发、可再发布、字节 hash/外链模式、对象级权利证据、署名、许可范围/时效/衍生兼容、Source 再发布条款和 withdrawal。Dataset Release 必带代码/原创内容许可 decision ID 与范围声明、第三方 notices manifest、逐资产 attribution manifest。公开 release 的相关 decision 仍 pending 时失败。失败列 ID/原因并非零退出；普通媒体发布扫描在找不到 media record 时仍 fail closed。明确声明的 metadata-only/zero-media release 则由完整物理 release validator 核对 no-media declaration、空 media ID 集合、零媒体 manifest/bytes/URL 和空媒体 attribution 闭包，不借 `--allow-empty` 绕过发布验证。
+发布构建验证所有引用资产存在、状态允许、非开发、可再发布、字节 hash/外链模式、对象级权利证据、署名、许可范围/时效/衍生兼容、Source 再发布条款和 withdrawal。Dataset Release 必带代码/原创内容许可 decision ID 与范围声明、第三方 notices manifest、逐资产 attribution manifest。公开 release 的相关 decision 仍 pending 时失败。失败列 ID/原因并非零退出；普通媒体发布扫描在找不到 media record 时仍 fail closed。MUSEUM-04 的 media-aware release 只消费 MUSEUM-03C 的 approved 资产，并精确绑定 media bundle hash、自动审核决定、来源字节到衍生物的父哈希链、实际公开字节、notices、attribution、withdrawal 与响应式文件集合；metadata-only 或 blocked 作品的媒体集合必须为空。其他明确声明的 metadata-only/zero-media release 仍由完整物理 release validator 核对 no-media declaration、空 media ID 集合、零媒体 manifest/bytes/URL 和空媒体 attribution 闭包，不借 `--allow-empty` 绕过发布验证。
 
 ## 权利投诉与撤回
 

@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-malformed-manifest-entry",
+  "mutation": "malformed_manifest_entry",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_validator_shape_error"]
+}

@@ -2,5 +2,5 @@
   "fixture_id": "museum-04-media-byte",
   "mutation": "media_byte",
   "expected_valid": false,
-  "expected_error_codes": ["m04_file_set_mismatch"]
+  "expected_error_codes": ["generic_manifest_hash_mismatch", "m04_media_file_hash"]
 }

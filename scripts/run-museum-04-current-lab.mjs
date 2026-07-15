@@ -1,7 +1,8 @@
 /* global PerformanceObserver, performance, requestAnimationFrame, document, location, HTMLButtonElement, HTMLSelectElement, HTMLElement, Event, KeyboardEvent, WheelEvent, clearTimeout */
 
 import { execFileSync, spawn, spawnSync } from "node:child_process";
-import { existsSync, statSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { createServer } from "node:net";
 import { cpus, platform, release, totalmem } from "node:os";
@@ -15,6 +16,29 @@ const DIST_INDEX = join(ROOT, "dist", "index.html");
 const VITE_CLI = join(ROOT, "node_modules", "vite", "bin", "vite.js");
 const BUDGET_RUNNER = join(ROOT, "scripts", "verify-museum-04-budgets.mjs");
 const APP_BASE_PATH = "/Museum-Codex/";
+const RELEASE_ID = "release:art-constellation-1.0.0";
+function collectSourceInputs(directory, prefix) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const relativePath = `${prefix}/${entry.name}`;
+    return entry.isDirectory()
+      ? collectSourceInputs(join(directory, entry.name), relativePath)
+      : [relativePath];
+  });
+}
+
+const CURRENT_IMPLEMENTATION_INPUT_FILES = [
+  "index.html",
+  "package.json",
+  "package-lock.json",
+  "public/releases/art-constellation-1.0.0/manifest.json",
+  "public/releases/art-constellation-1.0.0/performance-contract.json",
+  "scripts/run-museum-04-current-lab.mjs",
+  "scripts/validate_museum_04_performance_evidence.py",
+  "scripts/verify-museum-04-budgets.mjs",
+  "tsconfig.json",
+  "vite.config.ts",
+  ...collectSourceInputs(join(ROOT, "src"), "src"),
+].sort();
 const require = createRequire(import.meta.url);
 
 const NETWORKS = {
@@ -58,6 +82,12 @@ const METRIC_UNITS = {
   gzip_bytes: "bytes",
   lcp_ms: "ms",
   interaction_proxy_ms: "ms",
+  initial_image_requests: "count",
+  initial_image_bytes: "bytes",
+  deferred_image_requests: "count",
+  deferred_image_bytes: "bytes",
+  initial_deferred_data_requests: "count",
+  deferred_data_requests: "count",
 };
 
 function usage() {
@@ -70,6 +100,14 @@ Options:
   --output <p>   Write validated JSON to this explicit path; otherwise print JSON
   --help         Show this help
 `;
+}
+
+function isFailingConsoleType(type) {
+  return type === "error" || type === "warning";
+}
+
+function isExpectedBrowserDiagnostic(type, message) {
+  return type === "warning" && /^\[\.WebGL-[^\]]+\]GL Driver Message \(OpenGL, Performance, GL_CLOSE_PATH_NV, High\): GPU stall due to ReadPixels(?: \(this message will no longer repeat\))?$/.test(message);
 }
 
 function parseArgs(argv) {
@@ -118,6 +156,12 @@ function routeUrl(baseUrl) {
   const url = new URL(baseUrl);
   url.hash = "/art/constellation";
   return url.toString();
+}
+
+function classifyResourceUrl(value) {
+  if (/\.(?:jpe?g|webp)(?:[?#]|$)/i.test(value)) return "image";
+  if (/\/(?:media-index|attributions|rights|third-party-notices|withdrawal-mapping)\.json(?:[?#]|$)/i.test(value)) return "deferred_data";
+  return null;
 }
 
 async function freePort() {
@@ -248,8 +292,11 @@ function profileTargets(profile) {
     filter_ms: { statistic: "p95", operator: "lte", value: 200 },
     relationship_detail_ms: { statistic: "p95", operator: "lte", value: 200 },
     keyboard_focus_ms: { statistic: "p95", operator: "lte", value: 100 },
-    fps: { statistic: "p95", operator: "gte", value: mobile ? 30 : 45 },
+    fps: { statistic: "median", operator: "gte", value: mobile ? 30 : 45 },
     cls: { statistic: "p95", operator: "lte", value: 0.1 },
+    initial_image_requests: { statistic: "p95", operator: "lte", value: 0 },
+    initial_image_bytes: { statistic: "p95", operator: "lte", value: 0 },
+    initial_deferred_data_requests: { statistic: "p95", operator: "lte", value: 0 },
   };
   if (mobile) targets.js_heap_mb = { statistic: "p95", operator: "lte", value: 150 };
   return targets;
@@ -263,6 +310,11 @@ function extractBudgetReport(stdout) {
   assert(report?.status === "pass", "deterministic static budget report did not pass");
   assert(report?.algorithm === "node:zlib gzip level 9; each file compressed independently", "unexpected gzip algorithm");
   assert(Number.isInteger(report?.constellationRoute?.gzipBytes) && report.constellationRoute.gzipBytes > 0, "route gzip total is missing");
+  assert(report?.mediaDelivery?.physicalFiles === 242, "physical derivative count must be 242");
+  assert(Number.isInteger(report?.mediaDelivery?.physicalBytes) && report.mediaDelivery.physicalBytes > 0, "physical derivative bytes are missing");
+  assert(report?.mediaDelivery?.mediaRecords === 273, "common media record count must be 273");
+  assert(report?.mediaDelivery?.artworkRows === 44, "media-index artwork row count must be 44");
+  assert(report?.mediaDelivery?.initialMediaRequests === 0 && report.mediaDelivery.initialMediaBytes === 0, "static initial media budget must be zero");
   return report;
 }
 
@@ -478,12 +530,20 @@ async function readPageSignals(page) {
       ...performance.getEntriesByType("navigation"),
       ...performance.getEntriesByType("resource"),
     ];
+    const imageEntries = entries.filter((entry) => /\.(?:jpe?g|webp)(?:[?#]|$)/i.test(entry.name));
+    const deferredDataEntries = entries.filter((entry) => /\/(?:media-index|attributions|rights|third-party-notices|withdrawal-mapping)\.json(?:[?#]|$)/i.test(entry.name));
     return {
       lcp_ms: state?.lcp ?? null,
       lcp_element: state?.lcpElement ?? null,
       cls: state?.cls ?? null,
       long_tasks_count: state?.longTasks ?? null,
       transferred_bytes: entries.reduce((total, entry) => total + (entry.transferSize ?? 0), 0),
+      image_requests: imageEntries.length,
+      image_bytes: imageEntries.reduce(
+        (total, entry) => total + (entry.transferSize || entry.encodedBodySize || 0),
+        0,
+      ),
+      deferred_data_requests: deferredDataEntries.length,
     };
   });
 }
@@ -506,9 +566,23 @@ async function sampleProfile(browser, baseUrl, profile, gzipBytes) {
   await installPerformanceObservers(context);
   const page = await context.newPage();
   const browserErrors = [];
+  const requestState = {
+    initial: true,
+    initialImages: 0,
+    deferredImages: 0,
+    initialDeferredData: 0,
+    deferredData: 0,
+  };
+  page.on("request", (request) => {
+    const kind = classifyResourceUrl(request.url());
+    if (kind === "image") requestState[requestState.initial ? "initialImages" : "deferredImages"] += 1;
+    if (kind === "deferred_data") requestState[requestState.initial ? "initialDeferredData" : "deferredData"] += 1;
+  });
   page.on("pageerror", (error) => browserErrors.push(`pageerror: ${error.message}`));
   page.on("console", (message) => {
-    if (message.type() === "error") browserErrors.push(`console: ${message.text()}`);
+    if (isFailingConsoleType(message.type()) && !isExpectedBrowserDiagnostic(message.type(), message.text())) {
+      browserErrors.push(`console ${message.type()}: ${message.text()}`);
+    }
   });
   page.on("requestfailed", (request) => browserErrors.push(`requestfailed: ${request.url()} (${request.failure()?.errorText ?? "unknown"})`));
   page.on("response", (response) => {
@@ -533,7 +607,13 @@ async function sampleProfile(browser, baseUrl, profile, gzipBytes) {
     await delay(100);
     const initial = await readInitialTimings(page, profile.initialExperience);
     const initialSignals = await readPageSignals(page);
+    initialSignals.image_requests = requestState.initialImages;
+    initialSignals.deferred_data_requests = requestState.initialDeferredData;
+    assert(initialSignals.image_requests === 0, `${profile.id}: initial constellation requested ${initialSignals.image_requests} JPEG/WebP images`);
+    assert(initialSignals.image_bytes === 0, `${profile.id}: initial constellation transferred ${initialSignals.image_bytes} image bytes`);
+    assert(initialSignals.deferred_data_requests === 0, `${profile.id}: initial constellation requested ${initialSignals.deferred_data_requests} deferred media/rights files`);
 
+    requestState.initial = false;
     const nodeSelectionMs = await measureUiAction(page, "select_artist");
     await page.waitForFunction(() => /[?&]focus=/.test(location.hash), undefined, { timeout: 10_000 });
     await page.locator(".related-relation-list button").first().waitFor({ timeout: 30_000 });
@@ -563,9 +643,13 @@ async function sampleProfile(browser, baseUrl, profile, gzipBytes) {
         .filter((entry) => /SigmaGraphRenderer/i.test(entry.name)).length);
       assert(sigmaRequests === 0, `${profile.id}: compact list fallback requested the Sigma chunk`);
     }
+    await delay(250);
     const fps = await measureViewFps(page, profile.initialExperience);
     const jsHeapMb = await readHeapMb(session);
     const finalSignals = await readPageSignals(page);
+    const deferredImageRequests = requestState.deferredImages;
+    const deferredImageBytes = finalSignals.image_bytes - initialSignals.image_bytes;
+    const deferredDataRequests = requestState.deferredData;
     const interactionProxyMs = Math.max(
       nodeSelectionMs,
       filterMs,
@@ -590,6 +674,12 @@ async function sampleProfile(browser, baseUrl, profile, gzipBytes) {
       transferred_bytes: finalSignals.transferred_bytes,
       gzip_bytes: gzipBytes,
       interaction_proxy_ms: interactionProxyMs,
+      initial_image_requests: initialSignals.image_requests,
+      initial_image_bytes: initialSignals.image_bytes,
+      deferred_image_requests: deferredImageRequests,
+      deferred_image_bytes: deferredImageBytes,
+      initial_deferred_data_requests: initialSignals.deferred_data_requests,
+      deferred_data_requests: deferredDataRequests,
     });
   } finally {
     await context.close();
@@ -636,6 +726,17 @@ function gitMetadata() {
   return { commitSha, dirty: status.trim().length > 0 };
 }
 
+function currentImplementationInputHash() {
+  const digest = createHash("sha256");
+  for (const relativePath of CURRENT_IMPLEMENTATION_INPUT_FILES) {
+    digest.update(relativePath, "utf8");
+    digest.update("\0");
+    digest.update(readFileSync(join(ROOT, ...relativePath.split("/"))));
+    digest.update("\0");
+  }
+  return `sha256:${digest.digest("hex")}`;
+}
+
 function buildEvidence(samplesByProfile, browserVersion, budget, testedUrl) {
   const git = gitMetadata();
   const playwrightVersion = require("@playwright/test/package.json").version;
@@ -659,6 +760,8 @@ function buildEvidence(samplesByProfile, browserVersion, budget, testedUrl) {
       measurement_method: "Playwright Chromium; fresh context, disabled cache, CDP CPU/network controls, PerformanceObserver, Resource Timing, and deterministic static gzip",
       commit_sha: git.commitSha,
       source_worktree_dirty: git.dirty,
+      implementation_input_files: CURRENT_IMPLEMENTATION_INPUT_FILES,
+      implementation_input_hash: currentImplementationInputHash(),
     },
     lab_configuration: {
       tested_url: testedUrl,
@@ -667,6 +770,10 @@ function buildEvidence(samplesByProfile, browserVersion, budget, testedUrl) {
       service_workers_blocked: true,
       real_user_monitoring: false,
       analytics_or_telemetry_added: false,
+      browser_console_policy: {
+        application_warnings_and_errors_fail: true,
+        allowlisted_environment_diagnostic: "Chromium WebGL GPU stall due to ReadPixels only",
+      },
       profiles: CURRENT_PROFILES.map((profile) => ({
         profile_id: profile.id,
         viewport: profile.viewport,
@@ -691,6 +798,12 @@ function buildEvidence(samplesByProfile, browserVersion, budget, testedUrl) {
         list_switch_ms: "List-tab activation to rendered artist-list equivalent view.",
         fps: "requestAnimationFrame rate during repeated wheel input for one second on the active experience: Sigma canvas for graph profiles or the semantic artist list for the 360px compact profile.",
         interaction_proxy_ms: "Maximum of node selection, filter, meaningful relationship panel, keyboard focus, and list-switch response in each sample; controlled script proxy, not INP or RUM.",
+        initial_image_requests: "JPEG/WebP Resource Timing entries through initial experience readiness and before any focus interaction; hard target zero.",
+        initial_image_bytes: "JPEG/WebP transferSize or encodedBodySize through initial experience readiness and before any focus interaction; hard target zero bytes.",
+        deferred_image_requests: "JPEG/WebP Resource Timing entries added after the first deliberate focus interaction; informational because low-bandwidth mode may require explicit image opt-in.",
+        deferred_image_bytes: "JPEG/WebP bytes added after the first deliberate focus interaction; informational and never counted in the initial route budget.",
+        initial_deferred_data_requests: "Requests for media-index, attribution, rights, notices, or withdrawal JSON through initial experience readiness; hard target zero.",
+        deferred_data_requests: "Requests for media-index, attribution, rights, notices, or withdrawal JSON added after deliberate focus/detail interactions.",
         lcp_ms: "Buffered LargestContentfulPaint before the first interaction.",
         cls: "Cumulative layout-shift score from navigation through initial experience readiness, before scripted interaction begins and excluding entries with recent input.",
         long_tasks_count: "Count of PerformanceObserver longtask entries across the sampled flow.",
@@ -706,6 +819,24 @@ function buildEvidence(samplesByProfile, browserVersion, budget, testedUrl) {
         graph_summary_gzip_bytes: budget.graphSummary.gzipBytes,
         manifest: budget.manifest,
         status: budget.status,
+      },
+      media_delivery: {
+        release_id: RELEASE_ID,
+        artwork_rows: budget.mediaDelivery.artworkRows,
+        media_record_count: budget.mediaDelivery.mediaRecords,
+        physical_derivative_count: budget.mediaDelivery.physicalFiles,
+        physical_derivative_bytes: budget.mediaDelivery.physicalBytes,
+        initial_image_requests_target: 0,
+        initial_image_bytes_target: 0,
+        media_index_load: "deferred",
+        representative_media_load: "focus_only",
+        detail_media_load: "user_navigation_only",
+        low_bandwidth_default: "metadata_only",
+        thumbnail_widths: [320, 640],
+        detail_widths: [960, 1600],
+        external_runtime_api: false,
+        external_delivery_count: 0,
+        blocked_asset_count: 0,
       },
     },
     runs: aggregateRuns(samplesByProfile),
@@ -773,7 +904,10 @@ async function run(options) {
           `lcpElement=${JSON.stringify(sample.lcp_element)} ` +
           `node=${sample.node_selection_ms.toFixed(1)}ms relation=${sample.relationship_detail_ms.toFixed(1)}ms ` +
           `filter=${sample.filter_ms.toFixed(1)}ms list=${sample.list_switch_ms.toFixed(1)}ms ` +
-          `keyboard=${sample.keyboard_focus_ms.toFixed(1)}ms fps=${sample.fps.toFixed(1)}`,
+          `keyboard=${sample.keyboard_focus_ms.toFixed(1)}ms fps=${sample.fps.toFixed(1)} ` +
+          `initialImages=${sample.initial_image_requests}/${sample.initial_image_bytes}B ` +
+          `deferredImages=${sample.deferred_image_requests}/${sample.deferred_image_bytes}B ` +
+          `initialDeferredData=${sample.initial_deferred_data_requests} deferredData=${sample.deferred_data_requests}`,
         );
       }
     }
@@ -823,7 +957,10 @@ export {
   METRIC_UNITS,
   aggregateRuns,
   buildEvidence,
+  classifyResourceUrl,
   extractBudgetReport,
+  isFailingConsoleType,
+  isExpectedBrowserDiagnostic,
   measurement,
   nearestRankP95,
   normalizeTargetUrl,

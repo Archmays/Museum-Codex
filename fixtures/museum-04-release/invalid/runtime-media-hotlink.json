@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-runtime-media-hotlink",
+  "mutation": "runtime_media_hotlink",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_artifact_schema", "m04_runtime_media_record"]
+}

@@ -63,6 +63,7 @@ type PanelHostProps = Pick<
   | "rightsDetails"
   | "locale"
   | "copy"
+  | "lowBandwidth"
   | "onRetryIndex"
   | "onSelectRelationship"
 > & {
@@ -97,38 +98,38 @@ const PanelHost = forwardRef<PanelHostHandle, PanelHostProps>(function PanelHost
       if (trigger && !trigger.closest(".constellation-detail-panel")) restoreFocusTo.current = trigger;
       const replacingOpenPanel = activePanel.current !== null;
       activePanel.current = nextPanel;
-      if (shellRef.current) shellRef.current.hidden = false;
-      if (panelFrame.current !== null) cancelAnimationFrame(panelFrame.current);
-      panelFrame.current = requestAnimationFrame(() => {
-        panelFrame.current = null;
-        const shell = shellRef.current;
-        if (shell) {
-          const title = shell.querySelector<HTMLElement>("#constellation-panel-accessible-title");
-          if (title) {
-            title.textContent = nextPanel.kind === "artist"
-              ? detailProps.copy.artistPanel
-              : nextPanel.kind === "relationship"
-                ? detailProps.copy.relationshipPanel
-                : detailProps.copy.rightsPanel;
-          }
-          const staleContentTitle = shell.querySelector<HTMLElement>("#constellation-panel-content-title");
-          if (staleContentTitle) staleContentTitle.hidden = true;
-          if (replacingOpenPanel) {
-            const scroll = shell.querySelector<HTMLElement>(".panel-scroll");
-            if (scroll) scroll.hidden = true;
-          }
-          shell.hidden = false;
-          shell.removeAttribute("aria-hidden");
-          shell.setAttribute("aria-labelledby", "constellation-panel-accessible-title");
-          shell.dataset.panelKind = nextPanel.kind;
-          if (nextPanel.kind === "rights") delete shell.dataset.panelId;
-          else shell.dataset.panelId = nextPanel.id;
+      const shell = shellRef.current;
+      if (shell) {
+        const title = shell.querySelector<HTMLElement>("#constellation-panel-accessible-title");
+        if (title) {
+          title.textContent = nextPanel.kind === "artist"
+            ? detailProps.copy.artistPanel
+            : nextPanel.kind === "relationship"
+              ? detailProps.copy.relationshipPanel
+              : detailProps.copy.rightsPanel;
         }
+        const staleContentTitle = shell.querySelector<HTMLElement>("#constellation-panel-content-title");
+        if (staleContentTitle) staleContentTitle.hidden = true;
+        if (replacingOpenPanel) {
+          const scroll = shell.querySelector<HTMLElement>(".panel-scroll");
+          if (scroll) scroll.hidden = true;
+        }
+        shell.hidden = false;
+        shell.removeAttribute("aria-hidden");
+        shell.setAttribute("aria-labelledby", "constellation-panel-accessible-title");
+        shell.dataset.panelKind = nextPanel.kind;
+        if (nextPanel.kind === "rights") delete shell.dataset.panelId;
+        else shell.dataset.panelId = nextPanel.id;
+      }
+      if (replacingOpenPanel) {
+        setPanel(nextPanel);
+      } else {
+        if (panelFrame.current !== null) cancelAnimationFrame(panelFrame.current);
         panelFrame.current = requestAnimationFrame(() => {
           panelFrame.current = null;
           setPanel(nextPanel);
         });
-      });
+      }
     },
   }), [detailProps.copy.artistPanel, detailProps.copy.relationshipPanel, detailProps.copy.rightsPanel]);
 
@@ -422,6 +423,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
 
   const panelClosed = useCallback((closedPanel: OpenPanel) => {
     if (closedPanel.kind === "relationship") dispatch({ type: "select-relationship", relationshipId: null });
+    artistAbort.current?.abort();
     relationshipAbort.current?.abort();
     rightsAbort.current?.abort();
   }, []);
@@ -489,11 +491,12 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
         </div>
         <dl className="release-stamp">
           <div>
-            <dt>{release.isPublicRelease ? t.constellation.releaseLabel : t.constellation.releaseCandidateLabel}</dt>
+            <dt>{t.constellation.releaseLabel}</dt>
             <dd>{release.version}</dd>
           </div>
           <div><dt>{t.constellation.level}</dt><dd>0 / 0 / 36 · A / B / C</dd></div>
           <div><dt>{t.constellation.type}</dt><dd>12 / 31 / 36</dd></div>
+          <div><dt>{t.constellation.mediaRights}</dt><dd>31 / 44 · 242</dd></div>
         </dl>
       </header>
 
@@ -661,6 +664,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
         rightsDetails={rightsDetails}
         locale={locale}
         copy={t.constellation}
+        lowBandwidth={lowBandwidth}
         onRetryIndex={() => void retryIndex()}
         onSelectRelationship={selectRelationship}
         loadArtistSources={loadArtistSources}
@@ -687,7 +691,7 @@ export default function ArtConstellationPage() {
   useEffect(() => {
     const controller = new AbortController();
     void loadArtConstellationRelease(
-      `${import.meta.env.BASE_URL}releases/art-constellation-0.1.0/`,
+      `${import.meta.env.BASE_URL}releases/art-constellation-1.0.0/`,
       fetch,
       controller.signal,
     ).then((next) => {

@@ -1,152 +1,192 @@
 ---
 phase_id: MUSEUM-04
-status: partial
-validation_status: fail
+status: completed
+validation_status: pass
+report_date: 2026-07-15
+runtime_model: not_exposed_by_runtime
+runtime_reasoning: not_exposed_by_runtime
 baseline_commit: 2be73011cb1dca64cb8d3a2d5830f495671d755b
-implementation_commit: null
+implementation_commit: recorded_by_enclosing_git_commit
 final_commit: null
-od_001_status: closed
-od_002_status: closed
-od_005_status: closed
-od_010_status: closed
-open_decisions_count: 4
-code_rights: all_rights_reserved
-original_content_rights: all_rights_reserved
-public_release_created: false
-public_release_id: null
-public_release_hash: null
-candidate_release_id: release:art-constellation-0.1.0
-candidate_release_hash: sha256:9467b5449e13fd3e89272a62bc614fe776b22d14745bdbf72c4540d5e84e0cc4
+public_release_created: true
+public_release_id: release:art-constellation-1.0.0
+public_release_hash: sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462
+public_release_manifest_sha256: sha256:0fa7046a6b47eb9c73abc2279157f745888eeb76e7445fb18810269b04ec5346
+formal_release_validation: pass
+fixture_matrix_status: pass_28_of_28
 public_artist_count: 12
+public_artwork_metadata_count: 44
 public_context_count: 31
 public_relationship_count: 36
 relationship_level_a_count: 0
 relationship_level_b_count: 0
 relationship_level_c_count: 36
-public_artwork_metadata_count: 44
-public_media_count: 0
-media_bytes_downloaded: false
+approved_media_artwork_count: 31
+no_image_artwork_count: 13
+public_derivative_count: 242
+public_derivative_bytes: 35907176
+physical_file_count: 264
+physical_byte_count: 39436869
 algorithmic_relationship_count: 0
-art_constellation_route_ready: true
-graph_view_ready: true
-artist_list_ready: true
-relationship_table_ready: true
-accessible_equivalence_status: pass
-webgl_fallback_status: pass
-low_bandwidth_status: pass
+human_review_dependency: false
+human_reviewer_claimed: false
 performance_current_graph_status: pass
-performance_1k_status: pass
-performance_10k_boundary_status: pass
-performance_50k_boundary_status: pass
+performance_scale_status: pass
 real_device_status: not_available
-rights_issue_form_ready: true
-pages_deployment_status: failure
-pages_url: https://archmays.github.io/Museum-Codex/
-museum_05_recommended: false
-museum_05_authorized: false
-blocking_gate: m04_human_editorial_review_required
+real_assistive_technology_status: not_available
+pages_deployment_status: deferred_to_museum_auto_01_final_push
+museum_05_gate_status: open
 ---
 
-# MUSEUM-04 艺术星海阶段报告
+# MUSEUM-04 media-aware 艺术星海阶段报告
 
-报告日期：2026-07-14（Asia/Shanghai）。运行环境未暴露模型或 Reasoning 档位，记录为 `not_exposed_by_runtime`。本报告中的 12/31/36/44 是本地 metadata-only 候选投影计数，不表示该候选已经成为正式 public release 或已经部署到 Pages。
+报告日期为 2026-07-15（Asia/Shanghai）。运行环境未暴露模型或 Reasoning 选择，均记录为 `not_exposed_by_runtime`。
 
-## 1. 阶段结论
+## 1. 当前结论
 
-状态为 **partial / fail**。产品、治理、无障碍、性能、零媒体、物理闭包和自动化门禁均已实现并通过本地验证；正式发布仍被一个不可由 Codex 代行的 P0 根门禁阻断：12 位艺术家的中英文简介均为 AI-assisted draft，尚无已识别、可问责的人类编辑对精确摘要 digest 完成签核。正式 validator 仅返回 `m04_human_editorial_review_required`。因此没有创建 formal public release，没有提交、推送或触发 MUSEUM-04 Pages 部署，也没有进入 MUSEUM-05。
+MUSEUM-04 已生成并单独验证正式、media-aware、静态的 `release:art-constellation-1.0.0`。正式 release validator 以 `--require-public` 运行并返回 `ok=true`、零 failure；release 包含 12 位艺术家、44 件作品元数据、31 个 typed contexts、36 条关系和 242 个已批准 derivative 文件，全部关系仍为 C 级非因果策展比较。
 
-## 2. 基线、入口审计与 Git 锚点
+MUSEUM-04 当前结论为 **`completed/pass`**。28-fixture matrix 以四个互斥 shard 完整执行：4×7 个 fixture、四个进程退出码均为 0、28 个唯一 fixture ID 全部通过；其中 27 个 expected-invalid 均被拒绝，1 个 expected-valid 被接受。持久证据为 `docs/qa/museum-04/fixture-matrix.json`，run ID 为 `fff290ead038447096fcc9b1cc337639`，且不依赖人工逐项审核。
 
-入口 baseline、当前本地 `HEAD`、本地 `main`、`origin/main` 和 GitHub `main` 的已核验锚点均为 `2be73011cb1dca64cb8d3a2d5830f495671d755b`。M03B package semantic hash 保持 `sha256:1f0f00a0d7f6162fcb0d716e6b86fbcfe42a4e04a0422d7c1c0df63b70c97b86`，graph semantic hash 保持 `sha256:58fe40930ab6f0e84019bbb0c3f378a2e73d7f3fbd4f810a66aa78f0481d1dd3`；12 artists、44 artworks、31 contexts、36 relationships、A/B/C=`0/0/36` 与 zero media 均无漂移。入口工作树原本 clean；本阶段所有变更仍为未提交本地工作。
+Pages 未在本阶段单独推送或部署。按照 MUSEUM-AUTO-01 的单一 `main` 线性流程，MUSEUM-04 与后续通过门禁的工作将在最终全仓验证后统一 push，并等待同一 GitHub Actions/Pages 部署。当前公开 Pages 不能作为本 release 已上线的证据。
 
-## 3. Decisions 与剩余开放项
+## 2. 正式 release 身份与物理闭包
 
-OD-001、OD-002、OD-005、OD-010 已写入 decision log、open-decisions 文档和相应治理合同并关闭。开放项精确为 4：OD-006、OD-008、OD-009、OD-011；没有越权关闭搜索、媒体或后续体验相关决定。
+| 项目 | 实际值 |
+|---|---|
+| Release ID | `release:art-constellation-1.0.0` |
+| Profile | `media_aware` / `publishable` / `public_release=true` |
+| Content hash | `sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462` |
+| Manifest SHA-256 | `sha256:0fa7046a6b47eb9c73abc2279157f745888eeb76e7445fb18810269b04ec5346` |
+| M03C bundle hash | `sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565` |
+| Physical closure | 264 regular files / 39,436,869 bytes |
+| Manifest closure | 263 listed children plus the manifest itself |
+| Runtime derivatives | 242 JPEG/WebP files / 35,907,176 bytes |
+| Media identity closure | 31 source-provenance parents + 242 derivative children = 273 media IDs |
 
-## 4. Code 与原创内容权利
+Validator 从 sealed MUSEUM-03B 与 validated MUSEUM-03C 输入重建预期投影，而不是信任 public projection 的自洽值。它核对 typed IDs、实体计数、引用、文件路径、SHA-256、字节长度、JPEG/WebP magic bytes、parent chain、rights、license rule、attribution、notice、withdrawal 和运行时 delivery policy。同步篡改 public media、rights、attribution、notice 或 withdrawal 仍必须失败。
 
-项目代码和原创中英文策展文字、翻译、关系解释、UI 文案与原创设计均为 `ALL-RIGHTS-RESERVED`。根目录新增 `RIGHTS.md`，仓库没有项目 `LICENSE`，`package.json` 继续 `private: true`。公开可查看不被表述为开源授权；项目声明不覆盖 AIC、Met、Getty、Wikidata 等第三方 metadata/data 规则、notices 或 attribution。
+## 3. 公共数据与关系语义
 
-## 5. Rights Issue Form 与撤回流程
+- 12 artists / 44 artworks / 31 contexts / 36 relationships。
+- Claim 252 条，Evidence 138 条，Source 4 条；公开事实保持 Claim → Evidence → Source 闭包。
+- A/B/C=`0/0/36`；A、B 均为明确空状态。
+- 关系类型为 shared subject 17、shared material 11、shared technique 8。
+- 36 条关系全部 `algorithmic=false`、`causal=false`、`directed=false`。
+- 每条关系都明确不证明相识、影响、师承、传播或价值排序。
+- 初始图为 12 个等大节点且不显示全部边；focus 后只显示一跳 C 级点线关系。
 
-`.github/ISSUE_TEMPLATE/rights-or-attribution.yml` 已建立并通过专门 validator：包含 9 个隐私安全字段，不要求文件上传、身份证件、合同、地址、电话或公开 email。治理流程记录 7 个自然日初步确认、14 个自然日一般初评、明显高风险立即隔离及 72 小时临时移除目标；撤回通过新 release，恢复必须形成新的权利审核记录。
+媒体可用性不参与节点尺寸、关系强度、排序或艺术价值判断；13 件无图作品仍保留完整元数据、正式来源和可达的 no-image 状态。
 
-## 6. ADR、依赖与静态架构
+## 4. M03C 媒体消费边界
 
-ADR-0002 已固化 Graphology 数据/邻域、Sigma WebGL、DOM 列表/关系表等价、确定性构建期布局、可见上限和 1k/10k/50k 边界。生产依赖精确锁定 `graphology@0.26.0` 与 `sigma@3.0.3`，均为 stable、MIT；没有采用 Sigma 4 alpha、CDN、remote worker、远程字体、后端或运行时外部 API。Graphology/Sigma 与星海 route 均按需加载，不进入首页首屏。
+44 件作品在公开 release 中分成：
 
-## 7. 本地候选与正式发布门禁
+- 31 件 `approved_self_hosted`，消费 M03C 批准的本地 derivative；
+- 7 件 `metadata_only_after_automated_review`，保持无图；
+- 4 件 `blocked_source_unavailable`，保持无图；
+- 2 件 `blocked_rights_conflict`，保持无图；
+- 0 件 approved external runtime delivery；
+- 0 件 unknown、restricted 或 development-only media。
 
-本地候选 ID 为 `release:art-constellation-0.1.0`，candidate content hash 为 `sha256:9467b5449e13fd3e89272a62bc614fe776b22d14745bdbf72c4540d5e84e0cc4`。它有 19 个清单闭合文件、1,493,040 bytes，状态严格为 `reviewed`、`public_release=false`。候选结构 validator PASS，独立临时目录重建与 canonical candidate 19/19 文件逐字节一致。正式 `--require-public` 模式以 exit 1 失败，唯一错误码为 `m04_human_editorial_review_required`；正式 `public_release_id/hash` 因而保持 `null`。
+运行时只公开 242 个 adaptation children；31 个 source-provenance parent 仅用于权利与来源闭包，不作为 public `src`，source originals 也未复制进 release。Derivative roles 为 thumbnail 124、detail 60、zoom 58；生成变换仅包含已记录的 orientation/ICC normalization、metadata-safe strip、resize 与 compression，不放大、不裁切作品内容、不去水印、不生成替代图。
 
-## 8. Projection、物理闭包与零媒体
+## 5. Graph / list / table 等价体验
 
-候选安全投影精确包含 12 artists、44 artwork metadata、31 contexts、36 relationships、252 claims、138 evidence、4 sources；关系类型为 shared subject 17、shared material 11、shared technique 8。manifest、schema、typed IDs、引用、bytes/hash、source rule snapshot、license decisions、notices、attribution、withdrawal 和 M03B predecessor basis 全部闭合。media records=0、media bytes=0、下载字节=false；无图片、thumbnail、IIIF、外部媒体 URL、私有路径、raw/rejected/held-out、算法字段或未声明文件。
+艺术星海正式名称为“艺术星海：观察与比较 / Constellation of Art: Observation and Comparison”。图形、艺术家列表和关系表均支持检索、筛选、focus、关系说明、来源与 rights 查看，并共享 URL state。WebGL 图不是唯一访问路径；不可用、context loss、forced colors、reduced motion 或低带宽时均保留文本体验。
 
-## 9. 关系语义与解释合同
+Artist panel 可在 focus 后加载一张批准的代表图；relation panel 只在打开后加载支持作品缩略图。初始 HTML、CSS 与 initial JSON 不携带 runtime media address，初始 image request 为 0。低带宽模式默认 metadata-only，需用户明确触发后才请求图片。
 
-全部 36 条关系都是无向的 `C｜策展比较`，historical relationship strength 与 computational similarity 均为 `null`，不存在历史因果边、算法相似边或伪造 A/B。每条中英文解释均绑定具体 endpoints、共同 context、支持作品 metadata、Claim → Evidence → Source、confidence、curatorial relevance、review/release/limitations，并明确“共同题材/材料/技法不证明相识、影响、师承、传播、亲密或艺术价值”。关系标题/解释逐条唯一，因果措辞 scanner 与负向夹具 fail closed。
+## 6. 媒体渲染、rights 与失败降级
 
-## 10. 12 位艺术家简介与人工审核阻塞
+- JPEG/WebP responsive `srcset`，缩略图优先 320/640，focus 代表图不预加载全部作品。
+- `loading=lazy`、`decoding=async`，加载失败切换为稳定 no-image state。
+- Alt text 使用艺术家、作品名和日期等事实字段，不输出主观评价。
+- 每个已显示媒体均可追溯到 license、attribution、changes、official source 与 withdrawal 信息。
+- Runtime locator 仅允许 release 内的精确本地 derivative 路径；external API、external media hotlink、cookie 和任意 URL 均为 0。
+- 关闭 panel 会中止尚未完成的 artist、relationship 与 rights 请求；UI 有 loading、success、failure 和 live-region 状态。
 
-12 位艺术家均有基于 verified claims 组装的双语短简介，覆盖时间、地点、媒材/实践和本展比较意义，无排名、完整传记、复制 museum label 或文化概括。候选 provenance 如实记录 `human_reviewed=false`；摘要集合 digest 为 `sha256:42660e0a7a1d4a33548c82d8e942c747dbe42f20d3b2ef16ae92673114ea1da6`。`docs/qa/museum-04/artist-summary-human-editorial-review-packet.md` 提供 12 组逐项 factual accuracy、translation equivalence、neutral/non-causal wording、unsupported influence 与 source traceability 签核位。Codex 没有自称人类、没有伪造 reviewer，也没有回填日期。
+## 7. 无障碍证据边界
 
-## 11. 路由与访客体验
+自动化证据覆盖 keyboard、Escape close、focus restore、live region、可见焦点、非颜色唯一表达、forced colors、reduced motion、390/360 px、WebGL unavailable/context loss、no-JavaScript 说明和 graph/list/table 等价任务。记录的本地 Playwright 结果为 5/5 passed。
 
-`#/art` 已成为美术馆入口，说明当前为无图片的艺术星海候选、三种探索方式、来源/权利和“艺术家展厅后续开放”。`#/art/constellation` 提供正式中英文名称、候选状态、语义边界、搜索/筛选、legend、探索、artist/relation/source panels、limitations/rights 与 live region。正式发布前 UI 明示“发布候选 · 待人工审核”，不把候选或未来 gallery 写成已发布功能。
+本运行环境没有暴露真实 assistive technology session，因此 `real_assistive_technology_status=not_available`。这里不把 DOM/keyboard/forced-colors 自动化等同于真实 NVDA、JAWS、VoiceOver 或 TalkBack 人工验证，也不伪造 screen-reader pass。
 
-## 12. Graph、Artist list 与 Relationship table
+## 8. Current graph 性能
 
-Graph 使用 Graphology + Sigma、12 个等大节点、初始 0 条可见边、focus 后只揭示一跳 C 关系；布局确定性、无持续 force、距离与中心性无事实含义。Artist list 和 Relationship table 共用同一状态模型、URL、search/filter、focus/relation/source 与 hidden counts，可完成相同核心任务。Canvas 对辅助技术为装饰；列表和表格是等价正式体验，不是降级的次等界面。
+`docs/qa/museum-04/performance-current-graph.json` 的 `overall_status=pass`，覆盖四个受控 Chromium profile。关键结果包括：
 
-## 13. Search、filters、A/B 空态与 URL
+- 390×844 / 4×CPU / fast 4G graph：first interactive median 1,376.0 ms，LCP median 924 ms，interaction proxy p95 102.6 ms，FPS median 60，CLS p95 0.0998；
+- 360×800 / 6×CPU / constrained network list：first interactive median 2,288.6 ms，LCP median 2,060 ms，interaction proxy p95 137.6 ms，FPS median 60，CLS p95 0.0913；
+- 1366×768 desktop：first interactive median 564.2 ms，LCP median 448 ms，interaction proxy p95 28.2 ms，FPS median 48，CLS p95 0.0791；
+- 1440×900 desktop：first interactive median 543.0 ms，LCP median 452 ms，interaction proxy p95 34.9 ms，FPS median 45，CLS p95 0.0806；
+- 四个 profile 的 initial image requests/bytes 与 initial deferred-governance requests 均为 0；媒体和 governance data 只在 focus/panel 后按需加载；
+- deterministic gzip budgets：home 95,816 ≤ 102,942 bytes；constellation route 94,722 ≤ 460,800 bytes，其中 initial JSON 32,897 bytes、graph summary 827 bytes；
+- 当前证据文件记录 `source_worktree_dirty=true`，并绑定 implementation input hash `sha256:a293333c53c3cbc5acb3165e370693141ff3bbeca40d5b448ec63f8e429f82df`；不能被描述为来自最终 commit 的 RUM 或真实设备数据。
 
-9,830-byte 静态 search index 覆盖中英文 preferred labels、approved aliases、transliteration/source label、stable ID/type/locale/normalized key；仅 exact/prefix/simple substring 并显示 match reason，无中文分词库、远程/AI 搜索或 analytics，OD-008 保持 open。筛选支持 relation type、A/B/C、period、region/tradition、context type、artist 与 view；A/B 显示“当前暂无经核验关系”，不造边。release/focus/relation/types/level/period/region/view 可安全同步到 query，invalid ID fail closed，不写入说明文本、原始 Claim 或用户历史。
+## 9. 1k / 10k / 50k scale evidence
 
-## 14. 无障碍、WebGL 与低带宽
+`docs/qa/museum-04/performance-scale-benchmarks.json` 的 `overall_status=pass`：
 
-skip link、landmarks、headings、tabs/tabpanel、labels、live status、44px touch targets、可见焦点与颜色外冗余均已实现。Tab、Enter/Space、Escape、Arrow、Home/End、panel close/focus restore 已覆盖；reduced motion 无持续布局或飞行动画。forced colors、360px/受限网络、WebGL unavailable/context lost 自动进入或保留 DOM list/table，filters/focus/URL 不丢失且不白屏。390×844 与 360×800 均无横向溢出；JS disabled 仍有 HTTP 200 的 portal/art/rights 基础说明。
+- 1k 使用真实 Sigma 3.0.3，但只 progressive render 150 vertices / 600 edges；first interactive median 3,737.49 ms、p95 3,806.75 ms，低于 5,000 ms gate；node/interaction median 95.9 ms、p95 104.4 ms，heap p95 11.44 MB。
+- 10k 使用 partition/search/local-neighborhood strategy，不请求 full render；model build median 636.9 ms，index build median 32.2 ms，filtered render median 380.6 ms，heap p95 28.62 MB。
+- 50k/300k mobile full WebGL 明确 refused；实际构建 50,000 vertices / 300,000 edges 的 bounded typed-array model 与 chunk plan，保持 fallback 可见，model build median 1,831.1 ms，max work slice p95 5.0 ms，fallback paint p95 13.6 ms，heap p95 8.86 MB；work slice 低于 50 ms gate，未出现 blank page 或 freeze assertion failure。
 
-## 15. 当前 12/36 controlled-lab 性能
+1k 的 supplemental FPS median 27.00 是非门禁诊断值；interaction p95 已改善至 104.4 ms。正式 first-interactive 与 bounded-render gates 均 pass，但低端 FPS 仍登记为非阻断 P3，不被隐藏或改写成达标指标。
 
-`performance-current-graph.json` 为 controlled lab，不是 RUM/p75。390×844、4× CPU、Fast 4G：first interactive median 1,280.9 ms，LCP median 912 ms，node p95 3.2 ms，interaction proxy p95 114.8 ms，FPS p95 60.0，heap p95 8.81 MB，CLS p95 0.0998。360×800、6× CPU：1,980.3/1,748/8.0/162.6 ms，60 FPS，6.81 MB，CLS 0.0913。1366×768：451.7/396/0.6/70.4 ms，60 FPS，8.46 MB，CLS 0.0791。1440×900：448.5/388/0.6/62.3 ms，60 FPS，8.47 MB，CLS 0.0806。所有硬目标 PASS。
+Scale evidence 绑定 implementation input hash `sha256:14828963568b75da4780cc5244dce21625c9763950f102e847d016b816c4f0ed`。
 
-## 16. 1k、10k 与 50k 合成边界
+没有约 4 GB Android 物理设备可用，`real_device_status=not_available`。Chromium CPU/network throttle 是 controlled lab evidence，不是 real-device pass，也不是 RUM。
 
-1k V/5k E 在 390×844、4× CPU、Fast 4G 使用实际 `sigma@3.0.3`，仅渐进渲染 150 V/600 E；first-interactive 三样本 3,586.3/3,458.6/3,397.6 ms，median 3,458.6 ms、p95 3,586.3 ms，interaction p95 74.1 ms，PASS。10k/60k 不作全图首屏，以 partition/search/local neighborhood 运行；model/index/filtered-render medians 为 469.7/21.6/214.4 ms。50k/300k 明确拒绝移动全量 WebGL，以 exact typed-array model 与 834 个有界 chunks 执行；model median 1,815.3 ms，work-slice p95 3.3 ms、yield 110、heap p95 8.86 MB，fallback 始终可见，无 freeze/blank。证据绑定 implementation input hash `sha256:698443b07526a9903b7c619cfed74aaea2326bac7ca955d1a9629d3b122d423c`。
+## 10. 治理与 rights
 
-## 17. Bundle 与 gzip 预算
+- OD-001、OD-002、OD-005、OD-010 已关闭；open decisions 保持 OD-006、OD-008、OD-009、OD-011 四项。
+- 项目代码与原创内容为 All Rights Reserved；仓库没有项目级开源 `LICENSE`。
+- 第三方作品、媒体与 metadata 权利独立表达，项目 rights 声明不覆盖第三方许可。
+- 31 parents 与 242 children 具有精确 rights/license/source-rule/attribution/notice/withdrawal closure。
+- Rights Issue Form 不请求公开上传敏感证明；流程保留 7 天确认、14 天初查和高风险 72 小时临时下架目标。
 
-确定性 level-9 gzip：home initial JS+CSS 95,131 B，相对 M03B baseline 89,515 B 增长 6.27%，低于 +15% 上限 102,942 B；constellation route JS+CSS+initial data 72,418 B，远低于 450 KiB；initial data 14,587 B；graph summary 766 B，低于 100 KiB。Graph library 不在 home initial chunk，details 延迟加载，benchmark fixture 不随站点发布，media 与 runtime external requests 均为 0。
+Release signoff 的 executor 是 `automated_release_validation_pipeline`，`editorial_review_status=automated_pass`、`human_review_dependency=false`、`human_reviewer_claimed=false`。不存在也不声称存在人工 curator/editor 审核、签名、日期或资质。
 
-## 18. Sources、notices、attribution 与 withdrawal
+## 11. 旧 `0.1.0` 与 human-review P0 的 supersession
 
-候选只绑定实际使用的 AIC、Met、Getty ULAN、Wikidata 四组 metadata/data rules；规则快照、stable rule IDs、content class、license decision、notices 与 attribution 精确对应，未把 media rules 或项目 rights-reserved 扩张到第三方数据。Source UI 只显示 title/publisher/official URL/date/locator/license/attribution，不显示 raw JSON、本地路径、长引用或内部 notes。rights request、temporary isolation、new-release withdrawal、cache/replacement/restoration 合同均由 validator 检查。
+旧 `release:art-constellation-0.1.0` 是未 push、未部署的 pre-media WIP，依赖 zero-media 契约，并把一个拟议的人类编辑流程登记为 P0。该 public candidate 已移除，旧 worksheet 仅以 `status: superseded` 保留审计轨迹，不是当前 release dependency、approval 或 finding。
 
-## 19. Tests 与 validators
+MUSEUM-AUTO-01 的正式契约要求自动交叉验证、禁止 `waiting for manual review` 与 `pending curator`，并明确不把人工逐项批准作为默认阻塞条件。`1.0.0` 通过 deterministic source、Claim → Evidence → Source、non-causality、translation-shape、allowlist、media-rights 和 adversarial validators 形成自动 signoff。因此旧 `M04-A-001` 及其派生 `M04-F-002` 均标记为 **SUPERSEDED**，而不是虚构“人工审核已完成”。
 
-最终证据包括：Python 离线全套 257/257；MUSEUM-04 fixture matrix 20/20（19 expected-invalid + 1 valid zero-media）；scanner 定向 17/17；frontend Vitest 32/32；Node performance-runner contract 8/8；Playwright 5/5。Lint、strict typecheck、production build、resource closure、budget、repository secret/large-file scan、governance 49 schemas/8 valid/22 invalid、pipeline 14 valid/28 invalid/4 recorded、M03A、M03B 4 valid/69 invalid/68 behaviors 与 sealed package 均 PASS。`public` 21 files、`dist` 29 files 的 label-backed leakage scan PASS；对 generic lowercase `` `canvas` `` 与 formal context label `"Canvas"` 的扫描大小写边界有专门回归，不会放过真实序列化正式标签。
+## 12. 本地 E2E 与截图
 
-## 20. E2E 与截图
+当前 `docs/qa/museum-04/playwright-results.json` 记录 5 个本地场景全部通过，覆盖 desktop graph/list/table/relation/rights/URL、1366 无溢出、390 low-bandwidth、forced colors/reduced motion/WebGL fallback 与 no-script HTTP 200。
 
-本地最终 Playwright 5/5 覆盖 desktop graph/list/table/relation/rights/URL/keyboard、1366px no-overflow、390px graph/list/low-bandwidth/refresh、forced-colors/reduced-motion/WebGL unavailable 和 JS-disabled HTTP 200。截图位于 `docs/qa/museum-04/`：`art-landing.png`、`desktop-initial.png`、`focused-artist.png`、`relationship-explanation.png`、`desktop-list.png`、`mobile-graph.png`、`mobile-list.png`、`forced-colors-list.png`、`rights-panel.png`。这些是 QA 证据，不是艺术媒体。
+`docs/qa/museum-04/` 下的 art landing、desktop、mobile、focus、relationship、rights 和 forced-colors 截图是本地 media-aware QA 证据，不是最终线上截图。最终 online screenshots 必须在统一 push、Actions 成功和真实 Pages QA 后写入 MUSEUM-AUTO-01 的 final-online 目录。
 
-## 21. 对抗性审查 A–F
+## 13. 已通过的阶段门禁与仍延后的全流程门禁
 
-A：唯一根 P0 `M04-A-001` 为人工编辑签核未完成；36 C、解释/作品/source 与无因果已通过。B：探索、一跳、filters/panels、A/B empty 与 M05 边界通过。C：graph/list/table 等价、keyboard/SR/live/forced colors/reduced motion/low bandwidth/WebGL/mobile 通过。D：stable versions、lazy/budgets/current/1k/10k/50k/no runtime force 通过。E：rights reserved/no LICENSE/notices/zero media/Issue Form/SLA/withdrawal 通过。F：候选闭包与 fail-closed workflow 通过；`M04-F-002` 是由 A-001 派生的 publication block，不是第二个根因。详细 finding register 见 `docs/qa/museum-04/adversarial-review.md`。
+MUSEUM-04 阶段内已直接观察并通过：
 
-## 22. CI、Pages 与线上边界
+- formal `--require-public` release validator：pass，counts 与 media bytes 精确匹配，零 failure；
+- 28-fixture matrix：28/28 pass；27 个 expected-invalid rejected，1 个 expected-valid accepted；
+- current graph evidence：pass；
+- scale evidence：pass；
+- targeted Python M04 tests：19/19 pass；
+- lint、strict typecheck、Vitest 42/42、production build 与 static budgets：pass；
+- recorded local Playwright：5/5 pass；
+- 已知未修复 P0/P1：0。
 
-workflow 已加入 decisions、Issue Form、M04 formal validator、deterministic rebuild、zero-media/closure、semantics、leakage、loader/frontend、performance evidence、budgets、offline/no-external-runtime 与 E2E 门禁。部署前调用 `--require-public`，当前候选会在 upload-pages-artifact 之前正确停止。本阶段没有 commit/push、没有 M04 Actions run、没有 M04 Pages artifact、没有 M04 live assets/console/requests/external/media QA；`pages_deployment_status=failure` 表示验收未完成/未尝试，而非一次部署执行报错。只读收口确认 GitHub `main` 仍为 baseline；最近成功 Pages run 为 [29239839465](https://github.com/Archmays/Museum-Codex/actions/runs/29239839465)，head 也是 baseline `2be73011…d755b`。公开 URL 当前 home HTTP 200、缺失路径 HTTP 404，HTML 不含 M04 中英文标题而仍是七馆 baseline。上述 baseline smoke 不能据此宣称 M04 已上线或 M04 线上 error/external/media 为零。
+最终全仓 clean-install suite、最终 Git clean state、Actions、Pages 与 online QA 属于 MUSEUM-AUTO-01 统一收尾，尚未在本阶段单独声明通过，也未被阶段证据替代。
 
-## 23. Remaining P3
+## 14. Git、Pages 与下一阶段
 
-`M04-P3-001`；owner：MUSEUM release QA owner；impact：运行环境没有暴露约 4 GB 的物理 Android，Chromium throttling 只属于 lab proxy；mitigation：设备可用时按 current/1k 同合同补测并追加记录；latest review phase：MUSEUM-04 closeout；本项单独不阻断 M05，因为 phase contract 允许 `real_device_status=not_available`。当前阻断 M05 的仍是 P0 `M04-A-001`。无其他 P3。
+本报告由 `Phase MUSEUM-04 media-aware art constellation` 的 enclosing Git commit 记录；具体 commit SHA 以 Git history 为准，AUTO-01 最终 commit 仍保持 `null`。本阶段不 push；Pages deployment 明确延后到 MUSEUM-AUTO-01 最终统一 push。当前 release 的本地 formal validation 不等于远端或线上状态。
 
-## 24. Git、commit 与发布状态
+fixture matrix 与其余 M04 final gates 已实际 pass，已知 P0/P1 为 0，public release valid 且本地 Pages build 可用，因此 MUSEUM-05A gate 已打开并可按 AUTO-01 自动继续。仍未进入 MUSEUM-05B、MUSEUM-06、武器馆或生物馆。
 
-用户建议的 implementation/final commits 均未创建，commit ID 为 `null`；没有 stage、push、force/rewrite、PR、workflow dispatch 或 Pages mutation。这样避免把尚未通过人工审核的 candidate 误升为正式 release。工作树因本地实现和 QA 证据而 dirty，这是有意的未发布状态，不满足 completed 所需的 clean/local-origin-remote 一致门槛。
+## 15. Remaining P3
 
-## 25. M05 建议与解阻手册
+| ID | 状态 | 影响 | 后续动作 | 阻断 M04/M05A？ |
+|---|---|---|---|---|
+| M04-P3-001 | open | 无约 4 GB Android 物理设备；controlled Chromium 不能代表真实设备。 | 设备可用时按相同 current/1k contract 补测并追加记录。 | 否 |
+| M04-P3-002 | open | 无真实 AT session；自动语义/键盘证据不能代表 NVDA/JAWS/VoiceOver/TalkBack 人工体验。 | 环境可用时补充真实 AT smoke，不改写现有自动证据。 | 否 |
+| M04-P3-003 | open | 1k supplemental FPS median 27.00，虽不属于当前 pass/fail gate，但提示低端持续交互仍有优化空间；interaction p95 已改善至 104.4 ms。 | M05A 后续性能回归中保持可见，避免扩大初始 render cap。 | 否 |
 
-`museum_05_recommended=false`、`museum_05_authorized=false`，且未进入 MUSEUM-05。解阻需要一名真实、已识别、可问责的人类编辑对 review packet 中 12 组双语摘要逐项给出 APPROVE/RETURN，提供 reviewer name/stable ID、role、review date，并明确批准 exact digest `sha256:42660e0a7a1d4a33548c82d8e942c747dbe42f20d3b2ef16ae92673114ea1da6`。收到有效签核后才可更新每位 artist provenance 与 release sign-off、重建 formal `public_release=true` bundle、重跑全部 validators/A–F、创建 commits、推送、等待 Actions/Pages 成功并执行线上 HTTP/assets/console/requests/404/external/media/leakage QA。此后仍需用户另行授权才能进入 MUSEUM-05。
+除上述非阻断 P3 外，本阶段不登记已知未修复 P0/P1；MUSEUM-04 阶段门禁结论为 `completed/pass`。

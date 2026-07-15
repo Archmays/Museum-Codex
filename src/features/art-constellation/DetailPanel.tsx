@@ -10,6 +10,7 @@ import {
   type SourceRecord,
 } from "./types";
 import { relationshipTypeLabel } from "./labels";
+import { ArtworkImage } from "./ArtworkImage";
 
 type Copy = Translation["constellation"];
 
@@ -32,6 +33,7 @@ type DetailPanelProps = {
   rightsDetails: PanelLoadState<RightsDetails>;
   locale: Locale;
   copy: Copy;
+  lowBandwidth: boolean;
   onClose: () => void;
   onRetryIndex: () => void;
   onRetryArtistSources: () => void;
@@ -83,6 +85,7 @@ function ArtistPanel({
   artistSources,
   locale,
   copy,
+  lowBandwidth,
   onRetryIndex,
   onRetryArtistSources,
   onSelectRelationship,
@@ -99,6 +102,11 @@ function ArtistPanel({
         (relationship) => relationship.sourceArtistId === id || relationship.targetArtistId === id,
       )
     : [];
+  const representativeArtwork = artistSources.status === "loaded"
+    ? artistSources.data.artworks.find((artwork) => artwork.media.mediaIds.includes(artist?.representativeMediaId ?? ""))
+      ?? artistSources.data.artworks[0]
+      ?? null
+    : null;
   if (!artist) return <FailedState copy={copy} onRetry={onRetryIndex} />;
   return (
     <>
@@ -116,11 +124,33 @@ function ArtistPanel({
             <div><dt>{copy.relatedRelationships}</dt><dd>{artist.relationCount} · C</dd></div>
             <div><dt>{copy.reviewRecord}</dt><dd>{artist.reviewer} · {artist.reviewDate}</dd></div>
             <div>
-              <dt>{release.isPublicRelease ? copy.releaseLabel : copy.releaseCandidateLabel}</dt>
+              <dt>{copy.releaseLabel}</dt>
               <dd>{release.version}</dd>
             </div>
           </dl>
           <p className="gallery-preparing">{copy.galleryPreparing}</p>
+          {artistSources.status === "loaded" && representativeArtwork ? (
+            <section className="panel-section artist-representative" aria-labelledby="artist-representative-title">
+              <h3 id="artist-representative-title">{localize(representativeArtwork.title, locale)}</h3>
+              <ArtworkImage
+                artworkId={representativeArtwork.id}
+                representativeMediaId={artist.representativeMediaId}
+                media={artistSources.data.media}
+                alt={`${localize(representativeArtwork.title, locale)} — ${localize(artist.labels, locale)}`}
+                lowBandwidth={lowBandwidth}
+                noImageText={copy.noImage}
+                lowBandwidthText={copy.lowBandwidthImage}
+                loadImageText={copy.loadImage}
+                imageLoadingText={copy.imageLoading}
+                imageLoadedText={copy.imageLoaded}
+                unavailableText={copy.imageUnavailable}
+                rightsLabel={copy.imageRights}
+                withdrawalLabel={copy.withdrawalStatus}
+                officialSourceLabel={copy.sourceVisit}
+                officialSourceUrl={representativeArtwork.objectUrl}
+              />
+            </section>
+          ) : null}
           <section className="panel-section" aria-labelledby="artist-relations-title">
             <h3 id="artist-relations-title">{copy.relatedRelationships}</h3>
             {relationshipIndex.status === "loading" || relationshipIndex.status === "idle" ? (
@@ -160,8 +190,9 @@ function RelationshipPanel({
   relationshipDetails,
   locale,
   copy,
+  lowBandwidth,
   onRetryRelationship,
-}: Pick<DetailPanelProps, "release" | "relationshipIndex" | "relationshipDetails" | "locale" | "copy" | "onRetryRelationship"> & { id: string }) {
+}: Pick<DetailPanelProps, "release" | "relationshipIndex" | "relationshipDetails" | "locale" | "copy" | "lowBandwidth" | "onRetryRelationship"> & { id: string }) {
   const relationship = relationshipIndex.status === "loaded"
     ? relationshipIndex.data.relationships.find((candidate) => candidate.id === id)
     : null;
@@ -188,7 +219,7 @@ function RelationshipPanel({
         <div><dt>{copy.computationalSimilarity}</dt><dd>{copy.notIncluded}</dd></div>
         <div><dt>{copy.reviewRecord}</dt><dd>{relationship.reviewer} · {relationship.reviewDate}</dd></div>
         <div>
-          <dt>{release.isPublicRelease ? copy.releaseLabel : copy.releaseCandidateLabel}</dt>
+          <dt>{copy.releaseLabel}</dt>
           <dd>{release.version}</dd>
         </div>
       </dl>
@@ -227,8 +258,27 @@ function RelationshipPanel({
                 const sourceAttributions = details.sources
                   .filter((source) => artwork.sourceIds.includes(source.id))
                   .map((source) => source.attribution);
+                const artworkArtist = artistById.get(artwork.artistId);
                 return <li key={artwork.id}>
                   <h4>{localize(artwork.title, locale)}</h4>
+                  <ArtworkImage
+                    artworkId={artwork.id}
+                    representativeMediaId={artwork.media.representativeMediaId}
+                    media={details.media}
+                    alt={`${localize(artwork.title, locale)}${artworkArtist ? ` — ${localize(artworkArtist.labels, locale)}` : ""}`}
+                    lowBandwidth={lowBandwidth}
+                    variant="thumbnail"
+                    noImageText={copy.noImage}
+                    lowBandwidthText={copy.lowBandwidthImage}
+                    loadImageText={copy.loadImage}
+                    imageLoadingText={copy.imageLoading}
+                    imageLoadedText={copy.imageLoaded}
+                    unavailableText={copy.imageUnavailable}
+                    rightsLabel={copy.imageRights}
+                    withdrawalLabel={copy.withdrawalStatus}
+                    officialSourceLabel={copy.sourceVisit}
+                    officialSourceUrl={artwork.objectUrl}
+                  />
                   <p>
                     {[artwork.dateDisplay && localize(artwork.dateDisplay, locale), artwork.mediumDisplay && localize(artwork.mediumDisplay, locale), artwork.institution && localize(artwork.institution, locale)]
                       .filter(Boolean)
@@ -287,6 +337,9 @@ function RightsPanel({ rightsDetails, locale, copy, onRetryRights }: Pick<Detail
         <div><dt>{copy.codeRights}</dt><dd>{localize(rights.codeRights, locale)}</dd></div>
         <div><dt>{copy.contentRights}</dt><dd>{localize(rights.originalContentRights, locale)}</dd></div>
         <div><dt>{copy.metadataRights}</dt><dd>{rights.thirdPartyMetadata.map((statement) => localize(statement, locale)).join(" · ")}</dd></div>
+        <div><dt>{copy.mediaRights}</dt><dd>{localize(rights.mediaStatement, locale)}</dd></div>
+        <div><dt>{copy.supportingWorks}</dt><dd>{rights.approvedMediaArtworks} / {rights.approvedMediaArtworks + rights.noImageArtworks}</dd></div>
+        <div><dt>{copy.imageRights}</dt><dd>{rights.mediaCount} · {rights.mediaBytes.toLocaleString(locale)} bytes</dd></div>
       </dl>
       <section className="panel-section notice-list">
         <h3>{copy.noticesLink}</h3>

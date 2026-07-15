@@ -59,16 +59,19 @@ jobs:
       - name: Validate sealed internal MUSEUM-03B reviewed package
         run: python scripts/validate_museum_03b_batch.py data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1
 
+      - name: Validate tracked MUSEUM-03C media bundle closure
+        run: python -m museum_pipeline.media validate-bundle --json
+
       - name: Validate public rights-request issue form
         run: python scripts/validate_museum_04_issue_form.py
 
       - name: Rebuild and compare the deterministic MUSEUM-04 release
         run: |
           python scripts/build_museum_04_release.py --output tmp/museum-04-ci-release
-          diff -ru public/releases/art-constellation-0.1.0 tmp/museum-04-ci-release
+          diff -ru public/releases/art-constellation-1.0.0 tmp/museum-04-ci-release
 
-      - name: Validate the physical MUSEUM-04 metadata-only release
-        run: python scripts/validate_museum_04_release.py public/releases/art-constellation-0.1.0 --require-public
+      - name: Validate the physical MUSEUM-04 media-aware release
+        run: python scripts/validate_museum_04_release.py public/releases/art-constellation-1.0.0 --require-public
 
       - name: Validate committed performance and scale evidence
         run: python scripts/validate_museum_04_performance_evidence.py

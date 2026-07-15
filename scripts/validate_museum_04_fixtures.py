@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise the MUSEUM-04 valid zero-media and expected-invalid release fixtures."""
+"""Exercise the MUSEUM-04 media-aware formal and expected-invalid release fixtures."""
 
 from __future__ import annotations
 
@@ -17,27 +17,55 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from museum_pipeline.art.public_release import DEFAULT_OUTPUT, _release_content_hash, validate_museum_04_release
+from museum_pipeline.art.public_release import (
+    DEFAULT_OUTPUT,
+    M03C_BUNDLE,
+    _load_media_bundle,
+    _load_package,
+    _release_content_hash,
+    _validate_museum_04_projection_with_validated_sources,
+    validate_museum_04_release,
+)
+from museum_pipeline.art.batch_validation import DEFAULT_PACKAGE
 from museum_pipeline.canonical_json import canonical_json_bytes
 
 
 FIXTURE_ROOT = ROOT / "fixtures" / "museum-04-release"
 
 
-def run(base_release: Path = DEFAULT_OUTPUT) -> dict[str, Any]:
+def run(
+    base_release: Path = DEFAULT_OUTPUT,
+    *,
+    _base_validation: dict[str, Any] | None = None,
+    _prevalidated_sources: tuple[dict[str, Any], dict[str, Any]] | None = None,
+    _fixture_paths: list[Path] | None = None,
+) -> dict[str, Any]:
     base_release = base_release.resolve() if base_release.is_absolute() else (ROOT / base_release).resolve()
-    results: list[dict[str, Any]] = []
-    for fixture_path in sorted(FIXTURE_ROOT.rglob("*.json")):
+    # Validate the immutable M03B/M03C inputs once, then reuse those exact in-memory
+    # objects while only the copied M04 release is mutated by this fixture matrix.
+    base_validation = _base_validation or validate_museum_04_release(base_release)
+    prevalidated_sources = _prevalidated_sources
+    if prevalidated_sources is None and base_validation["ok"]:
+        prevalidated_sources = (_load_package(DEFAULT_PACKAGE), _load_media_bundle(M03C_BUNDLE))
+    def evaluate(fixture_path: Path) -> dict[str, Any]:
         fixture = _load_json(fixture_path)
         mutation = fixture["mutation"]
         if mutation == "none":
-            validation = validate_museum_04_release(base_release)
+            validation = base_validation
         else:
             with tempfile.TemporaryDirectory(prefix="museum-04-fixture-") as temporary:
-                release_root = Path(temporary) / "art-constellation-0.1.0"
+                release_root = Path(temporary) / "art-constellation-1.0.0"
                 shutil.copytree(base_release, release_root)
                 _apply_mutation(release_root, mutation)
-                validation = validate_museum_04_release(release_root)
+                if prevalidated_sources is None:
+                    validation = validate_museum_04_release(release_root)
+                else:
+                    validation = _validate_museum_04_projection_with_validated_sources(
+                        release_root,
+                        prevalidated_sources[0],
+                        prevalidated_sources[1],
+                        [],
+                    )
         expected_valid = fixture["expected_valid"] is True
         expected_codes = set(fixture.get("expected_error_codes", []))
         expected_counts = fixture.get("expected_counts", {})
@@ -47,14 +75,17 @@ def run(base_release: Path = DEFAULT_OUTPUT) -> dict[str, Any]:
             for key, value in expected_counts.items()
         )
         passed = validation["ok"] is expected_valid and expected_codes <= observed_codes and counts_match
-        results.append({
+        return {
             "fixture_id": fixture["fixture_id"],
             "passed": passed,
             "expected_valid": expected_valid,
             "expected_error_codes": sorted(expected_codes),
             "expected_counts": expected_counts,
             "observed_error_codes": sorted(observed_codes),
-        })
+        }
+
+    fixture_paths = sorted(FIXTURE_ROOT.rglob("*.json")) if _fixture_paths is None else _fixture_paths
+    results = [evaluate(path) for path in fixture_paths]
     return {"ok": all(item["passed"] for item in results), "count": len(results), "results": results}
 
 
@@ -68,9 +99,62 @@ def _apply_mutation(release_root: Path, mutation: str) -> None:
         document["relationships"][0]["title"]["en"] = "One artist directly influenced the other"
         _write_artifact(release_root, "relationships.json", document)
     elif mutation == "media_byte":
-        media_path = release_root / "media" / "unexpected.jpg"
-        media_path.parent.mkdir()
-        media_path.write_bytes(b"not-an-image")
+        document = _load_json(release_root / "media-index.json")
+        media_path = release_root / document["assets"][0]["src"]
+        media_path.write_bytes(b"not-an-approved-derivative")
+    elif mutation == "runtime_media_hotlink":
+        document = _load_json(release_root / "media-index.json")
+        document["assets"][0]["src"] = "https://images.example.org/unreviewed.jpg"
+        _write_artifact(release_root, "media-index.json", document)
+    elif mutation == "media_parent_chain":
+        document = _load_json(release_root / "media-assets.json")
+        children = [item for item in document["assets"] if item["delivery_mode"] == "self_hosted"]
+        parents = [item for item in document["assets"] if item["delivery_mode"] == "external_link"]
+        children[0]["derivation"]["derived_from_media_id"] = next(
+            item["id"] for item in parents if item["id"] != children[0]["derivation"]["derived_from_media_id"]
+        )
+        _write_artifact(release_root, "media-assets.json", document)
+    elif mutation == "withdrawal_mapping_missing":
+        document = _load_json(release_root / "withdrawal-mapping.json")
+        document["mappings"].pop()
+        _write_artifact(release_root, "withdrawal-mapping.json", document)
+    elif mutation == "blocked_media_record":
+        document = _load_json(release_root / "media-assets.json")
+        child = next(item for item in document["assets"] if item["delivery_mode"] == "self_hosted")
+        child["publish_status"] = "blocked"
+        _write_artifact(release_root, "media-assets.json", document)
+    elif mutation == "synchronized_media_rights_tamper":
+        assets = _load_json(release_root / "media-assets.json")
+        target = next(item for item in assets["assets"] if item["delivery_mode"] == "external_link")
+        target_id = target["id"]
+        forged_url = "https://images.metmuseum.org/CRDImages/ep/original/forged.jpg"
+        target["source_object_url"] = forged_url
+        _write_artifact(release_root, "media-assets.json", assets)
+
+        claims = _load_json(release_root / "claims.json")
+        envelope = next(item for item in claims["records"] if item["data"]["id"] == target_id)
+        envelope["data"]["source_object_url"] = forged_url
+        _write_artifact(release_root, "claims.json", claims)
+
+        attributions = _load_json(release_root / "attributions.json")
+        next(item for item in attributions["assets"] if item["asset_id"] == target_id)["source_url"] = forged_url
+        _write_artifact(release_root, "attributions.json", attributions)
+
+        notices = _load_json(release_root / "third-party-notices.json")
+        next(item for item in notices["notices"] if item["record_id"] == target_id)["source_url"] = forged_url
+        _write_artifact(release_root, "third-party-notices.json", notices)
+    elif mutation == "synchronized_withdrawal_tamper":
+        document = _load_json(release_root / "withdrawal-mapping.json")
+        document["mappings"][0]["public_notice"] = "Forged but schema-valid withdrawal notice."
+        _write_artifact(release_root, "withdrawal-mapping.json", document)
+    elif mutation == "malformed_manifest_entry":
+        document = _load_json(release_root / "manifest.json")
+        document["manifest_files"][0] = 1
+        (release_root / "manifest.json").write_bytes(canonical_json_bytes(document))
+    elif mutation == "malformed_media_asset":
+        document = _load_json(release_root / "media-assets.json")
+        document["assets"][0] = 1
+        _write_artifact(release_root, "media-assets.json", document)
     elif mutation == "private_path":
         document = _load_json(release_root / "artists.json")
         document["artists"][0]["summary"]["en"] += " C:\\private\\notes.txt"
@@ -175,8 +259,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--release-root", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--shard-count", type=int, default=1)
+    parser.add_argument("--shard-index", type=int, default=0)
     args = parser.parse_args()
-    result = run(args.release_root)
+    if args.shard_count < 1:
+        parser.error("--shard-count must be at least 1")
+    if not 0 <= args.shard_index < args.shard_count:
+        parser.error("--shard-index must be between 0 and shard-count - 1")
+    fixture_paths = sorted(FIXTURE_ROOT.rglob("*.json"))[args.shard_index :: args.shard_count]
+    if not fixture_paths:
+        parser.error("selected shard contains no fixtures")
+    result = run(args.release_root, _fixture_paths=fixture_paths)
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:

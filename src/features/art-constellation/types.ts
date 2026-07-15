@@ -21,6 +21,9 @@ export type ArtistRecord = {
   claimIds: string[];
   sourceIds: string[];
   relationCount: number;
+  artworkIds: string[];
+  representativeMediaId: string | null;
+  approvedMediaArtworkCount: number;
   reviewer: string;
   reviewDate: string;
 };
@@ -69,6 +72,42 @@ export type ArtworkRecord = {
   subjects: LocalizedText[];
   metadataLicense: string;
   limitations: LocalizedText | null;
+  media: ArtworkMediaState;
+};
+
+export type ArtworkMediaDecision =
+  | "approved_self_hosted"
+  | "metadata_only_after_automated_review"
+  | "blocked_source_unavailable"
+  | "blocked_rights_conflict";
+
+export type ArtworkMediaState = {
+  decision: ArtworkMediaDecision;
+  reasonCodes: string[];
+  representativeMediaId: string | null;
+  mediaIds: string[];
+};
+
+export type MediaAsset = {
+  id: string;
+  artworkId: string;
+  parentMediaId: string;
+  src: string;
+  publicPath: string;
+  format: "jpeg" | "webp";
+  mimeType: "image/jpeg" | "image/webp";
+  width: number;
+  height: number;
+  bytes: number;
+  sha256: string;
+  role: "thumbnail" | "detail" | "zoom";
+  attribution: string;
+  changesStatement: string;
+  licenseIdentifier: string;
+  licenseUrl: string;
+  sourceUrl: string;
+  withdrawalStatus: "active";
+  withdrawalNotice: string;
 };
 
 export type EvidenceRecord = {
@@ -107,10 +146,17 @@ export type RightsRecord = {
   codeRights: LocalizedText;
   originalContentRights: LocalizedText;
   thirdPartyMetadata: LocalizedText[];
-  noMedia: true;
+  mediaStatement: LocalizedText;
+  mediaCount: number;
+  mediaBytes: number;
+  approvedMediaArtworks: number;
+  noImageArtworks: number;
+  mediaBundleId: string;
+  mediaBundleHash: string;
   rightsRequestUrl: string;
   noticesPath: string;
   attributionsPath: string;
+  withdrawalPath: string;
 };
 
 export type ThirdPartyNotice = {
@@ -128,6 +174,10 @@ export type GraphSummary = {
   contextCount: 31;
   relationshipCount: 36;
   artworkCount: number;
+  mediaCount: number;
+  mediaBytes: number;
+  approvedMediaArtworkCount: number;
+  noImageArtworkCount: number;
   levelCounts: { A: 0; B: 0; C: 36 };
   relationshipTypeCounts: Record<RelationshipType, number>;
   semantics: LocalizedText;
@@ -159,12 +209,15 @@ export type RelationshipDetails = {
   relationship: RelationshipRecord;
   contexts: ContextRecord[];
   artworks: ArtworkRecord[];
+  media: MediaAsset[];
   evidence: EvidenceRecord[];
   sources: SourceRecord[];
 };
 
 export type ArtistSources = {
   artist: ArtistRecord;
+  artworks: ArtworkRecord[];
+  media: MediaAsset[];
   sources: SourceRecord[];
 };
 

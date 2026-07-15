@@ -1,0 +1,15 @@
+{
+  "fixture_id": "museum-04-media-aware-valid",
+  "mutation": "none",
+  "expected_valid": true,
+  "expected_counts": {
+    "artists": 12,
+    "contexts": 31,
+    "relationships": 36,
+    "artworks": 44,
+    "media": 242,
+    "media_bytes": 35907176,
+    "approved_media_artworks": 31,
+    "no_image_artworks": 13
+  }
+}

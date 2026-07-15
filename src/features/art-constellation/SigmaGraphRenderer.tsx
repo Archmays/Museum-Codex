@@ -123,6 +123,7 @@ export default function SigmaGraphRenderer({
         edgeProgramClasses: { dotted: DottedEdgeProgram },
         enableEdgeEvents: true,
         renderEdgeLabels: false,
+        hideLabelsOnMove: true,
         labelColor: { color: "#d7e2e2" },
         labelFont: "Inter, ui-sans-serif, system-ui, sans-serif",
         labelWeight: "500",

@@ -5,7 +5,7 @@
   "real_user_metric": false,
   "real_device_status": "not_available",
   "real_device_note": "No physical approximately 4 GB Android device was exposed to this runtime.",
-  "captured_at": "2026-07-14T11:53:10.215Z",
+  "captured_at": "2026-07-15T06:23:31.559Z",
   "environment": {
     "host_os": "win32 10.0.22631",
     "cpu": "13th Gen Intel(R) Core(TM) i9-13900H",
@@ -16,19 +16,19 @@
     "playwright_version": "1.61.1",
     "runner": "scripts/run-museum-04-scale-lab.mjs",
     "measurement_method": "Playwright Chromium; fresh context and disabled cache per sample; navigation start to the rendered interactive-ready boundary; post-ready interaction and FPS QA excluded from first-interactive timing",
-    "commit_sha": "2be73011cb1dca64cb8d3a2d5830f495671d755b",
+    "commit_sha": "df68399a2929222dea7a887f2666dfefd2a988d6",
     "source_worktree_dirty": true,
     "implementation_input_files": [
       "benchmarks/museum-04/main.ts",
       "museum_pipeline/art/public_release.py",
       "package-lock.json",
-      "public/releases/art-constellation-0.1.0/performance-contract.json",
+      "public/releases/art-constellation-1.0.0/performance-contract.json",
       "schemas/art/release/art-constellation-artifact.schema.json",
       "scripts/generate_museum_04_scale_fixture.py",
       "scripts/run-museum-04-scale-lab.mjs",
       "scripts/validate_museum_04_performance_evidence.py"
     ],
-    "implementation_input_hash": "sha256:698443b07526a9903b7c619cfed74aaea2326bac7ca955d1a9629d3b122d423c"
+    "implementation_input_hash": "sha256:14828963568b75da4780cc5244dce21625c9763950f102e847d016b816c4f0ed"
   },
   "lab_configuration": {
     "viewport": {
@@ -46,8 +46,8 @@
     "synthetic_data_generated_in_browser": true
   },
   "release_performance_contract": {
-    "path": "public/releases/art-constellation-0.1.0/performance-contract.json",
-    "sha256": "sha256:503a16e69a6bd27fe1fbd06a4baa061779cf05cc21dbe1981d1709e2c1ee1f92"
+    "path": "public/releases/art-constellation-1.0.0/performance-contract.json",
+    "sha256": "sha256:c63cf1e4a34c3995331a52474da0c472fe0352c34dd639302aaedb3dacd1ba76"
   },
   "profiles": [
     {
@@ -94,12 +94,12 @@
         "first_interactive_ms": {
           "unit": "ms",
           "samples": [
-            3586.2973,
-            3458.5905999999995,
-            3397.6029000000017
+            3640.0263999999997,
+            3806.7507000000005,
+            3737.4949000000015
           ],
-          "median": 3458.5905999999995,
-          "p95": 3586.2973,
+          "median": 3737.4949000000015,
+          "p95": 3806.7507000000005,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -110,64 +110,64 @@
         "interaction_ms": {
           "unit": "ms",
           "samples": [
-            74.09999999403954,
-            53.600000001490116,
-            48.70000000298023
+            89.70000000298023,
+            104.3999999910593,
+            95.90000000596046
           ],
-          "median": 53.600000001490116,
-          "p95": 74.09999999403954
+          "median": 95.90000000596046,
+          "p95": 104.3999999910593
         }
       },
       "supplemental_metrics": {
         "renderer_ready_ms": {
           "unit": "ms",
           "samples": [
-            306.70000000298023,
-            239.19999999552965,
-            221
+            386.09999999403954,
+            480.90000000596046,
+            409.40000000596046
           ],
-          "median": 239.19999999552965,
-          "p95": 306.70000000298023
+          "median": 409.40000000596046,
+          "p95": 480.90000000596046
         },
         "node_selection_ms": {
           "unit": "ms",
           "samples": [
-            74.09999999403954,
-            53.600000001490116,
-            48.70000000298023
+            89.70000000298023,
+            104.3999999910593,
+            95.90000000596046
           ],
-          "median": 53.600000001490116,
-          "p95": 74.09999999403954
+          "median": 95.90000000596046,
+          "p95": 104.3999999910593
         },
         "filter_ms": {
           "unit": "ms",
           "samples": [
-            51.399999998509884,
-            45.600000001490116,
-            41.399999998509884
+            69.8999999910593,
+            82.3999999910593,
+            68.8999999910593
           ],
-          "median": 45.600000001490116,
-          "p95": 51.399999998509884
+          "median": 69.8999999910593,
+          "p95": 82.3999999910593
         },
         "fps": {
           "unit": "fps",
           "samples": [
-            51.92407546298968,
-            54.54876053094125,
-            56.253515844740306
+            37.242406687081015,
+            25.353541044565894,
+            27.00108004320173
           ],
-          "median": 54.54876053094125,
-          "p95": 56.253515844740306
+          "median": 27.00108004320173,
+          "p95": 37.242406687081015
         },
         "js_heap_mb": {
           "unit": "MB",
           "samples": [
-            11.48333740234375,
-            9.088714599609375,
-            8.91976547241211
+            11.441703796386719,
+            9.150768280029297,
+            9.010101318359375
           ],
-          "median": 9.088714599609375,
-          "p95": 11.48333740234375
+          "median": 9.150768280029297,
+          "p95": 11.441703796386719
         }
       }
     },
@@ -215,42 +215,42 @@
         "model_build_ms": {
           "unit": "ms",
           "samples": [
-            470.09999999403954,
-            394.5,
-            469.70000000298023
+            693.7999999970198,
+            523.0999999940395,
+            636.9000000059605
           ],
-          "median": 469.70000000298023,
-          "p95": 470.09999999403954
+          "median": 636.9000000059605,
+          "p95": 693.7999999970198
         },
         "index_build_ms": {
           "unit": "ms",
           "samples": [
-            21,
-            21.599999994039536,
-            23.69999999552965
+            33.70000000298023,
+            26.400000005960464,
+            32.20000000298023
           ],
-          "median": 21.599999994039536,
-          "p95": 23.69999999552965
+          "median": 32.20000000298023,
+          "p95": 33.70000000298023
         },
         "filtered_render_ms": {
           "unit": "ms",
           "samples": [
-            214.40000000596046,
-            191.60000000149012,
-            226.5
+            380.59999999403954,
+            375.59999999403954,
+            386.8999999910593
           ],
-          "median": 214.40000000596046,
-          "p95": 226.5
+          "median": 380.59999999403954,
+          "p95": 386.8999999910593
         },
         "js_heap_mb": {
           "unit": "MB",
           "samples": [
-            56.5257568359375,
-            56.54993438720703,
-            56.54288864135742
+            28.597702026367188,
+            28.620460510253906,
+            28.597835540771484
           ],
-          "median": 56.54288864135742,
-          "p95": 56.54993438720703
+          "median": 28.597835540771484,
+          "p95": 28.620460510253906
         }
       }
     },
@@ -318,32 +318,32 @@
         "model_build_ms": {
           "unit": "ms",
           "samples": [
-            1815.2999999970198,
-            1814.3999999985099,
-            1821.7999999970198
+            1828.5999999940395,
+            1832.7999999970198,
+            1831.1000000089407
           ],
-          "median": 1815.2999999970198,
-          "p95": 1821.7999999970198
+          "median": 1831.1000000089407,
+          "p95": 1832.7999999970198
         },
         "chunk_plan_ms": {
           "unit": "ms",
           "samples": [
-            0.7000000029802322,
-            0.6999999955296516,
-            0.7000000029802322
+            2.4000000059604645,
+            0.7999999970197678,
+            0.699999988079071
           ],
-          "median": 0.7000000029802322,
-          "p95": 0.7000000029802322
+          "median": 0.7999999970197678,
+          "p95": 2.4000000059604645
         },
         "max_work_slice_ms": {
           "unit": "ms",
           "samples": [
-            2.7999999970197678,
-            3.2999999970197678,
-            2.899999998509884
+            5,
+            3.9000000059604645,
+            4.100000008940697
           ],
-          "median": 2.899999998509884,
-          "p95": 3.2999999970197678,
+          "median": 4.100000008940697,
+          "p95": 5,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -354,12 +354,12 @@
         "fallback_paint_ms": {
           "unit": "ms",
           "samples": [
-            31.5,
-            33.19999999552965,
-            27
+            9.400000005960464,
+            13.599999994039536,
+            10.200000002980232
           ],
-          "median": 31.5,
-          "p95": 33.19999999552965
+          "median": 10.200000002980232,
+          "p95": 13.599999994039536
         },
         "yield_count": {
           "unit": "count",
@@ -374,12 +374,12 @@
         "js_heap_mb": {
           "unit": "MB",
           "samples": [
-            8.74210262298584,
-            8.739741325378418,
-            8.857451438903809
+            8.85843563079834,
+            8.742743492126465,
+            8.857020378112793
           ],
-          "median": 8.74210262298584,
-          "p95": 8.857451438903809
+          "median": 8.857020378112793,
+          "p95": 8.85843563079834
         }
       }
     }

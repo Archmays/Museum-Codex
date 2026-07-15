@@ -1,0 +1,11 @@
+{
+  "fixture_id": "museum-04-synchronized-media-rights-tamper",
+  "mutation": "synchronized_media_rights_tamper",
+  "expected_valid": false,
+  "expected_error_codes": [
+    "m04_media_projection_exact",
+    "m04_media_claim_projection_exact",
+    "m04_attribution_projection_exact",
+    "m04_notice_projection_exact"
+  ]
+}

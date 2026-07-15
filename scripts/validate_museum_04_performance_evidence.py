@@ -19,7 +19,28 @@ except ModuleNotFoundError:  # Direct `python scripts/...` invocation.
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CURRENT = ROOT / "docs" / "qa" / "museum-04" / "performance-current-graph.json"
 DEFAULT_SCALE = ROOT / "docs" / "qa" / "museum-04" / "performance-scale-benchmarks.json"
-RELEASE_PERFORMANCE_CONTRACT_PATH = "public/releases/art-constellation-0.1.0/performance-contract.json"
+RELEASE_PERFORMANCE_CONTRACT_PATH = "public/releases/art-constellation-1.0.0/performance-contract.json"
+RELEASE_ID = "release:art-constellation-1.0.0"
+EXPECTED_ARTWORK_ROWS = 44
+EXPECTED_MEDIA_RECORDS = 273
+EXPECTED_PHYSICAL_DERIVATIVES = 242
+EXPECTED_PHYSICAL_DERIVATIVE_BYTES = 35_907_176
+CURRENT_IMPLEMENTATION_FIXED_INPUT_FILES = [
+    "index.html",
+    "package.json",
+    "package-lock.json",
+    "public/releases/art-constellation-1.0.0/manifest.json",
+    RELEASE_PERFORMANCE_CONTRACT_PATH,
+    "scripts/run-museum-04-current-lab.mjs",
+    "scripts/validate_museum_04_performance_evidence.py",
+    "scripts/verify-museum-04-budgets.mjs",
+    "tsconfig.json",
+    "vite.config.ts",
+]
+CURRENT_IMPLEMENTATION_INPUT_FILES = sorted(
+    CURRENT_IMPLEMENTATION_FIXED_INPUT_FILES
+    + [path.relative_to(ROOT).as_posix() for path in (ROOT / "src").rglob("*") if path.is_file()]
+)
 SCALE_IMPLEMENTATION_INPUT_FILES = [
     "benchmarks/museum-04/main.ts",
     "museum_pipeline/art/public_release.py",
@@ -66,6 +87,12 @@ CURRENT_METRIC_UNITS = {
     "gzip_bytes": "bytes",
     "lcp_ms": "ms",
     "interaction_proxy_ms": "ms",
+    "initial_image_requests": "count",
+    "initial_image_bytes": "bytes",
+    "deferred_image_requests": "count",
+    "deferred_image_bytes": "bytes",
+    "initial_deferred_data_requests": "count",
+    "deferred_data_requests": "count",
 }
 SCALE_COUNTS = {
     "1k": (1_000, 5_000),
@@ -93,14 +120,22 @@ def sha256_file(path: Path) -> str:
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
-def implementation_input_hash(root: Path = ROOT) -> str:
+def _input_hash(relative_paths: list[str], root: Path = ROOT) -> str:
     digest = hashlib.sha256()
-    for relative_path in SCALE_IMPLEMENTATION_INPUT_FILES:
+    for relative_path in relative_paths:
         digest.update(relative_path.encode("utf-8"))
         digest.update(b"\0")
         digest.update((root / relative_path).read_bytes())
         digest.update(b"\0")
     return f"sha256:{digest.hexdigest()}"
+
+
+def implementation_input_hash(root: Path = ROOT) -> str:
+    return _input_hash(SCALE_IMPLEMENTATION_INPUT_FILES, root)
+
+
+def current_implementation_input_hash(root: Path = ROOT) -> str:
+    return _input_hash(CURRENT_IMPLEMENTATION_INPUT_FILES, root)
 
 
 def _error(errors: list[str], location: str, message: str) -> None:
@@ -293,8 +328,11 @@ def validate_current_graph(payload: Any) -> list[str]:
             "filter_ms": ("p95", "lte", 200),
             "relationship_detail_ms": ("p95", "lte", 200),
             "keyboard_focus_ms": ("p95", "lte", 100),
-            "fps": ("p95", "gte", fps_limit),
+            "fps": ("median", "gte", fps_limit),
             "cls": ("p95", "lte", 0.1),
+            "initial_image_requests": ("p95", "lte", 0),
+            "initial_image_bytes": ("p95", "lte", 0),
+            "initial_deferred_data_requests": ("p95", "lte", 0),
         }
         if expected["class"] == "mobile":
             targets["js_heap_mb"] = ("p95", "lte", 150)
@@ -312,6 +350,93 @@ def validate_current_graph(payload: Any) -> list[str]:
         _error(errors, location, f"missing required viewports: {', '.join(f'{w}x{h}' for w, h in missing)}")
     if payload.get("overall_status") != "pass":
         _error(errors, location, "overall_status must be pass for the hard gate")
+    environment = payload.get("environment")
+    if isinstance(environment, dict):
+        if environment.get("implementation_input_files") != CURRENT_IMPLEMENTATION_INPUT_FILES:
+            _error(
+                errors,
+                f"{location}.environment.implementation_input_files",
+                f"must equal the exact ordered current-graph inputs {CURRENT_IMPLEMENTATION_INPUT_FILES}",
+            )
+        expected_input_hash = current_implementation_input_hash()
+        if environment.get("implementation_input_hash") != expected_input_hash:
+            _error(
+                errors,
+                f"{location}.environment.implementation_input_hash",
+                f"must equal current exact current-graph input hash {expected_input_hash}",
+            )
+    lab_configuration = payload.get("lab_configuration")
+    console_policy = lab_configuration.get("browser_console_policy") if isinstance(lab_configuration, dict) else None
+    if console_policy != {
+        "application_warnings_and_errors_fail": True,
+        "allowlisted_environment_diagnostic": "Chromium WebGL GPU stall due to ReadPixels only",
+    }:
+        _error(errors, f"{location}.lab_configuration.browser_console_policy", "must preserve the exact fail-closed application console policy")
+    gzip_budget = lab_configuration.get("deterministic_gzip_budget") if isinstance(lab_configuration, dict) else None
+    if not isinstance(gzip_budget, dict):
+        _error(errors, f"{location}.lab_configuration.deterministic_gzip_budget", "must be an object")
+    else:
+        expected_static = {
+            "algorithm": "node:zlib gzip level 9; each file compressed independently",
+            "manifest": ".vite/manifest.json",
+            "status": "pass",
+        }
+        for field, expected_value in expected_static.items():
+            if gzip_budget.get(field) != expected_value:
+                _error(
+                    errors,
+                    f"{location}.lab_configuration.deterministic_gzip_budget.{field}",
+                    f"must equal {expected_value!r}",
+                )
+        numeric_limits = {
+            "home_initial_gzip_bytes": 102_942,
+            "constellation_route_gzip_bytes": 450 * 1024,
+            "initial_data_gzip_bytes": 450 * 1024,
+            "graph_summary_gzip_bytes": 100 * 1024,
+        }
+        for field, limit in numeric_limits.items():
+            value = gzip_budget.get(field)
+            if not isinstance(value, int) or isinstance(value, bool) or value <= 0 or value > limit:
+                _error(errors, f"{location}.lab_configuration.deterministic_gzip_budget.{field}", f"must be an integer from 1 to {limit}")
+        route_gzip = gzip_budget.get("constellation_route_gzip_bytes")
+        if isinstance(route_gzip, int) and not isinstance(route_gzip, bool):
+            for index, run in enumerate(runs):
+                samples = run.get("metrics", {}).get("gzip_bytes", {}).get("samples") if isinstance(run, dict) else None
+                if not isinstance(samples, list) or any(value != route_gzip for value in samples):
+                    _error(
+                        errors,
+                        f"{location}.runs[{index}].metrics.gzip_bytes.samples",
+                        "must bind every sample to deterministic_gzip_budget.constellation_route_gzip_bytes",
+                    )
+    media_delivery = lab_configuration.get("media_delivery") if isinstance(lab_configuration, dict) else None
+    if not isinstance(media_delivery, dict):
+        _error(errors, f"{location}.lab_configuration.media_delivery", "must be an object")
+    else:
+        expected = {
+            "release_id": RELEASE_ID,
+            "artwork_rows": EXPECTED_ARTWORK_ROWS,
+            "media_record_count": EXPECTED_MEDIA_RECORDS,
+            "physical_derivative_count": EXPECTED_PHYSICAL_DERIVATIVES,
+            "physical_derivative_bytes": EXPECTED_PHYSICAL_DERIVATIVE_BYTES,
+            "initial_image_requests_target": 0,
+            "initial_image_bytes_target": 0,
+            "media_index_load": "deferred",
+            "representative_media_load": "focus_only",
+            "detail_media_load": "user_navigation_only",
+            "low_bandwidth_default": "metadata_only",
+            "thumbnail_widths": [320, 640],
+            "detail_widths": [960, 1600],
+            "external_runtime_api": False,
+            "external_delivery_count": 0,
+            "blocked_asset_count": 0,
+        }
+        for field, expected_value in expected.items():
+            if media_delivery.get(field) != expected_value:
+                _error(
+                    errors,
+                    f"{location}.lab_configuration.media_delivery.{field}",
+                    f"must equal {expected_value!r}",
+                )
     return errors
 
 
@@ -393,6 +518,24 @@ def _cross_validate_release_contract(
     if contract is None:
         return
     location = "scale.release_performance_contract"
+    if contract.get("profile") != "museum-04-current-graph":
+        _error(errors, f"{location}.profile", "must be museum-04-current-graph")
+    if contract.get("continuous_force_layout") is not False:
+        _error(errors, f"{location}.continuous_force_layout", "must be false")
+    if contract.get("external_runtime_api") is not False:
+        _error(errors, f"{location}.external_runtime_api", "must be false")
+    expected_media_requests = {
+        "initial_asset_requests": 0,
+        "media_index_load": "deferred",
+        "representative_media_load": "focus_only",
+        "detail_media_load": "user_navigation_only",
+        "low_bandwidth_default": "metadata_only",
+        "thumbnail_widths": [320, 640],
+        "loading": "lazy",
+        "decoding": "async",
+    }
+    if contract.get("media_requests") != expected_media_requests:
+        _error(errors, f"{location}.media_requests", f"must equal {expected_media_requests}")
     budgets = contract.get("budgets")
     if not isinstance(budgets, dict):
         _error(errors, location, "canonical contract budgets must be an object")

@@ -13,7 +13,11 @@ from museum_pipeline.art.public_release import (
     EXPECTED_FILES,
     EXPECTED_GRAPH_HASH,
     EXPECTED_PACKAGE_HASH,
+    M03C_BUNDLE,
+    _load_media_bundle,
+    _load_package,
     _replace_owned_directory,
+    _validate_museum_04_projection_with_validated_sources,
     build_museum_04_release,
     validate_museum_04_release,
 )
@@ -35,32 +39,59 @@ class Museum04ReleaseTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.validation = validate_museum_04_release(DEFAULT_OUTPUT)
+        cls.prevalidated_sources = (_load_package(DEFAULT_PACKAGE), _load_media_bundle(M03C_BUNDLE))
         cls.documents = {
             path.name: json.loads(path.read_text(encoding="utf-8"))
             for path in DEFAULT_OUTPUT.glob("*.json")
         }
 
-    def test_local_bundle_is_strict_zero_media_candidate(self) -> None:
+    def test_local_bundle_is_formal_media_aware_release(self) -> None:
         self.assertTrue(self.validation["ok"], self.validation["failures"])
         self.assertEqual(
-            {"artists": 12, "contexts": 31, "relationships": 36, "artworks": 44, "media": 0, "media_bytes": 0},
-            {key: self.validation["counts"][key] for key in ("artists", "contexts", "relationships", "artworks", "media", "media_bytes")},
+            {
+                "artists": 12,
+                "contexts": 31,
+                "relationships": 36,
+                "artworks": 44,
+                "media": 242,
+                "media_bytes": 35_907_176,
+                "approved_media_artworks": 31,
+                "no_image_artworks": 13,
+            },
+            {
+                key: self.validation["counts"][key]
+                for key in (
+                    "artists", "contexts", "relationships", "artworks", "media", "media_bytes",
+                    "approved_media_artworks", "no_image_artworks",
+                )
+            },
         )
         self.assertEqual({"manifest.json", *EXPECTED_FILES}, {path.name for path in DEFAULT_OUTPUT.iterdir() if path.is_file()})
-        self.assertEqual([], self.documents["manifest.json"]["included_media_asset_ids"])
-        self.assertEqual("reviewed", self.documents["manifest.json"]["status"])
-        self.assertFalse(self.documents["manifest.json"]["public_release"])
-        self.assertTrue(all(item["review_status"] == "reviewed" for item in self.documents["artists.json"]["artists"]))
-        self.assertTrue(all(item["lifecycle_status"] == "reviewed" for item in self.documents["artists.json"]["artists"]))
+        self.assertEqual(273, len(self.documents["manifest.json"]["included_media_asset_ids"]))
+        self.assertEqual("publishable", self.documents["manifest.json"]["status"])
+        self.assertTrue(self.documents["manifest.json"]["public_release"])
+        self.assertTrue(all(item["review_status"] == "publishable" for item in self.documents["artists.json"]["artists"]))
+        self.assertTrue(all(item["lifecycle_status"] == "publishable" for item in self.documents["artists.json"]["artists"]))
         self.assertTrue(all(item["summary_provenance"]["human_reviewed"] is False for item in self.documents["artists.json"]["artists"]))
-        self.assertEqual("candidate_pending_human_editorial_review", self.documents["release-signoff.json"]["decision"])
-        self.assertEqual("pending", self.documents["release-signoff.json"]["editorial_review_status"])
-        self.assertFalse(any(path.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp3", ".mp4"} for path in DEFAULT_OUTPUT.rglob("*")))
+        signoff = self.documents["release-signoff.json"]
+        self.assertEqual("accepted_for_public_release", signoff["decision"])
+        self.assertEqual("automated_pass", signoff["editorial_review_status"])
+        self.assertFalse(signoff["human_review_dependency"])
+        self.assertFalse(signoff["human_reviewer_claimed"])
+        self.assertEqual("automated_release_validation_pipeline", signoff["reviewer_kind"])
+        self.assertEqual(242, sum(path.suffix.lower() in {".jpg", ".jpeg", ".webp"} for path in DEFAULT_OUTPUT.rglob("*")))
         source_rule_snapshots = self.documents["source-rules-snapshot.json"]["sources"]
-        self.assertTrue(all(len(item["license_rules"]) == 1 for item in source_rule_snapshots))
         self.assertEqual(
-            {"data"},
-            {rule["content_class"] for item in source_rule_snapshots for rule in item["license_rules"]},
+            {
+                "source:aic_api": {"data"},
+                "source:getty_ulan": {"data"},
+                "source:met_open_access": {"data", "media"},
+                "source:wikidata": {"data"},
+            },
+            {
+                item["source_id"]: {rule["content_class"] for rule in item["license_rules"]}
+                for item in source_rule_snapshots
+            },
         )
 
     def test_actual_dtos_match_frontend_release_contract(self) -> None:
@@ -80,6 +111,27 @@ class Museum04ReleaseTests(unittest.TestCase):
             rights["third_party_metadata"]["statement"], rights["media"]["statement"],
         ):
             self.assertEqual({"zh-Hans", "en"}, set(statement))
+
+    def test_media_parent_child_runtime_and_withdrawal_closure(self) -> None:
+        media_records = self.documents["media-assets.json"]["assets"]
+        parents = {item["id"]: item for item in media_records if item["delivery_mode"] == "external_link"}
+        children = {item["id"]: item for item in media_records if item["delivery_mode"] == "self_hosted"}
+        runtime_assets = {item["id"]: item for item in self.documents["media-index.json"]["assets"]}
+        withdrawals = {item["media_id"]: item for item in self.documents["withdrawal-mapping.json"]["mappings"]}
+        self.assertEqual(31, len(parents))
+        self.assertEqual(242, len(children))
+        self.assertEqual(set(children), set(runtime_assets))
+        self.assertEqual(set(children), set(withdrawals))
+        self.assertEqual(set(media_records_item["id"] for media_records_item in media_records), set(self.documents["manifest.json"]["included_media_asset_ids"]))
+        self.assertTrue(all(item["development_only"] is False and item["publish_status"] == "publishable" for item in media_records))
+        for media_id, runtime in runtime_assets.items():
+            child = children[media_id]
+            parent_id = runtime["parent_media_id"]
+            self.assertIn(parent_id, parents)
+            self.assertEqual(parent_id, child["derivation"]["derived_from_media_id"])
+            self.assertEqual(runtime["sha256"], child["content_hash"])
+            self.assertEqual("active", withdrawals[media_id]["status"])
+            self.assertTrue((DEFAULT_OUTPUT / runtime["src"]).is_file())
 
     def test_relationship_chinese_explanations_are_specific_and_noncausal(self) -> None:
         artists = {item["id"]: item for item in self.documents["artists.json"]["artists"]}
@@ -105,30 +157,47 @@ class Museum04ReleaseTests(unittest.TestCase):
         self.assertEqual(36, len(explanations))
         self.assertEqual(36, len(set(explanations)))
 
-    def test_generic_physical_validator_accepts_zero_media_bundle(self) -> None:
+    def test_generic_physical_validator_accepts_media_aware_bundle(self) -> None:
         self.assertEqual([], validate_release_directory(DEFAULT_OUTPUT, load_schema_environment(ROOT)))
 
-    def test_formal_release_gate_requires_identified_human_editorial_review(self) -> None:
-        result = validate_museum_04_release(DEFAULT_OUTPUT, require_public=True)
-        self.assertFalse(result["ok"])
-        self.assertEqual(["m04_human_editorial_review_required"], result["codes"])
+    def test_formal_release_gate_accepts_automated_cross_validation(self) -> None:
+        result = _validate_museum_04_projection_with_validated_sources(
+            DEFAULT_OUTPUT,
+            self.prevalidated_sources[0],
+            self.prevalidated_sources[1],
+            [],
+            require_public=True,
+        )
+        self.assertTrue(result["ok"], result["failures"])
+        self.assertEqual([], result["codes"])
 
     def test_malformed_manifest_returns_structured_failure(self) -> None:
         with tempfile.TemporaryDirectory(prefix="museum-04-malformed-manifest-") as temporary:
-            release_root = Path(temporary) / "art-constellation-0.1.0"
+            release_root = Path(temporary) / "art-constellation-1.0.0"
             shutil.copytree(DEFAULT_OUTPUT, release_root)
             (release_root / "manifest.json").write_bytes(canonical_json_bytes([]))
-            result = validate_museum_04_release(release_root)
+            result = _validate_museum_04_projection_with_validated_sources(
+                release_root,
+                self.prevalidated_sources[0],
+                self.prevalidated_sources[1],
+                [],
+            )
             self.assertFalse(result["ok"])
             self.assertIn("m04_document_type", result["codes"])
 
     def test_builder_is_deterministic_against_committed_bundle(self) -> None:
         with tempfile.TemporaryDirectory(prefix="museum-04-determinism-") as temporary:
-            generated = Path(temporary) / "art-constellation-0.1.0"
+            generated = Path(temporary) / "art-constellation-1.0.0"
             result = build_museum_04_release(generated)
             self.assertTrue(result["ok"])
-            expected = {path.name: path.read_bytes() for path in DEFAULT_OUTPUT.iterdir() if path.is_file()}
-            observed = {path.name: path.read_bytes() for path in generated.iterdir() if path.is_file()}
+            expected = {
+                path.relative_to(DEFAULT_OUTPUT).as_posix(): path.read_bytes()
+                for path in DEFAULT_OUTPUT.rglob("*") if path.is_file()
+            }
+            observed = {
+                path.relative_to(generated).as_posix(): path.read_bytes()
+                for path in generated.rglob("*") if path.is_file()
+            }
             self.assertEqual(expected, observed)
 
     def test_versioned_install_is_noop_when_equal_and_rejects_drift(self) -> None:
@@ -190,9 +259,13 @@ class Museum04ReleaseTests(unittest.TestCase):
             self.assertIn("wikidata_qid", {item["code"] for item in scan_public_artifact(root, formal_art_terms=formal_terms, formal_art_exempt_roots={root})})
 
     def test_expected_invalid_fixture_matrix(self) -> None:
-        result = run_fixtures(DEFAULT_OUTPUT)
+        result = run_fixtures(
+            DEFAULT_OUTPUT,
+            _base_validation=self.validation,
+            _prevalidated_sources=self.prevalidated_sources,
+        )
         self.assertTrue(result["ok"], result["results"])
-        self.assertEqual(20, result["count"])
+        self.assertEqual(28, result["count"])
 
 
 if __name__ == "__main__":

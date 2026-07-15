@@ -14,12 +14,12 @@ from museum_pipeline.art.public_release import DEFAULT_OUTPUT, validate_museum_0
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate the MUSEUM-04 metadata-only release candidate or formal public release")
+    parser = argparse.ArgumentParser(description="Validate the formal media-aware MUSEUM-04 public release")
     parser.add_argument("release_root", nargs="?", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument(
         "--require-public",
         action="store_true",
-        help="Reject a reviewed candidate unless identified human editorial approval makes it a formal public release",
+        help="Require the immutable publishable/public release profile",
     )
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
@@ -28,7 +28,7 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     elif result["ok"]:
         counts = result["counts"]
-        profile = "formal public release" if args.require_public else "release candidate"
+        profile = "formal public release"
         print(f"[PASS] MUSEUM-04 {profile}: artists={counts.get('artists')} contexts={counts.get('contexts')} relationships={counts.get('relationships')} media={counts.get('media')}")
     else:
         for failure in result["failures"]:

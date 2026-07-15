@@ -10,12 +10,14 @@ from typing import Any
 
 from scripts.validate_museum_04_performance_evidence import (
     CURRENT_METRIC_UNITS,
+    CURRENT_IMPLEMENTATION_INPUT_FILES,
     FIFTY_K_MODEL_STORAGE_BYTES,
     GOVERNANCE_FIELDS,
     RELEASE_PERFORMANCE_CONTRACT_PATH,
     SCALE_IMPLEMENTATION_INPUT_FILES,
     VISIBLE_CAPS,
     implementation_input_hash,
+    current_implementation_input_hash,
     sha256_file,
     validate_current_graph,
     validate_files,
@@ -77,6 +79,41 @@ def common(benchmark_id: str) -> dict[str, Any]:
 
 def current_payload() -> dict[str, Any]:
     payload = common("museum-04-current-graph")
+    payload["environment"]["implementation_input_files"] = CURRENT_IMPLEMENTATION_INPUT_FILES
+    payload["environment"]["implementation_input_hash"] = current_implementation_input_hash()
+    payload["lab_configuration"] = {
+        "browser_console_policy": {
+            "application_warnings_and_errors_fail": True,
+            "allowlisted_environment_diagnostic": "Chromium WebGL GPU stall due to ReadPixels only",
+        },
+        "deterministic_gzip_budget": {
+            "algorithm": "node:zlib gzip level 9; each file compressed independently",
+            "home_initial_gzip_bytes": 90_000,
+            "constellation_route_gzip_bytes": 100_000,
+            "initial_data_gzip_bytes": 20_000,
+            "graph_summary_gzip_bytes": 1_000,
+            "manifest": ".vite/manifest.json",
+            "status": "pass",
+        },
+        "media_delivery": {
+            "release_id": "release:art-constellation-1.0.0",
+            "artwork_rows": 44,
+            "media_record_count": 273,
+            "physical_derivative_count": 242,
+            "physical_derivative_bytes": 35_907_176,
+            "initial_image_requests_target": 0,
+            "initial_image_bytes_target": 0,
+            "media_index_load": "deferred",
+            "representative_media_load": "focus_only",
+            "detail_media_load": "user_navigation_only",
+            "low_bandwidth_default": "metadata_only",
+            "thumbnail_widths": [320, 640],
+            "detail_widths": [960, 1600],
+            "external_runtime_api": False,
+            "external_delivery_count": 0,
+            "blocked_asset_count": 0,
+        }
+    }
     runs = []
     for width, height, device, cpu, network in (
         (390, 844, "mobile", 4, "fast_4g"),
@@ -94,8 +131,11 @@ def current_payload() -> dict[str, Any]:
             "filter_ms": ("p95", "lte", 200),
             "relationship_detail_ms": ("p95", "lte", 200),
             "keyboard_focus_ms": ("p95", "lte", 100),
-            "fps": ("p95", "gte", fps_limit),
+            "fps": ("median", "gte", fps_limit),
             "cls": ("p95", "lte", 0.1),
+            "initial_image_requests": ("p95", "lte", 0),
+            "initial_image_bytes": ("p95", "lte", 0),
+            "initial_deferred_data_requests": ("p95", "lte", 0),
         }
         if device == "mobile":
             targets["js_heap_mb"] = ("p95", "lte", 150)
@@ -110,10 +150,22 @@ def current_payload() -> dict[str, Any]:
             "lcp_ms": 1_000,
             "interaction_proxy_ms": 100,
             "cls": 0.05,
+            "initial_image_requests": 0,
+            "initial_image_bytes": 0,
+            "deferred_image_requests": 1,
+            "deferred_image_bytes": 16_000,
+            "initial_deferred_data_requests": 0,
+            "deferred_data_requests": 3,
         }
         metrics = {
             name: measurement(values.get(name, 10), unit, targets.get(name))
             for name, unit in CURRENT_METRIC_UNITS.items()
+        }
+        metrics["gzip_bytes"] = {
+            "unit": "bytes",
+            "samples": [100_000, 100_000, 100_000],
+            "median": 100_000,
+            "p95": 100_000,
         }
         runs.append(
             {
@@ -239,15 +291,49 @@ def scale_payload() -> dict[str, Any]:
 
 class Museum04PerformanceEvidenceTests(unittest.TestCase):
     def test_valid_current_graph_contract_passes(self) -> None:
+        self.assertIn("src/i18n/translations.ts", CURRENT_IMPLEMENTATION_INPUT_FILES)
+        self.assertIn("src/preferences/PreferencesProvider.tsx", CURRENT_IMPLEMENTATION_INPUT_FILES)
         self.assertEqual([], validate_current_graph(current_payload()))
 
     def test_recomputed_statistics_and_hard_target_fail_closed(self) -> None:
         payload = current_payload()
         payload["runs"][0]["metrics"]["node_selection_ms"]["median"] = 999
         payload["runs"][0]["metrics"]["filter_ms"] = measurement(300, "ms", ("p95", "lte", 200))
+        payload["runs"][0]["metrics"]["initial_image_requests"] = measurement(1, "count", ("p95", "lte", 0))
+        payload["runs"][0]["metrics"]["initial_deferred_data_requests"] = measurement(1, "count", ("p95", "lte", 0))
         errors = validate_current_graph(payload)
         self.assertTrue(any("median must equal recomputed" in error for error in errors))
         self.assertTrue(any("hard target failed" in error for error in errors))
+        self.assertTrue(any("initial_image_requests" in error for error in errors))
+        self.assertTrue(any("initial_deferred_data_requests" in error for error in errors))
+
+    def test_one_fast_fps_sample_cannot_hide_two_slow_samples(self) -> None:
+        payload = current_payload()
+        payload["runs"][0]["metrics"]["fps"] = {
+            "unit": "fps",
+            "samples": [1, 1, 31],
+            "median": 1,
+            "p95": 31,
+            "target": {"statistic": "median", "operator": "gte", "value": 30, "passed": False},
+        }
+        errors = validate_current_graph(payload)
+        self.assertTrue(any("fps" in error and "hard target failed" in error for error in errors))
+
+    def test_media_delivery_summary_fails_closed(self) -> None:
+        payload = current_payload()
+        payload["lab_configuration"]["media_delivery"]["physical_derivative_count"] = 241
+        payload["lab_configuration"]["media_delivery"]["external_runtime_api"] = True
+        errors = validate_current_graph(payload)
+        self.assertTrue(any("physical_derivative_count" in error for error in errors))
+        self.assertTrue(any("external_runtime_api" in error for error in errors))
+
+    def test_current_implementation_and_static_budget_binding_fail_closed(self) -> None:
+        payload = current_payload()
+        payload["environment"]["implementation_input_hash"] = "sha256:" + "0" * 64
+        payload["lab_configuration"]["deterministic_gzip_budget"]["constellation_route_gzip_bytes"] = 99_999
+        errors = validate_current_graph(payload)
+        self.assertTrue(any("implementation_input_hash" in error for error in errors))
+        self.assertTrue(any("must bind every sample" in error for error in errors))
 
     def test_valid_scale_contract_passes(self) -> None:
         self.assertEqual([], validate_scale(scale_payload()))

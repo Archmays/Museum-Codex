@@ -6,7 +6,10 @@ import {
   METRIC_UNITS,
   aggregateRuns,
   buildEvidence,
+  classifyResourceUrl,
   extractBudgetReport,
+  isFailingConsoleType,
+  isExpectedBrowserDiagnostic,
   measurement,
   nearestRankP95,
   normalizeTargetUrl,
@@ -15,6 +18,28 @@ import {
   validateWithPython,
   verifyRawSample,
 } from "../scripts/run-museum-04-current-lab.mjs";
+
+test("resource classification catches initial images and deferred governance DTOs", () => {
+  assert.equal(classifyResourceUrl("https://example.test/releases/x/assets/work/320w.webp?hash=1"), "image");
+  assert.equal(classifyResourceUrl("https://example.test/releases/x/media-index.json"), "deferred_data");
+  assert.equal(classifyResourceUrl("https://example.test/releases/x/withdrawal-mapping.json#v1"), "deferred_data");
+  assert.equal(classifyResourceUrl("https://example.test/releases/x/artists.json"), null);
+});
+
+test("browser console warnings and errors both fail the controlled lab", () => {
+  assert.equal(isFailingConsoleType("warning"), true);
+  assert.equal(isFailingConsoleType("error"), true);
+  assert.equal(isFailingConsoleType("log"), false);
+  assert.equal(isExpectedBrowserDiagnostic("warning", "application warning"), false);
+  assert.equal(
+    isExpectedBrowserDiagnostic("warning", "[.WebGL-0x123]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"),
+    true,
+  );
+  assert.equal(
+    isExpectedBrowserDiagnostic("error", "[.WebGL-0x123]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"),
+    false,
+  );
+});
 
 test("nearest-rank p95 and hard-target measurement match the Python contract", () => {
   assert.equal(nearestRankP95([4, 1, 3, 2, 5]), 5);
@@ -56,6 +81,14 @@ test("deterministic gzip budget stdout is parsed without treating the PASS line 
   const report = {
     algorithm: "node:zlib gzip level 9; each file compressed independently",
     constellationRoute: { gzipBytes: 123_456 },
+    mediaDelivery: {
+      artworkRows: 44,
+      mediaRecords: 273,
+      physicalFiles: 242,
+      physicalBytes: 35_907_176,
+      initialMediaRequests: 0,
+      initialMediaBytes: 0,
+    },
     status: "pass",
   };
   assert.deepEqual(
@@ -88,6 +121,12 @@ function passingSample(profile) {
     gzip_bytes: 180_000,
     lcp_ms: 1_000,
     interaction_proxy_ms: 70,
+    initial_image_requests: 0,
+    initial_image_bytes: 0,
+    deferred_image_requests: 1,
+    deferred_image_bytes: 16_000,
+    initial_deferred_data_requests: 0,
+    deferred_data_requests: 3,
   };
 }
 
@@ -95,7 +134,7 @@ function samplesByProfile() {
   return Object.fromEntries(CURRENT_PROFILES.map((profile) => [
     profile.id,
     [0.9, 1, 1.1].map((factor) => Object.fromEntries(
-      Object.entries(passingSample(profile)).map(([name, value]) => [name, value * factor]),
+      Object.entries(passingSample(profile)).map(([name, value]) => [name, name === "gzip_bytes" ? value : value * factor]),
     )),
   ]));
 }
@@ -110,6 +149,9 @@ test("raw sample and four-profile aggregation fail closed", () => {
   assert.deepEqual(runs.map((run) => run.initial_experience), CURRENT_PROFILES.map((profile) => profile.initialExperience));
   assert.deepEqual(Object.keys(runs[0].metrics), Object.keys(METRIC_UNITS));
   assert.equal(runs[0].metrics.node_selection_ms.target.passed, true);
+  assert.equal(runs[0].metrics.initial_image_requests.target.value, 0);
+  assert.equal(runs[0].metrics.initial_image_bytes.target.passed, true);
+  assert.equal(runs[0].metrics.initial_deferred_data_requests.target.passed, true);
 });
 
 test("assembled evidence validates through the canonical Python contract", () => {
@@ -119,6 +161,14 @@ test("assembled evidence validates through the canonical Python contract", () =>
     homeInitial: { gzipBytes: 90_000 },
     constellationRoute: { gzipBytes: 180_000, initialDataGzipBytes: 8_000 },
     graphSummary: { gzipBytes: 1_500 },
+    mediaDelivery: {
+      artworkRows: 44,
+      mediaRecords: 273,
+      physicalFiles: 242,
+      physicalBytes: 35_907_176,
+      initialMediaRequests: 0,
+      initialMediaBytes: 0,
+    },
     status: "pass",
   };
   const evidence = buildEvidence(
@@ -130,5 +180,8 @@ test("assembled evidence validates through the canonical Python contract", () =>
   assert.equal(evidence.real_user_metric, false);
   assert.equal(evidence.real_device_status, "not_available");
   assert.equal(evidence.lab_configuration.analytics_or_telemetry_added, false);
+  assert.equal(evidence.lab_configuration.media_delivery.physical_derivative_count, 242);
+  assert.equal(evidence.lab_configuration.media_delivery.initial_image_bytes_target, 0);
+  assert.ok(evidence.environment.implementation_input_files.includes("src/i18n/translations.ts"));
   assert.doesNotThrow(() => validateWithPython(evidence));
 });

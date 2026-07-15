@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/release-withdrawal-mapping.schema.json",
+  "title": "MUSEUM-04 released derivative withdrawal mapping",
+  "type": "object",
+  "required": ["schema_version", "release_id", "media_bundle_id", "media_bundle_hash", "procedure_url", "mappings"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "release_id": { "const": "release:art-constellation-1.0.0" },
+    "media_bundle_id": { "const": "media-bundle:museum-03c-v1" },
+    "media_bundle_hash": { "const": "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565" },
+    "procedure_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "mappings": {
+      "type": "array",
+      "minItems": 242,
+      "maxItems": 242,
+      "items": {
+        "type": "object",
+        "required": ["artwork_id", "derivative_paths", "effective_at", "media_id", "public_notice", "replacement_media_id", "rights_record_id", "source_id", "status"],
+        "properties": {
+          "artwork_id": { "type": "string", "pattern": "^artwork:" },
+          "derivative_paths": {
+            "type": "array", "minItems": 1, "maxItems": 1, "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^assets/[a-z0-9._-]+/[0-9]+w\\.(?:jpg|webp)$" }
+          },
+          "effective_at": { "type": ["string", "null"], "format": "date-time" },
+          "media_id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+          "public_notice": { "type": "string", "minLength": 1 },
+          "replacement_media_id": { "oneOf": [{ "type": "string", "pattern": "^media:" }, { "type": "null" }] },
+          "rights_record_id": { "type": "string", "pattern": "^media-cross-check:" },
+          "source_id": { "type": "string", "pattern": "^source:" },
+          "status": { "const": "active" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,6 @@
+{
+  "fixture_id": "museum-04-media-parent-chain",
+  "mutation": "media_parent_chain",
+  "expected_valid": false,
+  "expected_error_codes": ["m04_media_parent_chain"]
+}

@@ -8,7 +8,7 @@
     <script>
       if (location.hash.startsWith("#/art/constellation")) {
         const files = ["manifest.json", "artists.json"];
-        const base = new URL("/Museum-Codex/releases/art-constellation-0.1.0/", location.origin);
+        const base = new URL("/Museum-Codex/releases/art-constellation-1.0.0/", location.origin);
         const artifacts = globalThis.__MUSEUM04_BOOTSTRAP__ = new Map();
         for (const name of files) {
           const url = new URL(name, base).href;
@@ -39,14 +39,14 @@
         </nav>
         <section id="art-noscript">
           <h2>艺术星海：观察与比较</h2>
-          <p>当前公开版本以文字元数据说明 12 位艺术家之间 36 条经审核的 C 级策展比较；不含作品图片、历史因果边或算法相似。</p>
-          <p>The current metadata-only edition describes 36 reviewed C-level curatorial comparisons among 12 artists. It contains no artwork images, historical-causality edges, or algorithmic similarity.</p>
+          <p>当前公开版本包含 12 位艺术家、44 件作品与 36 条经审核的 C 级策展比较；作品图像只使用通过身份、权利、字节和质量门禁的自托管衍生文件。</p>
+          <p>The public edition contains 12 artists, 44 artworks, and 36 reviewed C-level curatorial comparisons. Artwork images use only self-hosted derivatives that passed identity, rights, byte, and quality gates.</p>
           <p>完整的图形、艺术家列表与关系表探索需要启用 JavaScript；来源、权利和限制仍由同一固定 release 管理。</p>
         </section>
         <section id="rights-noscript">
           <h2>权利与署名 / Rights &amp; attribution</h2>
-          <p>项目代码与原创策展内容保留所有权利。第三方元数据继续适用各自的来源规则与署名；本版本不发布任何第三方媒体字节。</p>
-          <p>Project code and original curatorial content are all rights reserved. Third-party metadata retains its own source rules and attribution. This edition publishes no third-party media bytes.</p>
+          <p>项目代码与原创策展内容保留所有权利。第三方元数据与媒体按各自许可、署名及撤回规则独立管理；metadata-only 或 blocked 作品不显示图片。</p>
+          <p>Project code and original curatorial content are all rights reserved. Third-party metadata and media retain their own licenses, attribution, and withdrawal rules; metadata-only or blocked works show no image.</p>
         </section>
       </main>
     </div>

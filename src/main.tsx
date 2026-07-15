@@ -12,7 +12,7 @@ if (!root) {
 
 if (window.location.hash.startsWith("#/art/constellation")) {
   void preloadArtConstellationRoute();
-  preloadArtConstellationData(`${import.meta.env.BASE_URL}releases/art-constellation-0.1.0/`);
+  preloadArtConstellationData(`${import.meta.env.BASE_URL}releases/art-constellation-1.0.0/`);
 }
 
 createRoot(root).render(

@@ -16,9 +16,10 @@ class Museum04WorkflowTests(unittest.TestCase):
     def test_release_rights_and_projection_gates_are_required(self) -> None:
         required = (
             "python scripts/validate_museum_04_issue_form.py",
+            "python -m museum_pipeline.media validate-bundle --json",
             "python scripts/build_museum_04_release.py --output tmp/museum-04-ci-release",
-            "diff -ru public/releases/art-constellation-0.1.0 tmp/museum-04-ci-release",
-            "python scripts/validate_museum_04_release.py public/releases/art-constellation-0.1.0 --require-public",
+            "diff -ru public/releases/art-constellation-1.0.0 tmp/museum-04-ci-release",
+            "python scripts/validate_museum_04_release.py public/releases/art-constellation-1.0.0 --require-public",
             "python scripts/scan_public_artifact_for_candidate_data.py public --label-set",
             "python scripts/scan_public_artifact_for_candidate_data.py dist --label-set",
         )
@@ -39,13 +40,13 @@ class Museum04WorkflowTests(unittest.TestCase):
                 self.assertLess(self.text.index(command), upload_index)
         self.assertIn("path: dist", self.text)
 
-    def test_ci_remains_offline_and_metadata_only(self) -> None:
+    def test_ci_remains_offline_and_never_acquires_live_media(self) -> None:
         forbidden = (
             "museum_pipeline acquire",
+            "museum_pipeline.media acquire",
             "--live",
             "curl ",
             "wget ",
-            "iiif",
             "build-selection-pool",
             "build-approved-batch",
             "build-graph-input",

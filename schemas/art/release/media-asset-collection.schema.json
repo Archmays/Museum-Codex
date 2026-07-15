@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/media-asset-collection.schema.json",
+  "title": "MUSEUM-04 common media asset collection",
+  "type": "object",
+  "required": ["schema_version", "release_id", "assets"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "release_id": { "const": "release:art-constellation-1.0.0" },
+    "assets": {
+      "type": "array",
+      "minItems": 273,
+      "maxItems": 273,
+      "items": { "$ref": "https://museum-codex.example/schemas/common/media-asset.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,6 +1,10 @@
 const INITIAL_FILES = [
   "manifest.json",
   "artists.json",
+  "graph-summary.json",
+  "search-index.json",
+  "layout.json",
+  "facets.json",
 ] as const;
 
 export type BootstrappedArtifact = {
