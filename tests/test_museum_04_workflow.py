@@ -39,10 +39,15 @@ class Museum04WorkflowTests(unittest.TestCase):
         )
         upload_index = self.text.index("actions/upload-pages-artifact")
         deploy_index = self.text.index("actions/deploy-pages")
+        python_tests_index = self.text.index("python scripts/run_offline_python_tests.py")
+        node_setup_index = self.text.index("actions/setup-node")
+        npm_install_index = self.text.index("run: npm ci")
         for command in required:
             with self.subTest(command=command):
                 self.assertLess(self.text.index(command), upload_index)
                 self.assertLess(self.text.index(command), deploy_index)
+        self.assertLess(node_setup_index, python_tests_index)
+        self.assertLess(npm_install_index, python_tests_index)
         self.assertIn("path: dist", self.text)
         self.assertIn("deploy:\n    needs: build", self.text)
 
