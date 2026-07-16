@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-06",
+  "status": "pass",
+  "captured_at": "2026-07-16T06:45:02.2972837Z",
+  "pages_url": "https://archmays.github.io/Museum-Codex/",
+  "runtime_commit": "547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a",
+  "actions": {
+    "successful_run_id": 29475511478,
+    "successful_run_url": "https://github.com/Archmays/Museum-Codex/actions/runs/29475511478",
+    "conclusion": "success",
+    "build_job_id": 87547540772,
+    "deploy_job_id": 87550649334,
+    "failed_attempts": [
+      {
+        "run_id": 29473923044,
+        "closure": "Public rebuild now consumes the hash-closed committed A/B review when private inputs are unavailable."
+      },
+      {
+        "run_id": 29474313617,
+        "closure": "Three M06 tests now validate the closed review reader instead of invoking the private-input review executor."
+      }
+    ]
+  },
+  "deployment": {
+    "id": 5468903273,
+    "state": "success",
+    "environment": "github-pages",
+    "environment_url": "https://archmays.github.io/Museum-Codex/",
+    "deployed_at": "2026-07-16T06:23:12Z",
+    "commit": "547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a"
+  },
+  "release_byte_closure": {
+    "release_id": "release:art-pathways-1.2.0",
+    "content_hash": "sha256:8a773b00b37f025520e7ea4ef7a7ebc9cd3e0d3f1298925d3c20be29b28fe6f3",
+    "manifest_sha256": "sha256:9eb27757c4888784bc79727ba7ce95179e313472a75b99a4b2098d3e4a6fb2dc",
+    "file_count": 273,
+    "matched_file_count": 273,
+    "matched_bytes": 40654362,
+    "failed_file_count": 0,
+    "tree_hash_algorithm": "sha256(path\\0size\\0file_sha256\\n)",
+    "tree_hash": "sha256:1eb79f9210b46f5c1163d8c8dd81e4726394b4ec22cd588e8c231f9d417c1cb6",
+    "first_pass": {
+      "matched_file_count": 272,
+      "timed_out_file": "claims.json"
+    },
+    "failed_item_closure": {
+      "path": "claims.json",
+      "attempts": 2,
+      "bytes": 1720213,
+      "sha256": "sha256:1b75416140c4783b7037934338983eb66bd0c16d66b794908338cea11f7f13e3",
+      "matched": true
+    },
+    "request_policy": {
+      "accept_encoding": "identity",
+      "https_only": true,
+      "bounded_retries": true
+    }
+  },
+  "browser_qa": {
+    "m06_and_core_routes": {
+      "initial": "9/10 pass",
+      "failed_item_closure": "1/1 pass",
+      "external_request_count": 0,
+      "http_error_count": 0,
+      "console_issue_count": 0
+    },
+    "legacy_gallery_routes": {
+      "artist_index": "pass",
+      "tour_content": "pass",
+      "tour_cold_first_interactive_ms": 3105.1,
+      "tour_local_budget_applicable_to_live_probe": false,
+      "functional_closure": "3/3 pass"
+    },
+    "verified_routes": [
+      "#/",
+      "#/art",
+      "#/art/constellation",
+      "#/art/paths",
+      "#/art/artists",
+      "#/art/artists/:artistId",
+      "#/art/artworks/:artworkId",
+      "#/art/compare",
+      "#/art/tours",
+      "#/art/tours/:tourId",
+      "#/about",
+      "#/accessibility"
+    ],
+    "no_script_http_200": true,
+    "path_online_screenshot_count": 3,
+    "total_online_screenshot_count": 18
+  },
+  "git_alignment_before_closeout_evidence_commit": {
+    "local_head": "547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a",
+    "origin_main": "547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a",
+    "remote_main": "547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a"
+  },
+  "analytics_or_tracking_added": false,
+  "museum_07_entered": false
+}

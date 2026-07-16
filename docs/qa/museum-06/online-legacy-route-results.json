@@ -1,0 +1,205 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/museum-05a.spec.ts",
+      "e2e/museum-05b.spec.ts",
+      "--grep",
+      "artist index exposes|tour index exposes"
+    ],
+    "configFile": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\playwright.config.ts",
+    "rootDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/output/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/qa/museum-06/online-legacy-route-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 10,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "museum-05a.spec.ts",
+      "file": "museum-05a.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "artist index exposes 12 reviewed entries, useful filters, and all 12 artist galleries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10986,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T06:43:27.063Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "78d722694269aa0ffbdb-d24fea44050f0e623fd3",
+          "file": "museum-05a.spec.ts",
+          "line": 130,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "museum-05b.spec.ts",
+      "file": "museum-05b.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "tour index exposes 12 artist and six reviewed thematic routes without eager media",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 4244,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1500\u001b[39m\nReceived:    \u001b[31m3105.0999999940395\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1500\u001b[39m\nReceived:    \u001b[31m3105.0999999940395\u001b[39m\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:163:30",
+                    "location": {
+                      "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                      "column": 30,
+                      "line": 163
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 161 |\u001b[39m     }\u001b[33m;\u001b[39m\n \u001b[90m 162 |\u001b[39m   })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 163 |\u001b[39m   expect(firstInteractiveMs)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m1\u001b[39m_500)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 164 |\u001b[39m   expect(measured\u001b[33m.\u001b[39mvitals\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mlcpMs)\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeNull()\u001b[33m;\u001b[39m\n \u001b[90m 165 |\u001b[39m   expect(measured\u001b[33m.\u001b[39mvitals\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mlcpMs \u001b[33m?\u001b[39m\u001b[33m?\u001b[39m \u001b[33mNumber\u001b[39m\u001b[33m.\u001b[39m\u001b[33mPOSITIVE_INFINITY\u001b[39m)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m2\u001b[39m_500)\u001b[33m;\u001b[39m\n \u001b[90m 166 |\u001b[39m   expect(measured\u001b[33m.\u001b[39mvitals\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mcls \u001b[33m?\u001b[39m\u001b[33m?\u001b[39m \u001b[33mNumber\u001b[39m\u001b[33m.\u001b[39m\u001b[33mPOSITIVE_INFINITY\u001b[39m)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m0.1\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                        "column": 30,
+                        "line": 163
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1500\u001b[39m\nReceived:    \u001b[31m3105.0999999940395\u001b[39m\n\n  161 |     };\n  162 |   });\n> 163 |   expect(firstInteractiveMs).toBeLessThanOrEqual(1_500);\n      |                              ^\n  164 |   expect(measured.vitals?.lcpMs).not.toBeNull();\n  165 |   expect(measured.vitals?.lcpMs ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(2_500);\n  166 |   expect(measured.vitals?.cls ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(0.1);\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:163:30"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T06:43:27.065Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-tour-index-expo-e60d1--routes-without-eager-media\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-tour-index-expo-e60d1--routes-without-eager-media\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-tour-index-expo-e60d1--routes-without-eager-media\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                    "column": 30,
+                    "line": 163
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-391589d87424f4721fa0",
+          "file": "museum-05b.spec.ts",
+          "line": 128,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-16T06:43:26.651Z",
+    "duration": 13761.329000000002,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

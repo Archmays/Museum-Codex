@@ -11,7 +11,7 @@
 - **Done when:** Algorithm/release/UI/browser/performance gates pass, Pages is live, local/origin/remote `main` agree, worktree is clean, and P0-P2 are zero.
 - **Must not touch:** Immutable predecessor release bytes, existing source snapshots, open decisions OD-006/008/009/011, unrelated halls or dependency versions.
 - **Evidence sources:** M05B report, M03A v5 relationship leads, M03B relationship dispositions, formal 1.1.0 release, relationship policies/schemas, targeted and final validators, Actions/Pages/live QA.
-- **Current stage:** final candidate gates
+- **Current stage:** completed / online closeout
 
 ## Unknown register
 
@@ -55,7 +55,7 @@
 - **Conservative choice:** Keep the Python implementation as the release writer/reference and Graphology as the client runtime; fail closed on release or graph-hash mismatch.
 - **Consequence:** Historical/context modes remain empty without blocking 198 C-level comparison alternatives.
 - **Revisit:** Only when a future immutable release changes the formal graph.
-- **Validation:** 26 M06 Python tests, 8 algorithm Vitest scenarios, exact 66-pair equality.
+- **Validation:** 27 M06 Python tests, 8 algorithm Vitest scenarios, exact 66-pair equality.
 - **Fold into next attempt:** Preserve stable relation and artist ID tie-breaks.
 
 ## Entry
@@ -108,9 +108,45 @@
 
 ## Entry
 
+- **Entry type:** deviation
+- **Expected:** The public CI rebuild would have the same evidence inputs as the local reviewed workspace.
+- **Discovered:** GitHub runners intentionally lack the protected M03A lead package; the first run failed closed in M06 rebuilding, and the second run exposed three tests that still invoked the private-input executor directly.
+- **Evidence:** Actions `29473923044` and `29474313617`.
+- **Conservative choice:** When protected inputs exist, re-run and hash the bounded review; otherwise require the committed review's exact content hash, bounded scope, and `human_review_dependency=false`. Tests consume that closed reader.
+- **Consequence:** No private lead package is required or leaked by public CI; formal release bytes remain identical.
+- **Revisit:** Not needed unless a future phase changes the review artifact contract.
+- **Validation:** No-private-input simulated rebuild matches all 273 files; targeted M06 27/27; Actions `29475511478` success.
+- **Fold into next attempt:** Separate protected evidence executors from committed closed-result consumers before adding CI rebuild gates.
+
+## Entry
+
+- **Entry type:** deviation
+- **Expected:** Online path state churn would finish without canceled same-origin requests.
+- **Discovered:** The first online run passed 9/10; rapid hash changes canceled late Evidence/Source JSON fetches. Waiting only for network idle was insufficient because relationship detail effects started after the route status changed.
+- **Evidence:** `online-playwright-results.json`; `online-playwright-closure-results.json`.
+- **Conservative choice:** Wait for a real Source link from the selected path before refresh; keep failed-request, HTTP, console, and external-request gates strict.
+- **Consequence:** Exact online closure passes 1/1 without weakening the gate.
+- **Revisit:** Not needed.
+- **Validation:** Online M06/core 9/10 plus 1/1 closure; external requests 0.
+- **Fold into next attempt:** Browser waits should target data readiness, not just navigation or network-idle heuristics.
+
+## Entry
+
+- **Entry type:** closure
+- **Expected:** Actions, Pages, routes, and online bytes must agree before completion.
+- **Discovered:** Actions `29475511478` and Pages deployment `5468903273` succeeded at runtime commit `547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a`. All 273 release files matched 40,654,362 online bytes; `claims.json` required a bounded single-item timeout closure. Public tour cold first-interactive was 3105.1 ms while its functionality passed.
+- **Evidence:** `online-evidence.json`; online Playwright result JSON and 18 screenshots.
+- **Conservative choice:** Record local controlled performance as the formal budget, retain public cold latency as P3, and do not add analytics/RUM.
+- **Consequence:** M06 reaches completed/pass without overstating public-network timing or real-device coverage.
+- **Revisit:** Public latency only at the existing P3 resolution point.
+- **Validation:** Release byte tree hash `sha256:1eb79f9210b46f5c1163d8c8dd81e4726394b4ec22cd588e8c231f9d417c1cb6`; live legacy functional closure 3/3.
+- **Fold into next attempt:** Give every online byte fetch an explicit per-request timeout from the first run.
+
+## Entry
+
 - **Entry type:** cleanup
 - **Expected:** Keep only durable release and QA evidence.
-- **Discovered:** Local dev/preview logs and Playwright failure traces were transient; fixed screenshots, result JSON, metrics, release bytes, and `dist` are durable evidence.
+- **Discovered:** Local dev/preview logs and Playwright failure traces were transient; fixed screenshots, online result JSON, metrics, release bytes, and `dist` are durable evidence.
 - **Evidence:** Verified cleanup paths inside the repository root before deletion.
 - **Conservative choice:** Stop ports 4173/4174, delete four transient server logs and `output/playwright`, preserve all formal evidence.
 - **Consequence:** No running local server or transient trace directory remains.

@@ -123,11 +123,15 @@ test("invalid, identical, reversed, and refreshed URL states remain deterministi
   await installEnglish(page, true);
   await gotoPath(page, "/art/paths?from=artist%3Aunreviewed&to=artist%3Afrancisco-de-goya&mode=comparison&maxHops=6&path=1&view=text&tracking=discarded");
   await expect(page.locator(".path-status")).toHaveText("The start ID is not one of the 12 formal artists.");
+  await page.waitForLoadState("networkidle");
   await page.evaluate(() => { window.location.hash = "/art/paths?from=artist%3Aalbrecht-durer&to=artist%3Aalbrecht-durer&mode=comparison&maxHops=6&path=1&view=text"; });
   await expect(page.locator(".path-status")).toHaveText("Start and end must differ.");
+  await page.waitForLoadState("networkidle");
   await page.evaluate(() => { window.location.hash = "/art/paths?from=artist%3Afrancisco-de-goya&to=artist%3Aalbrecht-durer&mode=comparison&maxHops=6&path=2&view=text"; });
   await expect(page.locator("#path-results-title")).toHaveText(/Francisco de Goya.*Albrecht Dürer/);
   await expect(page.getByRole("tab", { name: /Path 2/ })).toHaveAttribute("aria-selected", "true");
+  await page.getByText("Claim → Evidence → Source").first().click();
+  await expect(page.locator(".path-closure-grid a[href^='https://']").first()).toBeVisible();
   await page.reload({ waitUntil: "networkidle" });
   await expect(page.getByRole("tab", { name: /Path 2/ })).toHaveAttribute("aria-selected", "true");
   const printHref = await page.getByRole("link", { name: "Open print view" }).getAttribute("href");

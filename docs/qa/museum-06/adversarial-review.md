@@ -53,7 +53,7 @@ p3_count: 3
 - No M07, map, analytics, path/query history, new media, dependency update, open-web relationship search, private lead, hotlink, blocked media, or algorithmic relation was added.
 - M03C 242-file media closure, source registry, publishable media rights, public/dist leakage, and repository safety scans pass.
 - OD-006, OD-008, OD-009, and OD-011 remain open.
-- Actions, Pages bytes, and live-route closure are recorded after deployment in the phase report and online evidence.
+- Actions `29475511478`, Pages deployment `5468903273`, 273/273 online release bytes, and live new/old route closure pass and are recorded in the phase report and online evidence.
 
 ## Resolved findings
 
@@ -64,6 +64,9 @@ p3_count: 3
 | P1 | M04 home scanner treated the lazy chunk filename `graphology-*` in a preload map as initial graph code. | Kept the engine lazy and assigned a neutral `relationship-engine` chunk name; home code remains graph-library free and the inherited gate passes. |
 | P2 | Two schema-count tests remained fixed at 65 after three M06 schemas were added. | Updated the exact expected count to 68; the two-test closure passed. |
 | P2 | Two E2E assertions still named the 1.1 asset path / treated CSP-blocked no-script JS as a network failure. | Bound current asset assertions to 1.2 and required any no-script failure to be an expected JS `csp` block. |
+| P2 | Public CI lacked the protected M03A lead input used by the local review executor. | Public rebuild now requires the committed review content hash, bounded scope, and no-human-dependency flag; private inputs remain optional and untracked. |
+| P2 | Three M06 tests still called the private-input executor in CI. | Tests now consume the same closed review reader as the release builder; targeted 27/27 and Actions 416/416 pass. |
+| P2 | Rapid online URL-state changes canceled late same-origin detail fetches. | Wait for concrete Evidence/Source readiness before refresh; strict failed-request closure passes 1/1. |
 
 ## Open P3 register
 
@@ -71,6 +74,6 @@ p3_count: 3
 |---|---|---|---|
 | Inherited supplemental M04 1k graph FPS median is 27 versus informational 30; formal scale evidence otherwise passes. | Frontend performance owner | Preserve lazy graph/data boundaries; do not widen visible graph caps. | Before a separately authorized scale-expansion phase. |
 | Real AT and physical touch-device sessions are unavailable. | Accessibility QA owner | Retain automated semantics, keyboard, forced-colors, reduced-motion, touch-emulation, mobile, print, and text-equivalence evidence. | Before a future phase explicitly requiring real-device certification. |
-| Public cold-route latency varies with CDN/TLS/geography and has no analytics/RUM stream. | Web performance owner | Keep controlled budgets as the release gate and record bounded live smoke timing without tracking. | Before a future phase raises the public-network latency requirement. |
+| Public cold-route latency varies with CDN/TLS/geography and has no analytics/RUM stream; the M05B tour cold probe observed 3105.1 ms first-interactive. | Web performance owner | Keep controlled budgets as the release gate and record bounded live smoke timing without tracking. | Before a future phase raises the public-network latency requirement. |
 
 No P0, P1, or P2 remains open.

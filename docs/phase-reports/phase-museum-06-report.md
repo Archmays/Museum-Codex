@@ -1,14 +1,15 @@
 ---
 phase_id: MUSEUM-06
-status: partial
+status: completed
 validation_status: pass
 report_date: 2026-07-16
 runtime_model: not_exposed_by_runtime
 runtime_reasoning: not_exposed_by_runtime
 branch: main
 baseline_commit: 41e5805b33f05f4150309c62030b4cc90a8969b7
-implementation_commit: pending
-final_commit: pending
+implementation_commit: 84c8d7f9db5c01094d6a8cebe687286e0e8c9104
+ci_fix_commits: [b68d898795ea0aa8259c13a12f063f9e9ed13079, 547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a]
+online_verified_runtime_commit: 547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a
 input_release_id: release:art-gallery-interactions-1.1.0
 input_release_hash: sha256:c07330d92d03b41fe57b5e80394e7e89e875945a9d24e7a5c73029b3283a8009
 output_release_id: release:art-pathways-1.2.0
@@ -40,9 +41,11 @@ accessible_text_equivalence_status: pass
 performance_status: pass
 real_device_status: not_available
 real_assistive_technology_status: not_available
-pages_deployment_status: pending
+pages_deployment_status: success
 pages_url: https://archmays.github.io/Museum-Codex/
-actions_run: pending
+actions_run: 29475511478
+actions_attempt_count: 3
+pages_deployment_id: 5468903273
 open_decisions_count: 4
 open_p3_count: 3
 museum_07_entered: false
@@ -52,7 +55,7 @@ museum_07_entered: false
 
 ## 1. 当前结论
 
-MUSEUM-06 本地实现与最终候选门禁达到 pass；状态暂为 `partial`，只等待实现提交、Actions、Pages 与线上字节/route 证据闭合。没有进入 MUSEUM-07。
+MUSEUM-06 已完成并达到 `completed/pass`：本地最终候选、Actions、Pages、线上新旧路由和 273 个 release 文件逐 SHA 字节闭包均通过。没有进入 MUSEUM-07。
 
 本阶段回答“在当前审核数据中，可以通过哪些可解释关系从 A 走到 B”。它不证明唯一因果链；最短路径不等于最真实或最重要。当前正式关系仍全部为 `C｜策展比较`，没有算法相似、影响力、popular/degree 或媒体权重，也没有依赖人工逐项审核。
 
@@ -149,7 +152,7 @@ Synthetic graphs use stable seed `museum-06-path-benchmark-seed-20260716` and ar
 
 Targeted evidence：
 
-- M06 Python final targeted：26/26；governance/schema wave：50/50；两项 schema-count closure：2/2。
+- M06 Python final targeted：27/27；governance/schema wave：50/50；两项 schema-count closure：2/2。
 - M06 algorithm/UI + touched gallery regressions：60 unique Vitest scenarios pass；最后 UI effect closure 6/6（与前述重叠）。
 - M06 Playwright：5 unique scenarios；first 3 pass/2 fail，exact closure 2/2，performance refresh 1/1。
 - M06 synthetic benchmark：1 次完整 12-node/66-pair/1k/10k/50k path run，pass。
@@ -161,6 +164,7 @@ Final candidate：
 - Production build：1 次候选 build；M04 home false-positive 后只重建失败依赖闭包 1 次。
 - Full local E2E：1 次，22 scenarios；20 pass / 2 assertion failures。未重跑 22 全套，精确闭包 2/2 pass。
 - M04/M05A/M05B/M06 budgets、release、rights、source/media、public/dist leakage、repository safety 全部 pass。
+- Actions 运行 3 次：第一次在 M06 CI 缺私有 lead 输入处 fail closed；第二次完整 Python 416 项中仅 3 个 M06 测试调用边界报错、其余 413 通过；第三次 416/416（含 1 skip）及所有后续前端、构建、浏览器、上传和部署门禁成功。失败后只修改对应 M06 闭包。
 
 ## 11. 对抗审查 A–F 与 P3
 
@@ -168,11 +172,15 @@ Final candidate：
 
 ## 12. Git、Actions、Pages 与线上证据
 
-只在线性 `main` 工作，没有 branch、worktree 或 PR。实现提交、Actions、Pages deployment、live new/old route、exact online bytes、local/origin/remote hash 和最终 clean 状态将在部署后写回本节及 `docs/qa/museum-06/online-evidence.json`。
+只在线性 `main` 工作，没有 branch、worktree 或 PR。实现提交为 `84c8d7f9db5c01094d6a8cebe687286e0e8c9104`；两个 CI 失败闭包为 `b68d898795ea0aa8259c13a12f063f9e9ed13079` 与线上 runtime `547ec519f35e75d6bc3c8d5a2a4d0fbfe13b859a`。
+
+Actions [29475511478](https://github.com/Archmays/Museum-Codex/actions/runs/29475511478) success；Pages deployment `5468903273` success。线上 M06/core route 9/10 后精确闭包 1/1，artist index pass，tour/detail/compare 功能闭包 3/3。`release:art-pathways-1.2.0` 273/273 文件、40,654,362 bytes 逐 SHA 匹配，tree hash `sha256:1eb79f9210b46f5c1163d8c8dd81e4726394b4ec22cd588e8c231f9d417c1cb6`。完整证据见 `docs/qa/museum-06/online-evidence.json`。
+
+公网 tour cold probe 首次可交互为 3105.1 ms，未把 M05B 的 controlled-local 1500 ms 阈值伪装成公网 pass；内容、12+6 计数和后续 tour/detail/compare 均通过，延迟作为既有 P3 保留。
 
 ## 13. Storage cleanup
 
-Release staging 使用自动清理的 temporary directory；synthetic fixtures 仅驻留内存；已停止本地 Vite dev/preview 服务，删除 4 个 transient server logs 与 `output/playwright` failure traces。保留固定 `dist`、版本化 release、JSON metrics、Playwright result JSON 和 3 张 M06 QA screenshots 作为正式候选证据。
+Release staging 使用自动清理的 temporary directory；synthetic fixtures 仅驻留内存；已停止本地 Vite dev/preview 服务，删除 4 个 transient server logs 与最终失败闭包后的 `output/playwright` traces。保留固定 `dist`、版本化 release、JSON metrics、Playwright result JSON、3 张本地 M06 screenshots 和 18 张线上 screenshots 作为正式证据。
 
 ## 14. 决定与阶段边界
 
