@@ -32,6 +32,7 @@ MEDIA_SCHEMA_CASES = {
     "media_bundle_manifest": ("media-bundle-manifest.schema.json", "media-bundle:"),
     "media_alternative_source_search": ("alternative-source-search.schema.json", "alternative-search:"),
     "media_withdrawal_mapping": ("withdrawal-mapping.schema.json", "withdrawal-map:"),
+    "media_retry_record": ("media-retry.schema.json", "media-retry:"),
 }
 
 FINAL_DECISIONS = {
@@ -66,14 +67,14 @@ class MediaSchemaDispatchTests(unittest.TestCase):
         cls.environment = load_schema_environment()
         cls.valid_review = load_json(FIXTURE_ROOT / "valid" / "approved-self-hosted-review.json")
 
-    def test_all_eleven_media_schemas_are_registered_and_manifested(self) -> None:
+    def test_all_twelve_media_schemas_are_registered_and_manifested(self) -> None:
         self.assertEqual(MEDIA_SCHEMA_CASES, {
             entity_type: (Path(schema_path).name, prefix)
             for entity_type, (schema_path, prefix) in ART_MEDIA_SCHEMA_BY_ENTITY_TYPE.items()
         })
         manifest = load_json(ROOT / "schemas" / "schema-manifest.json")
         entries = {entry["path"]: entry for entry in manifest["schemas"]}
-        self.assertEqual(11, len(MEDIA_SCHEMA_CASES))
+        self.assertEqual(12, len(MEDIA_SCHEMA_CASES))
         for filename, _prefix in MEDIA_SCHEMA_CASES.values():
             path = f"schemas/art/media/{filename}"
             self.assertIn(path, self.environment.by_path)

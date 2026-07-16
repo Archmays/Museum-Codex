@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { MediaAsset } from "./types";
+import { isKnownArtReleaseAssetPath } from "../../data/art-release-profile";
 
 type ArtworkImageProps = {
   artworkId: string;
@@ -25,7 +26,7 @@ function allowedReleaseAsset(asset: MediaAsset) {
     const url = new URL(asset.src, window.location.href);
     return (
       url.origin === window.location.origin &&
-      /\/releases\/art-constellation-1\.0\.0\/assets\/[a-z0-9._-]+\/[0-9]+w\.(?:jpe?g|webp)$/i.test(url.pathname)
+      isKnownArtReleaseAssetPath(url.pathname)
     );
   } catch {
     return false;

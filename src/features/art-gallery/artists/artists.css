@@ -411,6 +411,16 @@
   border: 1px solid var(--line-strong);
 }
 
+.artist-tour-entry {
+  margin-top: 2.5rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--line-strong);
+  background: rgba(127, 196, 189, 0.06);
+}
+.artist-tour-entry h2 { margin-top: 0.6rem; font-size: clamp(1.8rem, 4vw, 3rem); }
+.artist-tour-entry p:not(.eyebrow) { max-width: 56rem; color: var(--ink-muted); line-height: 1.75; }
+.artist-tour-entry a { display: inline-flex; min-height: 44px; align-items: center; }
+
 .artist-gallery-introduction > section,
 .artist-gallery-reference-grid > section {
   min-width: 0;

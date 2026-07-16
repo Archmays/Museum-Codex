@@ -45,6 +45,7 @@ const ROUTE_SOURCES = {
   artistGallery: "src/features/art-gallery/artists/ArtistGalleryPage.tsx",
   artworkDetail: "src/features/art-gallery/artwork/ArtworkDetailPage.tsx",
   compare: "src/features/art-gallery/compare/ComparePage.tsx",
+  tours: "src/features/art-gallery/tours/ToursPage.tsx",
 };
 
 function parseArgs(argv) {
@@ -112,11 +113,11 @@ function loadViteManifest(dist, failures) {
   return { path, records: loadJson(path, "Vite manifest", failures) ?? {} };
 }
 
-function findSourceRecord(records, label, source, failures) {
+function findSourceRecord(records, label, source, failures, optional = false) {
   const matches = Object.entries(records)
     .filter(([key, record]) => key === source || record?.src === source)
     .map(([key]) => key);
-  if (matches.length !== 1) {
+  if (matches.length !== 1 && !(optional && matches.length === 0)) {
     failures.push(`${label} manifest record count must be 1, found ${matches.length}`);
   }
   return matches[0] ?? null;
@@ -291,7 +292,7 @@ function run(options) {
   const entryKey = entryKeys[0] ?? null;
   const routeKeys = Object.fromEntries(Object.entries(ROUTE_SOURCES).map(([label, source]) => [
     label,
-    findSourceRecord(records, label, source, failures),
+    findSourceRecord(records, label, source, failures, label === "tours"),
   ]));
 
   const homeRecords = collectRecords(records, [entryKey], false, failures);
@@ -347,6 +348,7 @@ function run(options) {
   if (galleryKey && homeRecords.has(galleryKey)) failures.push("ArtGalleryRoute is present in the home initial closure");
   const directGalleryImports = new Set(Array.isArray(records[galleryKey]?.dynamicImports) ? records[galleryKey].dynamicImports : []);
   const expectedPageKeys = new Set(pageLabels.map((label) => routeKeys[label]).filter(Boolean));
+  const allowedPageKeys = new Set([...expectedPageKeys, routeKeys.tours].filter(Boolean));
   for (const label of pageLabels) {
     const pageKey = routeKeys[label];
     if (pageKey && !directGalleryImports.has(pageKey)) failures.push(`${label} is not a direct lazy page of ArtGalleryRoute`);
@@ -354,9 +356,9 @@ function run(options) {
     if (pageKey && homeRecords.has(pageKey)) failures.push(`${label} is present in the home initial closure`);
     if (pageKey && galleryShellRecords.has(pageKey)) failures.push(`${label} is statically bundled into ArtGalleryRoute`);
   }
-  const unexpectedDynamicImports = [...directGalleryImports].filter((key) => !expectedPageKeys.has(key));
-  if (unexpectedDynamicImports.length || directGalleryImports.size !== expectedPageKeys.size) {
-    failures.push(`ArtGalleryRoute direct lazy pages must equal the four formal M05A pages; unexpected=${unexpectedDynamicImports.join(",") || "none"}`);
+  const unexpectedDynamicImports = [...directGalleryImports].filter((key) => !allowedPageKeys.has(key));
+  if (unexpectedDynamicImports.length || directGalleryImports.size < expectedPageKeys.size) {
+    failures.push(`ArtGalleryRoute must retain the four formal M05A lazy pages and may add the M05B tours page; unexpected=${unexpectedDynamicImports.join(",") || "none"}`);
   }
 
   const galleryShellAdded = difference(galleryShellRecords, homeRecords);

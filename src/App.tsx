@@ -41,6 +41,8 @@ export function App() {
               <Route path="/art/artists/:artistId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/art/artworks/:artworkId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/art/compare" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
+              <Route path="/art/tours" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
+              <Route path="/art/tours/:tourId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/accessibility" element={<AccessibilityPage />} />
               <Route path="*" element={<NotFoundPage />} />

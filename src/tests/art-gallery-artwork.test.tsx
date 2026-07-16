@@ -14,6 +14,7 @@ import type {
   ArtworkRecord,
   MediaAsset,
 } from "../features/art-constellation/types";
+import { interactionFixtureFor } from "./interaction-fixture";
 
 const artist: ArtistRecord = {
   id: "artist:test",
@@ -160,7 +161,7 @@ function renderArtworkPage(options: { lowBandwidth?: boolean; result?: ArtworkDe
     <I18nProvider>
       <PreferencesProvider>
         <MemoryRouter>
-          <ArtworkDetailPage release={release} catalog={catalog} dataSource={dataSource} artworkId={artwork.id} />
+          <ArtworkDetailPage release={release} catalog={catalog} dataSource={dataSource} interactions={interactionFixtureFor([artwork])} artworkId={artwork.id} />
         </MemoryRouter>
       </PreferencesProvider>
     </I18nProvider>,
@@ -276,5 +277,34 @@ describe("MUSEUM-05A artwork detail", () => {
     expect(describedIds).toHaveLength(4);
     describedIds.forEach((id) => expect(document.getElementById(id)).not.toBeNull());
     expect(new Set(describedIds).size).toBe(4);
+  });
+
+  it("jumps to deterministic detail regions by button and keyboard, then resets", async () => {
+    const user = userEvent.setup();
+    localStorage.setItem("museum-locale", "en");
+    const region = {
+      id: "detail-region:test-1",
+      hero_id: "hero:test",
+      artwork_id: artwork.id,
+      label: { "zh-Hans": "细节区域 1", en: "Detail region 1" },
+      source_asset: { media_id: media.id, path: media.publicPath, sha256: media.sha256, width: 1600, height: 1200 },
+      rect: { x: 640, y: 480, width: 512, height: 384 },
+      normalized_rect: { x: 0.4, y: 0.4, width: 0.32, height: 0.32 },
+      metrics: { edge_density: 0.2, local_contrast: 0.3, entropy: 0.5, saliency: 0.4, score: 0.35 },
+      algorithm: { name: "structural-detail-navigation" as const, version: "1.0.0", input_release_hash: "sha256:" + "a".repeat(64) },
+      semantic_label: null,
+    };
+    render(<I18nProvider><PreferencesProvider><MemoryRouter><ArtworkZoom artwork={artwork} media={[media]} artistName="Test Artist" lowBandwidth={false} regions={[region]} /></MemoryRouter></PreferencesProvider></I18nProvider>);
+    const image = screen.getByRole("img", { name: "Test Artist, Test Work, 1869" });
+    const viewport = screen.getByRole("group", { name: "Zoomable artwork image: Test Work" });
+    Object.defineProperties(image, { clientWidth: { configurable: true, value: 800 }, clientHeight: { configurable: true, value: 600 }, naturalWidth: { configurable: true, value: 1600 }, currentSrc: { configurable: true, value: new URL(media.src, window.location.href).href } });
+    Object.defineProperties(viewport, { clientWidth: { configurable: true, value: 800 }, clientHeight: { configurable: true, value: 600 } });
+    fireEvent.load(image);
+    await user.click(screen.getByRole("button", { name: "Detail region 1" }));
+    expect(screen.getByRole("button", { name: "Detail region 1" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getAllByRole("status").some((status) => status.textContent === "Detail region 1")).toBe(true);
+    viewport.focus();
+    await user.keyboard("{Escape}");
+    expect(screen.getByText("Current: overview")).toBeInTheDocument();
   });
 });

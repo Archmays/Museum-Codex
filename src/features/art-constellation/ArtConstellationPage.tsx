@@ -39,6 +39,7 @@ import type {
 import { localize } from "./types";
 import { ArtistListView, EmptyView, GraphView, RelationshipTableView } from "./Views";
 import "./art-constellation.css";
+import { currentArtReleaseBaseUrl } from "../../data/art-release-profile";
 
 if (typeof performance !== "undefined" && typeof performance.mark === "function") {
   performance.mark("museum04-route-module");
@@ -691,7 +692,7 @@ export default function ArtConstellationPage() {
   useEffect(() => {
     const controller = new AbortController();
     void loadArtConstellationRelease(
-      `${import.meta.env.BASE_URL}releases/art-constellation-1.0.0/`,
+      currentArtReleaseBaseUrl(),
       fetch,
       controller.signal,
     ).then((next) => {

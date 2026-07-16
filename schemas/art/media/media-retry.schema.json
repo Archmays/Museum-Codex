@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/media/media-retry.schema.json",
+  "title": "Bounded no-image media retry record",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "branch_id", "phase_id", "checked_at", "executor", "mode", "status",
+    "content_hash", "prior_ledger_sha256", "prior_media_bundle_hash", "artwork_count",
+    "official_object_get_count", "official_media_head_count", "download_attempt_count", "downloaded_media_bytes",
+    "possible_duplicate_probe_count", "possible_duplicate_probe_used_as_evidence", "new_approved_media_count",
+    "approved_media_count_before", "approved_media_count_after", "no_image_count_after", "human_review_dependency",
+    "manual_review_state_created", "cache_reuse", "limitations", "results"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "const": "media-retry:museum-05b-no-image-v1" },
+    "entity_type": { "const": "media_retry_record" },
+    "branch_id": { "const": "art" },
+    "phase_id": { "const": "MUSEUM-05B" },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "executor": { "const": "automated_cross_validation_pipeline" },
+    "mode": { "const": "bounded_official_status_recheck_no_media_bytes" },
+    "status": { "enum": ["pass", "partial"] },
+    "content_hash": { "$ref": "#/$defs/hash" },
+    "prior_ledger_sha256": { "$ref": "#/$defs/hash" },
+    "prior_media_bundle_hash": { "$ref": "#/$defs/hash" },
+    "artwork_count": { "const": 13 },
+    "official_object_get_count": { "const": 13 },
+    "official_media_head_count": { "const": 4 },
+    "download_attempt_count": { "const": 0 },
+    "downloaded_media_bytes": { "const": 0 },
+    "possible_duplicate_probe_count": { "type": "integer", "minimum": 0, "maximum": 2 },
+    "possible_duplicate_probe_used_as_evidence": { "const": false },
+    "new_approved_media_count": { "const": 0 },
+    "approved_media_count_before": { "const": 31 },
+    "approved_media_count_after": { "const": 31 },
+    "no_image_count_after": { "const": 13 },
+    "human_review_dependency": { "const": false },
+    "manual_review_state_created": { "const": false },
+    "cache_reuse": {
+      "type": "object",
+      "required": ["m03c_official_metadata_responses", "m03c_commons_searches", "m03c_failure_evidence", "repeated_media_downloads"],
+      "properties": {
+        "m03c_official_metadata_responses": { "const": true },
+        "m03c_commons_searches": { "const": true },
+        "m03c_failure_evidence": { "const": true },
+        "repeated_media_downloads": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "results": { "type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true, "items": { "$ref": "#/$defs/result" } }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "result": {
+      "type": "object",
+      "required": ["id", "artwork_id", "prior_decision", "final_decision", "official_object_status", "official_media_status", "capture_status", "source_candidate_count", "download_attempt_count", "old_failure_evidence_reused", "closure"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^media-retry:[a-z0-9][a-z0-9._-]*$" },
+        "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+        "prior_decision": { "$ref": "#/$defs/decision" },
+        "final_decision": { "$ref": "#/$defs/decision" },
+        "official_object_status": { "type": "string", "minLength": 1 },
+        "official_media_status": { "type": "string", "minLength": 1 },
+        "capture_status": { "enum": ["current_captured", "prior_official_cache_reused"] },
+        "source_candidate_count": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "download_attempt_count": { "const": 0 },
+        "old_failure_evidence_reused": { "const": true },
+        "closure": { "const": "unchanged_terminal_state" }
+      },
+      "additionalProperties": false
+    },
+    "decision": { "enum": ["metadata_only_after_automated_review", "blocked_source_unavailable", "blocked_rights_conflict"] }
+  },
+  "additionalProperties": false
+}

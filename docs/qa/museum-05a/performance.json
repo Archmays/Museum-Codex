@@ -5,7 +5,7 @@
   "real_user_metric": false,
   "real_device_status": "not_available",
   "real_assistive_technology_status": "not_available",
-  "captured_at": "2026-07-15T12:37:50.664Z",
+  "captured_at": "2026-07-16T00:14:38.675Z",
   "environment": {
     "browser": "chromium",
     "source_worktree_dirty": true,
@@ -23,6 +23,7 @@
       "src/components/PageIntro.tsx",
       "src/components/SiteChrome.tsx",
       "src/data/art-constellation-bootstrap.ts",
+      "src/data/art-release-profile.ts",
       "src/data/release-loader.ts",
       "src/features/art-constellation/ArtConstellationPage.tsx",
       "src/features/art-constellation/ArtworkImage.tsx",
@@ -50,8 +51,16 @@
       "src/features/art-gallery/copy.ts",
       "src/features/art-gallery/gallery-data.ts",
       "src/features/art-gallery/gallery-types.ts",
+      "src/features/art-gallery/interaction-loader.ts",
+      "src/features/art-gallery/interaction-types.ts",
       "src/features/art-gallery/media.ts",
+      "src/features/art-gallery/observation/ObservationCard.tsx",
+      "src/features/art-gallery/observation/ObservationLenses.tsx",
+      "src/features/art-gallery/observation/PrintShareControls.tsx",
+      "src/features/art-gallery/observation/observation.css",
       "src/features/art-gallery/route-loader.ts",
+      "src/features/art-gallery/tours/ToursPage.tsx",
+      "src/features/art-gallery/tours/tours.css",
       "src/i18n/I18nProvider.tsx",
       "src/i18n/translations.ts",
       "src/main.tsx",
@@ -64,7 +73,7 @@
       "src/styles/global.css",
       "vite.config.ts"
     ],
-    "implementation_input_hash": "sha256:db4237f674dcb39ab087ee586622549326a803413037b4bf74b508a221ee43ba",
+    "implementation_input_hash": "sha256:b8f4fe344b0118db64d3e319329b94786b836815b0b7475b46bac4e4df88a335",
     "tested_url": "http://127.0.0.1:4173/Museum-Codex/"
   },
   "profiles": [
@@ -86,12 +95,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            985.5727,
-            920.0795,
-            920.3496
+            947.4397,
+            943.9110000000001,
+            935.5855999999999
           ],
-          "median": 920.3496,
-          "p95": 985.5727,
+          "median": 943.9110000000001,
+          "p95": 947.4397,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -101,12 +110,12 @@
         },
         "lcp_ms": {
           "samples": [
+            744,
             720,
-            724,
             708
           ],
           "median": 720,
-          "p95": 724,
+          "p95": 744,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -161,12 +170,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            271639,
-            271639,
-            271639
+            297354,
+            297354,
+            297354
           ],
-          "median": 271639,
-          "p95": 271639,
+          "median": 297354,
+          "p95": 297354,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -222,12 +231,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            2241.1352000000006,
-            1526.514799999999,
-            1525.9121000000014
+            2180.1429,
+            2223.982,
+            2336.8328
           ],
-          "median": 1526.514799999999,
-          "p95": 2241.1352000000006,
+          "median": 2223.982,
+          "p95": 2336.8328,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -237,12 +246,12 @@
         },
         "lcp_ms": {
           "samples": [
-            1736,
-            1520,
-            1504
+            1676,
+            1708,
+            1812
           ],
-          "median": 1520,
-          "p95": 1736,
+          "median": 1708,
+          "p95": 1812,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -297,12 +306,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            187761,
-            187761,
-            187761
+            213476,
+            213476,
+            213476
           ],
-          "median": 187761,
-          "p95": 187761,
+          "median": 213476,
+          "p95": 213476,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -355,12 +364,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            929.4482000000007,
-            933.2006000000001,
-            943.6851999999999
+            946.9561999999987,
+            938.7760999999991,
+            925.309299999999
           ],
-          "median": 933.2006000000001,
-          "p95": 943.6851999999999,
+          "median": 938.7760999999991,
+          "p95": 946.9561999999987,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -370,12 +379,12 @@
         },
         "lcp_ms": {
           "samples": [
-            776,
-            788,
-            772
+            824,
+            832,
+            804
           ],
-          "median": 776,
-          "p95": 788,
+          "median": 824,
+          "p95": 832,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -430,12 +439,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            667583,
-            667583,
-            667583
+            700321,
+            700321,
+            700321
           ],
-          "median": 667583,
-          "p95": 667583,
+          "median": 700321,
+          "p95": 700321,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -491,12 +500,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            1668.4247999999989,
-            1690.3860999999997,
-            1831.4256999999998
+            1775.0470999999998,
+            1844.9686000000002,
+            1825.6087000000007
           ],
-          "median": 1690.3860999999997,
-          "p95": 1831.4256999999998,
+          "median": 1825.6087000000007,
+          "p95": 1844.9686000000002,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -506,12 +515,12 @@
         },
         "lcp_ms": {
           "samples": [
-            1672,
-            1696,
-            1828
+            1780,
+            1840,
+            1836
           ],
-          "median": 1696,
-          "p95": 1828,
+          "median": 1836,
+          "p95": 1840,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -566,12 +575,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            337599,
-            337599,
-            337599
+            370337,
+            370337,
+            370337
           ],
-          "median": 337599,
-          "p95": 337599,
+          "median": 370337,
+          "p95": 370337,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -627,12 +636,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            2239.213200000002,
-            2327.134100000003,
-            1518.9164999999994
+            2331.841800000002,
+            2290.1483000000007,
+            2396.5733
           ],
-          "median": 2239.213200000002,
-          "p95": 2327.134100000003,
+          "median": 2331.841800000002,
+          "p95": 2396.5733,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -642,12 +651,12 @@
         },
         "lcp_ms": {
           "samples": [
-            1736,
-            1824,
-            1440
+            1832,
+            1788,
+            1896
           ],
-          "median": 1736,
-          "p95": 1824,
+          "median": 1832,
+          "p95": 1896,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -702,12 +711,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            190581,
-            190581,
-            190581
+            224048,
+            224048,
+            224048
           ],
-          "median": 190581,
-          "p95": 190581,
+          "median": 224048,
+          "p95": 224048,
           "target": {
             "statistic": "p95",
             "operator": "lte",

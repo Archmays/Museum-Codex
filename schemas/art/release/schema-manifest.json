@@ -7,7 +7,7 @@
       "id": "https://museum-codex.example/schemas/art/release/public-constellation-record.schema.json",
       "version": "1.0.0",
       "branch": "art",
-      "depends_on": ["schemas/common/entity.schema.json"]
+      "depends_on": []
     },
     {
       "path": "schemas/art/release/art-constellation-artifact.schema.json",
@@ -40,6 +40,13 @@
       "version": "1.0.0",
       "branch": "art",
       "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-gallery-interaction-index.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-gallery-interaction-index.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/entity.schema.json"]
     }
   ]
 }

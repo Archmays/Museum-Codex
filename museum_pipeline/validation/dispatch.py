@@ -37,6 +37,7 @@ ART_MEDIA_SCHEMA_BY_ENTITY_TYPE = {
         "alternative-search:",
     ),
     "media_withdrawal_mapping": ("schemas/art/media/withdrawal-mapping.schema.json", "withdrawal-map:"),
+    "media_retry_record": ("schemas/art/media/media-retry.schema.json", "media-retry:"),
 }
 
 
@@ -46,6 +47,7 @@ PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "source": "schemas/common/source.schema.json",
     "media_asset": "schemas/common/media-asset.schema.json",
     "dataset_release": "schemas/common/dataset-release.schema.json",
+    "art_gallery_interaction_index": "schemas/art/release/art-gallery-interaction-index.schema.json",
     "adapter_contract": "schemas/pipeline/adapter-contract.schema.json",
     "acquisition_request": "schemas/pipeline/acquisition-request.schema.json",
     "raw_snapshot_manifest": "schemas/pipeline/raw-snapshot-manifest.schema.json",

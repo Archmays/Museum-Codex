@@ -18,7 +18,7 @@ type ArtistLoad<T> =
   | { artistId: string; status: "loaded"; data: T }
   | { artistId: string; status: "failed" };
 
-export function ArtistGalleryPage({ release, catalog, dataSource, artistId }: ArtistGalleryPageProps) {
+export function ArtistGalleryPage({ release, catalog, dataSource, interactions, artistId }: ArtistGalleryPageProps) {
   const { locale } = useI18n();
   const { lowBandwidth } = usePreferences();
   const copy = galleryCopy[locale];
@@ -89,6 +89,7 @@ export function ArtistGalleryPage({ release, catalog, dataSource, artistId }: Ar
   }
 
   const name = localize(artist.labels, locale);
+  const artistTour = interactions.artist_tours.find((tour) => tour.artist_id === artist.id) ?? null;
   const workDates = artworks
     .map((artwork) => artwork.dateDisplay ? localize(artwork.dateDisplay, locale) : null)
     .filter((value): value is string => Boolean(value));
@@ -133,6 +134,17 @@ export function ArtistGalleryPage({ release, catalog, dataSource, artistId }: Ar
           </dl>
         </section>
       </div>
+
+      {artistTour ? (
+        <aside className="artist-tour-entry">
+          <p className="eyebrow">{locale === "zh-CN" ? "深度观察导览" : "Deep observation tour"}</p>
+          <h2>{localize(artistTour.title, locale)}</h2>
+          <p>{localize(artistTour.entry_question, locale)}</p>
+          <Link className="gallery-primary-link" to={`/art/tours/${encodeURIComponent(artistTour.id)}`}>
+            {locale === "zh-CN" ? "开始固定策展导览" : "Start the fixed curatorial tour"}
+          </Link>
+        </aside>
+      ) : null}
 
       <section className="artist-formal-works" aria-labelledby="formal-works-title">
         <div className="gallery-section-heading">

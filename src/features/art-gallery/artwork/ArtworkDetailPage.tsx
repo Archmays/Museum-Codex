@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useI18n } from "../../../i18n/I18nProvider";
 import { usePreferences } from "../../../preferences/PreferencesProvider";
 import {
@@ -11,7 +11,11 @@ import { galleryCopy } from "../copy";
 import type { GallerySharedProps } from "../gallery-types";
 import { artistPath } from "../media";
 import { ArtworkZoom } from "./ArtworkZoom";
+import { ObservationCard } from "../observation/ObservationCard";
+import { ObservationLenses } from "../observation/ObservationLenses";
+import { PrintShareControls } from "../observation/PrintShareControls";
 import "./artwork.css";
+import "../observation/observation.css";
 
 type DetailState =
   | { requestKey: string; status: "loading" }
@@ -28,7 +32,7 @@ function sourceIdsForEvidence(evidence: EvidenceRecord[]) {
   return new Set(evidence.flatMap((item) => item.sourceIds));
 }
 
-export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: ArtworkDetailPageProps) {
+export function ArtworkDetailPage({ release, catalog, dataSource, interactions, artworkId }: ArtworkDetailPageProps) {
   const { locale, t } = useI18n();
   const { lowBandwidth } = usePreferences();
   const copy = galleryCopy[locale];
@@ -36,6 +40,18 @@ export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: A
   const [attempt, setAttempt] = useState(0);
   const requestKey = `${artworkId}:${attempt}`;
   const [state, setState] = useState<DetailState>({ requestKey, status: "loading" });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const observationCard = useMemo(
+    () => interactions.observation_cards.find((card) => card.artwork_id === artworkId) ?? null,
+    [artworkId, interactions.observation_cards],
+  );
+  const detailRegions = useMemo(
+    () => interactions.detail_regions.filter((region) => region.artwork_id === artworkId),
+    [artworkId, interactions.detail_regions],
+  );
+  const requestedRegion = searchParams.get("region");
+  const selectedRegion = requestedRegion && detailRegions.some((region) => region.id === requestedRegion) ? requestedRegion : null;
+  const printMode = searchParams.get("view") === "print";
 
   useEffect(() => {
     if (!existsInCatalog) return;
@@ -48,6 +64,13 @@ export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: A
     });
     return () => controller.abort();
   }, [artworkId, dataSource, existsInCatalog, requestKey]);
+
+  useEffect(() => {
+    const next = new URLSearchParams();
+    if (printMode) next.set("view", "print");
+    if (selectedRegion) next.set("region", selectedRegion);
+    if (next.toString() !== searchParams.toString()) setSearchParams(next, { replace: true });
+  }, [printMode, searchParams, selectedRegion, setSearchParams]);
 
   const visibleState: DetailState = !existsInCatalog
     ? { requestKey, status: "failed" }
@@ -93,6 +116,13 @@ export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: A
     [copy.subjects, artwork.subjects.length ? localizedList(artwork.subjects, locale) : "\u2014"],
   ] as const;
   const compareSearch = new URLSearchParams({ left: artwork.id }).toString();
+  if (!observationCard) {
+    return (
+      <main id="main-content" className="artwork-detail-page artwork-detail-state" tabIndex={-1}>
+        <h1>{copy.loadErrorTitle}</h1><p>{copy.loadErrorText}</p>
+      </main>
+    );
+  }
 
   return (
     <main
@@ -125,6 +155,15 @@ export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: A
           media={media}
           artistName={artistName}
           lowBandwidth={lowBandwidth}
+          regions={detailRegions}
+          activeRegionId={selectedRegion}
+          onRegionChange={(regionId) => {
+            const next = new URLSearchParams();
+            if (printMode) next.set("view", "print");
+            if (regionId) next.set("region", regionId);
+            setSearchParams(next, { replace: true });
+          }}
+          printMode={printMode}
         />
 
         <aside className="artwork-object-record" aria-labelledby="artwork-object-record-title">
@@ -158,6 +197,9 @@ export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: A
           ) : null}
         </aside>
       </div>
+
+      <ObservationCard card={observationCard} />
+      <ObservationLenses lenses={interactions.lenses} artworkIds={[artwork.id]} />
 
       <section className="artwork-evidence" aria-labelledby="artwork-evidence-title">
         <div className="artwork-section-heading">
@@ -208,6 +250,12 @@ export function ArtworkDetailPage({ release, catalog, dataSource, artworkId }: A
           </ul>
         </div>
       </section>
+
+      <PrintShareControls
+        releaseId={release.manifestId}
+        releaseVersion={release.version}
+        state={{ region: selectedRegion }}
+      />
 
       <nav className="artwork-detail-actions" aria-label={copy.artworkEyebrow}>
         <Link className="text-link" to={artistPath(artist.id)}>{copy.artistGalleryEyebrow}</Link>

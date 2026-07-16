@@ -1,0 +1,485 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/art-gallery-interaction-index.schema.json",
+  "title": "MUSEUM-05B art gallery interaction index",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "phase_id", "release_id", "release_version",
+    "input_release_id", "input_release_hash", "media_bundle_hash", "generated_at", "release_composition", "counts",
+    "cache_reuse", "observation_cards", "hero_selections", "detail_regions", "artist_tours",
+    "thematic_tours", "lenses", "compare_prompts", "print_share_configuration",
+    "media_retry_summary", "performance_contract", "review"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "const": "interaction-index:museum-05b-v1" },
+    "entity_type": { "const": "art_gallery_interaction_index" },
+    "phase_id": { "const": "MUSEUM-05B" },
+    "release_id": { "const": "release:art-gallery-interactions-1.1.0" },
+    "release_version": { "const": "1.1.0" },
+    "input_release_id": { "const": "release:art-constellation-1.0.0" },
+    "input_release_hash": { "const": "sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462" },
+    "media_bundle_hash": { "const": "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "release_composition": { "$ref": "#/$defs/releaseComposition" },
+    "counts": { "$ref": "#/$defs/counts" },
+    "cache_reuse": { "$ref": "#/$defs/cacheReuse" },
+    "observation_cards": {
+      "type": "array", "minItems": 44, "maxItems": 44,
+      "items": { "$ref": "#/$defs/observationCard" }
+    },
+    "hero_selections": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": { "$ref": "#/$defs/heroSelection" }
+    },
+    "detail_regions": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/detailRegion" }
+    },
+    "artist_tours": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": { "$ref": "#/$defs/artistTour" }
+    },
+    "thematic_tours": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "items": { "$ref": "#/$defs/thematicTour" }
+    },
+    "lenses": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": { "$ref": "#/$defs/lens" }
+    },
+    "compare_prompts": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": { "$ref": "#/$defs/comparePrompt" }
+    },
+    "print_share_configuration": { "$ref": "#/$defs/printShare" },
+    "media_retry_summary": { "$ref": "#/$defs/mediaRetry" },
+    "performance_contract": { "$ref": "#/$defs/performance" },
+    "review": { "$ref": "#/$defs/review" }
+  },
+  "$defs": {
+    "stableId": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "bilingual": {
+      "type": "object",
+      "required": ["zh-Hans", "en"],
+      "properties": {
+        "zh-Hans": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "bilingualList": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/bilingual" }
+    },
+    "idList": {
+      "type": "array", "uniqueItems": true,
+      "items": { "$ref": "#/$defs/stableId" }
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "artists", "artworks", "approved_media_artworks", "no_image_artworks", "observation_cards",
+        "hero_selections", "visual_heroes", "textual_observation_paths", "detail_regions",
+        "artist_tours", "thematic_tours", "lenses"
+      ],
+      "properties": {
+        "artists": { "const": 12 },
+        "artworks": { "const": 44 },
+        "approved_media_artworks": { "const": 31 },
+        "no_image_artworks": { "const": 13 },
+        "observation_cards": { "const": 44 },
+        "hero_selections": { "const": 12 },
+        "visual_heroes": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "textual_observation_paths": { "type": "integer", "minimum": 0, "maximum": 12 },
+        "detail_regions": { "type": "integer", "minimum": 1, "maximum": 36 },
+        "artist_tours": { "const": 12 },
+        "thematic_tours": { "const": 6 },
+        "lenses": { "const": 3 }
+      },
+      "additionalProperties": false
+    },
+    "cacheReuse": {
+      "type": "object",
+      "required": [
+        "m03c_originals_reused", "m03c_derivatives_reused", "m04_core_artifacts_byte_reused",
+        "m04_layout_reused", "m04_search_index_reused", "scale_benchmarks_reused",
+        "package_lock_sha256"
+      ],
+      "properties": {
+        "m03c_originals_reused": { "const": true },
+        "m03c_derivatives_reused": { "const": true },
+        "m04_core_artifacts_byte_reused": { "const": true },
+        "m04_layout_reused": { "const": true },
+        "m04_search_index_reused": { "const": true },
+        "scale_benchmarks_reused": { "const": true },
+        "package_lock_sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "releaseComposition": {
+      "type": "object",
+      "required": ["mode", "base_release_id", "base_release_hash", "base_artifact_identity", "inherited_manifest_file_count", "overlay_files"],
+      "properties": {
+        "mode": { "const": "immutable_overlay" },
+        "base_release_id": { "const": "release:art-constellation-1.0.0" },
+        "base_release_hash": { "const": "sha256:52835bb9256a9e50c2b73b9ef2e4fb99aa4a40434f20319133fdfb56b09fc462" },
+        "base_artifact_identity": { "const": "base_release_scoped" },
+        "inherited_manifest_file_count": { "const": 263 },
+        "overlay_files": {
+          "type": "array",
+          "prefixItems": [{ "const": "interaction-index.json" }, { "const": "media-retry.json" }],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "additionalProperties": false
+    },
+    "contextLink": {
+      "type": "object",
+      "required": ["id", "label"],
+      "properties": {
+        "id": { "$ref": "#/$defs/stableId" },
+        "label": { "$ref": "#/$defs/bilingual" }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["status", "reviewer_kind", "reviewed_at", "human_review_dependency"],
+      "properties": {
+        "status": { "const": "automated_pass" },
+        "reviewer_kind": { "const": "automated_release_validation_pipeline" },
+        "reviewed_at": { "type": "string", "format": "date" },
+        "human_review_dependency": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "observationCard": {
+      "type": "object",
+      "required": [
+        "id", "artwork_id", "title", "prompts", "contexts", "date", "institution",
+        "directly_observable", "interpretation_requires_sources", "current_evidence_cannot_prove",
+        "evidence_ids", "source_ids", "source_links", "rights_status", "image_availability",
+        "accessibility_version", "review", "release_id", "release_version"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^observation:[a-z0-9][a-z0-9._-]*$" },
+        "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+        "title": { "$ref": "#/$defs/bilingual" },
+        "prompts": { "type": "array", "minItems": 3, "maxItems": 5, "items": { "$ref": "#/$defs/bilingual" } },
+        "contexts": {
+          "type": "object",
+          "required": ["materials", "techniques", "subjects"],
+          "properties": {
+            "materials": { "type": "array", "items": { "$ref": "#/$defs/contextLink" } },
+            "techniques": { "type": "array", "items": { "$ref": "#/$defs/contextLink" } },
+            "subjects": { "type": "array", "items": { "$ref": "#/$defs/contextLink" } }
+          },
+          "additionalProperties": false
+        },
+        "date": { "oneOf": [{ "$ref": "#/$defs/bilingual" }, { "type": "null" }] },
+        "institution": { "oneOf": [{ "$ref": "#/$defs/bilingual" }, { "type": "null" }] },
+        "directly_observable": { "$ref": "#/$defs/bilingualList" },
+        "interpretation_requires_sources": { "$ref": "#/$defs/bilingualList" },
+        "current_evidence_cannot_prove": { "$ref": "#/$defs/bilingualList" },
+        "evidence_ids": { "$ref": "#/$defs/idList" },
+        "source_ids": { "$ref": "#/$defs/idList" },
+        "source_links": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["source_id", "label", "url"],
+            "properties": {
+              "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+              "label": { "$ref": "#/$defs/bilingual" },
+              "url": { "type": "string", "format": "uri", "pattern": "^https://" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "rights_status": { "enum": ["approved_self_hosted", "metadata_only_after_automated_review", "blocked_source_unavailable", "blocked_rights_conflict"] },
+        "image_availability": { "enum": ["approved_image", "metadata_only"] },
+        "accessibility_version": {
+          "type": "object",
+          "required": ["mode", "summary"],
+          "properties": {
+            "mode": { "enum": ["image_plus_text", "evidence_only"] },
+            "summary": { "$ref": "#/$defs/bilingual" }
+          },
+          "additionalProperties": false
+        },
+        "review": { "$ref": "#/$defs/review" },
+        "release_id": { "const": "release:art-gallery-interactions-1.1.0" },
+        "release_version": { "const": "1.1.0" }
+      },
+      "additionalProperties": false
+    },
+    "sourceAsset": {
+      "type": "object",
+      "required": ["media_id", "path", "sha256", "width", "height"],
+      "properties": {
+        "media_id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" },
+        "path": { "type": "string", "pattern": "^assets/[a-z0-9._-]+/[0-9]+w\\.jpg$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "heroSelection": {
+      "type": "object",
+      "required": ["id", "artist_id", "artwork_id", "status", "selection_input_hash", "rationale", "source_asset", "detail_region_ids"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^hero:[a-z0-9][a-z0-9._-]*$" },
+        "artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+        "status": { "enum": ["visual_detail_path", "textual_observation_path"] },
+        "selection_input_hash": { "$ref": "#/$defs/sha256" },
+        "rationale": { "$ref": "#/$defs/bilingual" },
+        "source_asset": { "oneOf": [{ "$ref": "#/$defs/sourceAsset" }, { "type": "null" }] },
+        "detail_region_ids": { "type": "array", "maxItems": 3, "uniqueItems": true, "items": { "type": "string", "pattern": "^detail-region:[a-z0-9][a-z0-9._-]*$" } }
+      },
+      "additionalProperties": false
+    },
+    "detailRegion": {
+      "type": "object",
+      "required": ["id", "hero_id", "artwork_id", "label", "source_asset", "rect", "normalized_rect", "metrics", "algorithm", "semantic_label"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^detail-region:[a-z0-9][a-z0-9._-]*$" },
+        "hero_id": { "type": "string", "pattern": "^hero:[a-z0-9][a-z0-9._-]*$" },
+        "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+        "label": { "$ref": "#/$defs/bilingual" },
+        "source_asset": { "$ref": "#/$defs/sourceAsset" },
+        "rect": { "$ref": "#/$defs/rect" },
+        "normalized_rect": { "$ref": "#/$defs/normalizedRect" },
+        "metrics": {
+          "type": "object",
+          "required": ["edge_density", "local_contrast", "entropy", "saliency", "score"],
+          "properties": {
+            "edge_density": { "type": "number", "minimum": 0 },
+            "local_contrast": { "type": "number", "minimum": 0 },
+            "entropy": { "type": "number", "minimum": 0 },
+            "saliency": { "type": "number", "minimum": 0 },
+            "score": { "type": "number", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "algorithm": {
+          "type": "object",
+          "required": ["name", "version", "input_release_hash", "maximum_iou", "border_exclusion_ratio", "minimum_area_ratio"],
+          "properties": {
+            "name": { "const": "structural-detail-navigation" },
+            "version": { "const": "1.0.0" },
+            "input_release_hash": { "$ref": "#/$defs/sha256" },
+            "maximum_iou": { "type": "number", "minimum": 0, "maximum": 0.5 },
+            "border_exclusion_ratio": { "type": "number", "minimum": 0.01, "maximum": 0.25 },
+            "minimum_area_ratio": { "type": "number", "minimum": 0.01, "maximum": 0.5 }
+          },
+          "additionalProperties": false
+        },
+        "semantic_label": { "type": "null" }
+      },
+      "additionalProperties": false
+    },
+    "rect": {
+      "type": "object",
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "integer", "minimum": 0 },
+        "y": { "type": "integer", "minimum": 0 },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "normalizedRect": {
+      "type": "object",
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "tourStep": {
+      "type": "object",
+      "required": ["sequence", "artwork_id", "reason"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "artwork_id": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" },
+        "reason": { "$ref": "#/$defs/bilingual" }
+      },
+      "additionalProperties": false
+    },
+    "artistTour": {
+      "type": "object",
+      "required": [
+        "id", "kind", "title", "artist_id", "entry_question", "artwork_steps", "focus",
+        "time_place_context", "evidence_check", "do_not_overinterpret", "reflection_question",
+        "equivalent_paths", "source_ids", "disclaimer", "fixed_curatorial", "algorithmic", "share_path"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^tour:artist-[a-z0-9][a-z0-9._-]*$" },
+        "kind": { "const": "artist" },
+        "title": { "$ref": "#/$defs/bilingual" },
+        "artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+        "entry_question": { "$ref": "#/$defs/bilingual" },
+        "artwork_steps": { "type": "array", "minItems": 2, "maxItems": 4, "items": { "$ref": "#/$defs/tourStep" } },
+        "focus": {
+          "type": "object",
+          "required": ["type", "context_id", "label"],
+          "properties": {
+            "type": { "enum": ["material", "technique", "subject"] },
+            "context_id": { "$ref": "#/$defs/stableId" },
+            "label": { "$ref": "#/$defs/bilingual" }
+          },
+          "additionalProperties": false
+        },
+        "time_place_context": { "$ref": "#/$defs/bilingual" },
+        "evidence_check": { "$ref": "#/$defs/bilingual" },
+        "do_not_overinterpret": { "$ref": "#/$defs/bilingual" },
+        "reflection_question": { "$ref": "#/$defs/bilingual" },
+        "equivalent_paths": {
+          "type": "object",
+          "required": ["image", "no_image"],
+          "properties": { "image": { "$ref": "#/$defs/bilingual" }, "no_image": { "$ref": "#/$defs/bilingual" } },
+          "additionalProperties": false
+        },
+        "source_ids": { "$ref": "#/$defs/idList" },
+        "disclaimer": { "$ref": "#/$defs/bilingual" },
+        "fixed_curatorial": { "const": true },
+        "algorithmic": { "const": false },
+        "share_path": { "type": "string", "pattern": "^/art/tours/tour%3Aartist-[a-z0-9._-]+$" }
+      },
+      "additionalProperties": false
+    },
+    "thematicTour": {
+      "type": "object",
+      "required": [
+        "id", "kind", "title", "summary", "artist_ids", "artwork_ids", "context_ids",
+        "period_labels", "region_labels", "source_ids", "metadata_only_artwork_ids", "noncausal_statement",
+        "fixed_curatorial", "pathfinding", "automatic_recommendation", "share_path"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^tour:theme-[a-z0-9][a-z0-9._-]*$" },
+        "kind": { "const": "thematic" },
+        "title": { "$ref": "#/$defs/bilingual" },
+        "summary": { "$ref": "#/$defs/bilingual" },
+        "artist_ids": { "type": "array", "minItems": 3, "maxItems": 6, "uniqueItems": true, "items": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" } },
+        "artwork_ids": { "type": "array", "minItems": 4, "maxItems": 8, "uniqueItems": true, "items": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" } },
+        "context_ids": { "$ref": "#/$defs/idList" },
+        "period_labels": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/bilingual" } },
+        "region_labels": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/bilingual" } },
+        "source_ids": { "$ref": "#/$defs/idList" },
+        "metadata_only_artwork_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^artwork:[a-z0-9][a-z0-9._-]*$" } },
+        "noncausal_statement": { "$ref": "#/$defs/bilingual" },
+        "fixed_curatorial": { "const": true },
+        "pathfinding": { "const": false },
+        "automatic_recommendation": { "const": false },
+        "share_path": { "type": "string", "pattern": "^/art/tours/tour%3Atheme-[a-z0-9._-]+$" }
+      },
+      "additionalProperties": false
+    },
+    "lens": {
+      "type": "object",
+      "required": ["id", "type", "title", "boundary", "entries"],
+      "properties": {
+        "id": { "enum": ["lens:material", "lens:technique", "lens:subject"] },
+        "type": { "enum": ["material", "technique", "subject"] },
+        "title": { "$ref": "#/$defs/bilingual" },
+        "boundary": { "$ref": "#/$defs/bilingual" },
+        "entries": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["context_id", "label", "definition", "artwork_ids", "evidence_ids", "source_ids", "source_links"],
+            "properties": {
+              "context_id": { "$ref": "#/$defs/stableId" },
+              "label": { "$ref": "#/$defs/bilingual" },
+              "definition": { "$ref": "#/$defs/bilingual" },
+              "artwork_ids": { "$ref": "#/$defs/idList" },
+              "evidence_ids": { "$ref": "#/$defs/idList" },
+              "source_ids": { "$ref": "#/$defs/idList" },
+              "source_links": {
+                "type": "array", "minItems": 1, "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": ["source_id", "label", "url"],
+                  "properties": {
+                    "source_id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+                    "label": { "$ref": "#/$defs/bilingual" },
+                    "url": { "type": "string", "format": "uri", "pattern": "^https://" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "comparePrompt": {
+      "type": "object",
+      "required": ["id", "lens", "prompt", "boundary"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^compare-prompt:[a-z0-9][a-z0-9._-]*$" },
+        "lens": { "enum": ["material", "technique", "subject"] },
+        "prompt": { "$ref": "#/$defs/bilingual" },
+        "boundary": { "$ref": "#/$defs/bilingual" }
+      },
+      "additionalProperties": false
+    },
+    "printShare": {
+      "type": "object",
+      "required": ["allowed_routes", "allowed_query_keys", "tracking_parameters", "upload_data", "print_image_policy", "forced_colors", "release_id_in_print"],
+      "properties": {
+        "allowed_routes": { "type": "array", "minItems": 4, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "allowed_query_keys": { "type": "array", "uniqueItems": true, "items": { "enum": ["left", "right", "view", "region", "leftRegion", "rightRegion", "lens"] } },
+        "tracking_parameters": { "const": false },
+        "upload_data": { "const": false },
+        "print_image_policy": { "const": "approved_small_image_or_metadata_only" },
+        "forced_colors": { "const": true },
+        "release_id_in_print": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "mediaRetry": {
+      "type": "object",
+      "required": ["artifact_path", "artifact_hash", "status", "artwork_count", "download_attempt_count", "approved_media_count_before", "approved_media_count_after", "no_image_count_after", "human_review_dependency"],
+      "properties": {
+        "artifact_path": { "const": "media-retry.json" },
+        "artifact_hash": { "$ref": "#/$defs/sha256" },
+        "status": { "enum": ["pass", "partial"] },
+        "artwork_count": { "const": 13 },
+        "download_attempt_count": { "const": 0 },
+        "approved_media_count_before": { "const": 31 },
+        "approved_media_count_after": { "const": 31 },
+        "no_image_count_after": { "const": 13 },
+        "human_review_dependency": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "performance": {
+      "type": "object",
+      "required": ["home_growth_percent_max", "tours_route_gzip_max", "artwork_interaction_chunk_gzip_max", "interaction_json_gzip_max", "detail_regions_gzip_max", "low_bandwidth_default", "print_loads_large_images", "initial_loads_all_tour_images"],
+      "properties": {
+        "home_growth_percent_max": { "const": 5 },
+        "tours_route_gzip_max": { "const": 307200 },
+        "artwork_interaction_chunk_gzip_max": { "const": 184320 },
+        "interaction_json_gzip_max": { "const": 122880 },
+        "detail_regions_gzip_max": { "const": 30720 },
+        "low_bandwidth_default": { "const": "no_images" },
+        "print_loads_large_images": { "const": false },
+        "initial_loads_all_tour_images": { "const": false }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

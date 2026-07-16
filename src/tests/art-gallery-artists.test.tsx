@@ -9,6 +9,7 @@ import { ArtistGalleryPage, ArtistIndexPage } from "../features/art-gallery/arti
 import type { GallerySharedProps } from "../features/art-gallery/gallery-types";
 import { I18nProvider } from "../i18n/I18nProvider";
 import { PreferencesProvider } from "../preferences/PreferencesProvider";
+import { interactionFixture } from "./interaction-fixture";
 
 if (!globalThis.crypto?.subtle) {
   Object.defineProperty(globalThis, "crypto", { configurable: true, value: webcrypto });
@@ -53,6 +54,7 @@ beforeAll(async () => {
     release: releaseResult.release,
     dataSource: releaseResult.dataSource,
     catalog: catalogResult.data,
+    interactions: interactionFixture,
   };
 });
 

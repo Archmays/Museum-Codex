@@ -20,6 +20,7 @@ TEXT_SUFFIXES = {
 MAX_SCANNABLE_TEXT_BYTES = 5 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
 MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
+MUSEUM_05B_RELEASE_DIR = Path("releases") / "art-gallery-interactions-1.1.0"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
     "candidate_id": re.compile(r"candidate:[0-9a-f-]{36}", re.IGNORECASE),
@@ -89,10 +90,11 @@ def scan_public_artifact(
         for term in sorted(private_candidate_terms or set(), key=str.casefold):
             if len(term) >= 4 and term.casefold() in text.casefold():
                 findings.append({"code": "candidate_name_publicly_exposed", "path": relative})
-        for term in formal_art_terms or []:
-            value = term["value"]
-            if _term_matches(text, value, term["match_mode"]) and not formal_exempt:
-                findings.append({"code": "formal_art_data_publicly_exposed", "path": relative})
+        if not formal_exempt:
+            for term in formal_art_terms or []:
+                value = term["value"]
+                if _term_matches(text, value, term["match_mode"]):
+                    findings.append({"code": "formal_art_data_publicly_exposed", "path": relative})
     unique = {(item["code"], item["path"]): item for item in findings}
     return [unique[key] for key in sorted(unique)]
 
@@ -106,7 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     terms = candidate_terms_from_bundle(args.selection_bundle) if args.selection_bundle else set()
     formal_terms, label_error = formal_art_terms_from_label_set(args.label_set) if args.label_set else ([], None)
-    exempt_roots, release_findings = validated_museum_04_exempt_roots(args.root) if formal_terms else (set(), [])
+    exempt_roots, release_findings = validated_formal_art_exempt_roots(args.root) if formal_terms else (set(), [])
     findings = scan_public_artifact(
         args.root,
         private_candidate_terms=terms,
@@ -169,9 +171,7 @@ def _term_matches(text: str, value: str, match_mode: str) -> bool:
 
 
 def validated_museum_04_exempt_roots(root: Path) -> tuple[set[Path], list[dict[str, str]]]:
-    release_root = root / MUSEUM_04_RELEASE_DIR
-    if root.name == MUSEUM_04_RELEASE_DIR.name and root.parent.name == "releases":
-        release_root = root
+    release_root = _release_root_for_scan(root, MUSEUM_04_RELEASE_DIR)
     if not release_root.is_dir():
         return set(), []
     from museum_pipeline.art.public_release import validate_museum_04_release
@@ -180,6 +180,32 @@ def validated_museum_04_exempt_roots(root: Path) -> tuple[set[Path], list[dict[s
     if result["ok"]:
         return {release_root.resolve()}, []
     return set(), [{"code": "museum_04_release_invalid", "path": release_root.relative_to(root).as_posix() if release_root != root else root.name}]
+
+
+def validated_formal_art_exempt_roots(root: Path) -> tuple[set[Path], list[dict[str, str]]]:
+    """Allow only exact, physically validated formal release directories."""
+    exempt_roots, findings = validated_museum_04_exempt_roots(root)
+    release_root = _release_root_for_scan(root, MUSEUM_05B_RELEASE_DIR)
+    if not release_root.is_dir():
+        return exempt_roots, findings
+
+    from museum_pipeline.art.interactions import validate_museum_05b_release
+
+    result = validate_museum_05b_release(release_root)
+    if result["ok"]:
+        exempt_roots.add(release_root.resolve())
+    else:
+        findings.append({
+            "code": "museum_05b_release_invalid",
+            "path": release_root.relative_to(root).as_posix() if release_root != root else root.name,
+        })
+    return exempt_roots, findings
+
+
+def _release_root_for_scan(root: Path, release_dir: Path) -> Path:
+    if root.name == release_dir.name and root.parent.name == "releases":
+        return root
+    return root / release_dir
 
 
 def _path_is_within_any(path: Path, roots: set[Path]) -> bool:

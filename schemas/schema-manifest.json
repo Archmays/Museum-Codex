@@ -254,6 +254,13 @@
       ]
     },
     {
+      "path": "schemas/art/media/media-retry.schema.json",
+      "id": "https://museum-codex.example/schemas/art/media/media-retry.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
       "path": "schemas/art/media/media-source-ledger.schema.json",
       "id": "https://museum-codex.example/schemas/art/media/media-source-ledger.schema.json",
       "version": "1.0.0",

@@ -1,0 +1,243 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/online.spec.ts",
+      "e2e/museum-05a.spec.ts",
+      "-g",
+      "desktop graph, equivalent|390px graph|approved artwork zoom"
+    ],
+    "configFile": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\playwright.config.ts",
+    "rootDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/output/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/qa/museum-05b/playwright-final-candidate-rerun-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 10,
+    "webServer": {
+      "command": "npm run preview -- --host 127.0.0.1 --port 4173",
+      "url": "http://127.0.0.1:4173/Museum-Codex/",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "museum-05a.spec.ts",
+      "file": "museum-05a.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "approved artwork zoom supports buttons and keyboard, exposes rights, and degrades on decode failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3463,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T00:20:28.475Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "78d722694269aa0ffbdb-43dfb5b6ba948ad285f9",
+          "file": "museum-05a.spec.ts",
+          "line": 228,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "online.spec.ts",
+      "file": "online.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "desktop graph, equivalent views, relationship evidence, rights, and URL state",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 8062,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.artist-representative img')\nExpected pattern: \u001b[32m/\\/releases\\/art-constellation-1\\.0\\.0\\/assets\\//\u001b[39m\nReceived string:  \u001b[31m\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.artist-representative img')\u001b[22m\n\u001b[2m    14 × locator resolved to <img width=\"640\" height=\"482\" loading=\"lazy\" decoding=\"async\" sizes=\"(max-width: 760px) 86vw, 420px\" alt=\"Music-Making Angels — Albrecht Dürer\" src=\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\" srcset=\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/320w.jpg 320w, http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg 640w, http://127.0.0.1:4173/Museu…/>\u001b[22m\n\u001b[2m       - unexpected value \"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.artist-representative img')\nExpected pattern: \u001b[32m/\\/releases\\/art-constellation-1\\.0\\.0\\/assets\\//\u001b[39m\nReceived string:  \u001b[31m\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.artist-representative img')\u001b[22m\n\u001b[2m    14 × locator resolved to <img width=\"640\" height=\"482\" loading=\"lazy\" decoding=\"async\" sizes=\"(max-width: 760px) 86vw, 420px\" alt=\"Music-Making Angels — Albrecht Dürer\" src=\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\" srcset=\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/320w.jpg 320w, http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg 640w, http://127.0.0.1:4173/Museu…/>\u001b[22m\n\u001b[2m       - unexpected value \"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\"\u001b[22m\n\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\online.spec.ts:133:60",
+                    "location": {
+                      "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\online.spec.ts",
+                      "column": 60,
+                      "line": 133
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 131 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\".related-relation-list button\"\u001b[39m)\u001b[33m.\u001b[39mfirst())\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 132 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\".artist-representative img\"\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 133 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\".artist-representative img\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveAttribute(\n \u001b[90m     |\u001b[39m                                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 134 |\u001b[39m     \u001b[32m\"src\"\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 135 |\u001b[39m     \u001b[35m/\\/releases\\/art-constellation-1\\.0\\.0\\/assets\\//\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 136 |\u001b[39m   )\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\online.spec.ts",
+                        "column": 60,
+                        "line": 133
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.artist-representative img')\nExpected pattern: \u001b[32m/\\/releases\\/art-constellation-1\\.0\\.0\\/assets\\//\u001b[39m\nReceived string:  \u001b[31m\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.artist-representative img')\u001b[22m\n\u001b[2m    14 × locator resolved to <img width=\"640\" height=\"482\" loading=\"lazy\" decoding=\"async\" sizes=\"(max-width: 760px) 86vw, 420px\" alt=\"Music-Making Angels — Albrecht Dürer\" src=\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\" srcset=\"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/320w.jpg 320w, http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg 640w, http://127.0.0.1:4173/Museu…/>\u001b[22m\n\u001b[2m       - unexpected value \"http://127.0.0.1:4173/Museum-Codex/releases/art-gallery-interactions-1.1.0/assets/met-334816/640w.jpg\"\u001b[22m\n\n\n  131 |   await expect(page.locator(\".related-relation-list button\").first()).toBeVisible();\n  132 |   await expect(page.locator(\".artist-representative img\")).toBeVisible();\n> 133 |   await expect(page.locator(\".artist-representative img\")).toHaveAttribute(\n      |                                                            ^\n  134 |     \"src\",\n  135 |     /\\/releases\\/art-constellation-1\\.0\\.0\\/assets\\//,\n  136 |   );\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\online.spec.ts:133:60"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T00:20:28.451Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\online-desktop-graph-equiv-a0a9c-idence-rights-and-URL-state\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\online-desktop-graph-equiv-a0a9c-idence-rights-and-URL-state\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\online-desktop-graph-equiv-a0a9c-idence-rights-and-URL-state\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\online.spec.ts",
+                    "column": 60,
+                    "line": 133
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-70472322825489b801f4",
+          "file": "online.spec.ts",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "390px graph and low-bandwidth list preserve focus and URL state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3763,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T00:20:37.491Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-c3ec43727ef96c692bf2",
+          "file": "online.spec.ts",
+          "line": 239,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-16T00:20:27.010Z",
+    "duration": 14639.264,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

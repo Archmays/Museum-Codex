@@ -1,0 +1,153 @@
+.observation-card,
+.observation-lenses,
+.print-share-controls {
+  min-width: 0;
+  margin-top: clamp(2.5rem, 6vw, 5.5rem);
+  border: 1px solid var(--line-strong);
+  background: rgba(8, 18, 24, 0.88);
+  box-shadow: var(--shadow-surface);
+}
+
+.observation-card > header,
+.observation-lenses > .eyebrow,
+.observation-lenses > h2 { margin-inline: clamp(1rem, 3vw, 2rem); }
+.observation-card > header { padding-top: clamp(1.4rem, 3vw, 2.2rem); }
+.observation-card > header h2,
+.observation-card > header h3,
+.observation-card > header h4,
+.observation-lenses > h2 { margin-top: 0.6rem; font-size: clamp(1.8rem, 4vw, 3.4rem); text-wrap: balance; }
+.observation-card-status { color: var(--gold-soft); font-size: 0.75rem; }
+.observation-card-metadata { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 1.25rem; border: 1px solid var(--line); }
+.observation-card-metadata > div { min-width: 0; padding: 0.8rem; border-right: 1px solid var(--line); }
+.observation-card-metadata > div:last-child { border-right: 0; }
+.observation-card-metadata dt { color: var(--ink-faint); font-size: 0.68rem; }
+.observation-card-metadata dd { margin: 0.35rem 0 0; color: var(--ink-muted); font-size: 0.76rem; line-height: 1.6; }
+
+.observation-prompts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 2rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.observation-prompts li { min-width: 0; padding: 1.25rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.observation-prompts li > span { color: var(--gold); font-family: var(--display); font-size: 0.7rem; }
+.observation-prompts p { margin: 0.65rem 0 0; color: var(--ink-muted); line-height: 1.7; }
+
+.observation-contexts,
+.observation-boundaries { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.observation-contexts > div,
+.observation-boundaries > section { min-width: 0; padding: 1.25rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.observation-contexts :is(h3, h4, h5),
+.observation-boundaries :is(h3, h4, h5),
+.observation-reference-links :is(h3, h4, h5) { margin: 0; color: var(--gold-soft); font-size: 0.78rem; }
+.observation-contexts p,
+.observation-boundaries li { color: var(--ink-muted); font-size: 0.78rem; line-height: 1.7; overflow-wrap: anywhere; }
+.observation-boundaries ul { margin-bottom: 0; padding-left: 1.1rem; }
+.observation-accessibility { margin: 1.25rem; padding-left: 1rem; border-left: 3px solid var(--verdigris); color: var(--ink-muted); line-height: 1.7; }
+.observation-reference-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 1.25rem; border-top: 1px solid var(--line); }
+.observation-reference-links section { min-width: 0; padding: 1rem 1rem 0 0; }
+.observation-reference-links ul { margin: 0.6rem 0 0; padding-left: 1rem; }
+.observation-reference-links a { color: var(--gold-soft); font-size: 0.7rem; line-height: 1.7; overflow-wrap: anywhere; }
+.observation-card footer { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; padding: 1rem 1.25rem; color: var(--ink-faint); font-size: 0.7rem; }
+.observation-card footer code { color: var(--gold-soft); overflow-wrap: anywhere; }
+
+.observation-lenses { padding-block: 1.6rem 2rem; }
+.observation-lens-switcher { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem clamp(1rem, 3vw, 2rem) 0; }
+.observation-lens-switcher button { min-height: 44px; padding: 0.55rem 0.8rem; border: 1px solid var(--line-strong); background: var(--surface-solid); color: var(--gold-soft); cursor: pointer; }
+.observation-lens-switcher button[aria-pressed="true"] { border-color: var(--verdigris); background: rgba(127, 196, 189, 0.14); color: var(--ink); }
+.observation-lens-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 1.5rem; background: var(--line); }
+.observation-lens-grid details { min-width: 0; padding: 1rem; background: var(--surface-solid); }
+.observation-lens-grid summary { min-height: 44px; color: var(--gold-soft); cursor: pointer; font-family: var(--display); }
+.observation-lens-grid summary span { margin-left: 0.4rem; color: var(--ink-faint); font-family: var(--sans); font-size: 0.68rem; }
+.observation-lens-grid details > p,
+.observation-lens-grid li p { color: var(--ink-muted); font-size: 0.76rem; line-height: 1.7; }
+.observation-lens-grid ul { padding-left: 1.1rem; }
+.observation-lens-grid h3 { font-size: 1rem; }
+.lens-related-links { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.lens-related-links a { min-height: 44px; color: var(--gold-soft); font-size: 0.68rem; overflow-wrap: anywhere; }
+.lens-reference-list { margin: 0.8rem 0 0; padding-top: 0.6rem; border-top: 1px solid var(--line); }
+.lens-reference-list > div { margin-top: 0.45rem; }
+.lens-reference-list dt { color: var(--ink-faint); font-size: 0.66rem; }
+.lens-reference-list dd { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.3rem 0 0; }
+.lens-reference-list a { color: var(--gold-soft); font-size: 0.66rem; overflow-wrap: anywhere; }
+
+.print-share-controls { padding: 1rem 1.25rem; }
+.print-share-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+.print-share-actions a,
+.print-share-actions button { display: inline-flex; min-height: 44px; align-items: center; padding: 0.6rem 0.8rem; border: 1px solid var(--line-strong); background: var(--surface-solid); color: var(--gold-soft); font: inherit; cursor: pointer; }
+.print-share-url { color: var(--ink-muted); font-size: 0.7rem; overflow-wrap: anywhere; }
+.print-share-release { color: var(--ink-faint); font-size: 0.68rem; }
+.print-share-controls [role="status"] { min-height: 1.2rem; color: var(--ink-muted); font-size: 0.7rem; }
+
+@media (max-width: 760px) {
+  .observation-prompts,
+  .observation-card-metadata,
+  .observation-reference-links,
+  .observation-contexts,
+  .observation-boundaries,
+  .observation-lens-grid { grid-template-columns: 1fr; }
+  .observation-card-metadata > div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .observation-prompts li,
+  .observation-contexts > div,
+  .observation-boundaries > section { border-right: 0; }
+}
+
+@media (forced-colors: active) {
+  .observation-card,
+  .observation-lenses,
+  .print-share-controls,
+  .observation-lens-grid details,
+  .observation-lens-switcher button,
+  .print-share-actions a,
+  .print-share-actions button { border-color: CanvasText; background: Canvas; box-shadow: none; }
+  .observation-accessibility { border-left-color: Highlight; }
+  .observation-lens-switcher button[aria-pressed="true"] { border-color: Highlight; background: Highlight; color: HighlightText; }
+}
+
+@media print {
+  :root { --ink: #000; --ink-muted: #000; --ink-faint: #000; --gold: #000; --gold-soft: #000; --verdigris: #000; --line: #000; --line-strong: #000; --surface: #fff; --surface-solid: #fff; --night: #fff; }
+  .site-header,
+  .site-footer,
+  .artwork-detail-actions,
+  .compare-controls,
+  .compare-status,
+  .print-share-actions,
+  .artwork-zoom-controls,
+  .artwork-detail-breadcrumbs { display: none !important; }
+  html,
+  body,
+  #root,
+  main,
+  .observation-card,
+  .observation-lenses,
+  .print-share-controls,
+  .compare-work,
+  .tour-index-grid,
+  .tour-index-grid li,
+  .tour-guide,
+  .tour-guide li,
+  .tour-fixed-boundary,
+  .tour-source-boundary,
+  .tour-work-list details,
+  .observation-lens-grid,
+  .observation-lens-grid details,
+  .artwork-object-record,
+  .artwork-limitations,
+  .artwork-original-title { background: #fff !important; color: #000 !important; box-shadow: none !important; }
+  body * { color: #000 !important; text-shadow: none !important; }
+  main { width: 100% !important; max-width: none !important; padding: 0 !important; }
+  a { color: #000 !important; text-decoration: underline; }
+  .observation-card,
+  .observation-lenses,
+  .print-share-controls,
+  .compare-work,
+  .artwork-object-record { break-inside: avoid; border-color: #000 !important; }
+  .tour-work-list details > :not(summary) { display: block !important; }
+  .tour-work-list details > summary { display: none !important; }
+  .observation-lens-grid details { display: block; background: #fff !important; }
+  .observation-lens-grid details > * { display: block; }
+  .artwork-zoom-viewport { max-height: 8cm; }
+  .artwork-zoom-viewport img { max-height: 8cm; object-fit: contain; }
+}

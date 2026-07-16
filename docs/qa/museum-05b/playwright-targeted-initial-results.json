@@ -1,0 +1,410 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/museum-05b.spec.ts"
+    ],
+    "configFile": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\playwright.config.ts",
+    "rootDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/output/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/qa/museum-05b/playwright-targeted-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 10,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "museum-05b.spec.ts",
+      "file": "museum-05b.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "tour index exposes 12 artist and six reviewed thematic routes without eager media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1986,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-15T23:12:32.529Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-391589d87424f4721fa0",
+          "file": "museum-05b.spec.ts",
+          "line": 99,
+          "column": 1
+        },
+        {
+          "title": "textual artist tour keeps the no-image path complete and prints every closed observation card",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1511,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-15T23:12:36.410Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-a3a7a7c385ab43435a0b",
+          "file": "museum-05b.spec.ts",
+          "line": 123,
+          "column": 1
+        },
+        {
+          "title": "shared detail-region URL restores the actual zoom view and keyboard reset clears it",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7123,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/scale\\((?:2|[2-4]\\.)/\u001b[39m\nReceived string:  \u001b[31m\"transform: translate(-383.5px, 512.03px) scale(1.93939);\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/scale\\((?:2|[2-4]\\.)/\u001b[39m\nReceived string:  \u001b[31m\"transform: translate(-383.5px, 512.03px) scale(1.93939);\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:161:80",
+                    "location": {
+                      "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                      "column": 80,
+                      "line": 161
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 159 |\u001b[39m   \u001b[36mawait\u001b[39m expect(regionButton)\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"aria-pressed\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"true\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 160 |\u001b[39m   \u001b[36mconst\u001b[39m viewport \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"group\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/Zoomable artwork image:/\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 161 |\u001b[39m   \u001b[36mawait\u001b[39m expect\u001b[33m.\u001b[39mpoll(\u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m viewport\u001b[33m.\u001b[39mlocator(\u001b[32m\"img\"\u001b[39m)\u001b[33m.\u001b[39mgetAttribute(\u001b[32m\"style\"\u001b[39m))\u001b[33m.\u001b[39mtoMatch(\u001b[35m/scale\\((?:2|[2-4]\\.)/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 162 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\".artwork-zoom-controls output\"\u001b[39m))\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoHaveText(\u001b[32m\"Zoom 100%\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 163 |\u001b[39m   \u001b[36mawait\u001b[39m capture(page\u001b[33m,\u001b[39m \u001b[32m\"artwork-detail-region-desktop\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 164 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                        "column": 80,
+                        "line": 161
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/scale\\((?:2|[2-4]\\.)/\u001b[39m\nReceived string:  \u001b[31m\"transform: translate(-383.5px, 512.03px) scale(1.93939);\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  159 |   await expect(regionButton).toHaveAttribute(\"aria-pressed\", \"true\");\n  160 |   const viewport = page.getByRole(\"group\", { name: /Zoomable artwork image:/ });\n> 161 |   await expect.poll(async () => viewport.locator(\"img\").getAttribute(\"style\")).toMatch(/scale\\((?:2|[2-4]\\.)/);\n      |                                                                                ^\n  162 |   await expect(page.locator(\".artwork-zoom-controls output\")).not.toHaveText(\"Zoom 100%\");\n  163 |   await capture(page, \"artwork-detail-region-desktop\");\n  164 |\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:161:80"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-15T23:12:37.932Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-shared-detail-r-5dee3-nd-keyboard-reset-clears-it\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-shared-detail-r-5dee3-nd-keyboard-reset-clears-it\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-shared-detail-r-5dee3-nd-keyboard-reset-clears-it\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                    "column": 80,
+                    "line": 161
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-866ca212ebbecb8a5cee",
+          "file": "museum-05b.spec.ts",
+          "line": 152,
+          "column": 1
+        },
+        {
+          "title": "metadata-only artwork retains cards, lenses, sources, print/share, and no fabricated visual task",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1961,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-15T23:12:45.745Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-9cc39ff770b44991510a",
+          "file": "museum-05b.spec.ts",
+          "line": 173,
+          "column": 1
+        },
+        {
+          "title": "mixed compare consumes formal lenses and prompts, preserves independent detail state, and prints only a small image",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8128,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:218:58",
+                    "location": {
+                      "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                      "column": 58,
+                      "line": 218
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 216 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\".compare-work img\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 217 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\".compare-work img\"\u001b[39m))\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"srcset\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 218 |\u001b[39m   \u001b[36mawait\u001b[39m expect\u001b[33m.\u001b[39mpoll(() \u001b[33m=>\u001b[39m observed\u001b[33m.\u001b[39mmediaRequests\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 219 |\u001b[39m   \u001b[36mawait\u001b[39m expect\u001b[33m.\u001b[39mpoll(() \u001b[33m=>\u001b[39m observed\u001b[33m.\u001b[39mmediaRequests\u001b[33m.\u001b[39mevery((url) \u001b[33m=>\u001b[39m \u001b[35m/\\/320w\\.jpg$/\u001b[39m\u001b[33m.\u001b[39mtest(url)))\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 220 |\u001b[39m   expectCleanRuntime(observed)\u001b[33m;\u001b[39m\n \u001b[90m 221 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                        "column": 58,
+                        "line": 218
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  216 |   await expect(page.locator(\".compare-work img\")).toHaveCount(1);\n  217 |   await expect(page.locator(\".compare-work img\")).not.toHaveAttribute(\"srcset\");\n> 218 |   await expect.poll(() => observed.mediaRequests.length).toBeGreaterThan(0);\n      |                                                          ^\n  219 |   await expect.poll(() => observed.mediaRequests.every((url) => /\\/320w\\.jpg$/.test(url))).toBe(true);\n  220 |   expectCleanRuntime(observed);\n  221 | });\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:218:58"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-15T23:12:47.773Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-mixed-compare-c-90056-d-prints-only-a-small-image\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-mixed-compare-c-90056-d-prints-only-a-small-image\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-mixed-compare-c-90056-d-prints-only-a-small-image\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                    "column": 58,
+                    "line": 218
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-ae114833ece8225b1db3",
+          "file": "museum-05b.spec.ts",
+          "line": 194,
+          "column": 1
+        },
+        {
+          "title": "touch, forced-colors, reduced-motion, invalid routes, and storage boundaries remain usable",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6895,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'This formal tour was not found', level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'This formal tour was not found', level: 1 })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'This formal tour was not found', level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'This formal tour was not found', level: 1 })\u001b[22m\n\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:240:97",
+                    "location": {
+                      "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                      "column": 97,
+                      "line": 240
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 238 |\u001b[39m\n \u001b[90m 239 |\u001b[39m   \u001b[36mawait\u001b[39m gotoGallery(page\u001b[33m,\u001b[39m \u001b[32m\"/art/tours/not-a-formal-tour\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 240 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"heading\"\u001b[39m\u001b[33m,\u001b[39m { level\u001b[33m:\u001b[39m \u001b[35m1\u001b[39m\u001b[33m,\u001b[39m name\u001b[33m:\u001b[39m \u001b[32m\"This formal tour was not found\"\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 241 |\u001b[39m   \u001b[36mconst\u001b[39m storageKeys \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m \u001b[33mObject\u001b[39m\u001b[33m.\u001b[39mkeys(window\u001b[33m.\u001b[39mlocalStorage)\u001b[33m.\u001b[39msort())\u001b[33m;\u001b[39m\n \u001b[90m 242 |\u001b[39m   expect(storageKeys)\u001b[33m.\u001b[39mtoEqual([\u001b[32m\"museum-locale\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"museum-low-bandwidth\"\u001b[39m])\u001b[33m;\u001b[39m\n \u001b[90m 243 |\u001b[39m   \u001b[36mawait\u001b[39m context\u001b[33m.\u001b[39mclose()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                        "column": 97,
+                        "line": 240
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'This formal tour was not found', level: 1 })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'This formal tour was not found', level: 1 })\u001b[22m\n\n\n  238 |\n  239 |   await gotoGallery(page, \"/art/tours/not-a-formal-tour\");\n> 240 |   await expect(page.getByRole(\"heading\", { level: 1, name: \"This formal tour was not found\" })).toBeVisible();\n      |                                                                                                 ^\n  241 |   const storageKeys = await page.evaluate(() => Object.keys(window.localStorage).sort());\n  242 |   expect(storageKeys).toEqual([\"museum-locale\", \"museum-low-bandwidth\"]);\n  243 |   await context.close();\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:240:97"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-15T23:12:56.574Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-touch-forced-co-a0960-ge-boundaries-remain-usable\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-touch-forced-co-a0960-ge-boundaries-remain-usable\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-touch-forced-co-a0960-ge-boundaries-remain-usable\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                    "column": 97,
+                    "line": 240
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-4a796058ae0327baaadb",
+          "file": "museum-05b.spec.ts",
+          "line": 223,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-15T23:11:19.580Z",
+    "duration": 104132.579,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

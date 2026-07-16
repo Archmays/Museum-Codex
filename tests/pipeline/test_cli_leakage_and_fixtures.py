@@ -28,7 +28,7 @@ from scripts.scan_public_artifact_for_candidate_data import (
     MAX_SCANNABLE_TEXT_BYTES,
     formal_art_terms_from_label_set,
     scan_public_artifact,
-    validated_museum_04_exempt_roots,
+    validated_formal_art_exempt_roots,
 )
 from scripts.validate_pipeline_foundation import validate_pipeline_foundation
 
@@ -172,7 +172,7 @@ class LeakageTests(unittest.TestCase):
             / "public-leakage-label-set.json"
         )
         formal_terms, label_error = formal_art_terms_from_label_set(label_set)
-        exempt_roots, release_findings = validated_museum_04_exempt_roots(public_root)
+        exempt_roots, release_findings = validated_formal_art_exempt_roots(public_root)
         self.assertIsNone(label_error)
         self.assertEqual([], release_findings)
         self.assertEqual(
@@ -182,6 +182,39 @@ class LeakageTests(unittest.TestCase):
                 formal_art_terms=formal_terms,
                 formal_art_exempt_roots=exempt_roots,
             ),
+        )
+
+    def test_formal_release_allowlist_is_exact_and_fails_closed(self) -> None:
+        exempt_roots, findings = validated_formal_art_exempt_roots(ROOT / "public")
+        self.assertEqual([], findings)
+        self.assertEqual(
+            {
+                (ROOT / "public" / "releases" / "art-constellation-1.0.0").resolve(),
+                (ROOT / "public" / "releases" / "art-gallery-interactions-1.1.0").resolve(),
+            },
+            exempt_roots,
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            public = Path(temporary)
+            invalid_release = public / "releases" / "art-gallery-interactions-1.1.0"
+            invalid_release.mkdir(parents=True)
+            invalid_release.joinpath("manifest.json").write_text("{}", encoding="utf-8")
+            invalid_roots, invalid_findings = validated_formal_art_exempt_roots(public)
+        self.assertEqual(set(), invalid_roots)
+        self.assertEqual("museum_05b_release_invalid", invalid_findings[0]["code"])
+
+    def test_unregistered_release_directory_keeps_generic_leakage_checks(self) -> None:
+        formal_terms = [{"value": "Albrecht Dürer", "match_mode": "casefold_substring"}]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            release = root / "releases" / "not-allowlisted-1.0.0"
+            release.mkdir(parents=True)
+            release.joinpath("record.json").write_text('"Albrecht Dürer"', encoding="utf-8")
+            release.joinpath("image.jpg").write_bytes(b"not-approved-media")
+            findings = scan_public_artifact(root, formal_art_terms=formal_terms)
+        self.assertEqual(
+            {"formal_art_data_publicly_exposed", "third_party_media_in_public_artifact"},
+            {item["code"] for item in findings},
         )
 
     def test_candidate_identifier_is_detected_in_public_artifact(self) -> None:
@@ -405,7 +438,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(63, len(environment.by_path))
+        self.assertEqual(65, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))

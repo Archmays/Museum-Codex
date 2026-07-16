@@ -26,6 +26,12 @@ import type {
   ThirdPartyNotice,
 } from "../features/art-constellation/types";
 import { readBootstrappedArtifact, type BootstrappedArtifact } from "./art-constellation-bootstrap";
+import {
+  CORE_ART_RELEASE_ID,
+  CURRENT_ART_RELEASE_ID,
+  CURRENT_ART_RELEASE_VERSION,
+  INTERACTION_INDEX_PATH,
+} from "./art-release-profile";
 
 export const SUPPORTED_RELEASE_SCHEMA_MAJOR = 1;
 
@@ -330,7 +336,7 @@ export function releaseMessage(status: ReleaseLoadResult["status"], locale: "zh-
 }
 
 const ART_CONSTELLATION_SCHEMA_VERSION = "1.0.0";
-const ART_CONSTELLATION_RELEASE_ID = "release:art-constellation-1.0.0";
+const ART_CONSTELLATION_RELEASE_ID = CORE_ART_RELEASE_ID;
 const ART_CONSTELLATION_MEDIA_BUNDLE_HASH = "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565";
 const ART_CONSTELLATION_INITIAL_ARTIFACTS = [
   "graph-summary.json",
@@ -1195,8 +1201,18 @@ export async function loadArtConstellationRelease(
       };
     }
     const { manifest } = manifestResult;
+    const isLegacyProfile = manifest.id === ART_CONSTELLATION_RELEASE_ID && manifest.version === "1.0.0";
+    const isInteractionProfile =
+      manifest.id === CURRENT_ART_RELEASE_ID &&
+      manifest.version === CURRENT_ART_RELEASE_VERSION &&
+      manifest.predecessor === ART_CONSTELLATION_RELEASE_ID &&
+      manifest.manifest_files.some((file) =>
+        file.path === INTERACTION_INDEX_PATH &&
+        file.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json"
+      );
+    const coreReleaseId = isInteractionProfile ? ART_CONSTELLATION_RELEASE_ID : manifest.id;
     if (
-      manifest.id !== ART_CONSTELLATION_RELEASE_ID || manifest.version !== "1.0.0" ||
+      (!isLegacyProfile && !isInteractionProfile) ||
       manifest.public_release !== true || manifest.status !== "publishable" ||
       manifest.included_media_asset_ids.length !== 273 || manifest.attribution_manifest.asset_ids.length !== 273 ||
       manifest.withdrawals.length !== 0 || manifest.deprecations.length !== 0
@@ -1214,7 +1230,7 @@ export async function loadArtConstellationRelease(
       }),
     );
     const data = Object.fromEntries(artifacts) as Record<(typeof ART_CONSTELLATION_INITIAL_ARTIFACTS)[number], unknown>;
-    const { summary, artifactPaths } = parseGraphSummary(data["graph-summary.json"], manifest.id);
+    const { summary, artifactPaths } = parseGraphSummary(data["graph-summary.json"], coreReleaseId);
     const expectedArtifactPaths: Record<string, string> = {
       artists: "artists.json", contexts: "contexts.json", relationships: "relationships.json",
       artworks: "artworks.json", evidence: "evidence.json", sources: "sources.json",
@@ -1225,16 +1241,16 @@ export async function loadArtConstellationRelease(
       throw new Error("graph_artifact_paths_invalid");
     }
 
-    const artists = parseArtists(data["artists.json"], manifest.id);
+    const artists = parseArtists(data["artists.json"], coreReleaseId);
     const release: ArtConstellationRelease = {
       manifestId: manifest.id,
       version: manifest.version,
       isPublicRelease: manifest.public_release,
       summary,
       artists,
-      searchEntries: parseSearchEntries(data["search-index.json"], manifest.id, artists),
-      layout: parseLayout(data["layout.json"], manifest.id),
-      facets: parseFacets(data["facets.json"], manifest.id),
+      searchEntries: parseSearchEntries(data["search-index.json"], coreReleaseId, artists),
+      layout: parseLayout(data["layout.json"], coreReleaseId),
+      facets: parseFacets(data["facets.json"], coreReleaseId),
     };
     assertInitialClosure(release);
 
@@ -1258,8 +1274,8 @@ export async function loadArtConstellationRelease(
           artifact("relationships.json", detailSignal),
         ]);
         const index = {
-          contexts: parseContexts(contextsRaw, manifest.id),
-          relationships: parseRelationships(relationshipsRaw, manifest.id),
+          contexts: parseContexts(contextsRaw, coreReleaseId),
+          relationships: parseRelationships(relationshipsRaw, coreReleaseId),
         };
         assertRelationshipIndexClosure(release, index);
         relationshipIndexCache = index;
@@ -1268,7 +1284,7 @@ export async function loadArtConstellationRelease(
 
     const loadSourcesArtifact = async (detailSignal?: AbortSignal) => {
       if (sourcesCache) return sourcesCache;
-      const sources = parseSources(await artifact("sources.json", detailSignal), manifest.id);
+      const sources = parseSources(await artifact("sources.json", detailSignal), coreReleaseId);
       sourcesCache = sources;
       return sources;
     };
@@ -1286,12 +1302,12 @@ export async function loadArtConstellationRelease(
         ),
         artifact("withdrawal-mapping.json", detailSignal),
       ]);
-      const artworks = parseArtworks(artworksRaw, manifest.id);
+      const artworks = parseArtworks(artworksRaw, coreReleaseId);
       const media = parseMediaSupport(
         mediaRaw,
         attributionsRaw,
         withdrawalRaw,
-        manifest.id,
+        coreReleaseId,
         base,
         artworks,
         manifest,
@@ -1304,13 +1320,13 @@ export async function loadArtConstellationRelease(
 
     const loadClaimsArtifact = async (detailSignal?: AbortSignal) => {
       if (claimsCache) return claimsCache;
-      claimsCache = parseClaims(await artifact("claims.json", detailSignal), manifest.id);
+      claimsCache = parseClaims(await artifact("claims.json", detailSignal), coreReleaseId);
       return claimsCache;
     };
 
     const loadEvidenceArtifact = async (detailSignal?: AbortSignal) => {
       if (evidenceCache) return evidenceCache;
-      evidenceCache = parseEvidence(await artifact("evidence.json", detailSignal), manifest.id);
+      evidenceCache = parseEvidence(await artifact("evidence.json", detailSignal), coreReleaseId);
       return evidenceCache;
     };
 
@@ -1402,7 +1418,7 @@ export async function loadArtConstellationRelease(
         };
       }, detailSignal),
       loadRights: (detailSignal) => detailResult<RightsDetails>(async () => {
-        const rights = parseRights(await artifact("rights.json", detailSignal), manifest.id, base);
+        const rights = parseRights(await artifact("rights.json", detailSignal), coreReleaseId, base);
         const noticesReference = manifest.third_party_notices_manifest;
         if (
           rights.noticesPath !== noticesReference.path ||

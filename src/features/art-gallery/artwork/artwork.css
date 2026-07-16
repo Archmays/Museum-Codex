@@ -530,6 +530,32 @@
   }
 }
 
+.detail-navigator {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 16rem);
+  gap: 1.2rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line-strong);
+  background: rgba(127, 196, 189, 0.05);
+}
+.detail-navigator h3 { margin: 0.45rem 0; font-size: clamp(1.1rem, 2vw, 1.5rem); }
+.detail-navigator p { color: var(--ink-muted); font-size: 0.75rem; line-height: 1.7; }
+.detail-minimap { position: relative; align-self: start; overflow: hidden; border: 1px solid var(--line-strong); background: var(--surface-solid); }
+.detail-minimap img { display: block; width: 100%; height: auto; }
+.detail-minimap span { position: absolute; display: grid; place-items: center; border: 2px solid var(--gold); background: rgba(0, 0, 0, 0.22); color: #fff; font-size: 0.65rem; }
+.detail-minimap span[data-current="true"] { border-color: var(--verdigris); border-width: 3px; }
+.detail-region-buttons { display: flex; grid-column: 1 / -1; flex-wrap: wrap; gap: 0.5rem; }
+.detail-region-buttons button { min-height: 44px; padding: 0.55rem 0.75rem; border: 1px solid var(--line-strong); background: var(--surface-solid); color: var(--gold-soft); cursor: pointer; }
+.detail-region-buttons button[aria-pressed="true"] { border-color: var(--verdigris); background: rgba(127, 196, 189, 0.14); color: var(--ink); }
+.detail-region-buttons button:disabled { cursor: not-allowed; opacity: 0.55; }
+.detail-region-status { grid-column: 1 / -1; min-height: 1.3rem; margin: 0; }
+
+@media (max-width: 760px) {
+  .detail-navigator { grid-template-columns: 1fr; }
+  .detail-minimap { width: min(100%, 18rem); }
+}
+
 @media (forced-colors: active) {
   .artwork-detail-hero > aside,
   .artwork-zoom-viewport,
@@ -554,4 +580,11 @@
   .artwork-zoom-gate button {
     color: ButtonText;
   }
+
+  .detail-navigator,
+  .detail-minimap,
+  .detail-region-buttons button { border-color: CanvasText; background: Canvas; }
+  .detail-minimap span { border-color: ButtonText; background: Canvas; color: CanvasText; }
+  .detail-minimap span[data-current="true"] { border-color: Highlight; }
+  .detail-region-buttons button[aria-pressed="true"] { border-color: Highlight; background: Highlight; color: HighlightText; }
 }

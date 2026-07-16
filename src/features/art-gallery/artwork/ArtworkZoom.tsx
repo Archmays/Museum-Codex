@@ -13,12 +13,17 @@ import { usePreferences } from "../../../preferences/PreferencesProvider";
 import { localize, type ArtworkRecord, type MediaAsset } from "../../art-constellation/types";
 import { galleryCopy, fillCopy } from "../copy";
 import { factualArtworkAlt, mediaForArtwork } from "../media";
+import type { DetailRegion } from "../interaction-types";
 
 export type ArtworkZoomProps = {
   artwork: ArtworkRecord;
   media: MediaAsset[];
   artistName: string;
   lowBandwidth: boolean;
+  regions?: DetailRegion[];
+  activeRegionId?: string | null;
+  onRegionChange?: (regionId: string | null) => void;
+  printMode?: boolean;
 };
 
 type Point = { x: number; y: number };
@@ -36,7 +41,16 @@ function initialView(assetId: string | null): ZoomView {
   return { assetId, zoom: 1, maximumZoom: 1, pan: { x: 0, y: 0 } };
 }
 
-export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: ArtworkZoomProps) {
+export function ArtworkZoom({
+  artwork,
+  media,
+  artistName,
+  lowBandwidth,
+  regions = [],
+  activeRegionId,
+  onRegionChange,
+  printMode = false,
+}: ArtworkZoomProps) {
   const { locale } = useI18n();
   const { reducedMotion } = usePreferences();
   const instanceId = useId();
@@ -51,6 +65,7 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
   const [failedAssetId, setFailedAssetId] = useState<string | null>(null);
   const [loadedAssetId, setLoadedAssetId] = useState<string | null>(null);
   const [view, setView] = useState<ZoomView>(() => initialView(null));
+  const [internalRegionId, setInternalRegionId] = useState<string | null>(null);
 
   const candidates = useMemo(
     () => mediaForArtwork(media, artwork.id)
@@ -61,8 +76,11 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
     () => candidates.filter((item) => item.format === "jpeg"),
     [candidates],
   );
-  const asset = jpegCandidates.at(-1) ?? candidates.at(-1) ?? null;
-  const responsiveSrcSet = jpegCandidates.map((item) => `${item.src} ${item.width}w`).join(", ");
+  const asset = printMode
+    ? (jpegCandidates.find((item) => item.width === 320) ?? jpegCandidates[0] ?? candidates[0] ?? null)
+    : (jpegCandidates.at(-1) ?? candidates.at(-1) ?? null);
+  const responsiveSrcSet = printMode ? "" : jpegCandidates.map((item) => `${item.src} ${item.width}w`).join(", ");
+  const minimapAsset = jpegCandidates[0] ?? null;
 
   const activeAssetId = asset?.id ?? null;
   const activeView = view.assetId === activeAssetId ? view : initialView(activeAssetId);
@@ -70,7 +88,8 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
   const explicitlyRequested = explicitAssetId === activeAssetId;
   const failed = Boolean(activeAssetId && failedAssetId === activeAssetId);
   const loaded = Boolean(activeAssetId && loadedAssetId === activeAssetId);
-  const shouldCreateImage = Boolean(asset && !failed && (!lowBandwidth || explicitlyRequested));
+  const shouldCreateImage = Boolean(asset && !failed && (printMode || !lowBandwidth || explicitlyRequested));
+  const selectedRegionId = activeRegionId === undefined ? internalRegionId : activeRegionId;
 
   const updateView = useCallback((transform: (current: ZoomView) => ZoomView) => {
     setView((current) => transform(current.assetId === activeAssetId ? current : initialView(activeAssetId)));
@@ -96,7 +115,27 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
 
   const resetView = useCallback(() => {
     updateView((current) => ({ ...current, zoom: 1, pan: { x: 0, y: 0 } }));
-  }, [updateView]);
+    setInternalRegionId(null);
+    onRegionChange?.(null);
+  }, [onRegionChange, updateView]);
+
+  const positionRegion = useCallback((region: DetailRegion) => {
+    if (!loaded || !imageRef.current) return;
+    const targetZoom = clamp(Math.max(2, zoom), 1, maximumZoom);
+    const centerX = region.normalized_rect.x + region.normalized_rect.width / 2;
+    const centerY = region.normalized_rect.y + region.normalized_rect.height / 2;
+    const target = boundedPan({
+      x: (0.5 - centerX) * imageRef.current.clientWidth * targetZoom,
+      y: (0.5 - centerY) * imageRef.current.clientHeight * targetZoom,
+    }, targetZoom);
+    updateView((current) => ({ ...current, zoom: targetZoom, pan: target }));
+    setInternalRegionId(region.id);
+  }, [boundedPan, loaded, maximumZoom, updateView, zoom]);
+
+  const jumpToRegion = useCallback((region: DetailRegion) => {
+    positionRegion(region);
+    onRegionChange?.(region.id);
+  }, [onRegionChange, positionRegion]);
 
   const recalculateMaximumZoom = useCallback(() => {
     if (!asset || !imageRef.current) {
@@ -133,6 +172,28 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
     return () => observer.disconnect();
   }, [loaded, recalculateMaximumZoom]);
 
+  useEffect(() => {
+    if (activeRegionId === undefined || !loaded) return;
+    const applyExternalRegion = () => {
+      if (activeRegionId === null) {
+        if (internalRegionId !== null) {
+          updateView((current) => ({ ...current, zoom: 1, pan: { x: 0, y: 0 } }));
+          setInternalRegionId(null);
+        }
+        return;
+      }
+      const region = regions.find((item) => item.id === activeRegionId);
+      if (region) positionRegion(region);
+    };
+    const frame = typeof window.requestAnimationFrame === "function"
+      ? window.requestAnimationFrame(applyExternalRegion)
+      : window.setTimeout(applyExternalRegion, 0);
+    return () => {
+      if (typeof window.cancelAnimationFrame === "function") window.cancelAnimationFrame(frame);
+      else window.clearTimeout(frame);
+    };
+  }, [activeRegionId, internalRegionId, loaded, positionRegion, regions, updateView]);
+
   const setSafeZoom = useCallback((next: number) => {
     const bounded = clamp(next, 1, maximumZoom);
     updateView((current) => ({
@@ -144,12 +205,16 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
 
   const handleKeyboard = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!loaded) return;
-    if (["+", "=", "-", "0", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+    if (["+", "=", "-", "0", "Escape", "1", "2", "3", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
       event.preventDefault();
     }
     if (event.key === "+" || event.key === "=") setSafeZoom(zoom + ZOOM_STEP);
     if (event.key === "-") setSafeZoom(zoom - ZOOM_STEP);
-    if (event.key === "0") resetView();
+    if (event.key === "0" || event.key === "Escape") resetView();
+    if (/^[1-3]$/.test(event.key)) {
+      const region = regions[Number(event.key) - 1];
+      if (region) jumpToRegion(region);
+    }
     if (zoom <= 1) return;
     if (event.key === "ArrowLeft") updateView((current) => ({ ...current, pan: boundedPan({ ...current.pan, x: current.pan.x - PAN_STEP }, zoom) }));
     if (event.key === "ArrowRight") updateView((current) => ({ ...current, pan: boundedPan({ ...current.pan, x: current.pan.x + PAN_STEP }, zoom) }));
@@ -240,7 +305,7 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
               ref={imageRef}
               src={asset.src}
               srcSet={responsiveSrcSet || undefined}
-              sizes="(max-width: 760px) 92vw, 100vw"
+              sizes={printMode ? "320px" : "(max-width: 760px) 92vw, 100vw"}
               width={asset.width}
               height={asset.height}
               alt={factualArtworkAlt(artistName, artwork, date, locale)}
@@ -282,6 +347,43 @@ export function ArtworkZoom({ artwork, media, artistName, lowBandwidth }: Artwor
             </button>
             <button type="button" disabled={!loaded || zoom === 1} onClick={resetView}>{copy.zoomReset}</button>
           </div>
+
+          {regions.length > 0 && !printMode ? (
+            <section className="detail-navigator" aria-labelledby={`${instanceId}-detail-title`}>
+              <div>
+                <p className="eyebrow">{locale === "zh-CN" ? "细节导航" : "Detail navigation"}</p>
+                <h3 id={`${instanceId}-detail-title`}>{locale === "zh-CN" ? "结构区域，不是策展结论" : "Structural regions, not curatorial conclusions"}</h3>
+                <p>{locale === "zh-CN" ? "这些区域由图像结构自动选取，不代表策展结论。按 1、2、3 跳转，按 0 或 Esc 重置。" : "These regions are selected from image structure and do not represent curatorial conclusions. Press 1, 2, or 3 to jump; press 0 or Escape to reset."}</p>
+                <p>{locale === "zh-CN" ? "来源图像尺寸" : "Source image dimensions"}: {asset.width} × {asset.height}</p>
+              </div>
+              {minimapAsset && !lowBandwidth ? (
+                <div className="detail-minimap" role="img" aria-label={locale === "zh-CN" ? "细节区域小地图" : "Detail-region minimap"}>
+                  <img src={minimapAsset.src} width={minimapAsset.width} height={minimapAsset.height} alt="" loading="lazy" decoding="async" />
+                  {regions.map((region, index) => (
+                    <span
+                      key={region.id}
+                      aria-hidden="true"
+                      data-current={selectedRegionId === region.id ? "true" : "false"}
+                      style={{ left: `${region.normalized_rect.x * 100}%`, top: `${region.normalized_rect.y * 100}%`, width: `${region.normalized_rect.width * 100}%`, height: `${region.normalized_rect.height * 100}%` }}
+                    >{index + 1}</span>
+                  ))}
+                </div>
+              ) : null}
+              <div className="detail-region-buttons" aria-label={locale === "zh-CN" ? "选择细节区域" : "Choose a detail region"}>
+                {regions.map((region) => (
+                  <button key={region.id} type="button" aria-pressed={selectedRegionId === region.id} disabled={!loaded} onClick={() => jumpToRegion(region)}>
+                    {localize(region.label, locale)}
+                  </button>
+                ))}
+                <button type="button" disabled={!loaded} onClick={resetView}>{copy.zoomReset}</button>
+              </div>
+              <p className="detail-region-status" role="status" aria-live="polite">
+                {selectedRegionId
+                  ? localize(regions.find((region) => region.id === selectedRegionId)?.label ?? { "zh-Hans": "概览", en: "Overview" }, locale)
+                  : (locale === "zh-CN" ? "当前：概览" : "Current: overview")}
+              </p>
+            </section>
+          ) : null}
 
           <figcaption>
             <p><strong>{copy.imageRights}</strong> {asset.attribution}</p>

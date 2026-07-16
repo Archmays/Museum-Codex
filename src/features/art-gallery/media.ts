@@ -1,12 +1,13 @@
 import { localize, type ArtworkRecord, type MediaAsset } from "../art-constellation/types";
 import type { Locale } from "../../i18n/translations";
+import { isKnownArtReleaseAssetPath } from "../../data/art-release-profile";
 
 export function isLocalApprovedAsset(asset: MediaAsset) {
   try {
     const url = new URL(asset.src, window.location.href);
     return (
       url.origin === window.location.origin &&
-      /\/releases\/art-constellation-1\.0\.0\/assets\/[a-z0-9._-]+\/[0-9]+w\.(?:jpe?g|webp)$/i.test(url.pathname)
+      isKnownArtReleaseAssetPath(url.pathname)
     );
   } catch {
     return false;

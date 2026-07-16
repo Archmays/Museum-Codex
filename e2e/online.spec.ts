@@ -75,7 +75,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   const observed = observePage(page);
   const releaseRequests: string[] = [];
   page.on("request", (request) => {
-    if (request.url().includes("/releases/art-constellation-1.0.0/")) {
+    if (request.url().includes("/releases/art-gallery-interactions-1.1.0/")) {
       releaseRequests.push(new URL(request.url()).pathname.split("/").at(-1) ?? "");
     }
   });
@@ -132,7 +132,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await expect(page.locator(".artist-representative img")).toBeVisible();
   await expect(page.locator(".artist-representative img")).toHaveAttribute(
     "src",
-    /\/releases\/art-constellation-1\.0\.0\/assets\//,
+    /\/releases\/art-gallery-interactions-1\.1\.0\/assets\//,
   );
   expect(releaseRequests).toEqual(expect.arrayContaining([
     "media-index.json", "attributions.json", "withdrawal-mapping.json",
@@ -279,7 +279,7 @@ test("390px graph and low-bandwidth list preserve focus and URL state", async ({
   await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
   await expect(page.locator(".constellation-detail-panel")).toBeVisible();
   await expect(page.locator(".constellation-detail-panel img")).toHaveCount(0);
-  await page.route("**/releases/art-constellation-1.0.0/assets/**", async (route) => {
+  await page.route("**/releases/art-gallery-interactions-1.1.0/assets/**", async (route) => {
     await new Promise((resolveDelay) => setTimeout(resolveDelay, 250));
     await route.continue();
   });
@@ -289,7 +289,7 @@ test("390px graph and low-bandwidth list preserve focus and URL state", async ({
   await expect(imageStatus).toHaveText("Loading the artwork image.");
   await expect(page.locator(".constellation-detail-panel img")).toBeVisible();
   await expect(imageStatus).toHaveText("Artwork image loaded.");
-  await page.unroute("**/releases/art-constellation-1.0.0/assets/**");
+  await page.unroute("**/releases/art-gallery-interactions-1.1.0/assets/**");
   await page.getByRole("button", { name: "Close notes" }).click();
   await revealDeferredListForFullPageCapture(page);
   await page.screenshot({ path: screenshotPath("mobile-list"), fullPage: true });

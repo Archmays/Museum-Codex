@@ -253,7 +253,7 @@ test("approved artwork zoom supports buttons and keyboard, exposes rights, and d
   await expect(page.locator(".artwork-zoom-figure figcaption")).toContainText("Withdrawal status:");
   await captureFullPage(page, "artwork-detail-desktop");
 
-  await page.route("**/releases/art-constellation-1.0.0/assets/**", async (route) => {
+  await page.route("**/releases/art-gallery-interactions-1.1.0/assets/**", async (route) => {
     await route.fulfill({ status: 200, contentType: "image/webp", body: "not-an-image" });
   });
   await gotoMuseum05a(page, `/art/artworks/${encodeURIComponent("artwork:met-436528")}`);
@@ -265,12 +265,12 @@ test("approved artwork zoom supports buttons and keyboard, exposes rights, and d
   );
   await expect(page.getByRole("heading", { level: 1, name: "Irises" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Visit official artwork source" })).toBeVisible();
-  await page.unroute("**/releases/art-constellation-1.0.0/assets/**");
+  await page.unroute("**/releases/art-gallery-interactions-1.1.0/assets/**");
 
   const mobileArtworkRequests: string[] = [];
   page.on("request", (request) => {
     const pathname = new URL(request.url()).pathname;
-    if (/\/releases\/art-constellation-1\.0\.0\/assets\/met-436532\//.test(pathname)) {
+    if (/\/releases\/art-gallery-interactions-1\.1\.0\/assets\/met-436532\//.test(pathname)) {
       mobileArtworkRequests.push(pathname);
     }
   });

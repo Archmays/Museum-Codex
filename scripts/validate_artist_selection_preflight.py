@@ -19,7 +19,7 @@ from museum_pipeline.validation.dispatch import load_schema_environment, validat
 from scripts.scan_public_artifact_for_candidate_data import (
     formal_art_terms_from_label_set,
     scan_public_artifact,
-    validated_museum_04_exempt_roots,
+    validated_formal_art_exempt_roots,
 )
 from scripts.validate_governance_foundation import schema_manifest_entries
 
@@ -72,7 +72,7 @@ def validate_artist_selection_preflight(*, verbose: bool = True) -> dict:
         / "public-leakage-label-set.json"
     )
     formal_terms, label_error = formal_art_terms_from_label_set(label_set) if label_set.exists() else ([], None)
-    exempt_roots, release_findings = validated_museum_04_exempt_roots(public_root) if formal_terms else (set(), [])
+    exempt_roots, release_findings = validated_formal_art_exempt_roots(public_root) if formal_terms else (set(), [])
     public_findings = scan_public_artifact(
         public_root,
         formal_art_terms=formal_terms,

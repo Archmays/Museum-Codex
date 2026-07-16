@@ -9,10 +9,15 @@ import {
   type MediaAsset,
 } from "../../art-constellation/types";
 import { ArtworkZoom } from "../artwork/ArtworkZoom";
+import { ObservationCard } from "../observation/ObservationCard";
+import { ObservationLenses } from "../observation/ObservationLenses";
+import { PrintShareControls } from "../observation/PrintShareControls";
 import { galleryCopy } from "../copy";
 import type { GallerySharedProps } from "../gallery-types";
+import type { DetailRegion, ObservationCard as ObservationCardRecord } from "../interaction-types";
 import { mediaForArtwork } from "../media";
 import "../artwork/artwork.css";
+import "../observation/observation.css";
 import "./compare.css";
 
 type CompareSlot = "left" | "right";
@@ -33,6 +38,11 @@ type ComparisonWorkProps = {
   artistName: string;
   locale: Locale;
   lowBandwidth: boolean;
+  card: ObservationCardRecord;
+  regions: DetailRegion[];
+  activeRegionId: string | null;
+  onRegionChange: (regionId: string | null) => void;
+  printMode: boolean;
 };
 
 function ComparisonWork({
@@ -42,6 +52,11 @@ function ComparisonWork({
   artistName,
   locale,
   lowBandwidth,
+  card,
+  regions,
+  activeRegionId,
+  onRegionChange,
+  printMode,
 }: ComparisonWorkProps) {
   const copy = galleryCopy[locale];
   const approvedMedia = approvedMediaForArtwork(artwork, media);
@@ -69,7 +84,13 @@ function ComparisonWork({
         media={approvedMedia}
         artistName={artistName}
         lowBandwidth={lowBandwidth}
+        regions={regions}
+        activeRegionId={activeRegionId}
+        onRegionChange={onRegionChange}
+        printMode={printMode}
       />
+
+      <ObservationCard card={card} compact headingLevel={3} />
 
       <section className="compare-metadata" aria-label={`${title} · ${copy.medium}`}>
         <dl>
@@ -105,7 +126,7 @@ function ComparisonWork({
   );
 }
 
-export function ComparePage({ release, catalog }: GallerySharedProps) {
+export function ComparePage({ release, catalog, interactions }: GallerySharedProps) {
   const { locale } = useI18n();
   const { compactViewport, forcedColors, lowBandwidth, reducedMotion } = usePreferences();
   const copy = galleryCopy[locale];
@@ -137,35 +158,61 @@ export function ComparePage({ release, catalog }: GallerySharedProps) {
   const rightId = rightCandidate && rightCandidate !== leftId ? rightCandidate : "";
   const leftArtwork = leftId ? artworkById.get(leftId) ?? null : null;
   const rightArtwork = rightId ? artworkById.get(rightId) ?? null : null;
+  const rawLens = searchParams.get("lens");
+  const lens = rawLens && ["material", "technique", "subject"].includes(rawLens) ? rawLens : null;
+  const printMode = searchParams.get("view") === "print";
+  const regionsFor = (artworkId: string) => interactions.detail_regions.filter((region) => region.artwork_id === artworkId);
+  const leftRegions = leftArtwork ? regionsFor(leftArtwork.id) : [];
+  const rightRegions = rightArtwork ? regionsFor(rightArtwork.id) : [];
+  const rawLeftRegion = searchParams.get("leftRegion");
+  const rawRightRegion = searchParams.get("rightRegion");
+  const leftRegion = rawLeftRegion && leftRegions.some((region) => region.id === rawLeftRegion) ? rawLeftRegion : null;
+  const rightRegion = rawRightRegion && rightRegions.some((region) => region.id === rawRightRegion) ? rawRightRegion : null;
+
+  const writeState = (nextState: {
+    left?: string | null;
+    right?: string | null;
+    lens?: string | null;
+    leftRegion?: string | null;
+    rightRegion?: string | null;
+    view?: string | null;
+  }) => {
+    const next = new URLSearchParams();
+    const merged = {
+      left: leftId,
+      right: rightId,
+      lens,
+      leftRegion,
+      rightRegion,
+      view: printMode ? "print" : null,
+      ...nextState,
+    };
+    for (const key of ["left", "right", "lens", "leftRegion", "rightRegion", "view"] as const) {
+      const value = merged[key];
+      if (value) next.set(key, value);
+    }
+    setSearchParams(next, { replace: true });
+  };
 
   useEffect(() => {
-    const next = new URLSearchParams(searchParams);
-    let changed = false;
-    if (rawLeftId !== null && rawLeftId !== leftId) {
-      next.delete("left");
-      changed = true;
-    }
-    if (rawRightId !== null && rawRightId !== rightId) {
-      next.delete("right");
-      changed = true;
-    }
-    if (changed) setSearchParams(next, { replace: true });
-  }, [leftId, rawLeftId, rawRightId, rightId, searchParams, setSearchParams]);
+    const next = new URLSearchParams();
+    if (leftId) next.set("left", leftId);
+    if (rightId) next.set("right", rightId);
+    if (lens) next.set("lens", lens);
+    if (leftRegion) next.set("leftRegion", leftRegion);
+    if (rightRegion) next.set("rightRegion", rightRegion);
+    if (printMode) next.set("view", "print");
+    if (next.toString() !== searchParams.toString()) setSearchParams(next, { replace: true });
+  }, [leftId, leftRegion, lens, printMode, rightId, rightRegion, searchParams, setSearchParams]);
 
   const updateSelection = (slot: CompareSlot, nextId: string) => {
-    const next = new URLSearchParams(searchParams);
     const otherId = slot === "left" ? rightId : leftId;
-    if (!nextId || nextId === otherId) next.delete(slot);
-    else next.set(slot, nextId);
-    setSearchParams(next, { replace: true });
+    writeState({ [slot]: !nextId || nextId === otherId ? null : nextId, [slot === "left" ? "leftRegion" : "rightRegion"]: null });
   };
 
   const swapWorks = () => {
     if (!leftArtwork || !rightArtwork) return;
-    const next = new URLSearchParams(searchParams);
-    next.set("left", rightArtwork.id);
-    next.set("right", leftArtwork.id);
-    setSearchParams(next, { replace: true });
+    writeState({ left: rightArtwork.id, right: leftArtwork.id, leftRegion: rightRegion, rightRegion: leftRegion });
   };
 
   const statusText = leftArtwork && rightArtwork
@@ -233,6 +280,9 @@ export function ComparePage({ release, catalog }: GallerySharedProps) {
             {options(leftId)}
           </select>
         </label>
+        <button type="button" className="compare-clear" disabled={!leftArtwork && !rightArtwork} onClick={() => setSearchParams(new URLSearchParams(), { replace: true })}>
+          {locale === "zh-CN" ? "清除比较" : "Clear comparison"}
+        </button>
       </section>
 
       <p id="compare-selection-status" className="compare-status" role="status" aria-live="polite" aria-atomic="true">
@@ -240,6 +290,8 @@ export function ComparePage({ release, catalog }: GallerySharedProps) {
       </p>
 
       {leftArtwork && rightArtwork ? (
+        <>
+        <SharedDifferentFields left={leftArtwork} right={rightArtwork} locale={locale} />
         <section className="compare-stage" aria-label={copy.compareReady}>
           <ComparisonWork
             slot="left"
@@ -248,6 +300,11 @@ export function ComparePage({ release, catalog }: GallerySharedProps) {
             artistName={localize(artistById.get(leftArtwork.artistId)?.labels ?? { "zh-Hans": "—", en: "—" }, locale)}
             locale={locale}
             lowBandwidth={lowBandwidth}
+            card={interactions.observation_cards.find((card) => card.artwork_id === leftArtwork.id)!}
+            regions={leftRegions}
+            activeRegionId={leftRegion}
+            onRegionChange={(regionId) => writeState({ leftRegion: regionId })}
+            printMode={printMode}
           />
           <ComparisonWork
             slot="right"
@@ -256,8 +313,25 @@ export function ComparePage({ release, catalog }: GallerySharedProps) {
             artistName={localize(artistById.get(rightArtwork.artistId)?.labels ?? { "zh-Hans": "—", en: "—" }, locale)}
             locale={locale}
             lowBandwidth={lowBandwidth}
+            card={interactions.observation_cards.find((card) => card.artwork_id === rightArtwork.id)!}
+            regions={rightRegions}
+            activeRegionId={rightRegion}
+            onRegionChange={(regionId) => writeState({ rightRegion: regionId })}
+            printMode={printMode}
           />
         </section>
+        <ObservationLenses
+          lenses={interactions.lenses}
+          artworkIds={[leftArtwork.id, rightArtwork.id]}
+          activeLens={lens as "material" | "technique" | "subject" | null}
+          onLensChange={(nextLens) => writeState({ lens: nextLens })}
+        />
+        <PrintShareControls
+          releaseId={release.manifestId}
+          releaseVersion={release.version}
+          state={{ left: leftId, right: rightId, lens, leftRegion, rightRegion }}
+        />
+        </>
       ) : (
         <section className="compare-empty" aria-labelledby="compare-empty-title">
           <span aria-hidden="true">⇄</span>
@@ -269,12 +343,31 @@ export function ComparePage({ release, catalog }: GallerySharedProps) {
         <p className="eyebrow">{copy.comparisonPrompts}</p>
         <h2 id="comparison-prompts-title">{copy.comparisonPrompts}</h2>
         <ol>
-          {copy.prompts.map((prompt, index) => (
-            <li key={prompt}><span aria-hidden="true">0{index + 1}</span><p>{prompt}</p></li>
+          {interactions.compare_prompts.map((prompt, index) => (
+            <li key={prompt.id}><span aria-hidden="true">0{index + 1}</span><p>{localize(prompt.prompt, locale)}</p></li>
           ))}
         </ol>
-        <p className="compare-boundary"><strong>{copy.noSimilarity}</strong></p>
+        <p className="compare-boundary"><strong>{copy.noSimilarity}</strong><br />{localize(interactions.compare_prompts[0]?.boundary ?? { "zh-Hans": copy.noSimilarity, en: copy.noSimilarity }, locale)}</p>
       </section>
     </main>
+  );
+}
+
+function SharedDifferentFields({ left, right, locale }: { left: ArtworkRecord; right: ArtworkRecord; locale: Locale }) {
+  const groups = [
+    [locale === "zh-CN" ? "材料" : "Materials", left.materials, right.materials],
+    [locale === "zh-CN" ? "技法" : "Techniques", left.techniques, right.techniques],
+    [locale === "zh-CN" ? "题材" : "Subjects", left.subjects, right.subjects],
+  ] as const;
+  return (
+    <section className="compare-fields" aria-labelledby="compare-fields-title">
+      <h2 id="compare-fields-title">{locale === "zh-CN" ? "共同与不同字段" : "Shared and different fields"}</h2>
+      <div>{groups.map(([label, leftValues, rightValues]) => {
+        const leftLabels = leftValues.map((value) => localize(value, locale));
+        const rightLabels = rightValues.map((value) => localize(value, locale));
+        const shared = leftLabels.filter((value) => rightLabels.includes(value));
+        return <article key={label}><h3>{label}</h3><p><strong>{locale === "zh-CN" ? "共同" : "Shared"}:</strong> {shared.join(" · ") || "—"}</p><p><strong>{locale === "zh-CN" ? "左侧不同" : "Left only"}:</strong> {leftLabels.filter((value) => !shared.includes(value)).join(" · ") || "—"}</p><p><strong>{locale === "zh-CN" ? "右侧不同" : "Right only"}:</strong> {rightLabels.filter((value) => !shared.includes(value)).join(" · ") || "—"}</p></article>;
+      })}</div>
+    </section>
   );
 }

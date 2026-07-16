@@ -47,7 +47,7 @@
 
 .compare-controls {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
   gap: 1rem;
   align-items: end;
   margin-top: 3.5rem;
@@ -93,6 +93,16 @@
   transition: background-color 140ms cubic-bezier(0.2, 0, 0, 1), transform 140ms cubic-bezier(0.2, 0, 0, 1);
 }
 
+.compare-clear {
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.compare-clear:disabled { cursor: not-allowed; opacity: 0.55; }
+
 .compare-swap:hover:not(:disabled) { background: rgba(127, 196, 189, 0.15); }
 .compare-swap:active:not(:disabled) { transform: scale(0.96); }
 .compare-swap:disabled { color: var(--ink-faint); cursor: not-allowed; opacity: 0.58; }
@@ -118,6 +128,20 @@
   background: var(--line-strong);
   box-shadow: var(--shadow-surface);
 }
+
+.compare-fields { margin-top: 3rem; padding: 1.25rem; border: 1px solid var(--line-strong); }
+.compare-fields > h2 { font-size: clamp(1.7rem, 3vw, 2.8rem); }
+.compare-fields > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); }
+.compare-fields article { min-width: 0; padding: 1rem; background: var(--surface-solid); }
+.compare-fields h3 { color: var(--gold-soft); font-size: 1rem; }
+.compare-fields p { color: var(--ink-muted); font-size: 0.76rem; line-height: 1.65; overflow-wrap: anywhere; }
+.compare-work .observation-card { margin-top: 1.5rem; box-shadow: none; }
+.compare-work .observation-prompts,
+.compare-work .observation-contexts,
+.compare-work .observation-boundaries { grid-template-columns: 1fr; }
+.compare-work .observation-prompts li,
+.compare-work .observation-contexts > div,
+.compare-work .observation-boundaries > section { border-right: 0; }
 
 .compare-work {
   min-width: 0;
@@ -287,6 +311,7 @@
   .compare-controls { grid-template-columns: 1fr; margin-top: 2.5rem; padding: 0.9rem; }
   .compare-swap { width: 100%; }
   .compare-stage { grid-template-columns: 1fr; }
+  .compare-fields > div { grid-template-columns: 1fr; }
   .compare-work { padding: 1rem; }
   .compare-work-heading { min-height: 0; }
   .compare-prompts ol { grid-template-columns: 1fr; }
@@ -319,6 +344,7 @@
   }
 
   .compare-swap,
+  .compare-clear,
   .compare-controls select { border: 1px solid ButtonText; background: Canvas; color: CanvasText; }
   .compare-swap:disabled { color: GrayText; opacity: 1; }
   .compare-boundary { border-left: 3px solid Highlight; }

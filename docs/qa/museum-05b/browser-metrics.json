@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-05B",
+  "evidence_class": "controlled_browser_probe",
+  "real_user_metric": false,
+  "route": "#/art/tours",
+  "firstInteractiveMs": 1033.6000000014901,
+  "navigationDurationMs": 138.60000000149012,
+  "resourceCount": 23,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "lcpMs": 820,
+  "cls": 0,
+  "interactionProxyMs": 121.29999999701977,
+  "targets": {
+    "firstInteractiveMs": 1500,
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "interactionProxyMs": 200
+  },
+  "status": "pass"
+}

@@ -40,6 +40,14 @@ export function ArtFoyerPage() {
             <span>{gallery.artistIndex}</span>
             <small>{locale === "zh-CN" ? "进入十二位艺术家的数字展厅、作品详情与双作比较。" : "Enter twelve artist galleries, artwork details, and two-work comparison."}</small>
           </Link>
+          <Link className="constellation-entry" to="/art/tours">
+            <span>{locale === "zh-CN" ? "深度观察导览" : "Deep observation tours"}</span>
+            <small>{locale === "zh-CN" ? "进入十二条艺术家导览与六条固定主题导览。" : "Enter twelve artist tours and six fixed thematic tours."}</small>
+          </Link>
+          <Link className="constellation-entry" to="/art/compare">
+            <span>{gallery.openCompare}</span>
+            <small>{locale === "zh-CN" ? "并置两件正式作品，比较观察卡、透镜、来源与细节区域。" : "Place two formal works together with observation cards, lenses, sources, and detail regions."}</small>
+          </Link>
         </div>
       </aside>
       <Link className="text-link" to="/">← {t.common.backHome}</Link>

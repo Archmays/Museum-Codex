@@ -10,6 +10,7 @@ import type {
 } from "../features/art-constellation/types";
 import { I18nProvider } from "../i18n/I18nProvider";
 import { PreferencesProvider } from "../preferences/PreferencesProvider";
+import { interactionFixtureFor } from "./interaction-fixture";
 
 const localized = (value: string) => ({ "zh-Hans": value, en: value });
 
@@ -132,6 +133,7 @@ const props: GallerySharedProps = {
   },
   catalog: { artworks, media: [...approvedMedia, blockedRemoteMedia] },
   dataSource: {} as GallerySharedProps["dataSource"],
+  interactions: interactionFixtureFor(artworks),
 };
 
 function LocationProbe() {

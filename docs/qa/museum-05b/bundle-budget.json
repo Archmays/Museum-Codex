@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "1.0.0",
+  "phase": "MUSEUM-05B",
+  "measurement": "node:zlib gzip level 9; each asset compressed independently",
+  "inputSha256": "sha256:8737957bd262e2e018db1a9148a8cc98768daf26375b16425cf98231c3c7caa7",
+  "thresholds": {
+    "homeBaselineGzipBytes": 98684,
+    "homeGrowthPercentMax": 5,
+    "homeLimitGzipBytes": 103618,
+    "toursRouteGzipMax": 307200,
+    "artworkInteractionChunkGzipMax": 184320,
+    "interactionJsonGzipMax": 122880,
+    "detailRegionsGzipMax": 30720
+  },
+  "home": {
+    "files": [
+      {
+        "path": "assets/index-B3jFLj5M.css",
+        "rawBytes": 27032,
+        "gzipBytes": 6974,
+        "sha256": "sha256:4f465c9277f122132f4b8a8b18c1194068ad2be90d2690c6715a1f348ff1c189"
+      },
+      {
+        "path": "assets/index-D21B08zc.js",
+        "rawBytes": 287175,
+        "gzipBytes": 91917,
+        "sha256": "sha256:7f5cc2358f40dd274a7d7811b464f61ed92374333cb4c8d3dc03d9961d46c1af"
+      }
+    ],
+    "rawBytes": 314207,
+    "gzipBytes": 98891,
+    "growthPercent": 0.21,
+    "pass": true
+  },
+  "lazyBoundaries": {
+    "gallery": "src/features/art-gallery/ArtGalleryRoute.tsx",
+    "tours": "src/features/art-gallery/tours/ToursPage.tsx",
+    "artwork": "src/features/art-gallery/artwork/ArtworkDetailPage.tsx",
+    "toursDirect": true,
+    "artworkDirect": true,
+    "absentFromHome": true
+  },
+  "toursRoute": {
+    "assets": {
+      "files": [
+        {
+          "path": "assets/ArtGalleryRoute-IwHYJFAd.css",
+          "rawBytes": 3110,
+          "gzipBytes": 1087,
+          "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+        },
+        {
+          "path": "assets/ArtGalleryRoute-jPwIIMl7.js",
+          "rawBytes": 7888,
+          "gzipBytes": 2813,
+          "sha256": "sha256:4c106b829ec445b717b4765ba6617eeea6f876f71261a2b69678e8042e0f2a69"
+        },
+        {
+          "path": "assets/ArtworkImage-CMAoK1eu.js",
+          "rawBytes": 2613,
+          "gzipBytes": 1219,
+          "sha256": "sha256:096c66b8f01aed242ef7660c3c1d4cba495482e9791a682b53f0e3c6f94abb9c"
+        },
+        {
+          "path": "assets/ToursPage-CiwG66Rw.js",
+          "rawBytes": 9376,
+          "gzipBytes": 3447,
+          "sha256": "sha256:7a727c0169b143a76e6ad516a2ae8e1e729ae8bc57b293cb3df93fe095047261"
+        },
+        {
+          "path": "assets/ToursPage-DUxMRF1g.css",
+          "rawBytes": 4232,
+          "gzipBytes": 1219,
+          "sha256": "sha256:98e97eed174b1e5aa2446cfa90a56bd6e42b2a3ece2f1be0aa5f30865839b54c"
+        },
+        {
+          "path": "assets/media-CDKkyBNd.js",
+          "rawBytes": 557,
+          "gzipBytes": 342,
+          "sha256": "sha256:eddca2a2a6fddf7ffc22e1e6443b98ba1f7633396a9ebaba198f1a6a4ea7526d"
+        },
+        {
+          "path": "assets/observation-CApSWa2k.css",
+          "rawBytes": 7323,
+          "gzipBytes": 1675,
+          "sha256": "sha256:747f04acccfddee495b4c63ddd25c81cff2b4f09a2b452f4370ca98f5be176ce"
+        },
+        {
+          "path": "assets/observation-xQcb8U85.js",
+          "rawBytes": 6083,
+          "gzipBytes": 2313,
+          "sha256": "sha256:71d784644815c579443be6f6349f4ac9327db7a34d65b35cbb1f16365eaf2e9a"
+        },
+        {
+          "path": "assets/release-loader-yAzsSssQ.js",
+          "rawBytes": 32072,
+          "gzipBytes": 9490,
+          "sha256": "sha256:a19b321d3e3d5bcae6922b3cfb2e7acf54047c398730f92ac56d8223ad85a1bf"
+        },
+        {
+          "path": "assets/types-CbuEbNsj.js",
+          "rawBytes": 68,
+          "gzipBytes": 85,
+          "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+        }
+      ],
+      "rawBytes": 73322,
+      "gzipBytes": 23690
+    },
+    "initialJsonFiles": [
+      {
+        "path": "manifest.json",
+        "rawBytes": 155476,
+        "gzipBytes": 22946,
+        "sha256": "sha256:80fb28063f8d5287308074f2a8b5557bf5f7d15a165fa8952913cf827e16c0a0"
+      },
+      {
+        "path": "graph-summary.json",
+        "rawBytes": 1506,
+        "gzipBytes": 827,
+        "sha256": "sha256:0d3505c931d4913696fe1173c43ae19a3a347393cfd1bc685f8ff3c8216c4357"
+      },
+      {
+        "path": "artists.json",
+        "rawBytes": 56525,
+        "gzipBytes": 6112,
+        "sha256": "sha256:7ce69674fde8728f0c3a7711676d693af4481890ed02c311310e0250621d3d52"
+      },
+      {
+        "path": "layout.json",
+        "rawBytes": 1184,
+        "gzipBytes": 497,
+        "sha256": "sha256:f71b8abf2e2fc21a89298ebbf6cf0924b62d3edcd8031749f982cadc453ae2f0"
+      },
+      {
+        "path": "facets.json",
+        "rawBytes": 4228,
+        "gzipBytes": 974,
+        "sha256": "sha256:47a490c55d8875a17a7ee362f809ed28a786a852be0b2497beed9ac309fb40f0"
+      },
+      {
+        "path": "search-index.json",
+        "rawBytes": 9830,
+        "gzipBytes": 1847,
+        "sha256": "sha256:8fc3ff68e7b9ecf2b0e78bb4db37989ddc3793a863e205d0a0c2c66dde333d97"
+      },
+      {
+        "path": "artworks.json",
+        "rawBytes": 101884,
+        "gzipBytes": 8394,
+        "sha256": "sha256:48fe35d37ecf560e077a50bc25e2179bc66d4b29a1d4c0a3d465366c18997ba5"
+      },
+      {
+        "path": "media-index.json",
+        "rawBytes": 95540,
+        "gzipBytes": 16182,
+        "sha256": "sha256:44c34cd844126d84d394e25f54c1ba5e91a8161782f24acea3df04619833b24d"
+      },
+      {
+        "path": "attributions.json",
+        "rawBytes": 124600,
+        "gzipBytes": 3106,
+        "sha256": "sha256:a6891f84a7aaa4e5dd25aa0c97ac0a5c86096ce6291f86dfa7091b326a4ffba8"
+      },
+      {
+        "path": "withdrawal-mapping.json",
+        "rawBytes": 104206,
+        "gzipBytes": 2684,
+        "sha256": "sha256:c07b23f12fcca108db80b390b2374b9216d8600e4fdf4b702f3971694cd71791"
+      },
+      {
+        "path": "interaction-index.json",
+        "rawBytes": 244896,
+        "gzipBytes": 23336,
+        "sha256": "sha256:41d5d8b2f857d20aac131476b5ab39093700950c5750c2c3a766421f2e6738af"
+      }
+    ],
+    "initialJsonGzipBytes": 86905,
+    "totalGzipBytes": 110595,
+    "limitGzipBytes": 307200,
+    "pass": true
+  },
+  "artworkInteractionAssets": {
+    "files": [
+      {
+        "path": "assets/ArtGalleryRoute-IwHYJFAd.css",
+        "rawBytes": 3110,
+        "gzipBytes": 1087,
+        "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+      },
+      {
+        "path": "assets/ArtGalleryRoute-jPwIIMl7.js",
+        "rawBytes": 7888,
+        "gzipBytes": 2813,
+        "sha256": "sha256:4c106b829ec445b717b4765ba6617eeea6f876f71261a2b69678e8042e0f2a69"
+      },
+      {
+        "path": "assets/ArtworkDetailPage-lmNWm2RM.js",
+        "rawBytes": 7299,
+        "gzipBytes": 2336,
+        "sha256": "sha256:8d59fc740944ef8c7fce581bffd826c9c8727351410b448378098b07d19180bd"
+      },
+      {
+        "path": "assets/artwork-B62hPgtK.css",
+        "rawBytes": 10322,
+        "gzipBytes": 2463,
+        "sha256": "sha256:bc45d989a2d3bdcbeaff488d68196e2ebcd69f2308d5bdda88ccf12de7cffe8a"
+      },
+      {
+        "path": "assets/artwork-DAqSbyNF.js",
+        "rawBytes": 10839,
+        "gzipBytes": 4066,
+        "sha256": "sha256:74024ab51dede0315e681a4577c4c86cfa13214f5bc4def3564e4538cd2ad7ac"
+      },
+      {
+        "path": "assets/media-CDKkyBNd.js",
+        "rawBytes": 557,
+        "gzipBytes": 342,
+        "sha256": "sha256:eddca2a2a6fddf7ffc22e1e6443b98ba1f7633396a9ebaba198f1a6a4ea7526d"
+      },
+      {
+        "path": "assets/observation-CApSWa2k.css",
+        "rawBytes": 7323,
+        "gzipBytes": 1675,
+        "sha256": "sha256:747f04acccfddee495b4c63ddd25c81cff2b4f09a2b452f4370ca98f5be176ce"
+      },
+      {
+        "path": "assets/observation-xQcb8U85.js",
+        "rawBytes": 6083,
+        "gzipBytes": 2313,
+        "sha256": "sha256:71d784644815c579443be6f6349f4ac9327db7a34d65b35cbb1f16365eaf2e9a"
+      },
+      {
+        "path": "assets/release-loader-yAzsSssQ.js",
+        "rawBytes": 32072,
+        "gzipBytes": 9490,
+        "sha256": "sha256:a19b321d3e3d5bcae6922b3cfb2e7acf54047c398730f92ac56d8223ad85a1bf"
+      },
+      {
+        "path": "assets/types-CbuEbNsj.js",
+        "rawBytes": 68,
+        "gzipBytes": 85,
+        "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+      }
+    ],
+    "rawBytes": 85561,
+    "gzipBytes": 26670,
+    "limitGzipBytes": 184320,
+    "pass": true
+  },
+  "interactionJson": {
+    "path": "interaction-index.json",
+    "rawBytes": 244896,
+    "gzipBytes": 23336,
+    "sha256": "sha256:41d5d8b2f857d20aac131476b5ab39093700950c5750c2c3a766421f2e6738af",
+    "limitGzipBytes": 122880,
+    "pass": true
+  },
+  "detailRegions": {
+    "count": 24,
+    "rawBytes": 21246,
+    "gzipBytes": 2380,
+    "limitGzipBytes": 30720,
+    "pass": true
+  },
+  "runtimePolicies": {
+    "initialTourImages": "verified by M05B Playwright request assertions",
+    "lowBandwidth": "no_images",
+    "printLoadsLargeImages": false,
+    "analyticsOrHistoryStorage": {
+      "filesScanned": [
+        "src/features/art-gallery/ArtGalleryRoute.tsx",
+        "src/features/art-gallery/interaction-loader.ts",
+        "src/features/art-gallery/artwork/ArtworkDetailPage.tsx",
+        "src/features/art-gallery/artwork/ArtworkZoom.tsx",
+        "src/features/art-gallery/compare/ComparePage.tsx",
+        "src/features/art-gallery/observation/PrintShareControls.tsx",
+        "src/features/art-gallery/tours/ToursPage.tsx"
+      ],
+      "matches": [],
+      "pass": true
+    }
+  },
+  "failures": [],
+  "status": "pass"
+}
