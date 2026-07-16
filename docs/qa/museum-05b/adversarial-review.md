@@ -1,16 +1,16 @@
 ---
 phase_id: MUSEUM-05B
-review_status: implementation_candidate_pass
+review_status: pass
 reviewed_at: 2026-07-16
 p0_count: 0
 p1_count: 0
 p2_count: 0
-p3_count: 2
+p3_count: 3
 ---
 
 # MUSEUM-05B adversarial review A–F
 
-This review covers the implementation candidate. GitHub Actions, Pages deployment, and live-route evidence are closed separately in the phase report after the implementation commit is deployed.
+This review covers the deployed implementation and its online closure. GitHub Actions, Pages bytes, new and inherited routes, and the public-network observation are recorded in `online-evidence.json` and the phase report.
 
 ## A — Art history and observation copy: pass
 
@@ -43,14 +43,15 @@ This review covers the implementation candidate. GitHub Actions, Pages deploymen
 ## E — Engineering and performance: pass
 
 - Deterministic overlay rebuild, canonical dispatch, physical manifest closure, reference closure, and public/dist leakage scans pass.
-- Home gzip is 98,891/103,618 bytes; tours 110,595/307,200; artwork interactions 26,670/184,320; interaction JSON 23,336/122,880; detail-region data 2,380/30,720.
+- Home gzip is 98,891/103,618 bytes; tours 110,039/307,200; artwork interactions 26,670/184,320; interaction JSON 22,780/122,880; detail-region data 1,918/30,720.
 - The M05B tours probe passes first interactive, LCP, CLS, and interaction proxy budgets.
 - Changed shared inputs triggered fresh M04 current-graph and M05A route labs only. Existing 1k/10k/50k evidence was not regenerated and passes its unchanged hash contract.
 
-## F — Scope and release: implementation pass; online closure pending
+## F — Scope and release: pass
 
 - Work stayed on `main`; no branch, worktree, or PR was created.
 - No arbitrary AB path, BFS/Yen alternative, map, analytics, visit-history storage, Chinese tokenization dependency, new historical relationship, or algorithmic similarity was added.
+- Actions run `29462218848`, Pages deployment `5466417972`, the exact online release bytes, six inherited live scenarios, five M05B live scenarios, and an independent tours smoke all pass.
 - OD-006, OD-008, OD-009, and OD-011 remain open.
 - MUSEUM-06 is neither authorized nor entered.
 
@@ -60,6 +61,7 @@ This review covers the implementation candidate. GitHub Actions, Pages deploymen
 |---|---|---|
 | P1 | Existing public scanner rejected the new physical release or would require a broad exemption. | Added an exact-path exemption only after full M05B release validation; invalid/unregistered roots still fail generic scans. |
 | P1 | Final E2E interceptors still targeted M04 asset URLs. | Pointed the three affected request/delay/decode checks at the current 1.1 release; failed closures pass. |
+| P1 | The first Ubuntu release rebuild differed from Windows in 61 persisted JPEG-derived metric floats. | Confirmed that all region IDs/rectangles/order were identical, disabled decoder SIMD, added explicit `floor_0.01` metric quantization and cross-platform regression pairs, then passed the Ubuntu byte diff. |
 | P2 | Artist/thematic tour period and place text was not truly bilingual. | Added closed deterministic Chinese mappings and localized UI rendering. |
 | P2 | M05B LCP/CLS/interaction evidence was initially absent. | Added a bounded browser probe using the inherited OD-005 thresholds. |
 | P3 | One observation title doubled Chinese book-title brackets. | Fixed in the generator and locked with a regression assertion. |
@@ -70,5 +72,6 @@ This review covers the implementation candidate. GitHub Actions, Pages deploymen
 |---|---|---|---|
 | Inherited supplemental 1k graph FPS median is 27 versus the informational 30 target; the formal scale evidence otherwise passes. | Frontend performance owner | Preserve lazy media/data boundaries and profile renderer labels/neighborhoods before any separately authorized scale expansion. | Before a future authorized scale-expansion phase; not M05B. |
 | Real AT and physical touch-device sessions were unavailable. | Accessibility QA owner | Keep automated keyboard, semantics, forced-colors, reduced-motion, touch-emulation, print, and mobile evidence; schedule real-device/AT verification when that environment exists. | Before any future phase that explicitly requires real-device certification. |
+| The live composite tours check observed public-network first-interactive times of 3319.7 ms and 2613 ms, while the controlled probe remains 1033.6 ms with LCP 820 ms, CLS 0, and interaction proxy 121.3 ms. | Web performance owner | Keep the controlled budget as the release gate, retain the live cold-request evidence, and repeat geographically representative RUM-free sampling only in a separately authorized performance phase. | Before a future phase raises the public-network latency requirement; not M05B. |
 
 No P0, P1, or P2 remains open.

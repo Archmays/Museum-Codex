@@ -1,0 +1,543 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "e2e/museum-05b.spec.ts",
+      "e2e/online.spec.ts"
+    ],
+    "configFile": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\playwright.config.ts",
+    "rootDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/output/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/ChatGPT-Codex-Projects/Museum-Codex/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/qa/museum-05b/playwright-online-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 10,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "museum-05b.spec.ts",
+      "file": "museum-05b.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "tour index exposes 12 artist and six reviewed thematic routes without eager media",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4350,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1500\u001b[39m\nReceived:    \u001b[31m3319.7000000029802\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1500\u001b[39m\nReceived:    \u001b[31m3319.7000000029802\u001b[39m\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:163:30",
+                    "location": {
+                      "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                      "column": 30,
+                      "line": 163
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 161 |\u001b[39m     }\u001b[33m;\u001b[39m\n \u001b[90m 162 |\u001b[39m   })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 163 |\u001b[39m   expect(firstInteractiveMs)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m1\u001b[39m_500)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 164 |\u001b[39m   expect(measured\u001b[33m.\u001b[39mvitals\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mlcpMs)\u001b[33m.\u001b[39mnot\u001b[33m.\u001b[39mtoBeNull()\u001b[33m;\u001b[39m\n \u001b[90m 165 |\u001b[39m   expect(measured\u001b[33m.\u001b[39mvitals\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mlcpMs \u001b[33m?\u001b[39m\u001b[33m?\u001b[39m \u001b[33mNumber\u001b[39m\u001b[33m.\u001b[39m\u001b[33mPOSITIVE_INFINITY\u001b[39m)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m2\u001b[39m_500)\u001b[33m;\u001b[39m\n \u001b[90m 166 |\u001b[39m   expect(measured\u001b[33m.\u001b[39mvitals\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mcls \u001b[33m?\u001b[39m\u001b[33m?\u001b[39m \u001b[33mNumber\u001b[39m\u001b[33m.\u001b[39m\u001b[33mPOSITIVE_INFINITY\u001b[39m)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m0.1\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                        "column": 30,
+                        "line": 163
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1500\u001b[39m\nReceived:    \u001b[31m3319.7000000029802\u001b[39m\n\n  161 |     };\n  162 |   });\n> 163 |   expect(firstInteractiveMs).toBeLessThanOrEqual(1_500);\n      |                              ^\n  164 |   expect(measured.vitals?.lcpMs).not.toBeNull();\n  165 |   expect(measured.vitals?.lcpMs ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(2_500);\n  166 |   expect(measured.vitals?.cls ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(0.1);\n    at D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts:163:30"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:19.032Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-tour-index-expo-e60d1--routes-without-eager-media\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-tour-index-expo-e60d1--routes-without-eager-media\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\output\\playwright\\museum-05b-tour-index-expo-e60d1--routes-without-eager-media\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\ChatGPT-Codex-Projects\\Museum-Codex\\e2e\\museum-05b.spec.ts",
+                    "column": 30,
+                    "line": 163
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-391589d87424f4721fa0",
+          "file": "museum-05b.spec.ts",
+          "line": 128,
+          "column": 1
+        },
+        {
+          "title": "textual artist tour keeps the no-image path complete and prints every closed observation card",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2310,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:24.262Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-a3a7a7c385ab43435a0b",
+          "file": "museum-05b.spec.ts",
+          "line": 185,
+          "column": 1
+        },
+        {
+          "title": "shared detail-region URL restores the actual zoom view and keyboard reset clears it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4689,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:26.689Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-866ca212ebbecb8a5cee",
+          "file": "museum-05b.spec.ts",
+          "line": 214,
+          "column": 1
+        },
+        {
+          "title": "metadata-only artwork retains cards, lenses, sources, print/share, and no fabricated visual task",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2756,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:31.389Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-9cc39ff770b44991510a",
+          "file": "museum-05b.spec.ts",
+          "line": 238,
+          "column": 1
+        },
+        {
+          "title": "mixed compare consumes formal lenses and prompts, preserves independent detail state, and prints only a small image",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4679,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:34.156Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-ae114833ece8225b1db3",
+          "file": "museum-05b.spec.ts",
+          "line": 259,
+          "column": 1
+        },
+        {
+          "title": "touch, forced-colors, reduced-motion, invalid routes, and storage boundaries remain usable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4437,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:38.845Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e692a7d511609b67b192-4a796058ae0327baaadb",
+          "file": "museum-05b.spec.ts",
+          "line": 289,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "online.spec.ts",
+      "file": "online.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "desktop graph, equivalent views, relationship evidence, rights, and URL state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 8324,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:19.007Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-70472322825489b801f4",
+          "file": "online.spec.ts",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "Art landing and 1366-wide constellation remain complete without overflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:27.438Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-498403b9eac25818033b",
+          "file": "online.spec.ts",
+          "line": 187,
+          "column": 1
+        },
+        {
+          "title": "About, rights, and accessibility routes expose their public controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1533,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:30.390Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-1042a3a576c8e025bcd8",
+          "file": "online.spec.ts",
+          "line": 207,
+          "column": 1
+        },
+        {
+          "title": "390px graph and low-bandwidth list preserve focus and URL state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 5777,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:31.931Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-c3ec43727ef96c692bf2",
+          "file": "online.spec.ts",
+          "line": 239,
+          "column": 1
+        },
+        {
+          "title": "forced colors, reduced motion, and unavailable WebGL fall back to text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3873,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:37.718Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-e211a0cf0d4dbefc97bf",
+          "file": "online.spec.ts",
+          "line": 301,
+          "column": 1
+        },
+        {
+          "title": "no-script portal, Art, and rights content are available over HTTP 200",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1417,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-16T01:16:41.605Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c766cdb09ab4d2155712-a9b4723df3190766e895",
+          "file": "online.spec.ts",
+          "line": 346,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-16T01:16:18.558Z",
+    "duration": 25788.098,
+    "expected": 11,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -10,7 +10,7 @@ Date: 2026-07-16 (Asia/Shanghai)
 - **Done when:** 44 cards, 12 artist tours, 6 thematic tours, 12 hero selections, visual detail regions for image heroes, textual paths for no-image heroes, complete release closure, targeted and final gates, Actions/Pages evidence, and clean synchronized Git.
 - **Must not touch:** the immutable M03C bundle, `release:art-constellation-1.0.0`, open decisions OD-006/008/009/011, or other museum halls.
 - **Evidence sources:** phase reports, M03C ledger/manifest, M04 manifest, M05A implementation/adversarial notes, policies, schemas, loaders, tests, live official object status, Actions, and Pages.
-- **Current stage:** implementation.
+- **Current stage:** completed online closure.
 
 ## Entry 1
 
@@ -94,3 +94,12 @@ Date: 2026-07-16 (Asia/Shanghai)
 - **Conservative choice:** disable libjpeg SIMD before Pillow imports in the release builder, persist the four structural metrics through an explicit `floor_0.01` quantizer, and advance only the detail-navigation algorithm contract to `1.0.1`. Coordinates and source-asset bindings are unchanged.
 - **Consequence:** the formal release hash changes to `sha256:c07330d92d03b41fe57b5e80394e7e89e875945a9d24e7a5c73029b3283a8009`; no artwork, media byte, tour, card, lens, route, or semantic claim changes.
 - **Validation:** captured Windows/Linux metric pairs quantize identically; an external SIMD override rebuild is byte-identical; M05B 14/14, the public validator, governance validator, compile check, and the affected budget closure pass.
+
+## Entry 8
+
+- **Entry type:** online closure
+- **Expected:** the corrected candidate passes the complete Actions/Pages pipeline and resolves online to the exact local release bytes.
+- **Discovered:** Actions run `29462218848` passed every build, test, budget, leakage, safety, E2E, upload, and deploy step; Pages deployment `5466417972` serves the expected manifest, interaction index, and retry artifact hashes. Six inherited live scenarios and five M05B non-performance scenarios pass, and an independent tours smoke confirms 12+6 routes, a working fixed tour, zero eager tour images, and zero runtime/external-request errors.
+- **Conservative choice:** retain two public-network first-visit observations (3319.7 ms and 2613 ms) as P3 rather than reinterpret them as the controlled OD-005 probe. The committed controlled probe remains 1033.6 ms / LCP 820 ms / CLS 0 / interaction proxy 121.3 ms and passes.
+- **Consequence:** M05B closes online without weakening performance budgets or hiding geographic/network variance.
+- **Validation:** root and three formal release resources return HTTP 200; all online hashes and counts match; 209,495,583 bytes of generated build, trace, and temporary release output were removed from five verified workspace-local paths.

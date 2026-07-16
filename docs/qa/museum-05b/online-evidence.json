@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-05B",
+  "verified_at": "2026-07-16T09:22:22.1463999+08:00",
+  "closed_at": "2026-07-16T09:26:38.8708834+08:00",
+  "status": "pass",
+  "implementation_commit": "caa3ae77c25ce93bff6807972943924244b567ea",
+  "deployed_commit": "946a5e40b6aade6090382488a9a3bc48a280196e",
+  "github_actions": {
+    "prior_failed_run": {
+      "id": 29461364375,
+      "url": "https://github.com/Archmays/Museum-Codex/actions/runs/29461364375",
+      "conclusion": "failure",
+      "failed_step": "Rebuild and validate the deterministic MUSEUM-05B interaction release",
+      "closure": "Linux and Windows JPEG decode paths changed only persisted detail-metric floats; algorithm 1.0.1 now disables decoder SIMD and applies floor_0.01 quantization."
+    },
+    "successful_run": {
+      "id": 29462218848,
+      "url": "https://github.com/Archmays/Museum-Codex/actions/runs/29462218848",
+      "conclusion": "success",
+      "started_at": "2026-07-16T00:43:31Z",
+      "completed_at": "2026-07-16T01:14:41Z",
+      "build_job_id": 87507940926,
+      "deploy_job_id": 87512038067,
+      "failed_steps": 0
+    }
+  },
+  "pages": {
+    "url": "https://archmays.github.io/Museum-Codex/",
+    "root_http_status": 200,
+    "https_enforced": true,
+    "build_type": "workflow",
+    "deployment_id": 5466417972,
+    "deployment_status_id": 15540678875,
+    "deployment_state": "success"
+  },
+  "release": {
+    "id": "release:art-gallery-interactions-1.1.0",
+    "content_hash": "sha256:c07330d92d03b41fe57b5e80394e7e89e875945a9d24e7a5c73029b3283a8009",
+    "resources": [
+      {
+        "path": "manifest.json",
+        "http_status": 200,
+        "bytes": 155476,
+        "sha256": "sha256:2c865d0c1bbcba861b53546b70d7bc1a9eafa6276805ab10cfed4bee9fd8dab5"
+      },
+      {
+        "path": "interaction-index.json",
+        "http_status": 200,
+        "bytes": 245011,
+        "sha256": "sha256:f93d9dacb71d4255f36876e2557ec7783ee3febf0584c3fde941ca26ec302e23"
+      },
+      {
+        "path": "media-retry.json",
+        "http_status": 200,
+        "bytes": 8909,
+        "sha256": "sha256:0da72c9613d2afbfae8b4d5681b200dffd30d3afb90580d4e826bcf85e17fbe2"
+      }
+    ],
+    "counts": {
+      "observation_cards": 44,
+      "artist_tours": 12,
+      "thematic_tours": 6,
+      "hero_selections": 12,
+      "detail_regions": 24,
+      "textual_observation_paths": 4
+    }
+  },
+  "browser": {
+    "production_artifact_ci_e2e": {
+      "scenario_count": 17,
+      "status": "pass"
+    },
+    "live_combined_run": {
+      "evidence_path": "docs/qa/museum-05b/playwright-online-results.json",
+      "scenario_count": 12,
+      "passed": 11,
+      "failed": 1,
+      "functional_failure_count": 0,
+      "failed_assertion": "The composite tours test applied the controlled-lab firstInteractiveMs <= 1500 threshold to a public-network first visit; observed 3319.7 ms.",
+      "exact_rerun_evidence_path": "docs/qa/museum-05b/playwright-online-rerun-results.json",
+      "exact_rerun_observed_ms": 2613,
+      "interpretation": "Public-network latency observation retained as P3; it does not replace the passing controlled performance probe."
+    },
+    "live_functional_closure": {
+      "legacy_online_scenarios_passed": 6,
+      "m05b_nonperformance_scenarios_passed": 5,
+      "tours_smoke_status": "pass",
+      "tours_smoke_ready_ms_observed": 1533,
+      "tours_smoke_artist_tours": 12,
+      "tours_smoke_thematic_tours": 6,
+      "tours_smoke_eager_images": 0,
+      "tours_smoke_opened_tour_id": "tour:theme-paper-ink-reproduction",
+      "console_issues": 0,
+      "failed_requests": 0,
+      "external_requests": 0,
+      "http_errors": 0,
+      "status": "pass"
+    },
+    "controlled_performance_probe": {
+      "evidence_path": "docs/qa/museum-05b/browser-metrics.json",
+      "first_interactive_ms": 1033.6000000014901,
+      "lcp_ms": 820,
+      "cls": 0,
+      "interaction_proxy_ms": 121.29999999701977,
+      "status": "pass"
+    },
+    "routes_verified": [
+      "#/",
+      "#/art",
+      "#/art/constellation",
+      "#/art/tours",
+      "#/art/tours/:tourId",
+      "#/art/artists/:artistId",
+      "#/art/artworks/:artworkId",
+      "#/art/compare",
+      "#/about",
+      "#/accessibility",
+      "#/rights"
+    ]
+  },
+  "screenshots": [
+    {
+      "path": "docs/qa/museum-05b/screenshots/tours-index-desktop.png",
+      "width": 1440,
+      "height": 3788,
+      "sha256": "sha256:302d2ecc0f9e26c40bb5ac3a804a3c64b5edbcc1d0830f26b0b566bc70043baf"
+    },
+    {
+      "path": "docs/qa/museum-05b/screenshots/artwork-detail-region-desktop.png",
+      "width": 1280,
+      "height": 5949,
+      "sha256": "sha256:f71916cecfe19b69506b5fe612fde4e1556dd8279e5cfa232fc46b7bf5e3c5b1"
+    },
+    {
+      "path": "docs/qa/museum-05b/screenshots/compare-mixed-desktop.png",
+      "width": 1440,
+      "height": 7706,
+      "sha256": "sha256:59d9e1fc215bbf1cc22c7735be4d833d51da1b08a81e352c0affa3ea00911754"
+    },
+    {
+      "path": "docs/qa/museum-05b/screenshots/no-image-observation-mobile.png",
+      "width": 360,
+      "height": 9341,
+      "sha256": "sha256:f35a9c5a1410eb696aa1ca687071a4ce2e4cacd8b4470ba04357860553fa80d1"
+    },
+    {
+      "path": "docs/qa/museum-05b/screenshots/textual-tour-print-mobile.png",
+      "width": 390,
+      "height": 4356,
+      "sha256": "sha256:87470f11abab120365dbd51a663aa66816ec56304597feec8a8aee042e6d6536"
+    }
+  ],
+  "storage_cleanup": {
+    "removed_bytes": 209495583,
+    "remaining_targets": 0,
+    "paths": [
+      "dist",
+      "output",
+      "tmp/m05b-seed1",
+      "tmp/m05b-seed2",
+      "tmp/museum-05b-final-rebuild"
+    ]
+  }
+}
