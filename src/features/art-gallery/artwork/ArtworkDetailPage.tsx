@@ -260,6 +260,9 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
       <nav className="artwork-detail-actions" aria-label={copy.artworkEyebrow}>
         <Link className="text-link" to={artistPath(artist.id)}>{copy.artistGalleryEyebrow}</Link>
         <Link className="text-link" to={`/art/compare?${compareSearch}`}>{copy.compareLink}</Link>
+        <Link className="text-link" to={`/art/paths?from=${encodeURIComponent(artist.id)}&to=${encodeURIComponent(release.artists.find((candidate) => candidate.id !== artist.id)?.id ?? "")}&mode=comparison&maxHops=6&path=1&view=text`}>
+          {locale === "zh-CN" ? "艺术家关系路径" : "Artist pathways"}
+        </Link>
         <Link className="text-link" to="/art/constellation">{copy.backConstellation}</Link>
       </nav>
     </main>

@@ -1,6 +1,8 @@
 import {
   CURRENT_ART_RELEASE_ID,
   CURRENT_ART_RELEASE_VERSION,
+  INTERACTION_ART_RELEASE_ID,
+  INTERACTION_ART_RELEASE_VERSION,
   INTERACTION_INDEX_PATH,
 } from "../../data/art-release-profile";
 import { loadStaticRelease } from "../../data/release-loader";
@@ -32,7 +34,7 @@ function parseInteractionIndex(value: unknown): ArtInteractionIndex {
   const composition = value.release_composition;
   if (
     value.schema_version !== "1.0.0" || value.id !== "interaction-index:museum-05b-v1" ||
-    value.release_id !== CURRENT_ART_RELEASE_ID || value.release_version !== CURRENT_ART_RELEASE_VERSION ||
+    value.release_id !== INTERACTION_ART_RELEASE_ID || value.release_version !== INTERACTION_ART_RELEASE_VERSION ||
     !isRecord(composition) || composition.mode !== "immutable_overlay" ||
     composition.base_release_id !== "release:art-constellation-1.0.0" ||
     composition.base_artifact_identity !== "base_release_scoped" ||
@@ -63,7 +65,9 @@ export async function loadArtInteractionIndex(baseUrl: string, fetcher: typeof f
   const manifestResult = await loadStaticRelease(new URL("manifest.json", base).href, fetcher);
   if (manifestResult.status !== "loaded") throw new Error(`interaction_manifest_${manifestResult.status}`);
   const { manifest } = manifestResult;
-  if (manifest.id !== CURRENT_ART_RELEASE_ID || manifest.version !== CURRENT_ART_RELEASE_VERSION) {
+  const currentOverlay = manifest.id === CURRENT_ART_RELEASE_ID && manifest.version === CURRENT_ART_RELEASE_VERSION;
+  const directInteractionRelease = manifest.id === INTERACTION_ART_RELEASE_ID && manifest.version === INTERACTION_ART_RELEASE_VERSION;
+  if (!currentOverlay && !directInteractionRelease) {
     throw new Error("interaction_manifest_profile");
   }
   const file = manifest.manifest_files.find((item) =>

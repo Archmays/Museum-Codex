@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/art-pathways-artifact.schema.json",
+  "title": "MUSEUM-06 art pathway artifacts",
+  "oneOf": [
+    { "$ref": "#/$defs/algorithmContract" },
+    { "$ref": "#/$defs/graphInput" },
+    { "$ref": "#/$defs/pathIndex" },
+    { "$ref": "#/$defs/explanations" },
+    { "$ref": "#/$defs/abSummary" },
+    { "$ref": "#/$defs/performanceContract" },
+    { "$ref": "#/$defs/routeConfig" }
+  ],
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "localized": {
+      "type": "object", "required": ["zh-Hans", "en"],
+      "properties": { "zh-Hans": { "type": "string", "minLength": 1 }, "en": { "type": "string", "minLength": 1 } },
+      "additionalProperties": false
+    },
+    "base": {
+      "type": "object",
+      "required": ["schema_version", "id", "entity_type", "release_id"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "id": { "type": "string", "minLength": 1 },
+        "entity_type": { "type": "string", "minLength": 1 },
+        "release_id": { "const": "release:art-pathways-1.2.0" }
+      }
+    },
+    "algorithmContract": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": [
+            "algorithm_version", "input_release_id", "input_release_hash", "filter_order", "modes", "bounds",
+            "shortest_path", "alternative_paths", "ranking_tuple", "runtime_data_structure", "disclaimers"
+          ],
+          "properties": {
+            "entity_type": { "const": "art_path_algorithm_contract" },
+            "algorithm_version": { "const": "museum-paths-bibfs-yen-1.0.0" },
+            "input_release_id": { "const": "release:art-gallery-interactions-1.1.0" },
+            "input_release_hash": { "$ref": "#/$defs/hash" },
+            "filter_order": { "type": "array", "minItems": 10, "items": { "type": "string" } },
+            "modes": { "type": "object" },
+            "bounds": { "type": "object" },
+            "shortest_path": { "type": "object" },
+            "alternative_paths": { "type": "object" },
+            "ranking_tuple": { "type": "array", "minItems": 7, "items": { "type": "string" } },
+            "runtime_data_structure": { "const": "graphology@0.26.0 mixed multigraph" },
+            "disclaimers": { "type": "object" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "graphInput": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["input_release_id", "input_release_hash", "graph_hash", "artists", "relationships", "counts"],
+          "properties": {
+            "entity_type": { "const": "art_path_graph_input" },
+            "input_release_id": { "const": "release:art-gallery-interactions-1.1.0" },
+            "input_release_hash": { "$ref": "#/$defs/hash" },
+            "graph_hash": { "$ref": "#/$defs/hash" },
+            "artists": { "type": "array", "minItems": 12, "maxItems": 12, "items": { "type": "object" } },
+            "relationships": { "type": "array", "items": { "type": "object" } },
+            "counts": { "type": "object" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "pathIndex": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["algorithm_version", "input_graph_hash", "default_pair_count", "precomputed_path_count", "pairs"],
+          "properties": {
+            "entity_type": { "const": "art_path_index" },
+            "algorithm_version": { "const": "museum-paths-bibfs-yen-1.0.0" },
+            "input_graph_hash": { "$ref": "#/$defs/hash" },
+            "default_pair_count": { "const": 66 },
+            "precomputed_path_count": { "type": "integer", "minimum": 0, "maximum": 594 },
+            "pairs": {
+              "type": "array", "minItems": 66, "maxItems": 66,
+              "items": {
+                "type": "object", "required": ["pair_id", "start_artist_id", "end_artist_id", "modes"],
+                "properties": {
+                  "pair_id": { "type": "string", "pattern": "^path-pair:" },
+                  "start_artist_id": { "type": "string", "pattern": "^artist:" },
+                  "end_artist_id": { "type": "string", "pattern": "^artist:" },
+                  "modes": {
+                    "type": "object", "required": ["historical", "context", "comparison"],
+                    "properties": {
+                      "historical": { "$ref": "https://museum-codex.example/schemas/art/release/path-result.schema.json" },
+                      "context": { "$ref": "https://museum-codex.example/schemas/art/release/path-result.schema.json" },
+                      "comparison": { "$ref": "https://museum-codex.example/schemas/art/release/path-result.schema.json" }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "explanations": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["input_graph_hash", "explanations"],
+          "properties": {
+            "entity_type": { "const": "art_path_explanation_collection" },
+            "input_graph_hash": { "$ref": "#/$defs/hash" },
+            "explanations": { "type": "array", "minItems": 1, "items": { "type": "object" } }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "abSummary": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["input_lead_count", "level_counts", "disposition_counts", "promoted_relationship_ids", "human_review_dependency", "private_lead_ids_in_release"],
+          "properties": {
+            "entity_type": { "const": "art_path_ab_review_summary" },
+            "input_lead_count": { "const": 9 },
+            "level_counts": { "type": "object" },
+            "disposition_counts": { "type": "object" },
+            "promoted_relationship_ids": { "type": "array", "items": { "type": "string", "pattern": "^art-rel:" } },
+            "human_review_dependency": { "const": false },
+            "private_lead_ids_in_release": { "const": false }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "performanceContract": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["stable_seed", "budgets", "synthetic_fixtures_public_release"],
+          "properties": {
+            "entity_type": { "const": "art_path_performance_contract" },
+            "stable_seed": { "const": "museum-06-path-benchmark-seed-20260716" },
+            "budgets": { "type": "object" },
+            "synthetic_fixtures_public_release": { "const": false }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "routeConfig": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "required": ["route", "url_state_allowlist", "default_mode", "storage", "external_runtime_api", "analytics"],
+          "properties": {
+            "entity_type": { "const": "art_path_route_config" },
+            "route": { "const": "#/art/paths" },
+            "url_state_allowlist": { "type": "array", "minItems": 9, "maxItems": 9, "items": { "type": "string" } },
+            "default_mode": { "const": "comparison" },
+            "storage": { "const": "none" },
+            "external_runtime_api": { "const": false },
+            "analytics": { "const": false }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

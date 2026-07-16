@@ -331,6 +331,11 @@ export function ComparePage({ release, catalog, interactions }: GallerySharedPro
           releaseVersion={release.version}
           state={{ left: leftId, right: rightId, lens, leftRegion, rightRegion }}
         />
+        {leftArtwork.artistId !== rightArtwork.artistId ? (
+          <Link className="compare-path-entry" to={`/art/paths?from=${encodeURIComponent(leftArtwork.artistId)}&to=${encodeURIComponent(rightArtwork.artistId)}&mode=comparison&maxHops=6&path=1&view=text`}>
+            {locale === "zh-CN" ? "查看这两位艺术家的可解释关系路径" : "View an explainable path between these artists"}
+          </Link>
+        ) : null}
         </>
       ) : (
         <section className="compare-empty" aria-labelledby="compare-empty-title">

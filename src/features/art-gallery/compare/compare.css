@@ -3,6 +3,15 @@
   overflow: clip;
 }
 
+.compare-path-entry {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin-top: 1rem;
+  color: var(--gold-soft);
+  text-underline-offset: .3rem;
+}
+
 .compare-breadcrumbs {
   display: flex;
   flex-wrap: wrap;

@@ -48,6 +48,15 @@ PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "media_asset": "schemas/common/media-asset.schema.json",
     "dataset_release": "schemas/common/dataset-release.schema.json",
     "art_gallery_interaction_index": "schemas/art/release/art-gallery-interaction-index.schema.json",
+    "art_path_result": "schemas/art/release/path-result.schema.json",
+    **{
+        entity_type: "schemas/art/release/art-pathways-artifact.schema.json"
+        for entity_type in (
+            "art_path_algorithm_contract", "art_path_graph_input", "art_path_index",
+            "art_path_explanation_collection", "art_path_ab_review_summary",
+            "art_path_performance_contract", "art_path_route_config",
+        )
+    },
     "adapter_contract": "schemas/pipeline/adapter-contract.schema.json",
     "acquisition_request": "schemas/pipeline/acquisition-request.schema.json",
     "raw_snapshot_manifest": "schemas/pipeline/raw-snapshot-manifest.schema.json",

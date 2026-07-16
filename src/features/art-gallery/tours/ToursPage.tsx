@@ -136,6 +136,11 @@ function TourDetail({ release, catalog, interactions, tour }: GallerySharedProps
 
       <section className="tour-source-boundary"><h2>{zh ? "来源与路径边界" : "Sources and path boundary"}</h2><p>{tour.source_ids.join(" · ")}</p><p>{zh ? "无图作品使用同一组观察问题、完整元数据、证据和来源，不布置肉眼细节任务。" : "Works without images use the same observation questions, complete metadata, evidence, and sources; no visual-detail task is assigned."}</p></section>
       <PrintShareControls releaseId={release.manifestId} releaseVersion={release.version} />
+      <nav className="tour-end-paths" aria-label={zh ? "导览结束后的路径入口" : "Pathway entry after the tour"}>
+        <Link to={`/art/paths?from=${encodeURIComponent((artistTour ? [artistTour.artist_id] : themeTour!.artist_ids)[0])}&to=${encodeURIComponent((artistTour ? release.artists.map((artist) => artist.id).filter((id) => id !== artistTour.artist_id) : themeTour!.artist_ids.slice(1))[0])}&mode=comparison&maxHops=6&path=1&view=text`}>
+          {zh ? "导览结束：继续查看艺术家关系路径" : "Tour complete: continue to artist pathways"}
+        </Link>
+      </nav>
     </main>
   );
 }

@@ -5,7 +5,7 @@
   "real_user_metric": false,
   "real_device_status": "not_available",
   "real_assistive_technology_status": "not_available",
-  "captured_at": "2026-07-16T00:14:38.675Z",
+  "captured_at": "2026-07-16T05:16:01.032Z",
   "environment": {
     "browser": "chromium",
     "source_worktree_dirty": true,
@@ -61,6 +61,13 @@
       "src/features/art-gallery/route-loader.ts",
       "src/features/art-gallery/tours/ToursPage.tsx",
       "src/features/art-gallery/tours/tours.css",
+      "src/features/art-paths/ArtPathsPage.tsx",
+      "src/features/art-paths/PathGraphView.tsx",
+      "src/features/art-paths/art-paths.css",
+      "src/features/art-paths/path-algorithm.ts",
+      "src/features/art-paths/path-loader.ts",
+      "src/features/art-paths/route-loader.ts",
+      "src/features/art-paths/types.ts",
       "src/i18n/I18nProvider.tsx",
       "src/i18n/translations.ts",
       "src/main.tsx",
@@ -73,7 +80,7 @@
       "src/styles/global.css",
       "vite.config.ts"
     ],
-    "implementation_input_hash": "sha256:b8f4fe344b0118db64d3e319329b94786b836815b0b7475b46bac4e4df88a335",
+    "implementation_input_hash": "sha256:02f3d18a7ac6b60ba737164bec0180a4252150009e3259fe028db4f9b7a49f85",
     "tested_url": "http://127.0.0.1:4173/Museum-Codex/"
   },
   "profiles": [
@@ -95,12 +102,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            947.4397,
-            943.9110000000001,
-            935.5855999999999
+            986.3899000000001,
+            983.2239,
+            942.5962
           ],
-          "median": 943.9110000000001,
-          "p95": 947.4397,
+          "median": 983.2239,
+          "p95": 986.3899000000001,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -110,12 +117,12 @@
         },
         "lcp_ms": {
           "samples": [
-            744,
-            720,
-            708
+            772,
+            732,
+            740
           ],
-          "median": 720,
-          "p95": 744,
+          "median": 740,
+          "p95": 772,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -170,12 +177,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            297354,
-            297354,
-            297354
+            298476,
+            298476,
+            298476
           ],
-          "median": 297354,
-          "p95": 297354,
+          "median": 298476,
+          "p95": 298476,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -231,12 +238,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            2180.1429,
-            2223.982,
-            2336.8328
+            2450.7379,
+            2569.1955000000007,
+            2473.3614
           ],
-          "median": 2223.982,
-          "p95": 2336.8328,
+          "median": 2473.3614,
+          "p95": 2569.1955000000007,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -246,12 +253,12 @@
         },
         "lcp_ms": {
           "samples": [
-            1676,
-            1708,
-            1812
+            1920,
+            2060,
+            1952
           ],
-          "median": 1708,
-          "p95": 1812,
+          "median": 1952,
+          "p95": 2060,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -306,12 +313,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            213476,
-            213476,
-            213476
+            214598,
+            214598,
+            214598
           ],
-          "median": 213476,
-          "p95": 213476,
+          "median": 214598,
+          "p95": 214598,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -364,12 +371,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            946.9561999999987,
-            938.7760999999991,
-            925.309299999999
+            968.6281999999992,
+            969.7196999999996,
+            962.1842000000015
           ],
-          "median": 938.7760999999991,
-          "p95": 946.9561999999987,
+          "median": 968.6281999999992,
+          "p95": 969.7196999999996,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -379,12 +386,12 @@
         },
         "lcp_ms": {
           "samples": [
-            824,
             832,
-            804
+            828,
+            860
           ],
-          "median": 824,
-          "p95": 832,
+          "median": 832,
+          "p95": 860,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -439,12 +446,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            700321,
-            700321,
-            700321
+            702147,
+            702147,
+            702147
           ],
-          "median": 700321,
-          "p95": 700321,
+          "median": 702147,
+          "p95": 702147,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -500,12 +507,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            1775.0470999999998,
-            1844.9686000000002,
-            1825.6087000000007
+            2204.0073999999986,
+            2142.667400000002,
+            2186.963100000001
           ],
-          "median": 1825.6087000000007,
-          "p95": 1844.9686000000002,
+          "median": 2186.963100000001,
+          "p95": 2204.0073999999986,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -515,12 +522,12 @@
         },
         "lcp_ms": {
           "samples": [
-            1780,
-            1840,
-            1836
+            2196,
+            2156,
+            2196
           ],
-          "median": 1836,
-          "p95": 1840,
+          "median": 2196,
+          "p95": 2196,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -575,12 +582,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            370337,
-            370337,
-            370337
+            372163,
+            372163,
+            372163
           ],
-          "median": 370337,
-          "p95": 370337,
+          "median": 372163,
+          "p95": 372163,
           "target": {
             "statistic": "p95",
             "operator": "lte",
@@ -636,12 +643,12 @@
       "metrics": {
         "first_interactive_ms": {
           "samples": [
-            2331.841800000002,
-            2290.1483000000007,
-            2396.5733
+            2545.4284000000007,
+            1937.1281999999992,
+            2662.1324000000022
           ],
-          "median": 2331.841800000002,
-          "p95": 2396.5733,
+          "median": 2545.4284000000007,
+          "p95": 2662.1324000000022,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -651,12 +658,12 @@
         },
         "lcp_ms": {
           "samples": [
-            1832,
-            1788,
-            1896
+            2044,
+            1952,
+            2156
           ],
-          "median": 1832,
-          "p95": 1896,
+          "median": 2044,
+          "p95": 2156,
           "target": {
             "statistic": "median",
             "operator": "lte",
@@ -711,12 +718,12 @@
         },
         "transferred_bytes": {
           "samples": [
-            224048,
-            224048,
-            224048
+            225940,
+            225940,
+            225940
           ],
-          "median": 224048,
-          "p95": 224048,
+          "median": 225940,
+          "p95": 225940,
           "target": {
             "statistic": "p95",
             "operator": "lte",

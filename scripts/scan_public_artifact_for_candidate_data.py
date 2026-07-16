@@ -21,6 +21,7 @@ MAX_SCANNABLE_TEXT_BYTES = 5 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
 MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
 MUSEUM_05B_RELEASE_DIR = Path("releases") / "art-gallery-interactions-1.1.0"
+MUSEUM_06_RELEASE_DIR = Path("releases") / "art-pathways-1.2.0"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
     "candidate_id": re.compile(r"candidate:[0-9a-f-]{36}", re.IGNORECASE),
@@ -186,19 +187,29 @@ def validated_formal_art_exempt_roots(root: Path) -> tuple[set[Path], list[dict[
     """Allow only exact, physically validated formal release directories."""
     exempt_roots, findings = validated_museum_04_exempt_roots(root)
     release_root = _release_root_for_scan(root, MUSEUM_05B_RELEASE_DIR)
-    if not release_root.is_dir():
-        return exempt_roots, findings
+    if release_root.is_dir():
+        from museum_pipeline.art.interactions import validate_museum_05b_release
 
-    from museum_pipeline.art.interactions import validate_museum_05b_release
+        result = validate_museum_05b_release(release_root)
+        if result["ok"]:
+            exempt_roots.add(release_root.resolve())
+        else:
+            findings.append({
+                "code": "museum_05b_release_invalid",
+                "path": release_root.relative_to(root).as_posix() if release_root != root else root.name,
+            })
+    pathway_root = _release_root_for_scan(root, MUSEUM_06_RELEASE_DIR)
+    if pathway_root.is_dir():
+        from museum_pipeline.art.pathways import validate_museum_06_release
 
-    result = validate_museum_05b_release(release_root)
-    if result["ok"]:
-        exempt_roots.add(release_root.resolve())
-    else:
-        findings.append({
-            "code": "museum_05b_release_invalid",
-            "path": release_root.relative_to(root).as_posix() if release_root != root else root.name,
-        })
+        result = validate_museum_06_release(pathway_root)
+        if result["ok"]:
+            exempt_roots.add(pathway_root.resolve())
+        else:
+            findings.append({
+                "code": "museum_06_release_invalid",
+                "path": pathway_root.relative_to(root).as_posix() if pathway_root != root else root.name,
+            })
     return exempt_roots, findings
 
 

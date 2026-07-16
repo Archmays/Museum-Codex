@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-06",
+  "evidence_class": "controlled_browser_probe",
+  "real_user_metric": false,
+  "route": "#/art/paths",
+  "route_interaction_runs": 30,
+  "route_interaction_p95_ms": 18.9,
+  "route_interaction_median_ms": 16.9,
+  "mobile_heap_increment_bytes": 6777084,
+  "cls": 0,
+  "external_request_count": 0,
+  "analytics_request_count": 0,
+  "storage_keys": [
+    "museum-locale",
+    "museum-low-bandwidth"
+  ],
+  "status": "pass"
+}

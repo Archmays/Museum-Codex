@@ -85,6 +85,12 @@ jobs:
           diff -ru public/releases/art-gallery-interactions-1.1.0 tmp/museum-05b-ci-release
           python scripts/validate_museum_05b_release.py public/releases/art-gallery-interactions-1.1.0 --require-public
 
+      - name: Rebuild and validate the deterministic MUSEUM-06 pathway release
+        run: |
+          python scripts/build_museum_06_release.py --output tmp/museum-06-ci-release
+          diff -ru public/releases/art-pathways-1.2.0 tmp/museum-06-ci-release
+          python scripts/validate_museum_06_release.py public/releases/art-pathways-1.2.0 --require-public
+
       - name: Validate committed MUSEUM-05A performance evidence
         run: python scripts/validate_museum_05a_performance.py
 
@@ -113,6 +119,9 @@ jobs:
       - name: Run frontend tests
         run: npm test
 
+      - name: Run bounded MUSEUM-06 path benchmarks
+        run: npm run check:museum-06-paths
+
       - name: Run performance-runner contract tests
         run: node --test tests/test_museum_04_*_lab_runner.mjs
 
@@ -131,6 +140,9 @@ jobs:
       - name: Enforce MUSEUM-05B interaction route, data, and lazy-load budgets
         run: npm run check:museum-05b-budgets
 
+      - name: Enforce MUSEUM-06 path route, index, algorithm, and browser budgets
+        run: npm run check:museum-06-budgets
+
       - name: Scan production artifact for raw, candidate, formal art, review, and media leakage
         run: python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
@@ -140,7 +152,7 @@ jobs:
       - name: Install Chromium for functional release QA
         run: npx playwright install --with-deps chromium
 
-      - name: Run MUSEUM-04, MUSEUM-05A, and MUSEUM-05B functional, fallback, and no-script QA
+      - name: Run MUSEUM-04 through MUSEUM-06 functional, fallback, and no-script QA
         run: npm run test:e2e
 
       - name: Configure Pages

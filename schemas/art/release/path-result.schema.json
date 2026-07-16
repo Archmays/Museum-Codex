@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/path-result.schema.json",
+  "title": "Art pathway result",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "release_id", "algorithm_version", "input_graph_hash",
+    "status", "query", "paths", "expansions_used", "disclaimer"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "type": "string", "pattern": "^path-result:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "art_path_result" },
+    "release_id": { "const": "release:art-pathways-1.2.0" },
+    "algorithm_version": { "const": "museum-paths-bibfs-yen-1.0.0" },
+    "input_graph_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "status": {
+      "enum": [
+        "ready", "no_path_for_current_release_and_filters", "search_budget_reached", "invalid_start",
+        "invalid_end", "same_endpoint", "withdrawn_endpoint", "withdrawn_relation", "incompatible_release",
+        "tampered_path_index", "runtime_calculation_failed"
+      ]
+    },
+    "query": { "$ref": "https://museum-codex.example/schemas/art/release/path-query.schema.json" },
+    "paths": {
+      "type": "array", "maxItems": 3,
+      "items": { "$ref": "#/$defs/path" }
+    },
+    "expansions_used": { "type": "integer", "minimum": 0, "maximum": 10000 },
+    "disclaimer": { "$ref": "#/$defs/localized" }
+  },
+  "$defs": {
+    "localized": {
+      "type": "object", "required": ["zh-Hans", "en"],
+      "properties": {
+        "zh-Hans": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "path": {
+      "type": "object",
+      "required": [
+        "id", "rank", "hop_count", "artist_ids", "relationship_ids", "steps", "evidence_level",
+        "evidence_confidence", "time_coherence", "relation_type_repeat_count", "ranking_tuple"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^path:[a-z0-9][a-z0-9._-]*$" },
+        "rank": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "hop_count": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "artist_ids": {
+          "type": "array", "minItems": 2, "maxItems": 7, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "relationship_ids": {
+          "type": "array", "minItems": 1, "maxItems": 6,
+          "items": { "type": "string", "pattern": "^art-rel:[a-z0-9][a-z0-9._-]*$" }
+        },
+        "steps": {
+          "type": "array", "minItems": 1, "maxItems": 6,
+          "items": { "$ref": "#/$defs/step" }
+        },
+        "evidence_level": { "enum": ["A", "B", "C"] },
+        "evidence_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "time_coherence": { "enum": ["coherent", "mixed", "discontinuous"] },
+        "relation_type_repeat_count": { "type": "integer", "minimum": 0, "maximum": 5 },
+        "ranking_tuple": {
+          "type": "object",
+          "required": [
+            "hop_count", "evidence_level_rank", "evidence_confidence_desc", "time_coherence_penalty",
+            "relation_type_repeat_count", "stable_relation_id_sequence", "stable_artist_id_sequence"
+          ],
+          "properties": {
+            "hop_count": { "type": "integer", "minimum": 1, "maximum": 6 },
+            "evidence_level_rank": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "evidence_confidence_desc": { "type": "number", "minimum": -1, "maximum": 0 },
+            "time_coherence_penalty": { "type": "integer", "minimum": 0, "maximum": 2 },
+            "relation_type_repeat_count": { "type": "integer", "minimum": 0, "maximum": 5 },
+            "stable_relation_id_sequence": { "type": "array", "items": { "type": "string" } },
+            "stable_artist_id_sequence": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "step": {
+      "type": "object",
+      "required": [
+        "sequence", "source_artist_id", "target_artist_id", "relationship_id", "direction", "relationship_type",
+        "level", "context_ids", "claim_ids", "evidence_ids", "source_ids", "supporting_artwork_ids",
+        "evidence_confidence", "why_connected", "does_not_prove", "rights_attribution", "withdrawal_status"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "source_artist_id": { "type": "string", "pattern": "^artist:" },
+        "target_artist_id": { "type": "string", "pattern": "^artist:" },
+        "relationship_id": { "type": "string", "pattern": "^art-rel:" },
+        "direction": { "enum": ["directed_forward", "undirected"] },
+        "relationship_type": { "type": "string", "minLength": 1 },
+        "level": { "enum": ["A", "B", "C"] },
+        "context_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "claim_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^claim:" } },
+        "evidence_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^evidence:" } },
+        "source_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^source:" } },
+        "supporting_artwork_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^artwork:" } },
+        "evidence_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "why_connected": { "$ref": "#/$defs/localized" },
+        "does_not_prove": { "$ref": "#/$defs/localized" },
+        "rights_attribution": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "withdrawal_status": { "const": "active" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

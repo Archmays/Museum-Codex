@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/path-query.schema.json",
+  "title": "Art pathway query",
+  "type": "object",
+  "required": [
+    "schema_version", "fixed_release_id", "start_artist_id", "end_artist_id", "mode",
+    "allowed_relationship_types", "allowed_levels", "period_filter", "region_filter",
+    "direction_policy", "max_hops", "k", "candidate_expansion_limit"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "fixed_release_id": { "const": "release:art-pathways-1.2.0" },
+    "start_artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+    "end_artist_id": { "type": "string", "pattern": "^artist:[a-z0-9][a-z0-9._-]*$" },
+    "mode": { "enum": ["historical", "context", "comparison"] },
+    "allowed_relationship_types": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "enum": [
+          "student_of", "teacher_of", "worked_in_studio_of", "collaborated_with", "member_of",
+          "associated_with_movement", "participated_in_same_exhibition", "worked_in_same_place_period",
+          "explicitly_influenced_by", "explicitly_influenced", "referenced_or_quoted", "shared_patron",
+          "shared_institution", "shared_subject", "shared_technique", "shared_material",
+          "scholarly_compared_with"
+        ]
+      }
+    },
+    "allowed_levels": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "enum": ["A", "B", "C"] }
+    },
+    "period_filter": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      ]
+    },
+    "region_filter": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      ]
+    },
+    "direction_policy": { "const": "respect_semantic_direction" },
+    "max_hops": { "type": "integer", "minimum": 1, "maximum": 6 },
+    "k": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "candidate_expansion_limit": { "type": "integer", "minimum": 1, "maximum": 10000 }
+  },
+  "additionalProperties": false
+}

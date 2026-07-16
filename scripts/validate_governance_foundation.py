@@ -72,6 +72,15 @@ TARGET_SCHEMA_BY_ENTITY_TYPE = {
     "media_retry_record": "schemas/art/media/media-retry.schema.json",
     "dataset_release": "schemas/common/dataset-release.schema.json",
     "art_gallery_interaction_index": "schemas/art/release/art-gallery-interaction-index.schema.json",
+    "art_path_result": "schemas/art/release/path-result.schema.json",
+    **{
+        entity_type: "schemas/art/release/art-pathways-artifact.schema.json"
+        for entity_type in (
+            "art_path_algorithm_contract", "art_path_graph_input", "art_path_index",
+            "art_path_explanation_collection", "art_path_ab_review_summary",
+            "art_path_performance_contract", "art_path_route_config",
+        )
+    },
     "artist": "schemas/art/artist.schema.json",
     "artwork": "schemas/art/artwork.schema.json",
     "review_signoff": "schemas/art/batch/review-signoff.schema.json",

@@ -60,7 +60,7 @@ function observeRuntime(page: Page, origin: string) {
   page.on("request", (request) => {
     const url = new URL(request.url());
     if (url.origin !== origin) externalRequests.push(`${request.resourceType()} ${request.url()}`);
-    if (/\/releases\/art-gallery-interactions-1\.1\.0\/assets\//.test(url.pathname)) mediaRequests.push(url.pathname);
+    if (/\/releases\/art-pathways-1\.2\.0\/assets\//.test(url.pathname)) mediaRequests.push(url.pathname);
   });
   page.on("requestfailed", (request) => failedRequests.push(`${request.method()} ${request.url()}`));
   page.on("response", (response) => { if (response.status() >= 400) httpErrors.push(`${response.status()} ${response.url()}`); });

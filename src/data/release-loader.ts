@@ -30,7 +30,9 @@ import {
   CORE_ART_RELEASE_ID,
   CURRENT_ART_RELEASE_ID,
   CURRENT_ART_RELEASE_VERSION,
+  INTERACTION_ART_RELEASE_ID,
   INTERACTION_INDEX_PATH,
+  PATH_INDEX_PATH,
 } from "./art-release-profile";
 
 export const SUPPORTED_RELEASE_SCHEMA_MAJOR = 1;
@@ -1203,16 +1205,28 @@ export async function loadArtConstellationRelease(
     const { manifest } = manifestResult;
     const isLegacyProfile = manifest.id === ART_CONSTELLATION_RELEASE_ID && manifest.version === "1.0.0";
     const isInteractionProfile =
-      manifest.id === CURRENT_ART_RELEASE_ID &&
-      manifest.version === CURRENT_ART_RELEASE_VERSION &&
+      manifest.id === INTERACTION_ART_RELEASE_ID &&
+      manifest.version === "1.1.0" &&
       manifest.predecessor === ART_CONSTELLATION_RELEASE_ID &&
       manifest.manifest_files.some((file) =>
         file.path === INTERACTION_INDEX_PATH &&
         file.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json"
       );
-    const coreReleaseId = isInteractionProfile ? ART_CONSTELLATION_RELEASE_ID : manifest.id;
+    const isPathwayProfile =
+      manifest.id === CURRENT_ART_RELEASE_ID &&
+      manifest.version === CURRENT_ART_RELEASE_VERSION &&
+      manifest.predecessor === INTERACTION_ART_RELEASE_ID &&
+      manifest.manifest_files.some((file) =>
+        file.path === INTERACTION_INDEX_PATH &&
+        file.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json"
+      ) &&
+      manifest.manifest_files.some((file) =>
+        file.path === PATH_INDEX_PATH &&
+        file.schema_path === "schemas/art/release/art-pathways-artifact.schema.json"
+      );
+    const coreReleaseId = isInteractionProfile || isPathwayProfile ? ART_CONSTELLATION_RELEASE_ID : manifest.id;
     if (
-      (!isLegacyProfile && !isInteractionProfile) ||
+      (!isLegacyProfile && !isInteractionProfile && !isPathwayProfile) ||
       manifest.public_release !== true || manifest.status !== "publishable" ||
       manifest.included_media_asset_ids.length !== 273 || manifest.attribution_manifest.asset_ids.length !== 273 ||
       manifest.withdrawals.length !== 0 || manifest.deprecations.length !== 0

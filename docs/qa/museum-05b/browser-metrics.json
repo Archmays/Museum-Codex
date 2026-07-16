@@ -4,16 +4,16 @@
   "evidence_class": "controlled_browser_probe",
   "real_user_metric": false,
   "route": "#/art/tours",
-  "firstInteractiveMs": 1033.6000000014901,
-  "navigationDurationMs": 138.60000000149012,
-  "resourceCount": 23,
+  "firstInteractiveMs": 1136.7999999970198,
+  "navigationDurationMs": 127.19999999552965,
+  "resourceCount": 25,
   "viewport": {
     "width": 1440,
     "height": 900
   },
-  "lcpMs": 820,
+  "lcpMs": 924,
   "cls": 0,
-  "interactionProxyMs": 121.29999999701977,
+  "interactionProxyMs": 157,
   "targets": {
     "firstInteractiveMs": 1500,
     "lcpMs": 2500,

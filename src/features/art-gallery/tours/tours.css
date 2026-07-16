@@ -38,5 +38,6 @@
 .tour-work-list .tour-step-reason { margin-top: 0.65rem; max-width: 62rem; color: var(--ink); font-size: 0.78rem; line-height: 1.7; }
 .tour-work-list details { margin: 1rem 0 0 2rem; }.tour-work-list summary { min-height: 44px; color: var(--gold-soft); cursor: pointer; }.tour-work-list .observation-card { margin-top: 0.5rem; }
 .tour-source-boundary { margin-top: 3rem; padding: 1.2rem; border: 1px solid var(--line-strong); }.tour-source-boundary p { color: var(--ink-muted); line-height: 1.7; overflow-wrap: anywhere; }
+.tour-end-paths { margin-top: 1rem; }.tour-end-paths a { display: inline-flex; min-height: 44px; align-items: center; color: var(--gold-soft); text-underline-offset: .3rem; }
 @media (max-width: 760px) { .tour-index-grid,.tour-theme-grid,.tour-guide ol,.tour-equivalent-paths { grid-template-columns: 1fr; }.tour-index-grid article { min-height: 0; }.tour-work-list details { margin-left: 0; }.tours-hero h1,.tour-detail-hero h1 { font-size: clamp(2.7rem, 14vw, 4.8rem); } }
 @media (forced-colors: active) { .tour-index-grid,.tour-index-grid li,.tour-guide,.tour-guide li,.tour-source-boundary,.tour-fixed-boundary { border-color: CanvasText; background: Canvas; }.tour-fixed-boundary { border-left-color: Highlight; } }

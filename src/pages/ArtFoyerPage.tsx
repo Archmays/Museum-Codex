@@ -48,6 +48,10 @@ export function ArtFoyerPage() {
             <span>{gallery.openCompare}</span>
             <small>{locale === "zh-CN" ? "并置两件正式作品，比较观察卡、透镜、来源与细节区域。" : "Place two formal works together with observation cards, lenses, sources, and detail regions."}</small>
           </Link>
+          <Link className="constellation-entry" to="/art/paths">
+            <span>{locale === "zh-CN" ? "AB 可解释关系路径" : "Explainable A–B pathways"}</span>
+            <small>{locale === "zh-CN" ? "在当前审核数据中选择两位艺术家，查看最短与替代路径及逐边证据。" : "Choose two artists in current reviewed data and inspect shortest and alternative paths with per-edge evidence."}</small>
+          </Link>
         </div>
       </aside>
       <Link className="text-link" to="/">← {t.common.backHome}</Link>

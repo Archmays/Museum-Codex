@@ -262,6 +262,9 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
 
       <nav className="gallery-closing-links" aria-label={copy.artistGalleryEyebrow}>
         <Link className="gallery-primary-link" to="/art/constellation">{copy.backConstellation}</Link>
+        <Link to={`/art/paths?from=${encodeURIComponent(artist.id)}&to=${encodeURIComponent(release.artists.find((candidate) => candidate.id !== artist.id)?.id ?? "")}&mode=comparison&maxHops=6&path=1&view=text`}>
+          {locale === "zh-CN" ? "从这位艺术家查找路径" : "Find paths from this artist"}
+        </Link>
         <Link to="/art/artists">{copy.artistIndex}</Link>
       </nav>
     </main>

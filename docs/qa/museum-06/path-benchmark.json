@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "failures": [],
+  "metrics": {
+    "phase_id": "MUSEUM-06",
+    "algorithm_version": "museum-paths-bibfs-yen-1.0.0",
+    "stable_seed": "museum-06-path-benchmark-seed-20260716",
+    "synthetic_fixtures_public_release": false,
+    "current_12_node_query": {
+      "runs": 120,
+      "p95_ms": 0.509,
+      "median_ms": 0.121
+    },
+    "default_66_pairs": {
+      "build_ms": 14.09,
+      "precomputed_path_count": 198
+    },
+    "synthetic": {
+      "1k_v_5k_e": {
+        "runs_ms": [
+          25.424,
+          9.633,
+          10.907,
+          9.039,
+          11.623
+        ],
+        "median_ms": 10.907,
+        "status": "search_budget_reached",
+        "expansions_used": 10000,
+        "path_count": 0
+      },
+      "10k_v_60k_e": {
+        "runs_ms": [
+          367.497,
+          178.09,
+          206.317
+        ],
+        "median_ms": 206.317,
+        "status": "search_budget_reached",
+        "expansions_used": 10000,
+        "path_count": 0
+      },
+      "50k_v_300k_e": {
+        "runs_ms": [
+          1601.167
+        ],
+        "median_ms": 1601.167,
+        "status": "search_budget_reached",
+        "expansions_used": 10000,
+        "path_count": 0
+      }
+    }
+  }
+}

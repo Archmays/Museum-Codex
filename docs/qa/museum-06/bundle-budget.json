@@ -1,0 +1,226 @@
+{
+  "ok": true,
+  "failures": [],
+  "budgets": {
+    "homeBaselineGzipBytes": 98891,
+    "homeLimitGzipBytes": 100868,
+    "pathRouteLimitGzipBytes": 256000,
+    "pathIndexLimitGzipBytes": 65536,
+    "pathAlgorithmLimitGzipBytes": 81920
+  },
+  "measurements": {
+    "home": {
+      "files": [
+        {
+          "path": "dist/assets/index-B3jFLj5M.css",
+          "rawBytes": 27032,
+          "gzipBytes": 6974,
+          "sha256": "sha256:4f465c9277f122132f4b8a8b18c1194068ad2be90d2690c6715a1f348ff1c189"
+        },
+        {
+          "path": "dist/assets/index-DbqC-Z-Q.js",
+          "rawBytes": 287762,
+          "gzipBytes": 92056,
+          "sha256": "sha256:6c995c95cb46ceb382f98b38760b19e806f70aca0705c62daa6a6d0b72fd0a42"
+        },
+        {
+          "path": "dist/assets/rolldown-runtime-Bh1tDfsg.js",
+          "rawBytes": 567,
+          "gzipBytes": 360,
+          "sha256": "sha256:1b13387cb23dc39bf70e31677c21f6db5cad3377b96f286b6ee444496e5bfea7"
+        }
+      ],
+      "rawBytes": 315361,
+      "gzipBytes": 99390
+    },
+    "pathAssets": {
+      "files": [
+        {
+          "path": "dist/assets/ArtPathsPage-Bjo8Q4Kb.js",
+          "rawBytes": 34776,
+          "gzipBytes": 12229,
+          "sha256": "sha256:4adbfc6b41b756375dfe6555c1438cfbdb4049faf62861b2b53230e9c6fa9ea3"
+        },
+        {
+          "path": "dist/assets/ArtPathsPage-DVYkG0XP.css",
+          "rawBytes": 13872,
+          "gzipBytes": 3160,
+          "sha256": "sha256:20a086b1301fd685a613facb01f8d5519b172ebc7ddf9f3b1f6e017e37bd5f2d"
+        },
+        {
+          "path": "dist/assets/PrintShareControls-BSChKTh_.js",
+          "rawBytes": 1647,
+          "gzipBytes": 889,
+          "sha256": "sha256:e8fce4ed69cc953c084b93d8308f0ddc776dcb4db154fb3ba2d89a7aacd81068"
+        },
+        {
+          "path": "dist/assets/relationship-engine-CG-VvEor.js",
+          "rawBytes": 66743,
+          "gzipBytes": 13043,
+          "sha256": "sha256:0eceddce6ed75164e961eb89e564f1acf6e6602eb6b1b4d26e3b372c019c13b7"
+        },
+        {
+          "path": "dist/assets/release-loader-CKaNaoJ9.js",
+          "rawBytes": 32465,
+          "gzipBytes": 9534,
+          "sha256": "sha256:2efe05af83d8d512cbfb36f51955648520d27b77579d15f1680f9415bcf67ae1"
+        },
+        {
+          "path": "dist/assets/types-CbuEbNsj.js",
+          "rawBytes": 68,
+          "gzipBytes": 85,
+          "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+        }
+      ],
+      "rawBytes": 149571,
+      "gzipBytes": 38940
+    },
+    "initialJson": {
+      "files": [
+        {
+          "path": "dist/releases/art-pathways-1.2.0/manifest.json",
+          "rawBytes": 157327,
+          "gzipBytes": 23423,
+          "sha256": "sha256:9eb27757c4888784bc79727ba7ce95179e313472a75b99a4b2098d3e4a6fb2dc"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/graph-summary.json",
+          "rawBytes": 1506,
+          "gzipBytes": 827,
+          "sha256": "sha256:0d3505c931d4913696fe1173c43ae19a3a347393cfd1bc685f8ff3c8216c4357"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/artists.json",
+          "rawBytes": 56525,
+          "gzipBytes": 6112,
+          "sha256": "sha256:7ce69674fde8728f0c3a7711676d693af4481890ed02c311310e0250621d3d52"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/search-index.json",
+          "rawBytes": 9830,
+          "gzipBytes": 1847,
+          "sha256": "sha256:8fc3ff68e7b9ecf2b0e78bb4db37989ddc3793a863e205d0a0c2c66dde333d97"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/layout.json",
+          "rawBytes": 1184,
+          "gzipBytes": 497,
+          "sha256": "sha256:f71b8abf2e2fc21a89298ebbf6cf0924b62d3edcd8031749f982cadc453ae2f0"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/facets.json",
+          "rawBytes": 4228,
+          "gzipBytes": 974,
+          "sha256": "sha256:47a490c55d8875a17a7ee362f809ed28a786a852be0b2497beed9ac309fb40f0"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/path-algorithm-contract.json",
+          "rawBytes": 2057,
+          "gzipBytes": 1169,
+          "sha256": "sha256:78ff69a0f968b6eaccc4f54db0c09ed44270ff3aa1c7ad531b42e374338ecc3f"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/path-graph-input.json",
+          "rawBytes": 62696,
+          "gzipBytes": 6549,
+          "sha256": "sha256:98506c41df4b0c44578fdfdb718d5610bd78e2f233bcfb4a542d3733dcfdfe5e"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/path-index.json",
+          "rawBytes": 850452,
+          "gzipBytes": 40536,
+          "sha256": "sha256:495cf0616b74e779b01d33d456f72d89eb6a7beeb2f690ca1f39b1e9391a186b"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/path-explanations.json",
+          "rawBytes": 44317,
+          "gzipBytes": 4774,
+          "sha256": "sha256:014e7a0cb56241337d4a9a12d72e008adf8eb42ae30e1b759cc277d4ee4346da"
+        },
+        {
+          "path": "dist/releases/art-pathways-1.2.0/path-route-config.json",
+          "rawBytes": 344,
+          "gzipBytes": 244,
+          "sha256": "sha256:ba95d9bbd8cc63ab1a5aba745f8d271cbe09787b29c8f2eac3cadfad08ac631a"
+        }
+      ],
+      "gzipBytes": 86952
+    },
+    "pathRouteTotalGzipBytes": 125892,
+    "pathIndexGzipBytes": 40536,
+    "pathAlgorithmGzipBytes": 35780,
+    "browser": {
+      "schema_version": "1.0.0",
+      "phase_id": "MUSEUM-06",
+      "evidence_class": "controlled_browser_probe",
+      "real_user_metric": false,
+      "route": "#/art/paths",
+      "route_interaction_runs": 30,
+      "route_interaction_p95_ms": 32,
+      "route_interaction_median_ms": 27.9,
+      "mobile_heap_increment_bytes": 4862852,
+      "cls": 0,
+      "external_request_count": 0,
+      "analytics_request_count": 0,
+      "storage_keys": [
+        "museum-locale",
+        "museum-low-bandwidth"
+      ],
+      "status": "pass"
+    },
+    "benchmark": {
+      "ok": true,
+      "failures": [],
+      "metrics": {
+        "phase_id": "MUSEUM-06",
+        "algorithm_version": "museum-paths-bibfs-yen-1.0.0",
+        "stable_seed": "museum-06-path-benchmark-seed-20260716",
+        "synthetic_fixtures_public_release": false,
+        "current_12_node_query": {
+          "runs": 120,
+          "p95_ms": 0.509,
+          "median_ms": 0.121
+        },
+        "default_66_pairs": {
+          "build_ms": 14.09,
+          "precomputed_path_count": 198
+        },
+        "synthetic": {
+          "1k_v_5k_e": {
+            "runs_ms": [
+              25.424,
+              9.633,
+              10.907,
+              9.039,
+              11.623
+            ],
+            "median_ms": 10.907,
+            "status": "search_budget_reached",
+            "expansions_used": 10000,
+            "path_count": 0
+          },
+          "10k_v_60k_e": {
+            "runs_ms": [
+              367.497,
+              178.09,
+              206.317
+            ],
+            "median_ms": 206.317,
+            "status": "search_budget_reached",
+            "expansions_used": 10000,
+            "path_count": 0
+          },
+          "50k_v_300k_e": {
+            "runs_ms": [
+              1601.167
+            ],
+            "median_ms": 1601.167,
+            "status": "search_budget_reached",
+            "expansions_used": 10000,
+            "path_count": 0
+          }
+        }
+      }
+    }
+  }
+}

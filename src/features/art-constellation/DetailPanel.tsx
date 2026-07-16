@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import type { Locale, Translation } from "../../i18n/translations";
 import {
   localize,
@@ -129,6 +130,11 @@ function ArtistPanel({
             </div>
           </dl>
           <p className="gallery-preparing">{copy.galleryPreparing}</p>
+          <p className="gallery-preparing">
+            <Link to={`/art/paths?from=${encodeURIComponent(artist.id)}&to=${encodeURIComponent(release.artists.find((candidate) => candidate.id !== artist.id)?.id ?? "")}&mode=comparison&maxHops=6&path=1&view=text`}>
+              {locale === "zh-CN" ? "以这位艺术家为起点查找可解释路径" : "Find explainable paths from this artist"}
+            </Link>
+          </p>
           {artistSources.status === "loaded" && representativeArtwork ? (
             <section className="panel-section artist-representative" aria-labelledby="artist-representative-title">
               <h3 id="artist-representative-title">{localize(representativeArtwork.title, locale)}</h3>
