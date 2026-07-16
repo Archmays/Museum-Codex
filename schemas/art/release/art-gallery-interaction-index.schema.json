@@ -268,14 +268,15 @@
         },
         "algorithm": {
           "type": "object",
-          "required": ["name", "version", "input_release_hash", "maximum_iou", "border_exclusion_ratio", "minimum_area_ratio"],
+          "required": ["name", "version", "input_release_hash", "maximum_iou", "border_exclusion_ratio", "minimum_area_ratio", "metric_quantization"],
           "properties": {
             "name": { "const": "structural-detail-navigation" },
-            "version": { "const": "1.0.0" },
+            "version": { "const": "1.0.1" },
             "input_release_hash": { "$ref": "#/$defs/sha256" },
             "maximum_iou": { "type": "number", "minimum": 0, "maximum": 0.5 },
             "border_exclusion_ratio": { "type": "number", "minimum": 0.01, "maximum": 0.25 },
-            "minimum_area_ratio": { "type": "number", "minimum": 0.01, "maximum": 0.5 }
+            "minimum_area_ratio": { "type": "number", "minimum": 0.01, "maximum": 0.5 },
+            "metric_quantization": { "const": "floor_0.01" }
           },
           "additionalProperties": false
         },

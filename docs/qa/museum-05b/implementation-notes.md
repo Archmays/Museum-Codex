@@ -64,7 +64,7 @@ Date: 2026-07-16 (Asia/Shanghai)
 - **Discovered:** all 263 predecessor manifest children can remain byte-identical while two typed overlay records carry M05B interactions and retry evidence.
 - **Evidence:** `interaction-index.json`, `media-retry.json`, exact predecessor byte checks, canonical schema dispatch, and deterministic rebuild tests.
 - **Conservative choice:** publish `release:art-gallery-interactions-1.1.0` as an immutable overlay with predecessor `release:art-constellation-1.0.0`.
-- **Consequence:** the final content hash is `sha256:4d967c146f99db06e58c0a995ce827c61850962121cd2c33b58e5e0dc5544fcc`; the old release and media bundle remain unchanged.
+- **Consequence:** the final content hash is `sha256:c07330d92d03b41fe57b5e80394e7e89e875945a9d24e7a5c73029b3283a8009`; the old release and media bundle remain unchanged.
 - **Validation:** 44 cards, 12 artist tours, 6 thematic tours, 12 hero selections, 24 structural regions, 8 visual paths, and 4 textual paths close exactly.
 
 ## Entry 5
@@ -83,5 +83,14 @@ Date: 2026-07-16 (Asia/Shanghai)
 - **Discovered:** the one full Python run completed 386 tests in 1308.728 seconds with six contract-enumeration/allowlist failures; the one full E2E run passed 14/17 and exposed three predecessor-URL test injectors. No product, media-rights, or runtime failure was found.
 - **Conservative choice:** repair only those dependency closures and rerun their exact tests. Shared frontend input hashes required fresh M04 current-graph and M05A route labs, while the 1k/10k/50k scale samples remained untouched and were hash-validated only.
 - **Consequence:** lint, strict typecheck, 64/64 Vitest, 10/10 performance-runner contracts, build closure, budgets, release validators, public/dist leakage scans, repository safety, all six Python failure closures, and all three E2E failure closures pass.
-- **Validation:** M05B home gzip is 98,891 bytes (+0.21%); tours 110,595; artwork interaction assets 26,670; interaction JSON 23,336; regions 2,380. Controlled tours probe: first interactive 1166.3 ms, LCP 992 ms, CLS 0, interaction proxy 138.8 ms.
+- **Validation:** M05B home gzip is 98,891 bytes (+0.21%); tours 110,039; artwork interaction assets 26,670; interaction JSON 22,780; regions 1,918. The committed controlled tours probe records first interactive 1033.6 ms, LCP 820 ms, CLS 0, and interaction proxy 121.3 ms.
 - **Runtime disclosure:** model and reasoning settings are `not_exposed_by_runtime`; real assistive technology and physical-device sessions are `not_available`.
+
+## Entry 7
+
+- **Entry type:** CI failure closure
+- **Expected:** the first Pages run should rebuild the immutable interaction release byte-for-byte on Linux before deployment.
+- **Discovered:** Actions run `29461364375` stopped at the M05B rebuild diff. The rebuilt release remained semantically valid with the exact 44/12/6/12/24 counts, but 61 persisted detail-metric floats differed by at most about `4.49e-4`; all 24 region IDs, rectangles, order, and every non-metric field were identical. Pillow 10.4.0 had decoded the fixed JPEG bytes slightly differently through the Windows and Linux/libjpeg SIMD paths.
+- **Conservative choice:** disable libjpeg SIMD before Pillow imports in the release builder, persist the four structural metrics through an explicit `floor_0.01` quantizer, and advance only the detail-navigation algorithm contract to `1.0.1`. Coordinates and source-asset bindings are unchanged.
+- **Consequence:** the formal release hash changes to `sha256:c07330d92d03b41fe57b5e80394e7e89e875945a9d24e7a5c73029b3283a8009`; no artwork, media byte, tour, card, lens, route, or semantic claim changes.
+- **Validation:** captured Windows/Linux metric pairs quantize identically; an external SIMD override rebuild is byte-identical; M05B 14/14, the public validator, governance validator, compile check, and the affected budget closure pass.

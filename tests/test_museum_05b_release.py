@@ -13,6 +13,7 @@ from museum_pipeline.art.interactions import (
     _validate_index_semantics,
     _validate_interaction_schema,
     _validate_retry_semantics,
+    _stable_detail_metric,
     build_museum_05b_release,
     validate_museum_05b_release,
 )
@@ -117,6 +118,23 @@ class Museum05BReleaseTests(unittest.TestCase):
             self.assertLessEqual(rect["y"] + rect["height"], asset["height"])
             self.assertEqual(INPUT_RELEASE_HASH, region["algorithm"]["input_release_hash"])
             self.assertIsNone(region["semantic_label"])
+
+    def test_detail_metrics_are_stable_across_supported_jpeg_decoders(self) -> None:
+        cross_platform_pairs = (
+            (0.32472220, 0.32507703),
+            (0.31836544, 0.31881430),
+            (0.31736067, 0.31751318),
+            (0.40009102, 0.40022376),
+        )
+        for windows_value, linux_value in cross_platform_pairs:
+            self.assertEqual(
+                _stable_detail_metric(windows_value),
+                _stable_detail_metric(linux_value),
+            )
+        for region in self.index["detail_regions"]:
+            self.assertEqual("1.0.1", region["algorithm"]["version"])
+            self.assertEqual("floor_0.01", region["algorithm"]["metric_quantization"])
+            self.assertTrue(all(value == _stable_detail_metric(value) for value in region["metrics"].values()))
 
     def test_tours_lenses_and_heroes_close_exactly(self) -> None:
         self.assertEqual(12, len(self.index["artist_tours"]))

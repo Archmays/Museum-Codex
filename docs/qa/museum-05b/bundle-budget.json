@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "phase": "MUSEUM-05B",
   "measurement": "node:zlib gzip level 9; each asset compressed independently",
-  "inputSha256": "sha256:8737957bd262e2e018db1a9148a8cc98768daf26375b16425cf98231c3c7caa7",
+  "inputSha256": "sha256:cc64bc461d3d7cc24ddfa42898ded7609f287c26fd107070f2d4c936ddc8488e",
   "thresholds": {
     "homeBaselineGzipBytes": 98684,
     "homeGrowthPercentMax": 5,
@@ -112,7 +112,7 @@
         "path": "manifest.json",
         "rawBytes": 155476,
         "gzipBytes": 22946,
-        "sha256": "sha256:80fb28063f8d5287308074f2a8b5557bf5f7d15a165fa8952913cf827e16c0a0"
+        "sha256": "sha256:2c865d0c1bbcba861b53546b70d7bc1a9eafa6276805ab10cfed4bee9fd8dab5"
       },
       {
         "path": "graph-summary.json",
@@ -170,13 +170,13 @@
       },
       {
         "path": "interaction-index.json",
-        "rawBytes": 244896,
-        "gzipBytes": 23336,
-        "sha256": "sha256:41d5d8b2f857d20aac131476b5ab39093700950c5750c2c3a766421f2e6738af"
+        "rawBytes": 245011,
+        "gzipBytes": 22780,
+        "sha256": "sha256:f93d9dacb71d4255f36876e2557ec7783ee3febf0584c3fde941ca26ec302e23"
       }
     ],
-    "initialJsonGzipBytes": 86905,
-    "totalGzipBytes": 110595,
+    "initialJsonGzipBytes": 86349,
+    "totalGzipBytes": 110039,
     "limitGzipBytes": 307200,
     "pass": true
   },
@@ -250,16 +250,16 @@
   },
   "interactionJson": {
     "path": "interaction-index.json",
-    "rawBytes": 244896,
-    "gzipBytes": 23336,
-    "sha256": "sha256:41d5d8b2f857d20aac131476b5ab39093700950c5750c2c3a766421f2e6738af",
+    "rawBytes": 245011,
+    "gzipBytes": 22780,
+    "sha256": "sha256:f93d9dacb71d4255f36876e2557ec7783ee3febf0584c3fde941ca26ec302e23",
     "limitGzipBytes": 122880,
     "pass": true
   },
   "detailRegions": {
     "count": 24,
-    "rawBytes": 21246,
-    "gzipBytes": 2380,
+    "rawBytes": 21361,
+    "gzipBytes": 1918,
     "limitGzipBytes": 30720,
     "pass": true
   },

@@ -2,12 +2,19 @@ from __future__ import annotations
 
 import gzip
 import json
+import math
+import os
 import shutil
 import tempfile
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
+
+# libjpeg-turbo's SIMD IDCT can differ by a few decoded sample values across
+# platforms.  Detail-region metrics are release bytes, so use its scalar path
+# before Pillow loads the decoder.
+os.environ["JSIMD_FORCENONE"] = "1"
 
 from PIL import Image, ImageFilter, ImageStat
 
@@ -27,6 +34,7 @@ RELEASE_VERSION = "1.1.0"
 GENERATED_AT = "2026-07-16T08:00:00+08:00"
 REVIEWED_AT = "2026-07-16"
 PACKAGE_LOCK_HASH = "sha256:57113cd49cead7c62265df0f4ff37151d8c94ea8697374581b06d3ef9cdafa9d"
+DETAIL_METRIC_SCALE = 100
 INPUT_RELEASE = ROOT / "public" / "releases" / "art-constellation-1.0.0"
 DEFAULT_OUTPUT = ROOT / "public" / "releases" / "art-gallery-interactions-1.1.0"
 RETRY_ARTIFACT = ROOT / "data" / "reviewed" / "art" / "museum-05b" / "media-retry-v1.json"
@@ -459,8 +467,8 @@ def _detail_regions(hero_id: str, artwork_id: str, source_asset: dict[str, Any])
             "source_asset": deepcopy(source_asset),
             "rect": rect,
             "normalized_rect": {key: round(value, 8) for key, value in {"x": x1 / width, "y": y1 / height, "width": (x2 - x1) / width, "height": (y2 - y1) / height}.items()},
-            "metrics": {key: round(value, 8) for key, value in metrics.items()},
-            "algorithm": {"name": "structural-detail-navigation", "version": "1.0.0", "input_release_hash": INPUT_RELEASE_HASH, "maximum_iou": 0.25, "border_exclusion_ratio": 0.06, "minimum_area_ratio": 0.08},
+            "metrics": {key: _stable_detail_metric(value) for key, value in metrics.items()},
+            "algorithm": {"name": "structural-detail-navigation", "version": "1.0.1", "input_release_hash": INPUT_RELEASE_HASH, "maximum_iou": 0.25, "border_exclusion_ratio": 0.06, "minimum_area_ratio": 0.08, "metric_quantization": "floor_0.01"},
             "semantic_label": None,
         })
     return result
@@ -1034,6 +1042,10 @@ def _iou(left: tuple[int, int, int, int], right: tuple[int, int, int, int]) -> f
     left_area = (left[2] - left[0]) * (left[3] - left[1])
     right_area = (right[2] - right[0]) * (right[3] - right[1])
     return intersection / max(1, left_area + right_area - intersection)
+
+
+def _stable_detail_metric(value: float) -> float:
+    return math.floor(value * DETAIL_METRIC_SCALE + 1e-12) / DETAIL_METRIC_SCALE
 
 
 def _context_link(value: dict[str, Any]) -> dict[str, Any]:
