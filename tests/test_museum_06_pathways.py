@@ -5,6 +5,7 @@ import tempfile
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from unittest.mock import patch
 
 from museum_pipeline.art.pathways import (
     ALGORITHM_VERSION,
@@ -16,6 +17,7 @@ from museum_pipeline.art.pathways import (
     build_graph_input,
     default_query,
     find_paths,
+    load_closed_ab_review,
     review_ab_leads,
     validate_museum_06_release,
     _build_artifacts,
@@ -214,6 +216,17 @@ class RelationshipReviewTests(unittest.TestCase):
         self.assertEqual(len(retained), 1)
         self.assertEqual(retained[0]["automated_gate_result"], "exact_time_overlap_and_independent_source_closure_missing")
         self.assertFalse(retained[0]["source_lineage_independence_closed"])
+
+    def test_committed_review_closes_ci_without_private_inputs(self) -> None:
+        missing = Path("missing-private-review-input.json")
+        with (
+            patch("museum_pipeline.art.pathways.LEAD_INPUT", missing),
+            patch("museum_pipeline.art.pathways.LEAD_CLOSURE", missing),
+            patch("museum_pipeline.art.pathways.IDENTITY_BASIS", missing),
+        ):
+            review = load_closed_ab_review()
+        self.assertEqual(review["input_lead_count"], 9)
+        self.assertFalse(review["human_review_dependency"])
 
 
 class PathSchemaAndGraphTests(unittest.TestCase):

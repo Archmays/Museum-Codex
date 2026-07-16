@@ -481,6 +481,23 @@ def review_ab_leads(*, write: bool = False) -> dict[str, Any]:
     return document
 
 
+def load_closed_ab_review() -> dict[str, Any]:
+    """Use private review inputs when present, otherwise the committed closed result."""
+    private_inputs = (LEAD_INPUT, LEAD_CLOSURE, IDENTITY_BASIS)
+    if all(path.is_file() for path in private_inputs):
+        return review_ab_leads(write=True)
+    review = _load_json(AB_REVIEW_OUTPUT)
+    recorded_hash = review.get("content_hash")
+    hash_input = {key: value for key, value in review.items() if key != "content_hash"}
+    if recorded_hash != canonical_sha256(hash_input):
+        raise ValueError("committed A/B review content hash mismatch")
+    if review.get("human_review_dependency") is not False:
+        raise ValueError("committed A/B review cannot depend on human review")
+    if review.get("scope") != "existing_museum_03a_museum_03b_a_b_leads_only":
+        raise ValueError("committed A/B review scope mismatch")
+    return review
+
+
 def build_graph_input() -> dict[str, Any]:
     artists_document = _load_json(INPUT_RELEASE / "artists.json")
     relationships_document = _load_json(INPUT_RELEASE / "relationships.json")
@@ -564,7 +581,7 @@ def build_museum_06_release(output_dir: Path = DEFAULT_OUTPUT) -> dict[str, Any]
     predecessor = _load_json(INPUT_RELEASE / "manifest.json")
     if predecessor.get("id") != INPUT_RELEASE_ID or predecessor.get("content_hash") != INPUT_RELEASE_HASH:
         raise ValueError("MUSEUM-05B predecessor hash mismatch")
-    review = review_ab_leads(write=True)
+    review = load_closed_ab_review()
     graph_input = build_graph_input()
     artifacts = _build_artifacts(graph_input, review)
     _validate_new_artifacts(artifacts)
