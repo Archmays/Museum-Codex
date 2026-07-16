@@ -18,7 +18,6 @@ from museum_pipeline.art.pathways import (
     default_query,
     find_paths,
     load_closed_ab_review,
-    review_ab_leads,
     validate_museum_06_release,
     _build_artifacts,
     _validate_path_semantics,
@@ -202,7 +201,7 @@ class PathAlgorithmTests(unittest.TestCase):
 
 class RelationshipReviewTests(unittest.TestCase):
     def test_existing_ab_leads_close_without_human_dependency(self) -> None:
-        review = review_ab_leads()
+        review = load_closed_ab_review()
         self.assertEqual(review["input_lead_count"], 9)
         self.assertEqual(review["level_counts"], {"A": 1, "B": 8})
         self.assertEqual(review["disposition_counts"]["promoted_to_formal_relationship"], 0)
@@ -212,7 +211,7 @@ class RelationshipReviewTests(unittest.TestCase):
         self.assertNotIn("waiting for human review", json.dumps(review))
 
     def test_in_scope_b_lead_fails_exact_time_and_independent_source_gate(self) -> None:
-        retained = [item for item in review_ab_leads()["entries"] if item["terminal_disposition"] == "retained_for_more_evidence"]
+        retained = [item for item in load_closed_ab_review()["entries"] if item["terminal_disposition"] == "retained_for_more_evidence"]
         self.assertEqual(len(retained), 1)
         self.assertEqual(retained[0]["automated_gate_result"], "exact_time_overlap_and_independent_source_closure_missing")
         self.assertFalse(retained[0]["source_lineage_independence_closed"])
@@ -290,7 +289,7 @@ class Museum06ReleaseTests(unittest.TestCase):
         self.assertTrue(all(len(pair["modes"]["comparison"]["paths"]) == 3 for pair in self.index["pairs"]))
 
     def test_release_artifacts_rebuild_deterministically(self) -> None:
-        rebuilt = _build_artifacts(build_graph_input(), review_ab_leads())
+        rebuilt = _build_artifacts(build_graph_input(), load_closed_ab_review())
         for filename, document in rebuilt.items():
             self.assertEqual(
                 json.loads((self.release_root / filename).read_text(encoding="utf-8")),
