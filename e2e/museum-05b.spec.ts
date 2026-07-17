@@ -311,6 +311,9 @@ test("touch, forced-colors, reduced-motion, invalid routes, and storage boundari
   await expectNoOverflow(page);
 
   await page.evaluate(() => { window.location.hash = "/art/tours/not-a-formal-tour"; });
+  await expect(page.locator("[data-museum05a-status=ready][data-gallery-route=tour]")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "This formal tour was not found" })).toBeVisible();
+  await page.waitForLoadState("networkidle");
   await page.reload({ waitUntil: "networkidle" });
   await expect(page.locator("[data-museum05a-status=ready][data-gallery-route=tour]")).toBeVisible();
   await expect(page.getByRole("heading", { level: 1, name: "This formal tour was not found" })).toBeVisible();
