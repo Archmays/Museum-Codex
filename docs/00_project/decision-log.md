@@ -31,5 +31,6 @@
 | D-0027 | 2026-07-14 | accepted | OD-002：项目原创策展文字、翻译、关系解释、UI 文案与原创设计保留所有权利；第三方 metadata/media 按自身条款分别管理 | 防止项目权利声明覆盖第三方事实、元数据、媒体许可或署名义务 | 用户明确重新授权原创内容，或第三方范围/上游条款发生变化 |
 | D-0028 | 2026-07-14 | accepted | OD-005：采用 MUSEUM-04 已批准的目标设备、实验室性能预算、gzip 预算与 1k/10k/50k 合成规模边界 | 为当前图、低资源回退和大规模安全拒绝提供可验证门槛；不得把实验室代理称为真实用户 p75 | 正式图规模、渲染架构、目标设备或可复现实验结果发生实质变化 |
 | D-0029 | 2026-07-14 | accepted | OD-010：使用 Rights or attribution Issue Form；7 日内初步确认、14 日内一般初评，高风险立即隔离并以 72 小时内临时下架/移除引用为目标；撤回和恢复均通过新 release | 建立不要求公开敏感证明、保持历史可追溯且可快速隔离的权利响应流程 | 法律义务、托管平台能力、联系渠道或缓存机制发生实质变化 |
+| D-0030 | 2026-07-17 | accepted | OD-006：使用 Natural Earth 1:110m land/coastline/lakes 构建完全自托管、无现代政治边界的静态 GeoJSON 底图；使用 exact-pinned MapLibre GL JS 5.24.0 渲染本地数据，并保留等价 timeline/list 回退 | 该方案同时闭合 public-domain 底图、Getty 地点身份、无 token/外部 tile、静态 Pages、可复现字节、无障碍等价与历史语义门禁 | Natural Earth 来源/许可、MapLibre stable/security、Pages 能力或 550 KB route / 400 KB renderer 预算发生实质变化 |
 
 状态使用 `proposed / accepted / superseded / rejected`。被替代决策保留原行并链接后继 ID，不覆写历史。

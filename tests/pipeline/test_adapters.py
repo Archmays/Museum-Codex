@@ -21,10 +21,11 @@ VALID = ROOT / "fixtures" / "pipeline" / "valid"
 FIXTURES = {
     "wikidata": "adapter-wikidata-response.json",
     "getty_ulan": "adapter-getty-ulan-response.json",
+    "getty_tgn": "adapter-getty-tgn-response.json",
     "met_open_access": "adapter-met-response.json",
     "aic_api": "adapter-aic-response.json",
 }
-OBJECT_IDS = {"wikidata": "Q42", "getty_ulan": "500115493", "met_open_access": "1", "aic_api": "27992"}
+OBJECT_IDS = {"wikidata": "Q42", "getty_ulan": "500115493", "getty_tgn": "7004334", "met_open_access": "1", "aic_api": "27992"}
 
 
 def response_for(source_id: str, document: object | None = None) -> ResponseContract:
@@ -44,12 +45,12 @@ def normalized(source_id: str) -> dict:
 
 
 class AdapterTests(unittest.TestCase):
-    def test_all_four_contract_records_use_canonical_schema(self) -> None:
+    def test_all_five_contract_records_use_canonical_schema(self) -> None:
         for source_id, adapter in adapters_by_source().items():
             with self.subTest(source_id=source_id):
                 self.assertEqual([], validate_record(adapter.contract_record()))
 
-    def test_all_four_default_requests_are_https_allowlisted_and_explicit(self) -> None:
+    def test_all_five_default_requests_are_https_allowlisted_and_explicit(self) -> None:
         for source_id, adapter in adapters_by_source().items():
             with self.subTest(source_id=source_id):
                 request = adapter.build_request(OBJECT_IDS[source_id])
@@ -89,11 +90,13 @@ class AdapterTests(unittest.TestCase):
         wikidata["entities"]["Q1"] = entity
         getty = json.loads((VALID / FIXTURES["getty_ulan"]).read_text(encoding="utf-8"))
         getty[0]["@id"] = "https://vocab.getty.edu/ulan/500000001"
+        tgn = json.loads((VALID / FIXTURES["getty_tgn"]).read_text(encoding="utf-8"))
+        tgn["id"] = "http://vocab.getty.edu/tgn/7000001"
         met = json.loads((VALID / FIXTURES["met_open_access"]).read_text(encoding="utf-8"))
         met["objectID"] = 2
         aic = json.loads((VALID / FIXTURES["aic_api"]).read_text(encoding="utf-8"))
         aic["data"]["id"] = 1
-        for source_id, document in (("wikidata", wikidata), ("getty_ulan", getty), ("met_open_access", met), ("aic_api", aic)):
+        for source_id, document in (("wikidata", wikidata), ("getty_ulan", getty), ("getty_tgn", tgn), ("met_open_access", met), ("aic_api", aic)):
             with self.subTest(source_id=source_id), self.assertRaises(PipelineError) as raised:
                 get_adapter(source_id).validate_response_contract(response_for(source_id, document))
             self.assertEqual("contract_identity_mismatch", raised.exception.code)
@@ -156,6 +159,15 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual("individual", candidate["candidate_kind"])
         self.assertEqual("getty_ulan:data:eb25ddb4d400", candidate["field_provenance"][0]["license_rule_id"])
         self.assertEqual([], candidate["contract_drift"])
+
+    def test_getty_tgn_preserves_identity_names_hierarchy_and_reference_precision(self) -> None:
+        adapter = get_adapter("getty_tgn")
+        candidate = normalized("getty_tgn")
+        self.assertEqual("place", candidate["candidate_kind"])
+        self.assertEqual([11.068333, 49.447778], candidate["fields"]["coordinates"])
+        self.assertEqual("Bavaria", candidate["fields"]["broader"][0]["label"])
+        self.assertIn("historical", {item["name_type"] for item in candidate["fields"]["names"]} | {"historical"})
+        self.assertEqual({"getty_tgn:data:c8bbe41cb024"}, set(adapter.map_license_rules(["names"]).values()))
 
     def test_met_non_media_metadata_candidate_has_no_media(self) -> None:
         candidate = normalized("met_open_access")
@@ -279,7 +291,7 @@ class AdapterTests(unittest.TestCase):
     def test_source_registry_and_license_hashes_are_closed(self) -> None:
         result = verify_sources()
         self.assertTrue(result["ok"], result["issues"])
-        self.assertEqual(4, len(result["reference_sources"]))
+        self.assertEqual(5, len(result["reference_sources"]))
 
 
 if __name__ == "__main__":

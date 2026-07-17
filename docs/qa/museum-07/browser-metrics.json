@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-07",
+  "evidence_class": "controlled_browser_probe",
+  "real_user_metric": false,
+  "route": "#/art/map",
+  "desktop_first_interactive_ms": 585.931,
+  "mobile_first_interactive_ms": 121.596,
+  "low_bandwidth_list_first_interactive_ms": 994.197,
+  "filter_runs": 30,
+  "filter_p95_ms": 78.9,
+  "marker_selection_runs": 30,
+  "marker_selection_p95_ms": 28.7,
+  "mobile_heap_increment_bytes": 1378028,
+  "cls": 0,
+  "external_request_count": 0,
+  "analytics_request_count": 0,
+  "geolocation_call_count": 0,
+  "storage_keys": [
+    "museum-locale",
+    "museum-low-bandwidth"
+  ],
+  "status": "pass"
+}

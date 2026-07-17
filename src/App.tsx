@@ -11,10 +11,12 @@ import { PreferencesProvider } from "./preferences/PreferencesProvider";
 import { preloadArtConstellationRoute } from "./features/art-constellation/route-loader";
 import { preloadArtGalleryRoute } from "./features/art-gallery/route-loader";
 import { preloadArtPathsRoute } from "./features/art-paths/route-loader";
+import { preloadArtMapRoute } from "./features/art-map/route-loader";
 
 const ArtConstellationPage = lazy(preloadArtConstellationRoute);
 const ArtGalleryRoute = lazy(preloadArtGalleryRoute);
 const ArtPathsPage = lazy(preloadArtPathsRoute);
+const ArtMapPage = lazy(preloadArtMapRoute);
 
 const galleryFallback = (
   <main id="main-content" className="inner-page route-loading" tabIndex={-1}>
@@ -44,6 +46,7 @@ export function App() {
               <Route path="/art/artworks/:artworkId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/art/compare" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/art/paths" element={<Suspense fallback={galleryFallback}><ArtPathsPage /></Suspense>} />
+              <Route path="/art/map" element={<Suspense fallback={<main id="main-content" className="inner-page route-loading" tabIndex={-1}><p role="status">正在加载艺术时空地图…… / Loading Art Across Time and Place…</p></main>}><ArtMapPage /></Suspense>} />
               <Route path="/art/tours" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/art/tours/:tourId" element={<Suspense fallback={galleryFallback}><ArtGalleryRoute /></Suspense>} />
               <Route path="/about" element={<AboutPage />} />

@@ -2,12 +2,13 @@ from __future__ import annotations
 
 from museum_pipeline.adapters.aic import AicAdapter
 from museum_pipeline.adapters.getty_ulan import GettyUlanAdapter
+from museum_pipeline.adapters.getty_tgn import GettyTgnAdapter
 from museum_pipeline.adapters.met import MetOpenAccessAdapter
 from museum_pipeline.adapters.wikidata import WikidataAdapter
 from museum_pipeline.errors import PipelineError
 
 
-ADAPTER_TYPES = (WikidataAdapter, GettyUlanAdapter, MetOpenAccessAdapter, AicAdapter)
+ADAPTER_TYPES = (WikidataAdapter, GettyUlanAdapter, GettyTgnAdapter, MetOpenAccessAdapter, AicAdapter)
 
 
 def adapters_by_source() -> dict[str, object]:

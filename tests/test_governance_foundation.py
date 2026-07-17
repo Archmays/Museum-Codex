@@ -65,6 +65,20 @@ class GovernanceFoundationTests(unittest.TestCase):
             "schemas/art/release/path-query.schema.json",
             "schemas/art/release/path-result.schema.json",
             "schemas/art/release/art-pathways-artifact.schema.json",
+            "schemas/art/map/place-identity.schema.json",
+            "schemas/art/map/place-name.schema.json",
+            "schemas/art/map/geospatial-claim.schema.json",
+            "schemas/art/map/artist-place-episode.schema.json",
+            "schemas/art/map/artwork-place-claim.schema.json",
+            "schemas/art/map/holding-location.schema.json",
+            "schemas/art/map/map-layer-config.schema.json",
+            "schemas/art/map/map-style-contract.schema.json",
+            "schemas/art/map/map-release-index.schema.json",
+            "schemas/art/map/map-view-state.schema.json",
+            "schemas/art/map/map-basemap-manifest.schema.json",
+            "schemas/art/map/map-source-attribution.schema.json",
+            "schemas/art/map/place-research-disposition.schema.json",
+            "schemas/art/map/map-decision-snapshot.schema.json",
             "schemas/art/batch/review-signoff.schema.json",
             "schemas/art/batch/approved-identity-basis.schema.json",
             "schemas/art/batch/snapshot-receipt-ledger.schema.json",
@@ -126,11 +140,11 @@ class GovernanceFoundationTests(unittest.TestCase):
         self.assertEqual("1.1.0", entries["schemas/art/artwork.schema.json"]["version"])
         self.assertEqual("1.1.0", entries["schemas/art/artist-relationship.schema.json"]["version"])
 
-    def test_open_decisions_register_exactly_four_unresolved_items(self) -> None:
+    def test_open_decisions_register_exactly_three_unresolved_items(self) -> None:
         text = (ROOT / "docs" / "05_roadmap" / "open-decisions.md").read_text(encoding="utf-8")
         unresolved = text.split("## 已关闭事项", 1)[0]
         ids = re.findall(r"^\| (OD-\d{3}) \|", unresolved, flags=re.MULTILINE)
-        self.assertEqual(["OD-006", "OD-008", "OD-009", "OD-011"], ids)
+        self.assertEqual(["OD-008", "OD-009", "OD-011"], ids)
 
     def test_museum_04_rights_decisions_are_closed_without_open_license(self) -> None:
         registry = json.loads((ROOT / "governance" / "license-decisions.json").read_text(encoding="utf-8"))

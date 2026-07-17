@@ -22,6 +22,7 @@ THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", 
 MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
 MUSEUM_05B_RELEASE_DIR = Path("releases") / "art-gallery-interactions-1.1.0"
 MUSEUM_06_RELEASE_DIR = Path("releases") / "art-pathways-1.2.0"
+MUSEUM_07_RELEASE_DIR = Path("releases") / "art-time-place-1.3.0"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
     "candidate_id": re.compile(r"candidate:[0-9a-f-]{36}", re.IGNORECASE),
@@ -62,6 +63,10 @@ def scan_public_artifact(
     for path in files:
         relative = path.relative_to(root).as_posix()
         formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
+        authority_id_exempt = any(
+            exempt_root.name == MUSEUM_07_RELEASE_DIR.name and path.resolve().is_relative_to(exempt_root)
+            for exempt_root in resolved_exempt_roots
+        )
         if set(part.lower() for part in path.relative_to(root).parts) & FORBIDDEN_PATH_PARTS:
             findings.append({"code": "candidate_zone_in_public_artifact", "path": relative})
         if path.suffix.lower() in THIRD_PARTY_MEDIA_SUFFIXES and not formal_exempt:
@@ -79,6 +84,8 @@ def scan_public_artifact(
         for code, pattern in FORBIDDEN_CONTENT.items():
             matches = list(pattern.finditer(text))
             if not matches:
+                continue
+            if authority_id_exempt and code in {"ulan_id", "wikidata_qid"}:
                 continue
             if code == "technical_probe_data" and formal_exempt and all(
                 _match_is_declared_formal_label(match.group(0), formal_art_terms or [])
@@ -185,6 +192,22 @@ def validated_museum_04_exempt_roots(root: Path) -> tuple[set[Path], list[dict[s
 
 def validated_formal_art_exempt_roots(root: Path) -> tuple[set[Path], list[dict[str, str]]]:
     """Allow only exact, physically validated formal release directories."""
+    timeplace_root = _release_root_for_scan(root, MUSEUM_07_RELEASE_DIR)
+    if timeplace_root.is_dir():
+        from museum_pipeline.art.timeplace import validate_museum_07_release
+
+        result = validate_museum_07_release(timeplace_root)
+        if not result["ok"]:
+            return set(), [{
+                "code": "museum_07_release_invalid",
+                "path": timeplace_root.relative_to(root).as_posix() if timeplace_root != root else root.name,
+            }]
+        release_roots = {
+            _release_root_for_scan(root, release_dir).resolve()
+            for release_dir in (MUSEUM_04_RELEASE_DIR, MUSEUM_05B_RELEASE_DIR, MUSEUM_06_RELEASE_DIR, MUSEUM_07_RELEASE_DIR)
+            if _release_root_for_scan(root, release_dir).is_dir()
+        }
+        return release_roots, []
     exempt_roots, findings = validated_museum_04_exempt_roots(root)
     release_root = _release_root_for_scan(root, MUSEUM_05B_RELEASE_DIR)
     if release_root.is_dir():

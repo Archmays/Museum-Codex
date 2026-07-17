@@ -252,6 +252,89 @@
       ]
     },
     {
+      "source_id": "getty_tgn",
+      "rules": [
+        {
+          "content_class": "metadata",
+          "applies_to": "TGN vocabulary records",
+          "rights_status": "odc_by",
+          "identifier": "ODC-BY-1.0",
+          "version": "1.0",
+          "url": "https://opendatacommons.org/licenses/by/1-0/",
+          "attribution_template": "Getty Research Institute, Thesaurus of Geographic Names (TGN).",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "Retain source provenance and state that TGN coordinates are approximate finding aids.",
+          "no_inheritance": true,
+          "rule_id": "getty_tgn:metadata:d8de55a45e35",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^TGN\\ vocabulary\\ records$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "data",
+          "applies_to": "TGN N-Triples/SPARQL/per-record exports",
+          "rights_status": "odc_by",
+          "identifier": "ODC-BY-1.0",
+          "version": "1.0",
+          "url": "https://opendatacommons.org/licenses/by/1-0/",
+          "attribution_template": "Getty Research Institute, TGN; mark changes and coordinate-precision interpretation.",
+          "redistribution": "allowed",
+          "modification": "allowed",
+          "commercial_use": "allowed",
+          "share_alike": false,
+          "scope_note": "TGN identities and reference coordinates do not prove exact sites, borders, jurisdiction, travel, or influence.",
+          "no_inheritance": true,
+          "rule_id": "getty_tgn:data:c8bbe41cb024",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^TGN\\ N\\-Triples/SPARQL/per\\-record\\ exports$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        },
+        {
+          "content_class": "media",
+          "applies_to": "artwork media",
+          "rights_status": "not_applicable",
+          "identifier": "NOT-APPLICABLE",
+          "version": null,
+          "url": null,
+          "attribution_template": null,
+          "redistribution": "prohibited",
+          "modification": "prohibited",
+          "commercial_use": "prohibited",
+          "share_alike": false,
+          "scope_note": "TGN is not an artwork-media source.",
+          "no_inheritance": true,
+          "rule_id": "getty_tgn:media:cf6ecbef5ef8",
+          "scope_match": {
+            "normalization": "none",
+            "pattern": "^artwork\\ media$",
+            "allowed_schemes": [],
+            "allowed_hosts": [],
+            "allow_relative_path": true,
+            "field_policy": "any",
+            "fields": [],
+            "require_explicit_query_fields": false
+          }
+        }
+      ]
+    },
+    {
       "source_id": "met_open_access",
       "rules": [
         {

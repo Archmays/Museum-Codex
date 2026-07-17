@@ -8,6 +8,12 @@
 
 - 官方：[ULAN](https://www.getty.edu/research/tools/vocabularies/ulan/)；[获取方式与许可](https://www.getty.edu/research/tools/vocabularies/obtain/)
 - 用途：稳定 ULAN ID、多语名称/别名、角色和生卒线索；不证明作品归属或艺术影响。
+
+### Getty Vocabularies / TGN
+
+- 官方：[TGN](https://www.getty.edu/research/tools/vocabularies/tgn/)；[LOD 与许可](https://www.getty.edu/research/tools/vocabularies/lod/)
+- 用途：稳定 TGN ID/URI、名称、地点类型、层级和参考坐标；per-record JSON/RDF 与 SPARQL 数据采用 ODC Attribution 1.0。
+- MUSEUM-07 约束：TGN 坐标仅为 finding aid。城市或地区坐标不得解释为具体建筑、现代边界、历史管辖、旅行路线或文化归属；XML web service 禁止回退。
 - 接口：SPARQL、OpenRefine、N-Triples 和单记录 RDF/JSON-LD，无 key，限速未声明。元数据为 ODC Attribution 1.0；无作品图像。
 - 风险：旧 XML/关系表/XML Web Services 已停止，适配器必须面向当前接口并做 contract test。
 

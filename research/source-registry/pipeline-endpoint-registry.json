@@ -41,6 +41,25 @@
       "expected_content_types": ["application/json", "application/ld+json"]
     },
     {
+      "source_id": "getty_tgn",
+      "adapter_name": "Getty TGN linked-data place adapter",
+      "adapter_namespace_uuid": "28f6f8d4-8de7-5f0d-9b35-0e61fb77aa05",
+      "tier": 1,
+      "allowed_hosts": ["vocab.getty.edu"],
+      "allowed_redirect_hosts": ["vocab.getty.edu"],
+      "endpoint_template": "https://vocab.getty.edu/tgn/{object_id}.json",
+      "allowed_path_pattern": "^/tgn/[0-9]{7}\\.json$",
+      "allowed_query_names": [],
+      "object_id_pattern": "^[0-9]{7}$",
+      "supported_query_profiles": ["default"],
+      "response_profile": "Linked Art compacted JSON-LD Place object with names, types, hierarchy, and optional reference coordinates",
+      "rate_limit": "not stated; live acquisition concurrency fixed to 1 per unique TGN ID",
+      "terms_url": "https://www.getty.edu/research/tools/vocabularies/lod/",
+      "documentation_url": "https://vocab.getty.edu/doc/",
+      "terms_verified_at": "2026-07-16",
+      "expected_content_types": ["application/json", "application/ld+json"]
+    },
+    {
       "source_id": "met_open_access",
       "adapter_name": "The Met Open Access object adapter",
       "adapter_namespace_uuid": "28f6f8d4-8de7-5f0d-9b35-0e61fb77aa03",

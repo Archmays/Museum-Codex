@@ -21,7 +21,7 @@ from museum_pipeline.config import (
 from museum_pipeline.hashing import sha256_file
 
 
-REFERENCE_SOURCE_IDS = {"wikidata", "getty_ulan", "met_open_access", "aic_api"}
+REFERENCE_SOURCE_IDS = {"wikidata", "getty_ulan", "getty_tgn", "met_open_access", "aic_api"}
 
 
 def verify_sources() -> dict[str, object]:

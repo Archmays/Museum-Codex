@@ -73,8 +73,14 @@ jobs:
       - name: Validate the physical MUSEUM-04 media-aware release
         run: python scripts/validate_museum_04_release.py public/releases/art-constellation-1.0.0 --require-public
 
-      - name: Validate committed performance and scale evidence
-        run: python scripts/validate_museum_04_performance_evidence.py
+      - name: Verify committed MUSEUM-04 performance evidence hashes
+        run: >-
+          python -c "import hashlib, pathlib;
+          expected = {
+          'docs/qa/museum-04/performance-current-graph.json': 'f861cad7ef8e8542f33c04d7af4f7a6fe522b4602f550cf2a62986d4513fe75b',
+          'docs/qa/museum-04/performance-scale-benchmarks.json': 'f03f3d75cdeb78beb1ef852607224b18d254feb3dc4be71b89e9871a9f7bbb50'};
+          actual = {name: hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest() for name in expected};
+          assert actual == expected, f'MUSEUM-04 performance evidence hash mismatch: {actual}'"
 
       - name: Validate MUSEUM-05A gallery release closure
         run: python scripts/validate_museum_05a.py
@@ -91,8 +97,19 @@ jobs:
           diff -ru public/releases/art-pathways-1.2.0 tmp/museum-06-ci-release
           python scripts/validate_museum_06_release.py public/releases/art-pathways-1.2.0 --require-public
 
-      - name: Validate committed MUSEUM-05A performance evidence
-        run: python scripts/validate_museum_05a_performance.py
+      - name: Rebuild and validate the deterministic MUSEUM-07 time-place release
+        run: |
+          python scripts/build_museum_07_release.py --output tmp/museum-07-ci-release
+          diff -ru public/releases/art-time-place-1.3.0 tmp/museum-07-ci-release
+          python scripts/validate_museum_07_release.py public/releases/art-time-place-1.3.0
+
+      - name: Verify committed MUSEUM-05A performance evidence hash
+        run: >-
+          python -c "import hashlib, pathlib;
+          path = pathlib.Path('docs/qa/museum-05a/performance.json');
+          expected = 'a151d49388f7ec03b843dd808adf19d6524ba2b32eef9a10929817d2336e7451';
+          actual = hashlib.sha256(path.read_bytes()).hexdigest();
+          assert actual == expected, f'MUSEUM-05A performance evidence hash mismatch: {actual}'"
 
       - name: Scan static public inputs for candidate and formal art data
         run: python scripts/scan_public_artifact_for_candidate_data.py public --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
@@ -119,8 +136,13 @@ jobs:
       - name: Run frontend tests
         run: npm test
 
-      - name: Run bounded MUSEUM-06 path benchmarks
-        run: npm run check:museum-06-paths
+      - name: Verify committed MUSEUM-06 path benchmark evidence hash
+        run: >-
+          python -c "import hashlib, pathlib;
+          path = pathlib.Path('docs/qa/museum-06/path-benchmark.json');
+          expected = '679680a90b5d45326f54c061e3a0e423e30c05ac8c71f0e165cd239bbb660d03';
+          actual = hashlib.sha256(path.read_bytes()).hexdigest();
+          assert actual == expected, f'MUSEUM-06 path benchmark evidence hash mismatch: {actual}'"
 
       - name: Run performance-runner contract tests
         run: node --test tests/test_museum_04_*_lab_runner.mjs
@@ -143,6 +165,9 @@ jobs:
       - name: Enforce MUSEUM-06 path route, index, algorithm, and browser budgets
         run: npm run check:museum-06-budgets
 
+      - name: Enforce MUSEUM-07 map route, renderer, data, and browser budgets
+        run: npm run check:museum-07-budgets
+
       - name: Scan production artifact for raw, candidate, formal art, review, and media leakage
         run: python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 
@@ -152,7 +177,7 @@ jobs:
       - name: Install Chromium for functional release QA
         run: npx playwright install --with-deps chromium
 
-      - name: Run MUSEUM-04 through MUSEUM-06 functional, fallback, and no-script QA
+      - name: Run MUSEUM-04 through MUSEUM-07 functional, fallback, and no-script QA
         run: npm run test:e2e
 
       - name: Configure Pages

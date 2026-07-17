@@ -36,6 +36,7 @@ function TourIndex({ release, interactions }: GallerySharedProps) {
       <nav className="tour-breadcrumbs" aria-label={zh ? "导览导航" : "Tour navigation"}>
         <Link to="/art">{zh ? "美术馆序厅" : "Art foyer"}</Link>
         <Link to="/art/compare">{zh ? "双作比较" : "Two-work comparison"}</Link>
+        <Link to="/art/map">{zh ? "艺术时空地图" : "Art Across Time and Place"}</Link>
       </nav>
       <header className="tours-hero">
         <p className="eyebrow">{zh ? "深度观察导览" : "Deep observation tours"}</p>
@@ -78,7 +79,7 @@ function TourDetail({ release, catalog, interactions, tour }: GallerySharedProps
   const imageArtwork = artworks.find((artwork) => artwork.media.decision === "approved_self_hosted") ?? artworks[0] ?? null;
   return (
     <main id="main-content" className="gallery-page tour-detail-page" tabIndex={-1} data-tour-id={tour.id}>
-      <nav className="tour-breadcrumbs" aria-label={zh ? "导览导航" : "Tour navigation"}><Link to="/art/tours">← {zh ? "全部导览" : "All tours"}</Link><Link to="/art/compare">{zh ? "双作比较" : "Compare"}</Link></nav>
+      <nav className="tour-breadcrumbs" aria-label={zh ? "导览导航" : "Tour navigation"}><Link to="/art/tours">← {zh ? "全部导览" : "All tours"}</Link><Link to="/art/compare">{zh ? "双作比较" : "Compare"}</Link><Link to="/art/map">{zh ? "艺术时空地图" : "Art Across Time and Place"}</Link></nav>
       <header className="tour-detail-hero">
         <p className="eyebrow">{artistTour ? (zh ? "艺术家观察导览" : "Artist observation tour") : (zh ? "主题策展导览" : "Thematic curatorial tour")}</p>
         <h1>{localize(tour.title, locale)}</h1>
@@ -140,6 +141,7 @@ function TourDetail({ release, catalog, interactions, tour }: GallerySharedProps
         <Link to={`/art/paths?from=${encodeURIComponent((artistTour ? [artistTour.artist_id] : themeTour!.artist_ids)[0])}&to=${encodeURIComponent((artistTour ? release.artists.map((artist) => artist.id).filter((id) => id !== artistTour.artist_id) : themeTour!.artist_ids.slice(1))[0])}&mode=comparison&maxHops=6&path=1&view=text`}>
           {zh ? "导览结束：继续查看艺术家关系路径" : "Tour complete: continue to artist pathways"}
         </Link>
+        <Link to={`/art/map?artist=${encodeURIComponent((artistTour ? [artistTour.artist_id] : themeTour!.artist_ids)[0])}&view=timeline`}>{zh ? "在地点时间线中继续" : "Continue in the place timeline"}</Link>
       </nav>
     </main>
   );

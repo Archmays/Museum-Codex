@@ -29,9 +29,10 @@ class Museum04WorkflowTests(unittest.TestCase):
 
     def test_performance_loader_and_fallback_gates_run_before_upload(self) -> None:
         required = (
-            "python scripts/validate_museum_04_performance_evidence.py",
+            "docs/qa/museum-04/performance-current-graph.json",
+            "docs/qa/museum-04/performance-scale-benchmarks.json",
             "python scripts/validate_museum_05a.py",
-            "python scripts/validate_museum_05a_performance.py",
+            "docs/qa/museum-05a/performance.json",
             "node --test tests/test_museum_04_*_lab_runner.mjs",
             "node scripts/verify-museum-04-budgets.mjs",
             "node scripts/verify-museum-05a-budgets.mjs",

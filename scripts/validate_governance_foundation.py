@@ -27,6 +27,11 @@ SOURCE_MATRIX_PATH = ROOT / "research" / "source-registry" / "source-comparison-
 SOURCE_REGISTRY_CONFIG_PATH = ROOT / "research" / "source-registry" / "minimum-source-set.json"
 LICENSE_DECISIONS_PATH = ROOT / "governance" / "license-decisions.json"
 MAX_GOVERNANCE_REVIEW_AGE_DAYS = 366
+RELEASE_SOURCE_MATRIX_SNAPSHOT_HASHES = {
+    "release:art-constellation-1.0.0": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21",
+    "release:art-gallery-interactions-1.1.0": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21",
+    "release:art-pathways-1.2.0": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21",
+}
 
 ALLOWED_CLAIM_TRANSITIONS: dict[str | None, set[str]] = {
     None: {"candidate"},
@@ -511,6 +516,7 @@ def source_publish_issues(
     data: dict[str, Any],
     prefix: str,
     release_public_until: str | None = None,
+    source_registry_snapshot_hash: str | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     if data.get("public_static_redistribution") != "allowed":
@@ -578,7 +584,10 @@ def source_publish_issues(
         if registry_id == "iucn_red_list":
             issues.append(ValidationIssue("iucn_public_redistribution_blocked", "Canonical IUCN rules prohibit static public redistribution; a future separately governed permission override is required", f"{prefix}.registry_source_id"))
         expected_identity_base = identities.get(str(registry_id), {})
-        expected_identity = {**expected_identity_base, "snapshot_hash": registry_config.get("source_matrix_snapshot_hash")}
+        expected_identity = {
+            **expected_identity_base,
+            "snapshot_hash": source_registry_snapshot_hash or registry_config.get("source_matrix_snapshot_hash"),
+        }
         official_host = (urlparse(str(data.get("official_url", ""))).hostname or "").lower()
         if (
             identity != expected_identity
@@ -741,7 +750,12 @@ def media_publish_issues(
     return issues
 
 
-def policy_issues(data: dict[str, Any], mode: str, prefix: str) -> list[ValidationIssue]:
+def policy_issues(
+    data: dict[str, Any],
+    mode: str,
+    prefix: str,
+    source_registry_snapshot_hash: str | None = None,
+) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     entity_type = data.get("entity_type")
     if entity_type == "artist" and data.get("lifecycle_status") in {"publishable", "published"}:
@@ -764,7 +778,11 @@ def policy_issues(data: dict[str, Any], mode: str, prefix: str) -> list[Validati
     if entity_type == "media_asset" and mode == "publish":
         issues.extend(media_publish_issues(data, prefix))
     if entity_type == "source" and mode == "publish":
-        issues.extend(source_publish_issues(data, prefix))
+        issues.extend(source_publish_issues(
+            data,
+            prefix,
+            source_registry_snapshot_hash=source_registry_snapshot_hash,
+        ))
     if data.get("public_animation_candidate") is True:
         animation = data.get("behavior_animation") or {}
         if not animation.get("animation_evidence_ids") or not animation.get("simplification_notes"):
@@ -1217,6 +1235,7 @@ def release_bundle_issues(
     release: dict[str, Any],
     *,
     require_publishable: bool = True,
+    source_registry_snapshot_hash: str | None = None,
 ) -> list[ValidationIssue]:
     indexed, issues = index_records(records)
     target_schema_by_id: dict[str, str] = {}
@@ -1273,7 +1292,12 @@ def release_bundle_issues(
     for source_id in expected_by_category["source"]:
         source = indexed.get(source_id)
         if source:
-            issues.extend(source_publish_issues(source, f"$.records[{source_id}]", release_public_until))
+            issues.extend(source_publish_issues(
+                source,
+                f"$.records[{source_id}]",
+                release_public_until,
+                source_registry_snapshot_hash,
+            ))
     for media_id in expected_by_category["media"]:
         media = indexed.get(media_id)
         if media:
@@ -1467,6 +1491,7 @@ def validate_release_directory(release_root: Path, environment: SchemaEnvironmen
     except (OSError, json.JSONDecodeError) as exc:
         return [ValidationIssue("release_manifest_invalid", str(exc), str(manifest_path))]
 
+    source_registry_snapshot_hash = RELEASE_SOURCE_MATRIX_SNAPSHOT_HASHES.get(release.get("id"))
     issues = schema_issues("schemas/common/dataset-release.schema.json", release, environment, "$.manifest")
     issues.extend(record_identity_issues(release, "$.manifest"))
     records: list[dict[str, Any]] = [{"target_schema": "schemas/common/dataset-release.schema.json", "data": release}]
@@ -1530,7 +1555,12 @@ def validate_release_directory(release_root: Path, environment: SchemaEnvironmen
                 issues.extend(target_schema_binding_issues(record["target_schema"], record["data"], f"{path}:records[{record_index}]"))
                 issues.extend(record_identity_issues(record["data"], f"{path}:records[{record_index}].data"))
                 issues.extend(schema_issues(record["target_schema"], record["data"], environment, f"{path}:records[{record_index}].data"))
-                issues.extend(policy_issues(record["data"], "publish", f"{path}:records[{record_index}].data"))
+                issues.extend(policy_issues(
+                    record["data"],
+                    "publish",
+                    f"{path}:records[{record_index}].data",
+                    source_registry_snapshot_hash,
+                ))
                 records.append(record)
             if actual_ids != set(item.get("record_ids", [])):
                 issues.append(ValidationIssue("manifest_file_record_ids_mismatch", f"Manifest IDs {sorted(item.get('record_ids', []))} do not match file IDs {sorted(actual_ids)}", f"$.manifest.manifest_files[{index}].record_ids"))
@@ -1565,7 +1595,12 @@ def validate_release_directory(release_root: Path, environment: SchemaEnvironmen
         release.get("status") in {"publishable", "published"}
         or release.get("public_release") is True
     )
-    issues.extend(release_bundle_issues(records, release, require_publishable=require_publishable))
+    issues.extend(release_bundle_issues(
+        records,
+        release,
+        require_publishable=require_publishable,
+        source_registry_snapshot_hash=source_registry_snapshot_hash,
+    ))
 
     indexed, _ = index_records(records)
     manifest_by_path = {item.get("path"): item for item in release.get("manifest_files", [])}

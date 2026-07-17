@@ -1,6 +1,6 @@
 # ADR-0003：地图与空间层
 
-- Status: accepted for later phase
+- Status: superseded by [ADR-0010](ADR-0010-art-time-place-local-map.md) for MUSEUM-07
 - Date: 2026-07-11
 
 ## Context
@@ -8,6 +8,8 @@
 艺术时空地图与未来生态区地图需要矢量数据、交互过滤和静态部署。底图许可、样式与 tile 服务不能被“开源库”一词掩盖。
 
 ## Decision
+
+本 ADR 保留早期方向和备选方案记录；MUSEUM-07 的正式运行时选择、版本、来源、无障碍回退和 local-only 门禁由 ADR-0010 取代。
 
 MUSEUM-07/BIO 原型首选 **MapLibre GL JS** 作为渲染器，分馆数据发布为版本化 GeoJSON 或矢量分片。渲染库许可、底图/tiles、字体 glyphs、sprites 和地理数据许可分别登记。初期采用明确许可的公共服务或自托管静态资源；不得把开发 token 放进仓库。
 

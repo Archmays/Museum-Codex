@@ -45,6 +45,8 @@ MEDIA_COLLECTION_SCHEMA = "schemas/art/release/media-asset-collection.schema.jso
 MEDIA_INDEX_SCHEMA = "schemas/art/release/runtime-media-index.schema.json"
 EXPECTED_PACKAGE_HASH = "sha256:1f0f00a0d7f6162fcb0d716e6b86fbcfe42a4e04a0422d7c1c0df63b70c97b86"
 EXPECTED_GRAPH_HASH = "sha256:58fe40930ab6f0e84019bbb0c3f378a2e73d7f3fbd4f810a66aa78f0481d1dd3"
+SOURCE_MATRIX_SNAPSHOT_HASH = "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21"
+SOURCE_LICENSE_RULES_SNAPSHOT_HASH = "sha256:19d10386405abf971c5712e955f60c08d2bd43e6f8060a29035033ff3c33ada2"
 DATA_RULE_IDS = {
     "source:aic_api": "aic_api:data:75df7e022b4e",
     "source:getty_ulan": "getty_ulan:data:eb25ddb4d400",
@@ -980,9 +982,7 @@ def _publishable_source(
             row for row in csv.DictReader(handle)
             if row["source_id"] == record["registry_source_id"]
         )
-    registry_snapshot_hash = _load_json(
-        ROOT / "research" / "source-registry" / "minimum-source-set.json"
-    )["source_matrix_snapshot_hash"]
+    registry_snapshot_hash = SOURCE_MATRIX_SNAPSHOT_HASH
     record["title"] = registry_row["name"]
     record["publisher"] = registry_row["name"]
     record["official_url"] = registry_row["official_url"]
@@ -1018,7 +1018,7 @@ def _publishable_source(
         "no other source rule or content class is included."
     )
     if not record.get("terms_snapshot_hash"):
-        record["terms_snapshot_hash"] = sha256_file(ROOT / "research" / "source-registry" / "source-license-rules.json")
+        record["terms_snapshot_hash"] = SOURCE_LICENSE_RULES_SNAPSHOT_HASH
     return record
 
 

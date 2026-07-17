@@ -4,7 +4,7 @@
 
 Museum 是一个以可追溯知识图谱为骨架、以数字博物馆为界面的长期知识项目。它用展览、关系、时间、地点和可解释路径帮助用户探索，而不是复制百科条目或建立无来源图片库。
 
-仓库包含正式、媒体感知的艺术星海 `release:art-constellation-1.0.0`：12 位艺术家、44 件作品、31 个共享语境与 36 条 C 级策展比较，并实现图形、艺术家列表和关系表三种等价任务路径。31 件作品使用通过 MUSEUM-03C 身份、权利、字节与质量门禁的 242 个本地响应式衍生文件；其余 13 件保持明确无图状态。该 release 不含 A/B 关系、历史因果边、算法相似、外部运行时媒体、blocked media 或未知权利媒体。MUSEUM-AUTO-01 在最终统一门禁通过前不会把中间提交推送到 Pages；离线 originals、候选、审核原始资料与武器博物馆实现均不进入公开构建。
+当前正式 overlay 为 `release:art-time-place-1.3.0`，继承 `release:art-pathways-1.2.0`：12 位艺术家、44 件作品、23 个 verified place identities、36 条 artist place-time episodes、2 个独立 current-holding records，以及完全自托管的 Natural Earth 1:110m land/coastline/lakes GeoJSON。`#/art/map` 提供共享状态的地图、时间线和地点表；不使用外部 tile、token、在线 geocoder、用户位置、analytics、访问历史、现代政治边界或推断旅行路线。31 件作品继续使用 MUSEUM-03C 已批准的 242 个本地响应式衍生文件，其余 13 件保持明确无图状态；本阶段不重新生成媒体。
 
 ## 不可妥协的规则
 
@@ -48,11 +48,13 @@ npm ci
 npm run check
 node scripts/verify-museum-04-budgets.mjs
 python scripts/validate_museum_04_performance_evidence.py
+python scripts/validate_museum_07_release.py public/releases/art-time-place-1.3.0
 npm run test:e2e
+node scripts/verify-museum-07-budgets.mjs
 python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 ```
 
-正式提升与 Pages workflow 另行执行 `python scripts/validate_museum_04_release.py --require-public`；当前 `release:art-constellation-1.0.0` 以 `automated_release_validation_pipeline` 完成正式自动交叉验证，`human_review_dependency=false`、`human_reviewer_claimed=false`，不伪造或等待具名人工审核。Pages 仍只在 MUSEUM-AUTO-01 全部最终门禁通过后统一推送与部署。
+`release:art-time-place-1.3.0` 由 automated release validation pipeline 完成来源、权利、引用、字节与 hash 交叉验证，`human_review_dependency=false`，不伪造或等待逐项人工审核。底图只包含自然地理轮廓；现代地图轮廓不等于历史政治边界，时间顺序不等于旅行路线，current holding institution 不等于作品创作地。
 
 验证器区分 schema/fixture 自测与实际 release bundle：后者会核验 canonical schema 分派、精确文件集合、字节数、SHA-256、类型化 ID、完整引用闭包、MUSEUM-03C exact projection、父子媒体链、稳定 Source rule ID/快照、许可决策、blocked/no-image 边界、notices、attribution 与 withdrawal 的实际 JSON 内容。阶段结果见 [`docs/phase-reports/phase-museum-04-report.md`](docs/phase-reports/phase-museum-04-report.md)。
 

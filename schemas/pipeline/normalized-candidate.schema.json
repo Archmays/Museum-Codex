@@ -8,7 +8,7 @@
     "schema_version": { "$ref": "https://museum-codex.example/schemas/common/entity.schema.json#/$defs/semver" },
     "id": { "type": "string", "pattern": "^candidate:[0-9a-f-]{36}$" },
     "entity_type": { "const": "normalized_candidate" },
-    "candidate_kind": { "enum": ["individual", "artwork", "anonymous", "workshop", "collective", "traditional_attribution", "conventional_identity", "corporate_body", "unknown"] },
+    "candidate_kind": { "enum": ["individual", "artwork", "place", "anonymous", "workshop", "collective", "traditional_attribution", "conventional_identity", "corporate_body", "unknown"] },
     "source_records": {
       "type": "array", "minItems": 1, "uniqueItems": true,
       "items": {

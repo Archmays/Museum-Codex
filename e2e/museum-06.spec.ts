@@ -165,7 +165,7 @@ test("mobile, keyboard, forced colors, reduced motion, print, and WebGL fallback
   expectCleanRuntime(observed);
 });
 
-test("controlled interaction, heap, CLS, requests, and storage remain within M06 budgets", async ({ page }, testInfo) => {
+test("@museum-06-isolated-performance controlled interaction, heap, CLS, requests, and storage remain within M06 budgets", async ({ page }, testInfo) => {
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   await installEnglish(page);
   await installVitals(page);

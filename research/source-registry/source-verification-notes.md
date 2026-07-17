@@ -39,6 +39,7 @@
 
 - Wikidata：确认显式 `Special:EntityData/<QID>.json`、结构化数据 CC0、合规 User-Agent/限速与 `Retry-After`；不启用批量 WDQS discovery。
 - Getty ULAN：确认单记录 JSON、ODC-BY 1.0 与 XML Web Services 已停止；真实 probe 显示当前 JSON 为 compacted Linked Art object，adapter 因此升至 0.1.1。
+- Getty TGN（2026-07-16）：确认单记录 `https://vocab.getty.edu/tgn/{id}.json` 返回 compacted Linked Art Place object，包含名称、类型、层级与可选 GeoJSON reference point；数据采用 ODC-BY 1.0，旧 XML Web Services 已停止。TGN 官方文档明确坐标通常为近似中心点、仅供查找，MUSEUM-07 因此按 city/regional centroid 显示并禁止推成 exact site。
 - The Met：确认 object endpoint、80 req/s 文档值、OA 字段；`primaryImage` 仍不是媒体权利证明。
 - AIC：确认 explicit `fields`、60/min、AIC User-Agent、`description` CC BY 4.0/其他 artwork data CC0；IIIF 与 image ID 不构成媒体许可。
 

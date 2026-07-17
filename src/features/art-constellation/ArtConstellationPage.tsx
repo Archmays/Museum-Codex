@@ -654,6 +654,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
 
       <div className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</div>
       <Link className="text-link constellation-back-link" to="/art">{t.constellation.backFoyer}</Link>
+      <Link className="text-link constellation-back-link" to="/art/map">{locale === "zh-CN" ? "艺术时空地图" : "Art Across Time and Place"}</Link>
         </>
       ) : <div className="constellation-experience-placeholder" aria-hidden="true" />}
       <PanelHost

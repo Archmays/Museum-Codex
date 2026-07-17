@@ -25,6 +25,7 @@ RECORDED = ROOT / "fixtures" / "pipeline" / "recorded"
 ADAPTER_FIXTURES = {
     "adapter-wikidata-response.json": "wikidata",
     "adapter-getty-ulan-response.json": "getty_ulan",
+    "adapter-getty-tgn-response.json": "getty_tgn",
     "adapter-met-response.json": "met_open_access",
     "adapter-aic-response.json": "aic_api",
 }
@@ -43,7 +44,8 @@ def validate_pipeline_foundation(*, allow_missing_recorded: bool = False, verbos
             source_id = ADAPTER_FIXTURES[path.name]
             adapter = get_adapter(source_id)
             body = path.read_bytes()
-            response = ResponseContract(200, {"content-type": "application/json"}, body, adapter.build_request("Q42" if source_id == "wikidata" else "500115493" if source_id == "getty_ulan" else "1" if source_id == "met_open_access" else "27992").url)
+            object_ids = {"wikidata": "Q42", "getty_ulan": "500115493", "getty_tgn": "7004334", "met_open_access": "1", "aic_api": "27992"}
+            response = ResponseContract(200, {"content-type": "application/json"}, body, adapter.build_request(object_ids[source_id]).url)
             try:
                 parsed = adapter.validate_response_contract(response)
                 candidate = adapter.normalize(parsed, snapshot_id=f"snapshot:{source_id}:fixture", observed_at="2026-07-12T00:00:00Z")

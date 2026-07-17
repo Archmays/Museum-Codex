@@ -61,7 +61,7 @@ class CliTests(unittest.TestCase):
         self.assertTrue(payload["ok"])
         code, payload = run_cli(["list-adapters", "--json"])
         self.assertEqual(0, code)
-        self.assertEqual(4, len(payload["adapters"]))
+        self.assertEqual(5, len(payload["adapters"]))
 
     def test_acquire_defaults_off_even_when_environment_variable_requests_live(self) -> None:
         with patch.dict(os.environ, {"MUSEUM_PIPELINE_LIVE": "1"}):
@@ -192,6 +192,7 @@ class LeakageTests(unittest.TestCase):
                 (ROOT / "public" / "releases" / "art-constellation-1.0.0").resolve(),
                 (ROOT / "public" / "releases" / "art-gallery-interactions-1.1.0").resolve(),
                 (ROOT / "public" / "releases" / "art-pathways-1.2.0").resolve(),
+                (ROOT / "public" / "releases" / "art-time-place-1.3.0").resolve(),
             },
             exempt_roots,
         )
@@ -363,6 +364,20 @@ class LeakageTests(unittest.TestCase):
             codes = {item["code"] for item in scan_public_artifact(root)}
             self.assertTrue({"wikidata_qid", "ulan_id"} <= codes)
 
+    def test_authority_ids_are_allowed_only_inside_validated_formal_release(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            release_root = root / "art-time-place-1.3.0"
+            release_root.mkdir()
+            (release_root / "artist.json").write_text(
+                '"https://www.wikidata.org/entity/Q42" "https://vocab.getty.edu/ulan/500355883"',
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                [],
+                scan_public_artifact(root, formal_art_exempt_roots={release_root}),
+            )
+
     def test_bare_probe_identifiers_and_names_are_detected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -426,7 +441,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
     def test_bootstrap_pipeline_validator_passes_before_recorded_live_probes(self) -> None:
         result = validate_pipeline_foundation(allow_missing_recorded=True, verbose=False)
         self.assertTrue(result["ok"], result["failures"])
-        self.assertEqual(14, result["valid_fixtures"])
+        self.assertEqual(15, result["valid_fixtures"])
         self.assertEqual(28, result["invalid_fixtures"])
 
     def test_every_invalid_fixture_hits_its_expected_error(self) -> None:
@@ -439,7 +454,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(68, len(environment.by_path))
+        self.assertEqual(82, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))
@@ -454,7 +469,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         issues = validate_record(art_context, requested_schema="schemas/common/entity.schema.json")
         self.assertEqual("schema_target_mismatch", issues[0].code)
 
-    def test_endpoint_registry_has_only_four_real_reference_adapters(self) -> None:
+    def test_endpoint_registry_has_only_five_real_reference_adapters(self) -> None:
         sources = endpoint_registry()["sources"]
         self.assertEqual(REFERENCE_SOURCE_IDS, {item["source_id"] for item in sources})
         self.assertTrue(all(item["endpoint_template"].startswith("https://") for item in sources))
@@ -463,7 +478,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         result = verify_sources()
         self.assertTrue(result["ok"], result["issues"])
         self.assertTrue(result["endpoint_registry_snapshot_hash"].startswith("sha256:"))
-        self.assertEqual("sha256:19d10386405abf971c5712e955f60c08d2bd43e6f8060a29035033ff3c33ada2", result["license_rules_snapshot_hash"])
+        self.assertEqual("sha256:462c9861f7bf4a6bd1ef1fd9e08d0cf3a460eb025da034112afaee0751d2a19b", result["license_rules_snapshot_hash"])
 
 
 if __name__ == "__main__":

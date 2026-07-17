@@ -259,6 +259,7 @@ function LoadedPathPage({ bundle, params, setParams }: {
       <nav className="path-breadcrumbs" aria-label={locale === "zh-CN" ? "面包屑" : "Breadcrumbs"}>
         <Link to="/art">{locale === "zh-CN" ? "艺术序厅" : "Art foyer"}</Link>
         <Link to="/art/constellation">{locale === "zh-CN" ? "艺术星海" : "Art Constellation"}</Link>
+        <Link to="/art/map">{locale === "zh-CN" ? "艺术时空地图" : "Art Across Time and Place"}</Link>
       </nav>
       <header className="path-hero">
         <div><p className="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.intro}</p></div>

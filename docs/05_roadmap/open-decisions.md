@@ -1,17 +1,16 @@
 # 未决事项
 
-这些事项没有被静默决定。当前共 **4** 项未决。
+这些事项没有被静默决定。当前共 **3** 项未决。
 
 | ID | 决定 | 最晚时间 | 默认安全状态 | 决策者 |
 |---|---|---|---|---|
-| OD-006 | 底图/tile 提供者与许可/归属方案 | MUSEUM-07 | 不安装地图、不配置 token | user + rights |
 | OD-008 | 中文搜索分词、索引库与可接受包体 | MUSEUM-01/08 | aliases 精确搜索；不加依赖 | product + engineering |
 | OD-009 | 分析/收藏历史是否收集及隐私模式 | 对应功能设计前 | 不收集、不建账户 | 用户 |
 | OD-011 | 武器博物馆正式内容的年代范围、现代武器边界、年龄适宜性和敏感内容分级 | MUSEUM-ARMS-00 | 仅显示不可点击门户入口；不采集器物、不下载媒体、不展示现代操作资料或图像化伤害，不改变美术馆计划 | user + curator + safety + rights |
 
 每项关闭时更新 decision log，记录选择、理由、影响、日期和重评触发。`open_decisions_count` 以本表未关闭项计算。
 
-`OD-001`、`OD-002`、`OD-005` 与 `OD-010` 已由用户 Mays 在 MUSEUM-04 入口关闭。当前未决数量为 **4**：OD-006、OD-008、OD-009、OD-011。
+`OD-006` 已由 MUSEUM-07 的机器可执行来源、权利、运行时和物理 release 门禁关闭。当前未决数量为 **3**：OD-008、OD-009、OD-011。
 
 ## 已关闭事项
 
@@ -24,3 +23,4 @@
 | OD-002 | 2026-07-14 | 项目原创策展文字、翻译、关系解释、UI 文案与原创设计 `ALL-RIGHTS-RESERVED` | 第三方事实、metadata、media、来源许可与署名不受项目权利声明覆盖 |
 | OD-005 | 2026-07-14 | 采用 MUSEUM-04 批准的设备、交互、内存、gzip 与 1k/10k/50k 性能预算 | 当前图和合成规模均有硬门禁；实验室代理不表述为真实用户 p75，无实机时记录 `not_available` |
 | OD-010 | 2026-07-14 | 建立 Rights or attribution Issue Form 与撤回流程；7/14 日响应目标，高风险立即隔离并以 72 小时内临时下架为目标 | 不在公开 Issue 要求敏感证明；撤回、replacement 与恢复均创建新 release 和审核记录，不改写历史 |
+| OD-006 | 2026-07-17 | 采用完全自托管的 Natural Earth 1:110m land/coastline/lakes GeoJSON 与 exact-pinned MapLibre GL JS 5.24.0；不使用外部 tile、token、remote style/glyph/sprite、现代政治边界或运行时地理服务 | 地图运行时只读取同源版本化静态文件；显示 `Made with Natural Earth`，并以 timeline/list 作为 WebGL、forced-colors、低带宽和渲染错误的等价回退 |

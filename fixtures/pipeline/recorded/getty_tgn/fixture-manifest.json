@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "getty_tgn",
+  "adapter_version": "0.1.0",
+  "contract_version": "1.0.0",
+  "captured_at": "2026-07-16T12:30:00Z",
+  "official_endpoint": "https://vocab.getty.edu/tgn/7004334.json",
+  "sanitized_request": {
+    "method": "GET",
+    "canonical_endpoint": "https://vocab.getty.edu/tgn/7004334.json",
+    "query_profile": "default",
+    "credential_alias": null,
+    "headers": {
+      "Accept": "application/ld+json, application/json;q=0.9",
+      "User-Agent": "Museum-Codex-Pipeline/0.1 (+https://github.com/Archmays/Museum-Codex)"
+    }
+  },
+  "content_type": "application/json",
+  "body_bytes": 1201,
+  "body_sha256": "sha256:530da37984a5b6ca8d620ee9a5de88867f57db52f2205ed6a15add518678143f",
+  "fixture_projection": true,
+  "projection_note": "Minimal deterministic projection of the compacted TGN Linked Art Place response; names, type, hierarchy, and coordinate are retained while unrelated source nodes are omitted.",
+  "original_live_snapshot_id": "snapshot:getty_tgn:20260716t123000z:live7004334",
+  "original_live_body_bytes": 13556,
+  "original_live_body_sha256": "sha256:e7f37010d124ad3dd334cf935aede25537422ad9eac7610d77581056950c5557",
+  "source_license_rule_ids": [
+    "getty_tgn:data:c8bbe41cb024"
+  ],
+  "terms_url": "https://www.getty.edu/research/tools/vocabularies/lod/",
+  "documentation_url": "https://vocab.getty.edu/doc/",
+  "third_party_notice_path": "THIRD_PARTY_NOTICE.md",
+  "media_bytes_included": false,
+  "curatorial_selection": false
+}

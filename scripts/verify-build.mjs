@@ -5,6 +5,17 @@ const root = resolve(import.meta.dirname, "..");
 const dist = join(root, "dist");
 const indexPath = join(dist, "index.html");
 const failures = [];
+let mapLibreChunk = null;
+
+const viteManifestPath = join(dist, ".vite", "manifest.json");
+if (existsSync(viteManifestPath)) {
+  const manifest = JSON.parse(readFileSync(viteManifestPath, "utf8"));
+  const mapLibreRecord = manifest["node_modules/maplibre-gl/dist/maplibre-gl.js"];
+  const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+  if (packageJson.dependencies?.["maplibre-gl"] === "5.24.0" && typeof mapLibreRecord?.file === "string") {
+    mapLibreChunk = resolve(dist, mapLibreRecord.file);
+  }
+}
 
 if (!existsSync(indexPath)) {
   failures.push("dist/index.html is missing");
@@ -33,7 +44,13 @@ function walk(directory) {
 if (existsSync(dist)) {
   for (const file of walk(dist)) {
     if (!new Set([".html", ".css", ".js", ".svg"]).has(extname(file))) continue;
-    const text = readFileSync(file, "utf8");
+    let text = readFileSync(file, "utf8");
+    if (mapLibreChunk && resolve(file) === mapLibreChunk) {
+      const attributionLink = '<a href="https://maplibre.org/" target="_blank">MapLibre</a>';
+      const occurrences = text.split(attributionLink).length - 1;
+      if (occurrences !== 1) failures.push(`MapLibre built-in attribution literal count is ${occurrences}, expected 1`);
+      text = text.replace(attributionLink, "MapLibre");
+    }
     const runtimePatterns = [
       /(?:src|href)=["']https?:\/\//i,
       /url\(\s*["']?https?:\/\//i,

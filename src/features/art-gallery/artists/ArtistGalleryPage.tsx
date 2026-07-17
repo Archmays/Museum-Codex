@@ -100,6 +100,7 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
         <Link to="/art/artists">{copy.artistIndex}</Link>
         <span aria-hidden="true">/</span>
         <Link to="/art/constellation">{copy.backConstellation}</Link>
+        <Link to={`/art/map?artist=${encodeURIComponent(artist.id)}&view=list`}>{locale === "zh-CN" ? "这位艺术家的地点" : "This artist’s places"}</Link>
       </nav>
 
       <header className="gallery-hero artist-gallery-hero">
@@ -266,6 +267,7 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
           {locale === "zh-CN" ? "从这位艺术家查找路径" : "Find paths from this artist"}
         </Link>
         <Link to="/art/artists">{copy.artistIndex}</Link>
+        <Link to={`/art/map?artist=${encodeURIComponent(artist.id)}&view=timeline`}>{locale === "zh-CN" ? "在时间线中查看地点" : "View places on the timeline"}</Link>
       </nav>
     </main>
   );

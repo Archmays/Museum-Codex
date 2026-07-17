@@ -1,0 +1,320 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-07",
+  "measurement": "node:zlib gzip level 9; each asset compressed independently",
+  "status": "pass",
+  "failures": [],
+  "budgets": {
+    "home_baseline_gzip_bytes": 99390,
+    "home_limit_gzip_bytes": 101377,
+    "map_route_limit_gzip_bytes": 563200,
+    "renderer_limit_gzip_bytes": 409600,
+    "basemap_limit_gzip_bytes": 256000,
+    "place_data_limit_gzip_bytes": 102400
+  },
+  "measurements": {
+    "home": {
+      "files": [
+        {
+          "path": "dist/assets/index-B3jFLj5M.css",
+          "rawBytes": 27032,
+          "gzipBytes": 6974,
+          "sha256": "sha256:4f465c9277f122132f4b8a8b18c1194068ad2be90d2690c6715a1f348ff1c189"
+        },
+        {
+          "path": "dist/assets/index-CmfVfhBB.js",
+          "rawBytes": 290191,
+          "gzipBytes": 92725,
+          "sha256": "sha256:cf688cd7a3bae247197cc734c8e195083ff9acc8367e388aeff009997bd18e2d"
+        },
+        {
+          "path": "dist/assets/rolldown-runtime-Bh1tDfsg.js",
+          "rawBytes": 567,
+          "gzipBytes": 360,
+          "sha256": "sha256:1b13387cb23dc39bf70e31677c21f6db5cad3377b96f286b6ee444496e5bfea7"
+        }
+      ],
+      "rawBytes": 317790,
+      "gzipBytes": 100059
+    },
+    "route_assets": {
+      "files": [
+        {
+          "path": "dist/assets/ArtMapPage-BjfcSDV8.css",
+          "rawBytes": 13001,
+          "gzipBytes": 3175,
+          "sha256": "sha256:505acae2a9cbae385f4e1086d4c05bbe99cf6720eb1bb5f045bee25bd90ff50d"
+        },
+        {
+          "path": "dist/assets/ArtMapPage-DnGRiTTU.js",
+          "rawBytes": 26484,
+          "gzipBytes": 8043,
+          "sha256": "sha256:0aa8808f6ec5e2769077ba5ae229b2a76a27dcdfe6815d78dab1ae61e68179ed"
+        },
+        {
+          "path": "dist/assets/MapCanvas-B2k4QVOw.css",
+          "rawBytes": 69808,
+          "gzipBytes": 9934,
+          "sha256": "sha256:250bbffd7789f7fc4abb05eec8d12a19dcba9c3426578e9ee1185934f4c8c238"
+        },
+        {
+          "path": "dist/assets/MapCanvas-DJccPSZf.js",
+          "rawBytes": 2983,
+          "gzipBytes": 1478,
+          "sha256": "sha256:ca7c474eece65ac270f3255a514409cdae6c24d9d95cfa8141c1cd59dc74b1e0"
+        },
+        {
+          "path": "dist/assets/map-loader-DEI4p3Qh.js",
+          "rawBytes": 2999,
+          "gzipBytes": 1321,
+          "sha256": "sha256:d7a0253a9aff90a8969af886e37e67ea4d0ed716baf0430273ca9187bf4f367a"
+        },
+        {
+          "path": "dist/assets/maplibre-gl-D7YGKfZr.js",
+          "rawBytes": 1027752,
+          "gzipBytes": 270064,
+          "sha256": "sha256:8ae07af0294df78fa00f91d8afa9717dc6f5906abf00395c9a332222d8e2f93e"
+        },
+        {
+          "path": "dist/assets/release-loader-Uq1OXB05.js",
+          "rawBytes": 32465,
+          "gzipBytes": 9533,
+          "sha256": "sha256:7ca8b443213c0471792da0e1e2715ca642ac3e6f4fc3ae2d4f45bfe5b041fdd9"
+        }
+      ],
+      "rawBytes": 1175492,
+      "gzipBytes": 303548
+    },
+    "renderer_assets": {
+      "files": [
+        {
+          "path": "dist/assets/MapCanvas-B2k4QVOw.css",
+          "rawBytes": 69808,
+          "gzipBytes": 9934,
+          "sha256": "sha256:250bbffd7789f7fc4abb05eec8d12a19dcba9c3426578e9ee1185934f4c8c238"
+        },
+        {
+          "path": "dist/assets/MapCanvas-DJccPSZf.js",
+          "rawBytes": 2983,
+          "gzipBytes": 1478,
+          "sha256": "sha256:ca7c474eece65ac270f3255a514409cdae6c24d9d95cfa8141c1cd59dc74b1e0"
+        },
+        {
+          "path": "dist/assets/map-loader-DEI4p3Qh.js",
+          "rawBytes": 2999,
+          "gzipBytes": 1321,
+          "sha256": "sha256:d7a0253a9aff90a8969af886e37e67ea4d0ed716baf0430273ca9187bf4f367a"
+        },
+        {
+          "path": "dist/assets/maplibre-gl-D7YGKfZr.js",
+          "rawBytes": 1027752,
+          "gzipBytes": 270064,
+          "sha256": "sha256:8ae07af0294df78fa00f91d8afa9717dc6f5906abf00395c9a332222d8e2f93e"
+        },
+        {
+          "path": "dist/assets/release-loader-Uq1OXB05.js",
+          "rawBytes": 32465,
+          "gzipBytes": 9533,
+          "sha256": "sha256:7ca8b443213c0471792da0e1e2715ca642ac3e6f4fc3ae2d4f45bfe5b041fdd9"
+        }
+      ],
+      "rawBytes": 1136007,
+      "gzipBytes": 292330
+    },
+    "initial_json": {
+      "files": [
+        {
+          "path": "dist/releases/art-time-place-1.3.0/manifest.json",
+          "rawBytes": 162903,
+          "gzipBytes": 24881,
+          "sha256": "sha256:6022063a0e2620e60d7e1adac8e5b0ea8624e2b4790941a3941546f7e74b4c7c"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/place-identities.json",
+          "rawBytes": 47454,
+          "gzipBytes": 6269,
+          "sha256": "sha256:7c1cf9384563711e6f4501993b9f2626b50aac09c6a969c21474a65a24678b30"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/artist-place-episodes.json",
+          "rawBytes": 64997,
+          "gzipBytes": 4979,
+          "sha256": "sha256:509ab05b71d0c0b637a057c3fcb5f4dcde89282e1758fb889603b0fed090b55c"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/holding-locations.json",
+          "rawBytes": 2267,
+          "gzipBytes": 641,
+          "sha256": "sha256:662a00aebdc07e0a7dbc7af467b945038dd8e29705ff11e84603f6efc961e046"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/map-source-attributions.json",
+          "rawBytes": 1546,
+          "gzipBytes": 674,
+          "sha256": "sha256:01735cb2599b1a36af948ac9106401ef5f4c5efa2e859df4bd6dbe69dfea693b"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/map-style.json",
+          "rawBytes": 1561,
+          "gzipBytes": 639,
+          "sha256": "sha256:2da5ab6db98b4d9407ad48d4866b8e629c68d279df0eaa349121fed210391932"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/map-index.json",
+          "rawBytes": 2031,
+          "gzipBytes": 965,
+          "sha256": "sha256:49ac33044c785b70333a0eb108da11d2d20e64b6df5a44124e214dcfd83157de"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/filter-index.json",
+          "rawBytes": 2463,
+          "gzipBytes": 1091,
+          "sha256": "sha256:55896b8e725385cf02cddd4d3227c80e1e3b044e7deab182687de27ddc7b07f2"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/artists.json",
+          "rawBytes": 56525,
+          "gzipBytes": 6112,
+          "sha256": "sha256:7ce69674fde8728f0c3a7711676d693af4481890ed02c311310e0250621d3d52"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/artworks.json",
+          "rawBytes": 101884,
+          "gzipBytes": 8394,
+          "sha256": "sha256:48fe35d37ecf560e077a50bc25e2179bc66d4b29a1d4c0a3d465366c18997ba5"
+        }
+      ],
+      "rawBytes": 443631,
+      "gzipBytes": 54645
+    },
+    "place_data": {
+      "files": [
+        {
+          "path": "dist/releases/art-time-place-1.3.0/place-identities.json",
+          "rawBytes": 47454,
+          "gzipBytes": 6269,
+          "sha256": "sha256:7c1cf9384563711e6f4501993b9f2626b50aac09c6a969c21474a65a24678b30"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/place-names.json",
+          "rawBytes": 29814,
+          "gzipBytes": 2528,
+          "sha256": "sha256:4d87823d0315e02a8e1af66e5d37bb18394978a2469d82154743a650a9bf618f"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/artist-place-episodes.json",
+          "rawBytes": 64997,
+          "gzipBytes": 4979,
+          "sha256": "sha256:509ab05b71d0c0b637a057c3fcb5f4dcde89282e1758fb889603b0fed090b55c"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/artwork-place-claims.json",
+          "rawBytes": 17605,
+          "gzipBytes": 779,
+          "sha256": "sha256:97a826d501dce43784a30263a4e4e2a19a05dde0dee863bd30b9d5e198a1a099"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/holding-locations.json",
+          "rawBytes": 2267,
+          "gzipBytes": 641,
+          "sha256": "sha256:662a00aebdc07e0a7dbc7af467b945038dd8e29705ff11e84603f6efc961e046"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/geospatial-claims.json",
+          "rawBytes": 25578,
+          "gzipBytes": 1606,
+          "sha256": "sha256:c20c3e2bb75efa851346c7679a28771a2be6f284ff0b65a825c4f710ca4efcf9"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/map-index.json",
+          "rawBytes": 2031,
+          "gzipBytes": 965,
+          "sha256": "sha256:49ac33044c785b70333a0eb108da11d2d20e64b6df5a44124e214dcfd83157de"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/timeline-index.json",
+          "rawBytes": 7985,
+          "gzipBytes": 986,
+          "sha256": "sha256:5203cc643eb1420f6bd03168192fc718fbc5be13acf6f46650e41a2cb0a7f22e"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/filter-index.json",
+          "rawBytes": 2463,
+          "gzipBytes": 1091,
+          "sha256": "sha256:55896b8e725385cf02cddd4d3227c80e1e3b044e7deab182687de27ddc7b07f2"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/map-points.geojson",
+          "rawBytes": 8849,
+          "gzipBytes": 1032,
+          "sha256": "sha256:2c9cc46036ab0a0790f31c1ae3741926e70f5ed2b8c1df4eb181ef3b07647f5e"
+        }
+      ],
+      "rawBytes": 209043,
+      "gzipBytes": 20876
+    },
+    "basemap": {
+      "files": [
+        {
+          "path": "dist/releases/art-time-place-1.3.0/basemap/land.geojson",
+          "rawBytes": 215295,
+          "gzipBytes": 77561,
+          "sha256": "sha256:2aca3644e9aa7d7bb11cfed9236412129d71dd8fc5831a01e88f8acda50cc142"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/basemap/coastline.geojson",
+          "rawBytes": 213746,
+          "gzipBytes": 88454,
+          "sha256": "sha256:5bdcd70a3171456bbe6f820c13de068adb2646d5ac3da95dc74db528d0dc90fd"
+        },
+        {
+          "path": "dist/releases/art-time-place-1.3.0/basemap/lakes.geojson",
+          "rawBytes": 21072,
+          "gzipBytes": 8088,
+          "sha256": "sha256:088baa5ed9ed8f07fb2464dec5e1e4577d6bba4a68a0193e862602d5d88461cc"
+        }
+      ],
+      "rawBytes": 450113,
+      "gzipBytes": 174103
+    },
+    "map_route_total_gzip_bytes": 532296,
+    "browser": {
+      "schema_version": "1.0.0",
+      "phase_id": "MUSEUM-07",
+      "evidence_class": "controlled_browser_probe",
+      "real_user_metric": false,
+      "route": "#/art/map",
+      "desktop_first_interactive_ms": 1381.839,
+      "mobile_first_interactive_ms": 177.025,
+      "low_bandwidth_list_first_interactive_ms": 926.399,
+      "filter_runs": 30,
+      "filter_p95_ms": 17.3,
+      "marker_selection_runs": 30,
+      "marker_selection_p95_ms": 20.6,
+      "mobile_heap_increment_bytes": 2180208,
+      "cls": 0,
+      "external_request_count": 0,
+      "analytics_request_count": 0,
+      "geolocation_call_count": 0,
+      "storage_keys": [
+        "museum-locale",
+        "museum-low-bandwidth"
+      ],
+      "status": "pass"
+    }
+  },
+  "runtime_policy": {
+    "files_scanned": [
+      "src/features/art-map/ArtMapPage.tsx",
+      "src/features/art-map/MapCanvas.tsx",
+      "src/features/art-map/map-loader.ts",
+      "src/features/art-map/types.ts",
+      "src/data/art-release-profile.ts"
+    ],
+    "forbidden_matches": [],
+    "external_runtime_requests": false,
+    "user_geolocation": false,
+    "analytics": false,
+    "visit_history": false
+  }
+}

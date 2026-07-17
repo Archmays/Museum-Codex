@@ -372,7 +372,7 @@
     {
       "path": "schemas/pipeline/normalized-candidate.schema.json",
       "id": "https://museum-codex.example/schemas/pipeline/normalized-candidate.schema.json",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "branch": "pipeline",
       "depends_on": ["schemas/common/entity.schema.json", "schemas/pipeline/field-provenance.schema.json"]
     },
@@ -429,6 +429,104 @@
       "version": "1.0.0",
       "branch": "biology",
       "depends_on": ["schemas/common/relationship.schema.json"]
+    },
+    {
+      "path": "schemas/art/map/place-name.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/place-name.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/place-identity.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/place-identity.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/geospatial-claim.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/geospatial-claim.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/artist-place-episode.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/artist-place-episode.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/artwork-place-claim.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/artwork-place-claim.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/holding-location.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/holding-location.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-layer-config.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-layer-config.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-style-contract.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-style-contract.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-release-index.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-release-index.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-view-state.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-view-state.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-basemap-manifest.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-basemap-manifest.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-source-attribution.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-source-attribution.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/place-research-disposition.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/place-research-disposition.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-decision-snapshot.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-decision-snapshot.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
     }
   ]
 }

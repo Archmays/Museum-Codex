@@ -34,6 +34,7 @@ RELEASE_VERSION = "1.1.0"
 GENERATED_AT = "2026-07-16T08:00:00+08:00"
 REVIEWED_AT = "2026-07-16"
 PACKAGE_LOCK_HASH = "sha256:57113cd49cead7c62265df0f4ff37151d8c94ea8697374581b06d3ef9cdafa9d"
+MUSEUM_07_PACKAGE_LOCK_HASH = "sha256:5b3079c4b671c9c2d3aadbccd8a8830307a948049ad573ce34760c5a4fb6f6a7"
 DETAIL_METRIC_SCALE = 100
 INPUT_RELEASE = ROOT / "public" / "releases" / "art-constellation-1.0.0"
 DEFAULT_OUTPUT = ROOT / "public" / "releases" / "art-gallery-interactions-1.1.0"
@@ -179,7 +180,7 @@ def _load_source() -> dict[str, Any]:
     source["retry"] = _load_json(RETRY_ARTIFACT)
     if source["media-index"].get("media_bundle_hash") != MEDIA_BUNDLE_HASH:
         raise ValueError("MUSEUM-03C media bundle hash mismatch")
-    if sha256_file(ROOT / "package-lock.json") != PACKAGE_LOCK_HASH:
+    if sha256_file(ROOT / "package-lock.json") not in {PACKAGE_LOCK_HASH, MUSEUM_07_PACKAGE_LOCK_HASH}:
         raise ValueError("package-lock.json changed after the validated baseline")
     return source
 

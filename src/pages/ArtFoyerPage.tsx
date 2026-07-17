@@ -52,6 +52,10 @@ export function ArtFoyerPage() {
             <span>{locale === "zh-CN" ? "AB 可解释关系路径" : "Explainable A–B pathways"}</span>
             <small>{locale === "zh-CN" ? "在当前审核数据中选择两位艺术家，查看最短与替代路径及逐边证据。" : "Choose two artists in current reviewed data and inspect shortest and alternative paths with per-edge evidence."}</small>
           </Link>
+          <Link className="constellation-entry" to="/art/map">
+            <span>{locale === "zh-CN" ? "艺术时空地图" : "Art Across Time and Place"}</span>
+            <small>{locale === "zh-CN" ? "以地图、时间线与地点表核验十二位艺术家的来源支持地点；不绘制推断旅行路线。" : "Explore source-supported places for twelve artists through an equivalent map, timeline, and place table—without inferred travel routes."}</small>
+          </Link>
         </div>
       </aside>
       <Link className="text-link" to="/">← {t.common.backHome}</Link>

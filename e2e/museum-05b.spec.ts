@@ -125,7 +125,7 @@ async function expectNoOverflow(page: Page) {
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 }
 
-test("tour index exposes 12 artist and six reviewed thematic routes without eager media", async ({ page }, testInfo) => {
+test("@museum-05b-isolated-performance tour index exposes 12 artist and six reviewed thematic routes without eager media", async ({ page }, testInfo) => {
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   await installPerformanceProbe(page);
   await installPreferences(page);
@@ -148,15 +148,23 @@ test("tour index exposes 12 artist and six reviewed thematic routes without eage
     viewport: { width: window.innerWidth, height: window.innerHeight },
   }));
   const tourLink = page.getByRole("link", { name: "Enter fixed tour" }).first();
-  await tourLink.evaluate((element) => {
-    element.addEventListener("click", () => performance.mark("museum05b-tour-interaction-start"), { once: true });
+  const interactionProxyMs = await tourLink.evaluate(async (element) => {
+    const link = element as HTMLAnchorElement;
+    return await new Promise<number>((resolve) => {
+      const started = performance.now();
+      const observer = new MutationObserver(() => {
+        if (document.querySelector("main[data-tour-id]")) {
+          observer.disconnect();
+          resolve(performance.now() - started);
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+      link.click();
+    });
   });
-  await tourLink.click();
   await expect(page.locator("main[data-tour-id]")).toBeVisible();
   const measured = await page.evaluate(() => {
-    const started = performance.getEntriesByName("museum05b-tour-interaction-start", "mark").at(-1)?.startTime;
     return {
-      interactionProxyMs: started === undefined ? Number.POSITIVE_INFINITY : performance.now() - started,
       vitals: (window as Window & { __museum05bVitals?: { lcpMs: number | null; cls: number } }).__museum05bVitals,
     };
   });
@@ -164,7 +172,7 @@ test("tour index exposes 12 artist and six reviewed thematic routes without eage
   expect(measured.vitals?.lcpMs).not.toBeNull();
   expect(measured.vitals?.lcpMs ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(2_500);
   expect(measured.vitals?.cls ?? Number.POSITIVE_INFINITY).toBeLessThanOrEqual(0.1);
-  expect(measured.interactionProxyMs).toBeLessThanOrEqual(200);
+  expect(interactionProxyMs).toBeLessThanOrEqual(200);
   writeFileSync(metricsPath, `${JSON.stringify({
     schema_version: "1.0.0",
     phase_id: "MUSEUM-05B",
@@ -175,7 +183,7 @@ test("tour index exposes 12 artist and six reviewed thematic routes without eage
     ...initialMetrics,
     lcpMs: measured.vitals?.lcpMs,
     cls: measured.vitals?.cls,
-    interactionProxyMs: measured.interactionProxyMs,
+    interactionProxyMs,
     targets: { firstInteractiveMs: 1_500, lcpMs: 2_500, cls: 0.1, interactionProxyMs: 200 },
     status: "pass",
   }, null, 2)}\n`, "utf8");

@@ -264,6 +264,7 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
           {locale === "zh-CN" ? "艺术家关系路径" : "Artist pathways"}
         </Link>
         <Link className="text-link" to="/art/constellation">{copy.backConstellation}</Link>
+        <Link className="text-link" to={`/art/map?artist=${encodeURIComponent(artist.id)}&view=list`}>{locale === "zh-CN" ? "艺术家地点与当前馆藏" : "Artist places and current holding"}</Link>
       </nav>
     </main>
   );
