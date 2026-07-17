@@ -68,6 +68,7 @@ p3_count: 4
 | P2 | Adding Getty TGN changed the current global source-registry hashes and initially invalidated immutable M04/M05B/M06 release checks. | Bind the three predecessor release IDs to their sealed source-matrix snapshot and keep M04 build inputs on their sealed license snapshot; old release bytes remain unchanged while arbitrary historical hashes still fail. |
 | P2 | Legacy M04/M05A performance validators treated M07 source additions as a demand to rerun old labs. | CI now verifies the exact committed evidence hashes, matching the M07 rule to reuse—not regenerate—old performance evidence. |
 | P2 | Parallel/long-lived Playwright runs contaminated strict M05B/M06/M07 controlled timing samples. | Run the three performance scenarios first in separate one-worker browser processes, measure browser-side interaction boundaries, and then run the 23 functional scenarios; final complete E2E is 26/26 without relaxed budgets. |
+| P2 | Two Actions functional batches exposed inherited M05B same-document hash timing: first the test reloaded before lazy chunks completed; then Linux did not commit the hash route at all. | Open the invalid route on a new page inside the same touch context, preserving shared storage, cold-load, reload and independent zero-failed-request assertions; the exact scenario closes 3/3 locally. |
 
 ## Open P3 register
 

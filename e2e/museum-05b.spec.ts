@@ -310,17 +310,20 @@ test("touch, forced-colors, reduced-motion, invalid routes, and storage boundari
   expect(await regionButton.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe("rgba(0, 0, 0, 0)");
   await expectNoOverflow(page);
 
-  await page.evaluate(() => { window.location.hash = "/art/tours/not-a-formal-tour"; });
-  await expect(page.locator("[data-museum05a-status=ready][data-gallery-route=tour]")).toBeVisible();
-  await expect(page.getByRole("heading", { level: 1, name: "This formal tour was not found" })).toBeVisible();
-  await page.waitForLoadState("networkidle");
-  await page.reload({ waitUntil: "networkidle" });
-  await expect(page.locator("[data-museum05a-status=ready][data-gallery-route=tour]")).toBeVisible();
-  await expect(page.getByRole("heading", { level: 1, name: "This formal tour was not found" })).toBeVisible();
-  const storageKeys = await page.evaluate(() => Object.keys(window.localStorage).sort());
+  const invalidPage = await context.newPage();
+  const invalidObserved = observeRuntime(invalidPage, expectedOrigin(testInfo));
+  const response = await invalidPage.goto("./#/art/tours/not-a-formal-tour", { waitUntil: "networkidle" });
+  if (response) expect(response.status()).toBe(200);
+  await expect(invalidPage.locator("[data-museum05a-status=ready][data-gallery-route=tour]")).toBeVisible();
+  await expect(invalidPage.getByRole("heading", { level: 1, name: "This formal tour was not found" })).toBeVisible();
+  await invalidPage.reload({ waitUntil: "networkidle" });
+  await expect(invalidPage.locator("[data-museum05a-status=ready][data-gallery-route=tour]")).toBeVisible();
+  await expect(invalidPage.getByRole("heading", { level: 1, name: "This formal tour was not found" })).toBeVisible();
+  const storageKeys = await invalidPage.evaluate(() => Object.keys(window.localStorage).sort());
   expect(storageKeys).toEqual(["museum-locale", "museum-low-bandwidth"]);
-  await context.close();
   expectCleanRuntime(observed);
+  expectCleanRuntime(invalidObserved);
+  await context.close();
 });
 
 async function createTouchContext(browser: Browser, testInfo: TestInfo) {

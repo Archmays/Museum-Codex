@@ -96,3 +96,18 @@
 - **Controlled browser isolation:** Strict performance scenarios were noisy when mixed with functional flows. The E2E runner now executes M07, M05B, and M06 performance tests first in separate one-worker browser processes, then runs 23 functional scenarios. M05B interaction timing uses a browser-side DOM commit boundary; M07 first-interactive uses the visible synchronized episode surface rather than `networkidle`, and the low-bandwidth refresh neutralizes smooth-scroll test state.
 - **Final local gates:** Python 448/448 in 1,649.486 s; Vitest 89/89; lint and strict typecheck pass; complete Playwright 26/26; production build, build scan, repository safety, budgets, source/rights/release/leakage validators, and M07 deterministic rebuild pass.
 - **Final M07 browser evidence:** desktop 585.931 ms, mobile 121.596 ms, low-bandwidth list 994.197 ms, filter p95 78.9 ms, marker p95 28.7 ms, heap increment 1,378,028 B, CLS 0, external requests 0, geolocation calls 0, analytics requests 0.
+
+## Actions browser-closure discovery · 2026-07-17
+
+- **Entry type:** validation discovery
+- **Expected:** The complete CI browser suite would reproduce the local 26/26 result.
+- **Discovered:** Actions `29555378992` passed every governance, source, release, Python, frontend, build, budget, scanner, and isolated M05B/M06/M07 performance gate. In the final 23-test functional batch, an inherited M05B invalid-route test changed the hash and immediately reloaded; Linux had not finished the two same-origin lazy chunks, so the test itself recorded them as failed requests. M07 functional tests were 3/3 and the batch was 22/23.
+- **Conservative choice:** Preserve the zero-failed-request assertion and the refresh-restoration assertion. Wait for the invalid route's ready state, factual heading, and network idle before reloading.
+- **Consequence:** No product behavior, timeout threshold, request allowlist, or release data changed. The failed scenario passed locally 1/1 after the three-wait closure.
+- **Validation:** Commit `f008e3084e94d0431b816506bc6d87b279d1d4da`; follow-up Actions `29556568778`.
+
+### Follow-up closure
+
+- Actions `29556568778` showed that the same-document hash transition itself was not deterministic on Linux: the invalid route never reached ready state, while the other 22 functional scenarios and every prior gate passed again.
+- The final test opens the invalid route on a new page inside the same touch context. This performs a cold route load, shares the same locale/low-bandwidth storage, then reloads and checks the factual not-found state. Both pages retain independent zero-console/zero-failed-request assertions.
+- The exact failed scenario passes three consecutive local repetitions; no product code, timeout threshold, route behavior, or request allowlist changed.
