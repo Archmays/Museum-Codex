@@ -1,6 +1,6 @@
 ---
 phase_id: MUSEUM-07
-review_status: local_candidate_pass
+review_status: pass
 reviewed_at: 2026-07-17
 p0_count: 0
 p1_count: 0
@@ -47,12 +47,12 @@ p3_count: 4
 - The deterministic rebuild is byte-identical and validates at `sha256:aa969f48fd152301a66ee4f4841392b36f271bbca8537897484bc70c6ece718f`. M04 scale and M06 synthetic benchmarks were not rerun; their evidence hashes remain the regression input.
 - Final local gates pass: Python 448/448, Vitest 89/89, lint, strict typecheck, production build, build/resource scan, all release/source/rights/leakage/security validators, and complete Playwright 26/26. Controlled performance scenarios run in separate fresh browser processes so their samples are not contaminated by functional-flow load.
 
-## F — Scope, privacy, and publication: local pass; online closeout pending
+## F — Scope, privacy, and publication: pass
 
 - Work remains on linear `main`; no branch, worktree, PR, media regeneration, M08 artifact, analytics, geolocation, visit/map history, online geocoder, external tile/token, or runtime API was introduced.
 - The published M06 predecessor directory remains byte-identical. The M07 overlay refreshes only the two inherited governance bindings needed for Getty TGN and records every new physical file/hash.
 - OD-006 is closed. Open decisions are exactly OD-008, OD-009, and OD-011 (`open_decisions_count=3`).
-- Local old/new routes, physical release, build scan, browser requests, leakage, rights, and performance gates pass. Actions, Pages, live routes, live assets, screenshots, and local/origin/remote equality remain the final closeout steps.
+- Actions `29557600054`, Pages deployment `5484885638`, live new/old route closure, 14 online screenshots, 293/293 release files / 41,339,919 bytes, zero external runtime requests, and pre-closeout local/origin/remote equality pass. Full evidence is recorded in the phase report and `online-evidence.json`.
 
 ## Resolved findings
 

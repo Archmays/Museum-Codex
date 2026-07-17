@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-07",
+  "status": "pass",
+  "captured_at": "2026-07-17T06:10:39.8537461Z",
+  "pages_url": "https://archmays.github.io/Museum-Codex/",
+  "runtime_commit": "e571709f02a3028bb8db76951076d377472c7428",
+  "actions": {
+    "successful_run_id": 29557600054,
+    "successful_run_url": "https://github.com/Archmays/Museum-Codex/actions/runs/29557600054",
+    "conclusion": "success",
+    "build_job_id": 87813053304,
+    "deploy_job_id": 87817557268,
+    "attempt_count": 3,
+    "failed_attempts": [
+      {
+        "run_id": 29555378992,
+        "closure": "An inherited M05B test now waits for invalid-route readiness instead of reloading while two same-origin lazy chunks are in flight."
+      },
+      {
+        "run_id": 29556568778,
+        "closure": "The invalid route now cold-loads on a new page inside the same touch context, avoiding nondeterministic same-document hash transitions while preserving shared storage, reload, and zero-failed-request assertions."
+      }
+    ],
+    "successful_gate_summary": {
+      "python": "448/448",
+      "vitest": "89/89",
+      "lint": "pass",
+      "strict_typecheck": "pass",
+      "production_build": "pass",
+      "isolated_performance_scenarios": "3/3",
+      "functional_fallback_no_script": "23/23",
+      "release_source_rights_security_leakage": "pass"
+    }
+  },
+  "deployment": {
+    "id": 5484885638,
+    "state": "success",
+    "environment": "github-pages",
+    "environment_url": "https://archmays.github.io/Museum-Codex/",
+    "deployed_at": "2026-07-17T06:06:50Z",
+    "commit": "e571709f02a3028bb8db76951076d377472c7428"
+  },
+  "release_byte_closure": {
+    "release_id": "release:art-time-place-1.3.0",
+    "content_hash": "sha256:aa969f48fd152301a66ee4f4841392b36f271bbca8537897484bc70c6ece718f",
+    "manifest_sha256": "sha256:6022063a0e2620e60d7e1adac8e5b0ea8624e2b4790941a3941546f7e74b4c7c",
+    "file_count": 293,
+    "matched_file_count": 293,
+    "matched_bytes": 41339919,
+    "failed_file_count": 0,
+    "tree_hash_algorithm": "sha256(path\\0size\\0file_sha256\\n)",
+    "tree_hash": "sha256:1d02c63753830ad04a95ce11654c4527b0a3fb921e4096f5bed14415ef5370f5",
+    "max_attempts": 1,
+    "retried_file_count": 0,
+    "request_policy": {
+      "accept_encoding": "identity",
+      "https_only": true,
+      "bounded_retries": true,
+      "parallel_workers": 8
+    }
+  },
+  "browser_qa": {
+    "museum_07_map_timeline_list": {
+      "result": "3/3 pass",
+      "external_request_count": 0,
+      "failed_request_count": 0,
+      "http_error_count": 0,
+      "screenshot_count": 4
+    },
+    "core_and_predecessor_routes": {
+      "initial": "5/6 pass",
+      "failed_item_closure": "1/1 pass",
+      "console_issue_count": 0,
+      "external_runtime_request_count": 0,
+      "no_script_http_200": true
+    },
+    "live_cold_observation": {
+      "map_first_interactive_ms": 2566.743,
+      "http_status": 200,
+      "external_request_count": 0,
+      "failed_request_count": 0,
+      "http_error_count": 0,
+      "controlled_local_budget_applicable": false
+    },
+    "verified_routes": [
+      "#/",
+      "#/art",
+      "#/art/constellation",
+      "#/art/paths",
+      "#/art/map",
+      "#/art/artists",
+      "#/art/artists/:artistId",
+      "#/art/artworks/:artworkId",
+      "#/art/compare",
+      "#/art/tours",
+      "#/art/tours/:tourId",
+      "#/about",
+      "#/accessibility"
+    ],
+    "storage_keys": [
+      "museum-locale",
+      "museum-low-bandwidth"
+    ],
+    "total_online_screenshot_count": 14
+  },
+  "screenshots": [
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-art-landing.png", "bytes": 616047, "sha256": "sha256:86b1e97bcdeb0bd808a46bd7ac17615a67002d9f427a1ea97e342aca98de0df2"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-closure-art-landing.png", "bytes": 615892, "sha256": "sha256:09426533094836d514f67139438d9e2ff45181d7592c2e1cd4ac3cde9a9b05aa"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-desktop-initial.png", "bytes": 291846, "sha256": "sha256:3e15ee7284cafff06c4c0e68e8bfcdad48a2b584fc1d51577c8cbd20dde6d544"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-desktop-list.png", "bytes": 350741, "sha256": "sha256:966f711055b707bc3820b296967f1e73a618aa1d108d7c37f795f20822cc326a"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-focused-artist.png", "bytes": 206670, "sha256": "sha256:5182cffaad5355fb65238531a3bd2ec232c303a9b73c5f70b9fbd0dfce857ec3"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-forced-colors-list.png", "bytes": 305941, "sha256": "sha256:f953cc3e5e1cda313bc52717b509f2969a7fc6d603d14cf18f45735746cf44d5"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-mobile-graph.png", "bytes": 431821, "sha256": "sha256:209941a5d1f35afc77ad085cbd5bdb0b722020d5533950e876e41ee35b367e97"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-mobile-list.png", "bytes": 833801, "sha256": "sha256:9a6c86dcb44505d610f77263d48b7df973024e4a497caceb69bda74edff9c41a"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-relationship-explanation.png", "bytes": 196785, "sha256": "sha256:86cc88e574c2af8d91a79d1d802a1bd0d81d5d290690689cde703a356703f257"},
+    {"path": "docs/qa/museum-07/online-screenshots/core/online-rights-panel.png", "bytes": 243577, "sha256": "sha256:e7d2f9f05f8ec431c8b0292e0d94abca02ea5c70e9b485c930ef3eb0f0bd9ab0"},
+    {"path": "docs/qa/museum-07/online-screenshots/map/art-map-desktop-evidence.png", "bytes": 635420, "sha256": "sha256:99924efb93780ad451f23ca946e35f7dd7cb30e933592b691ee91a30aca2efe5"},
+    {"path": "docs/qa/museum-07/online-screenshots/map/art-map-mobile-forced-colors-fallback.png", "bytes": 157817, "sha256": "sha256:fe92b4db43e5ec6bb179cec8599f5cf69e536079d54a94b22f1f9c303a7c49f6"},
+    {"path": "docs/qa/museum-07/online-screenshots/map/art-map-print-place-table.png", "bytes": 193850, "sha256": "sha256:b33fc8253517faf1d66190b2888f723efcb6f32d45f25aab442193964a938152"},
+    {"path": "docs/qa/museum-07/online-screenshots/map/art-map-timeline-holding-separation.png", "bytes": 381678, "sha256": "sha256:24b3c26645949ec7959c8fc307bb4f98d0cbea5ee363559b1059c1d4b25a0c80"}
+  ],
+  "git_alignment_before_closeout_evidence_commit": {
+    "local_head": "e571709f02a3028bb8db76951076d377472c7428",
+    "origin_main": "e571709f02a3028bb8db76951076d377472c7428",
+    "remote_main": "e571709f02a3028bb8db76951076d377472c7428"
+  },
+  "privacy": {
+    "analytics_or_tracking_added": false,
+    "user_geolocation_used": false,
+    "visit_or_map_history_added": false,
+    "runtime_geocoder_or_api_used": false
+  },
+  "human_review_dependency": false,
+  "museum_08_entered": false
+}

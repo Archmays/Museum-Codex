@@ -11,7 +11,7 @@
 - **Done when:** OD-006 is closed; TGN/Natural Earth/renderer contracts pass; every artist has at least two verified episodes; release, UI, accessibility, performance, full gates, Actions, Pages, screenshots, and byte closure pass; P0-P2 are zero; `main` is synchronized and clean.
 - **Must not touch:** Immutable predecessor release bytes, 31 media originals and 242 derivatives, open decisions OD-008/009/011, unrelated museum halls, or later-phase artifacts.
 - **Evidence sources:** M06 report and release, existing ULAN snapshots and reviewed artist/artwork records, Getty TGN LOD, Natural Earth official 1:110m physical vectors, official institution records, targeted/final validators, Actions/Pages/live QA.
-- **Current stage:** final local candidate complete; online closeout pending
+- **Current stage:** completed; Actions, Pages, live routes, screenshots, and online byte closure pass
 
 ## Unknown register
 
@@ -110,4 +110,12 @@
 
 - Actions `29556568778` showed that the same-document hash transition itself was not deterministic on Linux: the invalid route never reached ready state, while the other 22 functional scenarios and every prior gate passed again.
 - The final test opens the invalid route on a new page inside the same touch context. This performs a cold route load, shares the same locale/low-bandwidth storage, then reloads and checks the factual not-found state. Both pages retain independent zero-console/zero-failed-request assertions.
-- The exact failed scenario passes three consecutive local repetitions; no product code, timeout threshold, route behavior, or request allowlist changed.
+- The exact failed scenario passes three consecutive local repetitions; no product code, timeout threshold, route behavior, or request allowlist changed. Final closure commit: `e571709f02a3028bb8db76951076d377472c7428`; follow-up Actions: `29557600054`.
+
+## Online closeout · 2026-07-17
+
+- Actions `29557600054` passed Python 448/448, Vitest 89/89, lint, strict typecheck, deterministic release rebuilds, build, all budgets/scanners, three isolated performance scenarios, and 23/23 functional/fallback/no-script scenarios. Pages deployment `5484885638` published runtime commit `e571709f02a3028bb8db76951076d377472c7428`.
+- Live M07 map/timeline/list passed 3/3 with zero external, failed, or HTTP-error requests. Core/predecessor routes passed 5/6 on the first cold pass; the one Art landing → constellation item exceeded its 5-second assertion while showing the factual loading state, then passed unchanged 1/1 in 4.8 seconds.
+- All 293 M07 release files matched 41,339,919 online bytes, manifest SHA, file SHA-256 values, and content hash on the first request. Online tree hash: `sha256:1d02c63753830ad04a95ce11654c4527b0a3fb921e4096f5bed14415ef5370f5`.
+- The bounded public cold map observation was 2,566.743 ms with HTTP 200 and zero external/failed/error requests. This is recorded as P3 and is not represented as the controlled-local 1.8-second budget.
+- Fourteen online screenshots were captured and visually checked. `docs/qa/museum-07/online-evidence.json` records Actions, deployment, browser, screenshots, privacy, Git alignment, and byte closure.
