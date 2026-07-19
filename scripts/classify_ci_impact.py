@@ -21,6 +21,14 @@ from typing import Any, Iterable
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "governance" / "ci-impact-contract.json"
 ZERO_SHA = re.compile(r"^0+$")
+E2E_IMPACT = (
+    ("e2e/museum-04", "MUSEUM-04", "constellation"),
+    ("e2e/museum-05a", "MUSEUM-05A", "gallery"),
+    ("e2e/museum-05b", "MUSEUM-05B", "gallery"),
+    ("e2e/museum-06", "MUSEUM-06", "paths"),
+    ("e2e/museum-07", "MUSEUM-07", "map"),
+    ("e2e/museum-08", "MUSEUM-08", "search"),
+)
 
 
 @dataclass(frozen=True)
@@ -114,7 +122,10 @@ def classify_changes(
     )
     workflow_changed = any(_matches(path, contract["workflow_prefixes"]) for path in paths)
     dependencies_changed = any(path in contract["dependency_paths"] for path in paths)
-    shared_core_changed = any(_matches(path, contract["shared_core_prefixes"]) for path in paths)
+    classifier_changed = "scripts/classify_ci_impact.py" in paths
+    shared_core_changed = classifier_changed or any(
+        _matches(path, contract["shared_core_prefixes"]) for path in paths
+    )
     security_rights_changed = any(_matches(path, contract["security_rights_prefixes"]) for path in paths)
     public_changed = any(path.startswith("public/") for path in paths)
     runtime_changed = any(_matches(path, contract["runtime_prefixes"]) for path in paths)
@@ -122,6 +133,9 @@ def classify_changes(
     affected_phases: set[str] = set()
     for phase, patterns in contract["phase_paths"].items():
         if any(_matches(path, patterns) for path in paths):
+            affected_phases.add(phase)
+    for prefix, phase, _suite in E2E_IMPACT:
+        if any(path.startswith(prefix) for path in paths):
             affected_phases.add(phase)
     if any(path.startswith("src/") for path in paths):
         affected_phases.add("MUSEUM-08")
@@ -176,14 +190,22 @@ def classify_changes(
     historical_ids = [item["release_id"] for item in contract["historical_releases"]]
     hash_only = sorted(release_id for release_id in historical_ids if release_id not in rebuild)
 
-    browser_suites = sorted(
+    browser_suites = {
         suite
         for suite, patterns in contract["browser_suites"].items()
         if any(_matches(path, patterns) for path in paths)
-    )
+    }
+    for prefix, _phase, suite in E2E_IMPACT:
+        if any(path.startswith(prefix) for path in paths):
+            browser_suites.add(suite)
     if runtime_changed and not browser_suites:
-        browser_suites = ["shell"]
-    deploy_required = bool((runtime_changed or public_changed) and not docs_only and not closeout_docs)
+        browser_suites.add("shell")
+    browser_suites = sorted(browser_suites)
+    deploy_required = bool(
+        (runtime_changed or public_changed or manual_full)
+        and not docs_only
+        and not closeout_docs
+    )
 
     reasons: list[str] = []
     if docs_only:

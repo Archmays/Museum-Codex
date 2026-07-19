@@ -133,7 +133,8 @@ test("@museum-05b-isolated-performance tour index exposes 12 artist and six revi
   await gotoGallery(page, "/art/tours");
   const firstInteractiveMs = await page.evaluate(() => performance.now());
 
-  await expect(page.getByRole("heading", { level: 1, name: "Eighteen fixed routes for slower looking" })).toBeVisible();
+  const tourCount = interactions.artist_tours.length + interactions.thematic_tours.length;
+  await expect(page.getByRole("heading", { level: 1, name: `${tourCount} fixed routes for slower looking` })).toBeVisible();
   await expect(page.locator("#artist-tour-index-title + .tour-index-grid > li")).toHaveCount(12);
   await expect(page.locator("#theme-tour-index-title + .tour-index-grid > li")).toHaveCount(6);
   for (const tour of interactions.thematic_tours) await expect(page.getByRole("heading", { name: tour.title.en })).toBeVisible();
