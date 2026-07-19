@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B",
+  "status": "pass",
+  "captured_at": "2026-07-20T12:00:00+08:00",
+  "branch": "main",
+  "worktree_at_entry": "clean",
+  "local_head": "a0e25915d5c2f15c565cb5d59c66c5e350e2ef50",
+  "origin_main": "a0e25915d5c2f15c565cb5d59c66c5e350e2ef50",
+  "github_remote_main": "a0e25915d5c2f15c565cb5d59c66c5e350e2ef50",
+  "github_repository": "Archmays/Museum-Codex",
+  "github_visibility": "public",
+  "github_default_branch": "main",
+  "github_authentication": "active_as_Archmays",
+  "effective_global_agents_path": "C:/Users/mays-/.codex/AGENTS.md",
+  "effective_global_agents_bytes": 6618,
+  "effective_global_agents_sha256": "sha256:2d9c79e30c66f63afb63ef86237fdd6659147d6054ca8e403b52fce17b10a635",
+  "effective_global_ci_section_count": 1,
+  "project_skill_index_present": false,
+  "input_release": {
+    "release_id": "release:art-v1-candidate-1.4.0",
+    "content_hash": "sha256:93365e63792ae1c34667dcb2d002d733b58c68859b1a4e4bcae54d97f2532202",
+    "manifest_sha256": "sha256:1eb5cce3264137a20dd18ea7595981585eae2abe125065ea010d542726277114",
+    "physical_tree_sha256": "sha256:5029d271ae40b39ff3cbaa0fb0a9a05cded3b3d8b9aeb8bef8672f1c9240ebc1"
+  },
+  "input_universe": {
+    "artifact_content_hash": "sha256:3db15ca186152c7355263e6b3254d3ff7151f56b834f34e57fd6d7570c42bded",
+    "physical_tree_sha256": "sha256:25be5898c3476b02db7573973475fd0c27c8f16c769a4ab4057691be74558c82",
+    "physical_tree_algorithm": "sha256(path\\0size\\0unprefixed_file_sha256\\n)",
+    "file_count": 32,
+    "byte_count": 38098067,
+    "batch_registry_snapshot_sha256": "sha256:79ae81fc2bcf79a76497a59b83cd3f627d75cf01245270b3f6e416a4da46e68b"
+  },
+  "batch_input_closure_hash": "sha256:8b7020f979895e3bf5f21c042c1e6a2b746628f5108f13050102b31370219770",
+  "batch_counts": {
+    "artists": 50,
+    "artworks": 488,
+    "gallery": 12,
+    "collection": 38
+  },
+  "m09a_candidate_package_diff_from_baseline_count": 0,
+  "public_diff_from_baseline_count": 0,
+  "release_integrity_ledger": {
+    "status": "pass",
+    "mode": "historical_hash_only",
+    "release_count": 5,
+    "file_count": 1413,
+    "byte_count": 203140831
+  },
+  "raw_source_cache": {
+    "path": "data/raw/museum-09a",
+    "current_file_count": 217387,
+    "current_byte_count": 1430997874,
+    "sealed_reuse_byte_count": 1430997874
+  },
+  "authorization": {
+    "direct_main": true,
+    "branch_or_worktree_created": false,
+    "pull_request_required": false,
+    "implementation_push_authorized": true,
+    "pages_deployment_authorized": false
+  }
+}

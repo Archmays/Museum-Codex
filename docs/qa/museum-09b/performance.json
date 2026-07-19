@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B",
+  "status": "pass",
+  "command": "python scripts/benchmark_museum_09b.py --iterations 5",
+  "iterations": 5,
+  "durations_ms": [7600.693, 34868.568, 35600.081, 35956.165, 35707.597],
+  "p50_ms": 35600.081,
+  "p95_ms": 35956.165,
+  "max_ms": 35956.165,
+  "peak_memory_method": "process_peak_working_set",
+  "peak_rss_bytes": 86892544,
+  "network_request_count": 0,
+  "new_media_bytes": 0,
+  "deterministic_double_build_status": "pass",
+  "dossier_determinism_status": "pass",
+  "artwork_determinism_status": "pass",
+  "unchanged_source_records_rewritten": 0,
+  "single_record_local_impact": {
+    "changed_artist_dossier_count": 1,
+    "changed_artwork_shard_count": 1,
+    "unrelated_artist_dossier_change_count": 0
+  },
+  "measurement_failure_closure": {
+    "failed_attempt_count": 2,
+    "first_failure": "tracemalloc instrumentation exceeded the bounded runtime",
+    "second_failure": "Windows process-memory ctypes signature was incomplete after five builds completed",
+    "repair": "Use operating-system peak working set without per-allocation instrumentation",
+    "failed_scope_rerun_only": true
+  }
+}

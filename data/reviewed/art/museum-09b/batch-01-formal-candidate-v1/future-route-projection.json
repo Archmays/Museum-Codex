@@ -1,0 +1,1 @@
+{"batch_id":"museum-09-batch-01","consumers":["future_artist_index","future_gallery","future_artwork_detail","future_search","future_map","future_relationship_graph","future_tours"],"phase_id":"MUSEUM-09B","schema_version":"1.0.0","status":"projection_only_no_routes_created"}

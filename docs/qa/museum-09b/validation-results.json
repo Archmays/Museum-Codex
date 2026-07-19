@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B",
+  "status": "pass",
+  "candidate_package": {
+    "package_id": "museum-09b:batch-01-formal-candidate-v1",
+    "content_hash": "sha256:299bbf0b5baf5522d8fb2a60682a8e5c2571fb5baeb205f4c6d28f549c728eb9",
+    "tree_hash": "sha256:d662188a097e2549bc964372af445e0f532f1c115552f6f1fbb788ee0627bf87",
+    "file_count": 74,
+    "byte_count": 4022309,
+    "deterministic_rebuild_status": "pass"
+  },
+  "source_refresh": {
+    "command": "python scripts/refresh_museum_09b_sources.py",
+    "status": "pass",
+    "checked_count": 538,
+    "changed_count": 87,
+    "unchanged_count": 451,
+    "unavailable_count": 0,
+    "network_request_count": 14,
+    "downloaded_network_bytes": 2159930,
+    "new_media_bytes": 0,
+    "cache_reuse_bytes": 1430997874,
+    "sealed_complete_receipt_reused_after_later_transport_failure": true
+  },
+  "counts": {
+    "artist_count": 50,
+    "artwork_count": 488,
+    "gallery_artist_count": 12,
+    "collection_artist_count": 38,
+    "claim_count": 738,
+    "evidence_count": 738,
+    "source_count": 10,
+    "context_count": 162,
+    "place_time_episode_count": 74,
+    "relationship_candidate_count": 24,
+    "media_feasibility_decision_count": 488,
+    "replacement_count": 0,
+    "living_artist_count": 0,
+    "unknown_death_count": 0,
+    "non_person_count": 0,
+    "duplicate_artist_count": 0,
+    "artwork_attribution_conflict_count": 0,
+    "duplicate_artwork_count": 0,
+    "candidate_public_leakage_count": 0
+  },
+  "media_status_counts": {
+    "approved_external_iiif_candidate": 25,
+    "approved_self_hosted_candidate": 40,
+    "metadata_only_ready": 423,
+    "blocked_total": 0
+  },
+  "wave_results": [
+    {"wave": 1, "artist_count": 10, "artwork_count": 111, "status": "pass"},
+    {"wave": 2, "artist_count": 10, "artwork_count": 130, "status": "pass"},
+    {"wave": 3, "artist_count": 10, "artwork_count": 100, "status": "pass"},
+    {"wave": 4, "artist_count": 10, "artwork_count": 86, "status": "pass"},
+    {"wave": 5, "artist_count": 10, "artwork_count": 61, "status": "pass"}
+  ],
+  "targeted_checks": [
+    {
+      "command": "python scripts/build_museum_09b.py --verify-deterministic",
+      "status": "pass",
+      "byte_identical_build_count": 2
+    },
+    {
+      "command": "python scripts/validate_museum_09b.py --wave N",
+      "status": "pass",
+      "run_count": 5
+    },
+    {
+      "command": "python scripts/validate_museum_09b.py --json",
+      "status": "pass",
+      "failure_count": 0
+    },
+    {
+      "command": "python -m unittest tests.test_museum_09b -v",
+      "status": "pass",
+      "test_count": 6,
+      "invalid_fixture_count": 30
+    },
+    {
+      "command": "python -m unittest tests.pipeline.test_media_schema_dispatch -v",
+      "status": "pass",
+      "test_count": 11
+    },
+    {
+      "command": "python scripts/validate_release_integrity_ledger.py --require-candidate",
+      "status": "pass",
+      "mode": "historical_hash_only",
+      "release_count": 5,
+      "file_count": 1413,
+      "byte_count": 203140831
+    },
+    {
+      "command": "node scripts/scan-repository.mjs",
+      "status": "pass",
+      "scanned_file_count": 2746,
+      "credential_finding_count": 0,
+      "file_over_5_mib_count": 0
+    },
+    {
+      "command": "stable M09B marker scan plus baseline public/M09A git diff",
+      "status": "pass",
+      "candidate_public_leakage_count": 0,
+      "public_bundle_growth_bytes": 0,
+      "m09a_changed_path_count": 0
+    }
+  ],
+  "execution_counts": {
+    "final_targeted_command_count": 13,
+    "final_targeted_unittest_case_count": 17,
+    "affected_closure_unittest_rerun_count": 3,
+    "local_full_gate_count": 0,
+    "github_final_full_gate_count": 0,
+    "browser_e2e_count": 0,
+    "npm_install_count": 0,
+    "production_build_count": 0,
+    "screenshot_count": 0,
+    "pages_artifact_count": 0,
+    "deployment_count": 0,
+    "historical_release_hash_only_count": 4,
+    "historical_release_rebuild_count": 0
+  },
+  "formal_failed_targeted_attempts": [
+    {
+      "scope": "source refresh adapter",
+      "failure": "one AIC batch transport failure and two MoMA page HTTP failures",
+      "closure": "bounded AIC retry plus official MoMA collection dataset row verification",
+      "status": "closed"
+    },
+    {
+      "scope": "first candidate build",
+      "failure": "overview length bounds and prefixed physical-tree digest",
+      "closure": "text-only length correction and repository physical-tree algorithm alignment",
+      "status": "closed"
+    },
+    {
+      "scope": "final source refresh retry",
+      "failure": "three AIC batches remained unavailable after nine bounded attempts",
+      "closure": "reused the hash-valid last complete receipt, added per-record fetched_at/source_version, and retained the failed attempt in transport history",
+      "status": "closed"
+    },
+    {
+      "scope": "invalid fixture coverage mutation",
+      "failure": "fixture selected a Europe record and did not create drift",
+      "closure": "targeted fixture mutation changed to an invalid bucket",
+      "status": "closed"
+    },
+    {
+      "scope": "invalid fixture coverage mutation rerun",
+      "failure": "replacement and coverage mutations cancelled one another",
+      "closure": "invalid bucket guarantees a real coverage delta",
+      "status": "closed"
+    },
+    {
+      "scope": "performance instrumentation",
+      "failure": "tracemalloc exceeded bounded runtime",
+      "closure": "replaced per-allocation tracing with operating-system peak working set",
+      "status": "closed"
+    },
+    {
+      "scope": "Windows peak-memory probe",
+      "failure": "incomplete ctypes function signature",
+      "closure": "declared HANDLE, DWORD, pointer and BOOL WinAPI types; reran only benchmark closure",
+      "status": "closed"
+    }
+  ],
+  "formal_failed_targeted_attempt_count": 7,
+  "formal_failed_targeted_attempts_closed": true,
+  "current_release": {
+    "content_hash": "sha256:93365e63792ae1c34667dcb2d002d733b58c68859b1a4e4bcae54d97f2532202",
+    "manifest_sha256": "sha256:1eb5cce3264137a20dd18ea7595981585eae2abe125065ea010d542726277114",
+    "tree_sha256": "sha256:5029d271ae40b39ff3cbaa0fb0a9a05cded3b3d8b9aeb8bef8672f1c9240ebc1",
+    "status": "unchanged"
+  },
+  "batch_registry_status": "formal_candidate_ready",
+  "later_batch_status": "registered_not_started",
+  "new_media_download_count": 0,
+  "new_derivative_count": 0,
+  "public_release_changed": false
+}
