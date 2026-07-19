@@ -175,6 +175,7 @@ jobs:
           npm run lint
           npm run typecheck
           npx vitest run src/tests/museum-08*.test.ts src/tests/museum-08*.test.tsx
+          node --test tests/test_museum_08_ci_runner.mjs
 
       - name: Build production artifact
         if: needs.classify.outputs.deploy_required == 'true'
@@ -192,11 +193,12 @@ jobs:
         if: needs.classify.outputs.deploy_required == 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: Run M08 critical browser closure
+      - name: Run affected route suites and M08 critical browser closure
         if: needs.classify.outputs.deploy_required == 'true'
         env:
+          MUSEUM_BROWSER_SUITES: ${{ needs.classify.outputs.browser_suites }}
           PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-08/playwright-results.json
-        run: npm run test:e2e:museum-08
+        run: npm run test:e2e
 
       - name: Bind Pages artifact to this commit
         if: needs.classify.outputs.deploy_required == 'true'

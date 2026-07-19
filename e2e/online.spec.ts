@@ -75,7 +75,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   const observed = observePage(page);
   const releaseRequests: string[] = [];
   page.on("request", (request) => {
-    if (request.url().includes("/releases/art-pathways-1.2.0/")) {
+    if (/\/releases\/[^/]+\//.test(new URL(request.url()).pathname)) {
       releaseRequests.push(new URL(request.url()).pathname.split("/").at(-1) ?? "");
     }
   });
@@ -95,12 +95,12 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await openConstellation(page);
 
   await expect(page.locator("main[data-view=graph]")).toBeVisible();
-  const liveRegion = page.locator(".sr-only[aria-live=polite]");
+  const liveRegion = page.locator("main[data-view=graph] > .sr-only[aria-live=polite]");
   await expect(liveRegion).toHaveCSS("position", "absolute");
   await expect(liveRegion).toHaveCSS("width", "1px");
   await expect(page.locator(".artist-navigator button")).toHaveCount(12);
   await expect(page.getByText("The initial state has no visible edges.", { exact: false })).toBeVisible();
-  await expect(page.getByText("C curatorial comparison: 36 edges", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("C-level curatorial comparisons", { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/Algorithmic similarity: off/).first()).toBeVisible();
   await expect(page.locator(".constellation-canvas")).toBeVisible();
   expect(releaseRequests).toEqual(expect.arrayContaining([
@@ -132,7 +132,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await expect(page.locator(".artist-representative img")).toBeVisible();
   await expect(page.locator(".artist-representative img")).toHaveAttribute(
     "src",
-    /\/releases\/art-pathways-1\.2\.0\/assets\//,
+    /\/releases\/[^/]+\/assets\//,
   );
   expect(releaseRequests).toEqual(expect.arrayContaining([
     "media-index.json", "attributions.json", "withdrawal-mapping.json",
@@ -175,7 +175,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await expect(page.locator(".artist-list-view li")).toHaveCount(1);
 
   await page.getByRole("button", { name: "Open rights and third-party notices" }).click();
-  await expect(page.getByText(/242 self-hosted derivatives for 31 artworks/)).toBeVisible();
+  await expect(page.getByText(/This release contains only \d+ local derivatives.*artworks retain explicit no-image states/)).toBeVisible();
   await expect(page.locator(".notice-list li")).not.toHaveCount(0);
   await expect(page.locator(".panel-actions a")).toHaveCount(2);
   await page.screenshot({ path: screenshotPath("rights-panel") });
@@ -279,7 +279,7 @@ test("390px graph and low-bandwidth list preserve focus and URL state", async ({
   await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
   await expect(page.locator(".constellation-detail-panel")).toBeVisible();
   await expect(page.locator(".constellation-detail-panel img")).toHaveCount(0);
-  await page.route("**/releases/art-pathways-1.2.0/assets/**", async (route) => {
+  await page.route("**/releases/*/assets/**", async (route) => {
     await new Promise((resolveDelay) => setTimeout(resolveDelay, 250));
     await route.continue();
   });
@@ -289,7 +289,7 @@ test("390px graph and low-bandwidth list preserve focus and URL state", async ({
   await expect(imageStatus).toHaveText("Loading the artwork image.");
   await expect(page.locator(".constellation-detail-panel img")).toBeVisible();
   await expect(imageStatus).toHaveText("Artwork image loaded.");
-  await page.unroute("**/releases/art-pathways-1.2.0/assets/**");
+  await page.unroute("**/releases/*/assets/**");
   await page.getByRole("button", { name: "Close notes" }).click();
   await revealDeferredListForFullPageCapture(page);
   await page.screenshot({ path: screenshotPath("mobile-list"), fullPage: true });

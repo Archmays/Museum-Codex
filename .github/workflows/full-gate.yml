@@ -113,6 +113,7 @@ jobs:
           npm run typecheck
           npm test
           node --test tests/test_museum_04_*_lab_runner.mjs
+          node --test tests/test_museum_08_ci_runner.mjs
 
       - name: Build production site
         run: npm run build

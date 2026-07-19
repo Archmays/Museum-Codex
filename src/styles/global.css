@@ -880,6 +880,13 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   min-height: calc(100svh - 6.5rem);
 }
 
+@media screen {
+  .site-shell > main#main-content {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}
+
 .route-error-actions {
   display: flex;
   flex-wrap: wrap;

@@ -28,6 +28,7 @@ E2E_IMPACT = (
     ("e2e/museum-06", "MUSEUM-06", "paths"),
     ("e2e/museum-07", "MUSEUM-07", "map"),
     ("e2e/museum-08", "MUSEUM-08", "search"),
+    ("e2e/online", "MUSEUM-08", "online"),
 )
 
 

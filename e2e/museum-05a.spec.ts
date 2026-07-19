@@ -134,7 +134,7 @@ test("artist index exposes 12 reviewed entries, useful filters, and all 12 artis
   await gotoMuseum05a(page, "/art/artists");
   await useEnglish(page);
 
-  await expect(page.getByRole("heading", { level: 1, name: "Twelve artists, twelve ways to begin looking" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Each artist offers a way to begin looking" })).toBeVisible();
   await expect(page.locator(".artist-index-card")).toHaveCount(12);
   await expect(page.locator('.artist-index-card[data-image-state="approved"]')).toHaveCount(8);
   await expect(page.locator('.artist-index-card[data-image-state="no-image"]')).toHaveCount(4);
@@ -194,7 +194,7 @@ test("all 44 artwork routes preserve approved and no-image decisions without low
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   const releaseImageRequests: string[] = [];
   page.on("request", (request) => {
-    if (/\/releases\/art-constellation-1\.0\.0\/assets\//.test(new URL(request.url()).pathname)) {
+    if (/\/releases\/[^/]+\/assets\//.test(new URL(request.url()).pathname)) {
       releaseImageRequests.push(request.url());
     }
   });
@@ -253,7 +253,7 @@ test("approved artwork zoom supports buttons and keyboard, exposes rights, and d
   await expect(page.locator(".artwork-zoom-figure figcaption")).toContainText("Withdrawal status:");
   await captureFullPage(page, "artwork-detail-desktop");
 
-  await page.route("**/releases/art-pathways-1.2.0/assets/**", async (route) => {
+  await page.route("**/releases/*/assets/met-436528/**", async (route) => {
     await route.fulfill({ status: 200, contentType: "image/webp", body: "not-an-image" });
   });
   await gotoMuseum05a(page, `/art/artworks/${encodeURIComponent("artwork:met-436528")}`);
@@ -265,12 +265,12 @@ test("approved artwork zoom supports buttons and keyboard, exposes rights, and d
   );
   await expect(page.getByRole("heading", { level: 1, name: "Irises" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Visit official artwork source" })).toBeVisible();
-  await page.unroute("**/releases/art-pathways-1.2.0/assets/**");
+  await page.unroute("**/releases/*/assets/met-436528/**");
 
   const mobileArtworkRequests: string[] = [];
   page.on("request", (request) => {
     const pathname = new URL(request.url()).pathname;
-    if (/\/releases\/art-pathways-1\.2\.0\/assets\/met-436532\//.test(pathname)) {
+    if (/\/releases\/[^/]+\/assets\/met-436532\//.test(pathname)) {
       mobileArtworkRequests.push(pathname);
     }
   });

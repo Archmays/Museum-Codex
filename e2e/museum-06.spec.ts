@@ -122,7 +122,7 @@ test("invalid, identical, reversed, and refreshed URL states remain deterministi
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   await installEnglish(page, true);
   await gotoPath(page, "/art/paths?from=artist%3Aunreviewed&to=artist%3Afrancisco-de-goya&mode=comparison&maxHops=6&path=1&view=text&tracking=discarded");
-  await expect(page.locator(".path-status")).toHaveText("The start ID is not one of the 12 formal artists.");
+  await expect(page.locator(".path-status")).toHaveText("The start ID is not in the current formal artist set.");
   await page.waitForLoadState("networkidle");
   await page.evaluate(() => { window.location.hash = "/art/paths?from=artist%3Aalbrecht-durer&to=artist%3Aalbrecht-durer&mode=comparison&maxHops=6&path=1&view=text"; });
   await expect(page.locator(".path-status")).toHaveText("Start and end must differ.");
