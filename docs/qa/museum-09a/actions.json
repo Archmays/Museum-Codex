@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09A",
+  "implementation_commit": "291b490d3dcbc197f25caca94ff797bf84ee165c",
+  "workflow_name": "Classify, validate and build Museum portal",
+  "run_id": 29691255422,
+  "run_url": "https://github.com/Archmays/Museum-Codex/actions/runs/29691255422",
+  "event": "push",
+  "created_at": "2026-07-19T14:39:06Z",
+  "updated_at": "2026-07-19T14:39:53Z",
+  "conclusion": "success",
+  "impact_level": "phase-scoped",
+  "jobs": [
+    {
+      "name": "classify",
+      "conclusion": "success",
+      "url": "https://github.com/Archmays/Museum-Codex/actions/runs/29691255422/job/88204283980"
+    },
+    {
+      "name": "phase-scoped",
+      "conclusion": "success",
+      "url": "https://github.com/Archmays/Museum-Codex/actions/runs/29691255422/job/88204300664",
+      "historical_release_hash_validation": "success",
+      "affected_release_validator_builder_step": "success",
+      "m08_targeted_closure": "skipped",
+      "frontend_install_build": "skipped",
+      "browser_route_closure": "skipped",
+      "pages_artifact": "skipped"
+    },
+    {
+      "name": "final-full",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "docs-only",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "deploy",
+      "conclusion": "skipped"
+    }
+  ],
+  "phase_scoped_ci_run_count": 1,
+  "failed_job_rerun_count": 0,
+  "github_final_full_gate_count": 0,
+  "pages_artifact_count": 0,
+  "runtime_deployment_count": 0,
+  "closeout_deployment_count": 0
+}
