@@ -22,7 +22,9 @@ def main() -> int:
     args = parser.parse_args()
     evidence = generate_scale_evidence(args.output)
     args.evidence.parent.mkdir(parents=True, exist_ok=True)
-    args.evidence.write_text(json.dumps(evidence, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    args.evidence.write_bytes(
+        (json.dumps(evidence, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    )
     print(json.dumps(evidence, ensure_ascii=False, indent=2, sort_keys=True))
     return 0 if evidence["status"] == "pass" else 1
 

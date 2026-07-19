@@ -12,7 +12,7 @@
   },
   "final_targeted_suites": {
     "python": {
-      "passed": 75,
+      "passed": 76,
       "failed": 0,
       "files": [
         "tests/test_museum_08_ci_architecture.py",
@@ -108,9 +108,9 @@
     "historical_release_rebuild_count": 0,
     "historical_release_hash_only_count": 4,
     "candidate_release_id": "release:art-v1-candidate-1.4.0",
-    "candidate_manifest_sha256": "sha256:9e7f4a2f1d5957ac76b1aeb7d959cfcd76d562a7f07dcc409ac490627212573f",
-    "candidate_content_hash": "sha256:a49cc629bf775c0a3655e268e50ff17e0cdcbc47757e15b1da126ba98de1a689",
-    "candidate_tree_hash": "sha256:9b184c5c59841f51e904bca6f7a0dfeb6d704e551fbca7f854e178e835553334",
+    "candidate_manifest_sha256": "sha256:1eb5cce3264137a20dd18ea7595981585eae2abe125065ea010d542726277114",
+    "candidate_content_hash": "sha256:93365e63792ae1c34667dcb2d002d733b58c68859b1a4e4bcae54d97f2532202",
+    "candidate_tree_hash": "sha256:5029d271ae40b39ff3cbaa0fb0a9a05cded3b3d8b9aeb8bef8672f1c9240ebc1",
     "candidate_file_count": 317,
     "candidate_byte_count": 42018091
   },
@@ -119,7 +119,9 @@
     "removed_output_bytes": 76132691,
     "removed_dist_files": 1453,
     "removed_dist_bytes": 205075727,
-    "removed_total_bytes": 281208418,
+    "removed_cross_platform_rebuild_files": 317,
+    "removed_cross_platform_rebuild_bytes": 42018091,
+    "removed_total_bytes": 323226509,
     "retained_screenshot_count": 5,
     "retained_screenshot_bytes": 2880837
   },

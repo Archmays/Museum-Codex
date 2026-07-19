@@ -20,6 +20,24 @@ from museum_pipeline.hashing import sha256_file
 DEFAULT_OUTPUT = ROOT / "governance" / "release-integrity-ledger.json"
 GENERATED_AT = "2026-07-19T10:00:00+08:00"
 TREE_ALGORITHM = "sha256(path\\0size\\0file_sha256\\n)"
+CLOSURE_PATH_ALGORITHM = "sha256(normalized_lf_text_or_raw_binary)"
+TEXT_SUFFIXES = frozenset({
+    ".body",
+    ".css",
+    ".csv",
+    ".html",
+    ".js",
+    ".json",
+    ".md",
+    ".mjs",
+    ".py",
+    ".svg",
+    ".ts",
+    ".tsx",
+    ".txt",
+    ".yml",
+    ".yaml",
+})
 
 RELEASE_SPECS: tuple[dict[str, Any], ...] = (
     {
@@ -94,19 +112,24 @@ def _sha256_bytes(payload: bytes) -> str:
     return f"sha256:{hashlib.sha256(payload).hexdigest()}"
 
 
+def closure_path_record(path: Path, relative: str) -> dict[str, Any]:
+    payload = path.read_bytes()
+    if path.suffix.lower() in TEXT_SUFFIXES:
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return {
+        "path": relative,
+        "bytes": len(payload),
+        "sha256": _sha256_bytes(payload),
+    }
+
+
 def _path_records(paths: Iterable[str]) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for relative in sorted(set(paths)):
         path = ROOT / relative
         if not path.is_file():
             continue
-        records.append(
-            {
-                "path": relative,
-                "bytes": path.stat().st_size,
-                "sha256": sha256_file(path),
-            }
-        )
+        records.append(closure_path_record(path, relative))
     return records
 
 
@@ -199,6 +222,7 @@ def build_ledger() -> dict[str, Any]:
         "default_historical_behavior": "hash_only",
         "rebuild_rule": "builder_validator_input_schema_source_rights_or_release_bytes_changed",
         "tree_hash_algorithm": TREE_ALGORITHM,
+        "closure_path_hash_algorithm": CLOSURE_PATH_ALGORITHM,
         "releases": releases,
     }
 

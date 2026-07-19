@@ -16,7 +16,12 @@ if str(ROOT) not in sys.path:
 
 from museum_pipeline.canonical_json import canonical_json_bytes
 from museum_pipeline.hashing import sha256_file
-from scripts.generate_release_integrity_ledger import DEFAULT_OUTPUT, physical_tree
+from scripts.generate_release_integrity_ledger import (
+    CLOSURE_PATH_ALGORITHM,
+    DEFAULT_OUTPUT,
+    closure_path_record,
+    physical_tree,
+)
 from scripts.validate_governance_foundation import release_content_hash
 
 
@@ -46,11 +51,7 @@ def _validate_closure(
         if not path.is_file():
             _fail(failures, f"{key}_path_missing", item["path"], "recorded closure path is missing")
             continue
-        actual = {
-            "path": item["path"],
-            "bytes": path.stat().st_size,
-            "sha256": sha256_file(path),
-        }
+        actual = closure_path_record(path, item["path"])
         records.append(actual)
         if actual != item:
             _fail(failures, f"{key}_drift", item["path"], "recorded path bytes or hash drifted")
@@ -73,6 +74,7 @@ def validate_ledger(
     if (
         ledger.get("schema_version") != "1.0.0"
         or ledger.get("default_historical_behavior") != "hash_only"
+        or ledger.get("closure_path_hash_algorithm") != CLOSURE_PATH_ALGORITHM
         or not isinstance(releases, list)
     ):
         _fail(failures, "ledger_contract", str(ledger_path), "ledger header is invalid")

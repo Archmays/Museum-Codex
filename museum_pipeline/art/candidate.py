@@ -89,6 +89,11 @@ def _canonical_hash(value: Any) -> str:
     return _sha256_bytes(canonical_json_bytes(value))
 
 
+def _normalized_text_sha256(path: Path) -> str:
+    payload = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return _sha256_bytes(payload)
+
+
 def _physical_tree(root: Path) -> dict[str, Any]:
     digest = hashlib.sha256()
     byte_count = 0
@@ -769,7 +774,7 @@ def _candidate_evidence_documents(predecessor: dict[str, Any]) -> dict[str, dict
         }),
         "scale-readiness-snapshot.json": _evidence("scale-readiness", "scale_readiness_snapshot", "pass", {
             "source_path": "docs/qa/museum-08/scale-readiness.json",
-            "source_sha256": sha256_file(SCALE_READINESS),
+            "source_sha256": _normalized_text_sha256(SCALE_READINESS),
             "scale_architecture_ready": scale_readiness["scale_architecture_ready"],
             "synthetic_scale_validated": scale_readiness["synthetic_scale_validated"],
             "synthetic_artist_count": scale_readiness["synthetic_artist_count"],

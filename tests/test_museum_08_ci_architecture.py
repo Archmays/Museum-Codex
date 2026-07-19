@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from scripts.classify_ci_impact import _parse_name_status, classify_changes, write_github_outputs
+from scripts.generate_release_integrity_ledger import closure_path_record
 from scripts.validate_docs_only import validate as validate_docs_only_path
 from scripts.validate_release_integrity_ledger import validate_ledger
 
@@ -42,6 +43,17 @@ class Museum08CiImpactTests(unittest.TestCase):
         self.assertFalse(result["deploy_required"])
         self.assertEqual([], result["releases_to_rebuild"])
         self.assertEqual([], result["browser_suites"])
+
+    def test_closure_path_hash_normalizes_cross_platform_line_endings(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            lf_path = root / "lf.json"
+            crlf_path = root / "crlf.json"
+            lf_path.write_bytes(b'{\n  "status": "pass"\n}\n')
+            crlf_path.write_bytes(b'{\r\n  "status": "pass"\r\n}\r\n')
+            lf_record = closure_path_record(lf_path, "evidence.json")
+            crlf_record = closure_path_record(crlf_path, "evidence.json")
+            self.assertEqual(lf_record, crlf_record)
 
     def test_docs_only_validator_accepts_png_evidence_without_text_decoding(self) -> None:
         screenshot = ROOT / "docs" / "qa" / "museum-08" / "screenshots" / "search-empty-390x844.png"
