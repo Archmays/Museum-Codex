@@ -8,7 +8,6 @@ import concurrent.futures
 import hashlib
 import json
 import statistics
-import sys
 import time
 import urllib.error
 import urllib.parse
@@ -17,15 +16,26 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-from museum_pipeline.hashing import sha256_file
-from scripts.validate_governance_foundation import release_content_hash
 
 CANDIDATE_DIRECTORY = "art-v1-candidate-1.4.0"
 CANDIDATE_ID = "release:art-v1-candidate-1.4.0"
 DEFAULT_OUTPUT = ROOT / "docs" / "qa" / "museum-08" / "online-closure.json"
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return f"sha256:{digest.hexdigest()}"
+
+
+def _release_content_hash(manifest_files: list[dict[str, Any]]) -> str:
+    lines = [
+        f"{item['path']}\0{item['sha256']}\0{item['bytes']}\n"
+        for item in sorted(manifest_files, key=lambda item: item["path"])
+    ]
+    return "sha256:" + hashlib.sha256("".join(lines).encode("utf-8")).hexdigest()
 
 
 def _url(base: str, relative: str) -> str:
@@ -113,11 +123,11 @@ def verify_online(base_url: str, commit: str) -> dict[str, Any]:
         manifest_sha = f"sha256:{hashlib.sha256(manifest_body).hexdigest()}"
         manifest = json.loads(manifest_body)
         local_manifest = ROOT / "public" / "releases" / CANDIDATE_DIRECTORY / "manifest.json"
-        if manifest_sha != sha256_file(local_manifest):
+        if manifest_sha != _sha256_file(local_manifest):
             failures.append("online manifest SHA differs from the deployed commit checkout")
         if manifest.get("id") != CANDIDATE_ID:
             failures.append(f"online candidate ID is {manifest.get('id')!r}")
-        if manifest.get("content_hash") != release_content_hash(manifest.get("manifest_files", [])):
+        if manifest.get("content_hash") != _release_content_hash(manifest.get("manifest_files", [])):
             failures.append("online manifest content hash is not closed")
 
         entries = manifest.get("manifest_files", [])
