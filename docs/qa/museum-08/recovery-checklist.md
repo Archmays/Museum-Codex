@@ -37,4 +37,4 @@ Every case updates notices, preserves predecessor bytes, and requires reference 
 - Candidate records: `withdrawal-rehearsal.json`, `rollback-rehearsal.json`
 - Executable simulation: `museum_pipeline/art/candidate.py`
 - Targeted tests: `tests/test_museum_08_recovery.py`
-- Online closure will be recorded in the MUSEUM-08 phase report after the single candidate deployment.
+- Online closure is recorded in `online-closure.json` and the MUSEUM-08 phase report after the single candidate deployment.

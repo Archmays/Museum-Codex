@@ -1,0 +1,35 @@
+{
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "build_identity": {
+    "commit": "b36ac365b13ca24afa2d89f6dac6b680036a04af",
+    "gate": "final-full"
+  },
+  "candidate_content_hash": "sha256:93365e63792ae1c34667dcb2d002d733b58c68859b1a4e4bcae54d97f2532202",
+  "candidate_manifest_sha256": "sha256:1eb5cce3264137a20dd18ea7595981585eae2abe125065ea010d542726277114",
+  "candidate_release_id": "release:art-v1-candidate-1.4.0",
+  "cold_probe": {
+    "environment": "Windows local recovery verifier to GitHub Pages; committed pure-stdlib verifier; bounded synthetic probe; not RUM",
+    "median_ms": 402.03119999932824,
+    "p95_ms": 582.2071000002325,
+    "runs": 3,
+    "samples_ms": [
+      582.2071000002325,
+      364.40220000076806,
+      402.03119999932824
+    ]
+  },
+  "commit": "b36ac365b13ca24afa2d89f6dac6b680036a04af",
+  "convergence_attempts": 1,
+  "elapsed_seconds": 33.97497689999727,
+  "evidence_class": "bounded_public_cold_probe_and_complete_candidate_byte_closure",
+  "execution_origin": "local_recovery_after_actions_post_deploy_verifier_dependency_failure",
+  "expected_byte_count": 41848680,
+  "expected_file_count": 316,
+  "failures": [],
+  "phase_id": "MUSEUM-08",
+  "real_user_metric": false,
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "verified_byte_count": 41848680,
+  "verified_file_count": 316
+}
