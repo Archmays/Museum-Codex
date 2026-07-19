@@ -10,11 +10,11 @@
     "record_count": 367,
     "limit_p95_ms": 80,
     "runs": 80,
-    "median_ms": 21.194999999999936,
-    "p95_ms": 32.706500000000005,
-    "max_ms": 40.615299999999934,
+    "median_ms": 29.061099999999897,
+    "p95_ms": 46.04259999999999,
+    "max_ms": 57.936800000000005,
     "deterministic_digest": "2bade218e2b38cfd35a48a9f8db56e20c8fce9a677e5d0269bdffdfbf9b56c7c",
-    "first_result_time_ms": 26.174300000000017
+    "first_result_time_ms": 33.197400000000016
   },
   "synthetic_1000": {
     "record_count": 1000,
@@ -22,11 +22,11 @@
     "public_build": false,
     "limit_p95_ms": 120,
     "runs": 80,
-    "median_ms": 58.50849999999991,
-    "p95_ms": 66.28549999999996,
-    "max_ms": 78.86409999999978,
+    "median_ms": 54.88220000000001,
+    "p95_ms": 85.7441000000008,
+    "max_ms": 89.61560000000009,
     "deterministic_digest": "ed37a74ab7f58797c0cb731f014c4d3c195a2094fcc31cae3eb718bb45d1ef7f",
-    "first_result_time_ms": 65.029
+    "first_result_time_ms": 65.42239999999993
   },
   "deterministic_repeat": true
 }

@@ -23,6 +23,22 @@ MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
 MUSEUM_05B_RELEASE_DIR = Path("releases") / "art-gallery-interactions-1.1.0"
 MUSEUM_06_RELEASE_DIR = Path("releases") / "art-pathways-1.2.0"
 MUSEUM_07_RELEASE_DIR = Path("releases") / "art-time-place-1.3.0"
+MUSEUM_08_RELEASE_DIR = Path("releases") / "art-v1-candidate-1.4.0"
+FORMAL_RELEASE_DIRS = (
+    MUSEUM_04_RELEASE_DIR,
+    MUSEUM_05B_RELEASE_DIR,
+    MUSEUM_06_RELEASE_DIR,
+    MUSEUM_07_RELEASE_DIR,
+    MUSEUM_08_RELEASE_DIR,
+)
+RELEASE_INVALID_CODES = {
+    MUSEUM_04_RELEASE_DIR.name: "museum_04_release_invalid",
+    MUSEUM_05B_RELEASE_DIR.name: "museum_05b_release_invalid",
+    MUSEUM_06_RELEASE_DIR.name: "museum_06_release_invalid",
+    MUSEUM_07_RELEASE_DIR.name: "museum_07_release_invalid",
+    MUSEUM_08_RELEASE_DIR.name: "museum_08_release_invalid",
+}
+RELEASE_LEDGER = ROOT / "governance" / "release-integrity-ledger.json"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
 FORBIDDEN_CONTENT = {
     "candidate_id": re.compile(r"candidate:[0-9a-f-]{36}", re.IGNORECASE),
@@ -64,7 +80,8 @@ def scan_public_artifact(
         relative = path.relative_to(root).as_posix()
         formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
         authority_id_exempt = any(
-            exempt_root.name == MUSEUM_07_RELEASE_DIR.name and path.resolve().is_relative_to(exempt_root)
+            exempt_root.name in {MUSEUM_07_RELEASE_DIR.name, MUSEUM_08_RELEASE_DIR.name}
+            and path.resolve().is_relative_to(exempt_root)
             for exempt_root in resolved_exempt_roots
         )
         if set(part.lower() for part in path.relative_to(root).parts) & FORBIDDEN_PATH_PARTS:
@@ -191,49 +208,53 @@ def validated_museum_04_exempt_roots(root: Path) -> tuple[set[Path], list[dict[s
 
 
 def validated_formal_art_exempt_roots(root: Path) -> tuple[set[Path], list[dict[str, str]]]:
-    """Allow only exact, physically validated formal release directories."""
-    timeplace_root = _release_root_for_scan(root, MUSEUM_07_RELEASE_DIR)
-    if timeplace_root.is_dir():
-        from museum_pipeline.art.timeplace import validate_museum_07_release
-
-        result = validate_museum_07_release(timeplace_root)
-        if not result["ok"]:
-            return set(), [{
-                "code": "museum_07_release_invalid",
-                "path": timeplace_root.relative_to(root).as_posix() if timeplace_root != root else root.name,
-            }]
-        release_roots = {
-            _release_root_for_scan(root, release_dir).resolve()
-            for release_dir in (MUSEUM_04_RELEASE_DIR, MUSEUM_05B_RELEASE_DIR, MUSEUM_06_RELEASE_DIR, MUSEUM_07_RELEASE_DIR)
-            if _release_root_for_scan(root, release_dir).is_dir()
+    """Allow only exact immutable release trees recorded by the validated ledger."""
+    try:
+        ledger = json.loads(RELEASE_LEDGER.read_text(encoding="utf-8"))
+        entries = {
+            item["release_id"]: item
+            for item in ledger["releases"]
+            if isinstance(item, dict) and isinstance(item.get("release_id"), str)
         }
-        return release_roots, []
-    exempt_roots, findings = validated_museum_04_exempt_roots(root)
-    release_root = _release_root_for_scan(root, MUSEUM_05B_RELEASE_DIR)
-    if release_root.is_dir():
-        from museum_pipeline.art.interactions import validate_museum_05b_release
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError) as error:
+        return set(), [{
+            "code": "release_integrity_ledger_invalid",
+            "path": RELEASE_LEDGER.relative_to(ROOT).as_posix(),
+            "message": str(error),
+        }]
 
-        result = validate_museum_05b_release(release_root)
-        if result["ok"]:
-            exempt_roots.add(release_root.resolve())
-        else:
-            findings.append({
-                "code": "museum_05b_release_invalid",
+    from museum_pipeline.hashing import sha256_file
+    from scripts.generate_release_integrity_ledger import physical_tree
+    from scripts.validate_governance_foundation import release_content_hash
+
+    exempt_roots: set[Path] = set()
+    for release_dir in FORMAL_RELEASE_DIRS:
+        release_root = _release_root_for_scan(root, release_dir)
+        if not release_root.is_dir():
+            continue
+        release_id = f"release:{release_dir.name}"
+        entry = entries.get(release_id)
+        try:
+            manifest = json.loads((release_root / "manifest.json").read_text(encoding="utf-8"))
+            exact = (
+                isinstance(entry, dict)
+                and entry.get("immutable") is True
+                and Path(str(entry.get("directory", ""))).name == release_dir.name
+                and manifest.get("id") == release_id
+                and sha256_file(release_root / "manifest.json") == entry.get("manifest_sha256")
+                and release_content_hash(manifest.get("manifest_files", [])) == manifest.get("content_hash")
+                and manifest.get("content_hash") == entry.get("content_hash")
+                and physical_tree(release_root) == entry.get("physical_tree")
+            )
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError, TypeError, ValueError):
+            exact = False
+        if not exact:
+            return set(), [{
+                "code": RELEASE_INVALID_CODES[release_dir.name],
                 "path": release_root.relative_to(root).as_posix() if release_root != root else root.name,
-            })
-    pathway_root = _release_root_for_scan(root, MUSEUM_06_RELEASE_DIR)
-    if pathway_root.is_dir():
-        from museum_pipeline.art.pathways import validate_museum_06_release
-
-        result = validate_museum_06_release(pathway_root)
-        if result["ok"]:
-            exempt_roots.add(pathway_root.resolve())
-        else:
-            findings.append({
-                "code": "museum_06_release_invalid",
-                "path": pathway_root.relative_to(root).as_posix() if pathway_root != root else root.name,
-            })
-    return exempt_roots, findings
+            }]
+        exempt_roots.add(release_root.resolve())
+    return exempt_roots, []
 
 
 def _release_root_for_scan(root: Path, release_dir: Path) -> Path:

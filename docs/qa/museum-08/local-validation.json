@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "phase_id": "MUSEUM-08",
-  "captured_at": "2026-07-19T11:45:00+08:00",
+  "captured_at": "2026-07-19T13:21:00+08:00",
   "status": "pass",
   "scope": "targeted_local_candidate_validation",
   "full_gate_policy": {
@@ -66,8 +66,18 @@
       "contended_parallel_run_status": "failed_environment_contention",
       "isolated_rerun_status": "pass",
       "threshold_changed": false,
-      "current_release_p95_ms": 32.7065,
-      "synthetic_1000_p95_ms": 66.2855
+      "contended_synthetic_1000_p95_ms": 218.8075,
+      "current_release_p95_ms": 46.0426,
+      "synthetic_1000_p95_ms": 85.7441
+    },
+    "github_failure_closure": {
+      "run_29672785687": "cross_platform_line_ending_hash_failure_repaired",
+      "run_29673299174": "legacy_workflow_scanner_and_schema_assertions_repaired",
+      "repair_python_tests_passed": 6,
+      "repair_workflow_tests_passed": 3,
+      "repair_vitest_tests_passed": 19,
+      "repair_critical_e2e_passed": 17,
+      "thresholds_weakened": false
     }
   },
   "quality_gates": {
@@ -89,16 +99,16 @@
     "automated_a11y_critical": 0
   },
   "performance": {
-    "home_gzip_bytes": 101947,
-    "home_growth_percent": 1.887,
-    "search_route_gzip_bytes": 87834,
+    "home_gzip_bytes": 101951,
+    "home_growth_percent": 1.891,
+    "search_route_gzip_bytes": 87893,
     "search_index_gzip_bytes": 45663,
-    "largest_non_map_route_gzip_bytes": 87834,
-    "map_route_gzip_bytes": 533891,
-    "low_bandwidth_initial_transfer_p95_bytes": 151277,
-    "desktop_first_interactive_p95_ms": 625.7817,
-    "mobile_first_interactive_p95_ms": 455.3261,
-    "interaction_p95_ms": 17.8,
+    "largest_non_map_route_gzip_bytes": 87893,
+    "map_route_gzip_bytes": 533956,
+    "low_bandwidth_initial_transfer_p95_bytes": 151339,
+    "desktop_first_interactive_p95_ms": 167.9666,
+    "mobile_first_interactive_p95_ms": 439.0007,
+    "interaction_p95_ms": 17.7,
     "cls_p95": 0,
     "external_runtime_request_count": 0,
     "unexpected_media_preload_count": 0,
@@ -119,11 +129,13 @@
     "removed_output_bytes": 76132691,
     "removed_dist_files": 1453,
     "removed_dist_bytes": 205075727,
+    "removed_repair_dist_files": 1453,
+    "removed_repair_dist_bytes": 205075966,
     "removed_cross_platform_rebuild_files": 317,
     "removed_cross_platform_rebuild_bytes": 42018091,
-    "removed_total_bytes": 323226509,
+    "removed_total_bytes": 528302475,
     "retained_screenshot_count": 5,
-    "retained_screenshot_bytes": 2880837
+    "retained_screenshot_bytes": 2865485
   },
   "real_assistive_technology": "not_available",
   "physical_devices": "not_available",

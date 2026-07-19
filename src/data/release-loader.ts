@@ -1061,6 +1061,15 @@ function assertSameOrigin(baseUrl: string) {
   return base;
 }
 
+function expectedReleaseIdFromBase(base: URL) {
+  const segments = base.pathname.split("/").filter(Boolean);
+  const directory = segments.at(-1);
+  if (!directory || !/^[a-z0-9][a-z0-9._-]*$/.test(directory)) {
+    throw new Error("release_directory_invalid");
+  }
+  return `release:${directory}`;
+}
+
 function assertInitialClosure(release: ArtConstellationRelease) {
   const artistIds = new Set(release.artists.map((artist) => artist.id));
   if (
@@ -1245,6 +1254,9 @@ export async function loadArtConstellationRelease(
       };
     }
     const { manifest } = manifestResult;
+    if (manifest.id !== expectedReleaseIdFromBase(base)) {
+      throw new Error("manifest_release_identity_mismatch");
+    }
     const artifactFiles = new Map(manifest.manifest_files.map((file) => [file.path, file]));
     for (const name of ART_CONSTELLATION_DECLARED_ARTIFACTS) {
       if (!artifactFiles.has(name)) throw new Error(`manifest_missing_${name}`);

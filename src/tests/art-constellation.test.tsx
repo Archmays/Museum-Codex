@@ -109,6 +109,28 @@ describe("MUSEUM-04 formal public release", () => {
     expect(screen.getByText("Formal release")).toBeInTheDocument();
   });
 
+  it("rejects a manifest mounted under the wrong release directory", async () => {
+    const fallback = publicReleaseFetcher();
+    const manifest = JSON.parse(
+      await readFile(resolve(process.cwd(), "public", "releases", "art-constellation-1.0.0", "manifest.json"), "utf8"),
+    ) as { id: string };
+    manifest.id = "release:wrong-release-1.0.0";
+    const fetcher = vi.fn<typeof fetch>(async (input, init) => {
+      const url = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url);
+      if (url.pathname.endsWith("/manifest.json")) {
+        return new Response(JSON.stringify(manifest), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      return fallback(input, init);
+    });
+    expect(await loadArtConstellationRelease(releaseBaseUrl(), fetcher)).toEqual({
+      status: "failed",
+      reason: "manifest_release_identity_mismatch",
+    });
+  });
+
   it("loads only the six permitted initial files, then verifies detail groups on demand", async () => {
     const { release, dataSource, fetcher } = await loadActualRelease();
     expect(requestedNames(fetcher)).toEqual(expect.arrayContaining([

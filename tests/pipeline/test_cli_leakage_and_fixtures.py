@@ -193,6 +193,7 @@ class LeakageTests(unittest.TestCase):
                 (ROOT / "public" / "releases" / "art-gallery-interactions-1.1.0").resolve(),
                 (ROOT / "public" / "releases" / "art-pathways-1.2.0").resolve(),
                 (ROOT / "public" / "releases" / "art-time-place-1.3.0").resolve(),
+                (ROOT / "public" / "releases" / "art-v1-candidate-1.4.0").resolve(),
             },
             exempt_roots,
         )
@@ -204,6 +205,14 @@ class LeakageTests(unittest.TestCase):
             invalid_roots, invalid_findings = validated_formal_art_exempt_roots(public)
         self.assertEqual(set(), invalid_roots)
         self.assertEqual("museum_05b_release_invalid", invalid_findings[0]["code"])
+        with tempfile.TemporaryDirectory() as temporary:
+            public = Path(temporary)
+            invalid_candidate = public / "releases" / "art-v1-candidate-1.4.0"
+            invalid_candidate.mkdir(parents=True)
+            invalid_candidate.joinpath("manifest.json").write_text("{}", encoding="utf-8")
+            invalid_roots, invalid_findings = validated_formal_art_exempt_roots(public)
+        self.assertEqual(set(), invalid_roots)
+        self.assertEqual("museum_08_release_invalid", invalid_findings[0]["code"])
 
     def test_unregistered_release_directory_keeps_generic_leakage_checks(self) -> None:
         formal_terms = [{"value": "Albrecht Dürer", "match_mode": "casefold_substring"}]
@@ -407,13 +416,16 @@ class LeakageTests(unittest.TestCase):
             self.assertIn("operational_arms_content", {item["code"] for item in scan_public_artifact(root)})
 
     def test_workflow_contains_no_live_acquisition(self) -> None:
-        workflow = (ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
+        workflow = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+        )
         self.assertNotIn("museum_pipeline acquire", workflow)
         self.assertNotIn("--live", workflow)
         self.assertNotIn("curl ", workflow)
 
     def test_workflow_validates_tracked_museum_03b_package_and_leakage_labels(self) -> None:
-        workflow = (ROOT / ".github" / "workflows" / "deploy-pages.yml").read_text(encoding="utf-8")
+        workflow = (ROOT / ".github" / "workflows" / "full-gate.yml").read_text(encoding="utf-8")
         package = "data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1"
         label_set = f"{package}/public-leakage-label-set.json"
         self.assertIn("fetch-depth: 0", workflow)
@@ -454,7 +466,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(82, len(environment.by_path))
+        self.assertEqual(87, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))
