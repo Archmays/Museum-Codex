@@ -1,0 +1,34 @@
+{
+  "manifest_version": "1.0.0",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "schemas": [
+    {
+      "path": "schemas/art/expansion/candidate-universe.schema.json",
+      "id": "https://museum-codex.example/schemas/art/expansion/candidate-universe.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/expansion/artwork-universe.schema.json",
+      "id": "https://museum-codex.example/schemas/art/expansion/artwork-universe.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/expansion/batch-registry.schema.json",
+      "id": "https://museum-codex.example/schemas/art/expansion/batch-registry.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/expansion/sharded-collection.schema.json",
+      "id": "https://museum-codex.example/schemas/art/expansion/sharded-collection.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"candidate_public_leakage_count":0,"candidate_roots":["data/reviewed/art/museum-09a/","governance/museum-09-batch-registry.json"],"forbidden_public_markers":["artist:m09a-","candidate-work:","museum-09-batch-","global-expansion-universe-v1"],"phase_id":"MUSEUM-09A","public_runtime_allowlist":[],"schema_version":"1.0.0"}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/expansion/artwork-universe.schema.json",
+  "title": "MUSEUM-09A candidate or target artwork universe",
+  "type": "object",
+  "required": ["schema_version", "phase_id", "artwork_count", "artworks"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "phase_id": { "const": "MUSEUM-09A" },
+    "artwork_count": { "type": "integer", "minimum": 1 },
+    "artworks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "source_id",
+          "source_object_id",
+          "artist_id",
+          "title",
+          "date_display",
+          "medium",
+          "holding_institution",
+          "source_url",
+          "metadata_license",
+          "media_availability",
+          "attribution_qualifier",
+          "evidence",
+          "duplicate_cluster_id",
+          "status",
+          "rights_media_future_review_hint"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "source_id": { "type": "string", "minLength": 1 },
+          "source_object_id": { "type": "string", "minLength": 1 },
+          "artist_id": { "type": "string", "pattern": "^artist:" },
+          "title": { "type": "string", "minLength": 1 },
+          "title_language": { "type": "string" },
+          "date_display": { "type": "string", "minLength": 1 },
+          "date_precision": { "type": "string" },
+          "medium": { "type": "string", "minLength": 1 },
+          "medium_tags": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "uniqueItems": true
+          },
+          "dimensions": { "type": ["string", "null"] },
+          "holding_institution": { "type": "string", "minLength": 1 },
+          "source_url": { "type": "string" },
+          "metadata_license": { "type": "string", "minLength": 1 },
+          "media_availability": { "const": "not_assessed_no_download" },
+          "attribution_qualifier": { "type": "string", "minLength": 1 },
+          "accession_number": { "type": ["string", "null"] },
+          "evidence": {
+            "type": "object",
+            "required": ["claim", "evidence_locator", "source_id"],
+            "properties": {
+              "claim": { "type": "string", "minLength": 1 },
+              "evidence_locator": { "type": "string", "minLength": 1 },
+              "source_id": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
+          "duplicate_cluster_id": { "type": "string", "pattern": "^work-duplicate:" },
+          "status": { "enum": ["metadata_verified", "program_target", "reserve"] },
+          "candidate_batch": { "type": ["string", "null"] },
+          "rights_media_future_review_hint": { "type": "string", "minLength": 1 },
+          "legacy_existing": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

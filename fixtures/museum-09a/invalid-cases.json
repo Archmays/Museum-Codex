@@ -1,0 +1,112 @@
+{
+  "phase_id": "MUSEUM-09A",
+  "purpose": "Named adversarial mutations exercised together against a disposable copy of the canonical package.",
+  "case_count": 21,
+  "cases": [
+    {
+      "case_id": "M09A-NEG-001",
+      "mutation": "duplicate_artist_stable_id",
+      "expected_failure_code": "artist_id_duplicate"
+    },
+    {
+      "case_id": "M09A-NEG-002",
+      "mutation": "living_artist_promoted_to_target",
+      "expected_failure_code": "deceased_gate"
+    },
+    {
+      "case_id": "M09A-NEG-003",
+      "mutation": "unknown_death_year_promoted_to_target",
+      "expected_failure_code": "implausible_life_dates"
+    },
+    {
+      "case_id": "M09A-NEG-004",
+      "mutation": "workshop_promoted_as_individual",
+      "expected_failure_code": "non_person_target"
+    },
+    {
+      "case_id": "M09A-NEG-005",
+      "mutation": "wikidata_only_target",
+      "expected_failure_code": "wikidata_only_target"
+    },
+    {
+      "case_id": "M09A-NEG-006",
+      "mutation": "missing_deceased_evidence",
+      "expected_failure_code": "missing_deceased_evidence"
+    },
+    {
+      "case_id": "M09A-NEG-007",
+      "mutation": "inferred_sensitive_identity",
+      "expected_failure_code": "sensitive_identity_inference"
+    },
+    {
+      "case_id": "M09A-NEG-008",
+      "mutation": "duplicate_candidate_work_id",
+      "expected_failure_code": "work_id_duplicate"
+    },
+    {
+      "case_id": "M09A-NEG-009",
+      "mutation": "attribution_conflict_in_target_work",
+      "expected_failure_code": "work_attribution_conflict"
+    },
+    {
+      "case_id": "M09A-NEG-010",
+      "mutation": "duplicate_target_work_cluster",
+      "expected_failure_code": "duplicate_target_work"
+    },
+    {
+      "case_id": "M09A-NEG-011",
+      "mutation": "target_artist_below_three_works",
+      "expected_failure_code": "target_without_three_works"
+    },
+    {
+      "case_id": "M09A-NEG-012",
+      "mutation": "regional_minimum_breached",
+      "expected_failure_code": "coverage_minimum"
+    },
+    {
+      "case_id": "M09A-NEG-013",
+      "mutation": "single_source_above_thirty_percent",
+      "expected_failure_code": "one_source_dominance"
+    },
+    {
+      "case_id": "M09A-NEG-014",
+      "mutation": "hidden_popularity_score",
+      "expected_failure_code": "forbidden_score"
+    },
+    {
+      "case_id": "M09A-NEG-015",
+      "mutation": "nondeterministic_candidate_order",
+      "expected_failure_code": "nondeterministic_order"
+    },
+    {
+      "case_id": "M09A-NEG-016",
+      "mutation": "candidate_label_leaks_to_public",
+      "expected_failure_code": "candidate_public_leakage"
+    },
+    {
+      "case_id": "M09A-NEG-017",
+      "mutation": "media_bytes_added_to_candidate_package",
+      "expected_failure_code": "media_bytes"
+    },
+    {
+      "case_id": "M09A-NEG-018",
+      "mutation": "predecessor_release_marked_changed",
+      "expected_failure_code": "current_release_mutation"
+    },
+    {
+      "case_id": "M09A-NEG-019",
+      "mutation": "artist_reused_across_batches",
+      "expected_failure_code": "batch_overlap_or_count"
+    },
+    {
+      "case_id": "M09A-NEG-020",
+      "mutation": "reserve_without_reason",
+      "expected_failure_code": "reserve_without_reason"
+    },
+    {
+      "case_id": "M09A-NEG-021",
+      "mutation": "manual_review_waiting_state",
+      "expected_failure_code": "manual_waiting_state"
+    }
+  ]
+}

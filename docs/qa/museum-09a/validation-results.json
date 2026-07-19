@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09A",
+  "status": "pass",
+  "canonical_build": {
+    "command": "python scripts/build_museum_09a.py --verify-deterministic",
+    "status": "pass",
+    "deterministic_rebuild_status": "pass",
+    "artifact_content_hash": "sha256:3db15ca186152c7355263e6b3254d3ff7151f56b834f34e57fd6d7570c42bded",
+    "input_closure_hash": "sha256:3499f5c6cf76b7a2e396119fef894b7829523a063c3da120ba16aef4a65beb53",
+    "package_bytes": 38098067
+  },
+  "counts": {
+    "raw_discovered_artists": 49406,
+    "deduplicated_real_person_candidates": 7017,
+    "deceased_verified_candidates": 7017,
+    "program_target_artists": 500,
+    "existing_target_artists": 12,
+    "new_target_artists": 488,
+    "reserve_artists": 120,
+    "rejected_artists": 6397,
+    "candidate_artworks": 9000,
+    "program_target_artworks": 5000,
+    "existing_target_artworks": 44,
+    "new_target_artworks": 4956,
+    "invalid_fixture_cases": 21,
+    "official_sources": 12,
+    "batches": 10
+  },
+  "targeted_checks": [
+    {
+      "command": "python scripts/validate_museum_09a.py",
+      "status": "pass",
+      "failure_count": 0
+    },
+    {
+      "command": "python -m unittest tests.test_museum_09a",
+      "status": "pass",
+      "test_count": 7
+    },
+    {
+      "command": "python -m unittest tests.test_governance_foundation tests.pipeline.test_media_schema_dispatch tests.test_museum_08_ci_architecture tests.test_museum_08_policy_scanners",
+      "status": "pass",
+      "test_count": 74
+    },
+    {
+      "command": "python scripts/validate_release_integrity_ledger.py --require-candidate",
+      "status": "pass",
+      "mode": "historical_hash_only",
+      "release_count": 5,
+      "file_count": 1413,
+      "byte_count": 203140831
+    },
+    {
+      "command": "python scripts/scan_public_artifact_for_candidate_data.py public --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json --json",
+      "status": "pass",
+      "finding_count": 0
+    },
+    {
+      "command": "node scripts/scan-repository.mjs",
+      "status": "pass",
+      "credential_finding_count": 0,
+      "file_over_5_mib_count": 0
+    }
+  ],
+  "scale_benchmark": {
+    "command": "python scripts/benchmark_museum_09a.py --iterations 25",
+    "status": "pass",
+    "raw_cache_reused": true,
+    "network_download_count": 0,
+    "discovery_elapsed_ms": 364726.38,
+    "selection_elapsed_ms": 3675.543,
+    "selection_traced_baseline_bytes": 603203611,
+    "selection_traced_peak_bytes": 603605736,
+    "selection_incremental_peak_bytes": 402125,
+    "batch_builder_p95_ms": 95.47,
+    "batch_builder_max_ms": 97.376,
+    "selection_matches_committed_targets": true,
+    "batch_builder_matches_committed": true,
+    "single_artist_update_changed_shards": 1,
+    "public_bundle_growth_bytes": 0
+  },
+  "coverage_guardrails_status": "pass",
+  "maximum_single_source_target_work_share": 0.1648,
+  "candidate_public_leakage_count": 0,
+  "new_media_download_count": 0,
+  "public_release_changed": false,
+  "museum_09b_entered": false,
+  "arms_museum_entered": false,
+  "remaining_open_decisions": [
+    "OD-011"
+  ],
+  "local_full_gate_count": 0,
+  "browser_e2e_count": 0,
+  "deployment_count": 0,
+  "formal_failed_targeted_attempt_count": 6,
+  "formal_failed_targeted_attempts_closed": true,
+  "repair_closure": [
+    "Corrected two initial test expectations to match the existing helper and classifier APIs.",
+    "Removed an unnecessary M09A classifier mapping after the predecessor ledger correctly detected input-closure drift.",
+    "Replaced oversized collection JSON files with deterministic hash-closed shards instead of weakening repository safety.",
+    "Declared the shard reader chunk-size interface used by the shared write/read configuration.",
+    "Removed duplicate global schema registration and registered expansion schemas only in the recursive child manifest.",
+    "Added the four new expansion schemas to the governance required-schema regression set."
+  ]
+}

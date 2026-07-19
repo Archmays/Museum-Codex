@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09A",
+  "classifier": "scripts/classify_ci_impact.py",
+  "impact_level": "phase-scoped",
+  "reason_codes": [
+    "phase_scoped_change"
+  ],
+  "docs_only": false,
+  "runtime_changed": false,
+  "public_changed": false,
+  "workflow_changed": false,
+  "dependencies_changed": false,
+  "shared_core_changed": false,
+  "full_required": false,
+  "deploy_required": false,
+  "browser_suites": [],
+  "releases_to_rebuild": [],
+  "historical_releases_hash_only": [
+    "release:art-constellation-1.0.0",
+    "release:art-gallery-interactions-1.1.0",
+    "release:art-pathways-1.2.0",
+    "release:art-time-place-1.3.0"
+  ],
+  "current_candidate_release_hash_only_verified_separately": true,
+  "affected_phases": [],
+  "affected_phases_note": "The immutable M08 classifier contract was not mutated after its ledger input-closure check showed that doing so would require an unnecessary predecessor rebuild; unclassified non-public M09A paths still resolve to phase-scoped with no rebuild or deploy.",
+  "local_full_gate_required": false,
+  "github_final_full_gate_required": false,
+  "pages_artifact_required": false
+}

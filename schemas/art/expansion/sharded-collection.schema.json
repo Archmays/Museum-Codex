@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/expansion/sharded-collection.schema.json",
+  "title": "MUSEUM-09A deterministic collection shard manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "phase_id",
+    "entity_type",
+    "collection_field",
+    "document_count_field",
+    "record_count",
+    "shard_count",
+    "ordering",
+    "records_hash",
+    "shards"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "phase_id": { "const": "MUSEUM-09A" },
+    "entity_type": { "const": "sharded_collection_manifest" },
+    "collection_field": { "enum": ["candidates", "records", "artworks"] },
+    "document_count_field": { "enum": ["candidate_count", "evidence_count", "artwork_count"] },
+    "record_count": { "type": "integer", "minimum": 1 },
+    "shard_count": { "type": "integer", "minimum": 1 },
+    "ordering": { "const": "stable_id_ascending" },
+    "records_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "shards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "record_count", "bytes", "sha256", "first_id", "last_id"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^[a-z0-9-]+/part-[0-9]{4}\\.json$" },
+          "record_count": { "type": "integer", "minimum": 1 },
+          "bytes": { "type": "integer", "minimum": 1, "maximum": 5242879 },
+          "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "first_id": { "type": "string", "minLength": 1 },
+          "last_id": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
