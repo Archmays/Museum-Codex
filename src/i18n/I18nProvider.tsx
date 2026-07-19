@@ -33,7 +33,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = locale;
-    document.title = locale === "zh-CN" ? "博物馆 · Museum" : "Museum · 博物馆";
   }, [locale]);
 
   const value = useMemo(() => ({ locale, setLocale, t: translations[locale] }), [locale]);

@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "id": "ci-impact-contract:museum-v1",
+  "levels": {
+    "0": "docs-only",
+    "1": "phase-scoped",
+    "2": "shared-core",
+    "3": "final-full"
+  },
+  "historical_releases": [
+    {
+      "phase": "MUSEUM-04",
+      "release_id": "release:art-constellation-1.0.0",
+      "directory": "public/releases/art-constellation-1.0.0"
+    },
+    {
+      "phase": "MUSEUM-05B",
+      "release_id": "release:art-gallery-interactions-1.1.0",
+      "directory": "public/releases/art-gallery-interactions-1.1.0"
+    },
+    {
+      "phase": "MUSEUM-06",
+      "release_id": "release:art-pathways-1.2.0",
+      "directory": "public/releases/art-pathways-1.2.0"
+    },
+    {
+      "phase": "MUSEUM-07",
+      "release_id": "release:art-time-place-1.3.0",
+      "directory": "public/releases/art-time-place-1.3.0"
+    }
+  ],
+  "candidate_release": {
+    "phase": "MUSEUM-08",
+    "release_id": "release:art-v1-candidate-1.4.0",
+    "directory": "public/releases/art-v1-candidate-1.4.0"
+  },
+  "docs_only_prefixes": [
+    "docs/phase-reports/",
+    "docs/qa/"
+  ],
+  "docs_only_exact": [
+    "docs/00_project/ci-execution-governance.md"
+  ],
+  "runtime_prefixes": [
+    "src/",
+    "public/",
+    "index.html"
+  ],
+  "dependency_paths": [
+    "package.json",
+    "package-lock.json",
+    "requirements-dev.txt",
+    ".node-version"
+  ],
+  "workflow_prefixes": [
+    ".github/workflows/"
+  ],
+  "shared_core_prefixes": [
+    "schemas/common/",
+    "museum_pipeline/validation/",
+    "src/data/release-loader.ts",
+    "src/data/art-release-profile.ts",
+    "src/components/SiteChrome.tsx",
+    "src/preferences/",
+    "src/i18n/",
+    "scripts/validate_governance_foundation.py",
+    "scripts/scan-repository.mjs",
+    "scripts/scan_public_artifact_for_candidate_data.py"
+  ],
+  "security_rights_prefixes": [
+    "governance/license-decisions.json",
+    "research/source-registry/",
+    "docs/02_governance/rights",
+    "scripts/validate_publishable_media_rights.py",
+    "scripts/validate_source_registry.py"
+  ],
+  "phase_paths": {
+    "MUSEUM-04": [
+      "museum_pipeline/art/public_release.py",
+      "scripts/build_museum_04_release.py",
+      "scripts/validate_museum_04_release.py",
+      "schemas/art/release/art-constellation-artifact.schema.json",
+      "public/releases/art-constellation-1.0.0/"
+    ],
+    "MUSEUM-05B": [
+      "museum_pipeline/art/interactions.py",
+      "scripts/build_museum_05b_release.py",
+      "scripts/validate_museum_05b_release.py",
+      "schemas/art/release/art-gallery-interaction-index.schema.json",
+      "public/releases/art-gallery-interactions-1.1.0/"
+    ],
+    "MUSEUM-06": [
+      "museum_pipeline/art/pathways.py",
+      "scripts/build_museum_06_release.py",
+      "scripts/validate_museum_06_release.py",
+      "schemas/art/release/art-pathways-artifact.schema.json",
+      "public/releases/art-pathways-1.2.0/"
+    ],
+    "MUSEUM-07": [
+      "museum_pipeline/art/timeplace.py",
+      "scripts/build_museum_07_release.py",
+      "scripts/validate_museum_07_release.py",
+      "schemas/art/map/",
+      "public/releases/art-time-place-1.3.0/"
+    ],
+    "MUSEUM-08": [
+      "museum_pipeline/art/candidate.py",
+      "scripts/build_museum_08_release.py",
+      "scripts/validate_museum_08_release.py",
+      "scripts/classify_ci_impact.py",
+      "scripts/validate_release_integrity_ledger.py",
+      "scripts/generate_museum_08_scale_fixtures.py",
+      "scripts/validate_museum_08_scale.py",
+      "schemas/art/candidate/",
+      "fixtures/museum-08",
+      "public/releases/art-v1-candidate-1.4.0/",
+      "src/features/art-search/"
+    ]
+  },
+  "browser_suites": {
+    "constellation": [
+      "src/features/art-constellation/",
+      "src/tests/art-constellation"
+    ],
+    "gallery": [
+      "src/features/art-gallery/",
+      "src/tests/art-gallery"
+    ],
+    "paths": [
+      "src/features/art-paths/",
+      "src/tests/art-path"
+    ],
+    "map": [
+      "src/features/art-map/",
+      "src/tests/art-map"
+    ],
+    "search": [
+      "src/features/art-search/",
+      "src/tests/art-search"
+    ],
+    "shell": [
+      "src/App.tsx",
+      "src/components/",
+      "src/pages/",
+      "src/preferences/",
+      "src/i18n/",
+      "src/styles/"
+    ]
+  }
+}

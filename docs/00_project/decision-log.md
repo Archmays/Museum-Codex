@@ -32,5 +32,8 @@
 | D-0028 | 2026-07-14 | accepted | OD-005：采用 MUSEUM-04 已批准的目标设备、实验室性能预算、gzip 预算与 1k/10k/50k 合成规模边界 | 为当前图、低资源回退和大规模安全拒绝提供可验证门槛；不得把实验室代理称为真实用户 p75 | 正式图规模、渲染架构、目标设备或可复现实验结果发生实质变化 |
 | D-0029 | 2026-07-14 | accepted | OD-010：使用 Rights or attribution Issue Form；7 日内初步确认、14 日内一般初评，高风险立即隔离并以 72 小时内临时下架/移除引用为目标；撤回和恢复均通过新 release | 建立不要求公开敏感证明、保持历史可追溯且可快速隔离的权利响应流程 | 法律义务、托管平台能力、联系渠道或缓存机制发生实质变化 |
 | D-0030 | 2026-07-17 | accepted | OD-006：使用 Natural Earth 1:110m land/coastline/lakes 构建完全自托管、无现代政治边界的静态 GeoJSON 底图；使用 exact-pinned MapLibre GL JS 5.24.0 渲染本地数据，并保留等价 timeline/list 回退 | 该方案同时闭合 public-domain 底图、Getty 地点身份、无 token/外部 tile、静态 Pages、可复现字节、无障碍等价与历史语义门禁 | Natural Earth 来源/许可、MapLibre stable/security、Pages 能力或 550 KB route / 400 KB renderer 预算发生实质变化 |
+| D-0031 | 2026-07-19 | accepted | OD-008：中文与多语搜索不引入分词第三方依赖；以 Unicode normalization、exact/prefix/substring、approved alias、transliteration 和 source-language label 为完整 fallback，`Intl.Segmenter` 只作可选 token 增强；索引采用可局部重建的确定性分片 | 保持静态、可解释、低供应链、无远程依赖；Segmenter 缺失仍完成核心任务，排序不混入流行度、重要性或艺术价值 | 浏览器 Unicode/Segmenter 能力、20k synthetic 查询预算或分片规模契约发生实质变化 |
+| D-0032 | 2026-07-19 | accepted | OD-009：站点不使用 analytics、账户、服务端画像、查询/访问/路径/地图/导览历史、telemetry SDK、Cookie、指纹、用户定位或远程日志；仅允许 locale、low-bandwidth 等明确本地 UI 偏好 | 站点无需收集个人行为即可完成浏览、搜索、比较、路径、地图和导览；最小本地偏好兼顾可访问性且不建立访问档案 | 用户明确要求新增数据处理，且先完成独立隐私、数据最小化、保留期、安全与同意评估 |
+| D-0033 | 2026-07-19 | accepted | 未来跨 release 媒体以 SHA-256 内容身份复用，共享字节但逐引用绑定对象、用途、权利、署名与 withdrawal；M08 只交付 synthetic prototype，不迁移或删除 M04–M07 字节 | 避免数十批次重复下载、转码和物理复制，同时保持历史 URL、不可变 release 与撤回边界 | MUSEUM-09 首批真实内容前完成共享 namespace staging、Pages 缓存/回滚和逐引用权利闭包复核 |
 
 状态使用 `proposed / accepted / superseded / rejected`。被替代决策保留原行并链接后继 ID，不覆写历史。

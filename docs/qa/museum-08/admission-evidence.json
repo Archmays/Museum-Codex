@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-08",
+  "captured_at": "2026-07-19T09:46:00+08:00",
+  "runtime_model": "not_exposed_by_runtime",
+  "runtime_reasoning": "not_exposed_by_runtime",
+  "git": {
+    "branch": "main",
+    "worktree_clean": true,
+    "local_main": "dfb91005b1302568079d16a3ceb60e6bae85041f",
+    "origin_main": "dfb91005b1302568079d16a3ceb60e6bae85041f",
+    "remote_main": "dfb91005b1302568079d16a3ceb60e6bae85041f"
+  },
+  "global_agents_gate": {
+    "status": "installed",
+    "path_scope": "resolved Windows USERPROFILE/.codex/AGENTS.md",
+    "before_sha256": "b39392ada206e539f2f086480ccae20acdd66b4e49de9dc71833230b13a17229",
+    "before_bytes": 4589,
+    "before_lines": 48,
+    "backup_sha256": "b39392ada206e539f2f086480ccae20acdd66b4e49de9dc71833230b13a17229",
+    "after_sha256": "2d9c79e30c66f63afb63ef86237fdd6659147d6054ca8e403b52fce17b10a635",
+    "after_bytes": 6618,
+    "after_lines": 61,
+    "ci_governance_section_count": 1,
+    "project_specific_terms_present": false
+  },
+  "input_release": {
+    "id": "release:art-time-place-1.3.0",
+    "content_hash": "sha256:aa969f48fd152301a66ee4f4841392b36f271bbca8537897484bc70c6ece718f",
+    "manifest_sha256": "sha256:6022063a0e2620e60d7e1adac8e5b0ea8624e2b4790941a3941546f7e74b4c7c",
+    "tree_hash": "sha256:1d02c63753830ad04a95ce11654c4527b0a3fb921e4096f5bed14415ef5370f5",
+    "tree_hash_algorithm": "sha256(path\\0size\\0file_sha256\\n)",
+    "file_count": 293,
+    "byte_count": 41339919
+  },
+  "m03c_media_bundle": {
+    "id": "media-bundle:museum-03c-v1",
+    "content_hash": "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565",
+    "manifest_sha256": "sha256:bdeab8d5d989363714345cca605c7c3427198be13c43461c29697e2968f34507",
+    "file_count": 256,
+    "byte_count": 36923181
+  },
+  "execution_reuse": {
+    "originals_downloaded": 0,
+    "derivatives_rebuilt": 0,
+    "museum_04_scale_benchmark_rerun": false,
+    "museum_06_path_benchmark_rerun": false,
+    "museum_07_source_reacquisition": false,
+    "historical_release_rebuilds": 0,
+    "historical_screenshots_regenerated": 0
+  },
+  "locked_inputs": [
+    {"path": "package-lock.json", "sha256": "sha256:5b3079c4b671c9c2d3aadbccd8a8830307a948049ad573ce34760c5a4fb6f6a7"},
+    {"path": "requirements-dev.txt", "sha256": "sha256:8934187281440f982ab717e42fa19d9be4c2d397bac3ae9920b67dc20c001d47"},
+    {"path": ".github/workflows/deploy-pages.yml", "sha256": "sha256:188ec89c716670eb91cc81c3286b7f54c775613fb7e16e1a04414cde2224b8d1"}
+  ],
+  "sealed_performance_evidence": [
+    {"path": "docs/qa/museum-04/performance-current-graph.json", "sha256": "sha256:f861cad7ef8e8542f33c04d7af4f7a6fe522b4602f550cf2a62986d4513fe75b"},
+    {"path": "docs/qa/museum-04/performance-scale-benchmarks.json", "sha256": "sha256:f03f3d75cdeb78beb1ef852607224b18d254feb3dc4be71b89e9871a9f7bbb50"},
+    {"path": "docs/qa/museum-05a/performance.json", "sha256": "sha256:a151d49388f7ec03b843dd808adf19d6524ba2b32eef9a10929817d2336e7451"},
+    {"path": "docs/qa/museum-06/path-benchmark.json", "sha256": "sha256:679680a90b5d45326f54c061e3a0e423e30c05ac8c71f0e165cd239bbb660d03"},
+    {"path": "docs/qa/museum-07/browser-metrics.json", "sha256": "sha256:013dbeb0631b0b46319a4536d4d9865d0b4000763fc8b24dc9ccc098a7fadf98"},
+    {"path": "docs/qa/museum-07/bundle-budget.json", "sha256": "sha256:cb173fd784346c29c20c066bec4bfe28fb54f4ddaa7fdc212770ef7b4319a124"}
+  ],
+  "inventories": {
+    "workflow_count": 1,
+    "workflow_files": [".github/workflows/deploy-pages.yml"],
+    "python_test_files": 33,
+    "vitest_files": 11,
+    "e2e_files": 5,
+    "route_templates": 15
+  },
+  "status": "pass"
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/candidate/route-inventory.schema.json",
+  "title": "MUSEUM-08 public route inventory",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "entity_type",
+    "phase_id",
+    "release_id",
+    "template_count",
+    "concrete_route_count",
+    "routes"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "const": "route-inventory:art-v1-candidate-1.4.0" },
+    "entity_type": { "const": "route_inventory" },
+    "phase_id": { "const": "MUSEUM-08" },
+    "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+    "template_count": { "type": "integer", "minimum": 16 },
+    "concrete_route_count": { "type": "integer", "minimum": 80 },
+    "routes": {
+      "type": "array",
+      "minItems": 16,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "path",
+          "concrete_count",
+          "lazy_chunk",
+          "stable_id_lazy_load",
+          "data_dependencies",
+          "media_behavior",
+          "low_bandwidth",
+          "webgl",
+          "print",
+          "keyboard",
+          "no_script",
+          "rights_source_entry",
+          "withdrawal_fallback"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^route:" },
+          "path": { "type": "string", "pattern": "^/" },
+          "concrete_count": { "type": "integer", "minimum": 1 },
+          "lazy_chunk": { "type": ["string", "null"] },
+          "stable_id_lazy_load": { "type": "boolean" },
+          "data_dependencies": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+          "media_behavior": { "type": "string", "minLength": 1 },
+          "low_bandwidth": { "type": "string", "minLength": 1 },
+          "webgl": { "enum": ["none", "optional_lazy", "forbidden_low_bandwidth"] },
+          "print": { "enum": ["supported", "metadata_only", "not_applicable"] },
+          "keyboard": { "type": "string", "minLength": 1 },
+          "no_script": { "type": "string", "minLength": 1 },
+          "rights_source_entry": { "type": "string", "minLength": 1 },
+          "withdrawal_fallback": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

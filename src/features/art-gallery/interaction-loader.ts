@@ -1,6 +1,4 @@
 import {
-  CURRENT_ART_RELEASE_ID,
-  CURRENT_ART_RELEASE_VERSION,
   INTERACTION_ART_RELEASE_ID,
   INTERACTION_ART_RELEASE_VERSION,
   INTERACTION_INDEX_PATH,
@@ -32,18 +30,29 @@ function parseInteractionIndex(value: unknown): ArtInteractionIndex {
   const thematicTours = value.thematic_tours;
   const lenses = value.lenses;
   const composition = value.release_composition;
+  const integerCount = (item: unknown) => typeof item === "number" && Number.isInteger(item) && item >= 0;
   if (
     value.schema_version !== "1.0.0" || value.id !== "interaction-index:museum-05b-v1" ||
     value.release_id !== INTERACTION_ART_RELEASE_ID || value.release_version !== INTERACTION_ART_RELEASE_VERSION ||
     !isRecord(composition) || composition.mode !== "immutable_overlay" ||
     composition.base_release_id !== "release:art-constellation-1.0.0" ||
     composition.base_artifact_identity !== "base_release_scoped" ||
-    !isRecord(counts) || counts.artists !== 12 || counts.artworks !== 44 ||
-    counts.observation_cards !== 44 || counts.hero_selections !== 12 || counts.artist_tours !== 12 ||
-    counts.thematic_tours !== 6 || counts.lenses !== 3 ||
-    !Array.isArray(cards) || cards.length !== 44 || !Array.isArray(heroes) || heroes.length !== 12 ||
-    !Array.isArray(regions) || regions.length !== counts.detail_regions || !Array.isArray(artistTours) || artistTours.length !== 12 ||
-    !Array.isArray(thematicTours) || thematicTours.length !== 6 || !Array.isArray(lenses) || lenses.length !== 3
+    !isRecord(counts) ||
+    ![
+      counts.artists, counts.artworks, counts.observation_cards, counts.hero_selections,
+      counts.visual_heroes, counts.textual_observation_paths, counts.detail_regions,
+      counts.artist_tours, counts.thematic_tours, counts.lenses,
+    ].every(integerCount) ||
+    !Array.isArray(cards) || cards.length !== counts.observation_cards ||
+    !Array.isArray(heroes) || heroes.length !== counts.hero_selections ||
+    !Array.isArray(regions) || regions.length !== counts.detail_regions ||
+    !Array.isArray(artistTours) || artistTours.length !== counts.artist_tours ||
+    !Array.isArray(thematicTours) || thematicTours.length !== counts.thematic_tours ||
+    !Array.isArray(lenses) || lenses.length !== counts.lenses ||
+    counts.artworks !== counts.observation_cards ||
+    counts.artists !== counts.hero_selections ||
+    counts.artists !== counts.artist_tours ||
+    Number(counts.visual_heroes) + Number(counts.textual_observation_paths) !== counts.artists
   ) throw new Error("interaction_profile_invalid");
   if (
     cards.some((card) => !isRecord(card) || typeof card.artwork_id !== "string" || !hasLocalizedText(card.title) || !Array.isArray(card.prompts) || !Array.isArray(card.source_links) || card.release_version !== "1.1.0") ||
@@ -55,7 +64,7 @@ function parseInteractionIndex(value: unknown): ArtInteractionIndex {
   ) throw new Error("interaction_record_invalid");
   const cardIds = new Set(cards.map((card) => (card as Record<string, unknown>).artwork_id));
   const heroArtists = new Set(heroes.map((hero) => (hero as Record<string, unknown>).artist_id));
-  if (cardIds.size !== 44 || heroArtists.size !== 12) throw new Error("interaction_reference_duplicates");
+  if (cardIds.size !== cards.length || heroArtists.size !== heroes.length) throw new Error("interaction_reference_duplicates");
   return value as ArtInteractionIndex;
 }
 
@@ -65,18 +74,16 @@ export async function loadArtInteractionIndex(baseUrl: string, fetcher: typeof f
   const manifestResult = await loadStaticRelease(new URL("manifest.json", base).href, fetcher);
   if (manifestResult.status !== "loaded") throw new Error(`interaction_manifest_${manifestResult.status}`);
   const { manifest } = manifestResult;
-  const currentOverlay = manifest.id === CURRENT_ART_RELEASE_ID && manifest.version === CURRENT_ART_RELEASE_VERSION;
   const directInteractionRelease = manifest.id === INTERACTION_ART_RELEASE_ID && manifest.version === INTERACTION_ART_RELEASE_VERSION;
-  if (!currentOverlay && !directInteractionRelease) {
-    throw new Error("interaction_manifest_profile");
-  }
   const file = manifest.manifest_files.find((item) =>
     item.path === INTERACTION_INDEX_PATH &&
     item.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json" &&
     item.record_type === "other" &&
     item.record_ids.length === 1 && item.record_ids[0] === "interaction-index:museum-05b-v1"
   );
-  if (!file) throw new Error("interaction_manifest_file_missing");
+  if (!file || (!directInteractionRelease && manifest.predecessor === null)) {
+    throw new Error("interaction_manifest_file_missing");
+  }
   const response = await fetcher(new URL(INTERACTION_INDEX_PATH, base).href, { headers: { Accept: "application/json" } });
   if (!response.ok) throw new Error(`interaction_http_${response.status}`);
   const bytes = await response.arrayBuffer();

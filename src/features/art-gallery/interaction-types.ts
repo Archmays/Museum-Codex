@@ -126,20 +126,20 @@ export type ArtInteractionIndex = {
     base_release_id: "release:art-constellation-1.0.0";
     base_release_hash: string;
     base_artifact_identity: "base_release_scoped";
-    inherited_manifest_file_count: 263;
-    overlay_files: ["interaction-index.json", "media-retry.json"];
+    inherited_manifest_file_count: number;
+    overlay_files: string[];
   };
   counts: {
-    artists: 12;
-    artworks: 44;
-    observation_cards: 44;
-    hero_selections: 12;
+    artists: number;
+    artworks: number;
+    observation_cards: number;
+    hero_selections: number;
     visual_heroes: number;
     textual_observation_paths: number;
     detail_regions: number;
-    artist_tours: 12;
-    thematic_tours: 6;
-    lenses: 3;
+    artist_tours: number;
+    thematic_tours: number;
+    lenses: number;
   };
   observation_cards: ObservationCard[];
   hero_selections: HeroSelection[];
@@ -162,9 +162,9 @@ export type ArtInteractionIndex = {
   };
   media_retry_summary: {
     status: "pass" | "partial";
-    approved_media_count_before: 31;
-    approved_media_count_after: 31;
-    no_image_count_after: 13;
+    approved_media_count_before: number;
+    approved_media_count_after: number;
+    no_image_count_after: number;
     human_review_dependency: false;
   };
 };

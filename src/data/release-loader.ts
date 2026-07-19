@@ -26,14 +26,6 @@ import type {
   ThirdPartyNotice,
 } from "../features/art-constellation/types";
 import { readBootstrappedArtifact, type BootstrappedArtifact } from "./art-constellation-bootstrap";
-import {
-  CORE_ART_RELEASE_ID,
-  CURRENT_ART_RELEASE_ID,
-  CURRENT_ART_RELEASE_VERSION,
-  INTERACTION_ART_RELEASE_ID,
-  INTERACTION_INDEX_PATH,
-  PATH_INDEX_PATH,
-} from "./art-release-profile";
 
 export const SUPPORTED_RELEASE_SCHEMA_MAJOR = 1;
 
@@ -338,8 +330,6 @@ export function releaseMessage(status: ReleaseLoadResult["status"], locale: "zh-
 }
 
 const ART_CONSTELLATION_SCHEMA_VERSION = "1.0.0";
-const ART_CONSTELLATION_RELEASE_ID = CORE_ART_RELEASE_ID;
-const ART_CONSTELLATION_MEDIA_BUNDLE_HASH = "sha256:3aa84fa7df37c4823cd2cb1f92c7e1843e7dea70b7cfd683528b25698951d565";
 const ART_CONSTELLATION_INITIAL_ARTIFACTS = [
   "graph-summary.json",
   "artists.json",
@@ -388,7 +378,7 @@ function optionalString(value: unknown) {
 function hasControlCharacter(value: string) {
   return [...value].some((character) => {
     const code = character.charCodeAt(0);
-    return code <= 31 || code === 127;
+    return code < 0x20 || code === 0x7f;
   });
 }
 
@@ -761,24 +751,31 @@ function parseRights(raw: unknown, releaseId: string, base: URL): RightsRecord {
   const metadata = requiredRecord(root.third_party_metadata, "third_party_metadata");
   const media = requiredRecord(root.media, "media_rights");
   const request = requiredRecord(root.rights_request, "rights_request");
+  const mediaCount = requiredNumber(media.count, "media_count");
+  const mediaBytes = requiredNumber(media.bytes, "media_bytes");
+  const approvedMediaArtworks = requiredNumber(media.approved_artworks, "approved_media_artworks");
+  const noImageArtworks = requiredNumber(media.no_image_artworks, "no_image_artworks");
+  const mediaBundleHash = requiredString(media.media_bundle_hash, "media_bundle_hash");
   if (
     code.identifier !== "ALL-RIGHTS-RESERVED" || code.status !== "decided" ||
     content.identifier !== "ALL-RIGHTS-RESERVED" || content.status !== "decided" ||
-    media.count !== 242 || media.bytes !== 35_907_176 || media.approved_artworks !== 31 ||
-    media.no_image_artworks !== 13 || media.external_runtime_count !== 0 || media.blocked_asset_count !== 0 ||
-    media.media_bundle_hash !== ART_CONSTELLATION_MEDIA_BUNDLE_HASH
+    ![mediaCount, mediaBytes, approvedMediaArtworks, noImageArtworks].every(
+      (value) => Number.isInteger(value) && value >= 0,
+    ) ||
+    media.external_runtime_count !== 0 || media.blocked_asset_count !== 0 ||
+    !/^sha256:[a-f0-9]{64}$/.test(mediaBundleHash)
   ) throw new Error("rights_profile_invalid");
   return {
     codeRights: localized(code.statement, "code_rights_statement"),
     originalContentRights: localized(content.statement, "content_rights_statement"),
     thirdPartyMetadata: [localized(metadata.statement, "metadata_rights_statement")],
     mediaStatement: localized(media.statement, "media_rights_statement"),
-    mediaCount: 242,
-    mediaBytes: 35_907_176,
-    approvedMediaArtworks: 31,
-    noImageArtworks: 13,
+    mediaCount,
+    mediaBytes,
+    approvedMediaArtworks,
+    noImageArtworks,
     mediaBundleId: requiredString(media.media_bundle_id, "media_bundle_id"),
-    mediaBundleHash: requiredString(media.media_bundle_hash, "media_bundle_hash"),
+    mediaBundleHash,
     rightsRequestUrl: rightsRequestUrl(request.url, base),
     noticesPath: requiredString(media.notices_path ?? metadata.notices_path, "notices_path"),
     attributionsPath: requiredString(media.attributions_path ?? root.attributions_path, "attributions_path"),
@@ -797,31 +794,51 @@ function parseGraphSummary(raw: unknown, releaseId: string) {
   const relationTypes = requiredRecord(counts.relationship_types, "graph_relationship_type_counts");
   const semantics = requiredRecord(root.semantics, "graph_semantics");
   const initialState = requiredRecord(root.initial_state, "graph_initial_state");
-  if (
-    counts.artists !== 12 || counts.contexts !== 31 || counts.relationships !== 36 ||
-    counts.artworks !== 44 || counts.media !== 242 || counts.media_bytes !== 35_907_176 ||
-    counts.approved_media_artworks !== 31 || counts.no_image_artworks !== 13 ||
-    counts.media_provenance_parents !== 31 || levels.A !== 0 || levels.B !== 0 || levels.C !== 36 ||
-    semantics.algorithmic !== false || semantics.causal !== false || semantics.directed !== false ||
-    initialState.view !== "graph" || initialState.edges_visible !== false || initialState.focused_artist_id !== null
-  ) throw new Error("graph_summary_profile_invalid");
+  const artistCount = requiredNumber(counts.artists, "artist_count");
+  const contextCount = requiredNumber(counts.contexts, "context_count");
+  const relationshipCount = requiredNumber(counts.relationships, "relationship_count");
+  const artworkCount = requiredNumber(counts.artworks, "artwork_count");
+  const mediaCount = requiredNumber(counts.media, "media_count");
+  const mediaBytes = requiredNumber(counts.media_bytes, "media_bytes");
+  const approvedMediaArtworkCount = requiredNumber(counts.approved_media_artworks, "approved_media_artworks");
+  const noImageArtworkCount = requiredNumber(counts.no_image_artworks, "no_image_artworks");
+  const mediaParentCount = requiredNumber(counts.media_provenance_parents, "media_provenance_parents");
+  const levelCounts = {
+    A: requiredNumber(levels.A, "level_a_count"),
+    B: requiredNumber(levels.B, "level_b_count"),
+    C: requiredNumber(levels.C, "level_c_count"),
+  };
   const relationshipTypeCounts = {
     shared_subject: requiredNumber(relationTypes.shared_subject, "shared_subject_count"),
     shared_material: requiredNumber(relationTypes.shared_material, "shared_material_count"),
     shared_technique: requiredNumber(relationTypes.shared_technique, "shared_technique_count"),
   };
+  const numericCounts = [
+    artistCount, contextCount, relationshipCount, artworkCount, mediaCount, mediaBytes,
+    approvedMediaArtworkCount, noImageArtworkCount, mediaParentCount,
+    ...Object.values(levelCounts), ...Object.values(relationshipTypeCounts),
+  ];
+  if (
+    numericCounts.some((value) => !Number.isInteger(value) || value < 0) ||
+    artistCount === 0 || artworkCount !== approvedMediaArtworkCount + noImageArtworkCount ||
+    mediaParentCount !== approvedMediaArtworkCount ||
+    Object.values(levelCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
+    Object.values(relationshipTypeCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
+    semantics.algorithmic !== false || semantics.causal !== false || semantics.directed !== false ||
+    initialState.view !== "graph" || initialState.edges_visible !== false || initialState.focused_artist_id !== null
+  ) throw new Error("graph_summary_profile_invalid");
   const summary: GraphSummary = {
     releaseId,
     title: localized(root.title, "graph_title"),
-    artistCount: 12,
-    contextCount: 31,
-    relationshipCount: 36,
-    artworkCount: requiredNumber(counts.artworks, "artwork_count"),
-    mediaCount: 242,
-    mediaBytes: 35_907_176,
-    approvedMediaArtworkCount: 31,
-    noImageArtworkCount: 13,
-    levelCounts: { A: 0, B: 0, C: 36 },
+    artistCount,
+    contextCount,
+    relationshipCount,
+    artworkCount,
+    mediaCount,
+    mediaBytes,
+    approvedMediaArtworkCount,
+    noImageArtworkCount,
+    levelCounts,
     relationshipTypeCounts,
     semantics: localized(semantics.what_it_does_not_mean, "graph_semantics_notice"),
     initialState: "artists_only",
@@ -869,22 +886,32 @@ function parseMediaSupport(
   artifactFiles: Map<string, ManifestFile>,
 ): MediaAsset[] {
   const root = requiredRecord(mediaRaw, "media_index_root");
+  const mediaBundleHash = requiredString(root.media_bundle_hash, "media_bundle_hash");
   if (
     root.schema_version !== ART_CONSTELLATION_SCHEMA_VERSION || root.release_id !== releaseId ||
-    root.media_bundle_hash !== ART_CONSTELLATION_MEDIA_BUNDLE_HASH
+    !/^sha256:[a-f0-9]{64}$/.test(mediaBundleHash)
   ) throw new Error("media_index_envelope");
   const delivery = requiredRecord(root.delivery_policy, "media_delivery_policy");
   const counts = requiredRecord(root.counts, "media_counts");
+  const approvedArtworkCount = requiredNumber(counts.approved_artworks, "approved_artwork_count");
+  const noImageArtworkCount = requiredNumber(counts.no_image_artworks, "no_image_artwork_count");
+  const assetCount = requiredNumber(counts.assets, "media_asset_count");
+  const byteCount = requiredNumber(counts.bytes, "media_byte_count");
   if (
     delivery.external_runtime_api !== false || delivery.external_delivery_count !== 0 ||
     delivery.blocked_asset_count !== 0 || delivery.preferred !== "self_hosted" ||
-    delivery.low_bandwidth_default !== "metadata_only" || counts.approved_artworks !== 31 ||
-    counts.no_image_artworks !== 13 || counts.assets !== 242 || counts.bytes !== 35_907_176
+    delivery.low_bandwidth_default !== "metadata_only" ||
+    ![approvedArtworkCount, noImageArtworkCount, assetCount, byteCount].every(
+      (value) => Number.isInteger(value) && value >= 0,
+    ) ||
+    approvedArtworkCount + noImageArtworkCount !== artworks.length
   ) throw new Error("media_delivery_profile_invalid");
 
   const artworkById = new Map(artworks.map((artwork) => [artwork.id, artwork]));
   const mediaArtworkRecords = objectList(root.artworks, "media_index_artworks");
-  if (mediaArtworkRecords.length !== 44 || artworkById.size !== 44) throw new Error("media_artwork_count");
+  if (mediaArtworkRecords.length !== artworks.length || artworkById.size !== artworks.length) {
+    throw new Error("media_artwork_count");
+  }
   for (const item of mediaArtworkRecords) {
     const artworkId = requiredString(item.artwork_id, "media_artwork_id");
     const artwork = artworkById.get(artworkId);
@@ -898,6 +925,10 @@ function parseMediaSupport(
       !sameSet(stringList(item.reason_codes, "media_artwork_reason_codes"), artwork.media.reasonCodes)
     ) throw new Error("media_artwork_projection_mismatch");
   }
+  if (
+    artworks.filter((artwork) => artwork.media.decision === "approved_self_hosted").length !== approvedArtworkCount ||
+    artworks.filter((artwork) => artwork.media.decision !== "approved_self_hosted").length !== noImageArtworkCount
+  ) throw new Error("media_artwork_decision_counts");
 
   const assets: MediaIndexAsset[] = objectList(root.assets, "media_assets").map((item) => {
     const id = requiredString(item.id, "media_id");
@@ -940,8 +971,8 @@ function parseMediaSupport(
   });
   const assetIds = assets.map((asset) => asset.id);
   if (
-    assets.length !== 242 || new Set(assetIds).size !== 242 ||
-    assets.reduce((sum, asset) => sum + asset.bytes, 0) !== 35_907_176 ||
+    assets.length !== assetCount || new Set(assetIds).size !== assetCount ||
+    assets.reduce((sum, asset) => sum + asset.bytes, 0) !== byteCount ||
     assetIds.some((id) => !manifest.attribution_manifest.asset_ids.includes(id)) ||
     assetIds.some((id) => !manifest.included_media_asset_ids.includes(id))
   ) throw new Error("media_asset_count_or_manifest_ids");
@@ -955,7 +986,8 @@ function parseMediaSupport(
   const rawAttributions = objectList(attributionRoot.assets, "attribution_assets");
   const rawAttributionIds = rawAttributions.map((item) => requiredString(item.asset_id, "attribution_asset_id"));
   if (
-    rawAttributions.length !== 273 || new Set(rawAttributionIds).size !== 273 ||
+    rawAttributions.length !== manifest.attribution_manifest.asset_ids.length ||
+    new Set(rawAttributionIds).size !== rawAttributions.length ||
     !sameSet(rawAttributionIds, manifest.attribution_manifest.asset_ids)
   ) throw new Error("media_attribution_manifest_closure");
   const childIdSet = new Set(assetIds);
@@ -1032,13 +1064,18 @@ function assertSameOrigin(baseUrl: string) {
 function assertInitialClosure(release: ArtConstellationRelease) {
   const artistIds = new Set(release.artists.map((artist) => artist.id));
   if (
-    artistIds.size !== 12 || release.layout.length !== 12 || release.searchEntries.length !== 12
+    artistIds.size !== release.summary.artistCount ||
+    release.layout.length !== release.summary.artistCount ||
+    release.searchEntries.length !== release.summary.artistCount
   ) throw new Error("release_counts_invalid");
-  if (new Set(release.layout.map((node) => node.artistId)).size !== 12 || release.layout.some((node) => !artistIds.has(node.artistId))) {
+  if (
+    new Set(release.layout.map((node) => node.artistId)).size !== release.summary.artistCount ||
+    release.layout.some((node) => !artistIds.has(node.artistId))
+  ) {
     throw new Error("layout_artist_closure");
   }
   if (
-    new Set(release.searchEntries.map((entry) => entry.id)).size !== 12 ||
+    new Set(release.searchEntries.map((entry) => entry.id)).size !== release.summary.artistCount ||
     release.searchEntries.some((entry) => !artistIds.has(entry.id))
   ) throw new Error("search_artist_closure");
 }
@@ -1050,7 +1087,12 @@ function assertArtistArtworkClosure(
 ) {
   const artistIds = new Set(release.artists.map((artist) => artist.id));
   const artworkIds = new Set(artworks.map((artwork) => artwork.id));
-  if (artworks.length !== 44 || artworkIds.size !== 44 || artworks.some((artwork) => !artistIds.has(artwork.artistId))) {
+  if (
+    artworks.length !== release.summary.artworkCount ||
+    artworkIds.size !== release.summary.artworkCount ||
+    media.length !== release.summary.mediaCount ||
+    artworks.some((artwork) => !artistIds.has(artwork.artistId))
+  ) {
     throw new Error("artist_artwork_counts_invalid");
   }
   for (const artist of release.artists) {
@@ -1203,35 +1245,6 @@ export async function loadArtConstellationRelease(
       };
     }
     const { manifest } = manifestResult;
-    const isLegacyProfile = manifest.id === ART_CONSTELLATION_RELEASE_ID && manifest.version === "1.0.0";
-    const isInteractionProfile =
-      manifest.id === INTERACTION_ART_RELEASE_ID &&
-      manifest.version === "1.1.0" &&
-      manifest.predecessor === ART_CONSTELLATION_RELEASE_ID &&
-      manifest.manifest_files.some((file) =>
-        file.path === INTERACTION_INDEX_PATH &&
-        file.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json"
-      );
-    const isPathwayProfile =
-      manifest.id === CURRENT_ART_RELEASE_ID &&
-      manifest.version === CURRENT_ART_RELEASE_VERSION &&
-      manifest.predecessor === INTERACTION_ART_RELEASE_ID &&
-      manifest.manifest_files.some((file) =>
-        file.path === INTERACTION_INDEX_PATH &&
-        file.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json"
-      ) &&
-      manifest.manifest_files.some((file) =>
-        file.path === PATH_INDEX_PATH &&
-        file.schema_path === "schemas/art/release/art-pathways-artifact.schema.json"
-      );
-    const coreReleaseId = isInteractionProfile || isPathwayProfile ? ART_CONSTELLATION_RELEASE_ID : manifest.id;
-    if (
-      (!isLegacyProfile && !isInteractionProfile && !isPathwayProfile) ||
-      manifest.public_release !== true || manifest.status !== "publishable" ||
-      manifest.included_media_asset_ids.length !== 273 || manifest.attribution_manifest.asset_ids.length !== 273 ||
-      manifest.withdrawals.length !== 0 || manifest.deprecations.length !== 0
-    ) return { status: "failed", reason: "manifest_profile_invalid" };
-
     const artifactFiles = new Map(manifest.manifest_files.map((file) => [file.path, file]));
     for (const name of ART_CONSTELLATION_DECLARED_ARTIFACTS) {
       if (!artifactFiles.has(name)) throw new Error(`manifest_missing_${name}`);
@@ -1244,6 +1257,8 @@ export async function loadArtConstellationRelease(
       }),
     );
     const data = Object.fromEntries(artifacts) as Record<(typeof ART_CONSTELLATION_INITIAL_ARTIFACTS)[number], unknown>;
+    const graphRoot = requiredRecord(data["graph-summary.json"], "graph_summary_root");
+    const coreReleaseId = requiredString(graphRoot.release_id, "graph_release_id");
     const { summary, artifactPaths } = parseGraphSummary(data["graph-summary.json"], coreReleaseId);
     const expectedArtifactPaths: Record<string, string> = {
       artists: "artists.json", contexts: "contexts.json", relationships: "relationships.json",
@@ -1433,6 +1448,12 @@ export async function loadArtConstellationRelease(
       }, detailSignal),
       loadRights: (detailSignal) => detailResult<RightsDetails>(async () => {
         const rights = parseRights(await artifact("rights.json", detailSignal), coreReleaseId, base);
+        if (
+          rights.mediaCount !== release.summary.mediaCount ||
+          rights.mediaBytes !== release.summary.mediaBytes ||
+          rights.approvedMediaArtworks !== release.summary.approvedMediaArtworkCount ||
+          rights.noImageArtworks !== release.summary.noImageArtworkCount
+        ) throw new Error("rights_summary_count_mismatch");
         const noticesReference = manifest.third_party_notices_manifest;
         if (
           rights.noticesPath !== noticesReference.path ||

@@ -78,6 +78,13 @@ TARGET_SCHEMA_BY_ENTITY_TYPE = {
     "dataset_release": "schemas/common/dataset-release.schema.json",
     "art_gallery_interaction_index": "schemas/art/release/art-gallery-interaction-index.schema.json",
     "art_path_result": "schemas/art/release/path-result.schema.json",
+    "search_index_manifest": "schemas/art/candidate/search-index.schema.json",
+    "search_index_shard": "schemas/art/candidate/search-index.schema.json",
+    "route_inventory": "schemas/art/candidate/route-inventory.schema.json",
+    "privacy_snapshot": "schemas/art/candidate/privacy-snapshot.schema.json",
+    "withdrawal_rehearsal": "schemas/art/candidate/rehearsal-record.schema.json",
+    "rollback_rehearsal": "schemas/art/candidate/rehearsal-record.schema.json",
+    "candidate_evidence": "schemas/art/candidate/candidate-evidence.schema.json",
     **{
         entity_type: "schemas/art/release/art-pathways-artifact.schema.json"
         for entity_type in (

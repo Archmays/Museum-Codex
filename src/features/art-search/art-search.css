@@ -1,0 +1,233 @@
+.art-search-page {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 6rem) 0 5rem;
+}
+
+.search-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.25rem;
+  margin-bottom: 2.5rem;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.search-breadcrumbs a,
+.search-results a {
+  color: inherit;
+}
+
+.search-hero {
+  max-width: 800px;
+}
+
+.search-hero h1 {
+  margin: .35rem 0 1rem;
+  font-size: clamp(2.6rem, 8vw, 6.5rem);
+  font-weight: 400;
+  line-height: .92;
+  letter-spacing: -.045em;
+}
+
+.search-hero > p:last-child {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.22rem);
+  line-height: 1.7;
+}
+
+.search-form {
+  margin-top: 2.75rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+}
+
+.search-form > label,
+.search-results label {
+  display: block;
+  margin-bottom: .65rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.search-form > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .65rem;
+}
+
+.search-form input,
+.search-form button,
+.search-results select,
+.search-error button {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: inherit;
+  background: var(--surface);
+  font: inherit;
+}
+
+.search-form input {
+  min-width: 0;
+  padding: .75rem .9rem;
+  font-size: 1.05rem;
+}
+
+.search-form button,
+.search-error button {
+  padding: .7rem 1.2rem;
+  cursor: pointer;
+}
+
+.search-form > p {
+  margin: .75rem 0 0;
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.55;
+}
+
+.search-results,
+.search-start,
+.search-error {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.search-results > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.search-results h2,
+.search-start h2,
+.search-error h2 {
+  margin: .3rem 0;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 450;
+}
+
+.search-results select {
+  display: block;
+  min-width: 12rem;
+  padding: .5rem .75rem;
+}
+
+.search-results ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1.5rem 0 0;
+  padding: 1px;
+  list-style: none;
+  background: var(--line);
+}
+
+.search-results li {
+  min-width: 0;
+  background: var(--background);
+}
+
+.search-results article {
+  height: 100%;
+  padding: clamp(1rem, 3vw, 1.6rem);
+}
+
+.search-results article > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem;
+  color: var(--muted);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.search-results h3 {
+  margin: 1rem 0 .65rem;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  font-weight: 500;
+}
+
+.search-results article > p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.search-match-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .8rem;
+  margin-top: 1rem;
+  font-size: .78rem;
+}
+
+.search-match-detail code {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.search-empty {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px dashed var(--line);
+}
+
+@media (max-width: 700px) {
+  .art-search-page {
+    width: min(100% - 1rem, 1180px);
+  }
+
+  .search-form > div,
+  .search-results ol {
+    grid-template-columns: 1fr;
+  }
+
+  .search-form button {
+    width: 100%;
+  }
+
+  .search-results > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-results select {
+    width: 100%;
+  }
+}
+
+@media (forced-colors: active) {
+  .search-form,
+  .search-results li,
+  .search-empty {
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+}
+
+@media print {
+  .search-form,
+  .search-breadcrumbs,
+  .search-results select {
+    display: none !important;
+  }
+
+  .search-results ol {
+    display: block;
+  }
+
+  .search-results li {
+    break-inside: avoid;
+    border-bottom: 1px solid #000;
+  }
+}

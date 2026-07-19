@@ -2,6 +2,11 @@ import { memo, useEffect, useMemo, useState, type ComponentType } from "react";
 import type { Locale, Translation } from "../../i18n/translations";
 import { relationshipTypeLabel } from "./labels";
 import type { MatchReason } from "./model";
+import {
+  CONSTELLATION_LIST_PAGE_SIZE,
+  CONSTELLATION_TABLE_PAGE_SIZE,
+  stablePage,
+} from "./scale-strategy";
 import { localize, type ArtistRecord, type ContextRecord, type LayoutNode, type RelationshipRecord } from "./types";
 
 type Copy = Translation["constellation"];
@@ -168,16 +173,18 @@ function ArtistListViewComponent({
   relationshipIndexLoaded,
   onSelectArtist,
 }: SharedViewProps) {
+  const [requestedPage, setRequestedPage] = useState(1);
+  const window = stablePage(artists, requestedPage, CONSTELLATION_LIST_PAGE_SIZE);
   return (
     <section className="artist-list-view" aria-label={copy.listView}>
       <ol>
-        {artists.map((artist, index) => {
+        {window.items.map((artist, index) => {
           const name = localize(artist.labels, locale);
           const reason = matchReasonLabel(matchReasons.get(artist.id), copy);
           const count = relationshipCount(artist, relationships, relationshipIndexLoaded);
           return (
             <li key={artist.id} className={artist.id === focusArtistId ? "is-selected" : undefined}>
-              <span className="artist-list-index">{String(index + 1).padStart(2, "0")}</span>
+              <span className="artist-list-index">{String(window.start + index + 1).padStart(2, "0")}</span>
               <div>
                 <p className="artist-list-kicker">{artist.lifeDisplay ? localize(artist.lifeDisplay, locale) : artist.period}</p>
                 <h2>{name}</h2>
@@ -195,6 +202,17 @@ function ArtistListViewComponent({
           );
         })}
       </ol>
+      {window.pageCount > 1 ? (
+        <nav className="scale-pagination" aria-label={locale === "zh-CN" ? "艺术家列表分页" : "Artist list pagination"}>
+          <button type="button" disabled={window.page === 1} onClick={() => setRequestedPage(window.page - 1)}>
+            {locale === "zh-CN" ? "上一页" : "Previous"}
+          </button>
+          <span>{window.page} / {window.pageCount} · {window.total}</span>
+          <button type="button" disabled={window.page === window.pageCount} onClick={() => setRequestedPage(window.page + 1)}>
+            {locale === "zh-CN" ? "下一页" : "Next"}
+          </button>
+        </nav>
+      ) : null}
     </section>
   );
 }
@@ -214,6 +232,7 @@ function RelationshipTableViewComponent({
 }: SharedViewProps & { contexts: ContextRecord[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("title");
   const [ascending, setAscending] = useState(true);
+  const [requestedPage, setRequestedPage] = useState(1);
   const artistById = useMemo(() => new Map(artists.map((artist) => [artist.id, artist])), [artists]);
   const contextById = useMemo(() => new Map(contexts.map((context) => [context.id, context])), [contexts]);
   const sorted = useMemo(() => {
@@ -226,6 +245,7 @@ function RelationshipTableViewComponent({
       return ascending ? order : -order;
     });
   }, [ascending, locale, relationships, sortKey]);
+  const window = stablePage(sorted, requestedPage, CONSTELLATION_TABLE_PAGE_SIZE);
 
   const changeSort = (nextKey: SortKey) => {
     if (nextKey === sortKey) setAscending((current) => !current);
@@ -253,7 +273,7 @@ function RelationshipTableViewComponent({
             </tr>
           </thead>
           <tbody>
-            {sorted.map((relationship) => {
+            {window.items.map((relationship) => {
               const source = artistById.get(relationship.sourceArtistId);
               const target = artistById.get(relationship.targetArtistId);
               if (!source || !target) return null;
@@ -281,6 +301,17 @@ function RelationshipTableViewComponent({
           </tbody>
         </table>
       </div>
+      {window.pageCount > 1 ? (
+        <nav className="scale-pagination" aria-label={locale === "zh-CN" ? "关系列表分页" : "Relationship table pagination"}>
+          <button type="button" disabled={window.page === 1} onClick={() => setRequestedPage(window.page - 1)}>
+            {locale === "zh-CN" ? "上一页" : "Previous"}
+          </button>
+          <span>{window.page} / {window.pageCount} · {window.total}</span>
+          <button type="button" disabled={window.page === window.pageCount} onClick={() => setRequestedPage(window.page + 1)}>
+            {locale === "zh-CN" ? "下一页" : "Next"}
+          </button>
+        </nav>
+      ) : null}
     </section>
   );
 }

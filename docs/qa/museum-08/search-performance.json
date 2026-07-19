@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-08",
+  "evidence_class": "controlled_node_benchmark",
+  "environment": "win32-x64; Node v24.16.0",
+  "status": "pass",
+  "failures": [],
+  "normalization": "unicode_nfkc_lower_diacritic_fold_whitespace_v1",
+  "current_release": {
+    "record_count": 367,
+    "limit_p95_ms": 80,
+    "runs": 80,
+    "median_ms": 21.194999999999936,
+    "p95_ms": 32.706500000000005,
+    "max_ms": 40.615299999999934,
+    "deterministic_digest": "2bade218e2b38cfd35a48a9f8db56e20c8fce9a677e5d0269bdffdfbf9b56c7c",
+    "first_result_time_ms": 26.174300000000017
+  },
+  "synthetic_1000": {
+    "record_count": 1000,
+    "fixed_input": true,
+    "public_build": false,
+    "limit_p95_ms": 120,
+    "runs": 80,
+    "median_ms": 58.50849999999991,
+    "p95_ms": 66.28549999999996,
+    "max_ms": 78.86409999999978,
+    "deterministic_digest": "ed37a74ab7f58797c0cb731f014c4d3c195a2094fcc31cae3eb718bb45d1ef7f",
+    "first_result_time_ms": 65.029
+  },
+  "deterministic_repeat": true
+}

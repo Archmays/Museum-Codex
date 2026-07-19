@@ -38,11 +38,11 @@ export function ArtFoyerPage() {
           </Link>
           <Link className="constellation-entry" to="/art/artists">
             <span>{gallery.artistIndex}</span>
-            <small>{locale === "zh-CN" ? "进入十二位艺术家的数字展厅、作品详情与双作比较。" : "Enter twelve artist galleries, artwork details, and two-work comparison."}</small>
+            <small>{locale === "zh-CN" ? "进入当前正式艺术家数字展厅、作品详情与双作比较。" : "Enter the current formal artist galleries, artwork details, and two-work comparison."}</small>
           </Link>
           <Link className="constellation-entry" to="/art/tours">
             <span>{locale === "zh-CN" ? "深度观察导览" : "Deep observation tours"}</span>
-            <small>{locale === "zh-CN" ? "进入十二条艺术家导览与六条固定主题导览。" : "Enter twelve artist tours and six fixed thematic tours."}</small>
+            <small>{locale === "zh-CN" ? "进入艺术家导览与固定主题导览。" : "Enter artist tours and fixed thematic tours."}</small>
           </Link>
           <Link className="constellation-entry" to="/art/compare">
             <span>{gallery.openCompare}</span>
@@ -54,7 +54,11 @@ export function ArtFoyerPage() {
           </Link>
           <Link className="constellation-entry" to="/art/map">
             <span>{locale === "zh-CN" ? "艺术时空地图" : "Art Across Time and Place"}</span>
-            <small>{locale === "zh-CN" ? "以地图、时间线与地点表核验十二位艺术家的来源支持地点；不绘制推断旅行路线。" : "Explore source-supported places for twelve artists through an equivalent map, timeline, and place table—without inferred travel routes."}</small>
+            <small>{locale === "zh-CN" ? "以地图、时间线与地点表核验艺术家的来源支持地点；不绘制推断旅行路线。" : "Explore source-supported artist places through an equivalent map, timeline, and place table—without inferred travel routes."}</small>
+          </Link>
+          <Link className="constellation-entry" to="/art/search">
+            <span>{locale === "zh-CN" ? "搜索美术馆" : "Search the art museum"}</span>
+            <small>{locale === "zh-CN" ? "按名称、别名、转写与原语言标签查找公开艺术家、作品、导览、地点、关系和路径。" : "Find public artists, artworks, tours, places, relationships, and paths by label, alias, transliteration, or source language."}</small>
           </Link>
         </div>
       </aside>

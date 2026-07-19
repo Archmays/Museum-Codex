@@ -180,15 +180,15 @@ export type ThirdPartyNotice = {
 export type GraphSummary = {
   releaseId: string;
   title: LocalizedText;
-  artistCount: 12;
-  contextCount: 31;
-  relationshipCount: 36;
+  artistCount: number;
+  contextCount: number;
+  relationshipCount: number;
   artworkCount: number;
   mediaCount: number;
   mediaBytes: number;
   approvedMediaArtworkCount: number;
   noImageArtworkCount: number;
-  levelCounts: { A: 0; B: 0; C: 36 };
+  levelCounts: Record<"A" | "B" | "C", number>;
   relationshipTypeCounts: Record<RelationshipType, number>;
   semantics: LocalizedText;
   initialState: "artists_only";

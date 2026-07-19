@@ -157,7 +157,7 @@ export type PathIndex = {
   release_id: "release:art-pathways-1.2.0";
   algorithm_version: "museum-paths-bibfs-yen-1.0.0";
   input_graph_hash: string;
-  default_pair_count: 66;
+  default_pair_count: number;
   precomputed_path_count: number;
   pairs: PathPair[];
 };

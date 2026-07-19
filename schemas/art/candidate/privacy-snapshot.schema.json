@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/candidate/privacy-snapshot.schema.json",
+  "title": "MUSEUM-08 privacy decision snapshot",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "entity_type",
+    "phase_id",
+    "release_id",
+    "decision_id",
+    "status",
+    "analytics",
+    "account",
+    "server_side_profile",
+    "query_history",
+    "visit_history",
+    "path_history",
+    "map_history",
+    "tour_history",
+    "telemetry_sdk",
+    "cookies",
+    "fingerprinting",
+    "user_geolocation",
+    "remote_logging",
+    "allowed_local_preferences",
+    "forbidden_local_state",
+    "external_runtime_requests"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "const": "privacy-snapshot:od-009-museum-08" },
+    "entity_type": { "const": "privacy_snapshot" },
+    "phase_id": { "const": "MUSEUM-08" },
+    "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+    "decision_id": { "const": "OD-009" },
+    "status": { "const": "closed" },
+    "analytics": { "const": false },
+    "account": { "const": false },
+    "server_side_profile": { "const": false },
+    "query_history": { "const": false },
+    "visit_history": { "const": false },
+    "path_history": { "const": false },
+    "map_history": { "const": false },
+    "tour_history": { "const": false },
+    "telemetry_sdk": { "const": false },
+    "cookies": { "const": false },
+    "fingerprinting": { "const": false },
+    "user_geolocation": { "const": false },
+    "remote_logging": { "const": false },
+    "allowed_local_preferences": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "museum-locale" },
+        { "const": "museum-low-bandwidth" }
+      ],
+      "minItems": 2,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "forbidden_local_state": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "search_queries",
+          "selected_artists",
+          "compared_works",
+          "paths",
+          "map_filters",
+          "tours_visited",
+          "print_history",
+          "share_history"
+        ]
+      }
+    },
+    "external_runtime_requests": { "const": 0 }
+  },
+  "additionalProperties": false
+}

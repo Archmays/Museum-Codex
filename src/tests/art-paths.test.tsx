@@ -101,7 +101,7 @@ describe("MUSEUM-06 explainable artist pathways UI", () => {
 
   it("fails accurately for an invalid URL endpoint and stores no path history", async () => {
     renderPage("/art/paths?from=artist%3Aunreviewed&to=artist%3Afrancisco-de-goya&mode=comparison&maxHops=6&path=1&view=text");
-    expect(await screen.findByRole("status", { name: "" })).toHaveTextContent("The start ID is not one of the 12 formal artists.");
+    expect(await screen.findByRole("status", { name: "" })).toHaveTextContent("The start ID is not in the current formal artist set.");
     expect(Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index))).not.toContain("museum-path-history");
   });
 });

@@ -63,7 +63,7 @@ describe("MUSEUM-05A artist galleries", () => {
     const user = userEvent.setup();
     const { container } = renderEnglish(<ArtistIndexPage {...galleryData} />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Twelve artists, twelve ways to begin looking" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Each artist offers a way to begin looking" })).toBeInTheDocument();
     const index = screen.getByRole("list", { name: "Artist index" });
     expect(within(index).getAllByRole("listitem")).toHaveLength(12);
     expect(within(index).getAllByRole("heading", { level: 2 })[0]).toHaveTextContent("Albrecht Dürer");

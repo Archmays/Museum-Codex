@@ -13,9 +13,9 @@ export function loadArtGalleryData(): Promise<ArtGalleryData> {
       const catalogResult = await result.dataSource.loadArtworkCatalog();
       if (catalogResult.status !== "loaded") throw new Error(catalogResult.reason);
       if (
-        result.release.artists.length !== 12 ||
-        catalogResult.data.artworks.length !== 44 ||
-        catalogResult.data.media.length !== 242
+        result.release.artists.length !== result.release.summary.artistCount ||
+        catalogResult.data.artworks.length !== result.release.summary.artworkCount ||
+        catalogResult.data.media.length !== result.release.summary.mediaCount
       ) throw new Error("gallery_release_counts_invalid");
       if (
         interactions.observation_cards.some((card) => !catalogResult.data.artworks.some((artwork) => artwork.id === card.artwork_id)) ||

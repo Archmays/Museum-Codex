@@ -65,6 +65,11 @@ class GovernanceFoundationTests(unittest.TestCase):
             "schemas/art/release/path-query.schema.json",
             "schemas/art/release/path-result.schema.json",
             "schemas/art/release/art-pathways-artifact.schema.json",
+            "schemas/art/candidate/search-index.schema.json",
+            "schemas/art/candidate/route-inventory.schema.json",
+            "schemas/art/candidate/privacy-snapshot.schema.json",
+            "schemas/art/candidate/rehearsal-record.schema.json",
+            "schemas/art/candidate/candidate-evidence.schema.json",
             "schemas/art/map/place-identity.schema.json",
             "schemas/art/map/place-name.schema.json",
             "schemas/art/map/geospatial-claim.schema.json",
@@ -140,11 +145,11 @@ class GovernanceFoundationTests(unittest.TestCase):
         self.assertEqual("1.1.0", entries["schemas/art/artwork.schema.json"]["version"])
         self.assertEqual("1.1.0", entries["schemas/art/artist-relationship.schema.json"]["version"])
 
-    def test_open_decisions_register_exactly_three_unresolved_items(self) -> None:
+    def test_open_decisions_register_only_arms_scope_as_unresolved(self) -> None:
         text = (ROOT / "docs" / "05_roadmap" / "open-decisions.md").read_text(encoding="utf-8")
         unresolved = text.split("## 已关闭事项", 1)[0]
         ids = re.findall(r"^\| (OD-\d{3}) \|", unresolved, flags=re.MULTILINE)
-        self.assertEqual(["OD-008", "OD-009", "OD-011"], ids)
+        self.assertEqual(["OD-011"], ids)
 
     def test_museum_04_rights_decisions_are_closed_without_open_license(self) -> None:
         registry = json.loads((ROOT / "governance" / "license-decisions.json").read_text(encoding="utf-8"))

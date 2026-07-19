@@ -1,0 +1,74 @@
+{
+  "asset_reuse": {
+    "historical_urls_preserved": true,
+    "identity": "sha256",
+    "synthetic_prototype": true,
+    "two_release_references_one_stored_copy": true
+  },
+  "build_ms": 11924.667399995087,
+  "byte_identical_repeat": true,
+  "fixture_id": "synthetic-scale:museum-08-v1",
+  "fixture_tree_hash": "f1b5021c4a9c7514ad62bd8c2715e014d6c28edd949cc355fefceab1ce01a220",
+  "graph": {
+    "complete_text_task": true,
+    "edge_input_count": 10000,
+    "graph_edge_limit": 1000,
+    "graph_node_limit": 120,
+    "keyboard_page_navigation": true,
+    "node_input_count": 500,
+    "reflow_200_percent_contract": true,
+    "relationship_table_page_size": 100,
+    "text_list_page_size": 50
+  },
+  "media_file_count": 0,
+  "museum_09_entered": false,
+  "partial_rebuild": {
+    "rebuilt_shard_count": 1,
+    "rebuilt_shards": [
+      "shards/search-artist-2.jsonl"
+    ],
+    "requested_stable_ids": [
+      "synthetic-scale:artist:0000120"
+    ],
+    "unchanged_shard_hash_only_count": 193,
+    "unrelated_bytes_unchanged": true
+  },
+  "peak_memory_bytes": 46736112,
+  "phase_id": "MUSEUM-08",
+  "public_build": false,
+  "public_synthetic_leakage_count": 0,
+  "real_content_expansion_started": false,
+  "real_person_or_artwork_count": 0,
+  "repeat_tree_hash": "f1b5021c4a9c7514ad62bd8c2715e014d6c28edd949cc355fefceab1ce01a220",
+  "scale_architecture_ready": true,
+  "schema_version": "1.0.0",
+  "search": {
+    "all_search_record_count": 20000,
+    "first_result_found": true,
+    "first_result_ms": 2.0517999946605414,
+    "lazy_loaded_shard_count": 1,
+    "query_median_ms": 29.77765000105137,
+    "query_p95_ms": 38.23459999694023,
+    "query_runs": 40,
+    "total_search_shard_count": 128
+  },
+  "seed": 20260719,
+  "shard_count": 192,
+  "stable_id_lazy_load": {
+    "missing_or_withdrawn_state_isolated": true,
+    "selector_dimensions": [
+      "entity_type",
+      "language",
+      "stable_hash_prefix"
+    ],
+    "single_record_failure_isolated": true
+  },
+  "status": "pass",
+  "synthetic_artist_count": 500,
+  "synthetic_artwork_count": 5000,
+  "synthetic_only": true,
+  "synthetic_path_index_record_count": 50000,
+  "synthetic_relationship_count": 10000,
+  "synthetic_scale_validated": true,
+  "synthetic_search_record_count": 20000
+}

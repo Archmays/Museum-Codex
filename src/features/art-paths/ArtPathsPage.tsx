@@ -18,7 +18,7 @@ const URL_KEYS = ["from", "to", "mode", "types", "period", "region", "maxHops", 
 
 const COPY = {
   "zh-CN": {
-    eyebrow: "MUSEUM-06 · 可解释关系导航",
+    eyebrow: "可解释关系导航",
     title: "从 A 到 B，经过哪些可解释关系？",
     intro: "选择两位正式艺术家，在当前审核 release 中查找最短 hop 与最多两条替代路径。每一步都可回到 Claim、Evidence 与 Source。",
     from: "起点艺术家", to: "终点艺术家", search: "按中文、英文或别名筛选", swap: "交换端点", mode: "路径模式",
@@ -35,7 +35,7 @@ const COPY = {
     rankNotice: "排序使用确定性 tuple，不合成影响力分数。",
   },
   en: {
-    eyebrow: "MUSEUM-06 · Explainable relationship navigation",
+    eyebrow: "Explainable relationship navigation",
     title: "What explainable relations connect A to B?",
     intro: "Choose two formal artists and find the shortest hops plus up to two alternatives in the current reviewed release. Every step resolves to Claim, Evidence, and Source.",
     from: "Start artist", to: "End artist", search: "Filter by Chinese, English, or alias", swap: "Swap endpoints", mode: "Path mode",
@@ -134,8 +134,8 @@ function statusText(status: PathStatus, locale: "zh-CN" | "en") {
     ready: ["路径已就绪。", "Paths are ready."],
     no_path_for_current_release_and_filters: ["当前 release 和筛选条件下没有可展示路径，不代表现实中不存在关系。", "No displayable path exists in the current release under these filters; this does not mean no relationship exists in reality."],
     search_budget_reached: ["搜索已达到 10,000 次候选扩展预算；这不是“无路径”结论。", "The search reached its 10,000-candidate expansion budget; this is not a no-path conclusion."],
-    invalid_start: ["起点 ID 不属于当前正式 12 位艺术家。", "The start ID is not one of the 12 formal artists."],
-    invalid_end: ["终点 ID 不属于当前正式 12 位艺术家。", "The end ID is not one of the 12 formal artists."],
+    invalid_start: ["起点 ID 不属于当前正式艺术家集合。", "The start ID is not in the current formal artist set."],
+    invalid_end: ["终点 ID 不属于当前正式艺术家集合。", "The end ID is not in the current formal artist set."],
     same_endpoint: ["起点与终点必须不同。", "Start and end must differ."],
     withdrawn_endpoint: ["所选端点已撤回，不能参与路径。", "A selected endpoint is withdrawn and cannot be used."],
     withdrawn_relation: ["路径包含已撤回关系，结果已阻断。", "The path contains a withdrawn relation and is blocked."],
@@ -266,7 +266,7 @@ function LoadedPathPage({ bundle, params, setParams }: {
         <dl className="path-release-stamp">
           <div><dt>{copy.release}</dt><dd>{bundle.release.version}</dd></div>
           <div><dt>{copy.algorithm}</dt><dd>{PATH_ALGORITHM_VERSION}</dd></div>
-          <div><dt>Graph</dt><dd>12 artists · 36 C</dd></div>
+          <div><dt>Graph</dt><dd>{bundle.graph.artists.length} artists · {bundle.graph.relationships.length} edges</dd></div>
         </dl>
       </header>
 

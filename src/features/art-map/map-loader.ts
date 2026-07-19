@@ -1,8 +1,6 @@
 import { loadStaticRelease } from "../../data/release-loader";
 import {
-  TIME_PLACE_ART_RELEASE_ID,
-  TIME_PLACE_ART_RELEASE_VERSION,
-  timePlaceArtReleaseBaseUrl,
+  currentArtReleaseBaseUrl,
 } from "../../data/art-release-profile";
 import type {
   ArtistEpisode,
@@ -67,27 +65,37 @@ function list(root: unknown, key: string): unknown[] {
 
 function assertBundle(bundle: Omit<MapBundle, "manifest" | "fileByPath">) {
   const guards = bundle.style.runtime_guards;
+  const counts = bundle.mapIndex.counts;
+  const listOnlyCount = bundle.episodes.filter((episode) => episode.release_status === "verified_list_only").length;
+  const mappedCount = bundle.episodes.filter((episode) => episode.release_status === "verified_public").length;
   if (
-    bundle.places.length !== 23 || bundle.episodes.length !== 36 || bundle.holdings.length !== 2 ||
-    bundle.artists.length !== 12 || bundle.artworks.length !== 44 || bundle.style.renderer_version !== "5.24.0" ||
+    counts.places !== bundle.places.length || counts.episodes !== bundle.episodes.length ||
+    counts.holding_institutions !== bundle.holdings.length || counts.artists !== bundle.artists.length ||
+    counts.artworks !== bundle.artworks.length || counts.list_only_episodes !== listOnlyCount ||
+    counts.verified_public_episodes !== mappedCount || bundle.style.renderer_version !== "5.24.0" ||
     guards.remote_style !== false || guards.tile_urls !== false || guards.glyphs !== false || guards.sprite !== false ||
-    guards.geolocation !== false || guards.route_lines !== false || bundle.mapIndex.counts.list_only_episodes !== 12
+    guards.geolocation !== false || guards.route_lines !== false
   ) throw new MapLoadError("tampered_map_data");
   const placeIds = new Set(bundle.places.map((place) => place.id));
   const artistIds = new Set(bundle.artists.map((artist) => artist.id));
-  if (bundle.episodes.some((episode) => !placeIds.has(episode.place_id) || !artistIds.has(episode.artist_id))) {
+  const artworkIds = new Set(bundle.artworks.map((artwork) => artwork.id));
+  if (
+    placeIds.size !== bundle.places.length || artistIds.size !== bundle.artists.length ||
+    artworkIds.size !== bundle.artworks.length ||
+    bundle.episodes.some((episode) => !placeIds.has(episode.place_id) || !artistIds.has(episode.artist_id)) ||
+    bundle.holdings.some((holding) =>
+      !placeIds.has(holding.place_id) || holding.artwork_ids.some((artworkId) => !artworkIds.has(artworkId))
+    )
+  ) {
     throw new MapLoadError("tampered_map_data");
   }
 }
 
 export async function loadMapBundle(fetcher: typeof fetch = fetch): Promise<MapBundle> {
-  const base = new URL(timePlaceArtReleaseBaseUrl(), typeof window === "undefined" ? "https://museum-codex.invalid/" : window.location.href);
+  const base = new URL(currentArtReleaseBaseUrl(), typeof window === "undefined" ? "https://museum-codex.invalid/" : window.location.href);
   if (typeof window !== "undefined" && base.origin !== window.location.origin) throw new MapLoadError("request_failed");
   const manifestResult = await loadStaticRelease(new URL("manifest.json", base).href, fetcher);
-  if (
-    manifestResult.status !== "loaded" || manifestResult.manifest.id !== TIME_PLACE_ART_RELEASE_ID ||
-    manifestResult.manifest.version !== TIME_PLACE_ART_RELEASE_VERSION
-  ) throw new MapLoadError("incompatible_release");
+  if (manifestResult.status !== "loaded") throw new MapLoadError("incompatible_release");
   const fileByPath = new Map(manifestResult.manifest.manifest_files.map((file) => [file.path, file]));
   const references = DATA_FILES.map((path) => {
     const file = fileByPath.get(path);
@@ -116,7 +124,7 @@ export async function loadMapBundle(fetcher: typeof fetch = fetch): Promise<MapB
 }
 
 export async function loadMapGeometry(bundle: MapBundle, fetcher: typeof fetch = fetch): Promise<MapGeometry> {
-  const base = new URL(timePlaceArtReleaseBaseUrl(), window.location.href);
+  const base = new URL(currentArtReleaseBaseUrl(), window.location.href);
   const documents = await Promise.all(GEOMETRY_FILES.map((path) => {
     const file = bundle.fileByPath.get(path);
     if (!file) throw new MapLoadError("tampered_map_data");

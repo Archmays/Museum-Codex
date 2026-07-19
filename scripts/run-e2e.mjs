@@ -3,6 +3,7 @@ import { extname } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const ISOLATED_RUNS = [
+  ["@museum-08-isolated-performance", "museum-08-performance"],
   ["@museum-07-isolated-performance", "museum-07-performance"],
   ["@museum-05b-isolated-performance", "museum-05b-performance"],
   ["@museum-06-isolated-performance", "museum-06-performance"],

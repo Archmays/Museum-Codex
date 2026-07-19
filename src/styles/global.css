@@ -277,6 +277,7 @@ svg {
 .primary-nav a {
   position: relative;
   display: grid;
+  min-width: 44px;
   min-height: 44px;
   padding: 0 0.9rem;
   place-items: center;
@@ -311,6 +312,38 @@ svg {
   transform: scaleX(1);
 }
 
+.art-nav-menu {
+  position: relative;
+}
+
+.art-nav-menu summary {
+  display: grid;
+  min-height: 44px;
+  padding: 0 .9rem;
+  place-items: center;
+  color: var(--ink-muted);
+  font-size: .88rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.art-nav-menu nav {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + .5rem);
+  right: 0;
+  display: grid;
+  width: min(21rem, 86vw);
+  padding: .5rem;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--night) 96%, transparent);
+  box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, .35);
+}
+
+.art-nav-menu nav a {
+  justify-items: start;
+}
+
 .header-tools {
   display: flex;
   align-items: center;
@@ -327,8 +360,8 @@ svg {
 }
 
 .language-switch button {
-  min-width: 40px;
-  min-height: 40px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
   border: 0;
   border-radius: 0.45rem;
@@ -827,7 +860,11 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
 .site-footer strong { color: var(--ink-muted); font-family: var(--display); font-size: 1rem; font-weight: 400; }
 .site-footer p { max-width: 42rem; margin-top: 0.6rem; line-height: 1.7; }
 .site-footer nav { display: flex; gap: 1.2rem; flex: none; }
-.site-footer a { min-height: 44px; display: inline-flex; align-items: center; }
+.site-footer a { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+.print-masthead {
+  display: none;
+}
 
 /* Inner pages */
 .inner-page {
@@ -841,6 +878,13 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
 .route-loading {
   min-height: calc(100vh - 6.5rem);
   min-height: calc(100svh - 6.5rem);
+}
+
+.route-error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
 }
 
 .page-intro {
@@ -1075,7 +1119,7 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
 
 @media (max-width: 1080px) {
   .site-header { grid-template-columns: 1fr auto; padding: 1.25rem 0; }
-  .primary-nav { grid-row: 2; grid-column: 1 / -1; justify-content: flex-start; overflow-x: auto; }
+  .primary-nav { grid-row: 2; grid-column: 1 / -1; justify-content: flex-start; flex-wrap: wrap; overflow: visible; }
   .header-tools { grid-column: 2; }
   .hero { grid-template-columns: 3rem 1fr minmax(16rem, 0.6fr); min-height: 42rem; }
   .hero-orbit { width: 18rem; }
@@ -1092,6 +1136,8 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   .bandwidth-button { padding: 0; width: 44px; justify-content: center; }
   .primary-nav { gap: 0; }
   .primary-nav a { padding: 0 0.7rem; font-size: 0.8rem; }
+  .art-nav-menu summary { padding: 0 .7rem; font-size: .8rem; }
+  .art-nav-menu nav { right: auto; left: 0; }
   .hero { display: block; width: min(90vw, 42rem); min-height: auto; padding: 5rem 0; }
   .hero-index { display: none; }
   .hero h1 { font-size: clamp(3.15rem, 15vw, 5rem); }
@@ -1108,7 +1154,7 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   .coda-line { display: block; width: 5rem; margin-bottom: 2rem; }
   .coda > p { margin-top: 1.5rem; }
   .site-footer { display: block; width: min(90vw, 42rem); }
-  .site-footer nav { margin-top: 1.2rem; }
+  .site-footer nav { flex-wrap: wrap; margin-top: 1.2rem; }
   .inner-page { width: min(90vw, 42rem); padding: 5rem 0 6rem; }
   .page-intro h1 { font-size: clamp(3rem, 14vw, 4.8rem); }
   .foyer-composition { top: 9rem; right: 0; width: 90vw; opacity: 0.22; }
@@ -1131,8 +1177,9 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   .site-header { width: 92vw; }
   .brand-mark { width: 1.7rem; height: 1.7rem; }
   .brand strong { font-size: 1.05rem; }
-  .language-switch button { min-width: 38px; }
+  .language-switch button { min-width: 44px; }
   .primary-nav a { padding: 0 0.55rem; font-size: 0.75rem; }
+  .art-nav-menu summary { padding: 0 .55rem; font-size: .75rem; }
   .hero, .halls-section, .coda, .site-footer, .inner-page { width: 88vw; }
   .hero { padding-top: 4rem; }
   .hero h1 { font-size: 3.35rem; }
@@ -1166,4 +1213,28 @@ html[data-motion="reduced"] * {
   .hall-portal, .empty-notice, .rights-panel, .bandwidth-panel, .constellation-entry { border: 1px solid CanvasText; box-shadow: none; }
   .primary-nav a.active { text-decoration: underline; }
   :focus-visible { outline: 3px solid Highlight; }
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .ambient-field,
+  .skip-link {
+    display: none !important;
+  }
+
+  .print-masthead {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #000;
+    color: #000;
+    font-size: 9pt;
+  }
+
 }

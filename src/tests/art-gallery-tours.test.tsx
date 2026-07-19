@@ -58,7 +58,7 @@ describe("MUSEUM-05B curated tours", () => {
 
   it("renders all 12 artist tours and six thematic tours without loading an index image", () => {
     const { container } = renderEnglish(null);
-    expect(screen.getByRole("heading", { level: 1, name: /Eighteen fixed routes/ })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /18 fixed routes/ })).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Enter tour" })).toHaveLength(12);
     expect(screen.getAllByRole("link", { name: "Enter fixed tour" })).toHaveLength(6);
     expect(container.querySelector("img")).toBeNull();

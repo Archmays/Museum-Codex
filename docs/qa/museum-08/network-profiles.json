@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-08",
+  "evidence_class": "controlled_chromium_network_emulation",
+  "real_user_metric": false,
+  "profiles": [
+    {
+      "profile": "fast_4g",
+      "latency_ms": 20,
+      "download_bytes_per_second": 524288,
+      "first_interactive_ms": 699.8489000000045,
+      "request_count": 7,
+      "transferred_bytes": 122289,
+      "external_request_count": 0,
+      "media_request_count": 0,
+      "renderer_request_count": 0
+    },
+    {
+      "profile": "slow_4g",
+      "latency_ms": 150,
+      "download_bytes_per_second": 209715.2,
+      "first_interactive_ms": 1236.9916999999987,
+      "request_count": 7,
+      "transferred_bytes": 122289,
+      "external_request_count": 0,
+      "media_request_count": 0,
+      "renderer_request_count": 0
+    }
+  ],
+  "status": "pass"
+}

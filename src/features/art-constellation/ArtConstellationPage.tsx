@@ -38,6 +38,7 @@ import type {
 } from "./types";
 import { localize } from "./types";
 import { ArtistListView, EmptyView, GraphView, RelationshipTableView } from "./Views";
+import { planConstellationGraph } from "./scale-strategy";
 import "./art-constellation.css";
 import { currentArtReleaseBaseUrl } from "../../data/art-release-profile";
 
@@ -475,6 +476,16 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     onSelectArtist: selectArtist,
     onSelectRelationship: selectRelationship,
   };
+  const graphScalePlan = planConstellationGraph(
+    viewModel.artists,
+    viewModel.graphRelationships,
+    state.focusArtistId,
+  );
+  const graphSharedProps = {
+    ...sharedProps,
+    artists: graphScalePlan.artists,
+    relationships: graphScalePlan.relationships,
+  };
 
   return (
     <main
@@ -495,9 +506,9 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
             <dt>{t.constellation.releaseLabel}</dt>
             <dd>{release.version}</dd>
           </div>
-          <div><dt>{t.constellation.level}</dt><dd>0 / 0 / 36 · A / B / C</dd></div>
-          <div><dt>{t.constellation.type}</dt><dd>12 / 31 / 36</dd></div>
-          <div><dt>{t.constellation.mediaRights}</dt><dd>31 / 44 · 242</dd></div>
+          <div><dt>{t.constellation.level}</dt><dd>{release.summary.levelCounts.A} / {release.summary.levelCounts.B} / {release.summary.levelCounts.C} · A / B / C</dd></div>
+          <div><dt>{t.constellation.type}</dt><dd>{release.summary.artistCount} / {release.summary.contextCount} / {release.summary.relationshipCount}</dd></div>
+          <div><dt>{t.constellation.mediaRights}</dt><dd>{release.summary.approvedMediaArtworkCount} / {release.summary.artworkCount} · {release.summary.mediaCount}</dd></div>
         </dl>
       </header>
 
@@ -628,9 +639,15 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
           {viewModel.artists.length === 0 ? <EmptyView copy={t.constellation} /> : null}
           {viewModel.artists.length > 0 && (graphRetained || effectiveView === "graph") ? (
             <div className="constellation-retained-graph" hidden={effectiveView !== "graph"}>
+              {graphScalePlan.limited ? (
+                <p className="constellation-scale-note" role="status">
+                  {locale === "zh-CN"
+                    ? `图形视图显示聚焦邻域与稳定 ID 有界子图（${graphScalePlan.artists.length}/${graphScalePlan.totalArtists} 节点）；完整任务请使用分页文字列表与关系表。`
+                    : `The graph shows a bounded focus-neighborhood and stable-ID subgraph (${graphScalePlan.artists.length}/${graphScalePlan.totalArtists} nodes). Use the paginated text list and relationship table for the complete task.`}
+                </p>
+              ) : null}
               <GraphView
-                {...sharedProps}
-                relationships={viewModel.graphRelationships}
+                {...graphSharedProps}
                 layout={release.layout}
                 relatedArtistIds={viewModel.relatedArtistIds}
                 onRendererReady={rendererReady}

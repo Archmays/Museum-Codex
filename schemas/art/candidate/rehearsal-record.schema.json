@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/candidate/rehearsal-record.schema.json",
+  "title": "MUSEUM-08 synthetic withdrawal and rollback rehearsal records",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "entity_type",
+        "phase_id",
+        "release_id",
+        "synthetic_only",
+        "real_records_modified",
+        "scenarios",
+        "old_release_immutable",
+        "reference_closure",
+        "url_fallback",
+        "notices_updated",
+        "status"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "id": { "const": "withdrawal-rehearsal:museum-08-v1" },
+        "entity_type": { "const": "withdrawal_rehearsal" },
+        "phase_id": { "const": "MUSEUM-08" },
+        "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+        "synthetic_only": { "const": true },
+        "real_records_modified": { "const": false },
+        "scenarios": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["kind", "synthetic_id", "removed_from_new_release", "reference_closure", "route_fallback", "notice_updated"],
+            "properties": {
+              "kind": { "enum": ["media_asset", "relationship", "place_episode", "artwork_metadata"] },
+              "synthetic_id": { "type": "string", "pattern": "^synthetic:" },
+              "removed_from_new_release": { "const": true },
+              "reference_closure": { "const": true },
+              "route_fallback": { "type": "string", "minLength": 1 },
+              "notice_updated": { "const": true }
+            },
+            "additionalProperties": false
+          }
+        },
+        "old_release_immutable": { "const": true },
+        "reference_closure": { "const": true },
+        "url_fallback": { "const": "natural_language_withdrawn_or_unavailable" },
+        "notices_updated": { "const": true },
+        "status": { "const": "pass" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "entity_type",
+        "phase_id",
+        "release_id",
+        "synthetic_only",
+        "from_release_id",
+        "to_release_id",
+        "loader",
+        "routes",
+        "media",
+        "paths",
+        "map",
+        "hash_closure",
+        "private_data",
+        "rto_minutes",
+        "rpo",
+        "pages_procedure",
+        "recovery_checklist",
+        "status"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "id": { "const": "rollback-rehearsal:museum-08-v1" },
+        "entity_type": { "const": "rollback_rehearsal" },
+        "phase_id": { "const": "MUSEUM-08" },
+        "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+        "synthetic_only": { "const": true },
+        "from_release_id": { "const": "release:art-v1-candidate-1.4.0" },
+        "to_release_id": { "const": "release:art-time-place-1.3.0" },
+        "loader": { "const": "pass" },
+        "routes": { "const": "pass" },
+        "media": { "const": "pass" },
+        "paths": { "const": "pass" },
+        "map": { "const": "pass" },
+        "hash_closure": { "const": "pass" },
+        "private_data": { "const": false },
+        "rto_minutes": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "rpo": { "const": "zero_published_release_mutation" },
+        "pages_procedure": { "type": "array", "minItems": 5, "items": { "type": "string", "minLength": 1 } },
+        "recovery_checklist": { "type": "array", "minItems": 8, "items": { "type": "string", "minLength": 1 } },
+        "status": { "const": "pass" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

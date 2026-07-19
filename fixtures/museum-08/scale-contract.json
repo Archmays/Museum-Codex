@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-08",
+  "fixture_id": "synthetic-scale:museum-08-v1",
+  "seed": 20260719,
+  "public_build": false,
+  "synthetic_only": true,
+  "counts": {
+    "artists": 500,
+    "artworks": 5000,
+    "search_records": 20000,
+    "typed_relationships": 10000,
+    "path_index_records": 50000
+  },
+  "required_variants": [
+    "zh-Hans",
+    "en",
+    "approved_alias",
+    "transliteration",
+    "source_language_label",
+    "long_title",
+    "same_name",
+    "withdrawn"
+  ],
+  "media_files": 0,
+  "real_people_or_artworks": 0
+}

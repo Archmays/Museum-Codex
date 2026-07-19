@@ -1,0 +1,62 @@
+name: Reusable docs-only checks
+
+on:
+  workflow_call:
+    inputs:
+      before:
+        required: true
+        type: string
+      after:
+        required: true
+        type: string
+      mode:
+        required: false
+        type: string
+        default: auto
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out exact commit
+        # actions/checkout v7.0.0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+
+      - name: Reclassify and assert docs-only
+        run: |
+          python scripts/classify_ci_impact.py \
+            --before '${{ inputs.before }}' \
+            --after '${{ inputs.after }}' \
+            --mode '${{ inputs.mode }}' \
+            --output tmp/docs-impact.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("tmp/docs-impact.json").read_text(encoding="utf-8"))
+          assert result["docs_only"] is True, result
+          assert result["deploy_required"] is False, result
+          assert result["full_required"] is False, result
+          assert result["releases_to_rebuild"] == [], result
+          Path("tmp/docs-changed-paths.txt").write_text(
+              "\n".join(result["changed_paths"]) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Parse docs, metadata and evidence references
+        run: python scripts/validate_docs_only.py --paths-file tmp/docs-changed-paths.txt
+
+      - name: Record zero-heavy boundary
+        run: |
+          {
+            echo "### Docs-only execution"
+            echo "- Python full suite: 0"
+            echo "- Frontend install/build: 0"
+            echo "- Release rebuild: 0"
+            echo "- Browser suites: 0"
+            echo "- Pages artifacts/deployments: 0"
+          } >> "$GITHUB_STEP_SUMMARY"

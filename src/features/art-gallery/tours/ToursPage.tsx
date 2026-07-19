@@ -40,13 +40,13 @@ function TourIndex({ release, interactions }: GallerySharedProps) {
       </nav>
       <header className="tours-hero">
         <p className="eyebrow">{zh ? "深度观察导览" : "Deep observation tours"}</p>
-        <h1>{zh ? "十八条固定路线，慢下来观看" : "Eighteen fixed routes for slower looking"}</h1>
-        <p>{zh ? "十二条艺术家导览与六条主题导览都由正式作品、经审核语境与来源组成。它们不是自动推荐，也不搜索任意关系路径。" : "Twelve artist tours and six thematic tours use formal works, reviewed contexts, and sources. They are not automatic recommendations and do not search arbitrary relationship paths."}</p>
-        <dl><div><dt>{zh ? "艺术家导览" : "Artist tours"}</dt><dd>12</dd></div><div><dt>{zh ? "主题导览" : "Thematic tours"}</dt><dd>6</dd></div><div><dt>{zh ? "发布" : "Release"}</dt><dd>{release.version}</dd></div></dl>
+        <h1>{zh ? `${interactions.artist_tours.length + interactions.thematic_tours.length} 条固定路线，慢下来观看` : `${interactions.artist_tours.length + interactions.thematic_tours.length} fixed routes for slower looking`}</h1>
+        <p>{zh ? `${interactions.artist_tours.length} 条艺术家导览与 ${interactions.thematic_tours.length} 条主题导览都由正式作品、经审核语境与来源组成。它们不是自动推荐，也不搜索任意关系路径。` : `${interactions.artist_tours.length} artist tours and ${interactions.thematic_tours.length} thematic tours use formal works, reviewed contexts, and sources. They are not automatic recommendations and do not search arbitrary relationship paths.`}</p>
+        <dl><div><dt>{zh ? "艺术家导览" : "Artist tours"}</dt><dd>{interactions.artist_tours.length}</dd></div><div><dt>{zh ? "主题导览" : "Thematic tours"}</dt><dd>{interactions.thematic_tours.length}</dd></div><div><dt>{zh ? "发布" : "Release"}</dt><dd>{release.version}</dd></div></dl>
       </header>
 
       <section className="tour-index-section" aria-labelledby="artist-tour-index-title">
-        <p className="eyebrow">01</p><h2 id="artist-tour-index-title">{zh ? "十二位艺术家的观察入口" : "Observation entries for twelve artists"}</h2>
+        <p className="eyebrow">01</p><h2 id="artist-tour-index-title">{zh ? `${interactions.artist_tours.length} 位艺术家的观察入口` : `Observation entries for ${interactions.artist_tours.length} artists`}</h2>
         <ol className="tour-index-grid">
           {interactions.artist_tours.map((tour) => (
             <li key={tour.id}><article><p>{localize(tour.focus.label, locale)}</p><h3>{localize(tour.title, locale)}</h3><p>{localize(tour.entry_question, locale)}</p><Link to={`/art/tours/${encodeURIComponent(tour.id)}`}>{zh ? "进入导览" : "Enter tour"}</Link></article></li>
@@ -55,7 +55,7 @@ function TourIndex({ release, interactions }: GallerySharedProps) {
       </section>
 
       <section className="tour-index-section" aria-labelledby="theme-tour-index-title">
-        <p className="eyebrow">02</p><h2 id="theme-tour-index-title">{zh ? "六条主题策展导览" : "Six thematic curatorial tours"}</h2>
+        <p className="eyebrow">02</p><h2 id="theme-tour-index-title">{zh ? `${interactions.thematic_tours.length} 条主题策展导览` : `${interactions.thematic_tours.length} thematic curatorial tours`}</h2>
         <ol className="tour-index-grid tour-theme-grid">
           {interactions.thematic_tours.map((tour) => (
             <li key={tour.id}><article><p>{tour.artist_ids.length} {zh ? "位艺术家" : "artists"} · {tour.artwork_ids.length} {zh ? "件作品" : "works"}</p><h3>{localize(tour.title, locale)}</h3><p>{localize(tour.summary, locale)}</p><Link to={`/art/tours/${encodeURIComponent(tour.id)}`}>{zh ? "进入固定导览" : "Enter fixed tour"}</Link></article></li>

@@ -1,16 +1,14 @@
 # 未决事项
 
-这些事项没有被静默决定。当前共 **3** 项未决。
+这些事项没有被静默决定。当前共 **1** 项未决。
 
 | ID | 决定 | 最晚时间 | 默认安全状态 | 决策者 |
 |---|---|---|---|---|
-| OD-008 | 中文搜索分词、索引库与可接受包体 | MUSEUM-01/08 | aliases 精确搜索；不加依赖 | product + engineering |
-| OD-009 | 分析/收藏历史是否收集及隐私模式 | 对应功能设计前 | 不收集、不建账户 | 用户 |
 | OD-011 | 武器博物馆正式内容的年代范围、现代武器边界、年龄适宜性和敏感内容分级 | MUSEUM-ARMS-00 | 仅显示不可点击门户入口；不采集器物、不下载媒体、不展示现代操作资料或图像化伤害，不改变美术馆计划 | user + curator + safety + rights |
 
 每项关闭时更新 decision log，记录选择、理由、影响、日期和重评触发。`open_decisions_count` 以本表未关闭项计算。
 
-`OD-006` 已由 MUSEUM-07 的机器可执行来源、权利、运行时和物理 release 门禁关闭。当前未决数量为 **3**：OD-008、OD-009、OD-011。
+`OD-008` 与 `OD-009` 已由 MUSEUM-08 的搜索与隐私契约关闭。当前未决数量为 **1**，仅剩 OD-011；它不属于本阶段，也未被静默决定。
 
 ## 已关闭事项
 
@@ -24,3 +22,5 @@
 | OD-005 | 2026-07-14 | 采用 MUSEUM-04 批准的设备、交互、内存、gzip 与 1k/10k/50k 性能预算 | 当前图和合成规模均有硬门禁；实验室代理不表述为真实用户 p75，无实机时记录 `not_available` |
 | OD-010 | 2026-07-14 | 建立 Rights or attribution Issue Form 与撤回流程；7/14 日响应目标，高风险立即隔离并以 72 小时内临时下架为目标 | 不在公开 Issue 要求敏感证明；撤回、replacement 与恢复均创建新 release 和审核记录，不改写历史 |
 | OD-006 | 2026-07-17 | 采用完全自托管的 Natural Earth 1:110m land/coastline/lakes GeoJSON 与 exact-pinned MapLibre GL JS 5.24.0；不使用外部 tile、token、remote style/glyph/sprite、现代政治边界或运行时地理服务 | 地图运行时只读取同源版本化静态文件；显示 `Made with Natural Earth`，并以 timeline/list 作为 WebGL、forced-colors、低带宽和渲染错误的等价回退 |
+| OD-008 | 2026-07-19 | 不新增中文分词依赖；采用确定性的 Unicode normalization、exact/prefix/substring/approved alias/transliteration/source-language fallback，并把浏览器 `Intl.Segmenter` 仅作为可选增强 | Segmenter 不可用时搜索仍完整；索引按实体类型、语言或稳定 hash 前缀可分片，不使用 AI/远程搜索、查询日志、流行度或艺术价值排序 |
+| OD-009 | 2026-07-19 | 不使用 analytics、账户、服务端画像、查询/访问/路径/地图/导览历史、telemetry SDK、Cookie、指纹、用户定位或远程日志；仅保存 locale 与 low-bandwidth 等明确本地偏好 | 搜索词、艺术家选择、作品比较、路径、地图筛选、导览访问和 print/share 历史均不保存；隐私门禁与扫描器 fail closed |

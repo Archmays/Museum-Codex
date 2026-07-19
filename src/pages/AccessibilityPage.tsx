@@ -3,7 +3,7 @@ import { useI18n } from "../i18n/I18nProvider";
 import { usePreferences } from "../preferences/PreferencesProvider";
 
 export function AccessibilityPage() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const { lowBandwidth, reducedMotion, toggleLowBandwidth } = usePreferences();
   return (
     <main id="main-content" className="inner-page accessibility-page" tabIndex={-1}>
@@ -32,6 +32,11 @@ export function AccessibilityPage() {
         <p className="eyebrow">Equivalent paths</p>
         <h2>{t.accessibility.futureTitle}</h2>
         <p>{t.accessibility.futureText}</p>
+      </section>
+      <section className="future-access" aria-labelledby="privacy-access-title">
+        <p className="eyebrow">Privacy by default</p>
+        <h2 id="privacy-access-title">{locale === "zh-CN" ? "偏好帮助访问，不记录参观" : "Preferences aid access without recording visits"}</h2>
+        <p>{locale === "zh-CN" ? "只保存语言与低带宽偏好；不保存搜索或访问，也不使用 analytics、Cookie、指纹或定位。" : "Only language and low-bandwidth preferences are stored; searches and visits are not, and there is no analytics, cookie, fingerprinting, or geolocation."}</p>
       </section>
     </main>
   );

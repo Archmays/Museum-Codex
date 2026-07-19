@@ -8,6 +8,7 @@ import { I18nProvider } from "../i18n/I18nProvider";
 import { PreferencesProvider } from "../preferences/PreferencesProvider";
 import ArtMapPage from "../features/art-map/ArtMapPage";
 import { loadMapBundle } from "../features/art-map/map-loader";
+import { CURRENT_ART_RELEASE_ID } from "../data/art-release-profile";
 
 vi.mock("../features/art-map/MapCanvas", () => ({
   MapCanvas: ({ visibleFeatures }: { visibleFeatures: unknown[] }) => <div role="region" aria-label="Two-dimensional art place map">{visibleFeatures.length} local points</div>,
@@ -49,7 +50,7 @@ afterAll(() => {
 describe("MUSEUM-07 Art Across Time and Place", () => {
   it("loads the exact immutable release and its formal counts", async () => {
     const bundle = await loadMapBundle();
-    expect(bundle.manifest.id).toBe("release:art-time-place-1.3.0");
+    expect(bundle.manifest.id).toBe(CURRENT_ART_RELEASE_ID);
     expect(bundle.places).toHaveLength(23);
     expect(bundle.episodes).toHaveLength(36);
     expect(bundle.holdings).toHaveLength(2);

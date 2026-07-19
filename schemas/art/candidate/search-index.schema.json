@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/candidate/search-index.schema.json",
+  "title": "MUSEUM-08 deterministic public search index",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "entity_type",
+        "phase_id",
+        "release_id",
+        "generated_at",
+        "config_path",
+        "normalization",
+        "matching_modes",
+        "ranking_tuple",
+        "segmenter_optional",
+        "fallback_complete",
+        "query_logging",
+        "media_paths_included",
+        "shard_contract",
+        "shards",
+        "counts",
+        "budgets"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "id": { "const": "search-index:art-v1-candidate-1.4.0" },
+        "entity_type": { "const": "search_index_manifest" },
+        "phase_id": { "const": "MUSEUM-08" },
+        "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "config_path": { "const": "search/config.json" },
+        "normalization": { "const": "unicode_nfkc_lower_diacritic_fold_whitespace_v1" },
+        "matching_modes": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "exact_preferred" },
+            { "const": "exact_alias" },
+            { "const": "prefix" },
+            { "const": "segmenter_token" },
+            { "const": "substring" }
+          ],
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "ranking_tuple": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "match_class" },
+            { "const": "visitor_task_entity_type" },
+            { "const": "stable_id" }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "segmenter_optional": { "const": true },
+        "fallback_complete": { "const": true },
+        "query_logging": { "const": false },
+        "media_paths_included": { "const": false },
+        "shard_contract": {
+          "type": "object",
+          "required": ["strategies", "incremental_rebuild", "unchanged_shards_hash_only", "lazy_load"],
+          "properties": {
+            "strategies": {
+              "type": "array",
+              "contains": { "const": "entity_type" },
+              "minItems": 3,
+              "uniqueItems": true,
+              "items": { "enum": ["entity_type", "language", "stable_hash_prefix"] }
+            },
+            "incremental_rebuild": { "const": true },
+            "unchanged_shards_hash_only": { "const": true },
+            "lazy_load": { "const": true }
+          },
+          "additionalProperties": false
+        },
+        "shards": {
+          "type": "array",
+          "minItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["id", "path", "entity_types", "languages", "stable_hash_prefix", "record_count", "bytes", "sha256", "records_hash"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^search-shard:" },
+              "path": { "type": "string", "pattern": "^search/shards/[a-z0-9._-]+\\.json$" },
+              "entity_types": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+              "languages": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+              "stable_hash_prefix": { "type": ["string", "null"], "pattern": "^[a-f0-9]{2}$" },
+              "record_count": { "type": "integer", "minimum": 1 },
+              "bytes": { "type": "integer", "minimum": 1 },
+              "sha256": { "$ref": "#/$defs/sha256" },
+              "records_hash": { "$ref": "#/$defs/sha256" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "counts": {
+          "type": "object",
+          "required": ["records", "shards", "by_entity_type"],
+          "properties": {
+            "records": { "type": "integer", "minimum": 1 },
+            "shards": { "type": "integer", "minimum": 8 },
+            "by_entity_type": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+          },
+          "additionalProperties": false
+        },
+        "budgets": {
+          "type": "object",
+          "required": ["search_route_gzip_bytes_max", "search_index_gzip_bytes_max", "current_query_p95_ms_max", "synthetic_1000_query_p95_ms_max", "external_requests_max"],
+          "properties": {
+            "search_route_gzip_bytes_max": { "const": 220000 },
+            "search_index_gzip_bytes_max": { "const": 150000 },
+            "current_query_p95_ms_max": { "const": 80 },
+            "synthetic_1000_query_p95_ms_max": { "const": 120 },
+            "external_requests_max": { "const": 0 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "entity_type",
+        "release_id",
+        "strategy",
+        "shard_key",
+        "input_closure_hash",
+        "records_hash",
+        "record_count",
+        "records"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "id": { "type": "string", "pattern": "^search-shard:" },
+        "entity_type": { "const": "search_index_shard" },
+        "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+        "strategy": { "enum": ["entity_type", "language", "stable_hash_prefix"] },
+        "shard_key": { "type": "string", "minLength": 1 },
+        "input_closure_hash": { "$ref": "#/$defs/sha256" },
+        "records_hash": { "$ref": "#/$defs/sha256" },
+        "record_count": { "type": "integer", "minimum": 1 },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/searchRecord" }
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "localized": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "searchValue": {
+      "type": "object",
+      "required": ["text", "normalized", "language", "reason"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "normalized": { "type": "string", "minLength": 1 },
+        "language": { "type": "string", "minLength": 1 },
+        "reason": {
+          "enum": ["preferred", "approved_alias", "transliteration", "source_language", "description"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "searchRecord": {
+      "type": "object",
+      "required": [
+        "id",
+        "stable_id",
+        "entity_type",
+        "route",
+        "labels",
+        "description",
+        "values",
+        "visitor_task_order",
+        "withdrawal_status"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^search-record:" },
+        "stable_id": { "type": "string", "minLength": 1 },
+        "entity_type": { "type": "string", "minLength": 1 },
+        "route": { "type": "string", "pattern": "^/|^https://" },
+        "labels": { "$ref": "#/$defs/localized" },
+        "description": { "$ref": "#/$defs/localized" },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/searchValue" }
+        },
+        "visitor_task_order": { "type": "integer", "minimum": 0 },
+        "withdrawal_status": { "enum": ["active", "withdrawn"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/candidate/candidate-evidence.schema.json",
+  "title": "MUSEUM-08 candidate governance and QA evidence",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "entity_type",
+    "phase_id",
+    "release_id",
+    "evidence_kind",
+    "status",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "candidate_evidence" },
+    "phase_id": { "const": "MUSEUM-08" },
+    "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+    "evidence_kind": {
+      "enum": [
+        "search_config",
+        "ci_impact_contract_snapshot",
+        "release_integrity_ledger_snapshot",
+        "accessibility_summary",
+        "mobile_low_bandwidth_budgets",
+        "content_freeze_manifest",
+        "candidate_checklist",
+        "candidate_notices",
+        "asset_reuse_contract",
+        "scale_readiness_snapshot",
+        "release_composition"
+      ]
+    },
+    "status": { "enum": ["pass", "ready", "candidate"] },
+    "payload": { "type": "object", "minProperties": 1 }
+  },
+  "additionalProperties": false
+}

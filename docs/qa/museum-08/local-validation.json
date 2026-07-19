@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-08",
+  "captured_at": "2026-07-19T11:45:00+08:00",
+  "status": "pass",
+  "scope": "targeted_local_candidate_validation",
+  "full_gate_policy": {
+    "local_full_gate_count": 0,
+    "github_final_full_gate_count": 0,
+    "github_final_full_gate_status": "pending_single_actions_run",
+    "source_of_truth": "GitHub Actions"
+  },
+  "final_targeted_suites": {
+    "python": {
+      "passed": 75,
+      "failed": 0,
+      "files": [
+        "tests/test_museum_08_ci_architecture.py",
+        "tests/test_museum_08_candidate.py",
+        "tests/test_museum_08_policy_scanners.py",
+        "tests/test_museum_08_recovery.py",
+        "tests/test_museum_08_scale.py",
+        "tests/test_governance_foundation.py"
+      ]
+    },
+    "vitest": {
+      "passed": 42,
+      "failed": 0,
+      "files": 7
+    },
+    "playwright_museum_08": {
+      "passed": 17,
+      "failed": 0,
+      "duration_ms": 51304.716,
+      "viewports": [
+        "360x800",
+        "390x844",
+        "412x915",
+        "768x1024",
+        "1024x768",
+        "1366x768",
+        "1440x900"
+      ]
+    }
+  },
+  "affected_closure_history": {
+    "initial_browser_run": {
+      "passed": 7,
+      "failed": 10,
+      "resolution": "fixed hidden-details visibility detection, 44px short-link targets, one stale missing-ID assertion, and the image-failure request pattern"
+    },
+    "focused_browser_rerun": {
+      "passed": 9,
+      "failed": 1,
+      "resolution": "changed an ambiguous text locator to the image-equivalent role without changing product behavior"
+    },
+    "single_failed_browser_rerun": {
+      "passed": 1,
+      "failed": 0
+    },
+    "final_browser_run": {
+      "passed": 17,
+      "failed": 0
+    },
+    "search_benchmark": {
+      "contended_parallel_run_status": "failed_environment_contention",
+      "isolated_rerun_status": "pass",
+      "threshold_changed": false,
+      "current_release_p95_ms": 32.7065,
+      "synthetic_1000_p95_ms": 66.2855
+    }
+  },
+  "quality_gates": {
+    "eslint": "pass",
+    "strict_typecheck": "pass",
+    "production_build": "pass",
+    "build_resource_closure": "pass",
+    "repository_safety": "pass",
+    "governance_schema_count": 87,
+    "governance_valid_fixture_count": 8,
+    "governance_expected_invalid_fixture_count": 22,
+    "candidate_release": "pass",
+    "release_integrity_ledger": "pass",
+    "synthetic_scale": "pass",
+    "privacy": "pass",
+    "hard_coded_count_scan": "pass",
+    "synthetic_public_leakage_count": 0,
+    "automated_a11y_serious": 0,
+    "automated_a11y_critical": 0
+  },
+  "performance": {
+    "home_gzip_bytes": 101947,
+    "home_growth_percent": 1.887,
+    "search_route_gzip_bytes": 87834,
+    "search_index_gzip_bytes": 45663,
+    "largest_non_map_route_gzip_bytes": 87834,
+    "map_route_gzip_bytes": 533891,
+    "low_bandwidth_initial_transfer_p95_bytes": 151277,
+    "desktop_first_interactive_p95_ms": 625.7817,
+    "mobile_first_interactive_p95_ms": 455.3261,
+    "interaction_p95_ms": 17.8,
+    "cls_p95": 0,
+    "external_runtime_request_count": 0,
+    "unexpected_media_preload_count": 0,
+    "geolocation_call_count": 0
+  },
+  "release_integrity": {
+    "historical_release_rebuild_count": 0,
+    "historical_release_hash_only_count": 4,
+    "candidate_release_id": "release:art-v1-candidate-1.4.0",
+    "candidate_manifest_sha256": "sha256:9e7f4a2f1d5957ac76b1aeb7d959cfcd76d562a7f07dcc409ac490627212573f",
+    "candidate_content_hash": "sha256:a49cc629bf775c0a3655e268e50ff17e0cdcbc47757e15b1da126ba98de1a689",
+    "candidate_tree_hash": "sha256:9b184c5c59841f51e904bca6f7a0dfeb6d704e551fbca7f854e178e835553334",
+    "candidate_file_count": 317,
+    "candidate_byte_count": 42018091
+  },
+  "storage_cleanup": {
+    "removed_output_files": 534,
+    "removed_output_bytes": 76132691,
+    "removed_dist_files": 1453,
+    "removed_dist_bytes": 205075727,
+    "removed_total_bytes": 281208418,
+    "retained_screenshot_count": 5,
+    "retained_screenshot_bytes": 2880837
+  },
+  "real_assistive_technology": "not_available",
+  "physical_devices": "not_available",
+  "real_content_expansion_started": false,
+  "museum_09_entered": false
+}

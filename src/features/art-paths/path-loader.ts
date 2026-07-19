@@ -1,6 +1,7 @@
 import {
   CURRENT_ART_RELEASE_ID,
   CURRENT_ART_RELEASE_VERSION,
+  PATH_ART_RELEASE_ID,
   PATH_ALGORITHM_PATH,
   PATH_EXPLANATIONS_PATH,
   PATH_GRAPH_PATH,
@@ -68,25 +69,35 @@ function assertBundleShape(
   explanations: unknown,
   routeConfig: unknown,
 ): asserts graph is PathGraphInput {
+  const artistCount = isRecord(graph) && Array.isArray(graph.artists) ? graph.artists.length : -1;
+  const relationshipCount = isRecord(graph) && Array.isArray(graph.relationships) ? graph.relationships.length : -1;
+  const expectedPairCount = artistCount >= 0 ? artistCount * (artistCount - 1) / 2 : -1;
   if (
-    !isRecord(graph) || graph.entity_type !== "art_path_graph_input" || graph.release_id !== CURRENT_ART_RELEASE_ID ||
-    !Array.isArray(graph.artists) || graph.artists.length !== 12 || !Array.isArray(graph.relationships) || graph.relationships.length !== 36 ||
-    !isRecord(index) || index.entity_type !== "art_path_index" || index.release_id !== CURRENT_ART_RELEASE_ID ||
-    index.input_graph_hash !== graph.graph_hash || index.default_pair_count !== 66 || !Array.isArray(index.pairs) || index.pairs.length !== 66 ||
+    !isRecord(graph) || graph.entity_type !== "art_path_graph_input" || graph.release_id !== PATH_ART_RELEASE_ID ||
+    !Array.isArray(graph.artists) || graph.artists.length === 0 || !Array.isArray(graph.relationships) ||
+    !isRecord(graph.counts) || graph.counts.artists !== artistCount || graph.counts.relationships !== relationshipCount ||
+    !isRecord(index) || index.entity_type !== "art_path_index" || index.release_id !== PATH_ART_RELEASE_ID ||
+    index.input_graph_hash !== graph.graph_hash || index.default_pair_count !== expectedPairCount ||
+    !Array.isArray(index.pairs) || index.pairs.length !== expectedPairCount ||
     !isRecord(algorithm) || algorithm.entity_type !== "art_path_algorithm_contract" ||
     algorithm.algorithm_version !== "museum-paths-bibfs-yen-1.0.0" ||
     !isRecord(explanations) || explanations.entity_type !== "art_path_explanation_collection" ||
-    explanations.input_graph_hash !== graph.graph_hash || !Array.isArray(explanations.explanations) || explanations.explanations.length !== 36 ||
+    explanations.input_graph_hash !== graph.graph_hash || !Array.isArray(explanations.explanations) ||
+    explanations.explanations.length !== relationshipCount ||
     !isRecord(routeConfig) || routeConfig.route !== "#/art/paths" || routeConfig.storage !== "none" ||
     routeConfig.analytics !== false || routeConfig.external_runtime_api !== false
   ) throw new PathLoadError("tampered_path_index");
   const graphIds = new Set((graph.relationships as Array<Record<string, unknown>>).map((item) => item.id));
   if (
-    graphIds.size !== 36 ||
+    graphIds.size !== relationshipCount ||
+    new Set((graph.artists as Array<Record<string, unknown>>).map((item) => item.id)).size !== artistCount ||
     (graph.relationships as Array<Record<string, unknown>>).some((edge) =>
       edge.level !== "C" || edge.directed !== false || edge.is_algorithmic !== false || edge.computational_similarity !== null
     ) ||
-    (index.pairs as Array<Record<string, unknown>>).some((pair) => !isRecord(pair.modes))
+    (index.pairs as Array<Record<string, unknown>>).some((pair) =>
+      !isRecord(pair.modes) ||
+      !["comparison", "context", "historical"].every((mode) => isRecord(pair.modes) && isRecord(pair.modes[mode]))
+    )
   ) throw new PathLoadError("tampered_path_index");
 }
 

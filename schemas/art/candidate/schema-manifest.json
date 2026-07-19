@@ -1,0 +1,41 @@
+{
+  "manifest_version": "1.0.0",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "schemas": [
+    {
+      "path": "schemas/art/candidate/search-index.schema.json",
+      "id": "https://museum-codex.example/schemas/art/candidate/search-index.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/candidate/route-inventory.schema.json",
+      "id": "https://museum-codex.example/schemas/art/candidate/route-inventory.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/candidate/privacy-snapshot.schema.json",
+      "id": "https://museum-codex.example/schemas/art/candidate/privacy-snapshot.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/candidate/rehearsal-record.schema.json",
+      "id": "https://museum-codex.example/schemas/art/candidate/rehearsal-record.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/candidate/candidate-evidence.schema.json",
+      "id": "https://museum-codex.example/schemas/art/candidate/candidate-evidence.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    }
+  ]
+}
