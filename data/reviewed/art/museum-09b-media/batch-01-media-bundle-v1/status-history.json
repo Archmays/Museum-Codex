@@ -1,0 +1,1 @@
+{"arms_museum_entered":false,"batch_id":"museum-09-batch-01","events":[{"at":"2026-07-21T12:00:00+08:00","from":"formal_candidate_ready","reason":"65 object-level media reviews reached terminal states and internal bundle closure passed","to":"media_bundle_ready"}],"museum_09b_release_entered":false,"museum_09c_entered":false,"phase_id":"MUSEUM-09B-MEDIA","schema_version":"1.0.0"}

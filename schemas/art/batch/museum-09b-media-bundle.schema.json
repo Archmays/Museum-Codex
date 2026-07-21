@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://archmays.example/schemas/art/batch/museum-09b-media-bundle.schema.json",
+  "title": "MUSEUM-09B-MEDIA internal media bundle build manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "phase_id",
+    "batch_id",
+    "package_id",
+    "predecessor_candidate_package",
+    "baseline_commit",
+    "implementation_commit",
+    "built_at",
+    "input_hashes",
+    "artifact_entries",
+    "artifact_file_count",
+    "artifact_byte_count",
+    "artifact_content_hash",
+    "artifact_tree_hash",
+    "tree_algorithm",
+    "physical_package_file_count",
+    "counts",
+    "bytes",
+    "tool_hashes",
+    "recipe",
+    "performance",
+    "immutable_status",
+    "public_status",
+    "public_release_created",
+    "pages_deployed",
+    "runtime_changed",
+    "museum_09b_release_entered",
+    "museum_09c_entered",
+    "arms_museum_entered",
+    "remaining_open_decisions"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "phase_id": { "const": "MUSEUM-09B-MEDIA" },
+    "batch_id": { "const": "museum-09-batch-01" },
+    "package_id": { "const": "museum-09b-media:batch-01-media-bundle-v1" },
+    "predecessor_candidate_package": { "const": "museum-09b:batch-01-formal-candidate-v1" },
+    "baseline_commit": { "pattern": "^[a-f0-9]{40}$" },
+    "implementation_commit": { "pattern": "^[a-f0-9]{40}$" },
+    "built_at": { "type": "string", "minLength": 1 },
+    "input_hashes": {
+      "type": "object",
+      "required": ["candidate_content", "candidate_tree", "candidate_input_closure", "release_id", "release_content", "release_manifest", "release_tree"],
+      "properties": {
+        "candidate_content": { "pattern": "^sha256:[a-f0-9]{64}$" },
+        "candidate_tree": { "pattern": "^sha256:[a-f0-9]{64}$" },
+        "candidate_input_closure": { "pattern": "^sha256:[a-f0-9]{64}$" },
+        "release_id": { "const": "release:art-v1-candidate-1.4.0" },
+        "release_content": { "pattern": "^sha256:[a-f0-9]{64}$" },
+        "release_manifest": { "pattern": "^sha256:[a-f0-9]{64}$" },
+        "release_tree": { "pattern": "^sha256:[a-f0-9]{64}$" }
+      }
+    },
+    "artifact_entries": {
+      "type": "array",
+      "minItems": 17,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "bytes": { "type": "integer", "minimum": 1 },
+          "sha256": { "pattern": "^sha256:[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "artifact_file_count": { "type": "integer", "minimum": 17 },
+    "artifact_byte_count": { "type": "integer", "minimum": 1 },
+    "artifact_content_hash": { "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifact_tree_hash": { "pattern": "^sha256:[a-f0-9]{64}$" },
+    "tree_algorithm": { "type": "string", "minLength": 1 },
+    "physical_package_file_count": { "type": "integer", "minimum": 18 },
+    "counts": {
+      "type": "object",
+      "required": ["allowlist", "excluded", "initial_self_hosted_candidates", "initial_external_iiif_candidates", "final_statuses", "original_references", "unique_original_hashes", "derivatives"],
+      "properties": {
+        "allowlist": { "const": 65 },
+        "excluded": { "const": 423 },
+        "initial_self_hosted_candidates": { "const": 40 },
+        "initial_external_iiif_candidates": { "const": 25 },
+        "final_statuses": { "type": "object", "minProperties": 1 },
+        "original_references": { "type": "integer", "minimum": 0, "maximum": 65 },
+        "unique_original_hashes": { "type": "integer", "minimum": 0, "maximum": 65 },
+        "derivatives": { "type": "integer", "minimum": 0, "maximum": 520 }
+      }
+    },
+    "bytes": { "type": "object" },
+    "tool_hashes": { "type": "object" },
+    "recipe": { "type": "object" },
+    "performance": { "type": "object" },
+    "immutable_status": { "const": "immutable_overlay" },
+    "public_status": { "const": "internal_media_bundle_not_released" },
+    "public_release_created": { "const": false },
+    "pages_deployed": { "const": false },
+    "runtime_changed": { "const": false },
+    "museum_09b_release_entered": { "const": false },
+    "museum_09c_entered": { "const": false },
+    "arms_museum_entered": { "const": false },
+    "remaining_open_decisions": { "const": ["OD-011"] }
+  }
+}

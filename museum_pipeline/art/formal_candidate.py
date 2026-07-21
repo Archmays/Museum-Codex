@@ -28,6 +28,7 @@ from museum_pipeline.hashing import canonical_sha256, sha256_file
 ROOT = Path(__file__).resolve().parents[2]
 PHASE_ID = "MUSEUM-09B"
 BATCH_ID = "museum-09-batch-01"
+VALID_BATCH_REGISTRY_STATUSES = frozenset({"formal_candidate_ready", "media_bundle_ready"})
 PACKAGE_ID = "museum-09b:batch-01-formal-candidate-v1"
 BUILT_AT = "2026-07-20T12:00:00+08:00"
 REVIEW_DATE = "2026-07-20"
@@ -2015,7 +2016,7 @@ def validate_formal_candidate(
         _failure(failures, "wrong_reserve_order", "ordered reserve contract not respected")
     registry = _read_json(registry_path)
     batches = {item["id"]: item for item in registry["batches"]}
-    if batches[BATCH_ID]["status"] != "formal_candidate_ready":
+    if batches[BATCH_ID]["status"] not in VALID_BATCH_REGISTRY_STATUSES:
         _failure(failures, "batch_registry_status", batches[BATCH_ID]["status"])
     if any(
         item["status"] != "registered_not_started"
