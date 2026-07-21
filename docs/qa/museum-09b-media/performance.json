@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-MEDIA",
+  "status": "pass",
+  "measurement_scope": "offline clean package rebuild from protected verified originals; not RUM and not public-network performance",
+  "run_count": 2,
+  "timings_ms": [158472.525, 156234.436],
+  "timing_summary_ms": {
+    "count": 2,
+    "p50": 157353.481,
+    "p95": 158472.525,
+    "max": 158472.525
+  },
+  "peak_rss_bytes": 434835456,
+  "peak_memory_measurement": "psutil_process_rss_100ms_sampling",
+  "deterministic_package_status": "pass",
+  "deterministic_derivative_status": "pass",
+  "byte_identical_clean_builds": 2,
+  "clean_build_identity": {
+    "content_hash": "sha256:d98e3409fb9512054acf532c541e4c4219fcf767564c846f78cfb2439b6c3c50",
+    "tree_hash": "sha256:39c855c8640271310d448d819a8fc80e6ae2b95852bfe6e5211faffb1f173a5e",
+    "manifest_sha256": "sha256:e08f5d0ff4ddaf7f3c9682bd2f0c8c08a2f469e1583bab32dbb705ea5a11cc64"
+  },
+  "derivative_identity": {
+    "checked_count": 318,
+    "changed_count": 0,
+    "formats": {"jpeg": 159, "webp": 159},
+    "widths": {"320": 80, "640": 80, "960": 80, "1600": 78}
+  },
+  "unchanged_input_reuse": {
+    "status": "pass",
+    "canonical_rebuild_elapsed_ms": 8850.441,
+    "original_redownload_count": 0,
+    "derivative_cache_hit_group_count": 40,
+    "derivative_reencode_group_count": 0,
+    "reused_derivative_bytes": 61418168
+  },
+  "network_and_cache": {
+    "rights_checks": 65,
+    "official_request_count_cumulative": 203,
+    "official_response_bytes_cumulative": 262190075,
+    "cache_hit_count_cumulative": 80,
+    "cache_miss_count_cumulative": 115,
+    "original_download_attempt_count": 40,
+    "original_download_success_count": 40,
+    "original_download_failure_count": 0,
+    "newly_downloaded_original_count": 40,
+    "newly_downloaded_original_bytes": 240328162,
+    "content_reused_original_count": 0,
+    "content_reused_original_bytes": 0,
+    "preview_download_count": 40,
+    "iiif_service_check_count": 25,
+    "iiif_image_download_count": 0,
+    "note": "Counts are cumulative across the cold acquisition and bounded AIC repair attempts; repair builds reused verified originals and derivatives."
+  },
+  "single_work_rights_change_bounded_closure": "pass",
+  "public_bundle_growth_bytes": 0
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-MEDIA",
+  "status": "pass",
+  "workflow_name": "Classify, validate and build Museum portal",
+  "runs": [
+    {
+      "implementation_commit": "3c15cc81e44a75c18588f48191aad4e14c474cec",
+      "run_id": 29841095845,
+      "run_url": "https://github.com/Archmays/Museum-Codex/actions/runs/29841095845",
+      "created_at": "2026-07-21T14:51:00Z",
+      "updated_at": "2026-07-21T14:51:48Z",
+      "conclusion": "success",
+      "impact_level": "phase-scoped",
+      "classify_job_id": 88669903717,
+      "phase_scoped_job_id": 88669976716,
+      "historical_release_hash_validation": "success",
+      "affected_release_validator_builder_step": "success",
+      "frontend_install_build": "skipped",
+      "browser_route_closure": "skipped",
+      "pages_artifact": "skipped",
+      "deploy": "skipped"
+    },
+    {
+      "implementation_commit": "551ca990d92ae4e576e59fe70d1fcc240749f047",
+      "run_id": 29842171431,
+      "run_url": "https://github.com/Archmays/Museum-Codex/actions/runs/29842171431",
+      "created_at": "2026-07-21T15:03:55Z",
+      "updated_at": "2026-07-21T15:04:35Z",
+      "conclusion": "success",
+      "impact_level": "phase-scoped",
+      "classify_job_id": 88673531211,
+      "phase_scoped_job_id": 88673584664,
+      "historical_release_hash_validation": "success",
+      "affected_release_validator_builder_step": "success",
+      "frontend_install_build": "skipped",
+      "browser_route_closure": "skipped",
+      "pages_artifact": "skipped",
+      "deploy": "skipped"
+    }
+  ],
+  "phase_scoped_ci_run_count": 2,
+  "bounded_repair_ci_run_count": 1,
+  "failed_job_rerun_count": 0,
+  "github_final_full_gate_count": 0,
+  "pages_artifact_count": 0,
+  "runtime_deployment_count": 0,
+  "closeout_deployment_count": 0,
+  "latest_pages_deployment_unchanged": {
+    "deployment_id": 5508931387,
+    "runtime_commit": "b36ac365b13ca24afa2d89f6dac6b680036a04af"
+  },
+  "closeout_commit": "recorded_by_enclosing_git_commit",
+  "closeout_message_contains_skip_ci": true,
+  "closeout_expected_actions_count": 0
+}

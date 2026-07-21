@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-MEDIA",
+  "status": "pass",
+  "before": {
+    "phase_source_vault_files": 0,
+    "phase_source_vault_bytes": 0,
+    "formal_media_package_files": 0,
+    "formal_media_package_bytes": 0
+  },
+  "after": {
+    "phase_source_vault_files": 171,
+    "phase_source_vault_bytes": 240845468,
+    "formal_media_package_files": 336,
+    "formal_media_package_bytes": 62877348,
+    "retained_phase_bytes": 303722816
+  },
+  "downloads": {
+    "new_original_count": 40,
+    "new_original_bytes": 240328162,
+    "official_response_bytes_cumulative": 262190075,
+    "download_failure_count": 0
+  },
+  "reuse_and_dedup": {
+    "content_reused_original_count": 0,
+    "content_reused_original_bytes": 0,
+    "content_addressed_dedup_saved_bytes": 0,
+    "unique_original_hash_count": 40,
+    "physical_original_count": 40,
+    "duplicate_physical_original_count": 0,
+    "repair_original_cache_reuse_bytes": 240328162,
+    "repair_derivative_cache_reuse_bytes": 61418168
+  },
+  "tracked_media": {
+    "derivative_count": 318,
+    "derivative_bytes": 61418168,
+    "tracked_original_bytes": 0,
+    "largest_tracked_file": {
+      "path": "data/reviewed/art/museum-09b-media/batch-01-media-bundle-v1/assets/by-source-sha256/a9/a9229e99a8b842175c627a51edc2104d65953b5273d74ebab1bc587149005390/1600w.jpg",
+      "bytes": 1171684
+    },
+    "tracked_file_over_5_mib_count": 0,
+    "tracked_file_over_100_mib_count": 0
+  },
+  "cleanup": {
+    "verified_temp_deleted_file_count": 1680,
+    "verified_temp_deleted_bytes": 314266868,
+    "benchmark_scratch_cleanup": "automatic; exact pre-delete bytes not observed and not included above",
+    "partial_download_remaining_count": 0,
+    "failed_response_body_remaining_count": 0,
+    "decoder_or_conversion_scratch_remaining_count": 0,
+    "phase_temp_directory_remaining_count": 0,
+    "dist_created": false,
+    "playwright_output_created": false
+  },
+  "boundaries": {
+    "source_vault_gitignored": true,
+    "tracked_source_vault_file_count": 0,
+    "m03c_media_deleted_count": 0,
+    "m09a_or_m09b_input_deleted_count": 0,
+    "historical_release_deleted_count": 0,
+    "official_source_snapshot_deleted_count": 0,
+    "formal_evidence_deleted_count": 0,
+    "unknown_user_file_deleted_count": 0
+  }
+}

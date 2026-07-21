@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-MEDIA",
+  "status": "pass",
+  "final_targeted_gate_group_count": 8,
+  "final_targeted_test_case_count": 74,
+  "invalid_fixture_case_count": 28,
+  "clean_package_build_count": 2,
+  "local_full_gate_count": 0,
+  "github_final_full_gate_count": 0,
+  "frontend_install_count": 0,
+  "production_build_count": 0,
+  "playwright_run_count": 0,
+  "screenshot_count": 0,
+  "gates": [
+    {"name": "M09B media bundle validator", "status": "pass", "issues": 0},
+    {"name": "M09B predecessor formal candidate validator", "status": "pass", "artists": 50, "artworks": 488},
+    {"name": "affected media unittest closure", "status": "pass", "tests": 74, "elapsed_seconds": 111.133},
+    {"name": "invalid mutation matrix", "status": "pass", "cases": 28},
+    {"name": "release integrity ledger", "status": "pass", "mode": "historical_hash_only", "releases": 5, "files": 1413, "bytes": 203140831},
+    {"name": "repository secret and large-file scan", "status": "pass", "files": 3092, "over_5_mib": 0},
+    {"name": "public leakage scan", "status": "pass", "findings": 0},
+    {"name": "two clean package and derivative builds", "status": "pass", "runs": 2}
+  ],
+  "package": {
+    "package_id": "museum-09b-media:batch-01-media-bundle-v1",
+    "content_hash": "sha256:d98e3409fb9512054acf532c541e4c4219fcf767564c846f78cfb2439b6c3c50",
+    "tree_hash": "sha256:39c855c8640271310d448d819a8fc80e6ae2b95852bfe6e5211faffb1f173a5e",
+    "manifest_sha256": "sha256:e08f5d0ff4ddaf7f3c9682bd2f0c8c08a2f469e1583bab32dbb705ea5a11cc64",
+    "physical_file_count": 336,
+    "physical_byte_count": 62877348,
+    "unresolved_count": 0
+  },
+  "boundary": {
+    "candidate_public_leakage_count": 0,
+    "public_release_changed": false,
+    "public_bundle_growth_bytes": 0,
+    "pages_artifact_count": 0,
+    "deployment_count": 0,
+    "historical_release_rebuild_count": 0,
+    "batch_02_through_10_advanced_count": 0,
+    "museum_09b_release_entered": false,
+    "museum_09c_entered": false,
+    "arms_museum_entered": false,
+    "remaining_open_decisions": ["OD-011"]
+  },
+  "failure_closures": [
+    {
+      "issue": "phase CLI direct execution initially lacked repository-root import setup",
+      "closure": "phase scripts now insert the exact repository root before importing the canonical writer",
+      "scope_rerun": "phase CLI only"
+    },
+    {
+      "issue": "AIC IIIF info.json returned HTTP 403 and was initially treated as source unavailable",
+      "closure": "preserved exact service identity and transport evidence, then selected external link-only without downloading image bytes",
+      "scope_rerun": "25 AIC candidates only"
+    },
+    {
+      "issue": "a bounded AIC bulk object refresh ended with TLS EOF",
+      "closure": "reused same-phase sealed object responses with identity and rights bindings; transport failure was not converted into source absence",
+      "scope_rerun": "AIC acquisition closure only"
+    },
+    {
+      "issue": "creator representation differences produced 43 false-positive drift records",
+      "closure": "normalized the old CSV creator form against the current structured creator description, leaving 4 substantive changes and 61 unchanged",
+      "scope_rerun": "65-record drift projection only"
+    },
+    {
+      "issue": "runtime timing fields made an early package benchmark nondeterministic",
+      "closure": "moved runtime performance evidence outside package content identity; clean package and derivative builds now match byte-for-byte",
+      "scope_rerun": "clean benchmark only"
+    },
+    {
+      "issue": "the predecessor candidate validator accepted only formal_candidate_ready after the registry legally advanced",
+      "closure": "accepted only the ordered formal_candidate_ready and media_bundle_ready states while preserving predecessor package phase flags",
+      "scope_rerun": "M09B candidate validator and tests"
+    },
+    {
+      "issue": "post-CI evidence review found raw 43/22 drift metrics in download-manifest beside canonical 4/61 drift",
+      "closure": "normalized package metrics at the canonical writer, added a cross-manifest validator assertion, rebuilt only two manifests and the registry, and reran targeted plus phase-scoped CI",
+      "scope_rerun": "five-path dependency closure only"
+    }
+  ],
+  "thresholds_weakened": false,
+  "tests_skipped_or_xfailed": false
+}
