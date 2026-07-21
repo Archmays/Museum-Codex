@@ -33,6 +33,10 @@ class Museum09BMediaTests(unittest.TestCase):
         self.assertEqual(decisions["checked_count"], 65)
         self.assertEqual(decisions["unresolved_count"], 0)
         self.assertTrue(all(item["final_status"] in FINAL_STATUSES for item in decisions["decisions"]))
+        drift = json.loads((DEFAULT_BUNDLE_ROOT / "source-drift-manifest.json").read_text(encoding="utf-8"))
+        metrics = json.loads((DEFAULT_BUNDLE_ROOT / "download-manifest.json").read_text(encoding="utf-8"))["metrics"]
+        for status in ("changed", "unchanged", "unavailable"):
+            self.assertEqual(drift[f"{status}_count"], metrics[f"source_record_{status}_count"])
 
     @unittest.skipUnless(DEFAULT_BUNDLE_ROOT.exists(), "formal media bundle not built yet")
     def test_invalid_fixture_matrix_exercises_all_required_failures(self) -> None:

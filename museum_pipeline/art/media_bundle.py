@@ -1440,13 +1440,19 @@ def _package_documents(
     } for item in decisions if item["final_status"] not in SELF_HOSTED_STATUSES | EXTERNAL_STATUSES]
 
     source_counts = Counter(item["source_record_status"] for item in decisions)
+    normalized_acquisition_metrics = deepcopy(acquisition_metrics)
+    normalized_acquisition_metrics.update({
+        "source_record_changed_count": source_counts["changed"],
+        "source_record_unchanged_count": source_counts["unchanged"],
+        "source_record_unavailable_count": source_counts["unavailable"],
+    })
     derivative_bytes = sum(item["bytes"] for item in derivatives)
     original_bytes = sum(item["bytes"] for item in original_records)
     documents = {
         "allowlist-snapshot.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "batch_id": BATCH_ID, "allowlist_count": 65, "initial_status_counts": {"approved_self_hosted_candidate": 40, "approved_external_iiif_candidate": 25}, "records": allowlist_records},
         "object-rights-decisions.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "checked_count": 65, "unresolved_count": 0, "status_counts": status_counts, "decisions": decisions},
         "source-drift-manifest.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "checked_count": 65, "changed_count": source_counts["changed"], "unchanged_count": source_counts["unchanged"], "unavailable_count": source_counts["unavailable"], "rights_changed_count": sum(item["rights_changed"] for item in decisions), "endpoint_changed_count": sum(item["endpoint_changed"] for item in decisions), "affected_closure": sorted(item["work_id"] for item in decisions if item["source_record_status"] != "unchanged"), "records": [{key: value for key, value in item.items() if key not in {"quality", "original", "download", "service"}} for item in decisions]},
-        "download-manifest.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "allowlisted_only": True, "max_original_bytes": MAX_ORIGINAL_BYTES, "partial_files_remaining": 0, "entries": download_records, "metrics": acquisition_metrics},
+        "download-manifest.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "allowlisted_only": True, "max_original_bytes": MAX_ORIGINAL_BYTES, "partial_files_remaining": 0, "entries": download_records, "metrics": normalized_acquisition_metrics},
         "originals-manifest.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "original_count": len(original_records), "original_bytes": original_bytes, "tracked_original_bytes": 0, "records": original_records},
         "derivatives-manifest.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "recipe": {"id": RECIPE_ID, "processor_version": PROCESSOR_VERSION, "widths": list(DEFAULT_DERIVATIVE_WIDTHS), "formats": ["jpeg", "webp"], "jpeg_quality": JPEG_QUALITY, "webp_quality": WEBP_QUALITY, "no_upscale": True, "no_crop": True, "content_alteration": False, "metadata_policy": "strip_nonessential_exif_and_icc_after_srgb_conversion"}, "derivative_count": len(derivatives), "derivative_bytes": derivative_bytes, "derivatives": derivatives},
         "iiif-manifests.json": {"schema_version": "1.0.0", "phase_id": PHASE_ID, "candidate_count": 25, "image_download_count": 0, "records": iiif_records},
@@ -1645,6 +1651,11 @@ def validate_bundle(root: Path = DEFAULT_BUNDLE_ROOT, *, validate_registry: bool
             issues.append(f"withdrawal_missing:{work_id}")
 
     downloads = documents["download-manifest.json"].get("entries", [])
+    drift = documents["source-drift-manifest.json"]
+    download_metrics = documents["download-manifest.json"].get("metrics", {})
+    for status in ("changed", "unchanged", "unavailable"):
+        if download_metrics.get(f"source_record_{status}_count") != drift.get(f"{status}_count"):
+            issues.append(f"download_metrics_source_drift_mismatch:{status}")
     for item in downloads:
         work_id = item.get("work_id")
         if work_id not in allow_ids:
