@@ -383,9 +383,9 @@ const ART_CONSTELLATION_INITIAL_ARTIFACTS = [
   "layout.json",
   "facets.json",
 ] as const;
+const ASSET_RESOLUTION_ARTIFACT = "asset-resolution-manifest.json";
 const ART_CONSTELLATION_DECLARED_ARTIFACTS = [
   ...ART_CONSTELLATION_INITIAL_ARTIFACTS,
-  "asset-resolution-manifest.json",
   "contexts.json",
   "relationships.json",
   "artworks.json",
@@ -452,7 +452,7 @@ function hasCanonicalSourceId(sourceIds: string[], sourceName: string) {
   });
 }
 
-function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]) {
+function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[], releaseId: string) {
   const rawUrl = optionalString(value);
   if (!rawUrl) return null;
   const sourceOrigins: Record<string, string[]> = {
@@ -473,7 +473,7 @@ function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]
       ? [sourceName]
       : [];
   });
-  const normalizedUrl = expandedSourceNames.length > 0 && rawUrl.startsWith("http://")
+  const normalizedUrl = releaseId.startsWith("release:art-expansion-") && expandedSourceNames.length > 0 && rawUrl.startsWith("http://")
     ? `https://${rawUrl.slice("http://".length)}`
     : rawUrl;
   const url = httpsUrl(normalizedUrl, "artwork_official_object_url");
@@ -591,6 +591,9 @@ function localizedItems(value: unknown, label: string) {
 
 function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
   return assertEnvelope(requiredRecord(raw, "artists_root"), releaseId, "artists").map((artist) => {
+    const isExpansionRelease = releaseId.startsWith("release:art-expansion-");
+    const id = requiredString(artist.id, "artist_id");
+    const artworkIds = stringList(artist.artwork_ids, "artist_artwork_ids");
     const places = objectList(artist.activity_places, "artist_activity_places");
     const periods = stringList(artist.historical_periods, "artist_periods");
     const traditions = stringList(artist.artistic_traditions, "artist_traditions");
@@ -600,15 +603,23 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
     const review = requiredRecord(artist.review, "artist_review");
     const birthDisplay = requiredString(birth.display_value, "artist_birth_display");
     const deathDisplay = requiredString(death.display_value, "artist_death_display");
-    const profileKind = requiredString(artist.profile_kind, "artist_profile_kind");
+    const profileKind = artist.profile_kind === undefined && !isExpansionRelease
+      ? "gallery"
+      : requiredString(artist.profile_kind, "artist_profile_kind");
     if (profileKind !== "gallery" && profileKind !== "collection") throw new Error("artist_profile_kind_invalid");
     return {
-      id: requiredString(artist.id, "artist_id"),
-      publicSlug: requiredString(artist.public_slug, "artist_public_slug"),
+      id,
+      publicSlug: artist.public_slug === undefined && !isExpansionRelease
+        ? id.replace(/^artist:/, "")
+        : requiredString(artist.public_slug, "artist_public_slug"),
       profileKind,
       sourceLanguageName: optionalString(artist.source_language_name),
-      transliterations: stringList(artist.transliterations, "artist_transliterations"),
-      gallerySequence: stringList(artist.gallery_sequence, "artist_gallery_sequence"),
+      transliterations: artist.transliterations === undefined && !isExpansionRelease
+        ? []
+        : stringList(artist.transliterations, "artist_transliterations"),
+      gallerySequence: artist.gallery_sequence === undefined && !isExpansionRelease
+        ? artworkIds
+        : stringList(artist.gallery_sequence, "artist_gallery_sequence"),
       labels: localized(artist.labels, "artist_labels"),
       summary: publicLocalized(artist.summary, "artist_summary"),
       aliases: aliasTexts(artist.aliases),
@@ -620,7 +631,7 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
       claimIds: stringList(artist.verified_claim_ids, "artist_claim_ids"),
       sourceIds: stringList(artist.source_ids, "artist_source_ids"),
       relationCount: requiredNumber(artist.relation_count, "artist_relation_count"),
-      artworkIds: stringList(artist.artwork_ids, "artist_artwork_ids"),
+      artworkIds,
       representativeMediaId: optionalString(artist.representative_media_id),
       approvedMediaArtworkCount: requiredNumber(
         artist.approved_media_artwork_count,
@@ -697,7 +708,9 @@ function parseArtworks(raw: unknown, releaseId: string): ArtworkRecord[] {
     const mediumItems = [...materials, ...techniques];
     return {
       id,
-      publicSlug: requiredString(artwork.public_slug, "artwork_public_slug"),
+      publicSlug: artwork.public_slug === undefined && !releaseId.startsWith("release:art-expansion-")
+        ? id.replace(/^artwork:/, "").replaceAll(":", "-")
+        : requiredString(artwork.public_slug, "artwork_public_slug"),
       artistId: requiredString(artwork.artist_id, "artwork_artist_id"),
       title: localized(artwork.labels, "artwork_title"),
       dateDisplay: optionalLocalized(creation.description, "artwork_creation_description"),
@@ -706,7 +719,7 @@ function parseArtworks(raw: unknown, releaseId: string): ArtworkRecord[] {
         en: mediumItems.map((item) => item.en).join(", "),
       },
       institution: localized(institution.label, "artwork_institution_label"),
-      objectUrl: artworkObjectUrl(artwork.official_object_url, id, sourceIds),
+      objectUrl: artworkObjectUrl(artwork.official_object_url, id, sourceIds, releaseId),
       sourceIds,
       attribution: null,
       accessionNumber: optionalString(artwork.accession_number),
@@ -1446,6 +1459,9 @@ export async function loadArtConstellationRelease(
     for (const name of ART_CONSTELLATION_DECLARED_ARTIFACTS) {
       if (!artifactFiles.has(name)) throw new Error(`manifest_missing_${name}`);
     }
+    if (manifest.id.startsWith("release:art-expansion-") && !artifactFiles.has(ASSET_RESOLUTION_ARTIFACT)) {
+      throw new Error(`manifest_missing_${ASSET_RESOLUTION_ARTIFACT}`);
+    }
     const artifacts = await Promise.all(
       ART_CONSTELLATION_INITIAL_ARTIFACTS.map(async (name) => {
         const file = artifactFiles.get(name);
@@ -1527,14 +1543,16 @@ export async function loadArtConstellationRelease(
           detailSignal,
         ),
         artifact("withdrawal-mapping.json", detailSignal),
-        loadAssetResolutionManifest(base, manifest, fetcher, detailSignal),
+        artifactFiles.has(ASSET_RESOLUTION_ARTIFACT)
+          ? loadAssetResolutionManifest(base, manifest, fetcher, detailSignal)
+          : Promise.resolve(null),
       ]);
       const runtimeAssetFiles = new Map<string, RuntimeAssetFile>([
         ...manifest.manifest_files,
         ...(manifest.referenced_files ?? []),
         ...(manifest.materialized_asset_files ?? []),
-        ...assetResolution.referenced_files,
-        ...assetResolution.materialized_asset_files,
+        ...(assetResolution?.referenced_files ?? []),
+        ...(assetResolution?.materialized_asset_files ?? []),
       ].map((file) => [file.path, file]));
       const artworks = parseArtworks(artworksRaw, coreReleaseId);
       const media = parseMediaSupport(

@@ -60,15 +60,15 @@ describe("museum portal", () => {
     render(<App />);
     await user.click(screen.getByRole("link", { name: /进入序厅/ }));
     await waitFor(() => expect(window.location.hash).toBe("#/art"));
-    expect(screen.getByRole("heading", { level: 1, name: "在一件作品前，打开许多条路" })).toBeInTheDocument();
-    expect(screen.getByText(/当前正式艺术家、作品与经审核的策展比较/)).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "在一件作品前，打开许多条路" })).toBeInTheDocument();
+    expect(screen.getByText(/当前正式艺术家、作品与来源可核验的策展比较/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /进入艺术星海/ })).toHaveAttribute("href", "#/art/constellation");
   });
 
-  it("shows the current rights statement on the about route", () => {
+  it("shows the current rights statement on the about route", async () => {
     window.location.hash = "#/about";
     render(<App />);
-    expect(screen.getByText(/项目代码与原创策展内容保留所有权利/)).toBeInTheDocument();
+    expect(await screen.findByText(/项目代码与原创策展内容保留所有权利/)).toBeInTheDocument();
     expect(screen.getByText(/第三方元数据与媒体始终按各自许可、署名和撤回规则独立管理/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "查看第三方通知" })).toHaveAttribute(
       "href",
@@ -80,7 +80,7 @@ describe("museum portal", () => {
     const user = userEvent.setup();
     window.location.hash = "#/accessibility";
     render(<App />);
-    const control = screen.getByRole("button", { name: "开启低带宽模式" });
+    const control = await screen.findByRole("button", { name: "开启低带宽模式" });
     await user.click(control);
     expect(document.documentElement).toHaveAttribute("data-bandwidth", "low");
     expect(localStorage.getItem("museum-low-bandwidth")).toBe("true");

@@ -91,16 +91,16 @@ describe("MUSEUM-05A artist galleries", () => {
     renderEnglish(<ArtistGalleryPage {...galleryData} artistId="artist:albrecht-durer" />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Albrecht Dürer" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Reviewed introduction" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Source-verifiable introduction" })).toBeInTheDocument();
     const worksSection = screen.getByRole("heading", { level: 2, name: "Formal works in this release" }).closest("section");
     expect(worksSection).not.toBeNull();
     expect(within(worksSection!).getAllByRole("listitem")).toHaveLength(4);
     expect(within(worksSection!).getAllByRole("link", { name: "View artwork detail" })).toHaveLength(4);
-    expect(within(worksSection!).getAllByText("approved_self_hosted")).toHaveLength(4);
+    expect(within(worksSection!).getAllByText("Image available here")).toHaveLength(4);
     expect(within(worksSection!).getAllByRole("link", { name: "Visit official artwork source" })).toHaveLength(8);
 
     const relatedArtist = await screen.findByRole("link", { name: "Francisco de Goya" });
-    expect(relatedArtist).toHaveAttribute("href", "/art/artists/artist%3Afrancisco-de-goya");
+    expect(relatedArtist).toHaveAttribute("href", "/art/artists/francisco-de-goya");
     expect(screen.getAllByText(/· C$/).length).toBeGreaterThan(0);
     expect(await screen.findByRole("link", { name: "The Metropolitan Museum of Art Open Access" })).toHaveAttribute(
       "href",
@@ -118,7 +118,7 @@ describe("MUSEUM-05A artist galleries", () => {
     expect(within(worksSection!).getAllByRole("img", { name: "No image passed the public-media gate for this record." })).toHaveLength(4);
     expect(container.querySelector("img")).toBeNull();
     expect(within(worksSection!).getAllByRole("link", { name: "Visit official artwork source" })).toHaveLength(4);
-    expect(within(worksSection!).getAllByText("metadata_only_after_automated_review")).toHaveLength(4);
+    expect(within(worksSection!).getAllByText("Metadata record")).toHaveLength(4);
     await waitFor(() => expect(screen.getByRole("link", { name: "Albrecht Dürer" })).toBeInTheDocument());
   });
 
@@ -134,8 +134,7 @@ describe("MUSEUM-05A artist galleries", () => {
     renderEnglish(<ArtistGalleryPage {...failedData} artistId="artist:albrecht-durer" />);
 
     expect(await screen.findByText("Relationship data failed its integrity check; the failure is not presented as an empty result.")).toHaveAttribute("role", "alert");
-    expect(screen.getByText("Full source records could not be verified; only formal source IDs are listed below.")).toHaveAttribute("role", "alert");
-    expect(screen.getAllByText("source:met_open_access").length).toBeGreaterThan(0);
+    expect(await screen.findByText("Complete source material is temporarily unavailable; retry from this page later.")).toHaveAttribute("role", "alert");
     expect(screen.queryByText("This release has no related artists to display.")).not.toBeInTheDocument();
   });
 });

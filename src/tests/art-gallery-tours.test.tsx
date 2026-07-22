@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { CURRENT_ART_RELEASE_DIRECTORY, CURRENT_ART_RELEASE_ID } from "../data/art-release-profile";
 import { loadArtConstellationRelease } from "../data/release-loader";
 import { loadArtInteractionIndex } from "../features/art-gallery/interaction-loader";
 import { ToursPage } from "../features/art-gallery/tours/ToursPage";
@@ -12,7 +13,7 @@ import { PreferencesProvider } from "../preferences/PreferencesProvider";
 
 if (!globalThis.crypto?.subtle) Object.defineProperty(globalThis, "crypto", { configurable: true, value: webcrypto });
 
-const BASE = "/Museum-Codex/releases/art-gallery-interactions-1.1.0/";
+const BASE = `/Museum-Codex/releases/${CURRENT_ART_RELEASE_DIRECTORY}/`;
 let data: GallerySharedProps;
 
 function releaseFetcher() {
@@ -48,7 +49,7 @@ beforeAll(async () => {
 
 describe("MUSEUM-05B curated tours", () => {
   it("loads the immutable overlay and closes all interaction counts", () => {
-    expect(data.release.manifestId).toBe("release:art-gallery-interactions-1.1.0");
+    expect(data.release.manifestId).toBe(CURRENT_ART_RELEASE_ID);
     expect(data.interactions.observation_cards).toHaveLength(44);
     expect(data.interactions.artist_tours).toHaveLength(12);
     expect(data.interactions.thematic_tours).toHaveLength(6);

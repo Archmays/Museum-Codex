@@ -366,7 +366,7 @@ describe("MUSEUM-04 formal public release", () => {
     ])));
     expect(requestedNames(fetcher)).not.toContain("evidence.json");
     expect(within(artistPanel).queryByRole("img")).not.toBeInTheDocument();
-    await user.click(within(artistPanel).getByRole("button", { name: "加载这件作品图像" }));
+    await user.click(await within(artistPanel).findByRole("button", { name: "加载这件作品图像" }));
     expect(await within(artistPanel).findByRole("img", { name: new RegExp(mediaArtist.labels["zh-Hans"]) })).toBeInTheDocument();
 
     const relationshipButton = await waitFor(() => {

@@ -1,9 +1,17 @@
 import graphFixture from "../../public/releases/art-pathways-1.2.0/path-graph-input.json";
 import indexFixture from "../../public/releases/art-pathways-1.2.0/path-index.json";
-import { defaultPathQuery, findPathways, PATH_ALGORITHM_VERSION } from "../features/art-paths/path-algorithm";
+import { defaultPathQuery, findPathways, PATH_ALGORITHM_VERSION, PATH_RELEASE_ID } from "../features/art-paths/path-algorithm";
 import type { PathGraphInput, PathIndex, PathRelationship } from "../features/art-paths/types";
 
-const graph = graphFixture as unknown as PathGraphInput;
+const graph = {
+  ...graphFixture,
+  release_id: PATH_RELEASE_ID,
+  input_release_id: PATH_RELEASE_ID,
+  relationships: graphFixture.relationships.map((relationship) => ({
+    ...relationship,
+    release_id: PATH_RELEASE_ID,
+  })),
+} as unknown as PathGraphInput;
 const index = indexFixture as unknown as PathIndex;
 
 describe("MUSEUM-06 Graphology bidirectional BFS and bounded Yen", () => {
