@@ -355,7 +355,7 @@ function PathResultView({ path, bundle, details, locale, view, copy, label, filt
         </dl>
         <p>{copy.algorithm}: {copy.algorithmValue} · {copy.filtersApplied}: {filterSummary} · {copy.release}: {bundle.release.version}</p>
       </header>
-      {view === "graph" ? <PathGraphView artists={bundle.graph.artists} relationships={bundle.graph.relationships} layout={bundle.release.layout} path={path} locale={locale} /> : null}
+      {view === "graph" ? <PathGraphView artists={bundle.graph.artists} relationships={bundle.graph.relationships} path={path} locale={locale} /> : null}
       <section className="path-text-equivalent" aria-labelledby={`path-steps-${path.rank}`}>
         <h4 id={`path-steps-${path.rank}`}>{locale === "zh-CN" ? "按顺序阅读路径" : "Read the path in order"}</h4>
         <ol>

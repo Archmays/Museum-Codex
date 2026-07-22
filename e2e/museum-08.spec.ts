@@ -383,7 +383,7 @@ test("no-script document preserves museum, art, and rights entry information", a
   const page = await context.newPage();
   await page.goto("./", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { level: 1, name: "博物馆 · Museum" })).toBeVisible();
-  await expect(page.getByRole("heading", { level: 2, name: /Constellation/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Artist connections/ })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: /Rights/ })).toBeVisible();
   await noHorizontalOverflow(page);
   await context.close();

@@ -87,6 +87,7 @@ test("comparison route provides graph and complete text-equivalent evidence navi
   await expect(page.locator(".path-graph svg")).toBeVisible();
   await expect(page.locator(".path-graph-edges line.is-path")).not.toHaveCount(0);
   await expect(page.locator(".path-graph-nodes g.is-context")).not.toHaveCount(0);
+  expect(await page.locator(".path-graph-nodes g").count()).toBeLessThanOrEqual(13);
   await expect(page.locator(".path-graph-nodes g.is-path").first()).toContainText("1");
   await expect(page.locator(".path-text-equivalent > ol > li")).not.toHaveCount(0);
   await page.getByText("Claim → Evidence → Source").first().click();

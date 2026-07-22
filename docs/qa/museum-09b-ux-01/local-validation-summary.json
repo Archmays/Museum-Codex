@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "phase_id": "MUSEUM-09B-UX-01",
   "validation_scope": "targeted_predeployment",
-  "local_targeted_wave_count": 6,
+  "local_targeted_wave_count": 9,
   "local_full_gate_count": 0,
   "results": {
     "successor_validator": {
@@ -41,8 +41,8 @@
     "typescript": "pass",
     "eslint": "pass",
     "production_build": "pass",
-    "build_resource_closure": {"status": "pass", "files": 1908, "bytes": 290845553},
-    "repository_safety_scan": {"status": "pass", "files": 3314},
+    "build_resource_closure": {"status": "pass", "files": 1908, "bytes": 290846443},
+    "repository_safety_scan": {"status": "pass", "files": 3327},
     "privacy_scan": {
       "status": "pass",
       "analytics_used": false,
@@ -53,6 +53,9 @@
     "playwright_primary": {"status": "pass", "tests": 9},
     "playwright_online_local": {"status": "pass", "tests": 6},
     "playwright_map_regression": {"status": "pass", "tests": 1},
+    "playwright_remote_failure_reproduction": {"status": "expected_fail", "tests": 3, "failures": 3},
+    "playwright_remote_failure_closure": {"status": "pass", "tests": 3},
+    "playwright_path_regression_closure": {"status": "pass", "tests": 4, "graph_node_limit": 13},
     "formal_screenshot_count": 12,
     "automated_a11y": {"status": "pass", "serious": 0, "critical": 0},
     "performance": {
@@ -72,15 +75,15 @@
       "thresholds_weakened": false,
       "constellation_route_gzip_bytes": 31822,
       "constellation_route_limit_bytes": 180000,
-      "map_route_gzip_bytes": 549957,
+      "map_route_gzip_bytes": 549956,
       "map_route_limit_bytes": 550000
     },
     "search": {
       "status": "pass",
       "records": 979,
-      "p95_ms": 0.3564,
+      "p95_ms": 0.6869,
       "limit_p95_ms": 80,
-      "synthetic_5000_p95_ms": 2.5109,
+      "synthetic_5000_p95_ms": 1.9236,
       "synthetic_5000_limit_p95_ms": 120
     },
     "changed_path_classifier": {
@@ -103,6 +106,14 @@
     {
       "code": "map_budget_margin",
       "resolution": "Removed nonessential map stamp/loading CSS; retained the unchanged 550000-byte threshold and reran the seven-viewport map regression."
+    },
+    {
+      "code": "frontend_full_gate_expectation_drift",
+      "resolution": "Updated only stale assertions to the shipped child-facing headings and scoped duplicate-copy checks to the narrative region; the full local frontend gate then passed 105 of 105 tests."
+    },
+    {
+      "code": "path_graph_missing_successor_layout",
+      "resolution": "Replaced the removed global ring layout dependency with deterministic task-focused path layout, capped direct context at six and total visible nodes at thirteen, preserved the ordered text equivalent, and closed the exact remote failures plus the full MUSEUM-06 browser regression locally."
     }
   ],
   "unresolved_p0": 0,

@@ -5,13 +5,51 @@ import type { ArtistPath, PathArtist, PathRelationship } from "./types";
 type PathGraphViewProps = {
   artists: PathArtist[];
   relationships: PathRelationship[];
-  layout: LayoutNode[];
   path: ArtistPath;
   locale: Locale;
 };
 
-export function PathGraphView({ artists, relationships, layout, path, locale }: PathGraphViewProps) {
+const PATH_GRAPH_NODE_LIMIT = 20;
+const PATH_GRAPH_CONTEXT_LIMIT = 6;
+
+function focusedPathLayout(path: ArtistPath, relationships: PathRelationship[]): LayoutNode[] {
+  const pathNodes = new Set(path.artist_ids);
+  const visible = new Set(path.artist_ids);
+  for (const relationship of [...relationships].sort((left, right) => left.id.localeCompare(right.id))) {
+    if (!pathNodes.has(relationship.source_artist_id) && !pathNodes.has(relationship.target_artist_id)) continue;
+    const candidates = [relationship.source_artist_id, relationship.target_artist_id].filter((id) => !visible.has(id));
+    const contextCount = [...visible].filter((id) => !pathNodes.has(id)).length;
+    if (contextCount + candidates.length > PATH_GRAPH_CONTEXT_LIMIT) continue;
+    if (visible.size + candidates.length > PATH_GRAPH_NODE_LIMIT) continue;
+    for (const id of candidates) visible.add(id);
+  }
+
+  const active = path.artist_ids.filter((id) => visible.has(id));
+  const context = [...visible].filter((id) => !pathNodes.has(id)).sort();
+  const nodes: LayoutNode[] = active.map((artistId, index) => ({
+    artistId,
+    x: active.length === 1 ? 500 : 160 + (680 * index) / (active.length - 1),
+    y: 500,
+  }));
+  const rowCount = context.length > 3 ? 2 : 1;
+  const perRow = Math.ceil(context.length / rowCount);
+  context.forEach((artistId, index) => {
+    const row = Math.floor(index / perRow);
+    const column = index % perRow;
+    const columnsInRow = Math.min(perRow, context.length - row * perRow);
+    nodes.push({
+      artistId,
+      x: columnsInRow === 1 ? 500 : 90 + (820 * column) / (columnsInRow - 1),
+      y: rowCount === 1 ? 235 : row === 0 ? 210 : 790,
+    });
+  });
+  return nodes;
+}
+
+export function PathGraphView({ artists, relationships, path, locale }: PathGraphViewProps) {
+  const layout = focusedPathLayout(path, relationships);
   const position = new Map(layout.map((node) => [node.artistId, node]));
+  const visibleArtists = new Set(layout.map((node) => node.artistId));
   const artistById = new Map(artists.map((artist) => [artist.id, artist]));
   const pathEdges = new Set(path.relationship_ids);
   const pathNodes = new Set(path.artist_ids);
@@ -22,8 +60,8 @@ export function PathGraphView({ artists, relationships, layout, path, locale }: 
         <title id="path-graph-title">{locale === "zh-CN" ? "当前艺术家路径图" : "Current artist pathway graph"}</title>
         <desc id="path-graph-description">
           {locale === "zh-CN"
-            ? "高亮边与编号节点构成当前路径；其余节点和关系保留但降低对比度。下方有完整文字等价内容。"
-            : "Highlighted edges and numbered nodes form the current path; other nodes and relations remain dimmed. Full text-equivalent content follows."}
+            ? "高亮边与编号节点构成当前路径；少量直接相连的语境节点降低对比度显示。下方有完整文字等价内容。"
+            : "Highlighted edges and numbered nodes form the current path; a few directly connected context nodes remain dimmed. Full text-equivalent content follows."}
         </desc>
         <defs>
           <marker id="path-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -31,7 +69,11 @@ export function PathGraphView({ artists, relationships, layout, path, locale }: 
           </marker>
         </defs>
         <g className="path-graph-edges">
-          {relationships.map((edge) => {
+          {relationships.filter((edge) =>
+            visibleArtists.has(edge.source_artist_id) &&
+            visibleArtists.has(edge.target_artist_id) &&
+            (pathEdges.has(edge.id) || pathNodes.has(edge.source_artist_id) || pathNodes.has(edge.target_artist_id))
+          ).map((edge) => {
             const source = position.get(edge.source_artist_id);
             const target = position.get(edge.target_artist_id);
             if (!source || !target) return null;
