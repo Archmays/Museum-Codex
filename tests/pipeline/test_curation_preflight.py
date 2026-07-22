@@ -131,7 +131,7 @@ class CurationSchemaFixtureTests(unittest.TestCase):
         environment = load_schema_environment()
         curation = [path for path in environment.by_path if path.startswith("schemas/curation/")]
         self.assertEqual(8, len(curation))
-        self.assertEqual(96, len(environment.by_path))
+        self.assertEqual(101, len(environment.by_path))
 
     def test_readiness_scores_are_not_art_value_rankings(self) -> None:
         candidate = load("artist-candidate-qualified.json")
