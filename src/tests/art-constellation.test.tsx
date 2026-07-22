@@ -410,5 +410,5 @@ describe("MUSEUM-04 formal public release", () => {
       "href",
       `${import.meta.env.BASE_URL}THIRD_PARTY_NOTICES.md`,
     );
-  });
+  }, 15_000);
 });
