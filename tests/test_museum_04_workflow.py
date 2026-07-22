@@ -22,7 +22,8 @@ class Museum04WorkflowTests(unittest.TestCase):
         full_gate_required = (
             "python scripts/validate_museum_04_issue_form.py",
             "python -m museum_pipeline.media validate-bundle --json",
-            "python scripts/validate_museum_04_release.py public/releases/art-constellation-1.0.0 --require-public",
+            "python scripts/validate_release_integrity_ledger.py --require-candidate",
+            "python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1",
             "python scripts/scan_public_artifact_for_candidate_data.py public --label-set",
             "python scripts/scan_public_artifact_for_candidate_data.py dist --label-set",
         )
@@ -36,13 +37,22 @@ class Museum04WorkflowTests(unittest.TestCase):
             with self.subTest(phase_scoped_command=command):
                 self.assertIn(command, self.validation)
                 self.assertNotIn(command, self.full)
-        self.assertIn("python scripts/validate_release_integrity_ledger.py --require-candidate", self.full)
+        for historical_validator in (
+            "validate_museum_04_release.py public/releases/art-constellation-1.0.0",
+            "validate_museum_05b_release.py public/releases/art-gallery-interactions-1.1.0",
+            "validate_museum_06_release.py public/releases/art-pathways-1.2.0",
+            "validate_museum_07_release.py public/releases/art-time-place-1.3.0",
+            "validate_museum_08_release.py public/releases/art-v1-candidate-1.4.0",
+            "validate_museum_09b_release.py public/releases/art-expansion-batch-01-1.5.0",
+        ):
+            with self.subTest(historical_validator=historical_validator):
+                self.assertNotIn(historical_validator, self.full)
 
     def test_performance_loader_and_fallback_gates_run_before_upload(self) -> None:
         required = (
             "docs/qa/museum-04/performance-current-graph.json",
             "docs/qa/museum-04/performance-scale-benchmarks.json",
-            "python scripts/validate_museum_05a.py",
+            "python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1",
             "docs/qa/museum-05a/performance.json",
             "node --test tests/test_museum_04_*_lab_runner.mjs",
             "npm run test:e2e",
