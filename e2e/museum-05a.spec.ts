@@ -127,7 +127,7 @@ async function installEnglishPreferences(page: Page, lowBandwidth = false) {
   }, { low: lowBandwidth });
 }
 
-test("artist index exposes 12 reviewed entries, useful filters, and all 12 artist galleries", async ({ page }, testInfo) => {
+test("artist index exposes 62 reviewed entries, useful filters, and all legacy artist galleries", async ({ page }, testInfo) => {
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   await installEnglishPreferences(page);
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -135,12 +135,12 @@ test("artist index exposes 12 reviewed entries, useful filters, and all 12 artis
   await useEnglish(page);
 
   await expect(page.getByRole("heading", { level: 1, name: "Each artist offers a way to begin looking" })).toBeVisible();
-  await expect(page.locator(".artist-index-card")).toHaveCount(12);
-  await expect(page.locator('.artist-index-card[data-image-state="approved"]')).toHaveCount(8);
-  await expect(page.locator('.artist-index-card[data-image-state="no-image"]')).toHaveCount(4);
-  await expect(page.locator(".gallery-release-tally")).toContainText("44");
-  await expect(page.locator(".gallery-release-tally")).toContainText("31");
-  await expect(page.locator(".gallery-release-tally")).toContainText("36");
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 62 artists");
+  await expect(page.locator(".artist-index-card")).toHaveCount(24);
+  await expect(page.getByRole("navigation", { name: "Artist pagination" })).toContainText("1 / 3");
+  await expect(page.locator(".gallery-release-tally")).toContainText("532");
+  await expect(page.locator(".gallery-release-tally")).toContainText("71");
+  await expect(page.locator(".gallery-release-tally")).toContainText("60");
   await captureFullPage(page, "artist-index-desktop");
 
   await page.getByLabel("Search artists").fill("Durer");
@@ -149,10 +149,22 @@ test("artist index exposes 12 reviewed entries, useful filters, and all 12 artis
   await page.getByLabel("Artwork images").selectOption({ label: "No public artwork image now" });
   await expect(page.locator(".artist-index-card")).toHaveCount(0);
   await page.locator(".artist-filter-grid").getByRole("button", { name: "Clear filters" }).click();
-  await expect(page.locator(".artist-index-card")).toHaveCount(12);
-  await page.getByLabel("Artwork images").selectOption({ label: "No public artwork image now" });
-  await expect(page.locator(".artist-index-card")).toHaveCount(4);
+  await expect(page.locator(".artist-index-card")).toHaveCount(24);
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 62 artists");
+  await page.getByLabel("Artwork images").selectOption({ label: "Site-hosted artwork image available" });
+  await expect(page.locator(".artist-index-card")).toHaveCount(17);
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 17 artists");
   await page.locator(".artist-filter-grid").getByRole("button", { name: "Clear filters" }).click();
+  await page.getByLabel("Artwork images").selectOption({ label: "No public artwork image now" });
+  await expect(page.locator(".artist-index-card")).toHaveCount(24);
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 45 artists");
+  const pagination = page.getByRole("navigation", { name: "Artist pagination" });
+  await expect(pagination).toContainText("1 / 2");
+  await pagination.getByRole("button", { name: "Next" }).click();
+  await expect(page.locator(".artist-index-card")).toHaveCount(21);
+  await expect(pagination).toContainText("2 / 2");
+  await page.locator(".artist-filter-grid").getByRole("button", { name: "Clear filters" }).click();
+  await expect(page.locator(".artist-index-card")).toHaveCount(24);
 
   await page.locator(".artist-index-card").first().getByRole("link", { name: "Enter artist gallery" }).click();
   await expect(page.locator('[data-museum05a-status="ready"][data-gallery-route="artist"]')).toBeVisible();
@@ -347,7 +359,8 @@ test("360px forced-colors and reduced-motion preferences preserve the complete a
 
   await expect(page.locator("html")).toHaveAttribute("data-forced-colors", "active");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.locator(".artist-index-card")).toHaveCount(12);
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 62 artists");
+  await expect(page.locator(".artist-index-card")).toHaveCount(24);
   await expectNoHorizontalOverflow(page);
   await captureFullPage(page, "artist-index-forced-colors-360");
 

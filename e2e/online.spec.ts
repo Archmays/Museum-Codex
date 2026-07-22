@@ -98,7 +98,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   const liveRegion = page.locator("main[data-view=graph] > .sr-only[aria-live=polite]");
   await expect(liveRegion).toHaveCSS("position", "absolute");
   await expect(liveRegion).toHaveCSS("width", "1px");
-  await expect(page.locator(".artist-navigator button")).toHaveCount(12);
+  await expect(page.locator(".artist-navigator button")).toHaveCount(62);
   await expect(page.getByText("The initial state has no visible edges.", { exact: false })).toBeVisible();
   await expect(page.getByText("C-level curatorial comparisons", { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/Algorithmic similarity: off/).first()).toBeVisible();
@@ -156,11 +156,11 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await graphTab.focus();
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("tab", { name: /Artist list/ })).toHaveAttribute("aria-selected", "true");
-  await expect(page.locator(".artist-list-view li")).toHaveCount(12);
+  await expect(page.locator(".artist-list-view li")).toHaveCount(50);
   await page.screenshot({ path: screenshotPath("desktop-list") });
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("tab", { name: /Relationship table/ })).toHaveAttribute("aria-selected", "true");
-  await expect(page.locator(".relationship-table-view tbody tr")).toHaveCount(36);
+  await expect(page.locator(".relationship-table-view tbody tr")).toHaveCount(60);
 
   await page.getByLabel("Relationship level").selectOption("A");
   await expect(page.getByText(/no verified A or B relationships/i)).toBeVisible();
@@ -175,7 +175,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await expect(page.locator(".artist-list-view li")).toHaveCount(1);
 
   await page.getByRole("button", { name: "Open rights and third-party notices" }).click();
-  await expect(page.getByText(/This release contains only \d+ local derivatives.*artworks retain explicit no-image states/)).toBeVisible();
+  await expect(page.getByText(/This release uses only self-hosted derivatives.*other works retain an explicit no-image path.*both zero/)).toBeVisible();
   await expect(page.locator(".notice-list li")).not.toHaveCount(0);
   await expect(page.locator(".panel-actions a")).toHaveCount(2);
   await page.screenshot({ path: screenshotPath("rights-panel") });
@@ -306,7 +306,7 @@ test("forced colors, reduced motion, and unavailable WebGL fall back to text", a
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
   await expect(page.locator("html")).toHaveAttribute("data-forced-colors", "active");
   await expect(page.locator("main[data-view=list]")).toBeVisible();
-  await expect(page.locator(".artist-list-view li")).toHaveCount(12);
+  await expect(page.locator(".artist-list-view li")).toHaveCount(50);
   const forcedColorsListTab = page.getByRole("tab", { name: /Artist list/ });
   await forcedColorsListTab.focus();
   await page.keyboard.press("Home");
@@ -333,7 +333,7 @@ test("forced colors, reduced motion, and unavailable WebGL fall back to text", a
   await webglPage.setViewportSize({ width: 390, height: 844 });
   await openConstellation(webglPage);
   await expect(webglPage.locator("main[data-view=list]")).toBeVisible();
-  await expect(webglPage.locator(".artist-list-view li")).toHaveCount(12);
+  await expect(webglPage.locator(".artist-list-view li")).toHaveCount(50);
   await expect(webglPage.getByRole("tab", { name: /Graph/ })).toBeDisabled();
   await expect(webglPage.locator(".constellation-status-line")).toContainText("WebGL is not reliably available");
   await webglPage.waitForTimeout(250);

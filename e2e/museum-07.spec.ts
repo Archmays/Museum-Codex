@@ -92,7 +92,7 @@ test("local-only map exposes synchronized markers, evidence, uncertainty, and no
   await installEnglish(page);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await gotoMap(page);
-  await expect(page.getByText("12 / 23 / 36")).toBeVisible();
+  await expect(page.getByText("62 / 24 / 110")).toBeVisible();
   await expect(page.getByRole("region", { name: "Two-dimensional art place map" })).toBeVisible();
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
   const markerNavigator = page.getByRole("complementary", { name: /synchronized with the map/i });
@@ -106,7 +106,7 @@ test("local-only map exposes synchronized markers, evidence, uncertainty, and no
   await expect(page.getByText(/Modern outlines are not historical political borders/)).toBeVisible();
   await expect(page.getByText(/current holding institution is not a creation place/i)).toBeVisible();
   const style = await page.evaluate(async (): Promise<MapStyleProbe> => {
-    const response = await fetch("./releases/art-time-place-1.3.0/map-style.json");
+    const response = await fetch("./releases/art-expansion-batch-01-1.5.0/map-style.json");
     return await response.json() as MapStyleProbe;
   });
   expect(style.style.layers.map((layer) => layer.id)).toEqual(["background", "land", "lakes", "coastline", "uncertainty-halos", "place-markers"]);
@@ -124,7 +124,7 @@ test("map, timeline, and place table share allowlisted URL state and keep holdin
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   await installEnglish(page);
   await gotoMap(page, "view=list&artist=artist%3Aunreviewed&episode=episode%3Apending&tracking=discarded&lat=51");
-  await expect(page.locator(".map-place-table tbody tr")).toHaveCount(36);
+  await expect(page.locator(".map-place-table tbody tr")).toHaveCount(98);
   await expect.poll(() => new URL(page.url()).hash).not.toContain("tracking");
   expect(page.url()).not.toMatch(/unreviewed|pending|lat=/);
   const artistSelect = page.locator(".map-filter-grid label").filter({ hasText: /^Artist/ }).locator("select");

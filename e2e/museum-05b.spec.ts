@@ -205,7 +205,7 @@ test("textual artist tour keeps the no-image path complete and prints every clos
   const card = page.locator(".observation-card").first();
   await expect(card).toContainText("Date");
   await expect(card).toContainText("Institution");
-  await expect(card).toContainText("Automated review passed");
+  await expect(card).toContainText("Complete metadata and evidence path");
   await expect(card.getByRole("heading", { name: "Evidence links" })).toBeVisible();
   await expect(card.getByRole("heading", { name: "Source links" })).toBeVisible();
   await expect(card.locator("a[href^='https://']").first()).toBeVisible();
