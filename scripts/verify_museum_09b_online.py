@@ -169,7 +169,10 @@ def verify_online(base_url: str, commit: str) -> dict[str, Any]:
         if len(materialized) != asset_manifest.get("materialized_asset_count"):
             failures.append("materialized asset count mismatch")
         for entry in referenced:
-            _add_entry(closure, entry["resolved_path"], entry["sha256"], entry["bytes"], "predecessor_reference")
+            resolved_path = entry.get("resolved_path") or entry.get("path")
+            if not isinstance(resolved_path, str) or not resolved_path:
+                raise ValueError("predecessor reference has no deployable path")
+            _add_entry(closure, resolved_path, entry["sha256"], entry["bytes"], "predecessor_reference")
         for entry in materialized:
             _add_entry(closure, entry["path"], entry["sha256"], entry["bytes"], "build_materialized")
 
