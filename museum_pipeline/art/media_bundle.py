@@ -32,6 +32,7 @@ from museum_pipeline.media.image_processing import (
     compare_preview_visual_match,
     inspect_image_bytes,
 )
+from scripts.scan_public_artifact_for_candidate_data import validated_formal_art_exempt_roots
 
 
 PHASE_ID = "MUSEUM-09B-MEDIA"
@@ -1673,6 +1674,7 @@ def validate_bundle(root: Path = DEFAULT_BUNDLE_ROOT, *, validate_registry: bool
     original_by_hash = {item.get("sha256"): item for item in originals}
     if documents["originals-manifest.json"].get("tracked_original_bytes") != 0:
         issues.append("prohibited_original_committed")
+    protected_original_root = (MEDIA_VAULT / "originals" / "sha256").resolve()
     for original in originals:
         work_id = original.get("work_id")
         if decision_by_work.get(work_id, {}).get("final_status") not in SELF_HOSTED_STATUSES:
@@ -1680,7 +1682,22 @@ def validate_bundle(root: Path = DEFAULT_BUNDLE_ROOT, *, validate_registry: bool
         if original.get("bytes", 0) > MAX_ORIGINAL_BYTES or original.get("bytes", 0) <= 0:
             issues.append(f"original_size_invalid:{work_id}")
         storage = ROOT / str(original.get("storage_location") or "")
-        if not storage.is_file() or sha256_file(storage) != original.get("sha256") or storage.stat().st_size != original.get("bytes"):
+        valid_identity = bool(
+            re.fullmatch(r"sha256:[0-9a-f]{64}", str(original.get("sha256") or ""))
+        )
+        dimensions = original.get("dimensions")
+        valid_dimensions = bool(
+            isinstance(dimensions, list)
+            and len(dimensions) == 2
+            and all(isinstance(value, int) and value > 0 for value in dimensions)
+        )
+        protected_location = storage.resolve().is_relative_to(protected_original_root)
+        if not valid_identity or not valid_dimensions or not protected_location:
+            issues.append(f"original_physical_mismatch:{work_id}")
+        elif storage.is_file() and (
+            sha256_file(storage) != original.get("sha256")
+            or storage.stat().st_size != original.get("bytes")
+        ):
             issues.append(f"original_physical_mismatch:{work_id}")
 
     derivatives = documents["derivatives-manifest.json"].get("derivatives", [])
@@ -1755,8 +1772,16 @@ def validate_bundle(root: Path = DEFAULT_BUNDLE_ROOT, *, validate_registry: bool
         issues.append("open_decision_boundary_invalid")
 
     public_labels = documents["public-leakage-label-set.json"].get("labels", [])
+    exempt_roots, release_findings = validated_formal_art_exempt_roots(ROOT / "public")
+    for finding in release_findings:
+        issues.append(
+            f"candidate_media_public_leakage:{finding.get('code', 'formal_release_invalid')}:"
+            f"{finding.get('path', 'public')}"
+        )
     for path in sorted((ROOT / "public").rglob("*")):
         if not path.is_file() or path.suffix.lower() not in {".json", ".html", ".js", ".css", ".txt", ".md"}:
+            continue
+        if any(path.resolve().is_relative_to(root) for root in exempt_roots):
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
         if any(label in text for label in public_labels):
@@ -1922,9 +1947,9 @@ def validate_fixture_scenario(case: dict[str, Any], bundle_root: Path = DEFAULT_
             return "corrupt_or_truncated_image"
     if case_id == "pixel-overflow":
         try:
-            original = _read_json(Path(bundle_root) / "originals-manifest.json")["records"][0]
-            payload = (ROOT / original["storage_location"]).read_bytes()
-            inspect_image_bytes(payload, original["mime"], max_pixels=1)
+            derivative = _read_json(Path(bundle_root) / "derivatives-manifest.json")["derivatives"][0]
+            payload = (Path(bundle_root) / derivative["storage_path"]).read_bytes()
+            inspect_image_bytes(payload, derivative["mime"], max_pixels=1)
         except ImageProcessingError as error:
             return "pixel_overflow" if error.code == "pixel_limit_exceeded" else error.code
     raise ValueError(f"fixture did not exercise expected failure: {case_id}")

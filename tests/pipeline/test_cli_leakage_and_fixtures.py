@@ -194,6 +194,7 @@ class LeakageTests(unittest.TestCase):
                 (ROOT / "public" / "releases" / "art-pathways-1.2.0").resolve(),
                 (ROOT / "public" / "releases" / "art-time-place-1.3.0").resolve(),
                 (ROOT / "public" / "releases" / "art-v1-candidate-1.4.0").resolve(),
+                (ROOT / "public" / "releases" / "art-expansion-batch-01-1.5.0").resolve(),
             },
             exempt_roots,
         )
@@ -213,6 +214,14 @@ class LeakageTests(unittest.TestCase):
             invalid_roots, invalid_findings = validated_formal_art_exempt_roots(public)
         self.assertEqual(set(), invalid_roots)
         self.assertEqual("museum_08_release_invalid", invalid_findings[0]["code"])
+        with tempfile.TemporaryDirectory() as temporary:
+            public = Path(temporary)
+            invalid_expansion = public / "releases" / "art-expansion-batch-01-1.5.0"
+            invalid_expansion.mkdir(parents=True)
+            invalid_expansion.joinpath("manifest.json").write_text("{}", encoding="utf-8")
+            invalid_roots, invalid_findings = validated_formal_art_exempt_roots(public)
+        self.assertEqual(set(), invalid_roots)
+        self.assertEqual("museum_09b_release_invalid", invalid_findings[0]["code"])
 
     def test_unregistered_release_directory_keeps_generic_leakage_checks(self) -> None:
         formal_terms = [{"value": "Albrecht Dürer", "match_mode": "casefold_substring"}]
@@ -466,7 +475,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(87, len(environment.by_path))
+        self.assertEqual(96, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))

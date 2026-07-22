@@ -45,9 +45,9 @@ class Museum04WorkflowTests(unittest.TestCase):
             "python scripts/validate_museum_05a.py",
             "docs/qa/museum-05a/performance.json",
             "node --test tests/test_museum_04_*_lab_runner.mjs",
-            "npm run check:museum-04-budgets",
-            "node scripts/verify-museum-05a-budgets.mjs",
             "npm run test:e2e",
+            "npm run check:museum-09b-search",
+            "npm run check:museum-09b-budgets",
         )
         upload_index = self.full.index("actions/upload-pages-artifact")
         python_tests_index = self.full.index("python scripts/run_offline_python_tests.py")
@@ -64,6 +64,8 @@ class Museum04WorkflowTests(unittest.TestCase):
         self.assertIn("needs: [classify, phase-scoped, final-full]", self.validation)
         self.assertNotIn("check:museum-06-budgets", self.full)
         self.assertNotIn("check:museum-07-budgets", self.full)
+        self.assertNotIn("check:museum-04-budgets", self.full)
+        self.assertNotIn("verify-museum-05a-budgets.mjs", self.full)
 
     def test_ci_remains_offline_and_never_acquires_live_media(self) -> None:
         forbidden = (

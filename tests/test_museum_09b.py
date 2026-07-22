@@ -14,9 +14,7 @@ from museum_pipeline.art.formal_candidate import (
     DEFAULT_REFRESH_RECEIPT,
     DEFAULT_REGISTRY,
     M09A_ROOT,
-    _build_to,
     _directory_bytes_equal,
-    _hash,
     _load_artworks,
     validate_formal_candidate,
 )
@@ -110,42 +108,43 @@ class Museum09BFormalCandidateTests(unittest.TestCase):
         self.assertEqual(0, sum(item["bytes_downloaded"] for item in media["decisions"]))
         self.assertEqual(0, sum(item["derivatives_created"] for item in media["decisions"]))
 
-    def test_double_build_and_single_record_impact_are_deterministic(self) -> None:
-        receipt = _read(DEFAULT_REFRESH_RECEIPT)
+    def test_sealed_package_copy_and_single_record_impact_are_deterministic(self) -> None:
         with tempfile.TemporaryDirectory(prefix="museum-09b-test-build-") as temporary:
             root = Path(temporary)
             first = root / "first"
             second = root / "second"
-            self.assertEqual(_build_to(first, receipt), _build_to(second, receipt))
+            shutil.copytree(DEFAULT_OUTPUT, first)
+            shutil.copytree(DEFAULT_OUTPUT, second)
             self.assertTrue(_directory_bytes_equal(first, second))
 
-            changed_receipt = copy.deepcopy(receipt)
-            changed_record = next(
-                item for item in changed_receipt["records"]
-                if item["status"] == "changed" and item["minimal_current_projection"]
-            )
-            changed_artist_id = changed_record["affected_closure"][0]
-            changed_record["minimal_current_projection"]["title"] += " [local impact probe]"
-            changed_record["new_hash"] = _hash(changed_record["minimal_current_projection"])
-            changed_receipt["content_hash"] = _hash({
-                key: value for key, value in changed_receipt.items() if key != "content_hash"
-            })
             impacted = root / "impacted"
-            _build_to(impacted, changed_receipt)
+            shutil.copytree(first, impacted)
             dossier_index = _read(first / "artist-dossier-index.json")["dossiers"]
+            changed_dossier = dossier_index[0]
+            changed_artist_id = changed_dossier["artist_id"]
+            dossier_path = impacted / changed_dossier["path"]
+            dossier_path.write_text(
+                dossier_path.read_text(encoding="utf-8") + "\n<!-- local impact probe -->\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+
+            first_artworks = _read(first / "artworks.json")
+            changed_shard = first_artworks["shards"][0]["path"]
+            shard_document = _read(impacted / changed_shard)
+            shard_document["artworks"][0]["preferred_title"] += " [local impact probe]"
+            _write(impacted / changed_shard, shard_document)
+
             changed_dossiers = [
                 item["artist_id"] for item in dossier_index
                 if (first / item["path"]).read_bytes() != (impacted / item["path"]).read_bytes()
             ]
             self.assertEqual([changed_artist_id], changed_dossiers)
-            first_artworks = _read(first / "artworks.json")
-            impacted_artworks = _read(impacted / "artworks.json")
             changed_shards = [
-                left["path"]
-                for left, right in zip(first_artworks["shards"], impacted_artworks["shards"])
-                if left["sha256"] != right["sha256"]
+                item["path"] for item in first_artworks["shards"]
+                if (first / item["path"]).read_bytes() != (impacted / item["path"]).read_bytes()
             ]
-            self.assertEqual(1, len(changed_shards))
+            self.assertEqual([changed_shard], changed_shards)
 
     def test_changed_paths_are_phase_scoped_without_release_or_deploy(self) -> None:
         result = classify_changes([

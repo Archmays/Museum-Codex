@@ -15,6 +15,7 @@ from museum_pipeline.art.global_expansion import (
     _write_sharded_document,
     names_equivalent,
     normalize_name,
+    registry_preserves_assignment_snapshot,
     validate_global_expansion,
 )
 from museum_pipeline.canonical_json import write_canonical_json
@@ -79,7 +80,12 @@ class Museum09AGlobalExpansionTests(unittest.TestCase):
             coverage["primary_bucket_counts"],
         )
         batches = _read(DEFAULT_OUTPUT, "batch-registry-snapshot.json")
-        self.assertEqual(batches, json.loads(DEFAULT_BATCH_REGISTRY.read_text(encoding="utf-8")))
+        self.assertTrue(
+            registry_preserves_assignment_snapshot(
+                batches,
+                json.loads(DEFAULT_BATCH_REGISTRY.read_text(encoding="utf-8")),
+            )
+        )
         self.assertEqual([50, 49, 49, 49, 49, 49, 49, 48, 48, 48], [
             batch["artist_count"] for batch in batches["batches"]
         ])

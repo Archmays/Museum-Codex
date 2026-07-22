@@ -455,7 +455,25 @@ function hasCanonicalSourceId(sourceIds: string[], sourceName: string) {
 function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]) {
   const rawUrl = optionalString(value);
   if (!rawUrl) return null;
-  const normalizedUrl = artworkId.startsWith("artwork:m09b-") && rawUrl.startsWith("http://")
+  const sourceOrigins: Record<string, string[]> = {
+    aic_api: ["https://www.artic.edu", "https://api.artic.edu"],
+    cleveland_open_access: ["https://clevelandart.org", "https://www.clevelandart.org"],
+    met_open_access: ["https://www.metmuseum.org"],
+    nga_open_data: ["https://www.nga.gov"],
+    moma_open_data: ["https://www.moma.org"],
+    tate_open_data: ["https://www.tate.org.uk"],
+    cooper_hewitt_open_data: ["https://collection.cooperhewitt.org"],
+    national_gallery_singapore: ["https://www.nationalgallery.sg"],
+    vam_collections: ["https://collections.vam.ac.uk"],
+    mia_open_access: ["https://collections.artsmia.org"],
+  };
+  const expandedSourceNames = sourceIds.flatMap((sourceId) => {
+    const [entityType, sourceName, extra] = sourceId.split(":");
+    return entityType === "source" && extra === undefined && sourceOrigins[sourceName]
+      ? [sourceName]
+      : [];
+  });
+  const normalizedUrl = expandedSourceNames.length > 0 && rawUrl.startsWith("http://")
     ? `https://${rawUrl.slice("http://".length)}`
     : rawUrl;
   const url = httpsUrl(normalizedUrl, "artwork_official_object_url");
@@ -469,22 +487,10 @@ function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]
     metId && hasCanonicalSourceId(sourceIds, "met_open_access") && url.origin === "https://www.metmuseum.org" &&
     url.pathname === `/art/collection/search/${metId}` && !url.search && !url.hash,
   );
-  const sourceOrigins: Record<string, string[]> = {
-    aic_api: ["https://www.artic.edu", "https://api.artic.edu"],
-    cleveland_open_access: ["https://clevelandart.org", "https://www.clevelandart.org"],
-    met_open_access: ["https://www.metmuseum.org"],
-    nga_open_data: ["https://www.nga.gov"],
-    moma_open_data: ["https://www.moma.org"],
-    tate_open_data: ["https://www.tate.org.uk"],
-    cooper_hewitt_open_data: ["https://collection.cooperhewitt.org"],
-    national_gallery_singapore: ["https://www.nationalgallery.sg"],
-    vam_collections: ["https://collections.vam.ac.uk"],
-    mia_open_access: ["https://collections.artsmia.org"],
-  };
-  const matchesExpandedSource = artworkId.startsWith("artwork:m09b-") && sourceIds.some((sourceId) => {
-    const sourceName = sourceId.startsWith("source:") ? sourceId.slice("source:".length) : "";
-    return sourceOrigins[sourceName]?.includes(url.origin);
-  }) && url.pathname !== "/";
+  const isLegacyCanonicalArtwork = Boolean(aicId || metId);
+  const matchesExpandedSource = !isLegacyCanonicalArtwork && expandedSourceNames.some(
+    (sourceName) => sourceOrigins[sourceName]?.includes(url.origin),
+  ) && url.pathname !== "/";
   if (!matchesAic && !matchesMet && !matchesExpandedSource) throw new Error("artwork_official_object_source_mismatch");
   return url.href;
 }

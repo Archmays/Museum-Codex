@@ -23,6 +23,7 @@ from pathlib import Path
 from typing import Any
 
 from museum_pipeline.hashing import canonical_sha256, sha256_file
+from scripts.scan_public_artifact_for_candidate_data import validated_formal_art_exempt_roots
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1977,10 +1978,21 @@ def validate_formal_candidate(
     forbidden_markers = leakage.get("forbidden_public_markers", [])
     if not forbidden_markers or leakage.get("marker_count") != len(forbidden_markers):
         _failure(failures, "candidate_public_leakage", "leakage marker set is invalid")
+    exempt_roots, release_findings = validated_formal_art_exempt_roots(ROOT / "public")
+    for finding in release_findings:
+        _failure(
+            failures,
+            "candidate_public_leakage",
+            f"{finding.get('code', 'formal_release_invalid')}:{finding.get('path', 'public')}",
+        )
     for target in [ROOT / "public", ROOT / "index.html", ROOT / "src"]:
         paths = [target] if target.is_file() else list(target.rglob("*"))
         for path in paths:
             if not path.is_file() or path.suffix.casefold() in MEDIA_SUFFIXES:
+                continue
+            if path.resolve().is_relative_to((ROOT / "src" / "tests").resolve()):
+                continue
+            if any(path.resolve().is_relative_to(root) for root in exempt_roots):
                 continue
             try:
                 text = path.read_text(encoding="utf-8", errors="ignore")

@@ -19,6 +19,7 @@ from museum_pipeline.canonical_json import canonical_json_bytes, write_canonical
 from museum_pipeline.config import ROOT
 from museum_pipeline.hashing import sha256_file
 from scripts.generate_release_integrity_ledger import physical_tree
+from scripts.scan_public_artifact_for_candidate_data import validated_formal_art_exempt_roots
 from scripts.validate_governance_foundation import release_content_hash
 
 
@@ -73,6 +74,27 @@ SHARDED_DOCUMENTS = {
         "chunk_size": 2_500,
     },
 }
+
+
+def registry_preserves_assignment_snapshot(
+    snapshot: dict[str, Any], current: dict[str, Any]
+) -> bool:
+    """Allow lifecycle additions while keeping every MUSEUM-09A assignment immutable."""
+
+    snapshot_header = {key: value for key, value in snapshot.items() if key != "batches"}
+    current_header = {key: value for key, value in current.items() if key != "batches"}
+    if snapshot_header != current_header:
+        return False
+    snapshot_batches = {item.get("id"): item for item in snapshot.get("batches", [])}
+    current_batches = {item.get("id"): item for item in current.get("batches", [])}
+    if None in snapshot_batches or set(snapshot_batches) != set(current_batches):
+        return False
+    for batch_id, sealed in snapshot_batches.items():
+        active = current_batches[batch_id]
+        for key, value in sealed.items():
+            if key != "status" and active.get(key) != value:
+                return False
+    return True
 
 REGION_QUOTAS = {
     "europe": 170,
@@ -2959,8 +2981,15 @@ def validate_global_expansion(
         fail("current_release_mutation", json.dumps(public_profile, sort_keys=True))
     leakage_markers = documents["leakage"]["forbidden_public_markers"]
     leakage_hits: list[str] = []
+    exempt_roots, release_findings = validated_formal_art_exempt_roots(ROOT / "public")
+    for finding in release_findings:
+        leakage_hits.append(
+            f"{finding.get('path', 'public')}:{finding.get('code', 'formal_release_invalid')}"
+        )
     for path in sorted((ROOT / "public").rglob("*")):
         if not path.is_file() or path.stat().st_size > 20_000_000:
+            continue
+        if any(path.resolve().is_relative_to(root) for root in exempt_roots):
             continue
         payload = path.read_bytes()
         for marker in leakage_markers:
@@ -2973,10 +3002,12 @@ def validate_global_expansion(
     if package_root.resolve() == DEFAULT_OUTPUT.resolve():
         if not DEFAULT_BATCH_REGISTRY.is_file():
             fail("governance_batch_registry_missing", str(DEFAULT_BATCH_REGISTRY))
-        elif _json(DEFAULT_BATCH_REGISTRY) != documents["batches"]:
+        elif not registry_preserves_assignment_snapshot(
+            documents["batches"], _json(DEFAULT_BATCH_REGISTRY)
+        ):
             fail(
                 "governance_batch_registry_drift",
-                "governance registry differs from canonical package snapshot",
+                "governance registry changed a sealed MUSEUM-09A assignment field",
             )
 
     if include_validation_summary:
