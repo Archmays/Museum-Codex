@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { PageIntro } from "../components/PageIntro";
 import { useI18n } from "../i18n/I18nProvider";
+import { CurrentReleaseScope } from "../components/CurrentReleaseScope";
 
 export function AboutPage() {
   const { locale, t } = useI18n();
@@ -13,6 +14,7 @@ export function AboutPage() {
         title={rightsRoute ? (locale === "zh-CN" ? "让每项资料都能回到边界与来源" : "Keep every item connected to its boundaries and sources") : t.about.title}
         intro={rightsRoute ? (locale === "zh-CN" ? "代码、原创文字、元数据与媒体各自保留独立权利状态；来源、署名、撤回和隐私入口始终可抵达。" : "Code, original writing, metadata, and media retain separate rights states; sources, attribution, withdrawal, and privacy remain reachable.") : t.about.intro}
       />
+      <CurrentReleaseScope />
       <section className="principles" aria-label={t.about.title}>
         {t.about.principles.map(([title, body], index) => (
           <article key={title}>

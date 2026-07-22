@@ -107,7 +107,7 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
   const sourceById = new Map(sources.map((source) => [source.id, source]));
   const referencedSourceIds = sourceIdsForEvidence(evidence);
   const details = [
-    [copy.artist, <Link to={artistPath(artist.id)}>{artistName}</Link>],
+    [copy.artist, <Link to={artistPath(artist.publicSlug)}>{artistName}</Link>],
     [copy.date, artwork.dateDisplay ? localize(artwork.dateDisplay, locale) : "\u2014"],
     [copy.institution, artwork.institution ? localize(artwork.institution, locale) : "\u2014"],
     [copy.accession, artwork.accessionNumber ?? "\u2014"],
@@ -116,14 +116,6 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
     [copy.subjects, artwork.subjects.length ? localizedList(artwork.subjects, locale) : "\u2014"],
   ] as const;
   const compareSearch = new URLSearchParams({ left: artwork.id }).toString();
-  if (!observationCard) {
-    return (
-      <main id="main-content" className="artwork-detail-page artwork-detail-state" tabIndex={-1}>
-        <h1>{copy.loadErrorTitle}</h1><p>{copy.loadErrorText}</p>
-      </main>
-    );
-  }
-
   return (
     <main
       id="main-content"
@@ -138,14 +130,14 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
           <p className="eyebrow">{copy.artworkEyebrow}</p>
           <h1>{title}</h1>
           <p className="artwork-detail-byline">
-            <Link to={artistPath(artist.id)}>{artistName}</Link>
+            <Link to={artistPath(artist.publicSlug)}>{artistName}</Link>
             {artwork.dateDisplay ? <span>{localize(artwork.dateDisplay, locale)}</span> : null}
           </p>
         </div>
         <aside aria-label={copy.imageDecision}>
           <span>{copy.imageDecision}</span>
-          <strong>{artwork.media.decision}</strong>
-          <small>{artwork.media.reasonCodes.join(" \u00b7 ") || artwork.media.decision}</small>
+          <strong>{artwork.media.decision === "approved_self_hosted" ? (locale === "zh-CN" ? "本站图像" : "Image available here") : artwork.media.decision === "external_link_only" ? (locale === "zh-CN" ? "仅链接官方对象页" : "Official object page only") : (locale === "zh-CN" ? "元数据优先" : "Metadata first")}</strong>
+          <small>{artwork.media.decision === "external_link_only" ? (locale === "zh-CN" ? "本站不托管或请求该作品图像。" : "This site does not host or request an image for this work.") : artwork.media.decision === "metadata_only" ? (locale === "zh-CN" ? "完整元数据与来源仍可查阅。" : "Complete metadata and sources remain available.") : (locale === "zh-CN" ? "已发布的本站衍生图像。" : "Published site-hosted derivative image.")}</small>
         </aside>
       </header>
 
@@ -198,7 +190,13 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
         </aside>
       </div>
 
-      <ObservationCard card={observationCard} />
+      {observationCard ? <ObservationCard card={observationCard} /> : (
+        <section className="artwork-observation-card" aria-labelledby="metadata-observation-title">
+          <p className="eyebrow">{locale === "zh-CN" ? "元数据观察路径" : "Metadata observation path"}</p>
+          <h2 id="metadata-observation-title">{locale === "zh-CN" ? "从对象记录开始" : "Begin with the object record"}</h2>
+          <p>{locale === "zh-CN" ? "比较标题、年代、材料与收藏机构；来源未提供的信息保持为空，不从图像缺失推断作品意义。" : "Compare title, date, material, and holding institution. Missing source fields remain empty, and no meaning is inferred from an unavailable image."}</p>
+        </section>
+      )}
       <ObservationLenses lenses={interactions.lenses} artworkIds={[artwork.id]} />
 
       <section className="artwork-evidence" aria-labelledby="artwork-evidence-title">
@@ -207,15 +205,15 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
           <h2 id="artwork-evidence-title">{copy.evidence}</h2>
         </div>
         <ol className="artwork-claim-list">
-          {claims.map((claim) => {
+          {claims.map((claim, claimIndex) => {
             const claimEvidence = claim.evidenceIds
               .map((evidenceId) => evidenceById.get(evidenceId))
               .filter((item): item is EvidenceRecord => Boolean(item));
             return (
               <li key={claim.id}>
-                <p className="artwork-record-id">{claim.id}</p>
+                <p className="artwork-record-id">{locale === "zh-CN" ? `作品论断 ${claimIndex + 1}` : `Artwork claim ${claimIndex + 1}`}</p>
                 <h3>{localize(claim.text, locale)}</h3>
-                <p className="artwork-predicate">{claim.predicate}</p>
+                <p className="artwork-predicate">{locale === "zh-CN" ? "馆藏记录中的作品身份" : "Object identity in the collection record"}</p>
                 <ul aria-label={copy.evidenceRecords}>
                   {claimEvidence.map((item) => (
                     <li key={item.id}>
@@ -258,7 +256,7 @@ export function ArtworkDetailPage({ release, catalog, dataSource, interactions, 
       />
 
       <nav className="artwork-detail-actions" aria-label={copy.artworkEyebrow}>
-        <Link className="text-link" to={artistPath(artist.id)}>{copy.artistGalleryEyebrow}</Link>
+        <Link className="text-link" to={artistPath(artist.publicSlug)}>{copy.artistGalleryEyebrow}</Link>
         <Link className="text-link" to={`/art/compare?${compareSearch}`}>{copy.compareLink}</Link>
         <Link className="text-link" to={`/art/paths?from=${encodeURIComponent(artist.id)}&to=${encodeURIComponent(release.artists.find((candidate) => candidate.id !== artist.id)?.id ?? "")}&mode=comparison&maxHops=6&path=1&view=text`}>
           {locale === "zh-CN" ? "艺术家关系路径" : "Artist pathways"}

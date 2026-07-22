@@ -63,7 +63,7 @@ export type HoldingLocation = {
 
 export type MapSource = { id: string; name: string; tier: number; url: string; license: string; attribution: string };
 export type ArtistSummary = { id: string; labels: LocalizedText };
-export type ArtworkSummary = { id: string; artist_id: string; labels: LocalizedText };
+export type ArtworkSummary = { id: string; labels: LocalizedText };
 export type MapFeature = {
   type: "Feature";
   id: string;
@@ -86,6 +86,7 @@ export type MapBundle = {
   holdings: HoldingLocation[];
   artists: ArtistSummary[];
   artworks: ArtworkSummary[];
+  artworkCount: number;
   sources: MapSource[];
   style: MapStyleDocument;
   mapIndex: { counts: Record<string, number>; year_range: { min: number; max: number }; limitations: string[] };

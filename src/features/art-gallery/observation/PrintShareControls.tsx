@@ -41,7 +41,7 @@ export function PrintShareControls({ releaseId, releaseVersion, state = {} }: Pr
         <button type="button" onClick={() => void copyUrl()}>{locale === "zh-CN" ? "复制分享链接" : "Copy share link"}</button>
       </div>
       <p className="print-share-url">{canonicalUrl}</p>
-      <p className="print-share-release"><span>{releaseId}</span> · <span>{releaseVersion}</span></p>
+      <p className="print-share-release" data-release-id={releaseId}><span>{locale === "zh-CN" ? "公开数据版本" : "Public data version"}</span> <span>{releaseVersion}</span></p>
       <p aria-live="polite">{status}</p>
     </aside>
   );

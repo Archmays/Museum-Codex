@@ -20,7 +20,7 @@ const zh = {
     backHome: "返回博物馆首页",
     preparing: "展馆筹备中",
     notOpen: "暂未开放参观",
-    rightsShort: "艺术资料包含经审核的元数据、原创策展文字与通过权利门禁的作品衍生图像；每项媒体保留独立署名和撤回信息。",
+    rightsShort: "艺术资料包含来源可核验的元数据、原创策展文字与通过权利门禁的作品衍生图像；每项媒体保留独立署名和撤回信息。",
   },
   home: {
     heroIndex: "七馆",
@@ -81,7 +81,7 @@ const zh = {
   art: {
     eyebrow: "美术馆 · 序厅",
     title: "在一件作品前，打开许多条路",
-    intro: "从当前正式艺术家、作品与经审核的策展比较开始，在材料、题材、技法与可用作品图像之间展开观察。",
+    intro: "从当前正式艺术家、作品与来源可核验的策展比较开始，在材料、题材、技法与可用作品图像之间展开观察。",
     body: "作品图像只使用通过身份、权利、字节与质量门禁的自托管衍生图；无图作品仍保留完整元数据、官方来源与同等观察路径。",
     approachesTitle: "继续展开的观看方式",
     approaches: [
@@ -208,8 +208,8 @@ const zh = {
     subjects: "题材",
     metadataLicenseRule: "元数据许可规则",
     limitations: "限制",
-    reviewed: "审核",
-    reviewRecord: "发布核对（AI 辅助操作）",
+    reviewed: "已核验",
+    reviewRecord: "公开记录日期",
     curatorialRelevance: "策展相关性",
     historicalStrength: "历史关系强度",
     computationalSimilarity: "计算相似度",
@@ -289,7 +289,7 @@ const en = {
     backHome: "Return to the museum home",
     preparing: "Gallery in preparation",
     notOpen: "Not yet open to visitors",
-    rightsShort: "The art scope includes reviewed metadata, original curatorial writing, and artwork derivatives that passed the rights gate; each media item retains attribution and withdrawal information.",
+    rightsShort: "The art scope includes source-verifiable metadata, original curatorial writing, and artwork derivatives that passed the rights gate; each media item retains attribution and withdrawal information.",
   },
   home: {
     heroIndex: "Seven",
@@ -350,7 +350,7 @@ const en = {
   art: {
     eyebrow: "Art Museum · Foyer",
     title: "One work can open many paths",
-    intro: "Begin with the current formal artists, artworks, and reviewed curatorial comparisons across material, subject, technique, and available artwork images.",
+    intro: "Begin with the current formal artists, artworks, and source-verifiable curatorial comparisons across material, subject, technique, and available artwork images.",
     body: "Artwork images use only self-hosted derivatives that passed identity, rights, byte, and quality gates. Works without approved media retain complete metadata, official sources, and an equivalent observation path.",
     approachesTitle: "Ways of looking that continue outward",
     approaches: [
@@ -477,8 +477,8 @@ const en = {
     subjects: "Subjects",
     metadataLicenseRule: "Metadata license rule",
     limitations: "Limitations",
-    reviewed: "Review",
-    reviewRecord: "Release check (AI-assisted operator)",
+    reviewed: "Verified",
+    reviewRecord: "Public record date",
     curatorialRelevance: "Curatorial relevance",
     historicalStrength: "Historical relationship strength",
     computationalSimilarity: "Computational similarity",

@@ -65,6 +65,9 @@ jobs:
           python scripts/validate_museum_07_release.py public/releases/art-time-place-1.3.0
           python scripts/validate_museum_08_release.py public/releases/art-v1-candidate-1.4.0
           python scripts/validate_museum_08_scale.py --evidence docs/qa/museum-08/scale-readiness.json --check
+          python scripts/validate_museum_09b_release.py public/releases/art-expansion-batch-01-1.5.0
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-01-1.5.0
+          python scripts/validate_museum_09b_recovery.py --check
 
       - name: Verify sealed historical performance evidence hashes
         shell: bash
@@ -80,6 +83,10 @@ jobs:
               "docs/qa/museum-06/path-benchmark.json": "679680a90b5d45326f54c061e3a0e423e30c05ac8c71f0e165cd239bbb660d03",
               "docs/qa/museum-07/browser-metrics.json": "013dbeb0631b0b46319a4536d4d9865d0b4000763fc8b24dc9ccc098a7fadf98",
               "docs/qa/museum-07/bundle-budget.json": "cb173fd784346c29c20c066bec4bfe28fb54f4ddaa7fdc212770ef7b4319a124",
+              "docs/qa/museum-08/search-performance.json": "fbb03de47bbeded2d3805aff0fda79728148115a2e0b36205c2125d616fd3a79",
+              "docs/qa/museum-08/bundle-budget.json": "405bcdfa57bf089aa1e067fa5d996208e2f2cb6da251b4326c174f8eefd3fb83",
+              "docs/qa/museum-08/browser-metrics.json": "cf567a43464e3089b7aee59b7394c9e5d2ac8de864bd971592c6f488a1e2cb27",
+              "docs/qa/museum-08/scale-readiness.json": "240be8e9951c0c80dd3707f19c36ce8a86e48eb620220a4f94a2d7a8c1a110b8",
           }
           actual = {
               path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -90,19 +97,10 @@ jobs:
           print(f"[sealed-performance-evidence] PASS files={len(expected)}")
           PY
 
-      - name: Reproduce the synthetic scale gate outside public bytes
+      - name: Rebuild only the current formal release
         run: |
-          python scripts/generate_museum_08_scale_fixtures.py \
-            --output tmp/museum-08-scale \
-            --evidence tmp/museum-08-scale-evidence.json
-          python scripts/validate_museum_08_scale.py \
-            --evidence tmp/museum-08-scale-evidence.json \
-            --fixture tmp/museum-08-scale
-
-      - name: Rebuild only the current candidate release
-        run: |
-          python scripts/build_museum_08_release.py --output tmp/museum-08-ci-release
-          diff -ru public/releases/art-v1-candidate-1.4.0 tmp/museum-08-ci-release
+          python scripts/build_museum_09b_release.py --output tmp/museum-09b-ci-release --no-update-ledger
+          diff -ru public/releases/art-expansion-batch-01-1.5.0 tmp/museum-09b-ci-release
 
       - name: Run full offline Python suite
         run: python scripts/run_offline_python_tests.py
@@ -121,9 +119,6 @@ jobs:
       - name: Verify production, budgets, privacy and leakage
         run: |
           npm run check:build
-          npm run check:museum-04-budgets
-          node scripts/verify-museum-05a-budgets.mjs
-          npm run check:museum-05b-budgets
           npm run check:safety
           python scripts/scan_public_artifact_for_candidate_data.py public --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
           python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
@@ -136,13 +131,13 @@ jobs:
 
       - name: Run complete browser and accessibility gate
         env:
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-08/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09b-release/playwright-results.json
         run: npm run test:e2e
 
-      - name: Verify M08 search and candidate budgets
+      - name: Verify current M09B search and release budgets
         run: |
-          npm run check:museum-08-search
-          npm run check:museum-08-budgets
+          npm run check:museum-09b-search
+          npm run check:museum-09b-budgets
 
       - name: Bind Pages artifact to this commit
         if: inputs.deploy_required

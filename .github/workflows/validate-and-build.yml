@@ -146,6 +146,10 @@ jobs:
             python scripts/build_museum_08_release.py --output tmp/museum-08-ci-release
             diff -ru public/releases/art-v1-candidate-1.4.0 tmp/museum-08-ci-release
           fi
+          if [[ "$REBUILDS" == *"art-expansion-batch-01-1.5.0"* ]]; then
+            python scripts/build_museum_09b_release.py --output tmp/museum-09b-ci-release --no-update-ledger
+            diff -ru public/releases/art-expansion-batch-01-1.5.0 tmp/museum-09b-ci-release
+          fi
 
       - name: Run M08 targeted Python closure
         if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-08')
@@ -156,6 +160,12 @@ jobs:
           tests.test_museum_08_policy_scanners
           tests.test_museum_08_recovery
           tests.test_museum_08_scale
+
+      - name: Run M09B targeted release and recovery closure
+        if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-09B-RELEASE')
+        run: |
+          python scripts/validate_museum_09b_release.py public/releases/art-expansion-batch-01-1.5.0
+          python scripts/validate_museum_09b_recovery.py --check
 
       - name: Set up Node.js
         if: needs.classify.outputs.runtime_changed == 'true'
@@ -174,7 +184,7 @@ jobs:
         run: |
           npm run lint
           npm run typecheck
-          npx vitest run src/tests/museum-08*.test.ts src/tests/museum-08*.test.tsx
+          npx vitest run src/tests/asset-resolution-loader.test.ts src/tests/museum-09b-release-integration.test.ts src/tests/release-loader.test.ts src/tests/art-gallery-artwork.test.tsx src/tests/art-gallery-compare.test.tsx src/tests/art-paths.test.tsx src/tests/art-map.test.tsx src/tests/museum-08-search.test.ts
           node --test tests/test_museum_08_ci_runner.mjs
 
       - name: Build production artifact
@@ -182,8 +192,8 @@ jobs:
         run: |
           npm run build
           npm run check:build
-          npm run check:museum-08-search
-          npm run check:museum-08-budgets
+          npm run check:museum-09b-search
+          npm run check:museum-09b-budgets
           npm run check:safety
           python scripts/scan_museum_08_privacy.py dist
           python scripts/scan_museum_08_hardcoded_counts.py
@@ -193,11 +203,11 @@ jobs:
         if: needs.classify.outputs.deploy_required == 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: Run affected route suites and M08 critical browser closure
+      - name: Run affected route suites and current M09B browser closure
         if: needs.classify.outputs.deploy_required == 'true'
         env:
           MUSEUM_BROWSER_SUITES: ${{ needs.classify.outputs.browser_suites }}
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-08/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09b-release/playwright-results.json
         run: npm run test:e2e
 
       - name: Bind Pages artifact to this commit

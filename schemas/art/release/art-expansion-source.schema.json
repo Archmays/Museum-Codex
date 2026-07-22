@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/art-expansion-source.schema.json",
+  "title": "MUSEUM-09B user-authorized public source snapshot",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "entity_type", "release_id", "registry_source_id",
+    "registry_identity", "title", "publisher", "official_url", "accessed_at",
+    "tier", "source_type", "license_rules", "license_rules_snapshot_hash",
+    "selected_license_rule_ids", "authorization_basis", "public_static_redistribution",
+    "permission_status", "lifecycle_status", "data_version"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "type": "string", "pattern": "^source:[a-z0-9][a-z0-9._-]*$" },
+    "entity_type": { "const": "source" },
+    "release_id": { "const": "release:art-expansion-batch-01-1.5.0" },
+    "registry_source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "registry_identity": { "$ref": "https://museum-codex.example/schemas/common/source.schema.json#/properties/registry_identity" },
+    "title": { "type": "string", "minLength": 1 },
+    "publisher": { "type": "string", "minLength": 1 },
+    "official_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "accessed_at": { "type": "string", "format": "date" },
+    "tier": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "source_type": { "type": "string", "minLength": 1 },
+    "license_rules": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "https://museum-codex.example/schemas/common/source.schema.json#/$defs/licenseRule" }
+    },
+    "license_rules_snapshot_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "selected_license_rule_ids": {
+      "type": "array", "minItems": 2, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$" }
+    },
+    "authorization_basis": { "const": "PASS_BY_USER_AUTHORIZATION" },
+    "public_static_redistribution": { "const": "allowed" },
+    "permission_status": { "enum": ["approved", "not_required"] },
+    "lifecycle_status": { "enum": ["publishable", "published"] },
+    "data_version": { "const": "1.5.0" }
+  },
+  "additionalProperties": true
+}

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && python scripts/materialize_museum_09b_media.py --output dist",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
@@ -16,6 +16,7 @@
     "test:watch": "vitest",
     "test:e2e": "node scripts/run-e2e.mjs",
     "test:e2e:museum-08": "playwright test e2e/museum-08.spec.ts",
+    "test:e2e:museum-09b": "playwright test e2e/museum-09b.spec.ts",
     "check:build": "node scripts/verify-build.mjs",
     "check:museum-04-budgets": "node scripts/verify-museum-04-budgets.mjs",
     "check:museum-05b-budgets": "node scripts/verify-museum-05b-budgets.mjs",
@@ -24,6 +25,8 @@
     "check:museum-07-budgets": "node scripts/verify-museum-07-budgets.mjs",
     "check:museum-08-search": "node --experimental-strip-types scripts/benchmark-museum-08-search.mjs",
     "check:museum-08-budgets": "node scripts/verify-museum-08-budgets.mjs",
+    "check:museum-09b-search": "node scripts/benchmark-museum-09b-search.mjs",
+    "check:museum-09b-budgets": "node scripts/verify-museum-09b-budgets.mjs",
     "check:safety": "node scripts/scan-repository.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build && npm run check:build && npm run check:safety"
   },

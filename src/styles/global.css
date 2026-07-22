@@ -941,6 +941,14 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   line-height: 2;
 }
 
+.current-release-scope { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr); gap: clamp(2rem, 5vw, 5rem); align-items: end; margin-top: 4rem; padding: clamp(1.5rem, 4vw, 3.25rem); border: 1px solid var(--line); background: linear-gradient(135deg, rgba(151, 123, 74, 0.12), rgba(16, 27, 33, 0.82)); }
+.current-release-scope h2 { margin-top: 0.6rem; font-size: clamp(1.75rem, 3vw, 3rem); }
+.current-release-scope > div > p:last-child { max-width: 52rem; margin-top: 1rem; color: var(--ink-muted); line-height: 1.8; }
+.current-release-scope dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; background: var(--line); }
+.current-release-scope dl div { min-height: 7.5rem; padding: 1rem; background: var(--paper-deep); }
+.current-release-scope dt { color: var(--ink-muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.current-release-scope dd { margin: 0.5rem 0 0; color: var(--accent-soft); font-family: var(--display); font-size: clamp(2rem, 4vw, 3.5rem); }
+
 .approaches {
   margin-top: 7rem;
   padding-top: 3rem;
@@ -1170,7 +1178,8 @@ a.hall-portal:hover .hall-enter svg { transform: translateX(0.2rem); }
   .approaches li, .approaches li:nth-child(even), .principles article, .principles article:nth-child(even) { padding: 1.5rem 0; border-right: 0; }
   .principles article { min-height: 0; padding: 2.5rem 0; }
   .principles h2 { margin-top: 1.2rem; }
-  .empty-notice, .rights-panel, .bandwidth-panel { display: block; margin-top: 4rem; padding: 1.5rem; }
+  .empty-notice, .rights-panel, .bandwidth-panel, .current-release-scope { display: block; margin-top: 4rem; padding: 1.5rem; }
+  .current-release-scope dl { margin-top: 2rem; }
   .notice-symbol, .rights-mark { width: 5rem; height: 5rem; margin-bottom: 2rem; }
   .rights-mark span { font-size: 2.2rem; }
   .signal-visual { min-height: 10rem; }

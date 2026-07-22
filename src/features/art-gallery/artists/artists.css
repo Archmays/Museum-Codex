@@ -16,6 +16,12 @@
   font-size: 0.82rem;
 }
 
+.gallery-closing-links button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.65rem 0.9rem;
+}
+
 .gallery-breadcrumbs a,
 .gallery-closing-links a {
   display: inline-flex;

@@ -41,7 +41,7 @@ function TourIndex({ release, interactions }: GallerySharedProps) {
       <header className="tours-hero">
         <p className="eyebrow">{zh ? "深度观察导览" : "Deep observation tours"}</p>
         <h1>{zh ? `${interactions.artist_tours.length + interactions.thematic_tours.length} 条固定路线，慢下来观看` : `${interactions.artist_tours.length + interactions.thematic_tours.length} fixed routes for slower looking`}</h1>
-        <p>{zh ? `${interactions.artist_tours.length} 条艺术家导览与 ${interactions.thematic_tours.length} 条主题导览都由正式作品、经审核语境与来源组成。它们不是自动推荐，也不搜索任意关系路径。` : `${interactions.artist_tours.length} artist tours and ${interactions.thematic_tours.length} thematic tours use formal works, reviewed contexts, and sources. They are not automatic recommendations and do not search arbitrary relationship paths.`}</p>
+        <p>{zh ? `${interactions.artist_tours.length} 条艺术家导览与 ${interactions.thematic_tours.length} 条主题导览都由正式作品、可核验语境与来源组成。它们不是自动推荐，也不搜索任意关系路径。` : `${interactions.artist_tours.length} artist tours and ${interactions.thematic_tours.length} thematic tours use formal works, verifiable contexts, and sources. They are not automatic recommendations and do not search arbitrary relationship paths.`}</p>
         <dl><div><dt>{zh ? "艺术家导览" : "Artist tours"}</dt><dd>{interactions.artist_tours.length}</dd></div><div><dt>{zh ? "主题导览" : "Thematic tours"}</dt><dd>{interactions.thematic_tours.length}</dd></div><div><dt>{zh ? "发布" : "Release"}</dt><dd>{release.version}</dd></div></dl>
       </header>
 
@@ -123,7 +123,7 @@ function TourDetail({ release, catalog, interactions, tour }: GallerySharedProps
                   <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                   <div>
                     <p>{localize(artistById.get(artwork.artistId)?.labels ?? { "zh-Hans": "—", en: "—" }, locale)}</p>
-                    <h3><Link to={artworkPath(artwork.id)}>{localize(artwork.title, locale)}</Link></h3>
+                    <h3><Link to={artworkPath(artwork.publicSlug)}>{localize(artwork.title, locale)}</Link></h3>
                     <p>{artwork.media.decision === "approved_self_hosted" ? (zh ? "批准图像与文字路径" : "Approved image and text path") : (zh ? "完整元数据与证据路径" : "Complete metadata and evidence path")}</p>
                     {reasonByArtwork.get(artwork.id) ? <p className="tour-step-reason">{localize(reasonByArtwork.get(artwork.id)!, locale)}</p> : null}
                   </div>
@@ -153,7 +153,7 @@ function ArtistTourGuide({ tour, locale }: { tour: ArtistTour; locale: "zh-CN" |
 }
 
 function ThemeTourGuide({ tour, locale }: { tour: ThematicTour; locale: "zh-CN" | "en" }) {
-  return <section className="tour-guide"><h2>{locale === "zh-CN" ? "经审核语境" : "Reviewed contexts"}</h2><p>{tour.period_labels.map((label) => localize(label, locale)).join(" · ")}</p><p>{tour.region_labels.map((label) => localize(label, locale)).join(" · ")}</p><p>{tour.context_ids.join(" · ")}</p><p>{localize(tour.noncausal_statement, locale)}</p></section>;
+  return <section className="tour-guide"><h2>{locale === "zh-CN" ? "可核验语境" : "Verifiable contexts"}</h2><p>{tour.period_labels.map((label) => localize(label, locale)).join(" · ")}</p><p>{tour.region_labels.map((label) => localize(label, locale)).join(" · ")}</p><p>{localize(tour.noncausal_statement, locale)}</p></section>;
 }
 
 function InvalidTour() {

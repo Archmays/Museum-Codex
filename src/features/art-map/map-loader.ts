@@ -1,4 +1,4 @@
-import { loadStaticRelease } from "../../data/release-loader";
+import { loadAssetResolutionManifest, loadStaticRelease } from "../../data/release-loader";
 import {
   currentArtReleaseBaseUrl,
 } from "../../data/art-release-profile";
@@ -13,6 +13,7 @@ import type {
   MapSource,
   MapStyleDocument,
   PlaceIdentity,
+  LocalizedText,
 } from "./types";
 
 const DATA_FILES = [
@@ -23,8 +24,7 @@ const DATA_FILES = [
   "map-style.json",
   "map-index.json",
   "filter-index.json",
-  "artists.json",
-  "artworks.json",
+  "map-artworks.json",
 ] as const;
 const GEOMETRY_FILES = ["basemap/land.geojson", "basemap/coastline.geojson", "basemap/lakes.geojson", "map-points.geojson"] as const;
 
@@ -44,8 +44,15 @@ async function digestHex(bytes: ArrayBuffer) {
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-async function fetchArtifact(base: URL, file: { path: string; bytes: number; sha256: string }, fetcher: typeof fetch) {
-  const response = await fetcher(new URL(file.path, base).href, { headers: { Accept: "application/json" } });
+async function fetchArtifact(
+  base: URL,
+  file: { path: string; bytes: number; sha256: string; resolved_path?: string },
+  fetcher: typeof fetch,
+) {
+  const siteBase = new URL(import.meta.env.BASE_URL, base.origin);
+  const url = file.resolved_path ? new URL(file.resolved_path, siteBase) : new URL(file.path, base);
+  if (url.origin !== base.origin || !url.pathname.startsWith(siteBase.pathname)) throw new MapLoadError("request_failed");
+  const response = await fetcher(url.href, { headers: { Accept: "application/json" } });
   if (!response.ok) throw new MapLoadError("request_failed");
   const bytes = await response.arrayBuffer();
   if (bytes.byteLength !== file.bytes || await digestHex(bytes) !== file.sha256.replace(/^sha256:/, "")) {
@@ -71,7 +78,7 @@ function assertBundle(bundle: Omit<MapBundle, "manifest" | "fileByPath">) {
   if (
     counts.places !== bundle.places.length || counts.episodes !== bundle.episodes.length ||
     counts.holding_institutions !== bundle.holdings.length || counts.artists !== bundle.artists.length ||
-    counts.artworks !== bundle.artworks.length || counts.list_only_episodes !== listOnlyCount ||
+    counts.artworks !== bundle.artworkCount || counts.list_only_episodes !== listOnlyCount ||
     counts.verified_public_episodes !== mappedCount || bundle.style.renderer_version !== "5.24.0" ||
     guards.remote_style !== false || guards.tile_urls !== false || guards.glyphs !== false || guards.sprite !== false ||
     guards.geolocation !== false || guards.route_lines !== false
@@ -96,24 +103,43 @@ export async function loadMapBundle(fetcher: typeof fetch = fetch): Promise<MapB
   if (typeof window !== "undefined" && base.origin !== window.location.origin) throw new MapLoadError("request_failed");
   const manifestResult = await loadStaticRelease(new URL("manifest.json", base).href, fetcher);
   if (manifestResult.status !== "loaded") throw new MapLoadError("incompatible_release");
-  const fileByPath = new Map(manifestResult.manifest.manifest_files.map((file) => [file.path, file]));
+  let assetResolution;
+  try {
+    assetResolution = await loadAssetResolutionManifest(base, manifestResult.manifest, fetcher);
+  } catch {
+    throw new MapLoadError("tampered_map_data");
+  }
+  const fileByPath = new Map([
+    ...manifestResult.manifest.manifest_files,
+    ...(manifestResult.manifest.referenced_files ?? []),
+    ...assetResolution.referenced_files,
+    ...assetResolution.materialized_asset_files,
+  ].map((file) => [file.path, file]));
   const references = DATA_FILES.map((path) => {
     const file = fileByPath.get(path);
     if (!file) throw new MapLoadError("tampered_map_data");
     return file;
   });
-  const [placesRoot, episodesRoot, holdingsRoot, attributionRoot, styleRoot, mapIndexRoot, filterIndexRoot, artistsRoot, artworksRoot] = await Promise.all(
+  const [placesRoot, episodesRoot, holdingsRoot, attributionRoot, styleRoot, mapIndexRoot, filterIndexRoot, artworksRoot] = await Promise.all(
     references.map((file) => fetchArtifact(base, file, fetcher)),
   );
   if (!isRecord(attributionRoot) || !isRecord(styleRoot) || !isRecord(mapIndexRoot) || !isRecord(filterIndexRoot)) {
     throw new MapLoadError("tampered_map_data");
   }
+  const artistFacets = isRecord(filterIndexRoot.facets) ? list(filterIndexRoot.facets, "artists") : [];
+  const artworkCount = isRecord(mapIndexRoot.counts) && typeof mapIndexRoot.counts.artworks === "number"
+    ? mapIndexRoot.counts.artworks
+    : -1;
   const bundle = {
     places: list(placesRoot, "places") as PlaceIdentity[],
     episodes: list(episodesRoot, "episodes") as ArtistEpisode[],
     holdings: list(holdingsRoot, "locations") as HoldingLocation[],
-    artists: list(artistsRoot, "artists") as ArtistSummary[],
+    artists: artistFacets.map((item) => {
+      if (!isRecord(item) || typeof item.id !== "string" || !isRecord(item.labels)) throw new MapLoadError("tampered_map_data");
+      return { id: item.id, labels: item.labels as LocalizedText };
+    }) as ArtistSummary[],
     artworks: list(artworksRoot, "artworks") as ArtworkSummary[],
+    artworkCount,
     sources: list(attributionRoot, "sources") as MapSource[],
     style: styleRoot as unknown as MapStyleDocument,
     mapIndex: mapIndexRoot as unknown as MapBundle["mapIndex"],

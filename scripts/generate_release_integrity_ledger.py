@@ -18,7 +18,7 @@ from museum_pipeline.canonical_json import canonical_json_bytes
 from museum_pipeline.hashing import sha256_file
 
 DEFAULT_OUTPUT = ROOT / "governance" / "release-integrity-ledger.json"
-GENERATED_AT = "2026-07-19T10:00:00+08:00"
+GENERATED_AT = "2026-07-22T12:00:00+08:00"
 TREE_ALGORITHM = "sha256(path\\0size\\0file_sha256\\n)"
 CLOSURE_PATH_ALGORITHM = "sha256(normalized_lf_text_or_raw_binary)"
 TEXT_SUFFIXES = frozenset({
@@ -104,6 +104,20 @@ RELEASE_SPECS: tuple[dict[str, Any], ...] = (
             "docs/qa/museum-08/scale-readiness.json",
         ],
         "route_consumers": ["#/art/search", "#/art/constellation", "#/art/artists/:id", "#/art/artworks/:id", "#/art/compare", "#/art/tours/:id", "#/art/paths", "#/art/map"],
+    },
+    {
+        "phase_id": "MUSEUM-09B-RELEASE",
+        "release_id": "release:art-expansion-batch-01-1.5.0",
+        "directory": "public/releases/art-expansion-batch-01-1.5.0",
+        "builder_paths": ["scripts/build_museum_09b_release.py", "museum_pipeline/art/release_expansion.py"],
+        "validator_paths": ["scripts/validate_museum_09b_release.py", "museum_pipeline/art/release_expansion.py"],
+        "input_paths": [
+            "public/releases/art-v1-candidate-1.4.0/manifest.json",
+            "data/reviewed/art/museum-09b/batch-01-formal-candidate-v1/build-manifest.json",
+            "data/reviewed/art/museum-09b-media/batch-01-media-bundle-v1/build-manifest.json",
+            "docs/qa/museum-09b-release/source-drift-assessment.json",
+        ],
+        "route_consumers": ["#/art", "#/art/search", "#/art/constellation", "#/art/artists/:slug", "#/art/artworks/:slug", "#/art/compare", "#/art/tours/:id", "#/art/paths", "#/art/map"],
     },
 )
 
@@ -223,6 +237,7 @@ def build_ledger() -> dict[str, Any]:
         "rebuild_rule": "builder_validator_input_schema_source_rights_or_release_bytes_changed",
         "tree_hash_algorithm": TREE_ALGORITHM,
         "closure_path_hash_algorithm": CLOSURE_PATH_ALGORITHM,
+        "current_release_id": releases[-1]["release_id"] if releases else None,
         "releases": releases,
     }
 

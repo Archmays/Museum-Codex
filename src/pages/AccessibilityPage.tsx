@@ -1,6 +1,7 @@
 import { PageIntro } from "../components/PageIntro";
 import { useI18n } from "../i18n/I18nProvider";
 import { usePreferences } from "../preferences/PreferencesProvider";
+import { CurrentReleaseScope } from "../components/CurrentReleaseScope";
 
 export function AccessibilityPage() {
   const { locale, t } = useI18n();
@@ -8,6 +9,7 @@ export function AccessibilityPage() {
   return (
     <main id="main-content" className="inner-page accessibility-page" tabIndex={-1}>
       <PageIntro eyebrow={t.accessibility.eyebrow} title={t.accessibility.title} intro={t.accessibility.intro} />
+      <CurrentReleaseScope />
       <section className="bandwidth-panel" aria-labelledby="bandwidth-title">
         <div className={`signal-visual ${lowBandwidth ? "signal-quiet" : ""}`} aria-hidden="true">
           <span /><span /><span /><span />

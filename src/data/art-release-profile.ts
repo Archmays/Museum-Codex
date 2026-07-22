@@ -1,13 +1,13 @@
 export const CORE_ART_RELEASE_ID = "release:art-constellation-1.0.0";
-export const INTERACTION_ART_RELEASE_ID = "release:art-gallery-interactions-1.1.0";
-export const INTERACTION_ART_RELEASE_VERSION = "1.1.0";
-export const PATH_ART_RELEASE_ID = "release:art-pathways-1.2.0";
-export const PATH_ART_RELEASE_VERSION = "1.2.0";
-export const TIME_PLACE_ART_RELEASE_ID = "release:art-time-place-1.3.0";
-export const TIME_PLACE_ART_RELEASE_VERSION = "1.3.0";
-export const CURRENT_ART_RELEASE_ID = "release:art-v1-candidate-1.4.0";
-export const CURRENT_ART_RELEASE_VERSION = "1.4.0";
-export const CURRENT_ART_RELEASE_DIRECTORY = "art-v1-candidate-1.4.0";
+export const INTERACTION_ART_RELEASE_ID = "release:art-expansion-batch-01-1.5.0";
+export const INTERACTION_ART_RELEASE_VERSION = "1.5.0";
+export const PATH_ART_RELEASE_ID = "release:art-expansion-batch-01-1.5.0";
+export const PATH_ART_RELEASE_VERSION = "1.5.0";
+export const TIME_PLACE_ART_RELEASE_ID = "release:art-expansion-batch-01-1.5.0";
+export const TIME_PLACE_ART_RELEASE_VERSION = "1.5.0";
+export const CURRENT_ART_RELEASE_ID = "release:art-expansion-batch-01-1.5.0";
+export const CURRENT_ART_RELEASE_VERSION = "1.5.0";
+export const CURRENT_ART_RELEASE_DIRECTORY = "art-expansion-batch-01-1.5.0";
 export const INTERACTION_INDEX_PATH = "interaction-index.json";
 export const PATH_ALGORITHM_PATH = "path-algorithm-contract.json";
 export const PATH_GRAPH_PATH = "path-graph-input.json";
@@ -24,5 +24,5 @@ export function timePlaceArtReleaseBaseUrl() {
 }
 
 export function isKnownArtReleaseAssetPath(pathname: string) {
-  return /\/releases\/[a-z0-9._-]+\/assets\/[a-z0-9._-]+\/[0-9]+w\.(?:jpe?g|webp)$/i.test(pathname);
+  return /\/releases\/[a-z0-9._-]+\/assets\/(?:[a-z0-9._-]+\/[0-9]+w|sha256\/[a-f0-9]{2}\/[a-f0-9]{64})\.(?:jpe?g|webp)$/i.test(pathname);
 }

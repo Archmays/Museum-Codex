@@ -10,6 +10,11 @@ export type RelationshipType = "shared_material" | "shared_subject" | "shared_te
 
 export type ArtistRecord = {
   id: string;
+  publicSlug: string;
+  profileKind: "gallery" | "collection";
+  sourceLanguageName: string | null;
+  transliterations: string[];
+  gallerySequence: string[];
   labels: LocalizedText;
   summary: LocalizedText;
   aliases: string[];
@@ -58,6 +63,7 @@ export type RelationshipRecord = {
 
 export type ArtworkRecord = {
   id: string;
+  publicSlug: string;
   artistId: string;
   title: LocalizedText;
   dateDisplay: LocalizedText | null;
@@ -77,6 +83,8 @@ export type ArtworkRecord = {
 
 export type ArtworkMediaDecision =
   | "approved_self_hosted"
+  | "external_link_only"
+  | "metadata_only"
   | "metadata_only_after_automated_review"
   | "blocked_source_unavailable"
   | "blocked_rights_conflict";

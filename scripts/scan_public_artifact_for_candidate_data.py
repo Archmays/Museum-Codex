@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -17,19 +18,21 @@ TEXT_SUFFIXES = {
     ".cjs", ".css", ".csv", ".htm", ".html", ".js", ".json", ".jsx", ".map", ".md", ".mjs",
     ".svg", ".ts", ".tsv", ".tsx", ".txt", ".webmanifest", ".xhtml", ".xml", ".yaml", ".yml",
 }
-MAX_SCANNABLE_TEXT_BYTES = 5 * 1024 * 1024
+MAX_SCANNABLE_TEXT_BYTES = 8 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
 MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
 MUSEUM_05B_RELEASE_DIR = Path("releases") / "art-gallery-interactions-1.1.0"
 MUSEUM_06_RELEASE_DIR = Path("releases") / "art-pathways-1.2.0"
 MUSEUM_07_RELEASE_DIR = Path("releases") / "art-time-place-1.3.0"
 MUSEUM_08_RELEASE_DIR = Path("releases") / "art-v1-candidate-1.4.0"
+MUSEUM_09B_RELEASE_DIR = Path("releases") / "art-expansion-batch-01-1.5.0"
 FORMAL_RELEASE_DIRS = (
     MUSEUM_04_RELEASE_DIR,
     MUSEUM_05B_RELEASE_DIR,
     MUSEUM_06_RELEASE_DIR,
     MUSEUM_07_RELEASE_DIR,
     MUSEUM_08_RELEASE_DIR,
+    MUSEUM_09B_RELEASE_DIR,
 )
 RELEASE_INVALID_CODES = {
     MUSEUM_04_RELEASE_DIR.name: "museum_04_release_invalid",
@@ -37,6 +40,7 @@ RELEASE_INVALID_CODES = {
     MUSEUM_06_RELEASE_DIR.name: "museum_06_release_invalid",
     MUSEUM_07_RELEASE_DIR.name: "museum_07_release_invalid",
     MUSEUM_08_RELEASE_DIR.name: "museum_08_release_invalid",
+    MUSEUM_09B_RELEASE_DIR.name: "museum_09b_release_invalid",
 }
 RELEASE_LEDGER = ROOT / "governance" / "release-integrity-ledger.json"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
@@ -76,11 +80,12 @@ def scan_public_artifact(
         return [{"code": "public_artifact_empty", "path": root.name}]
     findings: list[dict[str, str]] = []
     resolved_exempt_roots = {path.resolve() for path in formal_art_exempt_roots or set()}
+    formal_term_matcher = _build_formal_term_matcher(formal_art_terms or [])
     for path in files:
         relative = path.relative_to(root).as_posix()
         formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
         authority_id_exempt = any(
-            exempt_root.name in {MUSEUM_07_RELEASE_DIR.name, MUSEUM_08_RELEASE_DIR.name}
+            exempt_root.name in {MUSEUM_07_RELEASE_DIR.name, MUSEUM_08_RELEASE_DIR.name, MUSEUM_09B_RELEASE_DIR.name}
             and path.resolve().is_relative_to(exempt_root)
             for exempt_root in resolved_exempt_roots
         )
@@ -116,10 +121,8 @@ def scan_public_artifact(
             if len(term) >= 4 and term.casefold() in text.casefold():
                 findings.append({"code": "candidate_name_publicly_exposed", "path": relative})
         if not formal_exempt:
-            for term in formal_art_terms or []:
-                value = term["value"]
-                if _term_matches(text, value, term["match_mode"]):
-                    findings.append({"code": "formal_art_data_publicly_exposed", "path": relative})
+            if _matches_any_formal_term(text, formal_term_matcher):
+                findings.append({"code": "formal_art_data_publicly_exposed", "path": relative})
     unique = {(item["code"], item["path"]): item for item in findings}
     return [unique[key] for key in sorted(unique)]
 
@@ -195,6 +198,28 @@ def _term_matches(text: str, value: str, match_mode: str) -> bool:
     return re.search(rf"(?<![A-Za-z0-9]){re.escape(value)}(?![A-Za-z0-9])", text, re.IGNORECASE) is not None
 
 
+def _build_formal_term_matcher(terms: list[dict[str, str]]) -> tuple[tuple[str, ...], re.Pattern[str] | None, re.Pattern[str] | None]:
+    substrings = tuple(term["value"].casefold() for term in terms if term["match_mode"] == "casefold_substring")
+    exact_values = [re.escape(term["value"]) for term in terms if term["match_mode"] == "exact_token"]
+    serialized_values = [re.escape(term["value"]) for term in terms if term["match_mode"] == "serialized_string"]
+    exact = re.compile(rf"(?<![A-Za-z0-9])(?:{'|'.join(exact_values)})(?![A-Za-z0-9])", re.IGNORECASE) if exact_values else None
+    serialized = re.compile(rf"(?P<quote>[\"'`])\s*(?:{'|'.join(serialized_values)})\s*(?P=quote)") if serialized_values else None
+    return substrings, exact, serialized
+
+
+def _matches_any_formal_term(
+    text: str,
+    matcher: tuple[tuple[str, ...], re.Pattern[str] | None, re.Pattern[str] | None],
+) -> bool:
+    substrings, exact, serialized = matcher
+    folded = text.casefold()
+    return (
+        any(value in folded for value in substrings)
+        or bool(exact and exact.search(text))
+        or bool(serialized and serialized.search(text))
+    )
+
+
 def validated_museum_04_exempt_roots(root: Path) -> tuple[set[Path], list[dict[str, str]]]:
     release_root = _release_root_for_scan(root, MUSEUM_04_RELEASE_DIR)
     if not release_root.is_dir():
@@ -244,7 +269,7 @@ def validated_formal_art_exempt_roots(root: Path) -> tuple[set[Path], list[dict[
                 and sha256_file(release_root / "manifest.json") == entry.get("manifest_sha256")
                 and release_content_hash(manifest.get("manifest_files", [])) == manifest.get("content_hash")
                 and manifest.get("content_hash") == entry.get("content_hash")
-                and physical_tree(release_root) == entry.get("physical_tree")
+                and _release_tree_matches(release_root, entry, release_dir, sha256_file, physical_tree)
             )
         except (OSError, UnicodeDecodeError, json.JSONDecodeError, TypeError, ValueError):
             exact = False
@@ -255,6 +280,63 @@ def validated_formal_art_exempt_roots(root: Path) -> tuple[set[Path], list[dict[
             }]
         exempt_roots.add(release_root.resolve())
     return exempt_roots, []
+
+
+def _release_tree_matches(
+    release_root: Path,
+    entry: dict[str, object],
+    release_dir: Path,
+    sha256_file,
+    physical_tree,
+) -> bool:
+    expected_tree = entry.get("physical_tree")
+    if physical_tree(release_root) == expected_tree:
+        return True
+    if release_dir != MUSEUM_09B_RELEASE_DIR:
+        return False
+    try:
+        resolution = json.loads((release_root / "asset-resolution-manifest.json").read_text(encoding="utf-8"))
+        prefix = f"releases/{release_dir.name}/"
+        materialized = {
+            item["path"].removeprefix(prefix): item
+            for item in resolution["materialized_asset_files"]
+            if isinstance(item, dict)
+            and isinstance(item.get("path"), str)
+            and item["path"].startswith(prefix)
+        }
+        if len(materialized) != resolution["materialized_asset_count"]:
+            return False
+        files = sorted((path for path in release_root.rglob("*") if path.is_file()), key=lambda path: path.relative_to(release_root).as_posix())
+        core_files: list[Path] = []
+        for path in files:
+            relative = path.relative_to(release_root).as_posix()
+            asset = materialized.get(relative)
+            if asset is None:
+                core_files.append(path)
+                continue
+            if path.stat().st_size != asset.get("bytes") or sha256_file(path) != asset.get("sha256"):
+                return False
+        if not set(materialized).issubset({path.relative_to(release_root).as_posix() for path in files}):
+            return False
+        return _physical_tree_for_files(release_root, core_files, sha256_file) == expected_tree
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError, ValueError):
+        return False
+
+
+def _physical_tree_for_files(root: Path, files: list[Path], sha256_file) -> dict[str, object]:
+    digest = hashlib.sha256()
+    byte_count = 0
+    for path in files:
+        relative = path.relative_to(root).as_posix()
+        size = path.stat().st_size
+        digest.update(f"{relative}\0{size}\0{sha256_file(path).removeprefix('sha256:')}\n".encode("utf-8"))
+        byte_count += size
+    return {
+        "algorithm": "sha256(path\\0size\\0file_sha256\\n)",
+        "hash": f"sha256:{digest.hexdigest()}",
+        "file_count": len(files),
+        "byte_count": byte_count,
+    }
 
 
 def _release_root_for_scan(root: Path, release_dir: Path) -> Path:

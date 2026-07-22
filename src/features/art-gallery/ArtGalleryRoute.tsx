@@ -78,8 +78,14 @@ export function ArtGalleryRoute() {
   const artistId = routeId(location.pathname, "artists");
   const artworkId = routeId(location.pathname, "artworks");
   const tourId = routeId(location.pathname, "tours");
-  if (artistId) return <div data-museum05a-status="ready" data-gallery-route="artist"><ArtistGalleryPage {...visibleState.data} artistId={artistId} /></div>;
-  if (artworkId) return <div data-museum05a-status="ready" data-gallery-route="artwork"><ArtworkDetailPage {...visibleState.data} artworkId={artworkId} /></div>;
+  const resolvedArtistId = artistId
+    ? visibleState.data.release.artists.find((artist) => artist.id === artistId || artist.publicSlug === artistId)?.id ?? artistId
+    : null;
+  const resolvedArtworkId = artworkId
+    ? visibleState.data.catalog.artworks.find((artwork) => artwork.id === artworkId || artwork.publicSlug === artworkId)?.id ?? artworkId
+    : null;
+  if (resolvedArtistId) return <div data-museum05a-status="ready" data-gallery-route="artist"><ArtistGalleryPage {...visibleState.data} artistId={resolvedArtistId} /></div>;
+  if (resolvedArtworkId) return <div data-museum05a-status="ready" data-gallery-route="artwork"><ArtworkDetailPage {...visibleState.data} artworkId={resolvedArtworkId} /></div>;
   if (location.pathname === "/art/compare") return <div data-museum05a-status="ready" data-gallery-route="compare"><ComparePage {...visibleState.data} /></div>;
   if (location.pathname === "/art/tours") return <div data-museum05a-status="ready" data-gallery-route="tours"><ToursPage {...visibleState.data} tourId={null} /></div>;
   if (location.pathname.startsWith("/art/tours/")) return <div data-museum05a-status="ready" data-gallery-route="tour"><ToursPage {...visibleState.data} tourId={tourId ?? "invalid:tour-route"} /></div>;

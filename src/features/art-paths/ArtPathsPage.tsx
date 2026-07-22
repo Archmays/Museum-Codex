@@ -4,7 +4,7 @@ import { useI18n } from "../../i18n/I18nProvider";
 import { usePreferences } from "../../preferences/PreferencesProvider";
 import { localize, type RelationshipDetails } from "../art-constellation/types";
 import { PrintShareControls } from "../art-gallery/observation/PrintShareControls";
-import { defaultPathQuery, findPathways, PATH_ALGORITHM_VERSION } from "./path-algorithm";
+import { defaultPathQuery, findPathways } from "./path-algorithm";
 import { loadPathwayBundle, PathLoadError } from "./path-loader";
 import { PathGraphView } from "./PathGraphView";
 import type { ArtistPath, PathMode, PathQuery, PathResult, PathStatus, PathwayBundle } from "./types";
@@ -20,35 +20,35 @@ const COPY = {
   "zh-CN": {
     eyebrow: "可解释关系导航",
     title: "从 A 到 B，经过哪些可解释关系？",
-    intro: "选择两位正式艺术家，在当前审核 release 中查找最短 hop 与最多两条替代路径。每一步都可回到 Claim、Evidence 与 Source。",
+    intro: "选择两位正式艺术家，在当前公开数据中查找最短 hop 与最多两条替代路径。每一步都可回到 Claim、Evidence 与 Source。",
     from: "起点艺术家", to: "终点艺术家", search: "按中文、英文或别名筛选", swap: "交换端点", mode: "路径模式",
     historical: "历史路径", historicalHelp: "只允许 A 级直接关系与 B 级历史语境关系，并遵守方向。",
     context: "语境路径", contextHelp: "只允许 B 级具体地点、机构、展览、群体或赞助人语境。",
     comparison: "比较路径", comparisonHelp: "只允许 C 级策展比较；必须由你显式选择。",
     filters: "过滤器", type: "关系类型", allTypes: "全部可用类型", period: "时期", region: "地区", any: "不限", maxHops: "最大 hops", run: "查找路径",
     result: "路径结果", alternatives: "替代路径", text: "文字视图", graph: "图形视图", path: "路径", hops: "hops", confidence: "证据置信度",
-    coherence: "时间语境", algorithm: "算法", release: "Release", filtersApplied: "当前过滤", step: "步骤", direction: "方向", undirected: "无向", directed: "有向：按箭头前进",
+    coherence: "时间语境", algorithm: "方法", algorithmValue: "有界最短与替代路径", release: "公开版本", filtersApplied: "当前过滤", step: "步骤", direction: "方向", undirected: "无向", directed: "有向：按箭头前进",
     why: "为什么相连", notProve: "不证明什么", contextLabel: "语境", artworks: "支持作品", claim: "Claim", evidence: "Evidence", source: "Source", rights: "权利与署名", withdrawal: "撤回状态", active: "active",
     loading: "正在核验 release 与路径索引……", loadFailed: "路径 release 暂时无法载入。", retry: "重试", invalid: "请修正端点或参数后重新查询。",
     lowBandwidth: "低带宽或 WebGL 不可用：已使用文字视图。", noHistory: "选择只写入可分享 URL；不上传、不保存查询历史，也不运行分析追踪。",
-    shortestNotice: "最短路径不等于最真实或最重要；它只回答当前审核数据中可解释的连接。",
+    shortestNotice: "最短路径不等于最真实或最重要；它只回答当前公开数据中可解释的连接。",
     rankNotice: "排序使用确定性 tuple，不合成影响力分数。",
   },
   en: {
     eyebrow: "Explainable relationship navigation",
     title: "What explainable relations connect A to B?",
-    intro: "Choose two formal artists and find the shortest hops plus up to two alternatives in the current reviewed release. Every step resolves to Claim, Evidence, and Source.",
+    intro: "Choose two formal artists and find the shortest hops plus up to two alternatives in the current published data. Every step resolves to Claim, Evidence, and Source.",
     from: "Start artist", to: "End artist", search: "Filter by Chinese, English, or alias", swap: "Swap endpoints", mode: "Path mode",
     historical: "Historical path", historicalHelp: "Allows only direct A relations and historical-context B relations, respecting direction.",
     context: "Context path", contextHelp: "Allows only B relations through specific places, institutions, exhibitions, groups, or patrons.",
     comparison: "Comparison path", comparisonHelp: "Allows only C curatorial comparisons and requires your explicit selection.",
     filters: "Filters", type: "Relationship type", allTypes: "All available types", period: "Period", region: "Region", any: "Any", maxHops: "Maximum hops", run: "Find paths",
     result: "Path results", alternatives: "Alternative paths", text: "Text view", graph: "Graph view", path: "Path", hops: "hops", confidence: "Evidence confidence",
-    coherence: "Time context", algorithm: "Algorithm", release: "Release", filtersApplied: "Applied filters", step: "Step", direction: "Direction", undirected: "Undirected", directed: "Directed: follow arrow",
+    coherence: "Time context", algorithm: "Method", algorithmValue: "Bounded shortest and alternative paths", release: "Published version", filtersApplied: "Applied filters", step: "Step", direction: "Direction", undirected: "Undirected", directed: "Directed: follow arrow",
     why: "Why connected", notProve: "What this does not prove", contextLabel: "Context", artworks: "Supporting works", claim: "Claim", evidence: "Evidence", source: "Source", rights: "Rights and attribution", withdrawal: "Withdrawal status", active: "active",
     loading: "Verifying the release and path index…", loadFailed: "The pathway release could not be loaded.", retry: "Retry", invalid: "Correct the endpoints or parameters and run the query again.",
     lowBandwidth: "Low bandwidth or unavailable WebGL: text view is active.", noHistory: "Selections are written only to the shareable URL; no query history is uploaded or stored and no analytics run.",
-    shortestNotice: "The shortest path is not the truest or most important; it answers only explainable connections in current reviewed data.",
+    shortestNotice: "The shortest path is not the truest or most important; it answers only explainable connections in current published data.",
     rankNotice: "Ranking uses a deterministic tuple, not a composite influence score.",
   },
 } as const;
@@ -265,7 +265,7 @@ function LoadedPathPage({ bundle, params, setParams }: {
         <div><p className="eyebrow">{copy.eyebrow}</p><h1>{copy.title}</h1><p>{copy.intro}</p></div>
         <dl className="path-release-stamp">
           <div><dt>{copy.release}</dt><dd>{bundle.release.version}</dd></div>
-          <div><dt>{copy.algorithm}</dt><dd>{PATH_ALGORITHM_VERSION}</dd></div>
+          <div><dt>{copy.algorithm}</dt><dd>{copy.algorithmValue}</dd></div>
           <div><dt>Graph</dt><dd>{bundle.graph.artists.length} artists · {bundle.graph.relationships.length} edges</dd></div>
         </dl>
       </header>
@@ -353,7 +353,7 @@ function PathResultView({ path, bundle, details, locale, view, copy, label, filt
           <div><dt>{copy.coherence}</dt><dd>{path.time_coherence}</dd></div>
           <div><dt>Level</dt><dd>{path.evidence_level}｜{path.evidence_level === "C" ? (locale === "zh-CN" ? "策展比较" : "Curatorial comparison") : path.evidence_level}</dd></div>
         </dl>
-        <p>{copy.algorithm}: {PATH_ALGORITHM_VERSION} · {copy.filtersApplied}: {filterSummary} · {copy.release}: {bundle.release.manifestId}</p>
+        <p>{copy.algorithm}: {copy.algorithmValue} · {copy.filtersApplied}: {filterSummary} · {copy.release}: {bundle.release.version}</p>
       </header>
       {view === "graph" ? <PathGraphView artists={bundle.graph.artists} relationships={bundle.graph.relationships} layout={bundle.release.layout} path={path} locale={locale} /> : null}
       <section className="path-text-equivalent" aria-labelledby={`path-steps-${path.rank}`}>

@@ -3,10 +3,10 @@ import test from "node:test";
 
 import { selectAffectedSpecs } from "../scripts/run-e2e.mjs";
 
-test("path changes select the path suite plus the candidate closure", () => {
+test("path changes select the path suite plus the current formal release closure", () => {
   assert.deepEqual(
     selectAffectedSpecs('["paths"]'),
-    ["e2e/museum-06.spec.ts", "e2e/museum-08.spec.ts"],
+    ["e2e/museum-06.spec.ts", "e2e/museum-09b.spec.ts"],
   );
 });
 
@@ -19,15 +19,16 @@ test("shared shell changes select every phase route suite exactly once", () => {
       "e2e/museum-06.spec.ts",
       "e2e/museum-07.spec.ts",
       "e2e/museum-08.spec.ts",
+      "e2e/museum-09b.spec.ts",
       "e2e/online.spec.ts",
     ],
   );
 });
 
-test("online test changes select online checks plus the candidate closure", () => {
+test("online test changes select online checks plus the current formal release closure", () => {
   assert.deepEqual(
     selectAffectedSpecs('["online"]'),
-    ["e2e/museum-08.spec.ts", "e2e/online.spec.ts"],
+    ["e2e/museum-09b.spec.ts", "e2e/online.spec.ts"],
   );
 });
 

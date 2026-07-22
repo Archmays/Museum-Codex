@@ -84,6 +84,8 @@ def validate_ledger(
         _fail(failures, "ledger_duplicate_release", str(ledger_path), "release IDs must be unique")
     if require_candidate and "release:art-v1-candidate-1.4.0" not in ids:
         _fail(failures, "candidate_missing", str(ledger_path), "M08 candidate is required")
+    if ids and ledger.get("current_release_id") != ids[-1]:
+        _fail(failures, "current_release_id", str(ledger_path), "current release must be the final immutable ledger entry")
 
     validated: list[str] = []
     total_files = 0
@@ -112,7 +114,11 @@ def validate_ledger(
         actual_manifest_sha = sha256_file(manifest_path)
         if actual_manifest_sha != entry.get("manifest_sha256"):
             _fail(failures, "manifest_sha_drift", str(manifest_path), "manifest SHA differs from ledger")
-        actual_content_hash = release_content_hash(manifest.get("manifest_files", []))
+        actual_content_hash = release_content_hash([
+            *manifest.get("manifest_files", []),
+            *manifest.get("referenced_files", []),
+            *manifest.get("materialized_asset_files", []),
+        ])
         if manifest.get("content_hash") != actual_content_hash or entry.get("content_hash") != actual_content_hash:
             _fail(failures, "content_hash_drift", str(manifest_path), "content hash differs from manifest files or ledger")
         for item in manifest.get("manifest_files", []):
@@ -126,6 +132,15 @@ def validate_ledger(
                 != str(item.get("sha256", "")).removeprefix("sha256:")
             ):
                 _fail(failures, "manifest_file_drift", str(path), "manifest file bytes or hash drifted")
+        for section in ("referenced_files", "materialized_asset_files"):
+            for item in manifest.get(section, []):
+                source_path = ROOT / item.get("source_path", "")
+                if (
+                    not source_path.is_file()
+                    or source_path.stat().st_size != item.get("bytes")
+                    or sha256_file(source_path).removeprefix("sha256:") != str(item.get("sha256", "")).removeprefix("sha256:")
+                ):
+                    _fail(failures, f"{section}_drift", str(source_path), "resolved release source bytes drifted")
         tree = physical_tree(root)
         if tree != entry.get("physical_tree"):
             _fail(failures, "physical_tree_drift", directory, "physical tree differs from ledger")

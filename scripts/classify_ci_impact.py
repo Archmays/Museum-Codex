@@ -28,7 +28,8 @@ E2E_IMPACT = (
     ("e2e/museum-06", "MUSEUM-06", "paths"),
     ("e2e/museum-07", "MUSEUM-07", "map"),
     ("e2e/museum-08", "MUSEUM-08", "search"),
-    ("e2e/online", "MUSEUM-08", "online"),
+    ("e2e/museum-09b", "MUSEUM-09B-RELEASE", "shell"),
+    ("e2e/online", "MUSEUM-09B-RELEASE", "online"),
 )
 
 
@@ -139,7 +140,7 @@ def classify_changes(
         if any(path.startswith(prefix) for path in paths):
             affected_phases.add(phase)
     if any(path.startswith("src/") for path in paths):
-        affected_phases.add("MUSEUM-08")
+        affected_phases.add(contract["candidate_release"]["phase"])
     if shared_core_changed or security_rights_changed:
         affected_phases.update(item["phase"] for item in contract["historical_releases"])
         affected_phases.add(contract["candidate_release"]["phase"])
@@ -151,9 +152,7 @@ def classify_changes(
             pattern
             for pattern in phase_patterns
             if (
-                "build_" in pattern
-                or "validator" in pattern
-                or "validate_" in pattern
+                Path(pattern).name.startswith(("build_museum_", "validate_museum_"))
                 or pattern.startswith("schemas/")
                 or pattern.startswith("public/releases/")
                 or pattern.startswith("museum_pipeline/")
@@ -167,8 +166,13 @@ def classify_changes(
         rebuild.update(item["release_id"] for item in contract["historical_releases"])
         rebuild.add(contract["candidate_release"]["release_id"])
 
-    candidate_directory = contract["candidate_release"]["directory"] + "/"
-    candidate_first_release = any(path.startswith(candidate_directory) for path in paths)
+    release_directories = [
+        item["directory"] + "/"
+        for item in [*contract["historical_releases"], contract["candidate_release"]]
+    ]
+    release_bundle_changed = any(
+        path.startswith(directory) for path in paths for directory in release_directories
+    )
     manual_full = mode == "full"
     full_required = any(
         (
@@ -178,7 +182,7 @@ def classify_changes(
             dependencies_changed,
             shared_core_changed,
             security_rights_changed,
-            candidate_first_release,
+            release_bundle_changed,
         )
     )
     if docs_only and not manual_full:
@@ -221,8 +225,8 @@ def classify_changes(
         reasons.append("shared_core_changed")
     if security_rights_changed:
         reasons.append("security_or_rights_core_changed")
-    if candidate_first_release:
-        reasons.append("m08_candidate_release")
+    if release_bundle_changed:
+        reasons.append("release_bundle_changed")
     if manual_full:
         reasons.append("manual_full")
     elif mode == "targeted":

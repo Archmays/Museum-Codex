@@ -38,7 +38,7 @@ type ComparisonWorkProps = {
   artistName: string;
   locale: Locale;
   lowBandwidth: boolean;
-  card: ObservationCardRecord;
+  card: ObservationCardRecord | null;
   regions: DetailRegion[];
   activeRegionId: string | null;
   onRegionChange: (regionId: string | null) => void;
@@ -90,7 +90,12 @@ function ComparisonWork({
         printMode={printMode}
       />
 
-      <ObservationCard card={card} compact headingLevel={3} />
+      {card ? <ObservationCard card={card} compact headingLevel={3} /> : (
+        <section className="compare-metadata-observation" aria-label={locale === "zh-CN" ? "元数据观察路径" : "Metadata observation path"}>
+          <h3>{locale === "zh-CN" ? "从对象记录开始" : "Begin with the object record"}</h3>
+          <p>{locale === "zh-CN" ? "比较标题、年代、材料与收藏机构；图像缺失不用于推断作品意义或价值。" : "Compare title, date, materials, and holding institution; image availability is never used to infer meaning or value."}</p>
+        </section>
+      )}
 
       <section className="compare-metadata" aria-label={`${title} · ${copy.medium}`}>
         <dl>
@@ -300,7 +305,7 @@ export function ComparePage({ release, catalog, interactions }: GallerySharedPro
             artistName={localize(artistById.get(leftArtwork.artistId)?.labels ?? { "zh-Hans": "—", en: "—" }, locale)}
             locale={locale}
             lowBandwidth={lowBandwidth}
-            card={interactions.observation_cards.find((card) => card.artwork_id === leftArtwork.id)!}
+            card={interactions.observation_cards.find((card) => card.artwork_id === leftArtwork.id) ?? null}
             regions={leftRegions}
             activeRegionId={leftRegion}
             onRegionChange={(regionId) => writeState({ leftRegion: regionId })}
@@ -313,7 +318,7 @@ export function ComparePage({ release, catalog, interactions }: GallerySharedPro
             artistName={localize(artistById.get(rightArtwork.artistId)?.labels ?? { "zh-Hans": "—", en: "—" }, locale)}
             locale={locale}
             lowBandwidth={lowBandwidth}
-            card={interactions.observation_cards.find((card) => card.artwork_id === rightArtwork.id)!}
+            card={interactions.observation_cards.find((card) => card.artwork_id === rightArtwork.id) ?? null}
             regions={rightRegions}
             activeRegionId={rightRegion}
             onRegionChange={(regionId) => writeState({ rightRegion: regionId })}

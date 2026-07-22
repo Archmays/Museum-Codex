@@ -1,0 +1,58 @@
+{
+  "after_hash": "sha256:eeea1212b6e23bbf1cc17a75b568b45187bd316208eb6b39ab0c92b9bdc738b7",
+  "before_hash": "sha256:e61407ae049f6b59978fd786857a5e06a1e9bf9d0ed05fae0733c794b65995d6",
+  "cascade_counts": {
+    "artists": 1,
+    "artworks": 7,
+    "episodes": 2,
+    "media_assets": 8,
+    "relationships": 4,
+    "search_entries": 1
+  },
+  "elapsed_ms": 70.374,
+  "evidence_class": "in_memory_synthetic_withdrawal_and_predecessor_rollback",
+  "failures": [],
+  "phase_id": "MUSEUM-09B-RELEASE",
+  "predecessor": {
+    "content_hash": "sha256:93365e63792ae1c34667dcb2d002d733b58c68859b1a4e4bcae54d97f2532202",
+    "manifest_sha256": "sha256:1eb5cce3264137a20dd18ea7595981585eae2abe125065ea010d542726277114",
+    "tree_hash": "sha256:5029d271ae40b39ff3cbaa0fb0a9a05cded3b3d8b9aeb8bef8672f1c9240ebc1",
+    "unchanged": true
+  },
+  "private_data": false,
+  "published_files_mutated": false,
+  "reference_closure": {
+    "artwork_artist": true,
+    "episodes": true,
+    "media_artwork": true,
+    "media_projection": true,
+    "relationships": true,
+    "search": true,
+    "self_hosted_bytes_removed_only_after_last_reference": true,
+    "withdrawn_entities_absent": true
+  },
+  "release_id": "release:art-expansion-batch-01-1.5.0",
+  "rollback": {
+    "loader": "pass",
+    "map": "pass",
+    "media": "pass",
+    "pages_procedure": "redeploy the last final-full predecessor-bound Pages artifact from its exact commit",
+    "paths": "pass",
+    "routes": "pass",
+    "rpo": "zero published release mutation; restore the last immutable release",
+    "rto_minutes_max": 15,
+    "search": "pass",
+    "target": "release:art-v1-candidate-1.4.0"
+  },
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "synthetic_only": true,
+  "targets": {
+    "collection_artist": "artist:m09a-cleveland_open_access-nakunte-diarra-2020",
+    "external_link_artwork": "artwork:m09b-candidate-work-aic-api-105471",
+    "metadata_only_artwork": "artwork:aic-111442",
+    "place_time_episode": "place-time:m09b-artist-m09a-aic-api-12128-1",
+    "promoted_relationship": "art-rel:m09b-artist-m09a-aic-api-12128-artist-m09a-met-open-access-17557-1",
+    "self_hosted_media": "media:m09b-0aca436c9a7d26c0df4351185f5710bd711915c50855bfb0c83af34b89b74653-320w-jpeg"
+  }
+}

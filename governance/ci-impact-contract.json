@@ -27,12 +27,17 @@
       "phase": "MUSEUM-07",
       "release_id": "release:art-time-place-1.3.0",
       "directory": "public/releases/art-time-place-1.3.0"
+    },
+    {
+      "phase": "MUSEUM-08",
+      "release_id": "release:art-v1-candidate-1.4.0",
+      "directory": "public/releases/art-v1-candidate-1.4.0"
     }
   ],
   "candidate_release": {
-    "phase": "MUSEUM-08",
-    "release_id": "release:art-v1-candidate-1.4.0",
-    "directory": "public/releases/art-v1-candidate-1.4.0"
+    "phase": "MUSEUM-09B-RELEASE",
+    "release_id": "release:art-expansion-batch-01-1.5.0",
+    "directory": "public/releases/art-expansion-batch-01-1.5.0"
   },
   "docs_only_prefixes": [
     "docs/phase-reports/",
@@ -100,7 +105,20 @@
       "museum_pipeline/art/timeplace.py",
       "scripts/build_museum_07_release.py",
       "scripts/validate_museum_07_release.py",
-      "schemas/art/map/",
+      "schemas/art/map/artist-place-episode.schema.json",
+      "schemas/art/map/artwork-place-claim.schema.json",
+      "schemas/art/map/geospatial-claim.schema.json",
+      "schemas/art/map/holding-location.schema.json",
+      "schemas/art/map/map-basemap-manifest.schema.json",
+      "schemas/art/map/map-decision-snapshot.schema.json",
+      "schemas/art/map/map-layer-config.schema.json",
+      "schemas/art/map/map-release-index.schema.json",
+      "schemas/art/map/map-source-attribution.schema.json",
+      "schemas/art/map/map-style-contract.schema.json",
+      "schemas/art/map/map-view-state.schema.json",
+      "schemas/art/map/place-identity.schema.json",
+      "schemas/art/map/place-name.schema.json",
+      "schemas/art/map/place-research-disposition.schema.json",
       "public/releases/art-time-place-1.3.0/"
     ],
     "MUSEUM-08": [
@@ -114,6 +132,29 @@
       "schemas/art/candidate/",
       "fixtures/museum-08",
       "public/releases/art-v1-candidate-1.4.0/",
+      "src/features/art-search/"
+    ],
+    "MUSEUM-09B-RELEASE": [
+      "museum_pipeline/art/release_expansion.py",
+      "scripts/build_museum_09b_release.py",
+      "scripts/validate_museum_09b_release.py",
+      "scripts/validate_museum_09b_release_drift.py",
+      "scripts/validate_museum_09b_recovery.py",
+      "scripts/materialize_museum_09b_media.py",
+      "scripts/benchmark-museum-09b-search.mjs",
+      "scripts/verify-museum-09b-budgets.mjs",
+      "scripts/verify_museum_09b_online.py",
+      "schemas/art/release/art-expansion-public-record.schema.json",
+      "schemas/art/release/art-expansion-media-asset.schema.json",
+      "schemas/art/release/art-expansion-source.schema.json",
+      "schemas/art/map/map-artwork-summary-collection.schema.json",
+      "public/releases/art-expansion-batch-01-1.5.0/",
+      "src/data/art-release-profile.ts",
+      "src/data/release-loader.ts",
+      "src/features/art-constellation/",
+      "src/features/art-gallery/",
+      "src/features/art-map/",
+      "src/features/art-paths/",
       "src/features/art-search/"
     ]
   },

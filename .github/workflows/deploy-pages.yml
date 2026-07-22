@@ -34,8 +34,8 @@ jobs:
         # actions/checkout v7.0.0
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
-      - name: Verify online build identity and candidate bytes
+      - name: Verify online build identity and complete M09B bytes
         run: >-
-          python scripts/verify_museum_08_online.py
+          python scripts/verify_museum_09b_online.py
           --base-url '${{ steps.deployment.outputs.page_url }}'
           --commit '${{ inputs.commit_sha }}'

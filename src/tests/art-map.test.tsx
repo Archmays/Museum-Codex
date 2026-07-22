@@ -47,12 +47,12 @@ afterAll(() => {
   globalThis.fetch = originalFetch;
 });
 
-describe("MUSEUM-07 Art Across Time and Place", () => {
+describe("Art Across Time and Place current-release projection", () => {
   it("loads the exact immutable release and its formal counts", async () => {
     const bundle = await loadMapBundle();
     expect(bundle.manifest.id).toBe(CURRENT_ART_RELEASE_ID);
-    expect(bundle.places).toHaveLength(23);
-    expect(bundle.episodes).toHaveLength(36);
+    expect(bundle.places).toHaveLength(24);
+    expect(bundle.episodes).toHaveLength(110);
     expect(bundle.holdings).toHaveLength(2);
     expect(bundle.style.renderer_version).toBe("5.24.0");
   });
@@ -61,11 +61,11 @@ describe("MUSEUM-07 Art Across Time and Place", () => {
     await expect(loadMapBundle(releaseFetcher("artist-place-episodes.json"))).rejects.toMatchObject({ status: "tampered_map_data" });
   });
 
-  it("renders the equivalent place table with historical/current labels and all 36 episodes", async () => {
+  it("renders the equivalent place table with historical/current labels and all dated episodes", async () => {
     renderPage();
     expect(await screen.findByRole("heading", { level: 1, name: "Art Across Time and Place" })).toBeInTheDocument();
     const table = screen.getByRole("table", { name: /same filters as map and timeline/i });
-    expect(within(table).getAllByRole("row")).toHaveLength(37);
+    expect(within(table).getAllByRole("row")).toHaveLength(99);
     expect(within(table).getAllByText(/list only/i)).not.toHaveLength(0);
     expect(screen.getByText(/Modern outlines are not historical political borders/)).toBeInTheDocument();
   });
@@ -87,7 +87,7 @@ describe("MUSEUM-07 Art Across Time and Place", () => {
     renderPage("/art/map?view=list&fromYear=1900&toYear=1950");
     await screen.findByRole("heading", { level: 1 });
     expect(screen.getByLabelText("From")).toHaveValue(1900);
-    expect(screen.getByLabelText("To")).toHaveValue(1945);
+    expect(screen.getByLabelText("To")).toHaveValue(1950);
     const before = within(screen.getByRole("table")).getAllByRole("row").length;
     await user.clear(screen.getByLabelText("From"));
     await user.type(screen.getByLabelText("From"), "1940");

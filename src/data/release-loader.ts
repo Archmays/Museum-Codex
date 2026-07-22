@@ -37,6 +37,28 @@ type ManifestFile = ArtifactReference & {
   record_ids: string[];
 };
 
+export type RuntimeAssetFile = ArtifactReference & {
+  bytes: number;
+  record_type: string;
+  record_ids: string[];
+  source_path?: string;
+  resolved_path?: string;
+  delivery_mode?: string;
+};
+
+export type AssetResolutionManifest = {
+  id: string;
+  schema_version: string;
+  release_id: string;
+  content_hash: string;
+  referenced_files: RuntimeAssetFile[];
+  materialized_asset_files: RuntimeAssetFile[];
+  referenced_file_count: number;
+  materialized_asset_count: number;
+  new_public_original_count: 0;
+  runtime_external_image_request_count: 0;
+};
+
 type ReleaseLifecycle =
   | { status: "reviewed"; public_release: false }
   | { status: "publishable" | "published"; public_release: true };
@@ -62,6 +84,8 @@ export type ReleaseManifest = {
   withdrawals: unknown[];
   deprecations: unknown[];
   manifest_files: ManifestFile[];
+  referenced_files?: RuntimeAssetFile[];
+  materialized_asset_files?: RuntimeAssetFile[];
   license_decisions: {
     code_license_decision_id: string;
     code_license_status: "decided" | "not_applicable";
@@ -125,6 +149,21 @@ function isManifestFile(value: unknown): value is ManifestFile {
   );
 }
 
+function isRuntimeAssetFile(value: unknown): value is RuntimeAssetFile {
+  if (!isRecord(value)) return false;
+  const record = value;
+  if (!isArtifactReference(record)) return false;
+  const candidate = record as ArtifactReference & Record<string, unknown>;
+  return (
+    Number.isInteger(candidate.bytes) && Number(candidate.bytes) >= 0 &&
+    typeof candidate.record_type === "string" &&
+    isStringArray(candidate.record_ids) &&
+    (candidate.source_path === undefined || (typeof candidate.source_path === "string" && SAFE_PATH.test(candidate.source_path))) &&
+    (candidate.resolved_path === undefined || (typeof candidate.resolved_path === "string" && SAFE_PATH.test(candidate.resolved_path))) &&
+    (candidate.delivery_mode === undefined || typeof candidate.delivery_mode === "string")
+  );
+}
+
 function hasArtifactClosure(files: ManifestFile[], reference: ArtifactReference, recordType: string) {
   return files.some(
     (file) => file.path === reference.path && file.sha256 === reference.sha256 && file.record_type === recordType,
@@ -172,6 +211,8 @@ function isCanonicalRelease(value: unknown): value is ReleaseManifest {
   ) return false;
   if (!Array.isArray(value.withdrawals) || !Array.isArray(value.deprecations)) return false;
   if (!Array.isArray(value.manifest_files) || value.manifest_files.length === 0 || !value.manifest_files.every(isManifestFile)) return false;
+  if (value.referenced_files !== undefined && (!Array.isArray(value.referenced_files) || !value.referenced_files.every(isRuntimeAssetFile))) return false;
+  if (value.materialized_asset_files !== undefined && (!Array.isArray(value.materialized_asset_files) || !value.materialized_asset_files.every(isRuntimeAssetFile))) return false;
   if (!isRecord(value.schema_versions) || Object.keys(value.schema_versions).length === 0) return false;
   if (!Object.values(value.schema_versions).every((version) => typeof version === "string" && SEMVER.test(version))) return false;
   const licenseDecisions = value.license_decisions;
@@ -185,6 +226,11 @@ function isCanonicalRelease(value: unknown): value is ReleaseManifest {
   if (!isStringArray(includedMediaIds)) return false;
 
   const files = value.manifest_files;
+  const runtimeAssetFiles = [
+    ...(value.referenced_files ?? []),
+    ...(value.materialized_asset_files ?? []),
+  ];
+  const mediaClosureFiles: RuntimeAssetFile[] = [...files, ...runtimeAssetFiles].filter((file) => file.record_type === "media");
   const identityIsValid =
     typeof value.schema_version === "string" &&
     SEMVER.test(value.schema_version) &&
@@ -229,9 +275,9 @@ function isCanonicalRelease(value: unknown): value is ReleaseManifest {
     sameSet(attributionAssetIds, includedMediaIds) &&
     sameSet(recordIdsFor(files, "data"), includedRecordIds) &&
     sameSet(recordIdsFor(files, "source_registry"), includedSourceIds) &&
-    files.filter((file) => file.record_type === "media").every((file) => file.record_ids.length > 0) &&
-    recordIdsFor(files, "media").every((id) => includedMediaIds.includes(id)) &&
-    new Set(recordIdsFor(files, "media")).size === recordIdsFor(files, "media").length &&
+    mediaClosureFiles.every((file) => file.record_ids.length > 0) &&
+    mediaClosureFiles.flatMap((file) => file.record_ids).every((id) => includedMediaIds.includes(id)) &&
+    new Set(mediaClosureFiles.flatMap((file) => file.record_ids)).size === mediaClosureFiles.flatMap((file) => file.record_ids).length &&
     sameSet(recordIdsFor(files, "third_party_notices"), [...includedSourceIds, ...includedMediaIds]) &&
     sameSet(recordIdsFor(files, "attributions"), includedMediaIds) &&
     sameSet(recordIdsFor(files, "license_decisions"), licenseDecisionIds);
@@ -339,6 +385,7 @@ const ART_CONSTELLATION_INITIAL_ARTIFACTS = [
 ] as const;
 const ART_CONSTELLATION_DECLARED_ARTIFACTS = [
   ...ART_CONSTELLATION_INITIAL_ARTIFACTS,
+  "asset-resolution-manifest.json",
   "contexts.json",
   "relationships.json",
   "artworks.json",
@@ -352,6 +399,8 @@ const ART_CONSTELLATION_DECLARED_ARTIFACTS = [
 const RELATIONSHIP_TYPES = ["shared_subject", "shared_material", "shared_technique"] as const;
 const MEDIA_DECISIONS = [
   "approved_self_hosted",
+  "external_link_only",
+  "metadata_only",
   "metadata_only_after_automated_review",
   "blocked_source_unavailable",
   "blocked_rights_conflict",
@@ -406,7 +455,10 @@ function hasCanonicalSourceId(sourceIds: string[], sourceName: string) {
 function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]) {
   const rawUrl = optionalString(value);
   if (!rawUrl) return null;
-  const url = httpsUrl(rawUrl, "artwork_official_object_url");
+  const normalizedUrl = artworkId.startsWith("artwork:m09b-") && rawUrl.startsWith("http://")
+    ? `https://${rawUrl.slice("http://".length)}`
+    : rawUrl;
+  const url = httpsUrl(normalizedUrl, "artwork_official_object_url");
   const aicId = /^artwork:aic-(\d+)$/.exec(artworkId)?.[1];
   const metId = /^artwork:met-(\d+)$/.exec(artworkId)?.[1];
   const matchesAic = Boolean(
@@ -417,7 +469,23 @@ function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]
     metId && hasCanonicalSourceId(sourceIds, "met_open_access") && url.origin === "https://www.metmuseum.org" &&
     url.pathname === `/art/collection/search/${metId}` && !url.search && !url.hash,
   );
-  if (!matchesAic && !matchesMet) throw new Error("artwork_official_object_source_mismatch");
+  const sourceOrigins: Record<string, string[]> = {
+    aic_api: ["https://www.artic.edu", "https://api.artic.edu"],
+    cleveland_open_access: ["https://clevelandart.org", "https://www.clevelandart.org"],
+    met_open_access: ["https://www.metmuseum.org"],
+    nga_open_data: ["https://www.nga.gov"],
+    moma_open_data: ["https://www.moma.org"],
+    tate_open_data: ["https://www.tate.org.uk"],
+    cooper_hewitt_open_data: ["https://collection.cooperhewitt.org"],
+    national_gallery_singapore: ["https://www.nationalgallery.sg"],
+    vam_collections: ["https://collections.vam.ac.uk"],
+    mia_open_access: ["https://collections.artsmia.org"],
+  };
+  const matchesExpandedSource = artworkId.startsWith("artwork:m09b-") && sourceIds.some((sourceId) => {
+    const sourceName = sourceId.startsWith("source:") ? sourceId.slice("source:".length) : "";
+    return sourceOrigins[sourceName]?.includes(url.origin);
+  }) && url.pathname !== "/";
+  if (!matchesAic && !matchesMet && !matchesExpandedSource) throw new Error("artwork_official_object_source_mismatch");
   return url.href;
 }
 
@@ -479,6 +547,24 @@ function optionalLocalized(value: unknown, label: string): LocalizedText | null 
   return value === null || value === undefined ? null : localized(value, label);
 }
 
+export function publicNarrativeText(value: string) {
+  return value
+    .replace(/\breviewed\b/gi, "source-supported")
+    .replace(/经审核的?/g, "有来源支持的");
+}
+
+function publicLocalized(value: unknown, label: string): LocalizedText {
+  const parsed = localized(value, label);
+  return {
+    "zh-Hans": publicNarrativeText(parsed["zh-Hans"]),
+    en: publicNarrativeText(parsed.en),
+  };
+}
+
+function optionalPublicLocalized(value: unknown, label: string): LocalizedText | null {
+  return value === null || value === undefined ? null : publicLocalized(value, label);
+}
+
 function assertEnvelope(root: Record<string, unknown>, releaseId: string, pluralKey: string) {
   if (root.schema_version !== ART_CONSTELLATION_SCHEMA_VERSION) throw new Error(`${pluralKey}_schema_version`);
   if (root.release_id !== releaseId) throw new Error(`${pluralKey}_release_id`);
@@ -494,7 +580,7 @@ function aliasTexts(value: unknown) {
 }
 
 function localizedItems(value: unknown, label: string) {
-  return objectList(value, label).map((item) => localized(item.labels ?? item.label, `${label}_labels`));
+  return objectList(value, label).map((item) => localized(item.labels ?? item.label ?? item, `${label}_labels`));
 }
 
 function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
@@ -508,10 +594,17 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
     const review = requiredRecord(artist.review, "artist_review");
     const birthDisplay = requiredString(birth.display_value, "artist_birth_display");
     const deathDisplay = requiredString(death.display_value, "artist_death_display");
+    const profileKind = requiredString(artist.profile_kind, "artist_profile_kind");
+    if (profileKind !== "gallery" && profileKind !== "collection") throw new Error("artist_profile_kind_invalid");
     return {
       id: requiredString(artist.id, "artist_id"),
+      publicSlug: requiredString(artist.public_slug, "artist_public_slug"),
+      profileKind,
+      sourceLanguageName: optionalString(artist.source_language_name),
+      transliterations: stringList(artist.transliterations, "artist_transliterations"),
+      gallerySequence: stringList(artist.gallery_sequence, "artist_gallery_sequence"),
       labels: localized(artist.labels, "artist_labels"),
-      summary: localized(artist.summary, "artist_summary"),
+      summary: publicLocalized(artist.summary, "artist_summary"),
       aliases: aliasTexts(artist.aliases),
       period: requiredString(periods[0], "artist_period"),
       region: requiredString(places[0]?.label, "artist_region"),
@@ -559,9 +652,9 @@ function parseRelationships(raw: unknown, releaseId: string): RelationshipRecord
       type,
       level: "C",
       title: localized(relationship.title, "relationship_title"),
-      shortExplanation: localized(relationship.short_explanation, "relationship_short_explanation"),
-      whatItMeans: localized(relationship.what_it_means, "relationship_what_it_means"),
-      doesNotMean: localized(relationship.what_it_does_not_mean, "relationship_does_not_mean"),
+      shortExplanation: publicLocalized(relationship.short_explanation, "relationship_short_explanation"),
+      whatItMeans: publicLocalized(relationship.what_it_means, "relationship_what_it_means"),
+      doesNotMean: publicLocalized(relationship.what_it_does_not_mean, "relationship_does_not_mean"),
       contextIds: stringList(relationship.context_ids, "relationship_context_ids"),
       supportingArtworkIds: stringList(relationship.supporting_artwork_ids, "relationship_artwork_ids"),
       evidenceConfidence: requiredNumber(relationship.evidence_confidence, "relationship_confidence"),
@@ -569,7 +662,7 @@ function parseRelationships(raw: unknown, releaseId: string): RelationshipRecord
       claimIds: stringList(relationship.claim_ids, "relationship_claim_ids"),
       evidenceIds: stringList(relationship.evidence_ids, "relationship_evidence_ids"),
       sourceIds: stringList(relationship.source_ids, "relationship_source_ids"),
-      limitations: optionalLocalized(relationship.limitations, "relationship_limitations"),
+      limitations: optionalPublicLocalized(relationship.limitations, "relationship_limitations"),
       reviewer: requiredString(review.reviewer_id, "relationship_reviewer"),
       reviewDate: requiredString(review.reviewed_at, "relationship_review_date"),
     };
@@ -598,6 +691,7 @@ function parseArtworks(raw: unknown, releaseId: string): ArtworkRecord[] {
     const mediumItems = [...materials, ...techniques];
     return {
       id,
+      publicSlug: requiredString(artwork.public_slug, "artwork_public_slug"),
       artistId: requiredString(artwork.artist_id, "artwork_artist_id"),
       title: localized(artwork.labels, "artwork_title"),
       dateDisplay: optionalLocalized(creation.description, "artwork_creation_description"),
@@ -614,7 +708,7 @@ function parseArtworks(raw: unknown, releaseId: string): ArtworkRecord[] {
       techniques,
       subjects: localizedItems(artwork.subjects, "artwork_subjects"),
       metadataLicense: requiredString(metadataLicense.rule_id, "artwork_metadata_license_rule"),
-      limitations: optionalLocalized(artwork.limitations, "artwork_limitations"),
+      limitations: optionalPublicLocalized(artwork.limitations, "artwork_limitations"),
       media: {
         decision,
         reasonCodes: stringList(media.reason_codes, "artwork_media_reason_codes"),
@@ -637,7 +731,7 @@ function parseClaims(raw: unknown, releaseId: string): ClaimRecord[] {
       predicate: requiredString(claim.predicate, "claim_predicate"),
       objectId: requiredString(object.entity_id ?? object.value, "claim_object_value"),
       evidenceIds: stringList(claim.evidence_ids, "claim_evidence_ids"),
-      text: localized(claim.claim_text, "claim_text"),
+      text: publicLocalized(claim.claim_text, "claim_text"),
     };
   });
 }
@@ -649,9 +743,9 @@ function parseEvidence(raw: unknown, releaseId: string): EvidenceRecord[] {
       id: requiredString(evidence.id, "evidence_id"),
       claimIds: stringList(evidence.claim_ids, "evidence_claim_ids"),
       sourceIds: stringList(evidence.source_ids, "evidence_source_ids"),
-      summary: localized(evidence.summary, "evidence_summary"),
+      summary: publicLocalized(evidence.summary, "evidence_summary"),
       locator: [optionalString(locator.record_id), optionalString(locator.section)].filter(Boolean).join(" · ") || null,
-      reliabilityNote: localized(evidence.reliability_note, "evidence_reliability_note"),
+      reliabilityNote: publicLocalized(evidence.reliability_note, "evidence_reliability_note"),
     };
   });
 }
@@ -725,18 +819,28 @@ function facetValues(value: unknown, label: string) {
   return objectList(value, label).map((item) => requiredString(item.value, `${label}_value`));
 }
 
+function compactFacetValues(value: unknown, label: string) {
+  const values = stringList(value, label);
+  if (values.length !== new Set(values).size || values.some((item) => !item.trim())) {
+    throw new Error(`${label}_invalid`);
+  }
+  return values;
+}
+
 function parseFacets(raw: unknown, releaseId: string) {
   const root = requiredRecord(raw, "facets_root");
   if (root.schema_version !== ART_CONSTELLATION_SCHEMA_VERSION || root.release_id !== releaseId) {
     throw new Error("facets_envelope");
   }
-  const facets = requiredRecord(root.facets, "facets");
-  const relationshipTypes = facetValues(facets.relationship_types, "relationship_type_facets") as RelationshipType[];
+  const compact = root.facets === undefined;
+  const facets = compact ? root : requiredRecord(root.facets, "facets");
+  const values = compact ? compactFacetValues : facetValues;
+  const relationshipTypes = values(facets.relationship_types, "relationship_type_facets") as RelationshipType[];
   if (relationshipTypes.some((type) => !RELATIONSHIP_TYPES.includes(type))) throw new Error("facet_relationship_type");
   return {
-    periods: facetValues(facets.periods, "period_facets"),
-    regions: facetValues(facets.regions, "region_facets"),
-    traditions: facetValues(facets.traditions, "tradition_facets"),
+    periods: values(facets.periods, "period_facets"),
+    regions: values(facets.regions, "region_facets"),
+    traditions: values(facets.traditions, "tradition_facets"),
     relationshipTypes,
   };
 }
@@ -821,7 +925,9 @@ function parseGraphSummary(raw: unknown, releaseId: string) {
   if (
     numericCounts.some((value) => !Number.isInteger(value) || value < 0) ||
     artistCount === 0 || artworkCount !== approvedMediaArtworkCount + noImageArtworkCount ||
-    mediaParentCount !== approvedMediaArtworkCount ||
+    (approvedMediaArtworkCount === 0
+      ? mediaParentCount !== 0
+      : mediaParentCount <= 0 || mediaParentCount > approvedMediaArtworkCount) ||
     Object.values(levelCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
     Object.values(relationshipTypeCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
     semantics.algorithmic !== false || semantics.causal !== false || semantics.directed !== false ||
@@ -864,12 +970,20 @@ function exactPositiveInteger(value: unknown, label: string) {
 }
 
 function releaseAssetUrl(path: string, base: URL) {
-  if (!SAFE_PATH.test(path) || !/^assets\/[a-z0-9._-]+\/[0-9]+w\.(?:jpg|webp)$/i.test(path)) {
+  const isReleaseChild = /^assets\/[a-z0-9._-]+\/[0-9]+w\.(?:jpg|webp)$/i.test(path);
+  const isSiteReleaseAsset = /^releases\/[a-z0-9._-]+\/assets\/(?:[a-z0-9._-]+\/[0-9]+w|sha256\/[a-f0-9]{2}\/[a-f0-9]{64})\.(?:jpg|webp)$/i.test(path);
+  if (!SAFE_PATH.test(path) || (!isReleaseChild && !isSiteReleaseAsset)) {
     throw new Error("media_src_not_release_child");
   }
-  const url = new URL(path, base);
+  const siteBase = new URL(import.meta.env.BASE_URL, base.origin);
+  const url = new URL(path, isSiteReleaseAsset ? siteBase : base);
   const basePath = base.pathname.endsWith("/") ? base.pathname : `${base.pathname}/`;
-  if (url.origin !== base.origin || !url.pathname.startsWith(`${basePath}assets/`)) {
+  const siteBasePath = siteBase.pathname.endsWith("/") ? siteBase.pathname : `${siteBase.pathname}/`;
+  if (
+    url.origin !== base.origin ||
+    (isReleaseChild && !url.pathname.startsWith(`${basePath}assets/`)) ||
+    (isSiteReleaseAsset && !url.pathname.startsWith(`${siteBasePath}releases/`))
+  ) {
     throw new Error("media_src_not_same_origin_release_child");
   }
   return url.href;
@@ -883,7 +997,7 @@ function parseMediaSupport(
   base: URL,
   artworks: ArtworkRecord[],
   manifest: ReleaseManifest,
-  artifactFiles: Map<string, ManifestFile>,
+  artifactFiles: Map<string, RuntimeAssetFile>,
 ): MediaAsset[] {
   const root = requiredRecord(mediaRaw, "media_index_root");
   const mediaBundleHash = requiredString(root.media_bundle_hash, "media_bundle_hash");
@@ -1022,15 +1136,17 @@ function parseMediaSupport(
   return assets.map((asset) => {
     const attribution = attributions.get(asset.id);
     const withdrawal = withdrawals.get(asset.id);
+    const predecessorRelativePath = /^releases\/[a-z0-9._-]+\/(assets\/.*)$/i.exec(asset.publicPath)?.[1] ?? null;
     if (
       !attribution || !withdrawal || withdrawal.artworkId !== asset.artworkId ||
-      !withdrawal.paths.includes(asset.publicPath)
+      !withdrawal.paths.includes(asset.publicPath) &&
+      (!predecessorRelativePath || !withdrawal.paths.includes(predecessorRelativePath))
     ) throw new Error("media_rights_reference_closure");
     return {
       ...asset,
       ...attribution,
       withdrawalStatus: "active" as const,
-      withdrawalNotice: withdrawal.notice,
+      withdrawalNotice: publicNarrativeText(withdrawal.notice),
     };
   });
 }
@@ -1052,6 +1168,64 @@ async function fetchVerifiedJson(
   const bytes = response.bytes;
   if ((await digestHex(bytes)) !== expectedHash.replace(/^sha256:/, "")) throw new Error("artifact_hash_mismatch");
   return JSON.parse(new TextDecoder().decode(bytes)) as unknown;
+}
+
+function parseAssetResolutionManifest(raw: unknown, manifest: ReleaseManifest): AssetResolutionManifest {
+  const value = requiredRecord(raw, "asset_resolution_root");
+  const referencedFiles = value.referenced_files;
+  const materializedFiles = value.materialized_asset_files;
+  if (
+    !Array.isArray(referencedFiles) || !referencedFiles.every(isRuntimeAssetFile) ||
+    !Array.isArray(materializedFiles) || !materializedFiles.every(isRuntimeAssetFile)
+  ) throw new Error("asset_resolution_files_invalid");
+  const allFiles = [...referencedFiles, ...materializedFiles];
+  const paths = allFiles.map((file) => file.path);
+  if (
+    requiredString(value.id, "asset_resolution_id") !== `asset-resolution:art-expansion-${manifest.version}` ||
+    requiredString(value.schema_version, "asset_resolution_schema_version") !== "1.0.0" ||
+    requiredString(value.release_id, "asset_resolution_release_id") !== manifest.id ||
+    !/^sha256:[a-f0-9]{64}$/.test(requiredString(value.content_hash, "asset_resolution_content_hash")) ||
+    value.referenced_file_count !== referencedFiles.length ||
+    value.materialized_asset_count !== materializedFiles.length ||
+    value.new_public_original_count !== 0 ||
+    value.runtime_external_image_request_count !== 0 ||
+    new Set(paths).size !== paths.length ||
+    materializedFiles.some((file) => file.record_type !== "media" || file.delivery_mode !== "build_materialized")
+  ) throw new Error("asset_resolution_closure_invalid");
+  const mediaRecordIds = new Set(allFiles.filter((file) => file.record_type === "media").flatMap((file) => file.record_ids));
+  if (
+    mediaRecordIds.size !== manifest.included_media_asset_ids.length ||
+    manifest.included_media_asset_ids.some((id) => !mediaRecordIds.has(id))
+  ) throw new Error("asset_resolution_media_closure_invalid");
+  return value as AssetResolutionManifest;
+}
+
+async function assetResolutionContentHash(files: RuntimeAssetFile[]) {
+  const lines = [...files]
+    .sort((left, right) => left.path.localeCompare(right.path))
+    .map((file) => `${file.path}\0${file.sha256}\0${file.bytes}\n`)
+    .join("");
+  return `sha256:${await digestHex(new TextEncoder().encode(lines).buffer)}`;
+}
+
+export async function loadAssetResolutionManifest(
+  base: URL,
+  manifest: ReleaseManifest,
+  fetcher: typeof fetch = fetch,
+  signal?: AbortSignal,
+) {
+  const reference = manifest.manifest_files.find((file) => file.path === "asset-resolution-manifest.json");
+  if (!reference || reference.record_type !== "other") throw new Error("asset_resolution_manifest_missing");
+  const resolution = parseAssetResolutionManifest(
+    await fetchVerifiedJson(new URL(reference.path, base).href, reference.sha256, fetcher, signal),
+    manifest,
+  );
+  const computed = await assetResolutionContentHash([
+    ...resolution.referenced_files,
+    ...resolution.materialized_asset_files,
+  ]);
+  if (computed !== resolution.content_hash) throw new Error("asset_resolution_content_hash_mismatch");
+  return resolution;
 }
 
 function assertSameOrigin(baseUrl: string) {
@@ -1133,6 +1307,7 @@ function assertRelationshipIndexClosure(release: ArtConstellationRelease, index:
     shared_technique: 0,
   };
   const connectedArtists = new Set<string>();
+  const relationshipCounts = new Map(release.artists.map((artist) => [artist.id, 0]));
   for (const relationship of index.relationships) {
     if (
       !artistIds.has(relationship.sourceArtistId) || !artistIds.has(relationship.targetArtistId) ||
@@ -1142,9 +1317,13 @@ function assertRelationshipIndexClosure(release: ArtConstellationRelease, index:
     seenTypes[relationship.type] += 1;
     connectedArtists.add(relationship.sourceArtistId);
     connectedArtists.add(relationship.targetArtistId);
+    relationshipCounts.set(relationship.sourceArtistId, (relationshipCounts.get(relationship.sourceArtistId) ?? 0) + 1);
+    relationshipCounts.set(relationship.targetArtistId, (relationshipCounts.get(relationship.targetArtistId) ?? 0) + 1);
   }
+  const expectedConnectedArtists = release.artists.filter((artist) => artist.relationCount > 0).map((artist) => artist.id);
   if (
-    connectedArtists.size !== release.artists.length ||
+    !sameSet([...connectedArtists], expectedConnectedArtists) ||
+    release.artists.some((artist) => relationshipCounts.get(artist.id) !== artist.relationCount) ||
     RELATIONSHIP_TYPES.some((type) => seenTypes[type] !== release.summary.relationshipTypeCounts[type])
   ) throw new Error("relationship_index_semantics_invalid");
 }
@@ -1332,7 +1511,7 @@ export async function loadArtConstellationRelease(
 
     const loadArtworkMediaArtifacts = async (detailSignal?: AbortSignal) => {
       if (artworkMediaCache) return artworkMediaCache;
-      const [artworksRaw, mediaRaw, attributionsRaw, withdrawalRaw] = await Promise.all([
+      const [artworksRaw, mediaRaw, attributionsRaw, withdrawalRaw, assetResolution] = await Promise.all([
         artifact("artworks.json", detailSignal),
         artifact("media-index.json", detailSignal),
         fetchVerifiedJson(
@@ -1342,7 +1521,15 @@ export async function loadArtConstellationRelease(
           detailSignal,
         ),
         artifact("withdrawal-mapping.json", detailSignal),
+        loadAssetResolutionManifest(base, manifest, fetcher, detailSignal),
       ]);
+      const runtimeAssetFiles = new Map<string, RuntimeAssetFile>([
+        ...manifest.manifest_files,
+        ...(manifest.referenced_files ?? []),
+        ...(manifest.materialized_asset_files ?? []),
+        ...assetResolution.referenced_files,
+        ...assetResolution.materialized_asset_files,
+      ].map((file) => [file.path, file]));
       const artworks = parseArtworks(artworksRaw, coreReleaseId);
       const media = parseMediaSupport(
         mediaRaw,
@@ -1352,7 +1539,7 @@ export async function loadArtConstellationRelease(
         base,
         artworks,
         manifest,
-        artifactFiles,
+        runtimeAssetFiles,
       );
       assertArtistArtworkClosure(release, artworks, media);
       artworkMediaCache = { artworks, media };

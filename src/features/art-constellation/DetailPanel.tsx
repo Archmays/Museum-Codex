@@ -123,7 +123,7 @@ function ArtistPanel({
             {artist.tradition ? <div><dt>{copy.tradition}</dt><dd>{artist.tradition}</dd></div> : null}
             <div><dt>{copy.practice}</dt><dd>{localize(artist.mediaPractice, locale)}</dd></div>
             <div><dt>{copy.relatedRelationships}</dt><dd>{artist.relationCount} · C</dd></div>
-            <div><dt>{copy.reviewRecord}</dt><dd>{artist.reviewer} · {artist.reviewDate}</dd></div>
+            <div><dt>{copy.reviewRecord}</dt><dd>{artist.reviewDate}</dd></div>
             <div>
               <dt>{copy.releaseLabel}</dt>
               <dd>{release.version}</dd>
@@ -223,7 +223,7 @@ function RelationshipPanel({
         <div><dt>{copy.curatorialRelevance}</dt><dd>{Math.round(relationship.curatorialRelevance * 100)}%</dd></div>
         <div><dt>{copy.historicalStrength}</dt><dd>{copy.notAsserted}</dd></div>
         <div><dt>{copy.computationalSimilarity}</dt><dd>{copy.notIncluded}</dd></div>
-        <div><dt>{copy.reviewRecord}</dt><dd>{relationship.reviewer} · {relationship.reviewDate}</dd></div>
+        <div><dt>{copy.reviewRecord}</dt><dd>{relationship.reviewDate}</dd></div>
         <div>
           <dt>{copy.releaseLabel}</dt>
           <dd>{release.version}</dd>

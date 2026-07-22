@@ -4,7 +4,7 @@
 
 Museum 是一个以可追溯知识图谱为骨架、以数字博物馆为界面的长期知识项目。它用展览、关系、时间、地点和可解释路径帮助用户探索，而不是复制百科条目或建立无来源图片库。
 
-当前正式 overlay 为 `release:art-time-place-1.3.0`，继承 `release:art-pathways-1.2.0`：12 位艺术家、44 件作品、23 个 verified place identities、36 条 artist place-time episodes、2 个独立 current-holding records，以及完全自托管的 Natural Earth 1:110m land/coastline/lakes GeoJSON。`#/art/map` 提供共享状态的地图、时间线和地点表；不使用外部 tile、token、在线 geocoder、用户位置、analytics、访问历史、现代政治边界或推断旅行路线。31 件作品继续使用 MUSEUM-03C 已批准的 242 个本地响应式衍生文件，其余 13 件保持明确无图状态；本阶段不重新生成媒体。
+当前正式公开版本为 `release:art-expansion-batch-01-1.5.0`，不可变继承 `release:art-v1-candidate-1.4.0`：62 位艺术家、532 件作品，其中 24 个艺术家展厅与 38 个艺术家收藏页。71 件作品使用经审核的本站响应式衍生图，25 件仅链接馆藏机构官方对象页，436 件保留完整元数据与明确无本站托管图片状态；新增 318 个公开衍生文件，不公开源原图。星海、展厅、作品详情、比较、导览、路径、地图与搜索均从同一版本化静态闭包读取，不在公开运行时调用外部图片或数据 API。
 
 ## 不可妥协的规则
 
@@ -54,7 +54,7 @@ node scripts/verify-museum-07-budgets.mjs
 python scripts/scan_public_artifact_for_candidate_data.py dist --label-set data/reviewed/art/museum-03b/museum-03b-first-slate-v1/package-v1/public-leakage-label-set.json
 ```
 
-`release:art-time-place-1.3.0` 由 automated release validation pipeline 完成来源、权利、引用、字节与 hash 交叉验证，`human_review_dependency=false`，不伪造或等待逐项人工审核。底图只包含自然地理轮廓；现代地图轮廓不等于历史政治边界，时间顺序不等于旅行路线，current holding institution 不等于作品创作地。
+`release:art-expansion-batch-01-1.5.0` 由 automated release validation pipeline 完成来源、权利、引用、字节与 hash 交叉验证，`human_review_dependency=false`，不伪造或等待逐项人工审核。底图只包含自然地理轮廓；现代地图轮廓不等于历史政治边界，时间顺序不等于旅行路线，current holding institution 不等于作品创作地。
 
 验证器区分 schema/fixture 自测与实际 release bundle：后者会核验 canonical schema 分派、精确文件集合、字节数、SHA-256、类型化 ID、完整引用闭包、MUSEUM-03C exact projection、父子媒体链、稳定 Source rule ID/快照、许可决策、blocked/no-image 边界、notices、attribution 与 withdrawal 的实际 JSON 内容。阶段结果见 [`docs/phase-reports/phase-museum-04-report.md`](docs/phase-reports/phase-museum-04-report.md)。
 

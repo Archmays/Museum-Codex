@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/map/map-artwork-summary-collection.schema.json",
+  "title": "Map artwork summary collection",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "release_id", "artworks"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "id": { "type": "string", "pattern": "^map-artwork-summaries:" },
+    "entity_type": { "const": "map_artwork_summary_collection" },
+    "release_id": { "type": "string", "pattern": "^release:" },
+    "artworks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "labels"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^artwork:" },
+          "labels": {
+            "type": "object",
+            "required": ["en", "zh-Hans"],
+            "properties": {
+              "en": { "type": "string", "minLength": 1 },
+              "zh-Hans": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -53,7 +53,8 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
     [catalog.artworks],
   );
   const artworks = useMemo(
-    () => artist?.artworkIds.map((artworkId) => artworksById.get(artworkId)).filter((artwork) => artwork !== undefined) ?? [],
+    () => (artist?.profileKind === "gallery" && artist.gallerySequence.length > 0 ? artist.gallerySequence : artist?.artworkIds ?? [])
+      .map((artworkId) => artworksById.get(artworkId)).filter((artwork) => artwork !== undefined),
     [artist, artworksById],
   );
   const related = useMemo(() => {
@@ -107,6 +108,7 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
         <div>
           <p className="gallery-eyebrow">{copy.artistGalleryEyebrow}</p>
           <h1>{name}</h1>
+          <p>{artist.profileKind === "gallery" ? (locale === "zh-CN" ? "重点展廊" : "Gallery selection") : (locale === "zh-CN" ? "馆藏目录" : "Collection profile")}</p>
           <p className="artist-life-display">
             {artist.lifeDisplay ? localize(artist.lifeDisplay, locale) : artist.period}
           </p>
@@ -119,9 +121,9 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
       </header>
 
       <div className="artist-gallery-introduction">
-        <section aria-labelledby="reviewed-intro-title">
+        <section aria-labelledby="documented-intro-title">
           <p className="gallery-section-number" aria-hidden="true">01</p>
-          <h2 id="reviewed-intro-title">{copy.reviewedIntro}</h2>
+          <h2 id="documented-intro-title">{copy.reviewedIntro}</h2>
           <p>{localize(artist.summary, locale)}</p>
         </section>
         <section aria-labelledby="timeline-title">
@@ -194,12 +196,12 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
                       <div><dt>{copy.materials}</dt><dd>{materials.length > 0 ? materials.join(" · ") : "—"}</dd></div>
                       <div><dt>{copy.techniques}</dt><dd>{techniques.length > 0 ? techniques.join(" · ") : "—"}</dd></div>
                       <div><dt>{copy.subjects}</dt><dd>{subjects.length > 0 ? subjects.join(" · ") : "—"}</dd></div>
-                      <div><dt>{copy.imageDecision}</dt><dd><code>{artwork.media.decision}</code></dd></div>
+                      <div><dt>{copy.imageDecision}</dt><dd>{artwork.media.decision === "approved_self_hosted" ? (locale === "zh-CN" ? "本站图像" : "Image available here") : artwork.media.decision === "external_link_only" ? (locale === "zh-CN" ? "仅查看官方对象页" : "Official object page only") : (locale === "zh-CN" ? "元数据记录" : "Metadata record")}</dd></div>
                       <div><dt>{copy.metadataRule}</dt><dd><code>{artwork.metadataLicense}</code></dd></div>
                     </dl>
                     {artwork.limitations ? <p className="artist-work-limit">{localize(artwork.limitations, locale)}</p> : null}
                     <div className="artist-work-actions">
-                      <Link className="gallery-primary-link" to={artworkPath(artwork.id)}>{copy.viewArtwork}</Link>
+                      <Link className="gallery-primary-link" to={artworkPath(artwork.publicSlug)}>{copy.viewArtwork}</Link>
                       {artwork.objectUrl ? <a href={artwork.objectUrl}>{copy.officialSource}</a> : null}
                     </div>
                   </div>
@@ -221,7 +223,7 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
             <ul className="artist-related-list">
               {related.map((entry) => (
                 <li key={entry.artist!.id}>
-                  <Link to={artistPath(entry.artist!.id)}>{localize(entry.artist!.labels, locale)}</Link>
+                  <Link to={artistPath(entry.artist!.publicSlug)}>{localize(entry.artist!.labels, locale)}</Link>
                   <span>{entry.relationships.length} · C</span>
                   <small>{entry.relationships.map((relationship) => localize(relationship.title, locale)).join(" · ")}</small>
                 </li>
@@ -234,15 +236,12 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
           <p className="gallery-section-number" aria-hidden="true">05</p>
           <h2 id="artist-sources-title">{copy.sourceRights}</h2>
           <dl className="artist-review-facts">
-            <div><dt>{copy.reviewRecord}</dt><dd>{artist.reviewer} · {artist.reviewDate}</dd></div>
-            <div><dt>{copy.metadataRule}</dt><dd>{[...new Set(artworks.map((artwork) => artwork.metadataLicense))].join(" · ")}</dd></div>
+            <div><dt>{copy.reviewRecord}</dt><dd>{artist.reviewDate}</dd></div>
+            <div><dt>{copy.metadataRule}</dt><dd>{copy.metadataRuleBound}</dd></div>
           </dl>
           {!currentSourceLoad ? <p role="status">{copy.loading}</p> : currentSourceLoad.status === "failed" ? (
             <>
               <p role="alert">{copy.sourcesUnavailable}</p>
-              <ul className="artist-source-list">
-                {artist.sourceIds.map((sourceId) => <li key={sourceId}><code>{sourceId}</code></li>)}
-              </ul>
             </>
           ) : artistSources?.sources.length ? (
             <ul className="artist-source-list">
@@ -254,9 +253,7 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
               ))}
             </ul>
           ) : (
-            <ul className="artist-source-list">
-              {artist.sourceIds.map((sourceId) => <li key={sourceId}><code>{sourceId}</code></li>)}
-            </ul>
+            <p>{copy.sourcesUnavailable}</p>
           )}
         </section>
       </div>

@@ -20,6 +20,7 @@ function buildArtwork(index: number): ArtworkRecord {
   const blocked = index === 2;
   return {
     id,
+    publicSlug: `test-work-${index + 1}`,
     artistId: `artist:test-${(index % 12) + 1}`,
     title: localized(`Work ${String(index + 1).padStart(2, "0")}`),
     dateDisplay: localized(`${1800 + index}`),
@@ -53,6 +54,11 @@ function buildArtist(index: number, artworks: ArtworkRecord[]): ArtistRecord {
   const approved = artistArtworks.filter((artwork) => artwork.media.decision === "approved_self_hosted");
   return {
     id,
+    publicSlug: `test-artist-${index + 1}`,
+    profileKind: "gallery",
+    sourceLanguageName: `Artist ${index + 1}`,
+    transliterations: [],
+    gallerySequence: artistArtworks.map((artwork) => artwork.id),
     labels: localized(`Artist ${String(index + 1).padStart(2, "0")}`),
     summary: localized(`Reviewed artist ${index + 1}`),
     aliases: [],

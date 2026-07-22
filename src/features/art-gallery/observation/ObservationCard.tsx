@@ -29,7 +29,7 @@ export function ObservationCard({ card, compact = false, headingLevel = 2 }: Obs
   const subheadingLevel = (headingLevel + 1) as 3 | 4 | 5;
   const rightsLabel: Record<string, string> = {
     approved_self_hosted: zh ? "批准的本地发布图像" : "Approved self-hosted image",
-    metadata_only_after_automated_review: zh ? "自动审核后的元数据路径" : "Metadata path after automated review",
+    metadata_only_after_automated_review: zh ? "仅元数据记录" : "Metadata-only record",
     blocked_source_unavailable: zh ? "来源媒体不可用，保留元数据路径" : "Source media unavailable; metadata path retained",
     blocked_rights_conflict: zh ? "媒体权利冲突，保留元数据路径" : "Media rights conflict; metadata path retained",
   };
@@ -52,7 +52,7 @@ export function ObservationCard({ card, compact = false, headingLevel = 2 }: Obs
       <dl className="observation-card-metadata">
         <div><dt>{zh ? "年代" : "Date"}</dt><dd>{card.date ? localize(card.date, locale) : "—"}</dd></div>
         <div><dt>{zh ? "机构" : "Institution"}</dt><dd>{card.institution ? localize(card.institution, locale) : "—"}</dd></div>
-        <div><dt>{zh ? "审核" : "Review"}</dt><dd>{zh ? `自动审核通过 · ${card.review.reviewed_at}` : `Automated review passed · ${card.review.reviewed_at}`}</dd></div>
+        <div><dt>{zh ? "公开记录日期" : "Public record date"}</dt><dd>{card.review.reviewed_at}</dd></div>
       </dl>
 
       <ol className="observation-prompts">
@@ -85,15 +85,15 @@ export function ObservationCard({ card, compact = false, headingLevel = 2 }: Obs
       <div className="observation-reference-links">
         <section aria-labelledby={`${card.id}-evidence-title`}>
           <CardSubheading level={subheadingLevel} id={`${card.id}-evidence-title`}>{zh ? "证据链接" : "Evidence links"}</CardSubheading>
-          <ul>{card.evidence_ids.map((id) => <li key={id}><Link to={artworkPath(card.artwork_id)}>{id}</Link></li>)}</ul>
+          <ul>{card.evidence_ids.map((id, index) => <li key={id}><Link to={artworkPath(card.artwork_id)}>{zh ? `作品证据记录 ${index + 1}` : `Artwork evidence record ${index + 1}`}</Link></li>)}</ul>
         </section>
         <section aria-labelledby={`${card.id}-source-title`}>
           <CardSubheading level={subheadingLevel} id={`${card.id}-source-title`}>{zh ? "来源链接" : "Source links"}</CardSubheading>
-          <ul>{card.source_links.map((source) => <li key={source.source_id}><a href={source.url} rel="noreferrer">{localize(source.label, locale)} · {source.source_id}</a></li>)}</ul>
+          <ul>{card.source_links.map((source) => <li key={source.source_id}><a href={source.url} rel="noreferrer">{localize(source.label, locale)}</a></li>)}</ul>
         </section>
       </div>
       <footer>
-        <span>{card.release_id} · {card.release_version}</span>
+        <span>{zh ? "公开数据版本" : "Public data version"} {card.release_version}</span>
         <span>{locale === "zh-CN" ? "权利状态" : "Rights"}: {rightsLabel[card.rights_status] ?? card.rights_status}</span>
       </footer>
     </section>

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-RELEASE",
+  "evidence_class": "controlled_browser_probe",
+  "real_user_metric": false,
+  "environment": "Playwright Chromium preview",
+  "cold_runs": 3,
+  "desktop_first_interactive_median_ms": 448.8765000000021,
+  "desktop_first_interactive_p95_ms": 452.85050000000047,
+  "mobile_first_interactive_median_ms": 445.76610000000073,
+  "mobile_first_interactive_p95_ms": 459.1255999999994,
+  "cls_p95": 0,
+  "interaction_runs": 90,
+  "interaction_p95_ms": 18.09999999962747,
+  "low_bandwidth_initial_transfer_p95_bytes": 170968,
+  "external_request_count": 0,
+  "unexpected_media_preload_count": 0,
+  "geolocation_call_count": 0,
+  "status": "pass"
+}

@@ -118,7 +118,7 @@ export type ObservationLens = {
 export type ArtInteractionIndex = {
   schema_version: "1.0.0";
   id: "interaction-index:museum-05b-v1";
-  release_id: "release:art-gallery-interactions-1.1.0";
+  release_id: string;
   release_version: "1.1.0";
   input_release_id: "release:art-constellation-1.0.0";
   release_composition: {

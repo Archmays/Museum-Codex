@@ -218,7 +218,7 @@ export function ArtMapPage() {
           )}
           {effectiveView === "timeline" && <TimelineView episodes={filteredEpisodes} holdings={filteredHoldings} placeById={placeById} artistById={artistById} locale={locale} onSelect={(id) => updateState({ episode: id })} layer={layer} />}
           {effectiveView === "list" && <><p className="map-fallback-banner" hidden={view !== "map"}>{locale === "zh-CN" ? "当前偏好使用等价地点表；筛选、选择和 URL 状态保持不变。" : "Current preferences use the equivalent place table; filters, selection, and URL state are preserved."}</p><PlaceTable episodes={filteredEpisodes} holdings={filteredHoldings} placeById={placeById} artistById={artistById} locale={locale} onSelect={(id) => updateState({ episode: id })} layer={layer} /></>}
-          {layer === "artwork_creation_place" && <div className="map-empty-state"><strong>0</strong><p>{locale === "zh-CN" ? `当前 ${bundle.artworks.length} 件作品没有可由正式来源明确闭合的创作地点，因此全部保持 not_asserted；这不是数据缺陷。` : `None of the ${bundle.artworks.length} artworks has an explicitly source-closed creation place, so all remain not_asserted. This is not a data defect.`}</p></div>}
+          {layer === "artwork_creation_place" && <div className="map-empty-state"><strong>0</strong><p>{locale === "zh-CN" ? `当前 ${bundle.artworkCount} 件作品没有可由正式来源明确闭合的创作地点，因此全部保持 not_asserted；这不是数据缺陷。` : `None of the ${bundle.artworkCount} artworks has an explicitly source-closed creation place, so all remain not_asserted. This is not a data defect.`}</p></div>}
         </div>
         <SelectionPanel ref={selectedPanelRef} episode={selectedEpisode} holding={selectedHolding} placeById={placeById} artistById={artistById} artworkById={artworkById} sourceById={sourceById} locale={locale} releaseId={bundle.manifest.id} />
       </section>

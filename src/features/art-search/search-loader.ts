@@ -89,7 +89,7 @@ function assertShard(value: unknown, manifest: SearchManifest, shardId: string):
       typeof record.entity_type !== "string" ||
       typeof record.route !== "string" ||
       !isRecord(record.labels) ||
-      !isRecord(record.description) ||
+      !(isRecord(record.description) || (typeof record.description === "string" && record.description.trim())) ||
       !Array.isArray(record.values) ||
       record.values.length === 0 ||
       typeof record.visitor_task_order !== "number" ||
@@ -104,6 +104,13 @@ function assertShard(value: unknown, manifest: SearchManifest, shardId: string):
       JSON.stringify(record).includes("/assets/")
     )
   ) throw new Error("search_shard_contract");
+}
+
+function normalizeSearchRecord(record: SearchRecord): SearchRecord {
+  const rawDescription = (record as unknown as Record<string, unknown>).description;
+  return typeof rawDescription === "string"
+    ? { ...record, description: { "zh-Hans": rawDescription, en: rawDescription } }
+    : record;
 }
 
 export type SearchIndexHandle = {
@@ -136,7 +143,8 @@ async function loadSearchIndexUncached(fetcher: typeof fetch): Promise<SearchInd
     !manifestFile ||
     manifestFile.record_type !== "other" ||
     manifestFile.schema_path !== SEARCH_SCHEMA ||
-    manifestFile.record_ids.length !== 1
+    !(manifestFile.record_ids.length === 0 ||
+      (manifestFile.record_ids.length === 1 && manifestFile.record_ids[0] === "search-manifest:art-expansion-1.5.0"))
   ) throw new Error("search_manifest_file_missing");
   const manifestValue = await fetchVerifiedJson(base, manifestFile.path, manifestFile, fetcher);
   assertManifest(manifestValue, release);
@@ -157,7 +165,7 @@ async function loadSearchIndexUncached(fetcher: typeof fetch): Promise<SearchInd
       if (value.records.length !== reference.record_count || value.records_hash !== reference.records_hash) {
         throw new Error("search_shard_record_closure");
       }
-      return value.records;
+      return value.records.map(normalizeSearchRecord);
     })).then((groups) => {
       const records = groups.flat();
       if (

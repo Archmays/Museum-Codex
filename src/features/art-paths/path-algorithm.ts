@@ -1,4 +1,5 @@
 import Graph from "graphology";
+import { PATH_ART_RELEASE_ID } from "../../data/art-release-profile";
 import type {
   ArtistPath,
   PathArtist,
@@ -11,10 +12,10 @@ import type {
 } from "./types";
 
 export const PATH_ALGORITHM_VERSION = "museum-paths-bibfs-yen-1.0.0" as const;
-export const PATH_RELEASE_ID = "release:art-pathways-1.2.0" as const;
+export const PATH_RELEASE_ID = PATH_ART_RELEASE_ID;
 const MODE_LEVELS = { historical: new Set(["A", "B"]), context: new Set(["B"]), comparison: new Set(["C"]) } as const;
 const DISCLAIMERS = {
-  historical: { "zh-Hans": "最短 hop 路径只描述当前 release 中经审核的历史关系，不是唯一或真实的历史传播链。", en: "The shortest-hop path describes reviewed historical relations in this release; it is not a unique or actual chain of transmission." },
+  historical: { "zh-Hans": "最短 hop 路径只描述当前公开数据中有来源支持的历史关系，不是唯一或真实的历史传播链。", en: "The shortest-hop path describes source-supported historical relations in the current published data; it is not a unique or actual chain of transmission." },
   context: { "zh-Hans": "语境路径只显示共享的具体历史语境，不推出艺术家直接接触或影响。", en: "A context path shows only a shared specific historical context and does not infer direct contact or influence." },
   comparison: { "zh-Hans": "C｜策展比较：路径不证明艺术家相识、影响、师承或传播。", en: "C | Curatorial comparison: this path does not prove acquaintance, influence, instruction, or transmission." },
 } as const;

@@ -4,6 +4,7 @@ import { pathToFileURL } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
 
 const ISOLATED_RUNS = [
+  ["@museum-09b-isolated-performance", "museum-09b-performance", "e2e/museum-09b.spec.ts"],
   ["@museum-08-isolated-performance", "museum-08-performance", "e2e/museum-08.spec.ts"],
   ["@museum-07-isolated-performance", "museum-07-performance", "e2e/museum-07.spec.ts"],
   ["@museum-05b-isolated-performance", "museum-05b-performance", "e2e/museum-05b.spec.ts"],
@@ -16,14 +17,15 @@ const TARGETED_SPEC_ORDER = [
   "e2e/museum-06.spec.ts",
   "e2e/museum-07.spec.ts",
   "e2e/museum-08.spec.ts",
+  "e2e/museum-09b.spec.ts",
   "e2e/online.spec.ts",
 ];
 const SUITE_SPECS = {
-  constellation: ["e2e/museum-05a.spec.ts"],
-  gallery: ["e2e/museum-05a.spec.ts", "e2e/museum-05b.spec.ts"],
-  paths: ["e2e/museum-06.spec.ts"],
-  map: ["e2e/museum-07.spec.ts"],
-  search: ["e2e/museum-08.spec.ts"],
+  constellation: ["e2e/museum-05a.spec.ts", "e2e/museum-09b.spec.ts"],
+  gallery: ["e2e/museum-05a.spec.ts", "e2e/museum-05b.spec.ts", "e2e/museum-09b.spec.ts"],
+  paths: ["e2e/museum-06.spec.ts", "e2e/museum-09b.spec.ts"],
+  map: ["e2e/museum-07.spec.ts", "e2e/museum-09b.spec.ts"],
+  search: ["e2e/museum-08.spec.ts", "e2e/museum-09b.spec.ts"],
   online: ["e2e/online.spec.ts"],
   shell: TARGETED_SPEC_ORDER,
 };
@@ -36,7 +38,7 @@ export function selectAffectedSpecs(rawSuites) {
   }
   const unknown = suites.filter((suite) => !Object.hasOwn(SUITE_SPECS, suite));
   if (unknown.length) throw new Error(`Unknown browser suite(s): ${unknown.join(", ")}`);
-  const selected = new Set(["e2e/museum-08.spec.ts"]);
+  const selected = new Set(["e2e/museum-09b.spec.ts"]);
   for (const suite of suites) {
     for (const spec of SUITE_SPECS[suite]) selected.add(spec);
   }

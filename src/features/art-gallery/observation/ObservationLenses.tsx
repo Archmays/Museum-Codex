@@ -17,7 +17,7 @@ export function ObservationLenses({ lenses, artworkIds, activeLens = null, onLen
   return (
     <section className="observation-lenses" aria-labelledby="observation-lenses-title">
       <p className="eyebrow">{locale === "zh-CN" ? "观察透镜" : "Observation lenses"}</p>
-      <h2 id="observation-lenses-title">{locale === "zh-CN" ? "从正式语境切换观看问题" : "Change the question through reviewed contexts"}</h2>
+      <h2 id="observation-lenses-title">{locale === "zh-CN" ? "从正式语境切换观看问题" : "Change the question through verifiable contexts"}</h2>
       {onLensChange ? (
         <div className="observation-lens-switcher" aria-label={locale === "zh-CN" ? "选择比较透镜" : "Choose a comparison lens"}>
           {lenses.map((lens) => <button key={lens.id} type="button" aria-pressed={activeLens === lens.type} onClick={() => onLensChange(activeLens === lens.type ? null : lens.type)}>{localize(lens.title, locale)}</button>)}
@@ -37,11 +37,11 @@ export function ObservationLenses({ lenses, artworkIds, activeLens = null, onLen
                       <h3>{localize(entry.label, locale)}</h3>
                       <p>{localize(entry.definition, locale)}</p>
                       <div className="lens-related-links">
-                        {entry.artwork_ids.filter((id) => !selected.has(id)).slice(0, 4).map((id) => <Link key={id} to={artworkPath(id)}>{id}</Link>)}
+                        {entry.artwork_ids.filter((id) => !selected.has(id)).slice(0, 4).map((id, index) => <Link key={id} to={artworkPath(id)}>{locale === "zh-CN" ? `相关作品 ${index + 1}` : `Related artwork ${index + 1}`}</Link>)}
                       </div>
                       <dl className="lens-reference-list">
-                        <div><dt>{locale === "zh-CN" ? "证据" : "Evidence"}</dt><dd>{entry.evidence_ids.map((id) => <Link key={id} to={artworkPath(entry.artwork_ids[0])}>{id}</Link>)}</dd></div>
-                        <div><dt>{locale === "zh-CN" ? "来源" : "Sources"}</dt><dd>{entry.source_links.map((source) => <a key={source.source_id} href={source.url} rel="noreferrer">{localize(source.label, locale)} · {source.source_id}</a>)}</dd></div>
+                        <div><dt>{locale === "zh-CN" ? "证据" : "Evidence"}</dt><dd>{entry.evidence_ids.map((id, index) => <Link key={id} to={artworkPath(entry.artwork_ids[0])}>{locale === "zh-CN" ? `证据记录 ${index + 1}` : `Evidence record ${index + 1}`}</Link>)}</dd></div>
+                        <div><dt>{locale === "zh-CN" ? "来源" : "Sources"}</dt><dd>{entry.source_links.map((source) => <a key={source.source_id} href={source.url} rel="noreferrer">{localize(source.label, locale)}</a>)}</dd></div>
                       </dl>
                     </li>
                   ))}

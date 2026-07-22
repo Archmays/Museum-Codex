@@ -9,7 +9,8 @@ import {
   PATH_ROUTE_CONFIG_PATH,
   currentArtReleaseBaseUrl,
 } from "../../data/art-release-profile";
-import { loadArtConstellationRelease, loadStaticRelease } from "../../data/release-loader";
+import { loadArtConstellationRelease, loadStaticRelease, publicNarrativeText } from "../../data/release-loader";
+import type { ArtConstellationRelease } from "../art-constellation/types";
 import type {
   PathAlgorithmContract,
   PathExplanationCollection,
@@ -78,7 +79,10 @@ function assertBundleShape(
     !isRecord(graph.counts) || graph.counts.artists !== artistCount || graph.counts.relationships !== relationshipCount ||
     !isRecord(index) || index.entity_type !== "art_path_index" || index.release_id !== PATH_ART_RELEASE_ID ||
     index.input_graph_hash !== graph.graph_hash || index.default_pair_count !== expectedPairCount ||
-    !Array.isArray(index.pairs) || index.pairs.length !== expectedPairCount ||
+    !Array.isArray(index.pairs) || !(
+      index.pairs.length === expectedPairCount ||
+      (index.pairs.length === 0 && index.computed_at_runtime === true)
+    ) ||
     !isRecord(algorithm) || algorithm.entity_type !== "art_path_algorithm_contract" ||
     algorithm.algorithm_version !== "museum-paths-bibfs-yen-1.0.0" ||
     !isRecord(explanations) || explanations.entity_type !== "art_path_explanation_collection" ||
@@ -99,6 +103,71 @@ function assertBundleShape(
       !["comparison", "context", "historical"].every((mode) => isRecord(pair.modes) && isRecord(pair.modes[mode]))
     )
   ) throw new PathLoadError("tampered_path_index");
+}
+
+function normalizePathGraph(graph: PathGraphInput, release: ArtConstellationRelease): PathGraphInput {
+  const releaseArtists = new Map(release.artists.map((artist) => [artist.id, artist]));
+  const artists = graph.artists.map((artist) => {
+    const source = artist as unknown as Record<string, unknown>;
+    const releaseArtist = releaseArtists.get(artist.id);
+    if (!releaseArtist) throw new PathLoadError("tampered_path_index");
+    const aliases = Array.isArray(source.aliases)
+      ? source.aliases
+      : releaseArtist.aliases.map((text) => ({ language: "und", text }));
+    return {
+      ...artist,
+      aliases: aliases as PathGraphInput["artists"][number]["aliases"],
+      life_span: isRecord(source.life_span)
+        ? source.life_span as PathGraphInput["artists"][number]["life_span"]
+        : { birth_year: null, death_year: null },
+      public_display: source.public_display === undefined ? true : source.public_display === true,
+      review_status: typeof source.review_status === "string" ? source.review_status : "publishable",
+      lifecycle_status: typeof source.lifecycle_status === "string" ? source.lifecycle_status : "published",
+      withdrawn: source.withdrawn === true,
+    };
+  });
+  const artistById = new Map(artists.map((artist) => [artist.id, artist]));
+  const relationships = graph.relationships.map((relationship) => {
+    const source = relationship as unknown as Record<string, unknown>;
+    const relationshipType = typeof source.type === "string"
+      ? source.type
+      : typeof source.relationship_type === "string"
+        ? source.relationship_type
+        : null;
+    const sourceArtist = artistById.get(relationship.source_artist_id);
+    const targetArtist = artistById.get(relationship.target_artist_id);
+    if (
+      !relationshipType || !["shared_material", "shared_subject", "shared_technique"].includes(relationshipType) ||
+      !sourceArtist || !targetArtist ||
+      (source.rights_visibility !== undefined && source.rights_visibility !== "public")
+    ) throw new PathLoadError("tampered_path_index");
+    return {
+      ...relationship,
+      release_id: typeof source.release_id === "string" ? source.release_id : graph.release_id,
+      type: relationshipType,
+      public_display: source.public_display === undefined ? true : source.public_display === true,
+      review_status: typeof source.review_status === "string" ? source.review_status : "publishable",
+      lifecycle_status: typeof source.lifecycle_status === "string" ? source.lifecycle_status : "published",
+      withdrawn: source.withdrawn === true,
+      deprecated: source.deprecated === true,
+      rights_visibility: "public" as const,
+      periods: Array.isArray(source.periods)
+        ? source.periods as string[]
+        : [...new Set([...sourceArtist.periods, ...targetArtist.periods])],
+      regions: Array.isArray(source.regions)
+        ? source.regions as string[]
+        : [...new Set([...sourceArtist.regions, ...targetArtist.regions])],
+      why_connected: {
+        "zh-Hans": publicNarrativeText(relationship.why_connected["zh-Hans"]),
+        en: publicNarrativeText(relationship.why_connected.en),
+      },
+      does_not_prove: {
+        "zh-Hans": publicNarrativeText(relationship.does_not_prove["zh-Hans"]),
+        en: publicNarrativeText(relationship.does_not_prove.en),
+      },
+    };
+  });
+  return { ...graph, artists, relationships };
 }
 
 let bundlePromise: Promise<PathwayBundle> | null = null;
@@ -135,10 +204,11 @@ async function loadPathwayBundleUncached(fetcher: typeof fetch): Promise<Pathway
     REQUIRED_FILES.map((filename, position) => fetchArtifact(base, filename, files[position], fetcher)),
   );
   assertBundleShape(graph, index, algorithm, explanations, routeConfig);
+  const normalizedGraph = normalizePathGraph(graph, releaseResult.release);
   return {
     release: releaseResult.release,
     dataSource: releaseResult.dataSource,
-    graph,
+    graph: normalizedGraph,
     index: index as PathIndex,
     algorithm: algorithm as PathAlgorithmContract,
     explanations: explanations as PathExplanationCollection,

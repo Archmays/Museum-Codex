@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { PageIntro } from "../components/PageIntro";
 import { useI18n } from "../i18n/I18nProvider";
 import { galleryCopy } from "../features/art-gallery/copy";
+import { CurrentReleaseScope } from "../components/CurrentReleaseScope";
 
 export function ArtFoyerPage() {
   const { locale, t } = useI18n();
@@ -16,6 +17,7 @@ export function ArtFoyerPage() {
         <span className="foyer-point" />
       </div>
       <p className="foyer-body">{t.art.body}</p>
+      <CurrentReleaseScope />
       <section className="approaches" aria-labelledby="approaches-title">
         <h2 id="approaches-title">{t.art.approachesTitle}</h2>
         <ol>
@@ -50,7 +52,7 @@ export function ArtFoyerPage() {
           </Link>
           <Link className="constellation-entry" to="/art/paths">
             <span>{locale === "zh-CN" ? "AB 可解释关系路径" : "Explainable A–B pathways"}</span>
-            <small>{locale === "zh-CN" ? "在当前审核数据中选择两位艺术家，查看最短与替代路径及逐边证据。" : "Choose two artists in current reviewed data and inspect shortest and alternative paths with per-edge evidence."}</small>
+            <small>{locale === "zh-CN" ? "在当前正式数据中选择两位艺术家，查看最短与替代路径及逐边证据。" : "Choose two artists in current published data and inspect shortest and alternative paths with per-edge evidence."}</small>
           </Link>
           <Link className="constellation-entry" to="/art/map">
             <span>{locale === "zh-CN" ? "艺术时空地图" : "Art Across Time and Place"}</span>

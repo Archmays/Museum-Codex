@@ -31,7 +31,7 @@ export type PathArtist = {
 
 export type PathRelationship = {
   id: string;
-  release_id: "release:art-pathways-1.2.0";
+  release_id: string;
   source_artist_id: string;
   target_artist_id: string;
   type: string;
@@ -62,8 +62,8 @@ export type PathGraphInput = {
   schema_version: "1.0.0";
   id: string;
   entity_type: "art_path_graph_input";
-  release_id: "release:art-pathways-1.2.0";
-  input_release_id: "release:art-gallery-interactions-1.1.0";
+  release_id: string;
+  input_release_id: string;
   input_release_hash: string;
   graph_hash: string;
   artists: PathArtist[];
@@ -73,7 +73,7 @@ export type PathGraphInput = {
 
 export type PathQuery = {
   schema_version: "1.0.0";
-  fixed_release_id: "release:art-pathways-1.2.0";
+  fixed_release_id: string;
   start_artist_id: string;
   end_artist_id: string;
   mode: PathMode;
@@ -133,7 +133,7 @@ export type PathResult = {
   schema_version: "1.0.0";
   id: string;
   entity_type: "art_path_result";
-  release_id: "release:art-pathways-1.2.0";
+  release_id: string;
   algorithm_version: "museum-paths-bibfs-yen-1.0.0";
   input_graph_hash: string;
   status: PathStatus;
@@ -152,13 +152,14 @@ export type PathPair = {
 
 export type PathIndex = {
   schema_version: "1.0.0";
-  id: "path-index:museum-06-default-v1";
+  id: string;
   entity_type: "art_path_index";
-  release_id: "release:art-pathways-1.2.0";
+  release_id: string;
   algorithm_version: "museum-paths-bibfs-yen-1.0.0";
   input_graph_hash: string;
   default_pair_count: number;
   precomputed_path_count: number;
+  computed_at_runtime?: boolean;
   pairs: PathPair[];
 };
 
@@ -166,9 +167,9 @@ export type PathAlgorithmContract = {
   schema_version: "1.0.0";
   id: string;
   entity_type: "art_path_algorithm_contract";
-  release_id: "release:art-pathways-1.2.0";
+  release_id: string;
   algorithm_version: "museum-paths-bibfs-yen-1.0.0";
-  input_release_id: "release:art-gallery-interactions-1.1.0";
+  input_release_id: string;
   input_release_hash: string;
   filter_order: string[];
   ranking_tuple: string[];
@@ -180,7 +181,7 @@ export type PathExplanationCollection = {
   schema_version: "1.0.0";
   id: string;
   entity_type: "art_path_explanation_collection";
-  release_id: "release:art-pathways-1.2.0";
+  release_id: string;
   input_graph_hash: string;
   explanations: Array<PathRelationship>;
 };

@@ -15,30 +15,52 @@ type SegmenterLike = {
   segment: (value: string) => Iterable<{ segment: string; isWordLike?: boolean }>;
 };
 
+const segmenterCache = new Map<string, SegmenterLike | null>();
+const tokenCache = new WeakMap<SearchValue, Map<string, Set<string>>>();
+
 function createSegmenter(locale: string): SegmenterLike | null {
+  if (segmenterCache.has(locale)) return segmenterCache.get(locale) ?? null;
   const constructor = (Intl as unknown as {
     Segmenter?: new (locale?: string, options?: { granularity: "word" }) => SegmenterLike;
   }).Segmenter;
-  if (!constructor) return null;
+  if (!constructor) {
+    segmenterCache.set(locale, null);
+    return null;
+  }
   try {
-    return new constructor(locale, { granularity: "word" });
+    const segmenter = new constructor(locale, { granularity: "word" });
+    segmenterCache.set(locale, segmenter);
+    return segmenter;
   } catch {
+    segmenterCache.set(locale, null);
     return null;
   }
 }
 
-function tokenMatches(value: SearchValue, query: string, segmenter: SegmenterLike | null) {
+function tokenMatches(value: SearchValue, query: string, locale: string, segmenter: SegmenterLike | null) {
   if (!segmenter) return false;
-  const tokens = [...segmenter.segment(value.text)]
-    .filter((item) => item.isWordLike !== false)
-    .map((item) => normalizeSearchText(item.segment))
-    .filter(Boolean);
-  return tokens.includes(query);
+  let byLocale = tokenCache.get(value);
+  if (!byLocale) {
+    byLocale = new Map();
+    tokenCache.set(value, byLocale);
+  }
+  let tokens = byLocale.get(locale);
+  if (!tokens) {
+    tokens = new Set(
+      [...segmenter.segment(value.text)]
+        .filter((item) => item.isWordLike !== false)
+        .map((item) => normalizeSearchText(item.segment))
+        .filter(Boolean),
+    );
+    byLocale.set(locale, tokens);
+  }
+  return tokens.has(query);
 }
 
 function classifyMatch(
   value: SearchValue,
   query: string,
+  locale: string,
   segmenter: SegmenterLike | null,
 ): { rank: number; reason: MatchReason } | null {
   if (value.normalized === query) {
@@ -47,7 +69,7 @@ function classifyMatch(
       : { rank: 1, reason: "exact_alias" };
   }
   if (value.normalized.startsWith(query)) return { rank: 2, reason: "prefix" };
-  if (tokenMatches(value, query, segmenter)) return { rank: 3, reason: "segmenter_token" };
+  if (tokenMatches(value, query, locale, segmenter)) return { rank: 3, reason: "segmenter_token" };
   if (value.normalized.includes(query)) return { rank: 4, reason: "substring" };
   return null;
 }
@@ -59,13 +81,14 @@ export function searchRecords(
 ): SearchResult[] {
   const query = normalizeSearchText(rawQuery);
   if (!query) return [];
-  const segmenter = createSegmenter(locale === "zh-CN" ? "zh-Hans" : "en");
+  const segmenterLocale = locale === "zh-CN" ? "zh-Hans" : "en";
+  const segmenter = createSegmenter(segmenterLocale);
   const results: SearchResult[] = [];
   for (const record of records) {
     if (record.withdrawal_status !== "active") continue;
     let best: { rank: number; reason: MatchReason; value: SearchValue } | null = null;
     for (const value of record.values) {
-      const match = classifyMatch(value, query, segmenter);
+      const match = classifyMatch(value, query, segmenterLocale, segmenter);
       if (
         match &&
         (

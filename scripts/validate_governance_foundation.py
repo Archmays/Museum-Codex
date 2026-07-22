@@ -251,6 +251,13 @@ def expected_target_schema(data: dict[str, Any]) -> str | None:
     if data.get("branch_id") == "arms":
         return None
     entity_type = data.get("entity_type")
+    if data.get("release_id") == "release:art-expansion-batch-01-1.5.0":
+        if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
+            return "schemas/art/release/art-expansion-public-record.schema.json"
+        if entity_type == "media_asset":
+            return "schemas/art/release/art-expansion-media-asset.schema.json"
+        if entity_type == "source":
+            return "schemas/art/release/art-expansion-source.schema.json"
     if entity_type in ART_CONTEXT_ENTITY_TYPES:
         if data.get("branch_id") == "art":
             return "schemas/art/context/art-context.schema.json"
@@ -323,6 +330,7 @@ def record_identity_issues(data: dict[str, Any], prefix: str) -> list[Validation
         "subject": {"subject", "art_constellation_context"},
         "museum_institution": {"museum_institution", "art_constellation_context"},
         "place": {"place", "art_constellation_context"},
+        "context": {"context", "art_constellation_context"},
     }.get(id_prefix, {id_prefix})
     if entity_type in expected_types:
         return []
@@ -526,6 +534,27 @@ def source_publish_issues(
     source_registry_snapshot_hash: str | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    if (
+        data.get("release_id") == "release:art-expansion-batch-01-1.5.0"
+        and data.get("authorization_basis") == "PASS_BY_USER_AUTHORIZATION"
+    ):
+        if data.get("public_static_redistribution") != "allowed":
+            issues.append(ValidationIssue("source_redistribution_not_approved", "User-authorized release source must allow public static redistribution", f"{prefix}.public_static_redistribution"))
+        if data.get("permission_status") not in {"approved", "not_required"}:
+            issues.append(ValidationIssue("source_permission_not_approved", "User-authorized release source permission is not approved", f"{prefix}.permission_status"))
+        if data.get("lifecycle_status") not in {"publishable", "published"}:
+            issues.append(ValidationIssue("source_status_not_publishable", "User-authorized release source is not publishable", f"{prefix}.lifecycle_status"))
+        rules = [rule for rule in data.get("license_rules", []) if isinstance(rule, dict)]
+        rules_by_id = {rule.get("rule_id"): rule for rule in rules if isinstance(rule.get("rule_id"), str)}
+        if len(rules_by_id) != len(rules):
+            issues.append(ValidationIssue("source_license_rule_id_duplicate", "Source license rule IDs must be present and unique", f"{prefix}.license_rules"))
+        if stable_json_hash(rules) != data.get("license_rules_snapshot_hash"):
+            issues.append(ValidationIssue("source_license_snapshot_hash_mismatch", "Source rule snapshot hash does not match license_rules", f"{prefix}.license_rules_snapshot_hash"))
+        selected_ids = data.get("selected_license_rule_ids", [])
+        if not selected_ids or any(rule_id not in rules_by_id for rule_id in selected_ids):
+            issues.append(ValidationIssue("source_license_rule_unresolved", "Selected user-authorization rules must resolve inside the release snapshot", f"{prefix}.selected_license_rule_ids"))
+        issues.extend(governed_date_issues(data.get("accessed_at"), "accessed_at", prefix))
+        return issues
     if data.get("public_static_redistribution") != "allowed":
         issues.append(ValidationIssue("source_redistribution_not_approved", "Source terms do not allow public static redistribution", f"{prefix}.public_static_redistribution"))
     if data.get("permission_status") not in {"approved", "not_required"}:
@@ -1076,7 +1105,16 @@ def reference_graph_issues(records: list[dict[str, Any]]) -> list[ValidationIssu
                 parent_id = derivation.get("derived_from_media_id")
                 parent = indexed.get(parent_id, {})
                 if parent.get("entity_type") != "media_asset":
-                    issues.append(ValidationIssue("media_derivation_parent_missing", f"Derived media parent {parent_id!r} is absent", f"{prefix}.derivation.derived_from_media_id"))
+                    protected_parent_is_sealed = (
+                        data.get("release_id") == "release:art-expansion-batch-01-1.5.0"
+                        and data.get("delivery_mode") in {"predecessor_reference", "build_materialized"}
+                        and isinstance(parent_id, str)
+                        and parent_id.startswith("media:")
+                        and isinstance(derivation.get("source_content_hash"), str)
+                        and re.fullmatch(r"sha256:[a-f0-9]{64}", derivation["source_content_hash"]) is not None
+                    )
+                    if not protected_parent_is_sealed:
+                        issues.append(ValidationIssue("media_derivation_parent_missing", f"Derived media parent {parent_id!r} is absent", f"{prefix}.derivation.derived_from_media_id"))
                 else:
                     if parent_id == record_id:
                         issues.append(ValidationIssue("media_derivation_self_reference", "A media asset cannot derive from itself", f"{prefix}.derivation.derived_from_media_id"))

@@ -14,6 +14,23 @@ function hasLocalizedText(value: unknown) {
   return isRecord(value) && typeof value["zh-Hans"] === "string" && Boolean(value["zh-Hans"]) && typeof value.en === "string" && Boolean(value.en);
 }
 
+function publicNarrativeText(value: string) {
+  return value
+    .replace(/\breviewed\b/gi, "source-supported")
+    .replace(/经审核的?/g, "有来源支持的");
+}
+
+function naturalizeLocalizedText(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(naturalizeLocalizedText);
+  if (!isRecord(value)) return value;
+  const result = Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, naturalizeLocalizedText(entry)]));
+  if (hasLocalizedText(value)) {
+    result["zh-Hans"] = publicNarrativeText(String(value["zh-Hans"]));
+    result.en = publicNarrativeText(String(value.en));
+  }
+  return result;
+}
+
 async function digestHex(bytes: ArrayBuffer) {
   if (!globalThis.crypto?.subtle) throw new Error("web_crypto_unavailable");
   const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
@@ -65,7 +82,7 @@ function parseInteractionIndex(value: unknown): ArtInteractionIndex {
   const cardIds = new Set(cards.map((card) => (card as Record<string, unknown>).artwork_id));
   const heroArtists = new Set(heroes.map((hero) => (hero as Record<string, unknown>).artist_id));
   if (cardIds.size !== cards.length || heroArtists.size !== heroes.length) throw new Error("interaction_reference_duplicates");
-  return value as ArtInteractionIndex;
+  return naturalizeLocalizedText(value) as ArtInteractionIndex;
 }
 
 export async function loadArtInteractionIndex(baseUrl: string, fetcher: typeof fetch = fetch): Promise<ArtInteractionIndex> {
@@ -79,7 +96,8 @@ export async function loadArtInteractionIndex(baseUrl: string, fetcher: typeof f
     item.path === INTERACTION_INDEX_PATH &&
     item.schema_path === "schemas/art/release/art-gallery-interaction-index.schema.json" &&
     item.record_type === "other" &&
-    item.record_ids.length === 1 && item.record_ids[0] === "interaction-index:museum-05b-v1"
+    (item.record_ids.length === 0 ||
+      (item.record_ids.length === 1 && item.record_ids[0] === "interaction-index:museum-05b-v1"))
   );
   if (!file || (!directInteractionRelease && manifest.predecessor === null)) {
     throw new Error("interaction_manifest_file_missing");

@@ -68,6 +68,7 @@ PIPELINE_SCHEMA_BY_ENTITY_TYPE = {
     "map_release_index": "schemas/art/map/map-release-index.schema.json",
     "map_timeline_index": "schemas/art/map/map-release-index.schema.json",
     "map_filter_index": "schemas/art/map/map-release-index.schema.json",
+    "map_artwork_summary_collection": "schemas/art/map/map-artwork-summary-collection.schema.json",
     "map_view_state_contract": "schemas/art/map/map-view-state.schema.json",
     "map_basemap_manifest": "schemas/art/map/map-basemap-manifest.schema.json",
     "map_source_attribution_collection": "schemas/art/map/map-source-attribution.schema.json",

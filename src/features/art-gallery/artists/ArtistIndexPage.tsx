@@ -10,6 +10,7 @@ import { artistPath, factualArtworkAlt } from "../media";
 import "./artists.css";
 
 type ImageFilter = "all" | "with-image" | "without-image";
+const PAGE_SIZE = 24;
 
 function normalized(value: string) {
   return value
@@ -39,7 +40,11 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
   const copy = galleryCopy[locale];
   const [query, setQuery] = useState("");
   const [period, setPeriod] = useState("all");
+  const [region, setRegion] = useState("all");
+  const [practice, setPractice] = useState("all");
+  const [tier, setTier] = useState("all");
   const [imageFilter, setImageFilter] = useState<ImageFilter>("all");
+  const [page, setPage] = useState(1);
   const artworksById = useMemo(
     () => new Map(catalog.artworks.map((artwork) => [artwork.id, artwork])),
     [catalog.artworks],
@@ -49,8 +54,13 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
     [catalog.media],
   );
   const periods = useMemo(
-    () => [...new Set(release.artists.map((artist) => artist.period))],
+    () => [...new Set(release.artists.map((artist) => artist.period))].sort(),
     [release.artists],
+  );
+  const regions = useMemo(() => [...new Set(release.artists.map((artist) => artist.region))].sort(), [release.artists]);
+  const practices = useMemo(
+    () => [...new Set(release.artists.map((artist) => localize(artist.mediaPractice, locale)))].sort(),
+    [locale, release.artists],
   );
   const artistOrdinals = useMemo(
     () => new Map(release.artists.map((artist, index) => [artist.id, index + 1])),
@@ -61,6 +71,9 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
     const normalizedQuery = normalized(query);
     return release.artists.filter((artist) => {
       const matchesPeriod = period === "all" || artist.period === period;
+      const matchesRegion = region === "all" || artist.region === region;
+      const matchesPractice = practice === "all" || localize(artist.mediaPractice, locale) === practice;
+      const matchesTier = tier === "all" || artist.profileKind === tier;
       const hasImage = artist.approvedMediaArtworkCount > 0 && Boolean(artist.representativeMediaId);
       const matchesImage = imageFilter === "all"
         || (imageFilter === "with-image" ? hasImage : !hasImage);
@@ -74,15 +87,23 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
         artist.tradition ?? "",
         localize(artist.mediaPractice, locale),
       ].join(" "));
-      return matchesPeriod && matchesImage && (!normalizedQuery || searchText.includes(normalizedQuery));
+      return matchesPeriod && matchesRegion && matchesPractice && matchesTier && matchesImage && (!normalizedQuery || searchText.includes(normalizedQuery));
     });
-  }, [imageFilter, locale, period, query, release.artists]);
+  }, [imageFilter, locale, period, practice, query, region, release.artists, tier]);
 
-  const filtersActive = query.length > 0 || period !== "all" || imageFilter !== "all";
+  const totalPages = Math.max(1, Math.ceil(artists.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedArtists = artists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  const filtersActive = query.length > 0 || period !== "all" || region !== "all" || practice !== "all" || tier !== "all" || imageFilter !== "all";
   const clearFilters = () => {
     setQuery("");
     setPeriod("all");
+    setRegion("all");
+    setPractice("all");
+    setTier("all");
     setImageFilter("all");
+    setPage(1);
   };
 
   return (
@@ -115,12 +136,12 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
               type="search"
               value={query}
               placeholder={copy.artistSearchPlaceholder}
-              onChange={(event) => setQuery(event.currentTarget.value)}
+              onChange={(event) => { setQuery(event.currentTarget.value); setPage(1); }}
             />
           </label>
           <label>
             <span>{copy.periodFilter}</span>
-            <select value={period} onChange={(event) => setPeriod(event.currentTarget.value)}>
+            <select value={period} onChange={(event) => { setPeriod(event.currentTarget.value); setPage(1); }}>
               <option value="all">{copy.allPeriods}</option>
               {periods.map((value) => <option key={value} value={value}>{value}</option>)}
             </select>
@@ -129,11 +150,33 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
             <span>{copy.imageFilter}</span>
             <select
               value={imageFilter}
-              onChange={(event) => setImageFilter(event.currentTarget.value as ImageFilter)}
+              onChange={(event) => { setImageFilter(event.currentTarget.value as ImageFilter); setPage(1); }}
             >
               <option value="all">{copy.allImageStates}</option>
               <option value="with-image">{copy.withImage}</option>
               <option value="without-image">{copy.withoutImage}</option>
+            </select>
+          </label>
+          <label>
+            <span>{locale === "zh-CN" ? "地区" : "Region"}</span>
+            <select value={region} onChange={(event) => { setRegion(event.currentTarget.value); setPage(1); }}>
+              <option value="all">{locale === "zh-CN" ? "全部地区" : "All regions"}</option>
+              {regions.map((value) => <option key={value} value={value}>{value}</option>)}
+            </select>
+          </label>
+          <label>
+            <span>{locale === "zh-CN" ? "创作实践" : "Practice"}</span>
+            <select value={practice} onChange={(event) => { setPractice(event.currentTarget.value); setPage(1); }}>
+              <option value="all">{locale === "zh-CN" ? "全部实践" : "All practices"}</option>
+              {practices.map((value) => <option key={value} value={value}>{value}</option>)}
+            </select>
+          </label>
+          <label>
+            <span>{locale === "zh-CN" ? "展陈层级" : "Display level"}</span>
+            <select value={tier} onChange={(event) => { setTier(event.currentTarget.value); setPage(1); }}>
+              <option value="all">{locale === "zh-CN" ? "全部" : "All"}</option>
+              <option value="gallery">{locale === "zh-CN" ? "重点展廊" : "Gallery"}</option>
+              <option value="collection">{locale === "zh-CN" ? "馆藏目录" : "Collection"}</option>
             </select>
           </label>
           <button type="button" onClick={clearFilters} disabled={!filtersActive}>{copy.clearFilters}</button>
@@ -145,7 +188,7 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
 
       {artists.length > 0 ? (
         <ol className="artist-index-grid" aria-label={copy.artistIndex}>
-          {artists.map((artist) => {
+          {pagedArtists.map((artist) => {
             const representative = representativeArtwork(artist, artworksById, mediaArtworkById);
             const name = localize(artist.labels, locale);
             const date = representative?.dateDisplay ? localize(representative.dateDisplay, locale) : null;
@@ -175,7 +218,7 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
                   />
                   <div className="artist-card-body">
                     <p className="artist-card-kicker">{artist.period}</p>
-                    <h2><Link to={artistPath(artist.id)}>{name}</Link></h2>
+                    <h2><Link to={artistPath(artist.publicSlug)}>{name}</Link></h2>
                     <p className="artist-card-summary">{localize(artist.summary, locale)}</p>
                     <dl className="artist-card-facts">
                       <div><dt>{copy.lifeDates}</dt><dd>{artist.lifeDisplay ? localize(artist.lifeDisplay, locale) : "—"}</dd></div>
@@ -185,7 +228,7 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
                       <div><dt>{copy.approvedWorks}</dt><dd>{artist.approvedMediaArtworkCount}</dd></div>
                       <div><dt>{copy.relations}</dt><dd>{artist.relationCount} · C</dd></div>
                     </dl>
-                    <Link className="gallery-primary-link" to={artistPath(artist.id)}>{copy.openArtist}</Link>
+                    <Link className="gallery-primary-link" to={artistPath(artist.publicSlug)}>{copy.openArtist}</Link>
                   </div>
                 </article>
               </li>
@@ -201,6 +244,13 @@ export function ArtistIndexPage({ release, catalog }: GallerySharedProps) {
           </div>
         </section>
       )}
+      {artists.length > PAGE_SIZE ? (
+        <nav className="gallery-closing-links" aria-label={locale === "zh-CN" ? "艺术家分页" : "Artist pagination"}>
+          <button type="button" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>{locale === "zh-CN" ? "上一页" : "Previous"}</button>
+          <span>{currentPage} / {totalPages}</span>
+          <button type="button" disabled={currentPage === totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))}>{locale === "zh-CN" ? "下一页" : "Next"}</button>
+        </nav>
+      ) : null}
     </main>
   );
 }

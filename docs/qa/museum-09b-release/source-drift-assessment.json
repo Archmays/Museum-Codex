@@ -1,0 +1,431 @@
+{
+  "changed_classification": "metadata_enhancement_only",
+  "changed_records": 87,
+  "checked_at": "2026-07-21T23:57:50.110794+00:00",
+  "checked_records": 538,
+  "external_link_only_records": 25,
+  "external_object_identity_matches": 25,
+  "external_records": [
+    {
+      "current_image_id": "0712cd90-74f8-58ee-01eb-3772dbbbebe9",
+      "expected_image_id": "0712cd90-74f8-58ee-01eb-3772dbbbebe9",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "105471",
+      "work_id": "artwork:m09b-candidate-work-aic-api-105471"
+    },
+    {
+      "current_image_id": "513d21ac-2848-4ec8-1c99-ab32020757ce",
+      "expected_image_id": "513d21ac-2848-4ec8-1c99-ab32020757ce",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "108950",
+      "work_id": "artwork:m09b-candidate-work-aic-api-108950"
+    },
+    {
+      "current_image_id": "e8c05290-b5a7-d582-fb7f-bddb78523113",
+      "expected_image_id": "e8c05290-b5a7-d582-fb7f-bddb78523113",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "108966",
+      "work_id": "artwork:m09b-candidate-work-aic-api-108966"
+    },
+    {
+      "current_image_id": "4c95eb40-d785-4c14-6054-5ba884efb45d",
+      "expected_image_id": "4c95eb40-d785-4c14-6054-5ba884efb45d",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "114553",
+      "work_id": "artwork:m09b-candidate-work-aic-api-114553"
+    },
+    {
+      "current_image_id": "a3d8e286-2268-275e-1d5a-be43d2d20c3e",
+      "expected_image_id": "a3d8e286-2268-275e-1d5a-be43d2d20c3e",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "117796",
+      "work_id": "artwork:m09b-candidate-work-aic-api-117796"
+    },
+    {
+      "current_image_id": "d9a87627-dd4c-c0e1-aa2f-dea926564e95",
+      "expected_image_id": "d9a87627-dd4c-c0e1-aa2f-dea926564e95",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "117797",
+      "work_id": "artwork:m09b-candidate-work-aic-api-117797"
+    },
+    {
+      "current_image_id": "0fc7cdb4-074e-abfe-42f6-39c9e0be7eb9",
+      "expected_image_id": "0fc7cdb4-074e-abfe-42f6-39c9e0be7eb9",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "125981",
+      "work_id": "artwork:m09b-candidate-work-aic-api-125981"
+    },
+    {
+      "current_image_id": "f2457176-3104-d3d5-5e58-bf5839f07c48",
+      "expected_image_id": "f2457176-3104-d3d5-5e58-bf5839f07c48",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "125982",
+      "work_id": "artwork:m09b-candidate-work-aic-api-125982"
+    },
+    {
+      "current_image_id": "efdd54f4-64d6-70df-d1ba-ea48f659b55b",
+      "expected_image_id": "efdd54f4-64d6-70df-d1ba-ea48f659b55b",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "125983",
+      "work_id": "artwork:m09b-candidate-work-aic-api-125983"
+    },
+    {
+      "current_image_id": "ef1ff3ef-a22e-1883-15a7-74188bb49155",
+      "expected_image_id": "ef1ff3ef-a22e-1883-15a7-74188bb49155",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "13012",
+      "work_id": "artwork:m09b-candidate-work-aic-api-13012"
+    },
+    {
+      "current_image_id": "ca2932b4-6c0c-5482-2ae5-8b74926d7b73",
+      "expected_image_id": "ca2932b4-6c0c-5482-2ae5-8b74926d7b73",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "13487",
+      "work_id": "artwork:m09b-candidate-work-aic-api-13487"
+    },
+    {
+      "current_image_id": "d5c86d65-97e1-478b-8ecf-cc668355d923",
+      "expected_image_id": "d5c86d65-97e1-478b-8ecf-cc668355d923",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "13551",
+      "work_id": "artwork:m09b-candidate-work-aic-api-13551"
+    },
+    {
+      "current_image_id": "bb13f7b2-a169-aa60-239f-adf17f904ff8",
+      "expected_image_id": "bb13f7b2-a169-aa60-239f-adf17f904ff8",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "14314",
+      "work_id": "artwork:m09b-candidate-work-aic-api-14314"
+    },
+    {
+      "current_image_id": "ea174e5e-ba2c-065e-c287-2494f867bc8b",
+      "expected_image_id": "ea174e5e-ba2c-065e-c287-2494f867bc8b",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "14319",
+      "work_id": "artwork:m09b-candidate-work-aic-api-14319"
+    },
+    {
+      "current_image_id": "64a42994-21a1-ceec-e235-77f6830db82f",
+      "expected_image_id": "64a42994-21a1-ceec-e235-77f6830db82f",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "14323",
+      "work_id": "artwork:m09b-candidate-work-aic-api-14323"
+    },
+    {
+      "current_image_id": "45441c67-e5b1-d325-e07a-fe82d133731b",
+      "expected_image_id": "45441c67-e5b1-d325-e07a-fe82d133731b",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "200157",
+      "work_id": "artwork:m09b-candidate-work-aic-api-200157"
+    },
+    {
+      "current_image_id": "0b65a290-36fb-f5c6-ddb8-ae44a5014054",
+      "expected_image_id": "0b65a290-36fb-f5c6-ddb8-ae44a5014054",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "215549",
+      "work_id": "artwork:m09b-candidate-work-aic-api-215549"
+    },
+    {
+      "current_image_id": "4a90c486-4b75-4503-8f1e-7e0755cdbc51",
+      "expected_image_id": "4a90c486-4b75-4503-8f1e-7e0755cdbc51",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "215550",
+      "work_id": "artwork:m09b-candidate-work-aic-api-215550"
+    },
+    {
+      "current_image_id": "766eeaab-c473-e72c-052d-41aacd23be73",
+      "expected_image_id": "766eeaab-c473-e72c-052d-41aacd23be73",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "215552",
+      "work_id": "artwork:m09b-candidate-work-aic-api-215552"
+    },
+    {
+      "current_image_id": "514c78db-501a-80f0-b745-987c27ce9607",
+      "expected_image_id": "514c78db-501a-80f0-b745-987c27ce9607",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "229001",
+      "work_id": "artwork:m09b-candidate-work-aic-api-229001"
+    },
+    {
+      "current_image_id": "abf50896-9c59-3d5f-883c-dbd6820af21c",
+      "expected_image_id": "abf50896-9c59-3d5f-883c-dbd6820af21c",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "23553",
+      "work_id": "artwork:m09b-candidate-work-aic-api-23553"
+    },
+    {
+      "current_image_id": "375bce08-a3c0-5848-134c-a718018a0c6f",
+      "expected_image_id": "375bce08-a3c0-5848-134c-a718018a0c6f",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "23686",
+      "work_id": "artwork:m09b-candidate-work-aic-api-23686"
+    },
+    {
+      "current_image_id": "feb15134-e3c7-ede3-2df5-99b4167f8352",
+      "expected_image_id": "feb15134-e3c7-ede3-2df5-99b4167f8352",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "28119",
+      "work_id": "artwork:m09b-candidate-work-aic-api-28119"
+    },
+    {
+      "current_image_id": "8d7dd8be-eba4-4bd9-833d-83a00dd0bab8",
+      "expected_image_id": "8d7dd8be-eba4-4bd9-833d-83a00dd0bab8",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "32719",
+      "work_id": "artwork:m09b-candidate-work-aic-api-32719"
+    },
+    {
+      "current_image_id": "46a42d2c-7f13-d131-71ea-16bef5461a84",
+      "expected_image_id": "46a42d2c-7f13-d131-71ea-16bef5461a84",
+      "final_public_state": "external_link_only",
+      "info_json_probe": {
+        "http_status": 403,
+        "identity_match": null,
+        "response_bytes": 0,
+        "status": "transport_unavailable"
+      },
+      "object_record_classification": "metadata_enhancement",
+      "object_record_status": "changed",
+      "object_service_identity_match": true,
+      "source_object_id": "44436",
+      "work_id": "artwork:m09b-candidate-work-aic-api-44436"
+    }
+  ],
+  "failures": [],
+  "image_bytes_downloaded": 0,
+  "image_endpoint_request_count": 0,
+  "info_json_probe_statuses": {
+    "transport_unavailable": 25
+  },
+  "media_allowlist_records": 65,
+  "metadata_response_bytes": 0,
+  "new_media_bytes": 0,
+  "ok": true,
+  "phase_id": "MUSEUM-09B-RELEASE",
+  "release_decision": "pass_with_external_link_only_fail_closed_transport",
+  "rights_or_delivery_downgrade_count": 0,
+  "schema_version": "1.0.0",
+  "self_hosted_records": 40,
+  "self_hosted_statuses": {
+    "unchanged": 40
+  },
+  "source_receipt": "docs/qa/museum-09b-release/source-drift.json",
+  "source_receipt_content_hash": "sha256:d456cab708a73c4d952c635bd091ddcd1bebb7c2511e7e2f0d640c60d47faee3",
+  "unavailable_records": 0
+}

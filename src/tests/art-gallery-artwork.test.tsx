@@ -18,6 +18,11 @@ import { interactionFixtureFor } from "./interaction-fixture";
 
 const artist: ArtistRecord = {
   id: "artist:test",
+  publicSlug: "test-artist",
+  profileKind: "gallery",
+  sourceLanguageName: "Test Artist",
+  transliterations: [],
+  gallerySequence: ["artwork:test"],
   labels: { "zh-Hans": "\u6d4b\u8bd5\u827a\u672f\u5bb6", en: "Test Artist" },
   summary: { "zh-Hans": "\u7ecf\u5ba1\u6838\u7b80\u4ecb", en: "Reviewed introduction" },
   aliases: [],
@@ -38,6 +43,7 @@ const artist: ArtistRecord = {
 
 const artwork: ArtworkRecord = {
   id: "artwork:test",
+  publicSlug: "test-artist-test-work",
   artistId: artist.id,
   title: { "zh-Hans": "\u6d4b\u8bd5\u4f5c\u54c1", en: "Test Work" },
   dateDisplay: { "zh-Hans": "1869\u5e74", en: "1869" },

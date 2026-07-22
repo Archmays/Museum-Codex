@@ -157,6 +157,13 @@
       "depends_on": ["schemas/common/entity.schema.json", "schemas/common/media-asset.schema.json"]
     },
     {
+      "path": "schemas/art/batch/museum-09b-media-bundle.schema.json",
+      "id": "https://archmays.example/schemas/art/batch/museum-09b-media-bundle.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
       "path": "schemas/art/batch/formal-art-batch-manifest.schema.json",
       "id": "https://museum-codex.example/schemas/art/batch/formal-art-batch-manifest.schema.json",
       "version": "1.0.0",
@@ -489,6 +496,13 @@
     {
       "path": "schemas/art/map/map-release-index.schema.json",
       "id": "https://museum-codex.example/schemas/art/map/map-release-index.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/map/map-artwork-summary-collection.schema.json",
+      "id": "https://museum-codex.example/schemas/art/map/map-artwork-summary-collection.schema.json",
       "version": "1.0.0",
       "branch": "art",
       "depends_on": []
