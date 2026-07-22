@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-RELEASE",
+  "evidence_class": "public_pages_playwright_functional_console_network_smoke",
+  "real_user_metric": false,
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "deployed_commit": "4097e5ffaaf7237777ee8b9d20dc682c317f5f44",
+  "started_at": "2026-07-22T06:46:37.388Z",
+  "duration_ms": 61467.782,
+  "playwright": {
+    "expected": 11,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "coverage": {
+    "formal_route_templates": 18,
+    "required_viewports": 7,
+    "media_states": [
+      "approved_self_hosted",
+      "external_link_only",
+      "metadata_only"
+    ],
+    "tasks": [
+      "artist index and Gallery/Collection profiles",
+      "artwork details and mixed compare",
+      "expanded search and constellation text equivalent",
+      "paths, map, timeline and place table",
+      "About, Rights, Accessibility and unknown route",
+      "low-bandwidth, forced-colors, reduced-motion and WebGL fallback",
+      "no-script HTTP entry content"
+    ]
+  },
+  "console_error_count": 0,
+  "failed_same_origin_request_count": 0,
+  "http_error_count": 0,
+  "external_runtime_request_count": 0,
+  "external_runtime_image_request_count": 0,
+  "geolocation_call_count": 0,
+  "analytics_used": false,
+  "query_history_stored": false,
+  "status": "pass",
+  "failures": []
+}
