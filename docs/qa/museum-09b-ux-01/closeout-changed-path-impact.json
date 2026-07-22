@@ -1,0 +1,61 @@
+{
+  "affected_phases": [],
+  "browser_suites": [],
+  "change_kinds": [
+    "M"
+  ],
+  "changed_paths": [
+    "docs/phase-reports/phase-museum-09b-ux-01-report.md",
+    "docs/qa/museum-09b-ux-01/adversarial-review.md",
+    "docs/qa/museum-09b-ux-01/closeout-changed-path-impact.json",
+    "docs/qa/museum-09b-ux-01/deployment-evidence.json",
+    "docs/qa/museum-09b-ux-01/github-final-full.json",
+    "docs/qa/museum-09b-ux-01/live-online-playwright-results.json",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-art-landing.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-desktop-initial.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-desktop-list.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-focused-artist.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-forced-colors-explorer.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-mobile-focused.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-mobile-start.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-relationship-explanation.png",
+    "docs/qa/museum-09b-ux-01/live-online-screenshots/live-rights-panel.png",
+    "docs/qa/museum-09b-ux-01/live-route-abort-diagnostic.json",
+    "docs/qa/museum-09b-ux-01/online-closure.json",
+    "docs/qa/museum-09b-ux-01/online-validation-summary.json",
+    "docs/qa/museum-09b-ux-01/screenshot-index.json",
+    "docs/qa/museum-09b-ux-01/screenshots/02-focused-three-lanes-desktop.png",
+    "docs/qa/museum-09b-ux-01/screenshots/03-focused-artist-mobile.png",
+    "docs/qa/museum-09b-ux-01/screenshots/04-relationship-explanation.png",
+    "docs/qa/museum-09b-ux-01/screenshots/05-no-formal-relationships.png",
+    "docs/qa/museum-09b-ux-01/screenshots/06-theme-mode.png",
+    "docs/qa/museum-09b-ux-01/screenshots/07-tanner-child-intro.png",
+    "docs/qa/museum-09b-ux-01/screenshots/11-evidence-boundary-open.png",
+    "docs/qa/museum-09b-ux-01/storage-cleanup.json"
+  ],
+  "dependencies_changed": false,
+  "deploy_required": false,
+  "docs_only": true,
+  "first_push": true,
+  "full_required": false,
+  "impact_level": "docs-only",
+  "public_changed": false,
+  "reason_codes": [
+    "closeout_docs_only",
+    "first_push"
+  ],
+  "releases_hash_only": [
+    "release:art-constellation-1.0.0",
+    "release:art-expansion-batch-01-1.5.0",
+    "release:art-gallery-interactions-1.1.0",
+    "release:art-pathways-1.2.0",
+    "release:art-time-place-1.3.0",
+    "release:art-v1-candidate-1.4.0"
+  ],
+  "releases_to_rebuild": [],
+  "runtime_changed": false,
+  "schema_version": "1.0.0",
+  "shared_core_changed": false,
+  "workflow_changed": false,
+  "workflow_dispatch_mode": "auto"
+}

@@ -25,8 +25,8 @@
         "height": 900
       },
       "locale": "zh-CN",
-      "bytes": 661708,
-      "sha256": "sha256:7e829f5fad56792d0a16a0c741e67317667acdf449b01c077047dfe3825a4805",
+      "bytes": 656352,
+      "sha256": "sha256:c6c7f19a977affa3f66616a4e3e2b56fdcb4c747e15918d0bcf5450bebb12fb4",
       "validation_target": "中心艺术家与题材、材料、技法三类分支，节点和标签无重叠"
     },
     {
@@ -38,8 +38,8 @@
         "height": 844
       },
       "locale": "zh-CN",
-      "bytes": 501722,
-      "sha256": "sha256:5de8767a0caea9f22d00ca8e8ba78a762709f6919d885d2ccc9760d88afc4d2c",
+      "bytes": 502100,
+      "sha256": "sha256:18438cf4177ddaad3abde0b71b998a2a7c7d17f907571a5e7a8da85f6d1c4407",
       "validation_target": "390px 移动端纵向分组、无裁切与横向溢出"
     },
     {
@@ -51,8 +51,8 @@
         "height": 844
       },
       "locale": "zh-CN",
-      "bytes": 486396,
-      "sha256": "sha256:f68403ac44ae54bc8284810ec27136b9d1b7977ff8119149db9355db6439e7de",
+      "bytes": 486436,
+      "sha256": "sha256:1780f5b0cc159a064d46acbb322ebc1694e155302cd8b6b308adebb124e64c12",
       "validation_target": "普通访客关系解释、证据入口与不代表历史影响的边界"
     },
     {
@@ -64,8 +64,8 @@
         "height": 844
       },
       "locale": "zh-CN",
-      "bytes": 302962,
-      "sha256": "sha256:d40fb6a64cac2be7d8e05e497647d72140c69759bb8137d4f252b2fdd110fd8e",
+      "bytes": 314817,
+      "sha256": "sha256:01a4438403598dcbb72a847aa367be7db90bf2c520582932bab10db185895b16",
       "validation_target": "无正式关系时保持自然空状态且不补算法边"
     },
     {
@@ -77,8 +77,8 @@
         "height": 844
       },
       "locale": "zh-CN",
-      "bytes": 285188,
-      "sha256": "sha256:e299e4c9ad4668e3682ffb163b4b08e8075d1ffd5ced12e7db04e0bcac27a44e",
+      "bytes": 295212,
+      "sha256": "sha256:9c88c044e7731d3faeeb84221dece93a77d790eabf22831528cf4f2f2f25bc12",
       "validation_target": "主题作为标题、视觉分组不超过 16 人并保留完整文字列表"
     },
     {
@@ -90,8 +90,8 @@
         "height": 844
       },
       "locale": "zh-CN",
-      "bytes": 529682,
-      "sha256": "sha256:17c2ffa12d528ae4ddf063f2e93e159e18be9e2429f3d4919b6ca40ec916c9b6",
+      "bytes": 524789,
+      "sha256": "sha256:bb8e3bb8237bcfcebc5372b89a348cbc4349e8088fdd05a2dc6b35d35ecb5fcf",
       "validation_target": "Tanner 中文自然主介绍与观察提示优先于治理语言"
     },
     {
@@ -142,8 +142,8 @@
         "height": 844
       },
       "locale": "zh-CN",
-      "bytes": 549668,
-      "sha256": "sha256:04573c7f375ffcd774647a264b449a14b01ae000977ba7a6462416f0b9a7e51e",
+      "bytes": 550005,
+      "sha256": "sha256:a2182eb7313390d75602c557255ff97f9c42be71b91a0744ec8c445bb3cd1737",
       "validation_target": "技术边界与逐句 Claim-Evidence-Source 映射保留在次级层"
     },
     {

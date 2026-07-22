@@ -1,0 +1,56 @@
+{
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "build_identity": {
+    "commit": "51ca3ea9ffbd300e879336ca4322ec3a63bef72e",
+    "gate": "final-full"
+  },
+  "closure_class_counts": {
+    "build_materialized": 318,
+    "predecessor_reference": 245,
+    "release_manifest": 66
+  },
+  "cold_probe": {
+    "environment": "GitHub Actions runner to GitHub Pages; bounded synthetic probe; not RUM",
+    "median_ms": 387.12409999970987,
+    "p95_ms": 570.0624000000971,
+    "runs": 3,
+    "samples_ms": [
+      570.0624000000971,
+      387.12409999970987,
+      363.49559999871417
+    ]
+  },
+  "commit": "51ca3ea9ffbd300e879336ca4322ec3a63bef72e",
+  "content_hash": "sha256:1f9853b514ccc2312ce00a493d47a16acc72c95f6f5aff580b954ef530dff21b",
+  "convergence_attempts": 1,
+  "elapsed_seconds": 108.65741270000035,
+  "evidence_class": "bounded_public_cold_probe_and_complete_release_runtime_byte_closure",
+  "expected_byte_count": 109643591,
+  "expected_file_count": 629,
+  "failures": [],
+  "manifest_sha256": "sha256:5030b164d198260c588b1321881d8aa8c6467888d8f055cc0ba87ef67c9472f5",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "real_user_metric": false,
+  "release_counts": {
+    "artists": 62,
+    "artworks": 532,
+    "collection_profiles": 38,
+    "external_link_only_works": 25,
+    "gallery_profiles": 24,
+    "legacy_artists": 12,
+    "legacy_artworks": 44,
+    "metadata_only_works": 436,
+    "new_artists": 50,
+    "new_artworks": 488,
+    "new_derivatives": 318,
+    "new_public_originals": 0,
+    "place_time_episodes": 110,
+    "self_hosted_works": 71,
+    "tours": 18
+  },
+  "release_id": "release:art-expansion-batch-01-1.5.1",
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "verified_byte_count": 109643591,
+  "verified_file_count": 629
+}

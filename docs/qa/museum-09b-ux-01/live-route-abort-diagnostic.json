@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "probe": "supplementary_local_main_suite_against_public_pages",
+  "attempts": 2,
+  "first_attempt": {"passed": 6, "failed": 2, "formal_screenshots_written": 12},
+  "focused_retry": {"passed": 0, "failed": 2},
+  "trace_failure_text": "net::ERR_ABORTED",
+  "http_error_count": 0,
+  "affected_requests": [
+    "artworks.json",
+    "media-index.json",
+    "attributions.json",
+    "withdrawal-mapping.json",
+    "asset-resolution-manifest.json",
+    "evidence.json",
+    "sources.json"
+  ],
+  "root_cause": "The local route-stress test starts release fetches and immediately performs another same-document route navigation once the visible task is ready. On the higher-latency public origin, Chromium correctly cancels those no-longer-needed requests; the observer counted intentional navigation cancellation as a network failure.",
+  "product_defect": false,
+  "closure": {
+    "complete_release_runtime_byte_closure": "pass",
+    "verified_files": 629,
+    "verified_bytes": 109643591,
+    "dedicated_online_playwright_tests": 6,
+    "dedicated_online_playwright_status": "pass",
+    "direct_head_rechecks": "HTTP 200"
+  },
+  "disposition": "Retain as diagnostic evidence; use the network-idle online suite for public-origin acceptance. No product or gate weakening was made."
+}

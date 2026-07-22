@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "run_id": 29936952664,
+  "run_url": "https://github.com/Archmays/Museum-Codex/actions/runs/29936952664",
+  "event": "workflow_dispatch",
+  "mode": "full",
+  "head_sha": "51ca3ea9ffbd300e879336ca4322ec3a63bef72e",
+  "status": "completed",
+  "conclusion": "success",
+  "started_at": "2026-07-22T16:12:36Z",
+  "completed_at": "2026-07-22T16:39:37Z",
+  "jobs": {
+    "classify": {"id": 88980876178, "conclusion": "success", "duration_seconds": 13},
+    "final_full": {"id": 88980950921, "conclusion": "success", "duration_seconds": 1561},
+    "deploy": {"id": 88987558894, "conclusion": "success", "duration_seconds": 38},
+    "docs_only": {"id": 88980951396, "conclusion": "skipped"},
+    "phase_scoped": {"id": 88980951434, "conclusion": "skipped"}
+  },
+  "full_gate_counts": {
+    "python_tests": 497,
+    "frontend_test_files": 15,
+    "frontend_tests": 105,
+    "browser_tests": 47,
+    "successful_final_full_runs": 1,
+    "runtime_deployments": 1
+  },
+  "historical_release_count": 6,
+  "historical_rebuild_count": 0,
+  "status_summary": "pass"
+}

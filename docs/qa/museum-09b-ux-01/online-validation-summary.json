@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "runtime_commit": "51ca3ea9ffbd300e879336ca4322ec3a63bef72e",
+  "byte_closure": {
+    "status": "pass",
+    "files": 629,
+    "bytes": 109643591,
+    "content_sha256": "sha256:1f9853b514ccc2312ce00a493d47a16acc72c95f6f5aff580b954ef530dff21b",
+    "manifest_sha256": "sha256:5030b164d198260c588b1321881d8aa8c6467888d8f055cc0ba87ef67c9472f5"
+  },
+  "dedicated_online_suite": {
+    "status": "pass",
+    "tests": 6,
+    "desktop_relationship_explorer": "pass",
+    "equivalent_views_evidence_rights_url": "pass",
+    "mobile_390_low_bandwidth": "pass",
+    "forced_colors_reduced_motion_no_webgl": "pass",
+    "no_script_http_200": "pass"
+  },
+  "screenshots": {
+    "formal_count": 12,
+    "formal_bytes": 6625945,
+    "additional_online_count": 9,
+    "additional_online_bytes": 3444193
+  },
+  "cold_probe": {"runs": 3, "median_ms": 387.1241, "p95_ms": 570.0624, "real_user_metric": false},
+  "supplementary_route_abort_diagnostic": "live-route-abort-diagnostic.json",
+  "status": "pass"
+}

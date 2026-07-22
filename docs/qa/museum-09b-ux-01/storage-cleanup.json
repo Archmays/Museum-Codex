@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "deleted_generated_output": {
+    "files": 2290,
+    "bytes": 340007375,
+    "targets": [
+      "dist/",
+      "output/",
+      "tmp/museum-09b-rebuilt-release/",
+      "tmp/museum-09b-rebuilt-release-2/",
+      "tmp/museum-09b-release-test/",
+      "tmp/museum-09b-release-test-4/",
+      "tmp/museum-09b-release-test-5/",
+      "tmp/museum-09b-release-test-6/",
+      "tmp/museum-09b-release-test-7/",
+      "tmp/museum-09b-release-test-8/"
+    ]
+  },
+  "deleted_raw_transient_diagnostics": {"files": 2, "bytes": 38396},
+  "remaining_cleanup_targets": 0,
+  "retained_qa_before_this_record": {"files": 60, "bytes": 14969433},
+  "retained_successor_release": {"files": 67, "bytes": 12346187},
+  "predecessor_release": {"files": 65, "bytes": 11897641},
+  "successor_growth_bytes": 448546,
+  "media": {"existing_derivatives_reused": 318, "downloaded": 0, "reencoded": 0},
+  "recoverability": "Deleted outputs are reproducible from tracked formal inputs and builders; release, provenance, validators, tests, screenshots, online evidence, and historical bundles were retained.",
+  "status": "pass"
+}
