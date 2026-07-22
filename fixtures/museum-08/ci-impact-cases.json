@@ -16,6 +16,7 @@
     {"id": "package-lock", "paths": ["M\tpackage-lock.json"], "expect": {"dependencies_changed": true, "full_required": true}},
     {"id": "requirements", "paths": ["M\trequirements-dev.txt"], "expect": {"dependencies_changed": true, "full_required": true}},
     {"id": "workflow", "paths": ["M\t.github/workflows/validate-and-build.yml"], "expect": {"workflow_changed": true, "full_required": true, "deploy_required": false}},
+    {"id": "full-gate-workflow-rebinds-deployment", "paths": ["M\t.github/workflows/full-gate.yml"], "expect": {"workflow_changed": true, "full_required": true, "deploy_required": true, "reason_codes": ["deployment_binding_changed"]}},
     {"id": "public-candidate", "paths": ["A\tpublic/releases/art-v1-candidate-1.4.0/manifest.json"], "expect": {"public_changed": true, "full_required": true, "deploy_required": true}},
     {"id": "browser-map", "paths": ["M\tsrc/features/art-map/ArtMapPage.tsx"], "expect": {"browser_suites": ["map"], "deploy_required": true}},
     {"id": "browser-search", "paths": ["A\tsrc/features/art-search/SearchPage.tsx"], "expect": {"browser_suites": ["search"], "deploy_required": true}},

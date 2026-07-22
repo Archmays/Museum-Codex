@@ -52,6 +52,7 @@
     "index.html"
   ],
   "deployment_binding_paths": [
+    ".github/workflows/full-gate.yml",
     "governance/release-integrity-ledger.json"
   ],
   "dependency_paths": [

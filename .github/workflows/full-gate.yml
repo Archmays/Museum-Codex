@@ -86,10 +86,12 @@ jobs:
               "docs/qa/museum-08/search-performance.json": "fbb03de47bbeded2d3805aff0fda79728148115a2e0b36205c2125d616fd3a79",
               "docs/qa/museum-08/bundle-budget.json": "405bcdfa57bf089aa1e067fa5d996208e2f2cb6da251b4326c174f8eefd3fb83",
               "docs/qa/museum-08/browser-metrics.json": "cf567a43464e3089b7aee59b7394c9e5d2ac8de864bd971592c6f488a1e2cb27",
-              "docs/qa/museum-08/scale-readiness.json": "240be8e9951c0c80dd3707f19c36ce8a86e48eb620220a4f94a2d7a8c1a110b8",
+              "docs/qa/museum-08/scale-readiness.json": "8fe6bc8281ec1880ba27b0691478ba2c57748a69e93a9d8ee5afc536f42a1003",
           }
           actual = {
-              path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+              path: hashlib.sha256(
+                  Path(path).read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+              ).hexdigest()
               for path in expected
           }
           if actual != expected:
