@@ -43,7 +43,7 @@ function MuseumRoutes() {
         <Route
           path="/art/constellation"
           element={
-            <Suspense fallback={<main id="main-content" className="inner-page route-loading" tabIndex={-1}><p role="status">正在加载艺术星海…… / Loading Art Constellation…</p></main>}>
+            <Suspense fallback={<main id="main-content" className="inner-page route-loading" tabIndex={-1}><p role="status">正在加载艺术家关系探索…… / Loading Artist Connections…</p></main>}>
               <ArtConstellationPage />
             </Suspense>
           }

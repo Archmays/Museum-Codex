@@ -25,6 +25,7 @@ import {
   createConstellationState,
   deriveConstellationView,
   stateToSearchParams,
+  type ConstellationAction,
   type ConstellationDerivationState,
 } from "./model";
 import type {
@@ -37,8 +38,7 @@ import type {
   ViewMode,
 } from "./types";
 import { localize } from "./types";
-import { ArtistListView, EmptyView, GraphView, RelationshipTableView } from "./Views";
-import { planConstellationGraph } from "./scale-strategy";
+import { ArtistListView, EmptyView, GraphView, RelationshipTableView, StartExplorerView, ThemeExplorerView } from "./Views";
 import "./art-constellation.css";
 import { currentArtReleaseBaseUrl } from "../../data/art-release-profile";
 
@@ -176,7 +176,7 @@ function mark(name: string) {
 
 function LoadedConstellation({ release, dataSource }: LoadedProps) {
   const { locale, t } = useI18n();
-  const { compactViewport, forcedColors, lowBandwidth } = usePreferences();
+  const { lowBandwidth } = usePreferences();
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, dispatch] = useReducer(
     constellationReducer,
@@ -188,7 +188,6 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
   const [relationshipDetails, setRelationshipDetails] = useState<PanelLoadState<RelationshipDetails>>({ status: "idle" });
   const [rightsDetails, setRightsDetails] = useState<PanelLoadState<RightsDetails>>({ status: "idle" });
   const [announcement, setAnnouncement] = useState("");
-  const [graphUnavailable, setGraphUnavailable] = useState(false);
   const [experienceMounted, setExperienceMounted] = useState(false);
   const viewTabs = useRef<Array<HTMLButtonElement | null>>([]);
   const panelHost = useRef<PanelHostHandle>(null);
@@ -196,21 +195,10 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
   const artistAbort = useRef<AbortController | null>(null);
   const relationshipAbort = useRef<AbortController | null>(null);
   const rightsAbort = useRef<AbortController | null>(null);
-  const artistSelectionFrame = useRef<number | null>(null);
   const relationshipSelectionFrame = useRef<number | null>(null);
   const initialDeepLinkHandled = useRef(false);
 
-  const graphSuppressed = compactViewport || lowBandwidth || forcedColors;
-  const graphDisabled = graphSuppressed || graphUnavailable;
-  const graphFallbackAnnouncement = graphUnavailable
-    ? t.constellation.graphUnavailable
-    : lowBandwidth
-    ? t.constellation.lowBandwidthGraph
-    : forcedColors
-      ? t.constellation.forcedColorsGraph
-      : t.constellation.compactViewportGraph;
-  const effectiveView: ViewMode = graphDisabled && state.view === "graph" ? "list" : state.view;
-  const [graphRetained, setGraphRetained] = useState(effectiveView === "graph");
+  const effectiveView: ViewMode = state.view;
   const indexData = relationshipIndex.status === "loaded" ? relationshipIndex.data : null;
   const derivationState = useMemo<ConstellationDerivationState>(() => ({
     query: state.query,
@@ -220,12 +208,18 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     region: state.region,
     tradition: state.tradition,
     contextType: state.contextType,
+    contextId: state.contextId,
+    mode: state.mode,
+    expanded: state.expanded,
     focusArtistId: state.focusArtistId,
     selectedRelationshipId: state.selectedRelationshipId,
   }), [
     state.contextType,
+    state.contextId,
+    state.expanded,
     state.focusArtistId,
     state.level,
+    state.mode,
     state.period,
     state.query,
     state.region,
@@ -252,26 +246,24 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     if (experienceMounted && effectiveView !== "graph" && viewModel.artists.length > 0) mark("museum04-experience-ready");
   }, [effectiveView, experienceMounted, viewModel.artists.length]);
 
-  useEffect(() => {
-    setSearchParams(stateToSearchParams(state, release.version), { replace: true });
+  const applyAction = useCallback((action: ConstellationAction, push = false) => {
+    const next = constellationReducer(state, action);
+    dispatch({ type: "hydrate", state: next });
+    setSearchParams(stateToSearchParams(next, release.version), { replace: !push });
   }, [release.version, setSearchParams, state]);
 
   useEffect(() => {
-    if (state.view !== "graph" || !graphDisabled) return;
-    const timer = window.setTimeout(() => {
-      setGraphRetained(false);
-      dispatch({ type: "set-view", view: "list" });
-      setAnnouncement(graphFallbackAnnouncement);
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, [graphDisabled, graphFallbackAnnouncement, state.view]);
+    const incoming = createConstellationState(searchParams, release);
+    if (stateToSearchParams(incoming, release.version).toString() !== stateToSearchParams(state, release.version).toString()) {
+      dispatch({ type: "hydrate", state: incoming });
+    }
+  }, [release, release.version, searchParams, state]);
 
   useEffect(() => () => {
     indexAbort.current?.abort();
     artistAbort.current?.abort();
     relationshipAbort.current?.abort();
     rightsAbort.current?.abort();
-    if (artistSelectionFrame.current !== null) cancelAnimationFrame(artistSelectionFrame.current);
     if (relationshipSelectionFrame.current !== null) cancelAnimationFrame(relationshipSelectionFrame.current);
   }, []);
 
@@ -335,7 +327,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     if (
       state.focusArtistId || state.selectedRelationshipId || state.view === "table" ||
       state.query.trim() || state.relationshipType !== "all" || state.level !== "all" ||
-      state.period || state.region || state.tradition || state.contextType
+      state.period || state.region || state.tradition || state.contextType || state.contextId || state.mode === "theme"
     ) {
       const timer = window.setTimeout(() => void loadIndex(), 0);
       return () => window.clearTimeout(timer);
@@ -343,6 +335,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
   }, [
     loadIndex,
     state.contextType,
+    state.contextId,
     state.focusArtistId,
     state.level,
     state.period,
@@ -352,6 +345,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     state.selectedRelationshipId,
     state.tradition,
     state.view,
+    state.mode,
   ]);
 
   useEffect(() => {
@@ -370,28 +364,18 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
         void loadRelationshipDetails(relationship.id);
         return;
       }
-      if (state.focusArtistId) {
-        initialDeepLinkHandled.current = true;
-        panelHost.current?.open({ kind: "artist", id: state.focusArtistId });
-        void loadArtistSources(state.focusArtistId);
-      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, [loadArtistSources, loadRelationshipDetails, locale, relationshipIndex, state.focusArtistId, state.selectedRelationshipId, t.constellation.selectedRelationship]);
 
-  const selectArtist = useCallback((artistId: string, trigger?: HTMLElement) => {
+  const selectArtist = useCallback((artistId: string) => {
     const artist = release.artists.find((candidate) => candidate.id === artistId);
     if (!artist) return;
     initialDeepLinkHandled.current = true;
-    panelHost.current?.open({ kind: "artist", id: artistId }, trigger);
-    if (artistSelectionFrame.current !== null) cancelAnimationFrame(artistSelectionFrame.current);
-    artistSelectionFrame.current = requestAnimationFrame(() => {
-      artistSelectionFrame.current = null;
-      setAnnouncement(fill(t.constellation.selectedArtist, { name: localize(artist.labels, locale), count: artist.relationCount }));
-      void loadArtistSources(artistId);
-      startTransition(() => dispatch({ type: "focus-artist", artistId }));
-    });
-  }, [loadArtistSources, locale, release.artists, t.constellation.selectedArtist]);
+    setAnnouncement(fill(t.constellation.selectedArtist, { name: localize(artist.labels, locale), count: artist.relationCount }));
+    applyAction({ type: "focus-artist", artistId }, true);
+    void loadIndex();
+  }, [applyAction, loadIndex, locale, release.artists, t.constellation.selectedArtist]);
 
   const selectRelationship = useCallback((relationshipId: string, trigger?: HTMLElement) => {
     const relationship = indexData?.relationships.find((candidate) => candidate.id === relationshipId);
@@ -403,20 +387,9 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
       relationshipSelectionFrame.current = null;
       setAnnouncement(fill(t.constellation.selectedRelationship, { title: localize(relationship.title, locale) }));
       void loadRelationshipDetails(relationshipId);
-      startTransition(() => dispatch({ type: "select-relationship", relationshipId }));
+      startTransition(() => applyAction({ type: "select-relationship", relationshipId }));
     });
-  }, [indexData, loadRelationshipDetails, locale, t.constellation.selectedRelationship]);
-
-  const rendererReady = useCallback(() => {
-    mark("museum04-renderer-ready");
-    mark("museum04-experience-ready");
-  }, []);
-  const rendererUnavailable = useCallback(() => {
-    setGraphUnavailable(true);
-    setGraphRetained(false);
-    dispatch({ type: "set-view", view: "list" });
-    setAnnouncement(t.constellation.graphUnavailable);
-  }, [t.constellation.graphUnavailable]);
+  }, [applyAction, indexData, loadRelationshipDetails, locale, t.constellation.selectedRelationship]);
 
   const openRights = (trigger: HTMLElement) => {
     panelHost.current?.open({ kind: "rights" }, trigger);
@@ -424,19 +397,14 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
   };
 
   const panelClosed = useCallback((closedPanel: OpenPanel) => {
-    if (closedPanel.kind === "relationship") dispatch({ type: "select-relationship", relationshipId: null });
+    if (closedPanel.kind === "relationship") applyAction({ type: "select-relationship", relationshipId: null });
     artistAbort.current?.abort();
     relationshipAbort.current?.abort();
     rightsAbort.current?.abort();
-  }, []);
+  }, [applyAction]);
 
   const selectView = (view: ViewMode) => {
-    if (view === "graph" && graphDisabled) {
-      setAnnouncement(graphFallbackAnnouncement);
-      return;
-    }
-    if (view === "graph") setGraphRetained(true);
-    dispatch({ type: "set-view", view });
+    applyAction({ type: "set-view", view });
     setAnnouncement({ graph: t.constellation.graphAnnounce, list: t.constellation.listAnnounce, table: t.constellation.tableAnnounce }[view]);
   };
 
@@ -446,7 +414,6 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     event.preventDefault();
     const enabledIndices = (["graph", "list", "table"] as const)
       .map((view, index) => ({ view, index }))
-      .filter(({ view }) => view !== "graph" || !graphDisabled)
       .map(({ index }) => index);
     const currentPosition = Math.max(0, enabledIndices.indexOf(currentIndex));
     let nextIndex = currentIndex;
@@ -458,7 +425,9 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     startTransition(() => selectView((["graph", "list", "table"] as const)[nextIndex]));
   };
 
-  const summary = relationshipIndex.status === "loaded" ? fill(t.constellation.visibleSummary, {
+  const summary = effectiveView === "graph" && !state.focusArtistId && !state.contextId
+    ? (locale === "zh-CN" ? "先搜索或选择一位艺术家；初始关系节点为 0。" : "Search for or choose an artist first; the initial relationship node count is 0.")
+    : relationshipIndex.status === "loaded" ? fill(t.constellation.visibleSummary, {
     artists: viewModel.artists.length,
     relationships: viewModel.relationships.length,
     hiddenArtists: viewModel.hiddenArtistCount,
@@ -476,17 +445,6 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
     onSelectArtist: selectArtist,
     onSelectRelationship: selectRelationship,
   };
-  const graphScalePlan = planConstellationGraph(
-    viewModel.artists,
-    viewModel.graphRelationships,
-    state.focusArtistId,
-  );
-  const graphSharedProps = {
-    ...sharedProps,
-    artists: graphScalePlan.artists,
-    relationships: graphScalePlan.relationships,
-  };
-
   return (
     <main
       id="main-content"
@@ -501,15 +459,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
           <h1>{localize(release.summary.title, locale)}</h1>
           <p>{t.constellation.intro}</p>
         </div>
-        <dl className="release-stamp">
-          <div>
-            <dt>{t.constellation.releaseLabel}</dt>
-            <dd>{release.version}</dd>
-          </div>
-          <div><dt>{t.constellation.level}</dt><dd>{release.summary.levelCounts.A} / {release.summary.levelCounts.B} / {release.summary.levelCounts.C} · A / B / C</dd></div>
-          <div><dt>{t.constellation.type}</dt><dd>{release.summary.artistCount} / {release.summary.contextCount} / {release.summary.relationshipCount}</dd></div>
-          <div><dt>{t.constellation.mediaRights}</dt><dd>{release.summary.approvedMediaArtworkCount} / {release.summary.artworkCount} · {release.summary.mediaCount}</dd></div>
-        </dl>
+        <p className="constellation-public-count">{locale === "zh-CN" ? `${release.summary.artistCount} 位艺术家 · ${release.summary.relationshipCount} 条可解释关系` : `${release.summary.artistCount} artists · ${release.summary.relationshipCount} explainable relationships`}</p>
       </header>
 
       {experienceMounted ? (
@@ -535,8 +485,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
               aria-controls="constellation-view-panel"
               aria-selected={effectiveView === view}
               tabIndex={effectiveView === view ? 0 : -1}
-              disabled={view === "graph" && graphDisabled}
-              onKeyDown={(event) => navigateTabs(event, index)}
+               onKeyDown={(event) => navigateTabs(event, index)}
               onClick={() => selectView(view)}
             >
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -551,12 +500,12 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
               type="search"
               value={state.query}
               placeholder={t.constellation.searchPlaceholder}
-              onChange={(event) => dispatch({ type: "set-query", query: event.currentTarget.value })}
+              onChange={(event) => applyAction({ type: "set-query", query: event.currentTarget.value })}
             />
           </label>
           <label>
             <span>{t.constellation.relationshipType}</span>
-            <select value={state.relationshipType} onChange={(event) => dispatch({ type: "set-relationship-type", relationshipType: event.currentTarget.value as typeof state.relationshipType })}>
+            <select value={state.relationshipType} onChange={(event) => applyAction({ type: "set-relationship-type", relationshipType: event.currentTarget.value as typeof state.relationshipType })}>
               <option value="all">{t.constellation.allTypes}</option>
               <option value="shared_subject">{t.constellation.sharedSubject}</option>
               <option value="shared_material">{t.constellation.sharedMaterial}</option>
@@ -565,7 +514,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
           </label>
           <label>
             <span>{t.constellation.levelFilter}</span>
-            <select value={state.level} onChange={(event) => dispatch({ type: "set-level", level: event.currentTarget.value as typeof state.level })}>
+            <select value={state.level} onChange={(event) => applyAction({ type: "set-level", level: event.currentTarget.value as typeof state.level })}>
               <option value="all">{t.constellation.allLevels}</option>
               <option value="A">{t.constellation.levelA}</option>
               <option value="B">{t.constellation.levelB}</option>
@@ -574,28 +523,28 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
           </label>
           <label>
             <span>{t.constellation.period}</span>
-            <select value={state.period} onChange={(event) => dispatch({ type: "set-period", period: event.currentTarget.value })}>
+            <select value={state.period} onChange={(event) => applyAction({ type: "set-period", period: event.currentTarget.value })}>
               <option value="">{t.constellation.allPeriods}</option>
               {release.facets.periods.map((period) => <option key={period} value={period}>{period}</option>)}
             </select>
           </label>
           <label>
             <span>{t.constellation.region}</span>
-            <select value={state.region} onChange={(event) => dispatch({ type: "set-region", region: event.currentTarget.value })}>
+            <select value={state.region} onChange={(event) => applyAction({ type: "set-region", region: event.currentTarget.value })}>
               <option value="">{t.constellation.allRegions}</option>
               {release.facets.regions.map((region) => <option key={region} value={region}>{region}</option>)}
             </select>
           </label>
           <label>
             <span>{t.constellation.tradition}</span>
-            <select value={state.tradition} onChange={(event) => dispatch({ type: "set-tradition", tradition: event.currentTarget.value })}>
+            <select value={state.tradition} onChange={(event) => applyAction({ type: "set-tradition", tradition: event.currentTarget.value })}>
               <option value="">{t.constellation.allTraditions}</option>
               {release.facets.traditions.map((tradition) => <option key={tradition} value={tradition}>{tradition}</option>)}
             </select>
           </label>
           <label>
             <span>{t.constellation.contextType}</span>
-            <select value={state.contextType} onFocus={() => void loadIndex()} onChange={(event) => dispatch({ type: "set-context-type", contextType: event.currentTarget.value })}>
+            <select value={state.contextType} onFocus={() => void loadIndex()} onChange={(event) => applyAction({ type: "set-context-type", contextType: event.currentTarget.value })}>
               <option value="">{t.constellation.allContexts}</option>
               {contextTypes.map((contextType) => <option key={contextType} value={contextType}>{({
                 material: t.constellation.contextMaterial,
@@ -604,13 +553,19 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
               } as Record<string, string>)[contextType] ?? contextType}</option>)}
             </select>
           </label>
-          <button className="reset-control" type="button" onClick={() => dispatch({ type: "reset" })}>{t.constellation.resetFilters}</button>
+          <label>
+            <span>{locale === "zh-CN" ? "按主题探索" : "Explore by theme"}</span>
+            <select value={state.contextId} onFocus={() => void loadIndex()} onChange={(event) => applyAction({ type: "set-context", contextId: event.currentTarget.value || null }, true)}>
+              <option value="">{locale === "zh-CN" ? "选择一个主题" : "Choose a theme"}</option>
+              {(indexData?.contexts ?? []).filter((context) => !state.contextType || context.type === state.contextType).map((context) => <option key={context.id} value={context.id}>{localize(context.labels, locale)}</option>)}
+            </select>
+          </label>
+          <button className="reset-control" type="button" onClick={() => applyAction({ type: "reset" })}>{t.constellation.resetFilters}</button>
         </div>
       </section>
 
       <div className="constellation-status-line" role="status">
         <p>{summary}</p>
-        {graphUnavailable ? <p>{t.constellation.graphUnavailable}</p> : null}
         {(state.level === "A" || state.level === "B") ? <p>{t.constellation.noAbRelations}</p> : null}
         {relationshipIndex.status === "loading" ? <p>{t.constellation.relationsLoading}</p> : null}
         {relationshipIndex.status === "failed" ? <FailedIndex copy={t.constellation.detailError} retry={t.constellation.retry} onRetry={() => void retryIndex()} /> : null}
@@ -624,11 +579,7 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
             <li><span className="legend-edge material" aria-hidden="true" />{t.constellation.sharedMaterial}</li>
             <li><span className="legend-edge technique" aria-hidden="true" />{t.constellation.sharedTechnique}</li>
           </ul>
-          <p>{t.constellation.levelAEmpty}</p>
-          <p>{t.constellation.levelBEmpty}</p>
-          <p>{t.constellation.levelCCount}</p>
-          <p>{t.constellation.algorithmDisabled}</p>
-          <p>{t.constellation.distanceNotice}</p>
+          <p>{locale === "zh-CN" ? "只展示资料中已有的正式关系。点击“为什么相连？”查看证据与边界。" : "Only formal relationships already present in the release are shown. Choose ‘Why connected?’ for evidence and limits."}</p>
         </aside>
         <div
           id="constellation-view-panel"
@@ -636,23 +587,18 @@ function LoadedConstellation({ release, dataSource }: LoadedProps) {
           role="tabpanel"
           aria-labelledby={`constellation-tab-${effectiveView}`}
         >
-          {viewModel.artists.length === 0 ? <EmptyView copy={t.constellation} /> : null}
-          {viewModel.artists.length > 0 && (graphRetained || effectiveView === "graph") ? (
-            <div className="constellation-retained-graph" hidden={effectiveView !== "graph"}>
-              {graphScalePlan.limited ? (
-                <p className="constellation-scale-note" role="status">
-                  {locale === "zh-CN"
-                    ? `图形视图显示聚焦邻域与稳定 ID 有界子图（${graphScalePlan.artists.length}/${graphScalePlan.totalArtists} 节点）；完整任务请使用分页文字列表与关系表。`
-                    : `The graph shows a bounded focus-neighborhood and stable-ID subgraph (${graphScalePlan.artists.length}/${graphScalePlan.totalArtists} nodes). Use the paginated text list and relationship table for the complete task.`}
-                </p>
-              ) : null}
-              <GraphView
-                {...graphSharedProps}
-                layout={release.layout}
-                relatedArtistIds={viewModel.relatedArtistIds}
-                onRendererReady={rendererReady}
-                onRendererUnavailable={rendererUnavailable}
-              />
+          {viewModel.artists.length === 0 && (effectiveView !== "graph" || Boolean(state.query)) ? <EmptyView copy={t.constellation} /> : null}
+          {effectiveView === "graph" ? (
+            <div className="constellation-retained-graph">
+              {state.mode === "theme" && state.contextId && indexData ? (
+                <ThemeExplorerView artists={viewModel.artists} relationships={viewModel.graphRelationships} contexts={indexData.contexts} contextId={state.contextId} locale={locale} config={release.explorerConfig} onSelectArtist={selectArtist} onSelectRelationship={selectRelationship} />
+              ) : state.focusArtistId ? (
+                <GraphView {...sharedProps} explorerConfig={release.explorerConfig} expanded={state.expanded} onExpandedChange={(expanded) => applyAction({ type: "set-expanded", expanded })} />
+              ) : state.query.trim() ? (
+                <ArtistListView {...sharedProps} />
+              ) : (
+                <StartExplorerView artists={release.artists} starterArtistIds={release.explorerConfig.starterArtistIds} locale={locale} onSelectArtist={selectArtist} />
+              )}
             </div>
           ) : null}
           {viewModel.artists.length > 0 ? (

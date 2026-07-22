@@ -62,7 +62,7 @@ describe("museum portal", () => {
     await waitFor(() => expect(window.location.hash).toBe("#/art"));
     expect(await screen.findByRole("heading", { level: 1, name: "在一件作品前，打开许多条路" })).toBeInTheDocument();
     expect(screen.getByText(/当前正式艺术家、作品与来源可核验的策展比较/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /进入艺术星海/ })).toHaveAttribute("href", "#/art/constellation");
+    expect(screen.getByRole("link", { name: /进入艺术家关系探索/ })).toHaveAttribute("href", "#/art/constellation");
   });
 
   it("shows the current rights statement on the about route", async () => {

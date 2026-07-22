@@ -70,6 +70,7 @@ class Museum08CiImpactTests(unittest.TestCase):
                 "release:art-gallery-interactions-1.1.0",
                 "release:art-pathways-1.2.0",
                 "release:art-time-place-1.3.0",
+                "release:art-expansion-batch-01-1.5.0",
             },
             set(result["releases_hash_only"]),
         )

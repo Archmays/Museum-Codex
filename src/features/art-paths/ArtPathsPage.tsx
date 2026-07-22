@@ -258,7 +258,7 @@ function LoadedPathPage({ bundle, params, setParams }: {
     <main id="main-content" className={`path-page${printMode ? " is-print-view" : ""}`} tabIndex={-1}>
       <nav className="path-breadcrumbs" aria-label={locale === "zh-CN" ? "面包屑" : "Breadcrumbs"}>
         <Link to="/art">{locale === "zh-CN" ? "艺术序厅" : "Art foyer"}</Link>
-        <Link to="/art/constellation">{locale === "zh-CN" ? "艺术星海" : "Art Constellation"}</Link>
+        <Link to="/art/constellation">{locale === "zh-CN" ? "艺术家关系探索" : "Explore Artist Connections"}</Link>
         <Link to="/art/map">{locale === "zh-CN" ? "艺术时空地图" : "Art Across Time and Place"}</Link>
       </nav>
       <header className="path-hero">

@@ -65,7 +65,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           <details className="art-nav-menu">
             <summary>{locale === "zh-CN" ? "探索" : "Explore"}</summary>
             <nav aria-label={t.common.menu}>
-              <NavLink to="/art/constellation">{locale === "zh-CN" ? "艺术星海" : "Constellation"}</NavLink>
+              <NavLink to="/art/constellation">{locale === "zh-CN" ? "关系探索" : "Connections"}</NavLink>
               <NavLink to="/art/artists">{locale === "zh-CN" ? "艺术家" : "Artists"}</NavLink>
               <NavLink to="/art/compare">{locale === "zh-CN" ? "作品比较" : "Compare"}</NavLink>
               <NavLink to="/art/tours">{locale === "zh-CN" ? "深度导览" : "Tours"}</NavLink>

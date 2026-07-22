@@ -6,8 +6,8 @@ import { performance } from "node:perf_hooks";
 import { normalizeSearchText, searchRecords } from "../src/features/art-search/search-model.ts";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const RELEASE = join(ROOT, "public", "releases", "art-expansion-batch-01-1.5.0");
-const OUTPUT = join(ROOT, "docs", "qa", "museum-09b-release", "search-performance.json");
+const RELEASE = join(ROOT, "public", "releases", "art-expansion-batch-01-1.5.1");
+const OUTPUT = join(ROOT, "docs", "qa", "museum-09b-ux-01", "search-performance.json");
 const RUNS = 80;
 
 function readJson(path) {
@@ -76,7 +76,7 @@ function main() {
   if (synthetic.deterministic_digest !== repeat.deterministic_digest) failures.push("deterministic ranking digest mismatch");
   const report = {
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09B-RELEASE",
+    phase_id: "MUSEUM-09B-UX-01",
     evidence_class: "controlled_node_benchmark",
     environment: `${process.platform}-${process.arch}; Node ${process.version}`,
     normalization: manifest.normalization,

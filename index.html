@@ -8,7 +8,7 @@
     <script>
       if (location.hash.startsWith("#/art/constellation")) {
         const files = ["manifest.json", "artists.json"];
-        const base = new URL("/Museum-Codex/releases/art-constellation-1.0.0/", location.origin);
+        const base = new URL("/Museum-Codex/releases/art-expansion-batch-01-1.5.1/", location.origin);
         const artifacts = globalThis.__MUSEUM04_BOOTSTRAP__ = new Map();
         for (const name of files) {
           const url = new URL(name, base).href;
@@ -38,7 +38,7 @@
           <a href="#rights-noscript">权利 / Rights</a>
         </nav>
         <section id="art-noscript">
-          <h2>艺术星海与数字展厅 / Constellation &amp; digital galleries</h2>
+          <h2>艺术家关系探索与数字展厅 / Artist connections &amp; digital galleries</h2>
           <p>当前公开版本的艺术家、作品与经审核策展比较均来自同一份固定发布；作品图像只使用通过身份、权利、字节和质量门禁的自托管衍生文件。</p>
           <p>The public artists, artworks, and reviewed curatorial comparisons resolve through one fixed release. Artwork images use only self-hosted derivatives that passed identity, rights, byte, and quality gates.</p>
           <p>艺术家索引、艺术家展厅、作品详情、基础放大与双作比较均消费同一固定 release。完整交互需要启用 JavaScript；无图作品、来源、权利和限制仍保留在正式数据中。</p>

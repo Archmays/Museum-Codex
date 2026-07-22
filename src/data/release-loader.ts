@@ -16,6 +16,7 @@ import type {
   LocalizedText,
   MediaAsset,
   RelationshipDetails,
+  RelationshipExplorerConfig,
   RelationshipIndex,
   RelationshipRecord,
   RelationshipType,
@@ -607,6 +608,26 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
       ? "gallery"
       : requiredString(artist.profile_kind, "artist_profile_kind");
     if (profileKind !== "gallery" && profileKind !== "collection") throw new Error("artist_profile_kind_invalid");
+    const successorNarratives = releaseId === "release:art-expansion-batch-01-1.5.1";
+    const publicIntro = artist.public_intro === undefined
+      ? publicLocalized(artist.summary, "artist_summary")
+      : publicLocalized(artist.public_intro, "artist_public_intro");
+    if (successorNarratives && artist.public_intro === undefined) throw new Error("artist_public_intro_missing");
+    const lookForRoot = artist.look_for === undefined ? null : requiredRecord(artist.look_for, "artist_look_for");
+    const evidenceBoundary = artist.evidence_boundary === undefined
+      ? publicLocalized(artist.summary, "artist_summary")
+      : publicLocalized(artist.evidence_boundary, "artist_evidence_boundary");
+    const sentenceProvenance = artist.sentence_provenance === undefined ? [] : objectList(artist.sentence_provenance, "artist_sentence_provenance").map((item) => ({
+      sentenceId: requiredString(item.sentence_id, "artist_sentence_id"),
+      text: publicLocalized(item.text, "artist_sentence_text"),
+      claimIds: stringList(item.claim_ids, "artist_sentence_claim_ids"),
+      evidenceIds: stringList(item.evidence_ids, "artist_sentence_evidence_ids"),
+      sourceIds: stringList(item.source_ids, "artist_sentence_source_ids"),
+    }));
+    if (successorNarratives && sentenceProvenance.length < 2) throw new Error("artist_sentence_provenance_missing");
+    const reading = artist.reading_profile === undefined ? null : requiredRecord(artist.reading_profile, "artist_reading_profile");
+    const mediaProfile = reading ? requiredString(reading.media_profile, "artist_media_profile") : "metadata_only";
+    if (!new Set(["self_hosted", "external_link_only", "metadata_only"]).has(mediaProfile)) throw new Error("artist_media_profile_invalid");
     return {
       id,
       publicSlug: artist.public_slug === undefined && !isExpansionRelease
@@ -622,6 +643,17 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
         : stringList(artist.gallery_sequence, "artist_gallery_sequence"),
       labels: localized(artist.labels, "artist_labels"),
       summary: publicLocalized(artist.summary, "artist_summary"),
+      publicIntro,
+      lookFor: lookForRoot ? {
+        "zh-Hans": stringList(lookForRoot["zh-Hans"], "artist_look_for_zh"),
+        en: stringList(lookForRoot.en, "artist_look_for_en"),
+      } : { "zh-Hans": [], en: [] },
+      evidenceBoundary,
+      sentenceProvenance,
+      readingProfile: {
+        mediaProfile: mediaProfile as "self_hosted" | "external_link_only" | "metadata_only",
+        templateSignature: reading ? requiredString(reading.template_signature, "artist_template_signature") : "legacy-fallback",
+      },
       aliases: aliasTexts(artist.aliases),
       period: requiredString(periods[0], "artist_period"),
       region: requiredString(places[0]?.label, "artist_region"),
@@ -823,15 +855,57 @@ function parseSearchEntries(raw: unknown, releaseId: string, artists: ArtistReco
 
 function parseLayout(raw: unknown, releaseId: string): LayoutNode[] {
   const root = requiredRecord(raw, "layout_root");
-  if (
-    root.schema_version !== ART_CONSTELLATION_SCHEMA_VERSION || root.release_id !== releaseId ||
-    root.algorithm !== "deterministic_circle_v1" || root.seed !== "museum-04-art-constellation-1.0.0"
-  ) throw new Error("layout_contract");
+  if (root.schema_version !== ART_CONSTELLATION_SCHEMA_VERSION || root.release_id !== releaseId) throw new Error("layout_contract");
+  if (root.algorithm === "focused_relation_lanes_v1") {
+    if (objectList(root.default_nodes, "layout_default_nodes").length !== 0) throw new Error("layout_default_nodes");
+    return [];
+  }
+  if (root.algorithm !== "deterministic_circle_v1" || root.seed !== "museum-04-art-constellation-1.0.0") throw new Error("layout_contract");
   return objectList(root.nodes, "layout_nodes").map((node) => ({
     artistId: requiredString(node.artist_id, "layout_artist_id"),
     x: requiredNumber(node.x, "layout_x"),
     y: requiredNumber(node.y, "layout_y"),
   }));
+}
+
+function parseExplorerConfig(raw: unknown, releaseId: string, artists: ArtistRecord[]): RelationshipExplorerConfig {
+  if (raw === null) {
+    return {
+      algorithm: "legacy_circle_fallback",
+      defaultGlobalGraphNodeCount: artists.length,
+      focusInitialNeighborLimit: 12,
+      focusInitialPerLaneLimit: 4,
+      focusExpandedNodeLimit: 20,
+      themeVisualArtistLimit: 16,
+      themeTextPageSize: 16,
+      laneOrder: [...RELATIONSHIP_TYPES],
+      starterArtistIds: artists.slice(0, 9).map((artist) => artist.id),
+      semantics: { "zh-Hans": "策展比较不代表历史影响。", en: "Curatorial comparison does not imply historical influence." },
+    };
+  }
+  const root = requiredRecord(raw, "relationship_explorer_config");
+  if (
+    root.schema_version !== ART_CONSTELLATION_SCHEMA_VERSION || root.release_id !== releaseId ||
+    root.algorithm !== "focused_relation_lanes_v1" || requiredNumber(root.default_global_graph_node_count, "default_graph_nodes") !== 0
+  ) throw new Error("relationship_explorer_config_invalid");
+  const laneOrder = stringList(root.lane_order, "explorer_lane_order") as RelationshipType[];
+  if (laneOrder.length !== 3 || laneOrder.some((type) => !RELATIONSHIP_TYPES.includes(type))) throw new Error("explorer_lane_order");
+  const starterRotation = requiredRecord(root.starter_rotation, "starter_rotation");
+  const starterArtistIds = stringList(starterRotation.artist_ids, "starter_artist_ids");
+  const artistIds = new Set(artists.map((artist) => artist.id));
+  if (starterArtistIds.length > 9 || starterArtistIds.some((id) => !artistIds.has(id))) throw new Error("starter_artist_ids");
+  return {
+    algorithm: "focused_relation_lanes_v1",
+    defaultGlobalGraphNodeCount: 0,
+    focusInitialNeighborLimit: requiredNumber(root.focus_initial_neighbor_limit, "focus_initial_neighbor_limit"),
+    focusInitialPerLaneLimit: requiredNumber(root.focus_initial_per_lane_limit, "focus_initial_per_lane_limit"),
+    focusExpandedNodeLimit: requiredNumber(root.focus_expanded_node_limit, "focus_expanded_node_limit"),
+    themeVisualArtistLimit: requiredNumber(root.theme_visual_artist_limit, "theme_visual_artist_limit"),
+    themeTextPageSize: requiredNumber(root.theme_text_page_size, "theme_text_page_size"),
+    laneOrder,
+    starterArtistIds,
+    semantics: publicLocalized(root.semantics, "explorer_semantics"),
+  };
 }
 
 function facetValues(value: unknown, label: string) {
@@ -950,7 +1024,8 @@ function parseGraphSummary(raw: unknown, releaseId: string) {
     Object.values(levelCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
     Object.values(relationshipTypeCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
     semantics.algorithmic !== false || semantics.causal !== false || semantics.directed !== false ||
-    initialState.view !== "graph" || initialState.edges_visible !== false || initialState.focused_artist_id !== null
+    initialState.view !== "graph" || initialState.edges_visible !== false || initialState.focused_artist_id !== null ||
+    (releaseId === "release:art-expansion-batch-01-1.5.1" && initialState.task !== "choose_artist")
   ) throw new Error("graph_summary_profile_invalid");
   const summary: GraphSummary = {
     releaseId,
@@ -1267,11 +1342,11 @@ function assertInitialClosure(release: ArtConstellationRelease) {
   const artistIds = new Set(release.artists.map((artist) => artist.id));
   if (
     artistIds.size !== release.summary.artistCount ||
-    release.layout.length !== release.summary.artistCount ||
+    release.layout.length !== release.explorerConfig.defaultGlobalGraphNodeCount ||
     release.searchEntries.length !== release.summary.artistCount
   ) throw new Error("release_counts_invalid");
   if (
-    new Set(release.layout.map((node) => node.artistId)).size !== release.summary.artistCount ||
+    new Set(release.layout.map((node) => node.artistId)).size !== release.explorerConfig.defaultGlobalGraphNodeCount ||
     release.layout.some((node) => !artistIds.has(node.artistId))
   ) {
     throw new Error("layout_artist_closure");
@@ -1484,6 +1559,13 @@ export async function loadArtConstellationRelease(
     }
 
     const artists = parseArtists(data["artists.json"], coreReleaseId);
+    const explorerReference = artifactFiles.get("relationship-explorer-config.json");
+    if (coreReleaseId === "release:art-expansion-batch-01-1.5.1" && !explorerReference) {
+      throw new Error("manifest_missing_relationship-explorer-config.json");
+    }
+    const explorerRaw = explorerReference
+      ? await fetchVerifiedJson(new URL(explorerReference.path, base).href, explorerReference.sha256, fetcher, signal)
+      : null;
     const release: ArtConstellationRelease = {
       manifestId: manifest.id,
       version: manifest.version,
@@ -1492,6 +1574,7 @@ export async function loadArtConstellationRelease(
       artists,
       searchEntries: parseSearchEntries(data["search-index.json"], coreReleaseId, artists),
       layout: parseLayout(data["layout.json"], coreReleaseId),
+      explorerConfig: parseExplorerConfig(explorerRaw, coreReleaseId, artists),
       facets: parseFacets(data["facets.json"], coreReleaseId),
     };
     assertInitialClosure(release);

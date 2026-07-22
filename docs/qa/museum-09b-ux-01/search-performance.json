@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "evidence_class": "controlled_node_benchmark",
+  "environment": "win32-x64; Node v24.16.0",
+  "normalization": "unicode_nfkc_lower_diacritic_fold_whitespace_v1",
+  "current_release": {
+    "record_count": 979,
+    "limit_p95_ms": 80,
+    "runs": 80,
+    "median_ms": 0.19549999999999557,
+    "p95_ms": 0.3564000000000078,
+    "max_ms": 1.8061999999999898,
+    "deterministic_digest": "f69c6ed566516729a64e67ddbe29a01f1c1612bf69f5178a9a2738f8064c61e8"
+  },
+  "synthetic_5000": {
+    "record_count": 5000,
+    "fixed_input": true,
+    "public_build": false,
+    "limit_p95_ms": 120,
+    "runs": 80,
+    "median_ms": 1.793800000000033,
+    "p95_ms": 2.5108999999999924,
+    "max_ms": 5.607399999999984,
+    "deterministic_digest": "a2b9250c54f2cd67eb5390c52f61f18080fb44ebe8db92629e9cafb7d76c4e2b"
+  },
+  "deterministic_repeat": true,
+  "failures": [],
+  "status": "pass"
+}

@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "screenshot_count": 12,
+  "screenshots": [
+    {
+      "name": "01-relationship-start-desktop",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/01-relationship-start-desktop.png",
+      "route": "/art/constellation",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "locale": "zh-CN",
+      "bytes": 689189,
+      "sha256": "sha256:11e9fbb4d2cb2a62e8663294c27c869dae1038ec1a9758930a60cf26a1e545d6",
+      "validation_target": "默认无全体圆环，初始节点为 0，搜索与 coverage 起点清楚"
+    },
+    {
+      "name": "02-focused-three-lanes-desktop",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/02-focused-three-lanes-desktop.png",
+      "route": "/art/constellation?artist=artist%3Akatsushika-hokusai",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "locale": "zh-CN",
+      "bytes": 661708,
+      "sha256": "sha256:7e829f5fad56792d0a16a0c741e67317667acdf449b01c077047dfe3825a4805",
+      "validation_target": "中心艺术家与题材、材料、技法三类分支，节点和标签无重叠"
+    },
+    {
+      "name": "03-focused-artist-mobile",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/03-focused-artist-mobile.png",
+      "route": "/art/constellation?artist=artist%3Akatsushika-hokusai",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 501722,
+      "sha256": "sha256:5de8767a0caea9f22d00ca8e8ba78a762709f6919d885d2ccc9760d88afc4d2c",
+      "validation_target": "390px 移动端纵向分组、无裁切与横向溢出"
+    },
+    {
+      "name": "04-relationship-explanation",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/04-relationship-explanation.png",
+      "route": "/art/constellation?release=1.5.1&q=%E8%91%9B%E9%A5%B0%E5%8C%97%E6%96%8B&artist=artist%3Akatsushika-hokusai&relation=art-rel%3Am03b-031",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 486396,
+      "sha256": "sha256:f68403ac44ae54bc8284810ec27136b9d1b7977ff8119149db9355db6439e7de",
+      "validation_target": "普通访客关系解释、证据入口与不代表历史影响的边界"
+    },
+    {
+      "name": "05-no-formal-relationships",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/05-no-formal-relationships.png",
+      "route": "/art/constellation?release=1.5.1&q=Nakunte+Diarra&artist=artist%3Am09a-cleveland_open_access-nakunte-diarra-2020",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 302962,
+      "sha256": "sha256:d40fb6a64cac2be7d8e05e497647d72140c69759bb8137d4f252b2fdd110fd8e",
+      "validation_target": "无正式关系时保持自然空状态且不补算法边"
+    },
+    {
+      "name": "06-theme-mode",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/06-theme-mode.png",
+      "route": "/art/constellation?release=1.5.1&mode=theme&context=material%3Aalbumen",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 285188,
+      "sha256": "sha256:e299e4c9ad4668e3682ffb163b4b08e8075d1ffd5ced12e7db04e0bcac27a44e",
+      "validation_target": "主题作为标题、视觉分组不超过 16 人并保留完整文字列表"
+    },
+    {
+      "name": "07-tanner-child-intro",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/07-tanner-child-intro.png",
+      "route": "/art/artists/henry-ossawa-tanner",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 529682,
+      "sha256": "sha256:17c2ffa12d528ae4ddf063f2e93e159e18be9e2429f3d4919b6ca40ec916c9b6",
+      "validation_target": "Tanner 中文自然主介绍与观察提示优先于治理语言"
+    },
+    {
+      "name": "08-new-gallery-child-intro",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/08-new-gallery-child-intro.png",
+      "route": "/art/artists/hua-yan",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 1391070,
+      "sha256": "sha256:43b2b07221d7f8ef26e2406f8b197812b817caa3f0de6c9dbf5c61b9a2efa9ce",
+      "validation_target": "新增 Gallery 使用同一儿童友好叙事层"
+    },
+    {
+      "name": "09-collection-child-intro",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/09-collection-child-intro.png",
+      "route": "/art/artists/nakunte-diarra",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 490754,
+      "sha256": "sha256:d7b6e3270778bd3019ed9aa059db8b01d1ad53e7727321b86e0d6c518fa80698",
+      "validation_target": "Collection profile 使用同一儿童友好叙事层"
+    },
+    {
+      "name": "10-metadata-only-prompt",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/10-metadata-only-prompt.png",
+      "route": "/art/artists/nakunte-diarra",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 490754,
+      "sha256": "sha256:d7b6e3270778bd3019ed9aa059db8b01d1ad53e7727321b86e0d6c518fa80698",
+      "validation_target": "无本站图片时提示比较标题、日期、材料与机构，不要求观察不存在的图像"
+    },
+    {
+      "name": "11-evidence-boundary-open",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/11-evidence-boundary-open.png",
+      "route": "/art/artists/henry-ossawa-tanner",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 549668,
+      "sha256": "sha256:04573c7f375ffcd774647a264b449a14b01ae000977ba7a6462416f0b9a7e51e",
+      "validation_target": "技术边界与逐句 Claim-Evidence-Source 映射保留在次级层"
+    },
+    {
+      "name": "12-forced-colors-low-bandwidth-equivalent",
+      "path": "docs/qa/museum-09b-ux-01/screenshots/12-forced-colors-low-bandwidth-equivalent.png",
+      "route": "/art/constellation?release=1.5.1&q=%E8%91%9B%E9%A5%B0%E5%8C%97%E6%96%8B&artist=artist%3Akatsushika-hokusai",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 234467,
+      "sha256": "sha256:062ec10759f0ee47c24326e97245fc4e5facb31bb47a5948cfad4e9f066cfd6f",
+      "validation_target": "forced-colors、reduced-motion 与低带宽仍保留关系、解释和导航任务"
+    }
+  ]
+}

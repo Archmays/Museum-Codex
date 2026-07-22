@@ -2,8 +2,8 @@ import { expect, test, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-const qaDir = path.resolve(process.env.MUSEUM_QA_DIR ?? "docs/qa/museum-04");
-const screenshotPrefix = process.env.MUSEUM04_QA_PREFIX ?? "";
+const qaDir = path.resolve(process.env.MUSEUM_QA_DIR ?? "docs/qa/museum-09b-ux-01/online-screenshots");
+const screenshotPrefix = process.env.MUSEUM09B_UX_QA_PREFIX ?? "";
 mkdirSync(qaDir, { recursive: true });
 
 function screenshotPath(name: string) {
@@ -44,12 +44,6 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 }
 
-async function revealDeferredListForFullPageCapture(page: Page) {
-  await page.addStyleTag({
-    content: ".constellation-controls, .constellation-workspace, .artist-list-view > ol > li { content-visibility: visible !important; contain-intrinsic-size: none !important; }",
-  });
-}
-
 async function expectStaticSameOriginRuntime(page: Page) {
   const result = await page.evaluate(() => {
     const pageOrigin = window.location.origin;
@@ -68,10 +62,10 @@ async function openConstellation(page: Page) {
   if (response) expect(response.status()).toBe(200);
   await expect(page.locator("main[data-museum04-status=ready]")).toBeVisible();
   await page.getByRole("button", { name: "EN", exact: true }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(/relationship|comparison/i);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/connections|relationship|comparison/i);
 }
 
-test("desktop graph, equivalent views, relationship evidence, rights, and URL state", async ({ page }) => {
+test("desktop relationship explorer, equivalent views, evidence, rights, and URL state", async ({ page }) => {
   const observed = observePage(page);
   const releaseRequests: string[] = [];
   page.on("request", (request) => {
@@ -91,18 +85,20 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await expect(page.locator("#main-content")).toBeFocused();
   response = await page.goto("./#/art", { waitUntil: "networkidle" });
   if (response) expect(response.status()).toBe(200);
-  await expect(page.getByRole("link", { name: /Enter the Constellation of Art/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Explore Artist Connections/i })).toBeVisible();
   await openConstellation(page);
 
   await expect(page.locator("main[data-view=graph]")).toBeVisible();
   const liveRegion = page.locator("main[data-view=graph] > .sr-only[aria-live=polite]");
   await expect(liveRegion).toHaveCSS("position", "absolute");
   await expect(liveRegion).toHaveCSS("width", "1px");
-  await expect(page.locator(".artist-navigator button")).toHaveCount(62);
-  await expect(page.getByText("The initial state has no visible edges.", { exact: false })).toBeVisible();
-  await expect(page.getByText("C-level curatorial comparisons", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText(/Algorithmic similarity: off/).first()).toBeVisible();
-  await expect(page.locator(".constellation-canvas")).toBeVisible();
+  await expect(page.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+  await expect(page.locator(".relation-starters button")).not.toHaveCount(0);
+  expect(await page.locator(".relation-starters button").count()).toBeLessThanOrEqual(9);
+  await expect(page.locator(".focused-relation-explorer")).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 2, name: "C · Curatorial comparison" })).toBeVisible();
+  await expect(page.getByText(/Only formal relationships already present/).first()).toBeVisible();
+  await expect(page.locator(".constellation-canvas, canvas")).toHaveCount(0);
   expect(releaseRequests).toEqual(expect.arrayContaining([
     "manifest.json",
     "graph-summary.json",
@@ -123,24 +119,20 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   expect(releaseRequests.filter((name) => /\.(?:jpe?g|webp)$/i.test(name))).toEqual([]);
   await page.locator(".constellation-workspace").screenshot({ path: screenshotPath("desktop-initial") });
 
-  const firstArtist = page.locator(".artist-navigator button").first();
-  await firstArtist.click();
-  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
-  await expect(page.locator("#constellation-panel-accessible-title")).toHaveCSS("position", "absolute");
-  await expect(page.getByRole("button", { name: "Close notes" })).toBeFocused();
-  await expect(page.locator(".related-relation-list button").first()).toBeVisible();
-  await expect(page.locator(".artist-representative img")).toBeVisible();
-  await expect(page.locator(".artist-representative img")).toHaveAttribute(
-    "src",
-    /\/releases\/[^/]+\/assets\//,
-  );
-  expect(releaseRequests).toEqual(expect.arrayContaining([
-    "media-index.json", "attributions.json", "withdrawal-mapping.json",
-  ]));
-  await expect(page).toHaveURL(/focus=/);
+  await page.getByLabel("Search artists").fill("Katsushika Hokusai");
+  const hokusai = page.locator(".artist-list-view li").filter({ hasText: "Katsushika Hokusai" });
+  await hokusai.getByRole("button", { name: "Open artist notes" }).click();
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+  await expect(page.locator(".focused-relation-explorer")).toHaveAttribute("data-node-count", /^(?:[1-9]|1[0-3])$/);
+  await expect(page.getByRole("heading", { level: 3, name: "Shared subject" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Shared material" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 3, name: "Shared technique" })).toBeVisible();
+  expect(releaseRequests).toEqual(expect.arrayContaining(["relationships.json", "contexts.json"]));
+  expect(releaseRequests).not.toContain("media-index.json");
+  await expect(page).toHaveURL(/artist=/);
   await page.screenshot({ path: screenshotPath("focused-artist") });
 
-  await page.locator(".related-relation-list button").first().click();
+  await page.getByRole("button", { name: "Why connected?" }).first().click();
   await expect(page.getByRole("heading", { name: "What this relationship means" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "What it does not mean" })).toBeVisible();
   await expect(page.locator(".identifier-closure code").first()).toBeVisible();
@@ -156,7 +148,7 @@ test("desktop graph, equivalent views, relationship evidence, rights, and URL st
   await graphTab.focus();
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("tab", { name: /Artist list/ })).toHaveAttribute("aria-selected", "true");
-  await expect(page.locator(".artist-list-view li")).toHaveCount(50);
+  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("62");
   await page.screenshot({ path: screenshotPath("desktop-list") });
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("tab", { name: /Relationship table/ })).toHaveAttribute("aria-selected", "true");
@@ -190,15 +182,18 @@ test("Art landing and 1366-wide constellation remain complete without overflow",
   const response = await page.goto("./#/art", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
   await page.getByRole("button", { name: "EN", exact: true }).click();
-  await expect(page.getByRole("link", { name: /Enter the Constellation of Art/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Explore Artist Connections/i })).toBeVisible();
   await page.screenshot({ path: screenshotPath("art-landing"), fullPage: true });
-  await page.getByRole("link", { name: /Enter the Constellation of Art/i }).click();
+  await page.getByRole("link", { name: /Explore Artist Connections/i }).click();
   await expect(page.locator("main[data-museum04-status=ready]")).toBeVisible();
   await expect(page.getByLabel("Artistic tradition")).toBeVisible();
   await expect(page.getByLabel("Context type")).toBeVisible();
-  await page.locator(".artist-navigator button").first().click();
-  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
-  await expect(page.locator(".artist-representative img")).toBeVisible();
+  await expect(page.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+  await page.getByLabel("Search artists").fill("Katsushika Hokusai");
+  await page.locator(".artist-list-view li").filter({ hasText: "Katsushika Hokusai" })
+    .getByRole("button", { name: "Open artist notes" }).click();
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+  await expect(page.locator("img, canvas")).toHaveCount(0);
   await expectNoHorizontalOverflow(page);
   await expectStaticSameOriginRuntime(page);
   expectCleanPage(observed);
@@ -236,87 +231,48 @@ test("About, rights, and accessibility routes expose their public controls", asy
   expectCleanPage(observed);
 });
 
-test("390px graph and low-bandwidth list preserve focus and URL state", async ({ page }) => {
+test("390px low-bandwidth explorer preserves focus and URL state", async ({ page }) => {
   const observed = observePage(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await openConstellation(page);
   await expect(page.locator("main[data-view=graph]")).toBeVisible();
-  await expectNoHorizontalOverflow(page);
-  await page.screenshot({ path: screenshotPath("mobile-graph"), fullPage: true });
-
-  await page.locator(".artist-navigator button").nth(1).click();
-  await expect(page).toHaveURL(/focus=/);
-  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
-  const panelBox = await page.locator(".constellation-detail-panel").boundingBox();
-  expect(panelBox).not.toBeNull();
-  expect((panelBox?.y ?? 0) + (panelBox?.height ?? 0)).toBeGreaterThanOrEqual(840);
-  expect(panelBox?.width ?? 0).toBeGreaterThanOrEqual(380);
-  await expect(page.locator(".related-relation-list button").first()).toBeVisible();
-  const representativeImage = page.locator(".artist-representative img");
-  await expect(representativeImage).toBeVisible();
-  await representativeImage.evaluate((element: HTMLImageElement) => element.decode());
-  await expect.poll(
-    async () => representativeImage.evaluate((element: HTMLImageElement) => element.naturalWidth),
-  ).toBeGreaterThan(0);
-  await page.getByRole("button", { name: "Close notes" }).click();
   await page.locator(".bandwidth-button").click();
   await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
-  await expect(page.locator("main[data-view=list]")).toBeVisible();
-  await expect(page.getByRole("tab", { name: /Graph/ })).toBeDisabled();
-  await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
-  const lowBandwidthListTab = page.getByRole("tab", { name: /Artist list/ });
-  await lowBandwidthListTab.focus();
-  await page.keyboard.press("Home");
-  await expect(lowBandwidthListTab).toBeFocused();
-  await page.keyboard.press("ArrowLeft");
-  await expect(page.getByRole("tab", { name: /Relationship table/ })).toBeFocused();
-  await expect(page.getByRole("tab", { name: /Relationship table/ })).toHaveAttribute("aria-selected", "true");
-  await page.keyboard.press("ArrowRight");
-  await expect(lowBandwidthListTab).toBeFocused();
-  await expect(lowBandwidthListTab).toHaveAttribute("aria-selected", "true");
+  await expectNoHorizontalOverflow(page);
+  await expect(page.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+  await page.screenshot({ path: screenshotPath("mobile-start"), fullPage: true });
+  await page.getByLabel("Search artists").fill("Katsushika Hokusai");
+  await page.locator(".artist-list-view li").filter({ hasText: "Katsushika Hokusai" }).getByRole("button", { name: "Open artist notes" }).click();
+  await expect(page).toHaveURL(/artist=/);
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("data-bandwidth", "low");
+  await expect(page.getByRole("tab", { name: /Graph/ })).toBeEnabled();
+  await expect(page.locator(".relation-artist-card")).not.toHaveCount(0);
   await page.reload({ waitUntil: "networkidle" });
-  await expect(page.locator("main[data-view=list]")).toBeVisible();
-  await expect(page.locator(".artist-list-view li.is-selected")).toHaveCount(1);
-  await expect(page.locator(".constellation-detail-panel")).toBeVisible();
-  await expect(page.locator(".constellation-detail-panel img")).toHaveCount(0);
-  await page.route("**/releases/*/assets/**", async (route) => {
-    await new Promise((resolveDelay) => setTimeout(resolveDelay, 250));
-    await route.continue();
-  });
-  await page.getByRole("button", { name: "Load this artwork image" }).click();
-  const imageStatus = page.locator(".artwork-image-status");
-  await expect(imageStatus).toBeFocused();
-  await expect(imageStatus).toHaveText("Loading the artwork image.");
-  await expect(page.locator(".constellation-detail-panel img")).toBeVisible();
-  await expect(imageStatus).toHaveText("Artwork image loaded.");
-  await page.unroute("**/releases/*/assets/**");
-  await page.getByRole("button", { name: "Close notes" }).click();
-  await revealDeferredListForFullPageCapture(page);
-  await page.screenshot({ path: screenshotPath("mobile-list"), fullPage: true });
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+  await expect(page.locator("img, canvas")).toHaveCount(0);
+  await page.screenshot({ path: screenshotPath("mobile-focused"), fullPage: true });
   await expectNoHorizontalOverflow(page);
   await expectStaticSameOriginRuntime(page);
   expectCleanPage(observed);
 });
 
-test("forced colors, reduced motion, and unavailable WebGL fall back to text", async ({ page }) => {
+test("forced colors, reduced motion, and unavailable WebGL keep the same relationship tasks", async ({ page }) => {
   const observed = observePage(page);
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });
   await page.setViewportSize({ width: 360, height: 800 });
   await openConstellation(page);
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
   await expect(page.locator("html")).toHaveAttribute("data-forced-colors", "active");
-  await expect(page.locator("main[data-view=list]")).toBeVisible();
-  await expect(page.locator(".artist-list-view li")).toHaveCount(50);
-  const forcedColorsListTab = page.getByRole("tab", { name: /Artist list/ });
-  await forcedColorsListTab.focus();
-  await page.keyboard.press("Home");
-  await expect(forcedColorsListTab).toBeFocused();
-  await page.keyboard.press("ArrowLeft");
-  await expect(page.getByRole("tab", { name: /Relationship table/ })).toBeFocused();
-  await page.keyboard.press("ArrowRight");
-  await expect(forcedColorsListTab).toBeFocused();
-  await revealDeferredListForFullPageCapture(page);
-  await page.screenshot({ path: screenshotPath("forced-colors-list"), fullPage: true });
+  await expect(page.locator("main[data-view=graph]")).toBeVisible();
+  await expect(page.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+  await page.getByLabel("Search artists").fill("Katsushika Hokusai");
+  await page.locator(".artist-list-view li").filter({ hasText: "Katsushika Hokusai" })
+    .getByRole("button", { name: "Open artist notes" }).click();
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Why connected?" }).first()).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+  await page.screenshot({ path: screenshotPath("forced-colors-explorer"), fullPage: true });
   await expectNoHorizontalOverflow(page);
   expectCleanPage(observed);
 
@@ -332,13 +288,11 @@ test("forced colors, reduced motion, and unavailable WebGL fall back to text", a
   });
   await webglPage.setViewportSize({ width: 390, height: 844 });
   await openConstellation(webglPage);
-  await expect(webglPage.locator("main[data-view=list]")).toBeVisible();
-  await expect(webglPage.locator(".artist-list-view li")).toHaveCount(50);
-  await expect(webglPage.getByRole("tab", { name: /Graph/ })).toBeDisabled();
-  await expect(webglPage.locator(".constellation-status-line")).toContainText("WebGL is not reliably available");
-  await webglPage.waitForTimeout(250);
-  await expect(webglPage.locator(".constellation-status-line")).toContainText("WebGL is not reliably available");
-  await expect(webglPage.locator(".constellation-canvas")).toHaveCount(0);
+  await expect(webglPage.locator("main[data-view=graph]")).toBeVisible();
+  await expect(webglPage.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+  await webglPage.locator(".relation-starters button").first().click();
+  await expect(webglPage.locator(".focused-relation-explorer")).toBeVisible();
+  await expect(webglPage.locator("canvas")).toHaveCount(0);
   await expectNoHorizontalOverflow(webglPage);
   expectCleanPage(webglObserved);
 });
@@ -357,7 +311,7 @@ test("no-script portal, Art, and rights content are available over HTTP 200", as
   const fallback = page.locator(".noscript-fallback");
   await expect(fallback.getByRole("heading", { name: "博物馆 · Museum" })).toBeVisible();
   await expect(fallback.getByRole("heading", {
-    name: "艺术星海与数字展厅 / Constellation & digital galleries",
+    name: "艺术家关系探索与数字展厅 / Artist connections & digital galleries",
   })).toBeVisible();
   await expect(fallback.getByRole("heading", { name: "权利与署名 / Rights & attribution" })).toBeVisible();
   await expect(fallback.getByText(/self-hosted derivatives that passed identity, rights, byte, and quality gates/i)).toBeVisible();

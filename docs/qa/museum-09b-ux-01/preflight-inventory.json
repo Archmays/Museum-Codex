@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "captured_at": "2026-07-22T12:00:00+08:00",
+  "branch": "main",
+  "baseline_commit": "917021458393b28dd27215f94f98a68be6565d5a",
+  "local_head": "917021458393b28dd27215f94f98a68be6565d5a",
+  "origin_main": "917021458393b28dd27215f94f98a68be6565d5a",
+  "remote_main": "917021458393b28dd27215f94f98a68be6565d5a",
+  "worktree_count": 1,
+  "stash_count": 0,
+  "global_agents_sha256": "sha256:2d9c79e30c66f63afb63ef86237fdd6659147d6054ca8e403b52fce17b10a635",
+  "global_agents_ci_heading_count": 1,
+  "input_release": {
+    "id": "release:art-expansion-batch-01-1.5.0",
+    "content_hash": "sha256:364dffe96d35b16ba2ffdc6395cb28793411bd8be3bd3e89fad8cdc85036b6c9",
+    "manifest_sha256": "sha256:7b03506242135a885ddf2c5b00bf284155e6d6b673c63440c001d56a008f60f9",
+    "physical_tree_sha256": "sha256:9dd52292a39a72fd5cec81bd4833fb55dbfe182443a86da431dfc64fe0ed948f",
+    "file_count": 65,
+    "byte_count": 11897641
+  },
+  "formal_counts": {
+    "artists": 62,
+    "artworks": 532,
+    "relationships": 60,
+    "place_time_episodes": 110,
+    "tours": 18,
+    "self_hosted": 71,
+    "external_link_only": 25,
+    "metadata_or_no_local_image": 436,
+    "derivatives": 318,
+    "public_originals": 0
+  },
+  "preflight_pages": {
+    "deployment_id": 5550987880,
+    "runtime_commit": "4097e5ffaaf7237777ee8b9d20dc682c317f5f44",
+    "url": "https://archmays.github.io/Museum-Codex/"
+  },
+  "protected_historical_release_mode": "hash_only",
+  "status": "pass"
+}

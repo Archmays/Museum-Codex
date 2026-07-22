@@ -26,6 +26,7 @@ MUSEUM_06_RELEASE_DIR = Path("releases") / "art-pathways-1.2.0"
 MUSEUM_07_RELEASE_DIR = Path("releases") / "art-time-place-1.3.0"
 MUSEUM_08_RELEASE_DIR = Path("releases") / "art-v1-candidate-1.4.0"
 MUSEUM_09B_RELEASE_DIR = Path("releases") / "art-expansion-batch-01-1.5.0"
+MUSEUM_09B_UX_RELEASE_DIR = Path("releases") / "art-expansion-batch-01-1.5.1"
 FORMAL_RELEASE_DIRS = (
     MUSEUM_04_RELEASE_DIR,
     MUSEUM_05B_RELEASE_DIR,
@@ -33,6 +34,7 @@ FORMAL_RELEASE_DIRS = (
     MUSEUM_07_RELEASE_DIR,
     MUSEUM_08_RELEASE_DIR,
     MUSEUM_09B_RELEASE_DIR,
+    MUSEUM_09B_UX_RELEASE_DIR,
 )
 RELEASE_INVALID_CODES = {
     MUSEUM_04_RELEASE_DIR.name: "museum_04_release_invalid",
@@ -41,6 +43,7 @@ RELEASE_INVALID_CODES = {
     MUSEUM_07_RELEASE_DIR.name: "museum_07_release_invalid",
     MUSEUM_08_RELEASE_DIR.name: "museum_08_release_invalid",
     MUSEUM_09B_RELEASE_DIR.name: "museum_09b_release_invalid",
+    MUSEUM_09B_UX_RELEASE_DIR.name: "museum_09b_ux_release_invalid",
 }
 RELEASE_LEDGER = ROOT / "governance" / "release-integrity-ledger.json"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
@@ -85,7 +88,7 @@ def scan_public_artifact(
         relative = path.relative_to(root).as_posix()
         formal_exempt = _path_is_within_any(path, resolved_exempt_roots)
         authority_id_exempt = any(
-            exempt_root.name in {MUSEUM_07_RELEASE_DIR.name, MUSEUM_08_RELEASE_DIR.name, MUSEUM_09B_RELEASE_DIR.name}
+            exempt_root.name in {MUSEUM_07_RELEASE_DIR.name, MUSEUM_08_RELEASE_DIR.name, MUSEUM_09B_RELEASE_DIR.name, MUSEUM_09B_UX_RELEASE_DIR.name}
             and path.resolve().is_relative_to(exempt_root)
             for exempt_root in resolved_exempt_roots
         )
@@ -292,7 +295,7 @@ def _release_tree_matches(
     expected_tree = entry.get("physical_tree")
     if physical_tree(release_root) == expected_tree:
         return True
-    if release_dir != MUSEUM_09B_RELEASE_DIR:
+    if release_dir not in {MUSEUM_09B_RELEASE_DIR, MUSEUM_09B_UX_RELEASE_DIR}:
         return False
     try:
         resolution = json.loads((release_root / "asset-resolution-manifest.json").read_text(encoding="utf-8"))

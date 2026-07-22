@@ -1,9 +1,10 @@
 import { expect, test, type Page, type TestInfo } from "@playwright/test";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-const releaseDirectory = path.resolve("public/releases/art-expansion-batch-01-1.5.0");
-const qaDirectory = path.resolve(process.env.MUSEUM09B_QA_DIR ?? "docs/qa/museum-09b-release");
+const releaseDirectory = path.resolve("public/releases/art-expansion-batch-01-1.5.1");
+const qaDirectory = path.resolve(process.env.MUSEUM09B_QA_DIR ?? "docs/qa/museum-09b-ux-01");
 const screenshotDirectory = path.join(qaDirectory, "screenshots");
 mkdirSync(screenshotDirectory, { recursive: true });
 
@@ -11,7 +12,11 @@ type PublicArtist = {
   id: string;
   public_slug: string;
   profile_kind: "gallery" | "collection";
-  labels: { en: string };
+  labels: { en: string; "zh-Hans": string };
+  relation_count: number;
+  public_intro: { en: string; "zh-Hans": string };
+  look_for: { en: string[]; "zh-Hans": string[] };
+  evidence_boundary: { en: string; "zh-Hans": string };
 };
 type PublicArtwork = {
   id: string;
@@ -25,6 +30,12 @@ const artists = (JSON.parse(readFileSync(path.join(releaseDirectory, "artists.js
 const artworks = (JSON.parse(readFileSync(path.join(releaseDirectory, "artworks.json"), "utf8")) as { artworks: PublicArtwork[] }).artworks;
 const newGallery = artists.find((artist) => artist.id.includes("m09a") && artist.profile_kind === "gallery")!;
 const newCollection = artists.find((artist) => artist.id.includes("m09a") && artist.profile_kind === "collection")!;
+const tanner = artists.find((artist) => artist.id === "artist:henry-ossawa-tanner")!;
+const focusExplorerArtist = artists.find((artist) => artist.id === "artist:katsushika-hokusai")!;
+const emptyExplorerArtist = artists.find((artist) => artist.relation_count === 0)!;
+const selfHostedPromptArtist = artists.find((artist) => artist.id === "artist:albrecht-durer")!;
+const externalPromptArtist = artists.find((artist) => artist.id === "artist:m09a-moma_open_data-1465")!;
+const metadataPromptArtist = artists.find((artist) => artist.id === "artist:m09a-cleveland_open_access-nakunte-diarra-2020")!;
 const selfHosted = artworks.find((artwork) => artwork.id.includes("m09b") && artwork.media.decision === "approved_self_hosted")!;
 const externalOnly = artworks.find((artwork) => artwork.id.includes("m09b") && artwork.media.decision === "external_link_only")!;
 const metadataOnly = artworks.find((artwork) => artwork.id.includes("m09b") && artwork.media.decision === "metadata_only")!;
@@ -79,8 +90,8 @@ function observe(page: Page, origin: string): RuntimeObservation {
   return result;
 }
 
-async function installPreferences(page: Page, lowBandwidth = true) {
-  await page.addInitScript(({ low }) => {
+async function installPreferences(page: Page, lowBandwidth = true, locale: "en" | "zh-CN" = "en") {
+  await page.addInitScript(({ low, selectedLocale }) => {
     const state = window as Window & { __museum09bGeolocationReads?: number };
     state.__museum09bGeolocationReads = 0;
     try {
@@ -94,9 +105,9 @@ async function installPreferences(page: Page, lowBandwidth = true) {
     } catch {
       // The assertion below still proves that the native API was never called.
     }
-    localStorage.setItem("museum-locale", "en");
+    localStorage.setItem("museum-locale", selectedLocale);
     localStorage.setItem("museum-low-bandwidth", String(low));
-  }, { low: lowBandwidth });
+  }, { low: lowBandwidth, selectedLocale: locale });
 }
 
 async function gotoRoute(page: Page, route: string) {
@@ -165,18 +176,76 @@ async function expectControlTargets(page: Page) {
   expect(undersized).toEqual([]);
 }
 
+async function expectNoFocusedExplorerCollisions(page: Page) {
+  const result = await page.evaluate(() => {
+    const boxes = (selector: string) => [...document.querySelectorAll<HTMLElement>(selector)]
+      .filter((element) => {
+        const style = getComputedStyle(element);
+        const box = element.getBoundingClientRect();
+        return style.display !== "none" && style.visibility !== "hidden" && box.width > 0 && box.height > 0;
+      })
+      .map((element) => {
+        const box = element.getBoundingClientRect();
+        return { id: element.dataset.artistId ?? element.textContent?.trim().slice(0, 60) ?? element.tagName, left: box.left, right: box.right, top: box.top, bottom: box.bottom };
+      });
+    const collisions = (items: ReturnType<typeof boxes>) => items.flatMap((left, index) => items.slice(index + 1).flatMap((right) => {
+      const overlapX = Math.min(left.right, right.right) - Math.max(left.left, right.left);
+      const overlapY = Math.min(left.bottom, right.bottom) - Math.max(left.top, right.top);
+      return overlapX > 1 && overlapY > 1 ? [`${left.id} <> ${right.id}`] : [];
+    }));
+    const cards = boxes(".relation-artist-card");
+    const labels = boxes(".relation-artist-card h3");
+    const clipped = cards.filter((box) => box.left < -1 || box.right > document.documentElement.clientWidth + 1).map((box) => box.id);
+    return {
+      nodeCount: Number(document.querySelector(".focused-relation-explorer")?.getAttribute("data-node-count") ?? -1),
+      cardCollisions: collisions(cards),
+      labelCollisions: collisions(labels),
+      clipped,
+    };
+  });
+  expect(result.nodeCount).toBeGreaterThan(0);
+  expect(result.nodeCount).toBeLessThanOrEqual(13);
+  expect(result.cardCollisions).toEqual([]);
+  expect(result.labelCollisions).toEqual([]);
+  expect(result.clipped).toEqual([]);
+}
+
+async function selectFocusedArtist(page: Page, artist: PublicArtist, locale: "en" | "zh-CN" = "en") {
+  const name = locale === "zh-CN" ? artist.labels["zh-Hans"] : artist.labels.en;
+  const searchLabel = locale === "zh-CN" ? "搜索艺术家" : "Search artists";
+  const actionLabel = locale === "zh-CN" ? "查看艺术家说明" : "Open artist notes";
+  await page.getByLabel(searchLabel).fill(name);
+  const item = page.locator(".artist-list-view li").filter({ hasText: name }).first();
+  await expect(item).toBeVisible();
+  await item.getByRole("button", { name: actionLabel }).click();
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+}
+
 function percentile(values: number[], ratio: number) {
   const sorted = [...values].sort((left, right) => left - right);
   return sorted[Math.max(0, Math.ceil(sorted.length * ratio) - 1)] ?? 0;
 }
 
-async function capture(page: Page, name: string) {
+async function capture(page: Page, name: string, route: string, locale: "en" | "zh-CN", validationTarget: string) {
   await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
+  const destination = path.join(screenshotDirectory, `${name}.png`);
   await page.screenshot({
-    path: path.join(screenshotDirectory, `${name}.png`),
+    path: destination,
     fullPage: true,
     style: ".skip-link { visibility: hidden !important; }",
   });
+  const bytes = readFileSync(destination);
+  const recordedRoute = /^https?:/i.test(route) ? new URL(route).hash.replace(/^#/, "") : route;
+  return {
+    name,
+    path: path.relative(path.resolve("."), destination).replaceAll("\\", "/"),
+    route: recordedRoute,
+    viewport: page.viewportSize(),
+    locale,
+    bytes: statSync(destination).size,
+    sha256: `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+    validation_target: validationTarget,
+  };
 }
 
 test.describe.configure({ timeout: 300_000 });
@@ -207,7 +276,7 @@ test("formal M09B routes preserve identity, landmarks, no-image paths, and runti
   expect(await page.evaluate(() => sessionStorage.length)).toBe(0);
   expect(await page.evaluate(() => (window as Window & { __museum09bGeolocationReads?: number }).__museum09bGeolocationReads ?? 0)).toBe(0);
   writeFileSync(path.join(qaDirectory, "automated-a11y-results.json"), `${JSON.stringify({
-    schema_version: "1.0.0", phase_id: "MUSEUM-09B-RELEASE", automated_engine: "project_dom_accessibility_gate",
+    schema_version: "1.0.0", phase_id: "MUSEUM-09B-UX-01", automated_engine: "project_dom_accessibility_gate",
     serious: 0, critical: 0, routes: results, real_assistive_technology: "not_available",
     physical_devices: "not_available", status: "pass",
   }, null, 2)}\n`);
@@ -223,9 +292,70 @@ test("seven required viewports retain 44 CSS pixel controls and reflow", async (
       await noHorizontalOverflow(page);
       await expectControlTargets(page);
     }
+    await gotoRoute(page, "/art/constellation");
+    await expect(page.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+    await expect(page.locator(".focused-relation-explorer")).toHaveCount(0);
+    await selectFocusedArtist(page, focusExplorerArtist);
+    await expect(page.getByRole("heading", { level: 3, name: "Shared subject" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 3, name: "Shared material" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 3, name: "Shared technique" })).toBeVisible();
+    await expectNoFocusedExplorerCollisions(page);
+    await noHorizontalOverflow(page);
+    await expectControlTargets(page);
   }
   expect(runtime.external).toEqual([]);
   expect(runtime.images).toEqual([]);
+  expect(runtime.consoleErrors).toEqual([]);
+});
+
+test("relationship explorer preserves URL history, keyboard evidence, empty, theme, list, and table equivalents", async ({ page }, testInfo) => {
+  await installPreferences(page, true);
+  await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });
+  await page.setViewportSize({ width: 768, height: 1024 });
+  const runtime = observe(page, expectedOrigin(testInfo));
+
+  await gotoRoute(page, "/art/constellation");
+  await selectFocusedArtist(page, focusExplorerArtist);
+  await expect(page).toHaveURL(new RegExp(`artist=${encodeURIComponent(focusExplorerArtist.id)}`));
+  const edge = page.locator(".relation-edge svg [role=button]").first();
+  await edge.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("complementary", { name: "Relationship explanation" })).toBeVisible();
+  await page.getByRole("button", { name: "Close notes" }).click();
+  await page.goBack();
+  await expect(page.locator(".artist-list-view:visible")).toBeVisible();
+  await expect(page.getByLabel("Search artists")).toHaveValue(focusExplorerArtist.labels.en);
+  await page.goForward();
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+
+  await gotoRoute(page, "/art/constellation");
+  await selectFocusedArtist(page, emptyExplorerArtist);
+  await expect(page.locator(".focused-relation-explorer")).toHaveAttribute("data-node-count", "1");
+  await expect(page.locator(".relation-lane-empty")).toHaveCount(3);
+
+  await gotoRoute(page, "/art/constellation");
+  const themeSelect = page.getByLabel("Explore by theme");
+  await themeSelect.focus();
+  await expect.poll(async () => themeSelect.locator("option").count()).toBeGreaterThan(1);
+  const themeValue = await themeSelect.locator("option").nth(1).getAttribute("value");
+  if (!themeValue) throw new Error("Expected at least one verified theme context");
+  await themeSelect.selectOption(themeValue);
+  await expect(page.locator(".theme-explorer")).toBeVisible();
+  expect(await page.locator(".theme-artist-grid .relation-artist-card").count()).toBeLessThanOrEqual(16);
+  await expect(page.locator(".theme-complete-list")).toBeVisible();
+
+  await gotoRoute(page, "/art/constellation?view=list");
+  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("62");
+  await gotoRoute(page, "/art/constellation?view=table");
+  await expect(page.locator(".relationship-table-view tbody tr")).toHaveCount(60);
+
+  await page.evaluate(() => { document.documentElement.style.fontSize = "200%"; });
+  await noHorizontalOverflow(page);
+  await expect(page.locator(".relationship-table-view")).toBeVisible();
+  expect(runtime.external).toEqual([]);
+  expect(runtime.images).toEqual([]);
+  expect(runtime.rendererChunks).toEqual([]);
+  expect(runtime.failures).toEqual([]);
   expect(runtime.consoleErrors).toEqual([]);
 });
 
@@ -251,6 +381,27 @@ test("self-hosted, external-link-only, and metadata-only records retain distinct
   await expect(page.getByRole("heading", { level: 2, name: "Begin with the object record" })).toBeVisible();
   expect(runtime.images).toHaveLength(imageCount);
   expect(runtime.external).toEqual([]);
+  expect(runtime.consoleErrors).toEqual([]);
+});
+
+test("child-facing introductions and media-aware prompts precede the technical evidence layer", async ({ page }, testInfo) => {
+  await installPreferences(page, true, "en");
+  const runtime = observe(page, expectedOrigin(testInfo));
+  for (const artist of [selfHostedPromptArtist, externalPromptArtist, metadataPromptArtist]) {
+    await gotoRoute(page, `/art/artists/${artist.public_slug}`);
+    await expect(page.getByRole("heading", { level: 2, name: "Meet the artist" })).toBeVisible();
+    await expect(page.locator(".artist-public-intro")).toHaveText(artist.public_intro.en);
+    await expect(page.locator(".artist-look-for")).toContainText(artist.look_for.en[0]);
+    await expect(page.locator(".artist-evidence-boundary")).toHaveText(artist.evidence_boundary.en);
+    await expect(page.locator("details.artist-provenance")).not.toHaveAttribute("open", "");
+  }
+  await gotoRoute(page, `/art/artists/${tanner.public_slug}`);
+  await expect(page.locator(".artist-public-intro")).toHaveText(tanner.public_intro.en);
+  await page.getByRole("button", { name: "中", exact: true }).click();
+  await expect(page.getByRole("heading", { level: 2, name: "认识这位艺术家" })).toBeVisible();
+  await expect(page.locator(".artist-public-intro")).toHaveText(tanner.public_intro["zh-Hans"]);
+  expect(runtime.external).toEqual([]);
+  expect(runtime.images).toEqual([]);
   expect(runtime.consoleErrors).toEqual([]);
 });
 
@@ -292,6 +443,7 @@ test("@museum-09b-isolated-performance controlled FTI, CLS, interaction, and low
   const cls: number[] = [];
   const transfer: number[] = [];
   const interactions: number[] = [];
+  let mobileResourceTransferSample: Array<{ path: string; transfer_size: number; encoded_body_size: number }> = [];
   let externalRequestCount = 0;
   let unexpectedMediaPreloadCount = 0;
   let geolocationCallCount = 0;
@@ -312,30 +464,42 @@ test("@museum-09b-isolated-performance controlled FTI, CLS, interaction, and low
         }).observe({ type: "layout-shift", buffered: true });
       });
       const started = performance.now();
-      await gotoRoute(page, viewport.width < 1000 ? "/art/search" : "/art");
+      await gotoRoute(page, "/art/constellation");
       const duration = performance.now() - started;
       (viewport.width < 1000 ? mobileFti : desktopFti).push(duration);
+      await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+      cls.push(await page.evaluate(() => (window as Window & { __museum09bCls?: number }).__museum09bCls ?? 0));
       if (viewport.width < 1000) {
+        const transferProbe = await page.evaluate(() => {
+          const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+          const resources = (performance.getEntriesByType("resource") as PerformanceResourceTiming[]).map((entry) => ({
+            path: new URL(entry.name).pathname,
+            transfer_size: entry.transferSize || 0,
+            encoded_body_size: entry.encodedBodySize || 0,
+          }));
+          const navigationEntry = navigation ? [{
+            path: new URL(navigation.name).pathname,
+            transfer_size: navigation.transferSize || 0,
+            encoded_body_size: navigation.encodedBodySize || 0,
+          }] : [];
+          const entries = [...navigationEntry, ...resources];
+          return { total: entries.reduce((sum, entry) => sum + entry.transfer_size, 0), entries };
+        });
+        transfer.push(transferProbe.total);
+        if (run === 0) mobileResourceTransferSample = transferProbe.entries.sort((left, right) => right.transfer_size - left.transfer_size);
+        await selectFocusedArtist(page, focusExplorerArtist);
         interactions.push(...await page.evaluate(async () => {
-          const input = document.querySelector<HTMLInputElement>("#museum-search-query");
-          const form = document.querySelector<HTMLFormElement>(".search-form");
-          if (!input || !form) return [];
           const values: number[] = [];
-          for (let index = 0; index < 30; index += 1) {
+          for (let index = 0; index < 20; index += 1) {
+            const buttons = [...document.querySelectorAll<HTMLButtonElement>(".relation-artist-card button")];
+            const button = buttons[index % Math.max(1, buttons.length)];
+            if (!button) break;
             const began = performance.now();
-            input.value = index % 2 ? "Hua Yan" : "art";
-            input.dispatchEvent(new Event("input", { bubbles: true }));
-            form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-            await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+            button.click();
+            await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
             values.push(performance.now() - began);
           }
           return values;
-        }));
-        cls.push(await page.evaluate(() => (window as Window & { __museum09bCls?: number }).__museum09bCls ?? 0));
-        transfer.push(await page.evaluate(() => {
-          const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-          return (navigation?.transferSize ?? 0) + (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
-            .reduce((total, entry) => total + (entry.transferSize || 0), 0);
         }));
       }
       externalRequestCount += runtime.external.length;
@@ -346,52 +510,92 @@ test("@museum-09b-isolated-performance controlled FTI, CLS, interaction, and low
     }
   }
   const metrics = {
-    schema_version: "1.0.0", phase_id: "MUSEUM-09B-RELEASE", evidence_class: "controlled_browser_probe",
+    schema_version: "1.0.0", phase_id: "MUSEUM-09B-UX-01", evidence_class: "controlled_browser_probe",
     real_user_metric: false, environment: "Playwright Chromium preview", cold_runs: 3,
     desktop_first_interactive_median_ms: percentile(desktopFti, 0.5), desktop_first_interactive_p95_ms: percentile(desktopFti, 0.95),
     mobile_first_interactive_median_ms: percentile(mobileFti, 0.5), mobile_first_interactive_p95_ms: percentile(mobileFti, 0.95),
     cls_p95: percentile(cls, 0.95), interaction_runs: interactions.length, interaction_p95_ms: percentile(interactions, 0.95),
     low_bandwidth_initial_transfer_p95_bytes: percentile(transfer, 0.95), external_request_count: externalRequestCount,
+    mobile_resource_transfer_sample: mobileResourceTransferSample,
     unexpected_media_preload_count: unexpectedMediaPreloadCount, geolocation_call_count: geolocationCallCount, status: "pass",
   };
+  writeFileSync(path.join(qaDirectory, "browser-metrics.json"), `${JSON.stringify(metrics, null, 2)}\n`);
   expect(metrics.desktop_first_interactive_p95_ms).toBeLessThanOrEqual(1_800);
   expect(metrics.mobile_first_interactive_p95_ms).toBeLessThanOrEqual(2_500);
   expect(metrics.cls_p95).toBeLessThanOrEqual(0.1);
-  expect(metrics.interaction_p95_ms).toBeLessThanOrEqual(150);
+  expect(metrics.interaction_p95_ms).toBeLessThanOrEqual(100);
   expect(metrics.low_bandwidth_initial_transfer_p95_bytes).toBeLessThanOrEqual(250_000);
   expect(metrics.external_request_count).toBe(0);
   expect(metrics.unexpected_media_preload_count).toBe(0);
   expect(metrics.geolocation_call_count).toBe(0);
-  writeFileSync(path.join(qaDirectory, "browser-metrics.json"), `${JSON.stringify(metrics, null, 2)}\n`);
 });
 
 test("@museum-09b-screenshots captures the twelve bounded release views", async ({ page }) => {
-  await installPreferences(page, true);
+  await installPreferences(page, true, "zh-CN");
+  const screenshots: Awaited<ReturnType<typeof capture>>[] = [];
   await page.setViewportSize({ width: 1440, height: 900 });
-  await gotoRoute(page, "/art");
-  await expect(page.locator(".current-release-scope")).toContainText("62");
-  await expect(page.locator(".current-release-scope")).toContainText("532");
-  await capture(page, "01-art-landing-desktop");
+  await gotoRoute(page, "/art/constellation");
+  await expect(page.locator(".relation-start")).toHaveAttribute("data-default-node-count", "0");
+  screenshots.push(await capture(page, "01-relationship-start-desktop", "/art/constellation", "zh-CN", "默认无全体圆环，初始节点为 0，搜索与 coverage 起点清楚"));
+
+  await selectFocusedArtist(page, focusExplorerArtist, "zh-CN");
+  await expectNoFocusedExplorerCollisions(page);
+  screenshots.push(await capture(page, "02-focused-three-lanes-desktop", `/art/constellation?artist=${encodeURIComponent(focusExplorerArtist.id)}`, "zh-CN", "中心艺术家与题材、材料、技法三类分支，节点和标签无重叠"));
+
   await page.setViewportSize({ width: 390, height: 844 });
-  await gotoRoute(page, "/art/artists"); await capture(page, "02-artist-index-mobile");
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await gotoRoute(page, `/art/artists/${newGallery.public_slug}`); await capture(page, "03-gallery-profile-desktop");
-  await page.setViewportSize({ width: 390, height: 844 });
-  await gotoRoute(page, `/art/artists/${newCollection.public_slug}`); await capture(page, "04-collection-profile-mobile");
-  await gotoRoute(page, `/art/artworks/${selfHosted.public_slug}`);
-  await page.getByRole("button", { name: "Load this artwork image" }).click();
-  await expect(page.getByRole("img")).toBeVisible(); await capture(page, "05-self-hosted-artwork");
-  await gotoRoute(page, `/art/artworks/${externalOnly.public_slug}`); await capture(page, "06-external-link-artwork");
-  await gotoRoute(page, `/art/artworks/${metadataOnly.public_slug}`); await capture(page, "07-metadata-only-artwork");
-  await page.setViewportSize({ width: 768, height: 1024 });
-  await gotoRoute(page, `/art/compare?left=${encodeURIComponent(externalOnly.id)}&right=${encodeURIComponent(metadataOnly.id)}`); await capture(page, "08-mixed-compare");
-  await page.setViewportSize({ width: 390, height: 844 });
-  await gotoRoute(page, "/art/search");
-  await page.getByRole("searchbox").fill(newGallery.labels.en);
-  await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByRole("heading", { level: 2, name: /matches/ })).toBeVisible(); await capture(page, "09-expanded-search");
-  await gotoRoute(page, "/art/constellation?view=list"); await capture(page, "10-constellation-text");
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await gotoRoute(page, "/art/map?view=list"); await capture(page, "11-map-low-bandwidth-list");
-  await gotoRoute(page, "/rights"); await capture(page, "12-rights-and-sources");
+  await expectNoFocusedExplorerCollisions(page);
+  screenshots.push(await capture(page, "03-focused-artist-mobile", `/art/constellation?artist=${encodeURIComponent(focusExplorerArtist.id)}`, "zh-CN", "390px 移动端纵向分组、无裁切与横向溢出"));
+
+  await page.getByRole("button", { name: "为什么相连？" }).first().click();
+  await expect(page.getByRole("complementary", { name: "关系解释" })).toBeVisible();
+  screenshots.push(await capture(page, "04-relationship-explanation", page.url(), "zh-CN", "普通访客关系解释、证据入口与不代表历史影响的边界"));
+  await page.getByRole("button", { name: "关闭说明" }).click();
+
+  await gotoRoute(page, "/art/constellation");
+  await selectFocusedArtist(page, emptyExplorerArtist, "zh-CN");
+  await expect(page.locator(".relation-lane-empty")).toHaveCount(3);
+  screenshots.push(await capture(page, "05-no-formal-relationships", page.url(), "zh-CN", "无正式关系时保持自然空状态且不补算法边"));
+
+  await gotoRoute(page, "/art/constellation");
+  const themeSelect = page.getByLabel("按主题探索");
+  await themeSelect.focus();
+  await expect.poll(async () => themeSelect.locator("option").count()).toBeGreaterThan(1);
+  const themeValue = await themeSelect.locator("option").nth(1).getAttribute("value");
+  if (!themeValue) throw new Error("Expected at least one verified theme context");
+  await themeSelect.selectOption(themeValue);
+  await expect(page.locator(".theme-explorer")).toBeVisible();
+  screenshots.push(await capture(page, "06-theme-mode", page.url(), "zh-CN", "主题作为标题、视觉分组不超过 16 人并保留完整文字列表"));
+
+  await gotoRoute(page, `/art/artists/${tanner.public_slug}`);
+  await expect(page.locator(".artist-public-intro")).toHaveText(tanner.public_intro["zh-Hans"]);
+  screenshots.push(await capture(page, "07-tanner-child-intro", `/art/artists/${tanner.public_slug}`, "zh-CN", "Tanner 中文自然主介绍与观察提示优先于治理语言"));
+
+  await gotoRoute(page, `/art/artists/${newGallery.public_slug}`);
+  screenshots.push(await capture(page, "08-new-gallery-child-intro", `/art/artists/${newGallery.public_slug}`, "zh-CN", "新增 Gallery 使用同一儿童友好叙事层"));
+
+  await gotoRoute(page, `/art/artists/${newCollection.public_slug}`);
+  screenshots.push(await capture(page, "09-collection-child-intro", `/art/artists/${newCollection.public_slug}`, "zh-CN", "Collection profile 使用同一儿童友好叙事层"));
+
+  await gotoRoute(page, `/art/artists/${metadataPromptArtist.public_slug}`);
+  await expect(page.locator(".artist-look-for")).toContainText(metadataPromptArtist.look_for["zh-Hans"][0]);
+  screenshots.push(await capture(page, "10-metadata-only-prompt", `/art/artists/${metadataPromptArtist.public_slug}`, "zh-CN", "无本站图片时提示比较标题、日期、材料与机构，不要求观察不存在的图像"));
+
+  await gotoRoute(page, `/art/artists/${tanner.public_slug}`);
+  await page.locator("details.artist-provenance summary").click();
+  await expect(page.locator("details.artist-provenance")).toHaveAttribute("open", "");
+  screenshots.push(await capture(page, "11-evidence-boundary-open", `/art/artists/${tanner.public_slug}`, "zh-CN", "技术边界与逐句 Claim-Evidence-Source 映射保留在次级层"));
+
+  await page.emulateMedia({ forcedColors: "active", reducedMotion: "reduce" });
+  await gotoRoute(page, "/art/constellation");
+  await selectFocusedArtist(page, focusExplorerArtist, "zh-CN");
+  await expect(page.locator(".focused-relation-explorer")).toBeVisible();
+  screenshots.push(await capture(page, "12-forced-colors-low-bandwidth-equivalent", page.url(), "zh-CN", "forced-colors、reduced-motion 与低带宽仍保留关系、解释和导航任务"));
+
+  writeFileSync(path.join(qaDirectory, "screenshot-index.json"), `${JSON.stringify({
+    schema_version: "1.0.0",
+    phase_id: "MUSEUM-09B-UX-01",
+    screenshot_count: screenshots.length,
+    screenshots,
+  }, null, 2)}\n`);
+  expect(screenshots).toHaveLength(12);
 });

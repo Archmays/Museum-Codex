@@ -124,17 +124,14 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
         <section aria-labelledby="documented-intro-title">
           <p className="gallery-section-number" aria-hidden="true">01</p>
           <h2 id="documented-intro-title">{copy.reviewedIntro}</h2>
-          <p>{localize(artist.summary, locale)}</p>
+          <p className="artist-public-intro">{localize(artist.publicIntro ?? artist.summary, locale)}</p>
         </section>
-        <section aria-labelledby="timeline-title">
+        <section aria-labelledby="look-for-title">
           <p className="gallery-section-number" aria-hidden="true">02</p>
-          <h2 id="timeline-title">{copy.timeline}</h2>
-          <dl className="artist-timeline-facts">
-            <div><dt>{copy.lifeDates}</dt><dd>{artist.lifeDisplay ? localize(artist.lifeDisplay, locale) : "—"}</dd></div>
-            <div><dt>{copy.workRange}</dt><dd>{workDates.length > 0 ? workDates.join(" · ") : "—"}</dd></div>
-            <div><dt>{copy.context}</dt><dd>{[artist.period, artist.region, artist.tradition].filter(Boolean).join(" · ")}</dd></div>
-            <div><dt>{copy.practice}</dt><dd>{localize(artist.mediaPractice, locale)}</dd></div>
-          </dl>
+          <h2 id="look-for-title">{locale === "zh-CN" ? "看作品时，可以找什么？" : "What can you look for?"}</h2>
+          <ul className="artist-look-for">
+            {(artist.lookFor?.[locale === "zh-CN" ? "zh-Hans" : "en"] ?? []).map((prompt) => <li key={prompt}>{prompt}</li>)}
+          </ul>
         </section>
       </div>
 
@@ -212,9 +209,26 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
         </ol>
       </section>
 
+      <div className="artist-context-and-timeline">
+        <section aria-labelledby="artist-context-title">
+          <p className="gallery-section-number" aria-hidden="true">04</p>
+          <h2 id="artist-context-title">{locale === "zh-CN" ? "时代与地点" : "Time and place"}</h2>
+          <p>{locale === "zh-CN" ? `${name} 的公开记录把作品放在 ${artist.period}、${artist.region}${artist.tradition ? `与${artist.tradition}` : ""}中观察。这里的语境帮助我们提问，不替代对每件作品的仔细观看。` : `The public record places ${name}'s work within ${artist.period}, ${artist.region}${artist.tradition ? `, and ${artist.tradition}` : ""}. This context helps us ask questions; it does not replace close looking at each work.`}</p>
+        </section>
+        <section aria-labelledby="timeline-title">
+          <p className="gallery-section-number" aria-hidden="true">05</p>
+          <h2 id="timeline-title">{copy.timeline}</h2>
+          <dl className="artist-timeline-facts">
+            <div><dt>{copy.lifeDates}</dt><dd>{artist.lifeDisplay ? localize(artist.lifeDisplay, locale) : "—"}</dd></div>
+            <div><dt>{copy.workRange}</dt><dd>{workDates.length > 0 ? workDates.join(" · ") : "—"}</dd></div>
+            <div><dt>{copy.practice}</dt><dd>{localize(artist.mediaPractice, locale)}</dd></div>
+          </dl>
+        </section>
+      </div>
+
       <div className="artist-gallery-reference-grid">
         <section aria-labelledby="related-artists-title">
-          <p className="gallery-section-number" aria-hidden="true">04</p>
+          <p className="gallery-section-number" aria-hidden="true">06</p>
           <h2 id="related-artists-title">{copy.relatedArtists}</h2>
           <p className="artist-related-boundary">{localize(release.summary.semantics, locale)}</p>
           {!currentRelationshipLoad ? <p role="status">{copy.loading}</p> : currentRelationshipLoad.status === "failed" ? (
@@ -233,8 +247,26 @@ export function ArtistGalleryPage({ release, catalog, dataSource, interactions, 
         </section>
 
         <section aria-labelledby="artist-sources-title">
-          <p className="gallery-section-number" aria-hidden="true">05</p>
+          <p className="gallery-section-number" aria-hidden="true">07</p>
           <h2 id="artist-sources-title">{copy.sourceRights}</h2>
+          {artist.evidenceBoundary ? <p className="artist-evidence-boundary">{localize(artist.evidenceBoundary, locale)}</p> : null}
+          {artist.sentenceProvenance?.length ? (
+            <details className="artist-provenance">
+              <summary>{locale === "zh-CN" ? "这段介绍依据哪些资料？" : "What supports this introduction?"}</summary>
+              <ol>
+                {artist.sentenceProvenance.map((item) => (
+                  <li key={item.sentenceId}>
+                    <p>{localize(item.text, locale)}</p>
+                    <dl>
+                      <div><dt>Claim</dt><dd>{item.claimIds.join(" · ")}</dd></div>
+                      <div><dt>Evidence</dt><dd>{item.evidenceIds.join(" · ")}</dd></div>
+                      <div><dt>Source</dt><dd>{item.sourceIds.join(" · ")}</dd></div>
+                    </dl>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          ) : null}
           <dl className="artist-review-facts">
             <div><dt>{copy.reviewRecord}</dt><dd>{artist.reviewDate}</dd></div>
             <div><dt>{copy.metadataRule}</dt><dd>{copy.metadataRuleBound}</dd></div>

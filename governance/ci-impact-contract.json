@@ -32,12 +32,17 @@
       "phase": "MUSEUM-08",
       "release_id": "release:art-v1-candidate-1.4.0",
       "directory": "public/releases/art-v1-candidate-1.4.0"
+    },
+    {
+      "phase": "MUSEUM-09B-RELEASE",
+      "release_id": "release:art-expansion-batch-01-1.5.0",
+      "directory": "public/releases/art-expansion-batch-01-1.5.0"
     }
   ],
   "candidate_release": {
-    "phase": "MUSEUM-09B-RELEASE",
-    "release_id": "release:art-expansion-batch-01-1.5.0",
-    "directory": "public/releases/art-expansion-batch-01-1.5.0"
+    "phase": "MUSEUM-09B-UX-01",
+    "release_id": "release:art-expansion-batch-01-1.5.1",
+    "directory": "public/releases/art-expansion-batch-01-1.5.1"
   },
   "docs_only_prefixes": [
     "docs/phase-reports/",
@@ -160,6 +165,25 @@
       "src/features/art-gallery/",
       "src/features/art-map/",
       "src/features/art-paths/",
+      "src/features/art-search/"
+    ],
+    "MUSEUM-09B-UX-01": [
+      "museum_pipeline/art/ux_release.py",
+      "scripts/build_museum_09b_ux_release.py",
+      "scripts/validate_museum_09b_ux_release.py",
+      "scripts/benchmark-museum-09b-search.mjs",
+      "scripts/verify-museum-09b-budgets.mjs",
+      "scripts/verify_museum_09b_online.py",
+      "schemas/art/release/art-expansion-public-record-v151.schema.json",
+      "schemas/art/release/art-expansion-media-asset-v151.schema.json",
+      "schemas/art/release/art-expansion-source-v151.schema.json",
+      "schemas/art/release/artist-narrative.schema.json",
+      "schemas/art/release/relationship-explorer-config.schema.json",
+      "public/releases/art-expansion-batch-01-1.5.1/",
+      "src/data/art-release-profile.ts",
+      "src/data/release-loader.ts",
+      "src/features/art-constellation/",
+      "src/features/art-gallery/",
       "src/features/art-search/"
     ]
   },

@@ -4,12 +4,12 @@ import { loadArtConstellationRelease, loadStaticRelease } from "../data/release-
 import { loadArtInteractionIndex } from "../features/art-gallery/interaction-loader";
 import { loadSearchIndex } from "../features/art-search/search-loader";
 
-const releaseRoot = path.resolve("public/releases/art-expansion-batch-01-1.5.0");
-const baseUrl = new URL("/Museum-Codex/releases/art-expansion-batch-01-1.5.0/", window.location.href).href;
+const releaseRoot = path.resolve("public/releases/art-expansion-batch-01-1.5.1");
+const baseUrl = new URL("/Museum-Codex/releases/art-expansion-batch-01-1.5.1/", window.location.href).href;
 
 const releaseFetcher = vi.fn<typeof fetch>((input: RequestInfo | URL) => {
   const url = new URL(typeof input === "string" || input instanceof URL ? input.toString() : input.url);
-  const marker = "/releases/art-expansion-batch-01-1.5.0/";
+  const marker = "/releases/art-expansion-batch-01-1.5.1/";
   const relativePath = decodeURIComponent(url.pathname.slice(url.pathname.indexOf(marker) + marker.length));
   try {
     const bytes = readFileSync(path.join(releaseRoot, ...relativePath.split("/")));
@@ -19,7 +19,7 @@ const releaseFetcher = vi.fn<typeof fetch>((input: RequestInfo | URL) => {
   }
 });
 
-describe("MUSEUM-09B formal browser release", () => {
+describe("MUSEUM-09B-UX-01 formal browser release", () => {
   it("passes the canonical manifest loader", async () => {
     const result = await loadStaticRelease(`${baseUrl}manifest.json`, releaseFetcher);
     expect(result.status).toBe("loaded");
@@ -30,6 +30,8 @@ describe("MUSEUM-09B formal browser release", () => {
     expect(release.status).toBe("loaded");
     if (release.status !== "loaded") throw new Error(release.reason);
     expect(release.release.artists).toHaveLength(62);
+    expect(release.release.explorerConfig.algorithm).toBe("focused_relation_lanes_v1");
+    expect(release.release.explorerConfig.defaultGlobalGraphNodeCount).toBe(0);
     const catalog = await release.dataSource.loadArtworkCatalog();
     expect(catalog.status).toBe("loaded");
     if (catalog.status !== "loaded") throw new Error(catalog.reason);

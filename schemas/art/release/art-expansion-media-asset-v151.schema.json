@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/art-expansion-media-asset-v151.schema.json",
+  "title": "MUSEUM-09B-UX-01 successor media asset",
+  "type": "object",
+  "required": ["schema_version", "id", "entity_type", "release_id", "media_type", "source_id", "source_object_url", "delivery_mode", "storage_path", "cache_bytes", "content_hash", "rights_status", "metadata_license", "media_license", "rights_evidence", "attribution", "allow_redistribution", "allow_modification", "allow_commercial_use", "development_only", "reuse_mode", "source_license_bindings", "review_status", "reviewed_by", "reviewed_at", "publish_status", "lifecycle_status", "data_version"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" }, "id": { "type": "string", "pattern": "^media:[a-z0-9][a-z0-9._-]*$" }, "entity_type": { "const": "media_asset" }, "release_id": { "const": "release:art-expansion-batch-01-1.5.1" }, "media_type": { "const": "image" },
+    "source_id": { "type": "string", "pattern": "^source:" }, "source_object_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "delivery_mode": { "enum": ["predecessor_reference", "build_materialized"] }, "storage_path": { "type": "string", "minLength": 1 }, "cache_bytes": { "const": true },
+    "content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }, "rights_status": { "enum": ["public_domain", "cc0", "cc_by", "cc_by_sa", "licensed"] },
+    "metadata_license": { "type": "object" }, "media_license": { "type": "object" }, "rights_evidence": { "type": "object" }, "attribution": { "type": "string", "minLength": 1 },
+    "allow_redistribution": { "const": true }, "allow_modification": { "type": "boolean" }, "allow_commercial_use": { "type": "boolean" }, "development_only": { "const": false },
+    "reuse_mode": { "enum": ["adaptation", "verbatim", "collection"] }, "source_license_bindings": { "type": "array", "minItems": 1 },
+    "review_status": { "const": "verified" }, "reviewed_by": { "type": "string", "minLength": 1 }, "reviewed_at": { "type": "string", "format": "date" },
+    "publish_status": { "enum": ["publishable", "published"] }, "lifecycle_status": { "enum": ["publishable", "published"] }, "data_version": { "const": "1.5.0" }
+  },
+  "additionalProperties": true
+}

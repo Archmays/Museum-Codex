@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "validation_scope": "targeted_predeployment",
+  "local_targeted_wave_count": 6,
+  "local_full_gate_count": 0,
+  "results": {
+    "successor_validator": {
+      "status": "pass",
+      "artists": 62,
+      "artworks": 532,
+      "relationships": 60,
+      "episodes": 110,
+      "tours": 18,
+      "files": 67,
+      "bytes": 12346187,
+      "tree_sha256": "sha256:88d09842e10d4d5b011e3b6cab8b979086983eb48e661779378b2b4a21b57fdc"
+    },
+    "release_reproducibility": "byte_identical",
+    "predecessor_manifest_sha256": "sha256:7b03506242135a885ddf2c5b00bf284155e6d6b673c63440c001d56a008f60f9",
+    "historical_integrity": {
+      "status": "pass",
+      "mode": "historical_hash_only",
+      "release_count": 7,
+      "historical_release_count": 6,
+      "historical_rebuild_count": 0,
+      "ledger_files": 1545,
+      "ledger_bytes": 227384659
+    },
+    "governance": {
+      "status": "pass",
+      "schemas": 101,
+      "valid_fixtures": 8,
+      "expected_invalid_fixtures": 22,
+      "physical_release_bundles": 1
+    },
+    "python_unittest": {"status": "pass", "tests": 12},
+    "vitest_feature_set": {"status": "pass", "files": 6, "tests": 47},
+    "vitest_ci_touched_set": {"status": "pass", "files": 8, "tests": 52},
+    "node_ci_runner": {"status": "pass", "tests": 4},
+    "typescript": "pass",
+    "eslint": "pass",
+    "production_build": "pass",
+    "build_resource_closure": {"status": "pass", "files": 1908, "bytes": 290845553},
+    "repository_safety_scan": {"status": "pass", "files": 3314},
+    "privacy_scan": {
+      "status": "pass",
+      "analytics_used": false,
+      "query_history_stored": false,
+      "user_geolocation_used": false
+    },
+    "synthetic_leakage_scan": {"status": "pass", "files": 717},
+    "playwright_primary": {"status": "pass", "tests": 9},
+    "playwright_online_local": {"status": "pass", "tests": 6},
+    "playwright_map_regression": {"status": "pass", "tests": 1},
+    "formal_screenshot_count": 12,
+    "automated_a11y": {"status": "pass", "serious": 0, "critical": 0},
+    "performance": {
+      "status": "pass",
+      "desktop_fti_p95_ms": 568.8284,
+      "mobile_fti_p95_ms": 501.7748,
+      "cls_p95": 0,
+      "focus_interaction_p95_ms": 44.5,
+      "low_bandwidth_initial_transfer_p95_bytes": 226171,
+      "external_request_count": 0,
+      "unexpected_media_preload_count": 0,
+      "geolocation_call_count": 0,
+      "rum": false
+    },
+    "budgets": {
+      "status": "pass",
+      "thresholds_weakened": false,
+      "constellation_route_gzip_bytes": 31822,
+      "constellation_route_limit_bytes": 180000,
+      "map_route_gzip_bytes": 549957,
+      "map_route_limit_bytes": 550000
+    },
+    "search": {
+      "status": "pass",
+      "records": 979,
+      "p95_ms": 0.3564,
+      "limit_p95_ms": 80,
+      "synthetic_5000_p95_ms": 2.5109,
+      "synthetic_5000_limit_p95_ms": 120
+    },
+    "changed_path_classifier": {
+      "impact_level": "final-full",
+      "deploy_required": true,
+      "releases_to_rebuild": ["release:art-expansion-batch-01-1.5.1"],
+      "historical_releases_hash_only": 6
+    },
+    "media": {
+      "existing_derivatives_materialized": 318,
+      "downloaded": 0,
+      "reencoded": 0
+    }
+  },
+  "resolved_failures": [
+    {
+      "code": "physical_tree_path_order",
+      "resolution": "Unified successor validator ordering and algorithm label with the canonical integrity-ledger implementation; added a cross-implementation regression assertion."
+    },
+    {
+      "code": "map_budget_margin",
+      "resolution": "Removed nonessential map stamp/loading CSS; retained the unchanged 550000-byte threshold and reran the seven-viewport map regression."
+    }
+  ],
+  "unresolved_p0": 0,
+  "unresolved_p1": 0,
+  "unresolved_p2": 0,
+  "status": "pass"
+}

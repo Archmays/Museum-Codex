@@ -13,6 +13,7 @@ const secretFindings = [];
 const maxBytes = 5 * 1024 * 1024;
 const largeFileAllowances = new Map([
   ["public/releases/art-expansion-batch-01-1.5.0/claims.json", 8 * 1024 * 1024],
+  ["public/releases/art-expansion-batch-01-1.5.1/claims.json", 8 * 1024 * 1024],
 ]);
 const textExtensions = new Set([".body", ".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".svg", ".ts", ".tsx", ".txt", ".yml", ".yaml"]);
 const secretPatterns = [

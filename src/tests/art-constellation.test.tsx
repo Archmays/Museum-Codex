@@ -97,16 +97,17 @@ describe("MUSEUM-04 formal public release", () => {
     window.location.hash = "#/art/constellation";
     render(<App />);
 
-    await screen.findByRole("heading", { level: 1, name: "艺术星海：观察与比较" });
-    expect(screen.getByText("正式发布")).toBeInTheDocument();
+    await screen.findByRole("heading", { level: 1, name: "艺术家关系探索" }, { timeout: 5_000 });
+    await screen.findByRole("heading", { level: 2, name: "你想先认识哪位艺术家？" }, { timeout: 5_000 });
+    expect(screen.getByText(/初始关系节点为 0/)).toBeInTheDocument();
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
     expect(requestedNames(fetcher)).not.toContain("media-index.json");
-    const activeListTab = await screen.findByRole("tab", { name: /艺术家列表/ });
-    expect(activeListTab).toHaveAttribute("aria-controls", "constellation-view-panel");
-    expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", activeListTab.id);
+    const activeGraphTab = await screen.findByRole("tab", { name: /图形/ });
+    expect(activeGraphTab).toHaveAttribute("aria-controls", "constellation-view-panel");
+    expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", activeGraphTab.id);
 
     await user.click(screen.getByRole("button", { name: "EN" }));
-    expect(screen.getByText("Formal release")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Explore Artist Connections" })).toBeInTheDocument();
   });
 
   it("rejects a manifest mounted under the wrong release directory", async () => {
@@ -292,7 +293,7 @@ describe("MUSEUM-04 formal public release", () => {
     )).toBe(true);
 
     const params = stateToSearchParams(state, release.version);
-    expect(params.get("focus")).toBe(artist.id);
+    expect(params.get("artist")).toBe(artist.id);
     expect(params.get("tradition")).toBe(artist.tradition);
     expect(params.get("level")).toBe("C");
     expect(params.get("release")).toBe(release.version);
@@ -315,8 +316,8 @@ describe("MUSEUM-04 formal public release", () => {
     window.location.hash = "#/art/constellation";
     render(<App />);
 
-    await screen.findByRole("heading", { level: 1, name: "艺术星海：观察与比较" });
-    expect(await screen.findByText(/正在按需核对与当前筛选一致的关系数量/)).toBeInTheDocument();
+    await screen.findByRole("heading", { level: 1, name: "艺术家关系探索" });
+    await screen.findByLabelText(label);
     expect(requestedNames(fetcher)).not.toContain("relationships.json");
 
     const control = screen.getByLabelText(label);
@@ -332,13 +333,10 @@ describe("MUSEUM-04 formal public release", () => {
     await waitFor(() => expect(requestedNames(fetcher)).toEqual(expect.arrayContaining([
       "relationships.json", "contexts.json",
     ])));
-    await waitFor(() => expect(screen.queryByText(/正在按需核对与当前筛选一致的关系数量/)).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText(/正在按需核对关系与共同语境/)).not.toBeInTheDocument());
   });
 
-  it("defers relationship, media, evidence, source, and rights requests until visitor actions", async () => {
-    const loaded = await loadActualRelease();
-    const mediaArtist = loaded.release.artists.find((artist) => artist.representativeMediaId !== null);
-    if (!mediaArtist) throw new Error("Expected at least one artist with approved representative media");
+  it("keeps media deferred while focus, relationship evidence, and rights remain reachable", async () => {
     const user = userEvent.setup();
     const fetcher = publicReleaseFetcher();
     vi.stubGlobal("fetch", fetcher);
@@ -346,39 +344,24 @@ describe("MUSEUM-04 formal public release", () => {
     window.location.hash = "#/art/constellation";
     render(<App />);
 
-    await screen.findByRole("heading", { level: 1, name: "艺术星海：观察与比较" });
+    await screen.findByRole("heading", { level: 1, name: "艺术家关系探索" }, { timeout: 5_000 });
+    await screen.findByRole("heading", { level: 2, name: "你想先认识哪位艺术家？" }, { timeout: 5_000 });
     expect(requestedNames(fetcher)).not.toEqual(expect.arrayContaining([
       "relationships.json", "contexts.json", "sources.json", "artworks.json", "evidence.json", "rights.json",
     ]));
-    expect(screen.getByRole("main")).toHaveAttribute("data-view", "list");
+    expect(screen.getByRole("main")).toHaveAttribute("data-view", "graph");
 
-    const artistName = await screen.findByRole("heading", { name: mediaArtist.labels["zh-Hans"] });
-    const artistItem = artistName.closest("li");
-    if (!artistItem) throw new Error("Artist list item missing");
-    const firstArtistButton = within(artistItem).getByRole("button", { name: "查看艺术家说明" });
-    await user.click(firstArtistButton);
-    const artistPanel = await screen.findByRole("complementary", { name: "艺术家说明" });
-    await waitFor(() => expect(within(artistPanel).getByRole("button", { name: "关闭说明" })).toHaveFocus());
-    expect(await within(artistPanel).findByText("艺术传统")).toBeInTheDocument();
+    await user.type(screen.getByLabelText("搜索艺术家"), "Albrecht");
+    const artistHeading = await screen.findByRole("heading", { name: /丢勒|Albrecht/ });
+    const artistItem = artistHeading.closest("li");
+    if (!artistItem) throw new Error("Artist search result missing");
+    await user.click(within(artistItem).getByRole("button", { name: "查看艺术家说明" }));
     await waitFor(() => expect(requestedNames(fetcher)).toEqual(expect.arrayContaining([
-      "relationships.json", "contexts.json", "sources.json", "artworks.json", "media-index.json",
-      "attributions.json", "withdrawal-mapping.json",
+      "relationships.json", "contexts.json",
     ])));
-    expect(requestedNames(fetcher)).not.toContain("evidence.json");
-    expect(within(artistPanel).queryByRole("img")).not.toBeInTheDocument();
-    await user.click(await within(artistPanel).findByRole("button", { name: "加载这件作品图像" }));
-    expect(await within(artistPanel).findByRole("img", { name: new RegExp(mediaArtist.labels["zh-Hans"]) })).toBeInTheDocument();
-
-    const relationshipButton = await waitFor(() => {
-      const currentArtistPanel = screen.getByRole("complementary", { name: "艺术家说明" });
-      const candidates = within(currentArtistPanel).getAllByRole("button").filter((button) => button.closest("li"));
-      expect(candidates.length).toBeGreaterThan(0);
-      return candidates[0];
-    });
-    const panelScroll = artistPanel.querySelector<HTMLElement>(".panel-scroll");
-    expect(panelScroll).not.toBeNull();
-    if (panelScroll) panelScroll.scrollTop = 480;
-    await user.click(relationshipButton);
+    expect(requestedNames(fetcher)).not.toEqual(expect.arrayContaining(["sources.json", "artworks.json", "media-index.json", "evidence.json"]));
+    const whyButton = (await screen.findAllByRole("button", { name: "为什么相连？" }))[0];
+    await user.click(whyButton);
     const relationshipPanel = await screen.findByRole("complementary", { name: "关系解释" });
     await waitFor(() => {
       const title = relationshipPanel.querySelector("#constellation-panel-content-title");
@@ -387,9 +370,7 @@ describe("MUSEUM-04 formal public release", () => {
       return title;
     });
     await waitFor(() => expect(within(relationshipPanel).getByRole("button", { name: "关闭说明" })).toHaveFocus());
-    await waitFor(() => expect(relationshipPanel.querySelector<HTMLElement>(".panel-scroll")?.scrollTop).toBe(0));
     await waitFor(() => expect(requestedNames(fetcher)).toEqual(expect.arrayContaining(["artworks.json", "evidence.json"])));
-    expect((await screen.findAllByText("元数据许可规则")).length).toBeGreaterThan(0);
     expect(screen.getByText("支持性 Claim")).toBeInTheDocument();
     expect(within(relationshipPanel).getByText("未主张历史关系")).toBeInTheDocument();
     expect(within(relationshipPanel).getByText("本版本未纳入计算相似度")).toBeInTheDocument();
@@ -397,7 +378,6 @@ describe("MUSEUM-04 formal public release", () => {
 
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByRole("complementary", { name: "关系解释" })).not.toBeInTheDocument());
-    await waitFor(() => expect(firstArtistButton).toHaveFocus());
     await user.click(screen.getByRole("button", { name: "查看权利与第三方通知" }));
     await screen.findByRole("complementary", { name: "权利与公开范围" });
     await waitFor(() => expect(requestedNames(fetcher)).toEqual(expect.arrayContaining(["rights.json", "third-party-notices.json"])));

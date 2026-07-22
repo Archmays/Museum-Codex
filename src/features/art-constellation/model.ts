@@ -17,6 +17,9 @@ export type ConstellationState = {
   region: string;
   tradition: string;
   contextType: string;
+  contextId: string;
+  mode: "artist" | "theme";
+  expanded: boolean;
   focusArtistId: string | null;
   selectedRelationshipId: string | null;
 };
@@ -32,6 +35,9 @@ export type ConstellationAction =
   | { type: "set-region"; region: string }
   | { type: "set-tradition"; tradition: string }
   | { type: "set-context-type"; contextType: string }
+  | { type: "set-context"; contextId: string | null }
+  | { type: "set-expanded"; expanded: boolean }
+  | { type: "hydrate"; state: ConstellationState }
   | { type: "focus-artist"; artistId: string | null }
   | { type: "select-relationship"; relationshipId: string | null }
   | { type: "reset" };
@@ -60,7 +66,10 @@ export function createConstellationState(
     period: release.facets.periods.includes(params.get("period") ?? "") ? (params.get("period") ?? "") : "",
     region: release.facets.regions.includes(params.get("region") ?? "") ? (params.get("region") ?? "") : "",
     tradition: release.facets.traditions.includes(params.get("tradition") ?? "") ? (params.get("tradition") ?? "") : "",
-    contextType: params.get("context")?.slice(0, 80) ?? "",
+    contextType: params.get("kind")?.slice(0, 80) ?? "",
+    contextId: params.get("context")?.slice(0, 160) ?? "",
+    mode: params.get("mode") === "theme" ? "theme" : "artist",
+    expanded: params.get("expand") === "1",
     focusArtistId: release.artists.some((artist) => artist.id === requestedArtist) ? requestedArtist : null,
     selectedRelationshipId: requestedRelationship && /^(?:art-rel|relationship):[a-z0-9._:-]+$/i.test(requestedRelationship)
       ? requestedRelationship
@@ -73,6 +82,8 @@ export function constellationReducer(
   action: ConstellationAction,
 ): ConstellationState {
   switch (action.type) {
+    case "hydrate":
+      return action.state;
     case "set-view":
       return { ...state, view: action.view };
     case "set-query":
@@ -89,8 +100,12 @@ export function constellationReducer(
       return { ...state, tradition: action.tradition, focusArtistId: null, selectedRelationshipId: null };
     case "set-context-type":
       return { ...state, contextType: action.contextType, selectedRelationshipId: null };
+    case "set-context":
+      return { ...state, mode: action.contextId ? "theme" : "artist", contextId: action.contextId ?? "", focusArtistId: null, selectedRelationshipId: null, expanded: false };
+    case "set-expanded":
+      return { ...state, expanded: action.expanded };
     case "focus-artist":
-      return { ...state, focusArtistId: action.artistId, selectedRelationshipId: null };
+      return { ...state, mode: "artist", contextId: "", focusArtistId: action.artistId, selectedRelationshipId: null, expanded: false };
     case "select-relationship":
       return { ...state, selectedRelationshipId: action.relationshipId };
     case "reset":
@@ -103,6 +118,9 @@ export function constellationReducer(
         region: "",
         tradition: "",
         contextType: "",
+        contextId: "",
+        mode: "artist",
+        expanded: false,
         focusArtistId: null,
         selectedRelationshipId: null,
       };
@@ -119,8 +137,11 @@ export function stateToSearchParams(state: ConstellationState, releaseVersion?: 
   if (state.period) params.set("period", state.period);
   if (state.region) params.set("region", state.region);
   if (state.tradition) params.set("tradition", state.tradition);
-  if (state.contextType) params.set("context", state.contextType);
-  if (state.focusArtistId) params.set("focus", state.focusArtistId);
+  if (state.contextType) params.set("kind", state.contextType);
+  if (state.mode === "theme") params.set("mode", "theme");
+  if (state.contextId) params.set("context", state.contextId);
+  if (state.focusArtistId) params.set("artist", state.focusArtistId);
+  if (state.expanded) params.set("expand", "1");
   if (state.selectedRelationshipId) params.set("relation", state.selectedRelationshipId);
   return params;
 }
@@ -194,18 +215,27 @@ export function deriveConstellationView(
     visibleIds = new Set(matchReasons.keys());
   }
   if (state.focusArtistId && baseIds.has(state.focusArtistId)) {
-    visibleIds.add(state.focusArtistId);
-    for (const relationship of typeRelationships) {
-      if (relationship.sourceArtistId === state.focusArtistId) visibleIds.add(relationship.targetArtistId);
-      if (relationship.targetArtistId === state.focusArtistId) visibleIds.add(relationship.sourceArtistId);
+    if (state.expanded) {
+      visibleIds = new Set(baseIds);
+    } else {
+      visibleIds.add(state.focusArtistId);
+      for (const relationship of typeRelationships) {
+        if (relationship.sourceArtistId === state.focusArtistId) visibleIds.add(relationship.targetArtistId);
+        if (relationship.targetArtistId === state.focusArtistId) visibleIds.add(relationship.sourceArtistId);
+      }
     }
+  }
+  if (state.mode === "theme" && state.contextId) {
+    visibleIds = new Set(typeRelationships.filter((relationship) => relationship.contextIds.includes(state.contextId)).flatMap((relationship) => [relationship.sourceArtistId, relationship.targetArtistId]));
   }
 
   const artists = baseArtists.filter((artist) => visibleIds.has(artist.id));
   const relationships = typeRelationships.filter(
     (relationship) => visibleIds.has(relationship.sourceArtistId) && visibleIds.has(relationship.targetArtistId),
   );
-  const graphRelationships = state.focusArtistId
+  const graphRelationships = state.mode === "theme" && state.contextId
+    ? relationships.filter((relationship) => relationship.contextIds.includes(state.contextId))
+    : state.focusArtistId
     ? relationships.filter(
         (relationship) =>
           relationship.sourceArtistId === state.focusArtistId || relationship.targetArtistId === state.focusArtistId,

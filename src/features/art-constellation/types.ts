@@ -17,6 +17,20 @@ export type ArtistRecord = {
   gallerySequence: string[];
   labels: LocalizedText;
   summary: LocalizedText;
+  publicIntro?: LocalizedText;
+  lookFor?: { "zh-Hans": string[]; en: string[] };
+  evidenceBoundary?: LocalizedText;
+  sentenceProvenance?: Array<{
+    sentenceId: string;
+    text: LocalizedText;
+    claimIds: string[];
+    evidenceIds: string[];
+    sourceIds: string[];
+  }>;
+  readingProfile?: {
+    mediaProfile: "self_hosted" | "external_link_only" | "metadata_only";
+    templateSignature: string;
+  };
   aliases: string[];
   period: string;
   region: string;
@@ -160,6 +174,19 @@ export type LayoutNode = {
   y: number;
 };
 
+export type RelationshipExplorerConfig = {
+  algorithm: "focused_relation_lanes_v1" | "legacy_circle_fallback";
+  defaultGlobalGraphNodeCount: number;
+  focusInitialNeighborLimit: number;
+  focusInitialPerLaneLimit: number;
+  focusExpandedNodeLimit: number;
+  themeVisualArtistLimit: number;
+  themeTextPageSize: number;
+  laneOrder: RelationshipType[];
+  starterArtistIds: string[];
+  semantics: LocalizedText;
+};
+
 export type RightsRecord = {
   codeRights: LocalizedText;
   originalContentRights: LocalizedText;
@@ -210,6 +237,7 @@ export type ArtConstellationRelease = {
   artists: ArtistRecord[];
   searchEntries: SearchEntry[];
   layout: LayoutNode[];
+  explorerConfig: RelationshipExplorerConfig;
   facets: {
     periods: string[];
     regions: string[];

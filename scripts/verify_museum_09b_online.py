@@ -16,9 +16,9 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE_DIRECTORY = "art-expansion-batch-01-1.5.0"
-RELEASE_ID = "release:art-expansion-batch-01-1.5.0"
-DEFAULT_OUTPUT = ROOT / "docs" / "qa" / "museum-09b-release" / "online-closure.json"
+RELEASE_DIRECTORY = "art-expansion-batch-01-1.5.1"
+RELEASE_ID = "release:art-expansion-batch-01-1.5.1"
+DEFAULT_OUTPUT = ROOT / "docs" / "qa" / "museum-09b-ux-01" / "online-closure.json"
 EXPECTED_COUNTS = {
     "artists": 62,
     "artworks": 532,
@@ -206,7 +206,7 @@ def verify_online(base_url: str, commit: str) -> dict[str, Any]:
     expected_bytes = sum(item["bytes"] for item in closure.values())
     report = {
         "schema_version": "1.0.0",
-        "phase_id": "MUSEUM-09B-RELEASE",
+        "phase_id": "MUSEUM-09B-UX-01",
         "evidence_class": "bounded_public_cold_probe_and_complete_release_runtime_byte_closure",
         "real_user_metric": False,
         "base_url": base,

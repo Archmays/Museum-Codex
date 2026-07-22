@@ -5,11 +5,12 @@ import { gzipSync } from "node:zlib";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const DIST = join(ROOT, "dist");
-const RELEASE = join(DIST, "releases", "art-expansion-batch-01-1.5.0");
-const QA = join(ROOT, "docs", "qa", "museum-09b-release");
+const RELEASE = join(DIST, "releases", "art-expansion-batch-01-1.5.1");
+const QA = join(ROOT, "docs", "qa", "museum-09b-ux-01");
 const OUTPUT = join(QA, "bundle-budget.json");
 const LIMITS = {
   home: Math.floor(100_059 * 1.02),
+  constellation: 180_000,
   searchRoute: 220_000,
   searchIndex: 300_000,
   firstQueryShards: 100_000,
@@ -117,6 +118,7 @@ function main() {
   const materialization = readJson(join(DIST, "museum-09b-media-materialization.json"), failures);
   const checks = [
     [sum(homeFiles) <= LIMITS.home, `home gzip ${sum(homeFiles)} > ${LIMITS.home}`],
+    [routeMeasurements.constellation.total_gzip_bytes <= LIMITS.constellation, `relationship explorer gzip ${routeMeasurements.constellation.total_gzip_bytes} > ${LIMITS.constellation}`],
     [searchRouteGzip <= LIMITS.searchRoute, `search route gzip ${searchRouteGzip} > ${LIMITS.searchRoute}`],
     [searchIndexGzip <= LIMITS.searchIndex, `search index gzip ${searchIndexGzip} > ${LIMITS.searchIndex}`],
     [sum(shardFiles) <= LIMITS.firstQueryShards, `first query shards gzip ${sum(shardFiles)} > ${LIMITS.firstQueryShards}`],
@@ -125,7 +127,7 @@ function main() {
     [browser.low_bandwidth_initial_transfer_p95_bytes <= LIMITS.lowBandwidth, "low-bandwidth transfer budget failed"],
     [browser.desktop_first_interactive_p95_ms <= 1_800, "desktop FTI budget failed"],
     [browser.mobile_first_interactive_p95_ms <= 2_500, "mobile FTI budget failed"],
-    [browser.interaction_p95_ms <= 150, "interaction budget failed"],
+    [browser.interaction_p95_ms <= 100, "interaction budget failed"],
     [browser.cls_p95 <= 0.1, "CLS budget failed"],
     [browser.external_request_count === 0, "external runtime request detected"],
     [browser.unexpected_media_preload_count === 0, "unexpected media preload detected"],
@@ -136,7 +138,7 @@ function main() {
   failures.push(...checks.filter(([ok]) => !ok).map(([, message]) => message));
   const report = {
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09B-RELEASE",
+    phase_id: "MUSEUM-09B-UX-01",
     measurement: "node:zlib gzip level 9; independent asset compression and deterministic route closure",
     budgets: LIMITS,
     measurements: {
@@ -147,6 +149,7 @@ function main() {
       first_query_shards_gzip_bytes: sum(shardFiles),
       search_route_gzip_bytes: searchRouteGzip,
       map_route_gzip_bytes: mapRouteGzip,
+      map_route: { asset_files: mapAssetFiles, json_files: mapJsonFiles, basemap_files: basemapFiles, gzip_bytes: mapRouteGzip },
       browser,
       search,
       materialization: { file_count: materialization.file_count, bytes: materialization.bytes, reencoded: materialization.reencoded },

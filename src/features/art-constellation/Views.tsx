@@ -1,13 +1,15 @@
-import { memo, useEffect, useMemo, useState, type ComponentType } from "react";
+import { memo, useMemo, useState, type KeyboardEvent } from "react";
+import { Link } from "react-router-dom";
 import type { Locale, Translation } from "../../i18n/translations";
 import { relationshipTypeLabel } from "./labels";
 import type { MatchReason } from "./model";
 import {
   CONSTELLATION_LIST_PAGE_SIZE,
   CONSTELLATION_TABLE_PAGE_SIZE,
+  planFocusedExplorer,
   stablePage,
 } from "./scale-strategy";
-import { localize, type ArtistRecord, type ContextRecord, type LayoutNode, type RelationshipRecord } from "./types";
+import { localize, type ArtistRecord, type ContextRecord, type RelationshipExplorerConfig, type RelationshipRecord, type RelationshipType } from "./types";
 
 type Copy = Translation["constellation"];
 
@@ -23,10 +25,6 @@ type SharedViewProps = {
   onSelectArtist: (artistId: string, trigger?: HTMLElement) => void;
   onSelectRelationship: (relationshipId: string, trigger?: HTMLElement) => void;
 };
-
-function fill(template: string, values: Record<string, string | number>) {
-  return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template);
-}
 
 function matchReasonLabel(reason: MatchReason | undefined, copy: Copy) {
   if (!reason) return null;
@@ -57,19 +55,79 @@ export function EmptyView({ copy }: { copy: Copy }) {
   );
 }
 
-type GraphRendererProps = {
-  artists: ArtistRecord[];
-  relationships: RelationshipRecord[];
-  layout: LayoutNode[];
-  locale: Locale;
-  focusArtistId: string | null;
-  selectedRelationshipId: string | null;
-  relatedArtistIds: Set<string>;
-  onSelectArtist: (artistId: string) => void;
-  onSelectRelationship: (relationshipId: string) => void;
-  onReady: () => void;
-  onUnavailable: (reason: "unavailable" | "context-lost") => void;
+const LANE_LABELS: Record<RelationshipType, { "zh-CN": string; en: string }> = {
+  shared_subject: { "zh-CN": "共同题材", en: "Shared subject" },
+  shared_material: { "zh-CN": "共同材料", en: "Shared material" },
+  shared_technique: { "zh-CN": "共同技法", en: "Shared technique" },
 };
+
+function ArtistCard({ artist, locale, onSelect }: { artist: ArtistRecord; locale: Locale; onSelect: (trigger: HTMLElement) => void }) {
+  const name = localize(artist.labels, locale);
+  return (
+    <article className="relation-artist-card" data-artist-id={artist.id}>
+      <p>{artist.lifeDisplay ? localize(artist.lifeDisplay, locale) : artist.period}</p>
+      <h3>{name}</h3>
+      <p>{localize(artist.publicIntro ?? artist.summary, locale)}</p>
+      <div className="relation-artist-actions">
+        <button type="button" onClick={(event) => onSelect(event.currentTarget)}>
+          {locale === "zh-CN" ? "以此人为中心" : "Center this artist"}
+        </button>
+        <Link to={`/art/artists/${artist.publicSlug}`}>{locale === "zh-CN" ? "进入展厅" : "Visit gallery"}</Link>
+      </div>
+    </article>
+  );
+}
+
+function RelationEdge({ relationship, locale, selected, onOpen }: { relationship: RelationshipRecord; locale: Locale; selected: boolean; onOpen: (trigger: HTMLElement) => void }) {
+  const title = localize(relationship.title, locale);
+  const activate = (event: KeyboardEvent<SVGGElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    onOpen(event.currentTarget as unknown as HTMLElement);
+  };
+  return (
+    <div className={`relation-edge ${relationship.type}${selected ? " is-selected" : ""}`}>
+      <svg viewBox="0 0 240 28" role="img" aria-labelledby={`${relationship.id}-title`}>
+        <title id={`${relationship.id}-title`}>{title}</title>
+        <g role="button" tabIndex={0} aria-label={title} onClick={(event) => onOpen(event.currentTarget as unknown as HTMLElement)} onKeyDown={activate}>
+          <path className="relation-edge-hit" d="M4 14 H236" />
+          <path className="relation-edge-line" d="M4 14 H236" />
+        </g>
+      </svg>
+      <button type="button" onClick={(event) => onOpen(event.currentTarget)}>
+        {locale === "zh-CN" ? "为什么相连？" : "Why connected?"}
+      </button>
+    </div>
+  );
+}
+
+export function StartExplorerView({ artists, starterArtistIds, locale, onSelectArtist }: {
+  artists: ArtistRecord[];
+  starterArtistIds: string[];
+  locale: Locale;
+  onSelectArtist: (artistId: string, trigger?: HTMLElement) => void;
+}) {
+  const byId = new Map(artists.map((artist) => [artist.id, artist]));
+  const starters = starterArtistIds.map((id) => byId.get(id)).filter((artist): artist is ArtistRecord => Boolean(artist));
+  return (
+    <section className="relation-start" aria-labelledby="relation-start-title" data-default-node-count="0">
+      <div className="relation-start-copy">
+        <p className="eyebrow">{locale === "zh-CN" ? "从一个问题开始" : "Begin with a question"}</p>
+        <h2 id="relation-start-title">{locale === "zh-CN" ? "你想先认识哪位艺术家？" : "Which artist would you like to meet first?"}</h2>
+        <p>{locale === "zh-CN" ? "搜索姓名，或从下列跨时期、地区与实践的示例中选择。这里没有默认全局关系图。" : "Search by name, or choose from these examples across periods, regions, and practices. There is no default global graph."}</p>
+      </div>
+      <div className="relation-starters">
+        {starters.map((artist) => (
+          <button key={artist.id} type="button" onClick={(event) => onSelectArtist(artist.id, event.currentTarget)}>
+            <span>{artist.region} · {artist.period}</span>
+            <strong>{localize(artist.labels, locale)}</strong>
+            <small>{localize(artist.mediaPractice, locale)}</small>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function GraphViewComponent({
   artists,
@@ -78,90 +136,110 @@ function GraphViewComponent({
   copy,
   focusArtistId,
   selectedRelationshipId,
-  matchReasons,
   relationshipIndexLoaded,
-  layout,
-  relatedArtistIds,
+  explorerConfig,
+  expanded,
+  onExpandedChange,
   onSelectArtist,
   onSelectRelationship,
-  onRendererReady,
-  onRendererUnavailable,
 }: SharedViewProps & {
-  layout: LayoutNode[];
-  relatedArtistIds: Set<string>;
-  onRendererReady: () => void;
-  onRendererUnavailable: (reason: "unavailable" | "context-lost") => void;
+  explorerConfig: RelationshipExplorerConfig;
+  expanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
 }) {
-  const [Renderer, setRenderer] = useState<ComponentType<GraphRendererProps> | null>(null);
-
-  useEffect(() => {
-    let active = true;
-    void import("./SigmaGraphRenderer")
-      .then((module) => {
-        if (active) setRenderer(() => module.default);
-      })
-      .catch(() => {
-        if (active) onRendererUnavailable("unavailable");
-      });
-    return () => {
-      active = false;
-    };
-  }, [onRendererUnavailable]);
-
+  const plan = useMemo(() => planFocusedExplorer(
+    artists,
+    relationships,
+    focusArtistId,
+    locale,
+    expanded,
+    explorerConfig.focusInitialNeighborLimit,
+    explorerConfig.focusInitialPerLaneLimit,
+    explorerConfig.focusExpandedNodeLimit,
+  ), [artists, expanded, explorerConfig, focusArtistId, locale, relationships]);
+  const lanes = explorerConfig.laneOrder.map((lane) => ({ lane, neighbors: plan.neighbors.filter((neighbor) => neighbor.primaryLane === lane) }));
+  const focusArtist = plan.focusArtist;
+  const allDirect = focusArtist ? artists.filter((artist) => artist.id !== focusArtist.id && relationships.some((relationship) => (
+    relationship.sourceArtistId === focusArtist.id && relationship.targetArtistId === artist.id
+  ) || (
+    relationship.targetArtistId === focusArtist.id && relationship.sourceArtistId === artist.id
+  ))) : [];
+  if (!plan.focusArtist) return <p className="constellation-graph-loading" role="status">{relationshipIndexLoaded ? copy.graphInitial : copy.relationsLoading}</p>;
   return (
-    <section className="constellation-graph-view" aria-label={copy.graphView}>
-      <div className="constellation-graph-stage">
-        {Renderer ? (
-          <Renderer
-            artists={artists}
-            relationships={relationships}
-            layout={layout}
-            locale={locale}
-            focusArtistId={focusArtistId}
-            selectedRelationshipId={selectedRelationshipId}
-            relatedArtistIds={relatedArtistIds}
-            onSelectArtist={(artistId) => onSelectArtist(artistId)}
-            onSelectRelationship={(relationshipId) => onSelectRelationship(relationshipId)}
-            onReady={onRendererReady}
-            onUnavailable={onRendererUnavailable}
-          />
-        ) : (
-          <p className="constellation-graph-loading" role="status">{copy.graphLoading}</p>
-        )}
-        <div className="constellation-graph-caption">
-          <span className="edge-sample edge-sample-c" aria-hidden="true" />
-          <span>{copy.levelCCount}</span>
+    <section className="focused-relation-explorer" aria-label={copy.graphView} data-node-count={plan.totalNodeCount}>
+      <header className="focused-relation-heading">
+        <div>
+          <p className="eyebrow">{locale === "zh-CN" ? "艺术家关系" : "Artist relationships"}</p>
+          <h2>{localize(plan.focusArtist.labels, locale)}</h2>
+          <p>{localize(plan.focusArtist.publicIntro ?? plan.focusArtist.summary, locale)}</p>
         </div>
+        <nav aria-label={locale === "zh-CN" ? "艺术家任务" : "Artist tasks"}>
+          <Link to={`/art/artists/${plan.focusArtist.publicSlug}`}>{locale === "zh-CN" ? "艺术家展厅" : "Artist gallery"}</Link>
+          <Link to={`/art/compare?artist=${encodeURIComponent(plan.focusArtist.id)}`}>{locale === "zh-CN" ? "比较作品" : "Compare works"}</Link>
+          <Link to={`/art/paths?artist=${encodeURIComponent(plan.focusArtist.id)}`}>{locale === "zh-CN" ? "跟随路径" : "Follow a path"}</Link>
+        </nav>
+      </header>
+      <div className="relation-lanes">
+        {lanes.map(({ lane, neighbors }) => (
+          <section key={lane} className={`relation-lane ${lane}`} aria-labelledby={`lane-${lane}`}>
+            <h3 id={`lane-${lane}`}>{LANE_LABELS[lane][locale]}</h3>
+            {neighbors.length ? neighbors.map((neighbor) => {
+              const edge = neighbor.relationships.find((relationship) => relationship.type === lane) ?? neighbor.relationships[0];
+              return (
+                <div className="relation-lane-item" key={neighbor.artist.id}>
+                  {edge ? <RelationEdge relationship={edge} locale={locale} selected={edge.id === selectedRelationshipId} onOpen={(trigger) => onSelectRelationship(edge.id, trigger)} /> : null}
+                  <ArtistCard artist={neighbor.artist} locale={locale} onSelect={(trigger) => onSelectArtist(neighbor.artist.id, trigger)} />
+                </div>
+              );
+            }) : <p className="relation-lane-empty">{locale === "zh-CN" ? "当前筛选下暂无这一类正式关系。" : "No formal relationship of this type matches the current filters."}</p>}
+          </section>
+        ))}
       </div>
-      <p className="constellation-graph-instruction">
-        {focusArtistId ? copy.distanceNotice : copy.graphInitial}
-      </p>
-      <nav className="artist-navigator" aria-label={copy.artistNavigator}>
-        {artists.map((artist, index) => {
-          const name = localize(artist.labels, locale);
-          const count = relationshipCount(artist, relationships, relationshipIndexLoaded);
-          const reason = matchReasonLabel(matchReasons.get(artist.id), copy);
-          return (
-            <button
-              key={artist.id}
-              type="button"
-              className={artist.id === focusArtistId ? "is-selected" : undefined}
-              aria-pressed={artist.id === focusArtistId}
-              aria-label={fill(copy.selectArtist, { name })}
-              onClick={(event) => onSelectArtist(artist.id, event.currentTarget)}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{name}</strong>
-              <small>{reason ?? `${count} C`}</small>
-            </button>
-          );
-        })}
-      </nav>
+      <div className="focused-relation-footer">
+        {plan.hiddenDirectNeighborCount > 0 ? <button type="button" onClick={() => onExpandedChange(!expanded)}>{expanded ? (locale === "zh-CN" ? "收起" : "Show less") : (locale === "zh-CN" ? `展开更多（还有 ${plan.hiddenDirectNeighborCount} 位）` : `Show more (${plan.hiddenDirectNeighborCount} more)`)}</button> : null}
+        <p>{locale === "zh-CN" ? `当前显示 ${plan.totalNodeCount} 个节点；初始不超过 13 个，展开后不超过 20 个。` : `${plan.totalNodeCount} nodes are visible; the initial view has at most 13 and the expanded view at most 20.`}</p>
+      </div>
+      {allDirect.length > plan.neighbors.length ? (
+        <details className="complete-neighbor-list">
+          <summary>{locale === "zh-CN" ? `查看完整的一跳文字列表（${allDirect.length}）` : `View the complete one-hop text list (${allDirect.length})`}</summary>
+          <ul>{allDirect.map((artist) => <li key={artist.id}><button type="button" onClick={(event) => onSelectArtist(artist.id, event.currentTarget)}>{localize(artist.labels, locale)}</button></li>)}</ul>
+        </details>
+      ) : null}
+      <p className="relation-semantics">{localize(explorerConfig.semantics, locale)}</p>
     </section>
   );
 }
 
 export const GraphView = memo(GraphViewComponent);
+
+export function ThemeExplorerView({ artists, relationships, contexts, contextId, locale, config, onSelectArtist, onSelectRelationship }: {
+  artists: ArtistRecord[];
+  relationships: RelationshipRecord[];
+  contexts: ContextRecord[];
+  contextId: string;
+  locale: Locale;
+  config: RelationshipExplorerConfig;
+  onSelectArtist: (artistId: string, trigger?: HTMLElement) => void;
+  onSelectRelationship: (relationshipId: string, trigger?: HTMLElement) => void;
+}) {
+  const [requestedPage, setRequestedPage] = useState(1);
+  const context = contexts.find((candidate) => candidate.id === contextId);
+  const sorted = useMemo(() => [...artists].sort((left, right) => localize(left.labels, locale).localeCompare(localize(right.labels, locale), locale) || left.id.localeCompare(right.id)), [artists, locale]);
+  const visual = sorted.slice(0, config.themeVisualArtistLimit);
+  const page = stablePage(sorted, requestedPage, config.themeTextPageSize);
+  if (!context) return <p role="status">{locale === "zh-CN" ? "请选择一个主题语境。" : "Choose a theme context."}</p>;
+  return (
+    <section className="theme-explorer" aria-labelledby="theme-explorer-title">
+      <header><p className="eyebrow">{locale === "zh-CN" ? "主题模式" : "Theme mode"}</p><h2 id="theme-explorer-title">{localize(context.labels, locale)}</h2><p>{locale === "zh-CN" ? `视觉区最多展示 ${config.themeVisualArtistLimit} 位艺术家；下方文字列表保留全部匹配项。` : `The visual area shows at most ${config.themeVisualArtistLimit} artists; the complete matching set remains in the text list below.`}</p></header>
+      <div className="theme-artist-grid">{visual.map((artist) => <ArtistCard key={artist.id} artist={artist} locale={locale} onSelect={(trigger) => onSelectArtist(artist.id, trigger)} />)}</div>
+      <details className="theme-relationship-list"><summary>{locale === "zh-CN" ? `查看这一主题的正式关系（${relationships.length}）` : `View formal relationships in this theme (${relationships.length})`}</summary><ul>{relationships.map((relationship) => <li key={relationship.id}><button type="button" onClick={(event) => onSelectRelationship(relationship.id, event.currentTarget)}>{localize(relationship.title, locale)}</button></li>)}</ul></details>
+      <nav className="theme-complete-list" aria-label={locale === "zh-CN" ? "主题艺术家完整列表" : "Complete theme artist list"}>
+        <ol start={page.start + 1}>{page.items.map((artist) => <li key={artist.id}><button type="button" onClick={(event) => onSelectArtist(artist.id, event.currentTarget)}>{localize(artist.labels, locale)}</button></li>)}</ol>
+        {page.pageCount > 1 ? <div className="scale-pagination"><button type="button" disabled={page.page === 1} onClick={() => setRequestedPage(page.page - 1)}>{locale === "zh-CN" ? "上一页" : "Previous"}</button><span>{page.page} / {page.pageCount} · {page.total}</span><button type="button" disabled={page.page === page.pageCount} onClick={() => setRequestedPage(page.page + 1)}>{locale === "zh-CN" ? "下一页" : "Next"}</button></div> : null}
+      </nav>
+    </section>
+  );
+}
 
 function ArtistListViewComponent({
   artists,

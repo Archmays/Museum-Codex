@@ -1,0 +1,1 @@
+{"analytics":false,"entity_type":"search_config","id":"search-config:art-expansion-1.5.1","media_preload":false,"normalization":"unicode_nfkc_lower_diacritic_fold_whitespace_v1","query_logging":false,"ranking":["match_class","visitor_task_entity_type","stable_id"],"release_id":"release:art-expansion-batch-01-1.5.1","remote_search":false,"schema_version":"1.0.0"}

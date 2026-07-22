@@ -21,7 +21,7 @@
     {"id": "browser-map", "paths": ["M\tsrc/features/art-map/ArtMapPage.tsx"], "expect": {"browser_suites": ["map"], "deploy_required": true}},
     {"id": "browser-search", "paths": ["A\tsrc/features/art-search/SearchPage.tsx"], "expect": {"browser_suites": ["search"], "deploy_required": true}},
     {"id": "browser-m05b-test", "paths": ["M\te2e/museum-05b.spec.ts"], "expect": {"impact_level": "phase-scoped", "affected_phases": ["MUSEUM-05B"], "browser_suites": ["gallery"], "deploy_required": false}},
-    {"id": "browser-online-test", "paths": ["M\te2e/online.spec.ts"], "expect": {"impact_level": "phase-scoped", "affected_phases": ["MUSEUM-09B-RELEASE"], "browser_suites": ["online"], "deploy_required": false}},
+    {"id": "browser-online-test", "paths": ["M\te2e/online.spec.ts"], "expect": {"impact_level": "phase-scoped", "affected_phases": ["MUSEUM-09B-UX-01"], "browser_suites": ["online"], "deploy_required": false}},
     {"id": "multiple-commits", "paths": ["M\tdocs/qa/museum-08/a.json", "M\tsrc/pages/AboutPage.tsx"], "expect": {"docs_only": false, "runtime_changed": true, "deploy_required": true}},
     {"id": "deleted-runtime", "paths": ["D\tsrc/pages/LegacyPage.tsx"], "expect": {"runtime_changed": true, "deploy_required": true}},
     {"id": "renamed-doc", "paths": ["R100\tdocs/qa/museum-08/old.md\tdocs/qa/museum-08/new.md"], "expect": {"docs_only": true, "deploy_required": false}},

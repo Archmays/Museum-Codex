@@ -127,6 +127,18 @@ const release = {
   artists: [artist],
   searchEntries: [],
   layout: [],
+  explorerConfig: {
+    algorithm: "legacy_circle_fallback",
+    defaultGlobalGraphNodeCount: 0,
+    focusInitialNeighborLimit: 12,
+    focusInitialPerLaneLimit: 4,
+    focusExpandedNodeLimit: 20,
+    themeVisualArtistLimit: 16,
+    themeTextPageSize: 16,
+    laneOrder: ["shared_subject", "shared_material", "shared_technique"],
+    starterArtistIds: [artist.id],
+    semantics: { "zh-Hans": "仅作比较", en: "For comparison only" },
+  },
   facets: { periods: [], regions: [], traditions: [], relationshipTypes: [] },
   summary: {
     releaseId: "release:art-constellation-1.0.0",

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09B-UX-01",
+  "evidence": [
+    "playwright-results.json",
+    "map-regression-playwright-results.json"
+  ],
+  "viewports": [
+    {"id": "360x800", "width": 360, "height": 800, "status": "pass"},
+    {"id": "390x844", "width": 390, "height": 844, "status": "pass"},
+    {"id": "412x915", "width": 412, "height": 915, "status": "pass"},
+    {"id": "768x1024", "width": 768, "height": 1024, "status": "pass"},
+    {"id": "1024x768", "width": 1024, "height": 768, "status": "pass"},
+    {"id": "1366x768", "width": 1366, "height": 768, "status": "pass"},
+    {"id": "1440x900", "width": 1440, "height": 900, "status": "pass"}
+  ],
+  "minimum_control_css_px": 44,
+  "horizontal_overflow_count": 0,
+  "cropped_primary_task_count": 0,
+  "zoom_200_percent_reflow": "pass",
+  "status": "pass"
+}

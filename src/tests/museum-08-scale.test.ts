@@ -8,6 +8,7 @@ import {
   CONSTELLATION_GRAPH_EDGE_LIMIT,
   CONSTELLATION_GRAPH_NODE_LIMIT,
   CONSTELLATION_LIST_PAGE_SIZE,
+  planFocusedExplorer,
   planConstellationGraph,
   stablePage,
 } from "../features/art-constellation/scale-strategy";
@@ -44,6 +45,36 @@ describe("MUSEUM-08 constellation scale strategy", () => {
     }
     expect(seen).toEqual(artists.map((artist) => artist.id));
     expect(new Set(seen).size).toBe(500);
+  });
+});
+
+describe("MUSEUM-09B-UX-01 focused relationship lanes", () => {
+  const focusedArtists = Array.from({ length: 28 }, (_, index) => ({
+    id: `artist:${String(index).padStart(2, "0")}`,
+    labels: { "zh-Hans": `艺术家${String(index).padStart(2, "0")}`, en: `Artist ${String(index).padStart(2, "0")}` },
+  }));
+  const laneTypes = ["shared_subject", "shared_material", "shared_technique"] as const;
+  const focusedRelationships = focusedArtists.slice(1, 26).map((artist, index) => ({
+    id: `relationship:${String(index).padStart(2, "0")}`,
+    sourceArtistId: focusedArtists[0].id,
+    targetArtistId: artist.id,
+    type: laneTypes[index % laneTypes.length],
+  }));
+
+  it("starts empty, then deterministically bounds the initial focus to 12 neighbors and four per lane", () => {
+    expect(planFocusedExplorer(focusedArtists, focusedRelationships, null, "zh-CN", false).totalNodeCount).toBe(0);
+    const first = planFocusedExplorer(focusedArtists, focusedRelationships, focusedArtists[0].id, "zh-CN", false);
+    const second = planFocusedExplorer(focusedArtists, focusedRelationships, focusedArtists[0].id, "zh-CN", false);
+    expect(first).toEqual(second);
+    expect(first.neighbors).toHaveLength(12);
+    expect(first.totalNodeCount).toBe(13);
+    for (const lane of laneTypes) expect(first.neighbors.filter((neighbor) => neighbor.primaryLane === lane).length).toBeLessThanOrEqual(4);
+  });
+
+  it("caps expansion at 20 nodes and never invents a relationship", () => {
+    const expanded = planFocusedExplorer(focusedArtists, focusedRelationships, focusedArtists[0].id, "en", true);
+    expect(expanded.totalNodeCount).toBe(20);
+    expect(expanded.relationships.every((relationship) => focusedRelationships.includes(relationship))).toBe(true);
   });
 });
 

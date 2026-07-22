@@ -150,6 +150,10 @@ jobs:
             python scripts/build_museum_09b_release.py --output tmp/museum-09b-ci-release --no-update-ledger
             diff -ru public/releases/art-expansion-batch-01-1.5.0 tmp/museum-09b-ci-release
           fi
+          if [[ "$REBUILDS" == *"art-expansion-batch-01-1.5.1"* ]]; then
+            python scripts/build_museum_09b_ux_release.py --output tmp/museum-09b-ux-ci-release --no-update-ledger
+            diff -ru public/releases/art-expansion-batch-01-1.5.1 tmp/museum-09b-ux-ci-release
+          fi
 
       - name: Run M08 targeted Python closure
         if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-08')
@@ -166,6 +170,13 @@ jobs:
         run: |
           python scripts/validate_museum_09b_release.py public/releases/art-expansion-batch-01-1.5.0
           python scripts/validate_museum_09b_recovery.py --check
+
+      - name: Run M09B UX targeted release closure
+        if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-09B-UX-01')
+        run: |
+          python -m unittest tests.test_museum_09b_ux_release
+          python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-01-1.5.1
 
       - name: Set up Node.js
         if: needs.classify.outputs.runtime_changed == 'true'
@@ -207,7 +218,7 @@ jobs:
         if: needs.classify.outputs.deploy_required == 'true'
         env:
           MUSEUM_BROWSER_SUITES: ${{ needs.classify.outputs.browser_suites }}
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09b-release/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09b-ux-01/playwright-results.json
         run: npm run test:e2e
 
       - name: Bind Pages artifact to this commit

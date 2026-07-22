@@ -258,6 +258,13 @@ def expected_target_schema(data: dict[str, Any]) -> str | None:
             return "schemas/art/release/art-expansion-media-asset.schema.json"
         if entity_type == "source":
             return "schemas/art/release/art-expansion-source.schema.json"
+    if data.get("release_id") == "release:art-expansion-batch-01-1.5.1":
+        if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
+            return "schemas/art/release/art-expansion-public-record-v151.schema.json"
+        if entity_type == "media_asset":
+            return "schemas/art/release/art-expansion-media-asset-v151.schema.json"
+        if entity_type == "source":
+            return "schemas/art/release/art-expansion-source-v151.schema.json"
     if entity_type in ART_CONTEXT_ENTITY_TYPES:
         if data.get("branch_id") == "art":
             return "schemas/art/context/art-context.schema.json"
@@ -535,7 +542,10 @@ def source_publish_issues(
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     if (
-        data.get("release_id") == "release:art-expansion-batch-01-1.5.0"
+        data.get("release_id") in {
+            "release:art-expansion-batch-01-1.5.0",
+            "release:art-expansion-batch-01-1.5.1",
+        }
         and data.get("authorization_basis") == "PASS_BY_USER_AUTHORIZATION"
     ):
         if data.get("public_static_redistribution") != "allowed":
@@ -1106,7 +1116,10 @@ def reference_graph_issues(records: list[dict[str, Any]]) -> list[ValidationIssu
                 parent = indexed.get(parent_id, {})
                 if parent.get("entity_type") != "media_asset":
                     protected_parent_is_sealed = (
-                        data.get("release_id") == "release:art-expansion-batch-01-1.5.0"
+                        data.get("release_id") in {
+                            "release:art-expansion-batch-01-1.5.0",
+                            "release:art-expansion-batch-01-1.5.1",
+                        }
                         and data.get("delivery_mode") in {"predecessor_reference", "build_materialized"}
                         and isinstance(parent_id, str)
                         and parent_id.startswith("media:")

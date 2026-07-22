@@ -106,7 +106,7 @@ test("local-only map exposes synchronized markers, evidence, uncertainty, and no
   await expect(page.getByText(/Modern outlines are not historical political borders/)).toBeVisible();
   await expect(page.getByText(/current holding institution is not a creation place/i)).toBeVisible();
   const style = await page.evaluate(async (): Promise<MapStyleProbe> => {
-    const response = await fetch("./releases/art-expansion-batch-01-1.5.0/map-style.json");
+    const response = await fetch("./releases/art-expansion-batch-01-1.5.1/map-style.json");
     return await response.json() as MapStyleProbe;
   });
   expect(style.style.layers.map((layer) => layer.id)).toEqual(["background", "land", "lakes", "coastline", "uncertainty-halos", "place-markers"]);

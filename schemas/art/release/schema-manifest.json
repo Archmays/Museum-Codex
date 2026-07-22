@@ -31,6 +31,41 @@
       "depends_on": ["schemas/common/source.schema.json"]
     },
     {
+      "path": "schemas/art/release/art-expansion-public-record-v151.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-public-record-v151.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-media-asset-v151.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-media-asset-v151.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-source-v151.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-source-v151.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/source.schema.json"]
+    },
+    {
+      "path": "schemas/art/release/artist-narrative.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/artist-narrative.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/relationship-explorer-config.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/relationship-explorer-config.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
       "path": "schemas/art/release/art-constellation-artifact.schema.json",
       "id": "https://museum-codex.example/schemas/art/release/art-constellation-artifact.schema.json",
       "version": "1.0.0",

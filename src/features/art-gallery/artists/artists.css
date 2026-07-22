@@ -444,10 +444,27 @@
 
 .artist-gallery-introduction section > p:last-child {
   margin-top: 1.5rem;
-  color: var(--ink-muted);
-  font-size: 1rem;
-  line-height: 1.85;
+  color: var(--ink);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
 }
+
+.artist-public-intro { max-width: 68ch; }
+.artist-look-for { display: grid; gap: 0.8rem; margin: 1.5rem 0 0; padding-left: 1.25rem; }
+.artist-look-for li { padding-left: 0.35rem; color: var(--ink); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.7; }
+.artist-context-and-timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 3rem; border: 1px solid var(--line-strong); background: var(--line-strong); }
+.artist-context-and-timeline > section { min-width: 0; padding: clamp(1.5rem, 4vw, 3.2rem); background: rgba(13, 23, 29, 0.92); }
+.artist-context-and-timeline h2 { margin-top: 0.6rem; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1; }
+.artist-context-and-timeline section > p:last-child { margin-top: 1.5rem; color: var(--ink-muted); line-height: 1.8; }
+.artist-evidence-boundary { margin-top: 1rem; color: var(--ink-muted); line-height: 1.75; }
+.artist-provenance { margin-top: 1.25rem; padding: 1rem; border: 1px solid var(--line); }
+.artist-provenance summary { min-height: 44px; cursor: pointer; color: var(--gold-soft); }
+.artist-provenance ol { margin: 1rem 0 0; padding-left: 1.25rem; }
+.artist-provenance li { padding: 0.8rem 0; border-top: 1px solid var(--line); }
+.artist-provenance li > p { color: var(--ink); line-height: 1.65; }
+.artist-provenance dl div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 0.6rem; margin-top: 0.5rem; }
+.artist-provenance dt { color: var(--ink-faint); font-size: 0.7rem; }
+.artist-provenance dd { margin: 0; overflow-wrap: anywhere; color: var(--ink-muted); font-size: 0.72rem; }
 
 .artist-formal-works {
   margin-top: 5rem;
@@ -603,6 +620,7 @@
 }
 
 @media (max-width: 760px) {
+  .artist-context-and-timeline { grid-template-columns: 1fr; }
   .gallery-page {
     width: min(92vw, 42rem);
     padding-top: 1rem;
