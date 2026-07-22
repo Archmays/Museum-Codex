@@ -131,6 +131,9 @@ def classify_changes(
     security_rights_changed = any(_matches(path, contract["security_rights_prefixes"]) for path in paths)
     public_changed = any(path.startswith("public/") for path in paths)
     runtime_changed = any(_matches(path, contract["runtime_prefixes"]) for path in paths)
+    deployment_binding_changed = any(
+        _matches(path, contract.get("deployment_binding_paths", ())) for path in paths
+    )
 
     affected_phases: set[str] = set()
     for phase, patterns in contract["phase_paths"].items():
@@ -207,7 +210,7 @@ def classify_changes(
         browser_suites.add("shell")
     browser_suites = sorted(browser_suites)
     deploy_required = bool(
-        (runtime_changed or public_changed or manual_full)
+        (runtime_changed or public_changed or deployment_binding_changed or manual_full)
         and not docs_only
         and not closeout_docs
     )
@@ -235,6 +238,8 @@ def classify_changes(
         reasons.append("runtime_changed")
     if public_changed:
         reasons.append("public_changed")
+    if deployment_binding_changed:
+        reasons.append("deployment_binding_changed")
     if rebuild:
         reasons.append("release_closure_changed")
     if not reasons:

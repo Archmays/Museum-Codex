@@ -51,6 +51,9 @@
     "public/",
     "index.html"
   ],
+  "deployment_binding_paths": [
+    "governance/release-integrity-ledger.json"
+  ],
   "dependency_paths": [
     "package.json",
     "package-lock.json",
@@ -61,6 +64,7 @@
     ".github/workflows/"
   ],
   "shared_core_prefixes": [
+    "governance/release-integrity-ledger.json",
     "schemas/common/",
     "museum_pipeline/validation/",
     "src/data/release-loader.ts",
