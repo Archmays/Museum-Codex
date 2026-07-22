@@ -91,7 +91,7 @@ describe("MUSEUM-05A artist galleries", () => {
     renderEnglish(<ArtistGalleryPage {...galleryData} artistId="artist:albrecht-durer" />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Albrecht Dürer" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "Source-verifiable introduction" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Meet the artist" })).toBeInTheDocument();
     const worksSection = screen.getByRole("heading", { level: 2, name: "Formal works in this release" }).closest("section");
     expect(worksSection).not.toBeNull();
     expect(within(worksSection!).getAllByRole("listitem")).toHaveLength(4);
@@ -106,7 +106,9 @@ describe("MUSEUM-05A artist galleries", () => {
       "href",
       "https://metmuseum.github.io/",
     );
-    expect(screen.getByText(/never artistic status|do not imply influence/i)).toBeInTheDocument();
+    const supportSection = screen.getByRole("heading", { level: 2, name: "What supports the introduction" }).closest("section");
+    expect(supportSection).not.toBeNull();
+    expect(within(supportSection!).getByText(/never artistic status|do not imply influence/i)).toBeInTheDocument();
   });
 
   it("keeps a complete four-work gallery when no public artwork image is approved", async () => {
