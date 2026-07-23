@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && python scripts/materialize_museum_09b_media.py --output dist",
+    "build": "vite build && python scripts/materialize_current_art_media.py --output dist",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",

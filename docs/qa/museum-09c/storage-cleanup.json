@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "removed_target_count": 12,
+  "removed_file_count": 2878,
+  "removed_bytes": 543789071,
+  "removed_targets": [
+    "dist",
+    "output/playwright",
+    "tmp/museum-09c-deterministic-release",
+    "tmp/museum-09c-regenerate-backup",
+    "governance.log",
+    "media.log",
+    "registry-repair.log",
+    "release.log",
+    "research.log",
+    "validator.log",
+    "tmp/museum-09c-posix-sort-backup",
+    "tmp/museum-09c-posix-verify"
+  ],
+  "retained": {
+    "formal_candidate": {
+      "file_count": 67,
+      "bytes": 4818211
+    },
+    "media_bundle": {
+      "file_count": 12,
+      "bytes": 170436
+    },
+    "release": {
+      "file_count": 68,
+      "bytes": 19055048
+    },
+    "protected_media_vault": {
+      "file_count": 171,
+      "bytes": 240845468
+    }
+  },
+  "status": "pass"
+}

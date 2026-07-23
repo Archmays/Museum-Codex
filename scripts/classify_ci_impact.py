@@ -100,6 +100,12 @@ def _matches(path: str, patterns: Iterable[str]) -> bool:
     return any(path == pattern or path.startswith(pattern) for pattern in patterns)
 
 
+def _is_docs_only_path(path: str, contract: dict[str, Any]) -> bool:
+    return any(path.startswith(prefix) for prefix in contract["docs_only_prefixes"]) or path in set(
+        contract["docs_only_exact"]
+    )
+
+
 def _phase_for_release(contract: dict[str, Any], release_id: str) -> str:
     for item in [*contract["historical_releases"], contract["candidate_release"]]:
         if item["release_id"] == release_id:
@@ -117,8 +123,7 @@ def classify_changes(
     contract = contract or json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
     paths = sorted({path for change in changes for path in change.paths})
     statuses = sorted({change.status for change in changes})
-    docs_allowlist = [*contract["docs_only_prefixes"], *contract["docs_only_exact"]]
-    docs_only = bool(paths) and all(_matches(path, docs_allowlist) for path in paths)
+    docs_only = bool(paths) and all(_is_docs_only_path(path, contract) for path in paths)
     closeout_docs = docs_only and all(
         path.startswith(("docs/phase-reports/", "docs/qa/")) for path in paths
     )

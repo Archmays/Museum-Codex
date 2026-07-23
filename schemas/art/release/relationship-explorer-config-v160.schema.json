@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/relationship-explorer-config-v160.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "release_id",
+    "algorithm"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "release_id": {
+      "const": "release:art-expansion-batch-02-1.6.0"
+    },
+    "algorithm": {
+      "const": "focused_relation_lanes_v1"
+    },
+    "default_mode": {
+      "const": "choose_artist"
+    },
+    "default_global_graph_node_count": {
+      "const": 0
+    },
+    "focus_initial_neighbor_limit": {
+      "const": 12
+    },
+    "focus_initial_per_lane_limit": {
+      "const": 4
+    },
+    "focus_expanded_node_limit": {
+      "const": 20
+    },
+    "theme_visual_artist_limit": {
+      "const": 16
+    },
+    "theme_text_page_size": {
+      "const": 16
+    },
+    "lane_order": {
+      "const": [
+        "shared_subject",
+        "shared_material",
+        "shared_technique"
+      ]
+    },
+    "starter_rotation": {
+      "type": "object"
+    },
+    "relationship_source": {
+      "type": "object"
+    },
+    "context_source": {
+      "type": "object"
+    },
+    "semantics": {
+      "type": "object"
+    },
+    "default_nodes": {
+      "const": []
+    },
+    "node_size_semantics": {
+      "const": "constant"
+    },
+    "distance_semantics": {
+      "const": "none"
+    }
+  },
+  "additionalProperties": true
+}

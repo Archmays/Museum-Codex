@@ -346,7 +346,7 @@ test("missing route chunks retain a natural recovery path instead of a blank she
 test("stale search release can retry and withdrawn or missing stable IDs fail naturally", async ({ page }) => {
   await installPreferences(page, true);
   let failedOnce = false;
-  await page.route("**/releases/art-expansion-batch-01-1.5.1/search/manifest.json", async (route) => {
+  await page.route("**/releases/art-expansion-batch-02-1.6.0/search/manifest.json", async (route) => {
     if (!failedOnce) {
       failedOnce = true;
       await route.fulfill({ status: 503, contentType: "application/json", body: "{}" });

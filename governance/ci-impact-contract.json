@@ -37,19 +37,25 @@
       "phase": "MUSEUM-09B-RELEASE",
       "release_id": "release:art-expansion-batch-01-1.5.0",
       "directory": "public/releases/art-expansion-batch-01-1.5.0"
+    },
+    {
+      "phase": "MUSEUM-09B-UX-01",
+      "release_id": "release:art-expansion-batch-01-1.5.1",
+      "directory": "public/releases/art-expansion-batch-01-1.5.1"
     }
   ],
   "candidate_release": {
-    "phase": "MUSEUM-09B-UX-01",
-    "release_id": "release:art-expansion-batch-01-1.5.1",
-    "directory": "public/releases/art-expansion-batch-01-1.5.1"
+    "phase": "MUSEUM-09C",
+    "release_id": "release:art-expansion-batch-02-1.6.0",
+    "directory": "public/releases/art-expansion-batch-02-1.6.0"
   },
   "docs_only_prefixes": [
     "docs/phase-reports/",
     "docs/qa/"
   ],
   "docs_only_exact": [
-    "docs/00_project/ci-execution-governance.md"
+    "docs/00_project/ci-execution-governance.md",
+    "docs/05_roadmap/museum-09c-execution-contract.md"
   ],
   "runtime_prefixes": [
     "src/",
@@ -184,6 +190,28 @@
       "src/data/release-loader.ts",
       "src/features/art-constellation/",
       "src/features/art-gallery/",
+      "src/features/art-search/"
+    ],
+    "MUSEUM-09C": [
+      "museum_pipeline/art/expansion_batch_factory.py",
+      "scripts/run_museum_expansion_batch.py",
+      "scripts/validate_museum_09c.py",
+      "scripts/verify_museum_09c_online.py",
+      "schemas/art/expansion/batch-registry.schema.json",
+      "schemas/art/release/art-expansion-public-record-v160.schema.json",
+      "schemas/art/release/art-expansion-media-asset-v160.schema.json",
+      "schemas/art/release/art-expansion-source-v160.schema.json",
+      "schemas/art/release/artist-narrative-v160.schema.json",
+      "schemas/art/release/relationship-explorer-config-v160.schema.json",
+      "data/reviewed/art/museum-09c/",
+      "data/reviewed/art/museum-09c-media/",
+      "public/releases/art-expansion-batch-02-1.6.0/",
+      "src/data/art-release-profile.ts",
+      "src/data/release-loader.ts",
+      "src/features/art-constellation/",
+      "src/features/art-gallery/",
+      "src/features/art-map/",
+      "src/features/art-paths/",
       "src/features/art-search/"
     ]
   },

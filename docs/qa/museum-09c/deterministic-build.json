@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "batch_id": "museum-09-batch-02",
+  "release_id": "release:art-expansion-batch-02-1.6.0",
+  "factory_command": "python scripts/run_museum_expansion_batch.py --batch-id museum-09-batch-02 --through release --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1",
+  "repeat_count": 2,
+  "directory_diff_count": 0,
+  "content_hash": "sha256:266d8b655182dab60ee82a472a6937c99976e28d74afee402180f1d566c0ea71",
+  "manifest_sha256": "sha256:3fe1613d9c1f969cb31294132f995b3147aae648fa762c5c4b772c460e859c4f",
+  "tree_hash": "sha256:d1ed04f15eec22f241b55ab0915d6876f7788f63ea27249ace3d2ddc4028842c",
+  "file_count": 68,
+  "physical_bytes": 19055048,
+  "temporary_comparison_output_removed": true,
+  "status": "pass"
+}

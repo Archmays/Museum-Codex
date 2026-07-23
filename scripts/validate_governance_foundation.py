@@ -265,6 +265,13 @@ def expected_target_schema(data: dict[str, Any]) -> str | None:
             return "schemas/art/release/art-expansion-media-asset-v151.schema.json"
         if entity_type == "source":
             return "schemas/art/release/art-expansion-source-v151.schema.json"
+    if data.get("release_id") == "release:art-expansion-batch-02-1.6.0":
+        if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
+            return "schemas/art/release/art-expansion-public-record-v160.schema.json"
+        if entity_type == "media_asset":
+            return "schemas/art/release/art-expansion-media-asset-v160.schema.json"
+        if entity_type == "source":
+            return "schemas/art/release/art-expansion-source-v160.schema.json"
     if entity_type in ART_CONTEXT_ENTITY_TYPES:
         if data.get("branch_id") == "art":
             return "schemas/art/context/art-context.schema.json"
@@ -545,6 +552,7 @@ def source_publish_issues(
         data.get("release_id") in {
             "release:art-expansion-batch-01-1.5.0",
             "release:art-expansion-batch-01-1.5.1",
+            "release:art-expansion-batch-02-1.6.0",
         }
         and data.get("authorization_basis") == "PASS_BY_USER_AUTHORIZATION"
     ):
@@ -1119,6 +1127,7 @@ def reference_graph_issues(records: list[dict[str, Any]]) -> list[ValidationIssu
                         data.get("release_id") in {
                             "release:art-expansion-batch-01-1.5.0",
                             "release:art-expansion-batch-01-1.5.1",
+                            "release:art-expansion-batch-02-1.6.0",
                         }
                         and data.get("delivery_mode") in {"predecessor_reference", "build_materialized"}
                         and isinstance(parent_id, str)

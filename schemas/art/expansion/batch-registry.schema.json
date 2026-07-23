@@ -67,7 +67,17 @@
           "id": { "type": "string", "pattern": "^museum-09-batch-[0-9]{2}$" },
           "sequence": { "type": "integer", "minimum": 1, "maximum": 10 },
           "planned_phase": { "type": "string", "pattern": "^MUSEUM-09[A-Z]$" },
-          "status": { "const": "registered_not_started" },
+          "status": {
+            "enum": [
+              "registered_not_started",
+              "research_in_progress",
+              "formal_candidate_ready",
+              "media_bundle_ready",
+              "published",
+              "blocked",
+              "withdrawn"
+            ]
+          },
           "artist_count": { "type": "integer", "minimum": 48, "maximum": 50 },
           "work_count": { "type": "integer", "minimum": 450, "maximum": 550 },
           "artist_ids": { "type": "array", "minItems": 48, "maxItems": 50, "uniqueItems": true },
@@ -78,9 +88,65 @@
           "source_set": { "type": "array", "minItems": 1, "uniqueItems": true },
           "workload": { "type": "string", "minLength": 1 },
           "risks": { "type": "array" },
-          "dependencies": { "type": "array" }
+          "dependencies": { "type": "array" },
+          "status_history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["from", "to", "at", "actor"],
+              "properties": {
+                "from": {
+                  "enum": [
+                    "registered_not_started",
+                    "research_in_progress",
+                    "formal_candidate_ready",
+                    "media_bundle_ready"
+                  ]
+                },
+                "to": {
+                  "enum": [
+                    "research_in_progress",
+                    "formal_candidate_ready",
+                    "media_bundle_ready",
+                    "published",
+                    "blocked",
+                    "withdrawn"
+                  ]
+                },
+                "at": { "type": "string", "minLength": 1 },
+                "actor": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": true
+            }
+          }
         },
-        "additionalProperties": false
+        "additionalProperties": true,
+        "allOf": [
+          {
+            "if": {
+              "properties": { "status": { "const": "published" } },
+              "required": ["status"]
+            },
+            "then": {
+              "required": [
+                "formal_package_id",
+                "formal_package_content_hash",
+                "formal_package_tree_hash",
+                "media_package_id",
+                "media_package_content_hash",
+                "media_package_tree_hash",
+                "current_release",
+                "public_release_created",
+                "online_closure",
+                "next_authorized_phase"
+              ],
+              "anyOf": [
+                { "required": ["runtime_commits", "deployments"] },
+                { "required": ["runtime_binding", "deployment_binding"] }
+              ]
+            }
+          }
+        ]
       }
     },
     "reserve_replacement_order": {

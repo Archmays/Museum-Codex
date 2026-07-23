@@ -44,6 +44,16 @@ class Museum08CiImpactTests(unittest.TestCase):
         self.assertEqual([], result["releases_to_rebuild"])
         self.assertEqual([], result["browser_suites"])
 
+    def test_docs_only_exact_paths_do_not_authorize_descendants(self) -> None:
+        exact = classify_changes(
+            _parse_name_status(["M\tdocs/05_roadmap/museum-09c-execution-contract.md"])
+        )
+        descendant = classify_changes(
+            _parse_name_status(["A\tdocs/05_roadmap/museum-09c-execution-contract.md/accidental.txt"])
+        )
+        self.assertTrue(exact["docs_only"])
+        self.assertFalse(descendant["docs_only"])
+
     def test_closure_path_hash_normalizes_cross_platform_line_endings(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -71,6 +81,7 @@ class Museum08CiImpactTests(unittest.TestCase):
                 "release:art-pathways-1.2.0",
                 "release:art-time-place-1.3.0",
                 "release:art-expansion-batch-01-1.5.0",
+                "release:art-expansion-batch-01-1.5.1",
             },
             set(result["releases_hash_only"]),
         )

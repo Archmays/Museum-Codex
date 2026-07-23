@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "screenshot_count": 12,
+  "screenshots": [
+    {
+      "name": "01-relationship-start-desktop",
+      "path": "docs/qa/museum-09c/screenshots/01-relationship-start-desktop.png",
+      "route": "/art/constellation",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "locale": "zh-CN",
+      "bytes": 689225,
+      "sha256": "sha256:994d343a1bd1b350cbf3074319e3300825f9138dd721ffbfaae88f6657a2e621",
+      "validation_target": "默认无全体圆环，初始节点为 0，搜索与 coverage 起点清楚"
+    },
+    {
+      "name": "02-focused-three-lanes-desktop",
+      "path": "docs/qa/museum-09c/screenshots/02-focused-three-lanes-desktop.png",
+      "route": "/art/constellation?artist=artist%3Akatsushika-hokusai",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "locale": "zh-CN",
+      "bytes": 660952,
+      "sha256": "sha256:c896c48306dfcc5a88add398ac1d4b26a57b34f5e740f5f167b0c255c5fb6f29",
+      "validation_target": "中心艺术家与题材、材料、技法三类分支，节点和标签无重叠"
+    },
+    {
+      "name": "03-focused-artist-mobile",
+      "path": "docs/qa/museum-09c/screenshots/03-focused-artist-mobile.png",
+      "route": "/art/constellation?artist=artist%3Akatsushika-hokusai",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 501726,
+      "sha256": "sha256:0db13a1a3f4ae5deaf895de20b4902946d855d4ccc9ae35708cb33ec9be2096b",
+      "validation_target": "390px 移动端纵向分组、无裁切与横向溢出"
+    },
+    {
+      "name": "04-relationship-explanation",
+      "path": "docs/qa/museum-09c/screenshots/04-relationship-explanation.png",
+      "route": "/art/constellation?release=1.6.0&q=%E8%91%9B%E9%A5%B0%E5%8C%97%E6%96%8B&artist=artist%3Akatsushika-hokusai&relation=art-rel%3Am03b-031",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 485606,
+      "sha256": "sha256:44e43bfe904217414b4dc546a3d6de93f639af66bb0759e204d43d89d5d3a86a",
+      "validation_target": "普通访客关系解释、证据入口与不代表历史影响的边界"
+    },
+    {
+      "name": "05-no-formal-relationships",
+      "path": "docs/qa/museum-09c/screenshots/05-no-formal-relationships.png",
+      "route": "/art/constellation?release=1.6.0&q=Kaiho+Y%C3%BBsh%C3%B4&artist=artist%3Am09a-aic_api-13343",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 304537,
+      "sha256": "sha256:6980661e16e2c6f8d9b2484e190660a8a01e66f6b853ac01da5ed9cecb2cb4af",
+      "validation_target": "无正式关系时保持自然空状态且不补算法边"
+    },
+    {
+      "name": "06-theme-mode",
+      "path": "docs/qa/museum-09c/screenshots/06-theme-mode.png",
+      "route": "/art/constellation?release=1.6.0&mode=theme&context=context%3Am09-b02-artist-01-1",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 284608,
+      "sha256": "sha256:0de4cf18520334f2771c4db3673f42e5067cdcde8bad15ec26eda5e57eeb40c8",
+      "validation_target": "主题作为标题、视觉分组不超过 16 人并保留完整文字列表"
+    },
+    {
+      "name": "07-tanner-child-intro",
+      "path": "docs/qa/museum-09c/screenshots/07-tanner-child-intro.png",
+      "route": "/art/artists/henry-ossawa-tanner",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 524789,
+      "sha256": "sha256:bb8e3bb8237bcfcebc5372b89a348cbc4349e8088fdd05a2dc6b35d35ecb5fcf",
+      "validation_target": "Tanner 中文自然主介绍与观察提示优先于治理语言"
+    },
+    {
+      "name": "08-new-gallery-child-intro",
+      "path": "docs/qa/museum-09c/screenshots/08-new-gallery-child-intro.png",
+      "route": "/art/artists/hua-yan",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 1391200,
+      "sha256": "sha256:9b8bafbf3c42f1149676ab42e2e24b24095ffd636a5c2c45408762ced50fd1a8",
+      "validation_target": "新增 Gallery 使用同一儿童友好叙事层"
+    },
+    {
+      "name": "09-collection-child-intro",
+      "path": "docs/qa/museum-09c/screenshots/09-collection-child-intro.png",
+      "route": "/art/artists/kaiho-yusho",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 464452,
+      "sha256": "sha256:328f2d670b603988acb84a4434e791664d5804243207efc0e222b93766780993",
+      "validation_target": "Collection profile 使用同一儿童友好叙事层"
+    },
+    {
+      "name": "10-metadata-only-prompt",
+      "path": "docs/qa/museum-09c/screenshots/10-metadata-only-prompt.png",
+      "route": "/art/artists/nakunte-diarra",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 490623,
+      "sha256": "sha256:263103fc83a1847b5aec34761aeadafedfbae18ed3111690189604a886b3fd05",
+      "validation_target": "无本站图片时提示比较标题、日期、材料与机构，不要求观察不存在的图像"
+    },
+    {
+      "name": "11-evidence-boundary-open",
+      "path": "docs/qa/museum-09c/screenshots/11-evidence-boundary-open.png",
+      "route": "/art/artists/henry-ossawa-tanner",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 549153,
+      "sha256": "sha256:49d88dcaa7bc14e2a57624748886976ed5aae65a0ccae7e93c8a8713d497ae6b",
+      "validation_target": "技术边界与逐句 Claim-Evidence-Source 映射保留在次级层"
+    },
+    {
+      "name": "12-forced-colors-low-bandwidth-equivalent",
+      "path": "docs/qa/museum-09c/screenshots/12-forced-colors-low-bandwidth-equivalent.png",
+      "route": "/art/constellation?release=1.6.0&q=%E8%91%9B%E9%A5%B0%E5%8C%97%E6%96%8B&artist=artist%3Akatsushika-hokusai",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "locale": "zh-CN",
+      "bytes": 234328,
+      "sha256": "sha256:bad1caf02dfc1ffde7fb2f7de944b829a53fb24a8af79111b6ba5e09e89efcc0",
+      "validation_target": "forced-colors、reduced-motion 与低带宽仍保留关系、解释和导航任务"
+    }
+  ]
+}

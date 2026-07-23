@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "local_full_gate_count": 0,
+  "targeted_runs": [
+    {
+      "scope": "museum_09c_validator_and_governance",
+      "status": "pass"
+    },
+    {
+      "scope": "python_museum_09c_ci_classifier_workflow_and_leakage",
+      "test_count": 54,
+      "status": "pass"
+    },
+    {
+      "scope": "frontend_affected_vitest",
+      "file_count": 8,
+      "test_count": 52,
+      "status": "pass"
+    },
+    {
+      "scope": "lint_and_typecheck",
+      "status": "pass"
+    },
+    {
+      "scope": "production_build_and_build_verifier",
+      "physical_file_count": 1976,
+      "physical_bytes": 309901786,
+      "status": "pass"
+    },
+    {
+      "scope": "repository_safety_privacy_hardcoded_count_synthetic_and_candidate_leakage",
+      "status": "pass"
+    },
+    {
+      "scope": "museum_09c_browser_routes_accessibility_screenshots_and_performance",
+      "test_count": 9,
+      "status": "pass"
+    },
+    {
+      "scope": "affected_historical_browser_routes",
+      "test_count": 24,
+      "status": "pass"
+    },
+    {
+      "scope": "search_benchmark_and_scaled_bundle_budgets",
+      "status": "pass"
+    }
+  ],
+  "browser_environment_note": "A pre-existing process occupied port 4173; it was preserved. The controlled preview used port 4174. Initial stale-server failures are not accepted results; all affected cases subsequently passed against the exact current build.",
+  "historical_qa_mutation_count": 0,
+  "status": "pass"
+}

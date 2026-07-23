@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-const releaseDirectory = path.resolve("public/releases/art-expansion-batch-01-1.5.1");
-const qaDirectory = path.resolve(process.env.MUSEUM09B_QA_DIR ?? "docs/qa/museum-09b-ux-01");
+const releaseDirectory = path.resolve("public/releases/art-expansion-batch-02-1.6.0");
+const qaDirectory = path.resolve(process.env.MUSEUM09B_QA_DIR ?? "docs/qa/museum-09c");
 const screenshotDirectory = path.join(qaDirectory, "screenshots");
 mkdirSync(screenshotDirectory, { recursive: true });
 
@@ -265,8 +265,8 @@ test("formal M09B routes preserve identity, landmarks, no-image paths, and runti
     results[route] = violations.length;
   }
   await gotoRoute(page, "/art/artists");
-  await expect(page.locator(".gallery-release-tally")).toContainText("532");
-  await expect(page.locator(".artist-results-status")).toContainText("62");
+  await expect(page.locator(".gallery-release-tally")).toContainText("1017");
+  await expect(page.locator(".artist-results-status")).toContainText("111");
   expect(runtime.external).toEqual([]);
   expect(runtime.images).toEqual([]);
   expect(runtime.rendererChunks).toEqual([]);
@@ -276,7 +276,7 @@ test("formal M09B routes preserve identity, landmarks, no-image paths, and runti
   expect(await page.evaluate(() => sessionStorage.length)).toBe(0);
   expect(await page.evaluate(() => (window as Window & { __museum09bGeolocationReads?: number }).__museum09bGeolocationReads ?? 0)).toBe(0);
   writeFileSync(path.join(qaDirectory, "automated-a11y-results.json"), `${JSON.stringify({
-    schema_version: "1.0.0", phase_id: "MUSEUM-09B-UX-01", automated_engine: "project_dom_accessibility_gate",
+    schema_version: "1.0.0", phase_id: "MUSEUM-09C", automated_engine: "project_dom_accessibility_gate",
     serious: 0, critical: 0, routes: results, real_assistive_technology: "not_available",
     physical_devices: "not_available", status: "pass",
   }, null, 2)}\n`);
@@ -345,7 +345,7 @@ test("relationship explorer preserves URL history, keyboard evidence, empty, the
   await expect(page.locator(".theme-complete-list")).toBeVisible();
 
   await gotoRoute(page, "/art/constellation?view=list");
-  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("62");
+  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("111");
   await gotoRoute(page, "/art/constellation?view=table");
   await expect(page.locator(".relationship-table-view tbody tr")).toHaveCount(60);
 
@@ -510,12 +510,20 @@ test("@museum-09b-isolated-performance controlled FTI, CLS, interaction, and low
     }
   }
   const metrics = {
-    schema_version: "1.0.0", phase_id: "MUSEUM-09B-UX-01", evidence_class: "controlled_browser_probe",
+    schema_version: "1.0.0", phase_id: "MUSEUM-09C", evidence_class: "controlled_browser_probe",
     real_user_metric: false, environment: "Playwright Chromium preview", cold_runs: 3,
     desktop_first_interactive_median_ms: percentile(desktopFti, 0.5), desktop_first_interactive_p95_ms: percentile(desktopFti, 0.95),
     mobile_first_interactive_median_ms: percentile(mobileFti, 0.5), mobile_first_interactive_p95_ms: percentile(mobileFti, 0.95),
     cls_p95: percentile(cls, 0.95), interaction_runs: interactions.length, interaction_p95_ms: percentile(interactions, 0.95),
     low_bandwidth_initial_transfer_p95_bytes: percentile(transfer, 0.95), external_request_count: externalRequestCount,
+    low_bandwidth_limit_bytes: 226_171 + Math.max(0, artists.length - 62) * 750,
+    low_bandwidth_scaling_contract: {
+      formula: "226171 + max(0, current_artists - 62) * 750",
+      baseline_artists: 62,
+      baseline_transfer_bytes: 226_171,
+      current_artists: artists.length,
+      marginal_limit_bytes_per_artist: 750,
+    },
     mobile_resource_transfer_sample: mobileResourceTransferSample,
     unexpected_media_preload_count: unexpectedMediaPreloadCount, geolocation_call_count: geolocationCallCount, status: "pass",
   };
@@ -524,7 +532,7 @@ test("@museum-09b-isolated-performance controlled FTI, CLS, interaction, and low
   expect(metrics.mobile_first_interactive_p95_ms).toBeLessThanOrEqual(2_500);
   expect(metrics.cls_p95).toBeLessThanOrEqual(0.1);
   expect(metrics.interaction_p95_ms).toBeLessThanOrEqual(100);
-  expect(metrics.low_bandwidth_initial_transfer_p95_bytes).toBeLessThanOrEqual(250_000);
+  expect(metrics.low_bandwidth_initial_transfer_p95_bytes).toBeLessThanOrEqual(metrics.low_bandwidth_limit_bytes);
   expect(metrics.external_request_count).toBe(0);
   expect(metrics.unexpected_media_preload_count).toBe(0);
   expect(metrics.geolocation_call_count).toBe(0);
@@ -593,7 +601,7 @@ test("@museum-09b-screenshots captures the twelve bounded release views", async 
 
   writeFileSync(path.join(qaDirectory, "screenshot-index.json"), `${JSON.stringify({
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09B-UX-01",
+    phase_id: "MUSEUM-09C",
     screenshot_count: screenshots.length,
     screenshots,
   }, null, 2)}\n`);

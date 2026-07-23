@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "captured_at": "2026-07-23T00:00:00+08:00",
+  "baseline_commit": "6b6670b53cdfe4de1527878cd7bde337c31cdad8",
+  "branch": "main",
+  "local_main_equals_origin_main": true,
+  "local_main_equals_remote_main": true,
+  "worktree_clean": true,
+  "worktree_count": 1,
+  "stash_count": 0,
+  "github_auth_account": "Archmays",
+  "global_agents_sha256": "sha256:2d9c79e30c66f63afb63ef86237fdd6659147d6054ca8e403b52fce17b10a635",
+  "batch_02_input_closure_hash": "sha256:02b962ad03917cac733f8be584c0f710f624f3039c04c869b92772bb31b2681d",
+  "protected_media_vault": {
+    "path": "data/media-source/art/museum-09b-media",
+    "file_count": 171,
+    "bytes": 240845468,
+    "original_count": 40,
+    "original_bytes": 240328162,
+    "mutation_count": 0
+  },
+  "status": "pass"
+}

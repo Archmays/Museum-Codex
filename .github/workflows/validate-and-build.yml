@@ -154,6 +154,10 @@ jobs:
             python scripts/build_museum_09b_ux_release.py --output tmp/museum-09b-ux-ci-release --no-update-ledger
             diff -ru public/releases/art-expansion-batch-01-1.5.1 tmp/museum-09b-ux-ci-release
           fi
+          if [[ "$REBUILDS" == *"art-expansion-batch-02-1.6.0"* ]]; then
+            python scripts/run_museum_expansion_batch.py --batch-id museum-09-batch-02 --stage release --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1 --output tmp/museum-09c-ci-release
+            diff -ru public/releases/art-expansion-batch-02-1.6.0 tmp/museum-09c-ci-release
+          fi
 
       - name: Run M08 targeted Python closure
         if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-08')
@@ -177,6 +181,12 @@ jobs:
           python -m unittest tests.test_museum_09b_ux_release
           python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1
           python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-01-1.5.1
+
+      - name: Run M09C targeted release closure
+        if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-09C')
+        run: |
+          python scripts/validate_museum_09c.py public/releases/art-expansion-batch-02-1.6.0 --batch-id museum-09-batch-02 --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-02-1.6.0
 
       - name: Set up Node.js
         if: needs.classify.outputs.runtime_changed == 'true'
@@ -214,11 +224,11 @@ jobs:
         if: needs.classify.outputs.deploy_required == 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: Run affected route suites and current M09B browser closure
+      - name: Run affected route suites and current M09C browser closure
         if: needs.classify.outputs.deploy_required == 'true'
         env:
           MUSEUM_BROWSER_SUITES: ${{ needs.classify.outputs.browser_suites }}
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09b-ux-01/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09c/playwright-results.json
         run: npm run test:e2e
 
       - name: Bind Pages artifact to this commit

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "status": "awaiting_github_final_full_and_pages",
+  "release": {
+    "id": "release:art-expansion-batch-02-1.6.0",
+    "content_hash": "sha256:266d8b655182dab60ee82a472a6937c99976e28d74afee402180f1d566c0ea71",
+    "manifest_sha256": "sha256:3fe1613d9c1f969cb31294132f995b3147aae648fa762c5c4b772c460e859c4f",
+    "tree_hash": "sha256:d1ed04f15eec22f241b55ab0915d6876f7788f63ea27249ace3d2ddc4028842c"
+  },
+  "runtime_commit": null,
+  "github_final_full": {
+    "run_id": null,
+    "attempt": null,
+    "status": "pending"
+  },
+  "pages": {
+    "deployment_id": null,
+    "url": "https://archmays.github.io/Museum-Codex/",
+    "status": "pending"
+  },
+  "online_byte_closure": {
+    "evidence_path": "docs/qa/museum-09c/online-closure.json",
+    "status": "pending"
+  },
+  "online_functional_smoke": {
+    "evidence_path": "docs/qa/museum-09c/functional-smoke.json",
+    "status": "pending"
+  }
+}

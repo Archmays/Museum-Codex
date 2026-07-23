@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "automated_engine": "project_dom_accessibility_gate",
+  "serious": 0,
+  "critical": 0,
+  "routes": {
+    "/": 0,
+    "/art": 0,
+    "/art/constellation": 0,
+    "/art/artists": 0,
+    "/art/artists/hua-yan": 0,
+    "/art/artists/kaiho-yusho": 0,
+    "/art/artworks/maxime-lalanne-old-quarter-of-amsterdam": 0,
+    "/art/artworks/henri-gabriel-ibels-lovers-in-an-arbor": 0,
+    "/art/artworks/robert-doisneau-indignant-lady-la-dame-indignee": 0,
+    "/art/compare": 0,
+    "/art/tours": 0,
+    "/art/paths?view=text": 0,
+    "/art/map?view=list": 0,
+    "/art/search": 0,
+    "/about": 0,
+    "/rights": 0,
+    "/accessibility": 0,
+    "/unknown-museum-09b-route": 0
+  },
+  "real_assistive_technology": "not_available",
+  "physical_devices": "not_available",
+  "status": "pass"
+}

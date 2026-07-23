@@ -1,0 +1,804 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "measurement": "node:zlib gzip level 9; independent asset compression and deterministic route closure",
+  "budgets": {
+    "home": 102060,
+    "constellation": 180000,
+    "searchRoute": 220000,
+    "searchIndex": 300000,
+    "nonMap": 350000,
+    "firstQueryShards": 131032,
+    "map": 573316,
+    "lowBandwidth": 262921
+  },
+  "scaling_contract": {
+    "first_query_shards": {
+      "formula": "ceil(73513 * current_search_records / 979)",
+      "baseline_records": 979,
+      "baseline_gzip_bytes": 73513,
+      "current_records": 1745
+    },
+    "map_route": {
+      "formula": "549956 + max(0, current_episodes - 110) * 320",
+      "baseline_episodes": 110,
+      "baseline_gzip_bytes": 549956,
+      "current_episodes": 183
+    },
+    "low_bandwidth": {
+      "formula": "226171 + max(0, current_artists - 62) * 750",
+      "baseline_artists": 62,
+      "baseline_transfer_bytes": 226171,
+      "current_artists": 111,
+      "marginal_limit_bytes_per_artist": 750
+    }
+  },
+  "measurements": {
+    "home": {
+      "files": [
+        {
+          "path": "dist/assets/index-PhKoEN8O.js",
+          "raw_bytes": 278146,
+          "gzip_bytes": 89285,
+          "sha256": "sha256:2616a15e41a549ed5219f72cdafc3b7b1afbe8e7728eaa05721806ad9f6a98d1"
+        },
+        {
+          "path": "dist/assets/index-RfcoNx7g.css",
+          "raw_bytes": 29097,
+          "gzip_bytes": 7413,
+          "sha256": "sha256:eb8ecb9d0cc65ce8ef8e64d402c243bde7a23bf5f27ee68ef81eb50b43f9ea0a"
+        },
+        {
+          "path": "dist/assets/rolldown-runtime-Bh1tDfsg.js",
+          "raw_bytes": 567,
+          "gzip_bytes": 360,
+          "sha256": "sha256:1b13387cb23dc39bf70e31677c21f6db5cad3377b96f286b6ee444496e5bfea7"
+        }
+      ],
+      "gzip_bytes": 97058,
+      "growth_percent": -2.999
+    },
+    "routes": {
+      "constellation": {
+        "files": [
+          {
+            "path": "dist/assets/ArtConstellationPage-B4A2TR9t.css",
+            "raw_bytes": 24147,
+            "gzip_bytes": 5164,
+            "sha256": "sha256:95a1e6e04064eda1f3efaa282e8166461c1db1860eba59e705d0dca443878e35"
+          },
+          {
+            "path": "dist/assets/ArtConstellationPage-D3MGNPV9.js",
+            "raw_bytes": 53665,
+            "gzip_bytes": 13236,
+            "sha256": "sha256:d40794b70ee641ab649324f243b355824ebd3c2546ed1efb67ba330dcf80030f"
+          },
+          {
+            "path": "dist/assets/ArtworkImage-DrYgoMdc.js",
+            "raw_bytes": 2657,
+            "gzip_bytes": 1242,
+            "sha256": "sha256:f6d7f4d594fa2591cbb454d7bb98b74bfda55106b17249566af7c7a2041704b2"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 31865,
+        "total_gzip_bytes": 31865
+      },
+      "artist_index": {
+        "files": [
+          {
+            "path": "dist/assets/ArtGalleryRoute-IwHYJFAd.css",
+            "raw_bytes": 3110,
+            "gzip_bytes": 1087,
+            "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+          },
+          {
+            "path": "dist/assets/ArtGalleryRoute-xciUKjlA.js",
+            "raw_bytes": 8982,
+            "gzip_bytes": 3244,
+            "sha256": "sha256:2bf2619a806c0957e462cd531005a2b6e20e70eb349050e07642811ec6f92af5"
+          },
+          {
+            "path": "dist/assets/ArtistIndexPage-Wn-o1mdI.js",
+            "raw_bytes": 8479,
+            "gzip_bytes": 2560,
+            "sha256": "sha256:d2f6b26453b6db26207152bc7e9ff8d85559b91ceb51faa8428a8ff9e850c8bd"
+          },
+          {
+            "path": "dist/assets/ArtworkImage-DrYgoMdc.js",
+            "raw_bytes": 2657,
+            "gzip_bytes": 1242,
+            "sha256": "sha256:f6d7f4d594fa2591cbb454d7bb98b74bfda55106b17249566af7c7a2041704b2"
+          },
+          {
+            "path": "dist/assets/artists-CfKAh0os.css",
+            "raw_bytes": 14394,
+            "gzip_bytes": 2984,
+            "sha256": "sha256:09d6eb4fda50ed47aec3f564ffb0826362ec274e3467a2095fbae1a1704afa9b"
+          },
+          {
+            "path": "dist/assets/copy-jOEf0bDC.js",
+            "raw_bytes": 8541,
+            "gzip_bytes": 3880,
+            "sha256": "sha256:a443b47e6901c2ec678d48102e38f049a17faa129c5dabd53a09ded6c332d596"
+          },
+          {
+            "path": "dist/assets/media-Bb6Pl7eP.js",
+            "raw_bytes": 557,
+            "gzip_bytes": 341,
+            "sha256": "sha256:5091155abe8f7a500a9a62d0578425726198fc90ea2cbdcc48652414c84fae8e"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 27561,
+        "total_gzip_bytes": 27561
+      },
+      "artist_gallery": {
+        "files": [
+          {
+            "path": "dist/assets/ArtGalleryRoute-IwHYJFAd.css",
+            "raw_bytes": 3110,
+            "gzip_bytes": 1087,
+            "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+          },
+          {
+            "path": "dist/assets/ArtGalleryRoute-xciUKjlA.js",
+            "raw_bytes": 8982,
+            "gzip_bytes": 3244,
+            "sha256": "sha256:2bf2619a806c0957e462cd531005a2b6e20e70eb349050e07642811ec6f92af5"
+          },
+          {
+            "path": "dist/assets/ArtistGalleryPage-B9OmKMVD.js",
+            "raw_bytes": 12911,
+            "gzip_bytes": 3716,
+            "sha256": "sha256:b2ab830e748f429ce2728edc0f17e471ae4d19b5a0decb6e3527e902c91d00ee"
+          },
+          {
+            "path": "dist/assets/ArtworkImage-DrYgoMdc.js",
+            "raw_bytes": 2657,
+            "gzip_bytes": 1242,
+            "sha256": "sha256:f6d7f4d594fa2591cbb454d7bb98b74bfda55106b17249566af7c7a2041704b2"
+          },
+          {
+            "path": "dist/assets/artists-CfKAh0os.css",
+            "raw_bytes": 14394,
+            "gzip_bytes": 2984,
+            "sha256": "sha256:09d6eb4fda50ed47aec3f564ffb0826362ec274e3467a2095fbae1a1704afa9b"
+          },
+          {
+            "path": "dist/assets/copy-jOEf0bDC.js",
+            "raw_bytes": 8541,
+            "gzip_bytes": 3880,
+            "sha256": "sha256:a443b47e6901c2ec678d48102e38f049a17faa129c5dabd53a09ded6c332d596"
+          },
+          {
+            "path": "dist/assets/media-Bb6Pl7eP.js",
+            "raw_bytes": 557,
+            "gzip_bytes": 341,
+            "sha256": "sha256:5091155abe8f7a500a9a62d0578425726198fc90ea2cbdcc48652414c84fae8e"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 28717,
+        "total_gzip_bytes": 28717
+      },
+      "artwork_detail": {
+        "files": [
+          {
+            "path": "dist/assets/ArtGalleryRoute-IwHYJFAd.css",
+            "raw_bytes": 3110,
+            "gzip_bytes": 1087,
+            "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+          },
+          {
+            "path": "dist/assets/ArtGalleryRoute-xciUKjlA.js",
+            "raw_bytes": 8982,
+            "gzip_bytes": 3244,
+            "sha256": "sha256:2bf2619a806c0957e462cd531005a2b6e20e70eb349050e07642811ec6f92af5"
+          },
+          {
+            "path": "dist/assets/ArtworkDetailPage-BgTk8qgt.js",
+            "raw_bytes": 9053,
+            "gzip_bytes": 3262,
+            "sha256": "sha256:7c0bb3ad6d5e828ad07c2e3f1bd9417d00260805fe3e8236ab6a5b80d45dad7d"
+          },
+          {
+            "path": "dist/assets/PrintShareControls-CwluDnEy.js",
+            "raw_bytes": 1717,
+            "gzip_bytes": 926,
+            "sha256": "sha256:7e5845bb0aed309d9c754dd098aa55edad24710971022d3b465e04b9dd70aaf3"
+          },
+          {
+            "path": "dist/assets/artwork-B62hPgtK.css",
+            "raw_bytes": 10322,
+            "gzip_bytes": 2463,
+            "sha256": "sha256:bc45d989a2d3bdcbeaff488d68196e2ebcd69f2308d5bdda88ccf12de7cffe8a"
+          },
+          {
+            "path": "dist/assets/artwork-DmlEJg7-.js",
+            "raw_bytes": 11017,
+            "gzip_bytes": 4155,
+            "sha256": "sha256:757f5de5ae662feb4c44faa8245049f799a0e6904316ac00b0c4ca9580adb035"
+          },
+          {
+            "path": "dist/assets/copy-jOEf0bDC.js",
+            "raw_bytes": 8541,
+            "gzip_bytes": 3880,
+            "sha256": "sha256:a443b47e6901c2ec678d48102e38f049a17faa129c5dabd53a09ded6c332d596"
+          },
+          {
+            "path": "dist/assets/media-Bb6Pl7eP.js",
+            "raw_bytes": 557,
+            "gzip_bytes": 341,
+            "sha256": "sha256:5091155abe8f7a500a9a62d0578425726198fc90ea2cbdcc48652414c84fae8e"
+          },
+          {
+            "path": "dist/assets/observation-CApSWa2k.css",
+            "raw_bytes": 7323,
+            "gzip_bytes": 1675,
+            "sha256": "sha256:747f04acccfddee495b4c63ddd25c81cff2b4f09a2b452f4370ca98f5be176ce"
+          },
+          {
+            "path": "dist/assets/observation-CU_pGeM3.js",
+            "raw_bytes": 4531,
+            "gzip_bytes": 1696,
+            "sha256": "sha256:b4cae375f533961af09573b8f1a12f1577e40e8b44bd2e0da0ebd5bfb749a6f7"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 34952,
+        "total_gzip_bytes": 34952
+      },
+      "compare": {
+        "files": [
+          {
+            "path": "dist/assets/ArtGalleryRoute-IwHYJFAd.css",
+            "raw_bytes": 3110,
+            "gzip_bytes": 1087,
+            "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+          },
+          {
+            "path": "dist/assets/ArtGalleryRoute-xciUKjlA.js",
+            "raw_bytes": 8982,
+            "gzip_bytes": 3244,
+            "sha256": "sha256:2bf2619a806c0957e462cd531005a2b6e20e70eb349050e07642811ec6f92af5"
+          },
+          {
+            "path": "dist/assets/ComparePage-BuC3cD4e.css",
+            "raw_bytes": 7572,
+            "gzip_bytes": 1893,
+            "sha256": "sha256:474d3ccb879a11f9e945003efdbdfc7e517f7fbc70a6f6c4d03da12352b85f80"
+          },
+          {
+            "path": "dist/assets/ComparePage-DfnewkqW.js",
+            "raw_bytes": 10909,
+            "gzip_bytes": 3730,
+            "sha256": "sha256:105ca013ab85445fb68f007a2f1df11c9a8b4ed024f0d5ad550d6d4d6039c312"
+          },
+          {
+            "path": "dist/assets/PrintShareControls-CwluDnEy.js",
+            "raw_bytes": 1717,
+            "gzip_bytes": 926,
+            "sha256": "sha256:7e5845bb0aed309d9c754dd098aa55edad24710971022d3b465e04b9dd70aaf3"
+          },
+          {
+            "path": "dist/assets/artwork-B62hPgtK.css",
+            "raw_bytes": 10322,
+            "gzip_bytes": 2463,
+            "sha256": "sha256:bc45d989a2d3bdcbeaff488d68196e2ebcd69f2308d5bdda88ccf12de7cffe8a"
+          },
+          {
+            "path": "dist/assets/artwork-DmlEJg7-.js",
+            "raw_bytes": 11017,
+            "gzip_bytes": 4155,
+            "sha256": "sha256:757f5de5ae662feb4c44faa8245049f799a0e6904316ac00b0c4ca9580adb035"
+          },
+          {
+            "path": "dist/assets/copy-jOEf0bDC.js",
+            "raw_bytes": 8541,
+            "gzip_bytes": 3880,
+            "sha256": "sha256:a443b47e6901c2ec678d48102e38f049a17faa129c5dabd53a09ded6c332d596"
+          },
+          {
+            "path": "dist/assets/media-Bb6Pl7eP.js",
+            "raw_bytes": 557,
+            "gzip_bytes": 341,
+            "sha256": "sha256:5091155abe8f7a500a9a62d0578425726198fc90ea2cbdcc48652414c84fae8e"
+          },
+          {
+            "path": "dist/assets/observation-CApSWa2k.css",
+            "raw_bytes": 7323,
+            "gzip_bytes": 1675,
+            "sha256": "sha256:747f04acccfddee495b4c63ddd25c81cff2b4f09a2b452f4370ca98f5be176ce"
+          },
+          {
+            "path": "dist/assets/observation-CU_pGeM3.js",
+            "raw_bytes": 4531,
+            "gzip_bytes": 1696,
+            "sha256": "sha256:b4cae375f533961af09573b8f1a12f1577e40e8b44bd2e0da0ebd5bfb749a6f7"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 37313,
+        "total_gzip_bytes": 37313
+      },
+      "tours": {
+        "files": [
+          {
+            "path": "dist/assets/ArtGalleryRoute-IwHYJFAd.css",
+            "raw_bytes": 3110,
+            "gzip_bytes": 1087,
+            "sha256": "sha256:4336b690a665c1e2d6df4c20985e162fe6ddb1a881aaf5856b52742dc67350b8"
+          },
+          {
+            "path": "dist/assets/ArtGalleryRoute-xciUKjlA.js",
+            "raw_bytes": 8982,
+            "gzip_bytes": 3244,
+            "sha256": "sha256:2bf2619a806c0957e462cd531005a2b6e20e70eb349050e07642811ec6f92af5"
+          },
+          {
+            "path": "dist/assets/ArtworkImage-DrYgoMdc.js",
+            "raw_bytes": 2657,
+            "gzip_bytes": 1242,
+            "sha256": "sha256:f6d7f4d594fa2591cbb454d7bb98b74bfda55106b17249566af7c7a2041704b2"
+          },
+          {
+            "path": "dist/assets/PrintShareControls-CwluDnEy.js",
+            "raw_bytes": 1717,
+            "gzip_bytes": 926,
+            "sha256": "sha256:7e5845bb0aed309d9c754dd098aa55edad24710971022d3b465e04b9dd70aaf3"
+          },
+          {
+            "path": "dist/assets/ToursPage-DT_Q57x9.css",
+            "raw_bytes": 4388,
+            "gzip_bytes": 1251,
+            "sha256": "sha256:48269ec28d7557dad60a9278f4945429b4d8b67b40090667c3a3cc0d8dbca51a"
+          },
+          {
+            "path": "dist/assets/ToursPage-Mgue6WAZ.js",
+            "raw_bytes": 10558,
+            "gzip_bytes": 3762,
+            "sha256": "sha256:ce39f483a9a6842575877c223a5348359865413651a104faa91d717b16c562ee"
+          },
+          {
+            "path": "dist/assets/copy-jOEf0bDC.js",
+            "raw_bytes": 8541,
+            "gzip_bytes": 3880,
+            "sha256": "sha256:a443b47e6901c2ec678d48102e38f049a17faa129c5dabd53a09ded6c332d596"
+          },
+          {
+            "path": "dist/assets/media-Bb6Pl7eP.js",
+            "raw_bytes": 557,
+            "gzip_bytes": 341,
+            "sha256": "sha256:5091155abe8f7a500a9a62d0578425726198fc90ea2cbdcc48652414c84fae8e"
+          },
+          {
+            "path": "dist/assets/observation-CApSWa2k.css",
+            "raw_bytes": 7323,
+            "gzip_bytes": 1675,
+            "sha256": "sha256:747f04acccfddee495b4c63ddd25c81cff2b4f09a2b452f4370ca98f5be176ce"
+          },
+          {
+            "path": "dist/assets/observation-CU_pGeM3.js",
+            "raw_bytes": 4531,
+            "gzip_bytes": 1696,
+            "sha256": "sha256:b4cae375f533961af09573b8f1a12f1577e40e8b44bd2e0da0ebd5bfb749a6f7"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 31327,
+        "total_gzip_bytes": 31327
+      },
+      "paths": {
+        "files": [
+          {
+            "path": "dist/assets/ArtPathsPage-BFTV-pEt.js",
+            "raw_bytes": 38054,
+            "gzip_bytes": 13142,
+            "sha256": "sha256:2e013158161894db5480ad8cf6b5d4d076e2744703c47393fb7b5d027bd9dba9"
+          },
+          {
+            "path": "dist/assets/ArtPathsPage-DVYkG0XP.css",
+            "raw_bytes": 13872,
+            "gzip_bytes": 3160,
+            "sha256": "sha256:20a086b1301fd685a613facb01f8d5519b172ebc7ddf9f3b1f6e017e37bd5f2d"
+          },
+          {
+            "path": "dist/assets/PrintShareControls-CwluDnEy.js",
+            "raw_bytes": 1717,
+            "gzip_bytes": 926,
+            "sha256": "sha256:7e5845bb0aed309d9c754dd098aa55edad24710971022d3b465e04b9dd70aaf3"
+          },
+          {
+            "path": "dist/assets/relationship-engine-BtVnyHRi.js",
+            "raw_bytes": 66730,
+            "gzip_bytes": 13080,
+            "sha256": "sha256:2dcfc972930e580a3c0ff8064640810cef44099b66190484026fb3508889adfb"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          },
+          {
+            "path": "dist/assets/types-CbuEbNsj.js",
+            "raw_bytes": 68,
+            "gzip_bytes": 85,
+            "sha256": "sha256:b53f6b97b7e5ebd351c8b9171fa363eb6e8fbf0116a7040774602447e77d9bf0"
+          }
+        ],
+        "gzip_bytes": 42531,
+        "total_gzip_bytes": 42531
+      },
+      "search": {
+        "files": [
+          {
+            "path": "dist/assets/ArtSearchPage-DYmq9GRd.js",
+            "raw_bytes": 13017,
+            "gzip_bytes": 5402,
+            "sha256": "sha256:d7d068eaeb5fadc7f3c77ae1b6d54482f3098c7ee724c7e12c6476058ae5545c"
+          },
+          {
+            "path": "dist/assets/ArtSearchPage-DkpRm9iQ.css",
+            "raw_bytes": 3220,
+            "gzip_bytes": 1082,
+            "sha256": "sha256:9e9837861bfca99cb57040f8a5d40206b8a4045dfdbf0586ab7a35fde0e42043"
+          },
+          {
+            "path": "dist/assets/release-loader-Dn1wlSes.js",
+            "raw_bytes": 42106,
+            "gzip_bytes": 12138,
+            "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+          }
+        ],
+        "gzip_bytes": 18622,
+        "total_gzip_bytes": 207098
+      }
+    },
+    "largest_non_map_route": {
+      "route": "search",
+      "gzip_bytes": 207098
+    },
+    "search_index_gzip_bytes": 128025,
+    "first_query_shards_gzip_bytes": 126605,
+    "search_route_gzip_bytes": 207098,
+    "map_route_gzip_bytes": 571909,
+    "map_route": {
+      "asset_files": [
+        {
+          "path": "dist/assets/ArtMapPage-C9vMfdQW.js",
+          "raw_bytes": 26803,
+          "gzip_bytes": 8089,
+          "sha256": "sha256:02eda4817435e3582c4541c7a096f04b876844194a1c5fa4eb16488c91aa81f3"
+        },
+        {
+          "path": "dist/assets/ArtMapPage-ib4u1ltc.css",
+          "raw_bytes": 12592,
+          "gzip_bytes": 3045,
+          "sha256": "sha256:ec0c2e540f10fd1c50ee971ef52609ac18bfd54122fe4af887390a1f8e894179"
+        },
+        {
+          "path": "dist/assets/MapCanvas-B2k4QVOw.css",
+          "raw_bytes": 69808,
+          "gzip_bytes": 9934,
+          "sha256": "sha256:250bbffd7789f7fc4abb05eec8d12a19dcba9c3426578e9ee1185934f4c8c238"
+        },
+        {
+          "path": "dist/assets/MapCanvas-Bmtm2Vmj.js",
+          "raw_bytes": 2983,
+          "gzip_bytes": 1477,
+          "sha256": "sha256:da837c43993f556f41490e4466be80c49968a5681d108216628e5971db018ef5"
+        },
+        {
+          "path": "dist/assets/map-loader-Cj2WtgJZ.js",
+          "raw_bytes": 3903,
+          "gzip_bytes": 1604,
+          "sha256": "sha256:9e67199f14e79da0d15858aff89dbf731ca8e13113ea8e8eeb113f2d31d2daab"
+        },
+        {
+          "path": "dist/assets/maplibre-gl-D7YGKfZr.js",
+          "raw_bytes": 1027752,
+          "gzip_bytes": 270064,
+          "sha256": "sha256:8ae07af0294df78fa00f91d8afa9717dc6f5906abf00395c9a332222d8e2f93e"
+        },
+        {
+          "path": "dist/assets/release-loader-Dn1wlSes.js",
+          "raw_bytes": 42106,
+          "gzip_bytes": 12138,
+          "sha256": "sha256:990420bc565e952f6384118ed9271078996d0c8300e7704c3d7def5b50322df3"
+        }
+      ],
+      "json_files": [
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/manifest.json",
+          "raw_bytes": 625760,
+          "gzip_bytes": 60451,
+          "sha256": "sha256:9ee8af71ff7e170ce3c77665720f665218d8737deb3af7857db60e72e4fc6afe"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/place-identities.json",
+          "raw_bytes": 48289,
+          "gzip_bytes": 6462,
+          "sha256": "sha256:c83230c566a7d385524424a7e31e0e4392b4111f33e7e1e353899e9f28e20cd5"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/artist-place-episodes.json",
+          "raw_bytes": 239763,
+          "gzip_bytes": 14980,
+          "sha256": "sha256:d9d8bae9a93fdd3b521c486c0ede5a3d70934f3f0de92f07771e4fe5abbde06f"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/holding-locations.json",
+          "raw_bytes": 2275,
+          "gzip_bytes": 648,
+          "sha256": "sha256:95b587972b1002e562eb8470a9170c246ea99d451c259f9ce19eff9037887909"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/map-source-attributions.json",
+          "raw_bytes": 3844,
+          "gzip_bytes": 1253,
+          "sha256": "sha256:2916df2cb6cdcbdc149b8e36f90a209055d848b54fd5eda1f4d1dfa059eda306"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/map-style.json",
+          "raw_bytes": 1569,
+          "gzip_bytes": 645,
+          "sha256": "sha256:fa06f39638bab2b39c867d38c47fa154d32478348c82995af60509a3f0dc454c"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/map-index.json",
+          "raw_bytes": 2055,
+          "gzip_bytes": 962,
+          "sha256": "sha256:be36687f118f165c1947f8d7cecae27641bb05d5940908a0dfcb3be6fa2fbb17"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/filter-index.json",
+          "raw_bytes": 13708,
+          "gzip_bytes": 3138,
+          "sha256": "sha256:6a4dc76d791fdc7a35c3faad62b98b7a98f9d5e0e6b6f16c97e48942c222eebd"
+        },
+        {
+          "path": "dist/releases/art-expansion-batch-02-1.6.0/map-artworks.json",
+          "raw_bytes": 6091,
+          "gzip_bytes": 2916,
+          "sha256": "sha256:1b899a51a0ae3783998a9f2d42a46026435b33d6d5a692a31000b2e15756311b"
+        }
+      ],
+      "basemap_files": [
+        {
+          "path": "dist/releases/art-v1-candidate-1.4.0/basemap/land.geojson",
+          "raw_bytes": 215295,
+          "gzip_bytes": 77561,
+          "sha256": "sha256:2aca3644e9aa7d7bb11cfed9236412129d71dd8fc5831a01e88f8acda50cc142"
+        },
+        {
+          "path": "dist/releases/art-v1-candidate-1.4.0/basemap/coastline.geojson",
+          "raw_bytes": 213746,
+          "gzip_bytes": 88454,
+          "sha256": "sha256:5bdcd70a3171456bbe6f820c13de068adb2646d5ac3da95dc74db528d0dc90fd"
+        },
+        {
+          "path": "dist/releases/art-v1-candidate-1.4.0/basemap/lakes.geojson",
+          "raw_bytes": 21072,
+          "gzip_bytes": 8088,
+          "sha256": "sha256:088baa5ed9ed8f07fb2464dec5e1e4577d6bba4a68a0193e862602d5d88461cc"
+        }
+      ],
+      "gzip_bytes": 571909
+    },
+    "browser": {
+      "schema_version": "1.0.0",
+      "phase_id": "MUSEUM-09C",
+      "evidence_class": "controlled_browser_probe",
+      "real_user_metric": false,
+      "environment": "Playwright Chromium preview",
+      "cold_runs": 3,
+      "desktop_first_interactive_median_ms": 593.5450000000001,
+      "desktop_first_interactive_p95_ms": 613.6183000000001,
+      "mobile_first_interactive_median_ms": 622.3069999999998,
+      "mobile_first_interactive_p95_ms": 644.8184999999999,
+      "cls_p95": 0,
+      "interaction_runs": 60,
+      "interaction_p95_ms": 51.80000000074506,
+      "low_bandwidth_initial_transfer_p95_bytes": 261839,
+      "external_request_count": 0,
+      "low_bandwidth_limit_bytes": 262921,
+      "low_bandwidth_scaling_contract": {
+        "formula": "226171 + max(0, current_artists - 62) * 750",
+        "baseline_artists": 62,
+        "baseline_transfer_bytes": 226171,
+        "current_artists": 111,
+        "marginal_limit_bytes_per_artist": 750
+      },
+      "mobile_resource_transfer_sample": [
+        {
+          "path": "/Museum-Codex/assets/index-PhKoEN8O.js",
+          "transfer_size": 89712,
+          "encoded_body_size": 89412
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/manifest.json",
+          "transfer_size": 64528,
+          "encoded_body_size": 64228
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/artists.json",
+          "transfer_size": 52733,
+          "encoded_body_size": 52433
+        },
+        {
+          "path": "/Museum-Codex/assets/ArtConstellationPage-D3MGNPV9.js",
+          "transfer_size": 13588,
+          "encoded_body_size": 13288
+        },
+        {
+          "path": "/Museum-Codex/assets/release-loader-Dn1wlSes.js",
+          "transfer_size": 12450,
+          "encoded_body_size": 12150
+        },
+        {
+          "path": "/Museum-Codex/assets/index-RfcoNx7g.css",
+          "transfer_size": 7742,
+          "encoded_body_size": 7442
+        },
+        {
+          "path": "/Museum-Codex/assets/ArtConstellationPage-B4A2TR9t.css",
+          "transfer_size": 5516,
+          "encoded_body_size": 5216
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/search-index.json",
+          "transfer_size": 5041,
+          "encoded_body_size": 4741
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/relationship-explorer-config.json",
+          "transfer_size": 2504,
+          "encoded_body_size": 2204
+        },
+        {
+          "path": "/Museum-Codex/",
+          "transfer_size": 2372,
+          "encoded_body_size": 2072
+        },
+        {
+          "path": "/Museum-Codex/assets/ArtworkImage-DrYgoMdc.js",
+          "transfer_size": 1545,
+          "encoded_body_size": 1245
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/graph-summary.json",
+          "transfer_size": 1222,
+          "encoded_body_size": 922
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/facets.json",
+          "transfer_size": 1019,
+          "encoded_body_size": 719
+        },
+        {
+          "path": "/Museum-Codex/assets/rolldown-runtime-Bh1tDfsg.js",
+          "transfer_size": 867,
+          "encoded_body_size": 567
+        },
+        {
+          "path": "/Museum-Codex/releases/art-expansion-batch-02-1.6.0/layout.json",
+          "transfer_size": 632,
+          "encoded_body_size": 332
+        },
+        {
+          "path": "/Museum-Codex/assets/types-CbuEbNsj.js",
+          "transfer_size": 368,
+          "encoded_body_size": 68
+        }
+      ],
+      "unexpected_media_preload_count": 0,
+      "geolocation_call_count": 0,
+      "status": "pass"
+    },
+    "search": {
+      "schema_version": "1.0.0",
+      "phase_id": "MUSEUM-09C",
+      "evidence_class": "controlled_node_benchmark",
+      "environment": "win32-x64; Node v24.16.0",
+      "normalization": "unicode_nfkc_lower_diacritic_fold_whitespace_v1",
+      "current_release": {
+        "record_count": 1745,
+        "limit_p95_ms": 80,
+        "runs": 80,
+        "median_ms": 0.5211999999999932,
+        "p95_ms": 1.0900000000000034,
+        "max_ms": 3.0389000000000124,
+        "deterministic_digest": "26c81a11b4026308b7f81546b9e2b100aada156fcf744da64b9a81e2f4b9bfb4"
+      },
+      "synthetic_5000": {
+        "record_count": 5000,
+        "fixed_input": true,
+        "public_build": false,
+        "limit_p95_ms": 120,
+        "runs": 80,
+        "median_ms": 2.7474999999999454,
+        "p95_ms": 4.034899999999993,
+        "max_ms": 11.311900000000037,
+        "deterministic_digest": "b0e719aba94f72432789943ecfefa43ad6456e7d7a08d9afa111125f01d0b262"
+      },
+      "deterministic_repeat": true,
+      "failures": [],
+      "status": "pass"
+    },
+    "materialization": {
+      "file_count": 318,
+      "bytes": 61418168,
+      "reencoded": 0
+    }
+  },
+  "failures": [],
+  "status": "pass"
+}

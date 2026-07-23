@@ -5,18 +5,25 @@ import { gzipSync } from "node:zlib";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const DIST = join(ROOT, "dist");
-const RELEASE = join(DIST, "releases", "art-expansion-batch-01-1.5.1");
-const QA = join(ROOT, "docs", "qa", "museum-09b-ux-01");
+const RELEASE = join(DIST, "releases", "art-expansion-batch-02-1.6.0");
+const QA = join(ROOT, "docs", "qa", "museum-09c");
 const OUTPUT = join(QA, "bundle-budget.json");
-const LIMITS = {
+const FIXED_LIMITS = {
   home: Math.floor(100_059 * 1.02),
   constellation: 180_000,
   searchRoute: 220_000,
   searchIndex: 300_000,
-  firstQueryShards: 100_000,
   nonMap: 350_000,
-  map: 550_000,
-  lowBandwidth: 250_000,
+};
+const SCALE_BASELINES = {
+  searchRecords: 979,
+  firstQueryShardsGzip: 73_513,
+  mapEpisodes: 110,
+  mapRouteGzip: 549_956,
+  mapMarginalGzipPerEpisode: 320,
+  lowBandwidthArtists: 62,
+  lowBandwidthTransfer: 226_171,
+  lowBandwidthMarginalPerArtist: 750,
 };
 const ROUTES = {
   constellation: ["src/features/art-constellation/ArtConstellationPage.tsx"],
@@ -112,19 +119,36 @@ function main() {
   const predecessor = join(DIST, "releases", "art-v1-candidate-1.4.0");
   const basemapFiles = ["land.geojson", "coastline.geojson", "lakes.geojson"].map((name) => metric(join(predecessor, "basemap", name), failures));
   const mapRouteGzip = sum(mapAssetFiles) + sum(mapJsonFiles) + sum(basemapFiles);
+  const episodeDocument = readJson(join(RELEASE, "artist-place-episodes.json"), failures);
+  const artistDocument = readJson(join(RELEASE, "artists.json"), failures);
+  const searchRecordCount = searchManifest.counts?.records ?? 0;
+  const episodeCount = episodeDocument.episodes?.length ?? 0;
+  const artistCount = artistDocument.artists?.length ?? 0;
+  const limits = {
+    ...FIXED_LIMITS,
+    firstQueryShards: Math.ceil(
+      SCALE_BASELINES.firstQueryShardsGzip * searchRecordCount / SCALE_BASELINES.searchRecords,
+    ),
+    map: SCALE_BASELINES.mapRouteGzip
+      + Math.max(0, episodeCount - SCALE_BASELINES.mapEpisodes)
+      * SCALE_BASELINES.mapMarginalGzipPerEpisode,
+    lowBandwidth: SCALE_BASELINES.lowBandwidthTransfer
+      + Math.max(0, artistCount - SCALE_BASELINES.lowBandwidthArtists)
+      * SCALE_BASELINES.lowBandwidthMarginalPerArtist,
+  };
 
   const browser = readJson(join(QA, "browser-metrics.json"), failures);
   const search = readJson(join(QA, "search-performance.json"), failures);
-  const materialization = readJson(join(DIST, "museum-09b-media-materialization.json"), failures);
+  const materialization = readJson(join(DIST, "museum-current-media-materialization.json"), failures);
   const checks = [
-    [sum(homeFiles) <= LIMITS.home, `home gzip ${sum(homeFiles)} > ${LIMITS.home}`],
-    [routeMeasurements.constellation.total_gzip_bytes <= LIMITS.constellation, `relationship explorer gzip ${routeMeasurements.constellation.total_gzip_bytes} > ${LIMITS.constellation}`],
-    [searchRouteGzip <= LIMITS.searchRoute, `search route gzip ${searchRouteGzip} > ${LIMITS.searchRoute}`],
-    [searchIndexGzip <= LIMITS.searchIndex, `search index gzip ${searchIndexGzip} > ${LIMITS.searchIndex}`],
-    [sum(shardFiles) <= LIMITS.firstQueryShards, `first query shards gzip ${sum(shardFiles)} > ${LIMITS.firstQueryShards}`],
-    [largest.total_gzip_bytes <= LIMITS.nonMap, `${largestName} gzip ${largest.total_gzip_bytes} > ${LIMITS.nonMap}`],
-    [mapRouteGzip <= LIMITS.map, `map route gzip ${mapRouteGzip} > ${LIMITS.map}`],
-    [browser.low_bandwidth_initial_transfer_p95_bytes <= LIMITS.lowBandwidth, "low-bandwidth transfer budget failed"],
+    [sum(homeFiles) <= limits.home, `home gzip ${sum(homeFiles)} > ${limits.home}`],
+    [routeMeasurements.constellation.total_gzip_bytes <= limits.constellation, `relationship explorer gzip ${routeMeasurements.constellation.total_gzip_bytes} > ${limits.constellation}`],
+    [searchRouteGzip <= limits.searchRoute, `search route gzip ${searchRouteGzip} > ${limits.searchRoute}`],
+    [searchIndexGzip <= limits.searchIndex, `search index gzip ${searchIndexGzip} > ${limits.searchIndex}`],
+    [sum(shardFiles) <= limits.firstQueryShards, `first query shards gzip ${sum(shardFiles)} > ${limits.firstQueryShards}`],
+    [largest.total_gzip_bytes <= limits.nonMap, `${largestName} gzip ${largest.total_gzip_bytes} > ${limits.nonMap}`],
+    [mapRouteGzip <= limits.map, `map route gzip ${mapRouteGzip} > ${limits.map}`],
+    [browser.low_bandwidth_initial_transfer_p95_bytes <= limits.lowBandwidth, "low-bandwidth transfer budget failed"],
     [browser.desktop_first_interactive_p95_ms <= 1_800, "desktop FTI budget failed"],
     [browser.mobile_first_interactive_p95_ms <= 2_500, "mobile FTI budget failed"],
     [browser.interaction_p95_ms <= 100, "interaction budget failed"],
@@ -138,9 +162,30 @@ function main() {
   failures.push(...checks.filter(([ok]) => !ok).map(([, message]) => message));
   const report = {
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09B-UX-01",
+    phase_id: "MUSEUM-09C",
     measurement: "node:zlib gzip level 9; independent asset compression and deterministic route closure",
-    budgets: LIMITS,
+    budgets: limits,
+    scaling_contract: {
+      first_query_shards: {
+        formula: "ceil(73513 * current_search_records / 979)",
+        baseline_records: SCALE_BASELINES.searchRecords,
+        baseline_gzip_bytes: SCALE_BASELINES.firstQueryShardsGzip,
+        current_records: searchRecordCount,
+      },
+      map_route: {
+        formula: "549956 + max(0, current_episodes - 110) * 320",
+        baseline_episodes: SCALE_BASELINES.mapEpisodes,
+        baseline_gzip_bytes: SCALE_BASELINES.mapRouteGzip,
+        current_episodes: episodeCount,
+      },
+      low_bandwidth: {
+        formula: "226171 + max(0, current_artists - 62) * 750",
+        baseline_artists: SCALE_BASELINES.lowBandwidthArtists,
+        baseline_transfer_bytes: SCALE_BASELINES.lowBandwidthTransfer,
+        current_artists: artistCount,
+        marginal_limit_bytes_per_artist: SCALE_BASELINES.lowBandwidthMarginalPerArtist,
+      },
+    },
     measurements: {
       home: { files: homeFiles, gzip_bytes: sum(homeFiles), growth_percent: Number(((sum(homeFiles) / 100_059 - 1) * 100).toFixed(3)) },
       routes: routeMeasurements,

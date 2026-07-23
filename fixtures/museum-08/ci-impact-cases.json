@@ -2,6 +2,8 @@
   "schema_version": "1.0.0",
   "cases": [
     {"id": "docs-report", "paths": ["M\tdocs/phase-reports/phase-museum-08-report.md"], "expect": {"impact_level": "docs-only", "docs_only": true, "full_required": false, "deploy_required": false}},
+    {"id": "docs-m09c-execution-contract-exact", "paths": ["M\tdocs/05_roadmap/museum-09c-execution-contract.md"], "expect": {"impact_level": "docs-only", "docs_only": true, "full_required": false, "deploy_required": false}},
+    {"id": "docs-m09c-execution-contract-descendant-blocked", "paths": ["A\tdocs/05_roadmap/museum-09c-execution-contract.md/accidental.txt"], "expect": {"docs_only": false}},
     {"id": "docs-qa-json", "paths": ["A\tdocs/qa/museum-08/online-evidence.json"], "expect": {"impact_level": "docs-only", "docs_only": true, "deploy_required": false}},
     {"id": "docs-screenshot", "paths": ["A\tdocs/qa/museum-08/screenshots/search-mobile.png"], "expect": {"docs_only": true, "deploy_required": false}},
     {"id": "phase-m08-script", "paths": ["M\tscripts/validate_museum_08_release.py"], "expect": {"impact_level": "phase-scoped", "affected_phases": ["MUSEUM-08"], "releases_to_rebuild": ["release:art-v1-candidate-1.4.0"]}},

@@ -23,7 +23,7 @@ class Museum04WorkflowTests(unittest.TestCase):
             "python scripts/validate_museum_04_issue_form.py",
             "python -m museum_pipeline.media validate-bundle --json",
             "python scripts/validate_release_integrity_ledger.py --require-candidate",
-            "python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1",
+            "python scripts/validate_museum_09c.py public/releases/art-expansion-batch-02-1.6.0",
             "python scripts/scan_public_artifact_for_candidate_data.py public --label-set",
             "python scripts/scan_public_artifact_for_candidate_data.py dist --label-set",
         )
@@ -52,7 +52,7 @@ class Museum04WorkflowTests(unittest.TestCase):
         required = (
             "docs/qa/museum-04/performance-current-graph.json",
             "docs/qa/museum-04/performance-scale-benchmarks.json",
-            "python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1",
+            "python scripts/validate_museum_09c.py public/releases/art-expansion-batch-02-1.6.0",
             "docs/qa/museum-05a/performance.json",
             "node --test tests/test_museum_04_*_lab_runner.mjs",
             "npm run test:e2e",

@@ -18,7 +18,7 @@ from museum_pipeline.canonical_json import canonical_json_bytes
 from museum_pipeline.hashing import sha256_file
 
 DEFAULT_OUTPUT = ROOT / "governance" / "release-integrity-ledger.json"
-GENERATED_AT = "2026-07-22T16:15:00+08:00"
+GENERATED_AT = "2026-07-23T12:00:00+08:00"
 TREE_ALGORITHM = "sha256(path\\0size\\0file_sha256\\n)"
 CLOSURE_PATH_ALGORITHM = "sha256(normalized_lf_text_or_raw_binary)"
 TEXT_SUFFIXES = frozenset({
@@ -129,6 +129,20 @@ RELEASE_SPECS: tuple[dict[str, Any], ...] = (
             "public/releases/art-expansion-batch-01-1.5.0/manifest.json",
             "schemas/art/release/artist-narrative.schema.json",
             "schemas/art/release/relationship-explorer-config.schema.json",
+        ],
+        "route_consumers": ["#/art", "#/art/search", "#/art/constellation", "#/art/artists/:slug", "#/art/artworks/:slug", "#/art/compare", "#/art/tours/:id", "#/art/paths", "#/art/map"],
+    },
+    {
+        "phase_id": "MUSEUM-09C",
+        "release_id": "release:art-expansion-batch-02-1.6.0",
+        "directory": "public/releases/art-expansion-batch-02-1.6.0",
+        "builder_paths": ["scripts/run_museum_expansion_batch.py", "museum_pipeline/art/expansion_batch_factory.py"],
+        "validator_paths": ["scripts/validate_museum_09c.py", "museum_pipeline/art/expansion_batch_factory.py"],
+        "input_paths": [
+            "public/releases/art-expansion-batch-01-1.5.1/manifest.json",
+            "data/reviewed/art/museum-09c/batch-02-formal-candidate-v1/build-manifest.json",
+            "data/reviewed/art/museum-09c-media/batch-02-media-bundle-v1/build-manifest.json",
+            "governance/museum-09-batch-registry.json",
         ],
         "route_consumers": ["#/art", "#/art/search", "#/art/constellation", "#/art/artists/:slug", "#/art/artworks/:slug", "#/art/compare", "#/art/tours/:id", "#/art/paths", "#/art/map"],
     },

@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/artist-narrative-v160.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "release_id",
+    "narratives"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "release_id": {
+      "const": "release:art-expansion-batch-02-1.6.0"
+    },
+    "narratives": {
+      "type": "array",
+      "minItems": 111,
+      "maxItems": 111,
+      "items": {
+        "type": "object",
+        "required": [
+          "artist_id",
+          "public_intro",
+          "look_for",
+          "evidence_boundary",
+          "sentence_provenance",
+          "reading_profile"
+        ],
+        "properties": {
+          "artist_id": {
+            "type": "string",
+            "pattern": "^artist:"
+          },
+          "public_intro": {
+            "$ref": "#/$defs/bilingual"
+          },
+          "look_for": {
+            "type": "object",
+            "required": [
+              "zh-Hans",
+              "en"
+            ],
+            "properties": {
+              "zh-Hans": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 3,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "en": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 3,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "evidence_boundary": {
+            "$ref": "#/$defs/bilingual"
+          },
+          "sentence_provenance": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "$ref": "#/$defs/sentence"
+            }
+          },
+          "reading_profile": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "bilingual": {
+      "type": "object",
+      "required": [
+        "zh-Hans",
+        "en"
+      ],
+      "properties": {
+        "zh-Hans": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "sentence": {
+      "type": "object",
+      "required": [
+        "sentence_id",
+        "text",
+        "claim_ids",
+        "evidence_ids",
+        "source_ids"
+      ],
+      "properties": {
+        "sentence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "$ref": "#/$defs/bilingual"
+        },
+        "claim_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^claim:"
+          }
+        },
+        "evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^evidence:"
+          }
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^source:"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

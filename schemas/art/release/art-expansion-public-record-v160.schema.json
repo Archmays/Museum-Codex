@@ -1,0 +1,362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://museum-codex.example/schemas/art/release/art-expansion-public-record-v160.schema.json",
+  "title": "MUSEUM-09C resolved public expansion record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "entity_type",
+    "phase_id",
+    "release_id",
+    "data_version",
+    "lifecycle_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$"
+    },
+    "entity_type": {
+      "enum": [
+        "art_constellation_artist",
+        "art_constellation_context",
+        "art_constellation_artwork",
+        "art_constellation_relationship",
+        "art_constellation_claim",
+        "art_constellation_evidence"
+      ]
+    },
+    "phase_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_id": {
+      "const": "release:art-expansion-batch-02-1.6.0"
+    },
+    "data_version": {
+      "const": "1.6.0"
+    },
+    "lifecycle_status": {
+      "enum": [
+        "publishable",
+        "published"
+      ]
+    },
+    "review_status": {
+      "enum": [
+        "publishable",
+        "published"
+      ]
+    },
+    "labels": {
+      "$ref": "#/$defs/localized"
+    },
+    "source_ids": {
+      "$ref": "#/$defs/idList"
+    },
+    "source_license_bindings": {
+      "type": "array"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "const": "art_constellation_artist"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "labels",
+          "life_dates",
+          "summary",
+          "verified_claim_ids",
+          "source_ids",
+          "artwork_ids",
+          "relation_count",
+          "review_status"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^artist:"
+          },
+          "summary": {
+            "$ref": "#/$defs/bilingual"
+          },
+          "verified_claim_ids": {
+            "$ref": "#/$defs/idList"
+          },
+          "artwork_ids": {
+            "$ref": "#/$defs/idList"
+          },
+          "relation_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "const": "art_constellation_context"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "labels",
+          "context_type",
+          "source_ids",
+          "review_status"
+        ],
+        "properties": {
+          "context_type": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "const": "art_constellation_artwork"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "labels",
+          "artist_id",
+          "media",
+          "source_ids",
+          "review_status"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^artwork:"
+          },
+          "artist_id": {
+            "pattern": "^artist:"
+          },
+          "media": {
+            "type": "object",
+            "required": [
+              "decision",
+              "representative_media_id",
+              "media_ids"
+            ],
+            "properties": {
+              "decision": {
+                "enum": [
+                  "approved_self_hosted",
+                  "external_link_only",
+                  "metadata_only",
+                  "metadata_only_after_automated_review",
+                  "blocked_rights_conflict",
+                  "blocked_source_unavailable"
+                ]
+              },
+              "representative_media_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "media_ids": {
+                "$ref": "#/$defs/idList"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "const": "art_constellation_relationship"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "source_artist_id",
+          "target_artist_id",
+          "type",
+          "level",
+          "context_ids",
+          "supporting_artwork_ids",
+          "claim_ids",
+          "evidence_ids",
+          "source_ids",
+          "evidence_confidence",
+          "curatorial_relevance",
+          "historical_relationship_strength",
+          "computational_similarity",
+          "directed",
+          "is_algorithmic",
+          "review_status"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^art-rel:"
+          },
+          "type": {
+            "enum": [
+              "shared_subject",
+              "shared_material",
+              "shared_technique"
+            ]
+          },
+          "level": {
+            "const": "C"
+          },
+          "historical_relationship_strength": {
+            "type": "null"
+          },
+          "computational_similarity": {
+            "type": "null"
+          },
+          "directed": {
+            "const": false
+          },
+          "is_algorithmic": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "const": "art_constellation_claim"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "subject_id",
+          "predicate",
+          "object",
+          "evidence_ids",
+          "status",
+          "publish_status"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^claim:"
+          },
+          "subject_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "predicate": {
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "evidence_ids": {
+            "$ref": "#/$defs/idList"
+          },
+          "status": {
+            "const": "publishable"
+          },
+          "publish_status": {
+            "const": "publishable"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "entity_type": {
+            "const": "art_constellation_evidence"
+          }
+        },
+        "required": [
+          "entity_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "claim_ids",
+          "source_ids",
+          "summary"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^evidence:"
+          },
+          "claim_ids": {
+            "$ref": "#/$defs/idList"
+          },
+          "source_ids": {
+            "$ref": "#/$defs/idList"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "idList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9._-]*$"
+      }
+    },
+    "localized": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "bilingual": {
+      "type": "object",
+      "required": [
+        "zh-Hans",
+        "en"
+      ],
+      "properties": {
+        "zh-Hans": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "unevaluatedProperties": true
+}

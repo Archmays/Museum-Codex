@@ -59,8 +59,8 @@ jobs:
           python -m museum_pipeline.media validate-bundle --json
           python scripts/validate_museum_04_issue_form.py
           python scripts/validate_museum_08_scale.py --evidence docs/qa/museum-08/scale-readiness.json --check
-          python scripts/validate_museum_09b_ux_release.py public/releases/art-expansion-batch-01-1.5.1
-          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-01-1.5.1
+          python scripts/validate_museum_09c.py public/releases/art-expansion-batch-02-1.6.0 --batch-id museum-09-batch-02 --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-02-1.6.0
 
       - name: Verify sealed historical performance evidence hashes
         shell: bash
@@ -94,8 +94,8 @@ jobs:
 
       - name: Rebuild only the current formal release
         run: |
-          python scripts/build_museum_09b_ux_release.py --output tmp/museum-09b-ux-ci-release --no-update-ledger
-          diff -ru public/releases/art-expansion-batch-01-1.5.1 tmp/museum-09b-ux-ci-release
+          python scripts/run_museum_expansion_batch.py --batch-id museum-09-batch-02 --stage release --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1 --output tmp/museum-09c-ci-release
+          diff -ru public/releases/art-expansion-batch-02-1.6.0 tmp/museum-09c-ci-release
 
       - name: Run full offline Python suite
         run: python scripts/run_offline_python_tests.py
@@ -126,10 +126,10 @@ jobs:
 
       - name: Run complete browser and accessibility gate
         env:
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09b-ux-01/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09c/playwright-results.json
         run: npm run test:e2e
 
-      - name: Verify current M09B search and release budgets
+      - name: Verify current M09C search and release budgets
         run: |
           npm run check:museum-09b-search
           npm run check:museum-09b-budgets

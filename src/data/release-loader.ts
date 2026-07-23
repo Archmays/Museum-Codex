@@ -467,6 +467,7 @@ function artworkObjectUrl(value: unknown, artworkId: string, sourceIds: string[]
     national_gallery_singapore: ["https://www.nationalgallery.sg"],
     vam_collections: ["https://collections.vam.ac.uk"],
     mia_open_access: ["https://collections.artsmia.org"],
+    smithsonian_open_access: ["https://www.si.edu", "https://americanart.si.edu", "https://asia.si.edu"],
   };
   const expandedSourceNames = sourceIds.flatMap((sourceId) => {
     const [entityType, sourceName, extra] = sourceId.split(":");
@@ -608,7 +609,10 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
       ? "gallery"
       : requiredString(artist.profile_kind, "artist_profile_kind");
     if (profileKind !== "gallery" && profileKind !== "collection") throw new Error("artist_profile_kind_invalid");
-    const successorNarratives = releaseId === "release:art-expansion-batch-01-1.5.1";
+    const successorNarratives = new Set([
+      "release:art-expansion-batch-01-1.5.1",
+      "release:art-expansion-batch-02-1.6.0",
+    ]).has(releaseId);
     const publicIntro = artist.public_intro === undefined
       ? publicLocalized(artist.summary, "artist_summary")
       : publicLocalized(artist.public_intro, "artist_public_intro");
@@ -1025,7 +1029,10 @@ function parseGraphSummary(raw: unknown, releaseId: string) {
     Object.values(relationshipTypeCounts).reduce((sum, value) => sum + value, 0) !== relationshipCount ||
     semantics.algorithmic !== false || semantics.causal !== false || semantics.directed !== false ||
     initialState.view !== "graph" || initialState.edges_visible !== false || initialState.focused_artist_id !== null ||
-    (releaseId === "release:art-expansion-batch-01-1.5.1" && initialState.task !== "choose_artist")
+    (new Set([
+      "release:art-expansion-batch-01-1.5.1",
+      "release:art-expansion-batch-02-1.6.0",
+    ]).has(releaseId) && initialState.task !== "choose_artist")
   ) throw new Error("graph_summary_profile_invalid");
   const summary: GraphSummary = {
     releaseId,
@@ -1560,7 +1567,10 @@ export async function loadArtConstellationRelease(
 
     const artists = parseArtists(data["artists.json"], coreReleaseId);
     const explorerReference = artifactFiles.get("relationship-explorer-config.json");
-    if (coreReleaseId === "release:art-expansion-batch-01-1.5.1" && !explorerReference) {
+    if (new Set([
+      "release:art-expansion-batch-01-1.5.1",
+      "release:art-expansion-batch-02-1.6.0",
+    ]).has(coreReleaseId) && !explorerReference) {
       throw new Error("manifest_missing_relationship-explorer-config.json");
     }
     const explorerRaw = explorerReference

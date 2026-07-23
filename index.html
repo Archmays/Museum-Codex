@@ -8,7 +8,7 @@
     <script>
       if (location.hash.startsWith("#/art/constellation")) {
         const files = ["manifest.json", "artists.json"];
-        const base = new URL("/Museum-Codex/releases/art-expansion-batch-01-1.5.1/", location.origin);
+        const base = new URL("/Museum-Codex/releases/art-expansion-batch-02-1.6.0/", location.origin);
         const artifacts = globalThis.__MUSEUM04_BOOTSTRAP__ = new Map();
         for (const name of files) {
           const url = new URL(name, base).href;
