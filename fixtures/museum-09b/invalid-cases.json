@@ -30,7 +30,7 @@
     {"case_id": "m09a-package-mutation", "expected_failure_code": "m09a_package_mutation"},
     {"case_id": "public-leakage", "expected_failure_code": "candidate_public_leakage"},
     {"case_id": "current-release-mutation", "expected_failure_code": "current_release_mutation"},
-    {"case_id": "batch-02-advanced", "expected_failure_code": "later_batch_advanced"},
+    {"case_id": "later-batch-gap", "expected_failure_code": "later_batch_gap"},
     {"case_id": "pages-artifact-created", "expected_failure_code": "pages_artifact_created"},
     {"case_id": "batch-overlap", "expected_failure_code": "batch_artist_overlap"}
   ]

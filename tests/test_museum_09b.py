@@ -250,7 +250,8 @@ class Museum09BFormalCandidateTests(unittest.TestCase):
             actual |= {item["code"] for item in result["failures"]}
 
             registry = _read(DEFAULT_REGISTRY)
-            registry["batches"][1]["status"] = "formal_candidate_ready"
+            registry["batches"][1]["status"] = "registered_not_started"
+            registry["batches"][2]["status"] = "research_in_progress"
             registry["batches"][1]["artist_ids"][0] = registry["batches"][0]["artist_ids"][0]
             registry_path = Path(temporary) / "registry.json"
             _write(registry_path, registry)
