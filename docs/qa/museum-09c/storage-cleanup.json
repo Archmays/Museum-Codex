@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
   "phase_id": "MUSEUM-09C",
-  "removed_target_count": 12,
-  "removed_file_count": 2878,
-  "removed_bytes": 543789071,
+  "removed_target_count": 24,
+  "removed_file_count": 3099,
+  "removed_bytes": 547972163,
   "removed_targets": [
     "dist",
     "output/playwright",
@@ -16,8 +16,26 @@
     "research.log",
     "validator.log",
     "tmp/museum-09c-posix-sort-backup",
-    "tmp/museum-09c-posix-verify"
+    "tmp/museum-09c-posix-verify",
+    "museum_pipeline/__pycache__",
+    "museum_pipeline/adapters/__pycache__",
+    "museum_pipeline/art/__pycache__",
+    "museum_pipeline/curation/__pycache__",
+    "museum_pipeline/identity/__pycache__",
+    "museum_pipeline/media/__pycache__",
+    "museum_pipeline/normalization/__pycache__",
+    "museum_pipeline/review/__pycache__",
+    "museum_pipeline/validation/__pycache__",
+    "scripts/__pycache__",
+    "tests/__pycache__",
+    "tests/pipeline/__pycache__"
   ],
+  "closeout_cleanup": {
+    "removed_target_count": 13,
+    "removed_file_count": 221,
+    "removed_bytes": 4183092,
+    "recovery": "rebuildable from committed source and test commands"
+  },
   "retained": {
     "formal_candidate": {
       "file_count": 67,

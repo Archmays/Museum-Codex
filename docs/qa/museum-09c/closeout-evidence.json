@@ -1,30 +1,124 @@
 {
   "schema_version": "1.0.0",
   "phase_id": "MUSEUM-09C",
-  "status": "awaiting_github_final_full_and_pages",
+  "status": "completed",
+  "captured_at": "2026-07-23T19:19:24+08:00",
+  "baseline_commit": "6b6670b53cdfe4de1527878cd7bde337c31cdad8",
+  "implementation_commit": "bfd9d2be1a6b39857e59d255952f01e153d5300e",
+  "runtime_commit": "a116556bb03b076e9bbf5d3357df6a55c998bea1",
+  "compatibility_commits": [
+    "7cca187928a25edec0cc0bce2666a124e407dac4",
+    "a116556bb03b076e9bbf5d3357df6a55c998bea1"
+  ],
   "release": {
     "id": "release:art-expansion-batch-02-1.6.0",
     "content_hash": "sha256:266d8b655182dab60ee82a472a6937c99976e28d74afee402180f1d566c0ea71",
     "manifest_sha256": "sha256:3fe1613d9c1f969cb31294132f995b3147aae648fa762c5c4b772c460e859c4f",
     "tree_hash": "sha256:d1ed04f15eec22f241b55ab0915d6876f7788f63ea27249ace3d2ddc4028842c"
   },
-  "runtime_commit": null,
-  "github_final_full": {
-    "run_id": null,
-    "attempt": null,
-    "status": "pending"
+  "github_actions": {
+    "workflow_run_count": 5,
+    "accepted_final_full_gate_count": 1,
+    "attempts": [
+      {
+        "run_id": 29985227484,
+        "event": "push",
+        "commit": "bfd9d2be1a6b39857e59d255952f01e153d5300e",
+        "classification": "final-full",
+        "status": "failure",
+        "failure_closure": "four stale historical schema, lifecycle and phase-boundary assertions",
+        "deployment_count": 0
+      },
+      {
+        "run_id": 29987045088,
+        "event": "push",
+        "commit": "7cca187928a25edec0cc0bce2666a124e407dac4",
+        "classification": "phase-scoped",
+        "status": "success",
+        "deployment_count": 0
+      },
+      {
+        "run_id": 29987125901,
+        "event": "workflow_dispatch",
+        "commit": "7cca187928a25edec0cc0bce2666a124e407dac4",
+        "classification": "final-full",
+        "status": "failure",
+        "failure_closure": "one stale successor-lifecycle invalid fixture",
+        "deployment_count": 0
+      },
+      {
+        "run_id": 29988608695,
+        "event": "push",
+        "commit": "a116556bb03b076e9bbf5d3357df6a55c998bea1",
+        "classification": "phase-scoped",
+        "status": "success",
+        "deployment_count": 0
+      },
+      {
+        "run_id": 29988679460,
+        "event": "workflow_dispatch",
+        "commit": "a116556bb03b076e9bbf5d3357df6a55c998bea1",
+        "classification": "final-full",
+        "job_id": 89146279631,
+        "status": "success",
+        "python_tests": 506,
+        "vitest_files": 15,
+        "vitest_tests": 105,
+        "playwright_tests": 47,
+        "deployment_count": 1
+      }
+    ]
   },
   "pages": {
-    "deployment_id": null,
+    "deployment_id": 5569033795,
+    "deployment_status_id": 15833884460,
     "url": "https://archmays.github.io/Museum-Codex/",
-    "status": "pending"
+    "build_type": "workflow",
+    "https_enforced": true,
+    "public": true,
+    "status": "success"
   },
   "online_byte_closure": {
     "evidence_path": "docs/qa/museum-09c/online-closure.json",
-    "status": "pending"
+    "verified_file_count": 630,
+    "verified_byte_count": 116204745,
+    "hash_failure_count": 0,
+    "status": "pass"
   },
   "online_functional_smoke": {
     "evidence_path": "docs/qa/museum-09c/functional-smoke.json",
-    "status": "pending"
+    "accepted_test_count": 6,
+    "failed_closure_rerun_count": 1,
+    "status": "pass"
+  },
+  "screenshots": {
+    "evidence_path": "docs/qa/museum-09c/screenshot-index.json",
+    "count": 12,
+    "bytes": 6581199,
+    "status": "pass"
+  },
+  "release_counts": {
+    "artists": 111,
+    "artworks": 1017,
+    "gallery_profiles": 36,
+    "collection_profiles": 75,
+    "relationships": 60,
+    "episodes": 183,
+    "tours": 18
+  },
+  "execution_counts": {
+    "local_full_gate_count": 0,
+    "github_final_full_gate_count": 1,
+    "runtime_deployment_count": 1,
+    "closeout_deployment_count": 0
+  },
+  "phase_boundary": {
+    "batch_03_through_10_status": "registered_not_started",
+    "museum_09d_entered": false,
+    "arms_museum_entered": false,
+    "next_authorized_phase": null,
+    "remaining_open_decisions": [
+      "OD-011"
+    ]
   }
 }

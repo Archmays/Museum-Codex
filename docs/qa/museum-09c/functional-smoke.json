@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09C",
+  "evidence_class": "public_pages_playwright_functional_console_network_smoke",
+  "real_user_metric": false,
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "deployed_commit": "a116556bb03b076e9bbf5d3357df6a55c998bea1",
+  "accepted_playwright": {
+    "expected": 6,
+    "passed": 6,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "composition": "five initial passes plus one failed-closure-only rerun"
+  },
+  "attempt_history": [
+    {
+      "scope": "complete_online_spec",
+      "expected": 6,
+      "passed": 5,
+      "unexpected": 1,
+      "duration_ms": 36700,
+      "failure": {
+        "test": "About, rights, and accessibility routes expose their public controls",
+        "classification": "hash_route_lazy_page_readiness_timeout",
+        "observed_state": "Loading page",
+        "assertion_timeout_ms": 5000
+      }
+    },
+    {
+      "scope": "failed_closure_only",
+      "expected": 1,
+      "passed": 1,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "started_at": "2026-07-23T11:16:54.584Z",
+      "duration_ms": 4661.565
+    }
+  ],
+  "coverage": {
+    "tasks": [
+      "desktop relationship explorer, evidence, rights, list and table equivalents",
+      "Art landing and 1366-wide constellation reflow",
+      "About, rights and accessibility controls",
+      "390px low-bandwidth focus and URL restoration",
+      "forced-colors, reduced-motion and WebGL-unavailable equivalents",
+      "no-script portal, Art and rights HTTP entry content"
+    ],
+    "viewport_widths": [
+      360,
+      390,
+      1024,
+      1366,
+      1440
+    ]
+  },
+  "console_error_count": 0,
+  "failed_same_origin_request_count": 0,
+  "http_error_count": 0,
+  "external_runtime_request_count": 0,
+  "external_runtime_image_request_count": 0,
+  "analytics_used": false,
+  "query_history_stored": false,
+  "status": "pass",
+  "failures": []
+}
