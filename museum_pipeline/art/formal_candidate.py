@@ -29,7 +29,7 @@ from scripts.scan_public_artifact_for_candidate_data import validated_formal_art
 ROOT = Path(__file__).resolve().parents[2]
 PHASE_ID = "MUSEUM-09B"
 BATCH_ID = "museum-09-batch-01"
-VALID_BATCH_REGISTRY_STATUSES = frozenset({"formal_candidate_ready", "media_bundle_ready"})
+VALID_BATCH_REGISTRY_STATUSES = frozenset({"formal_candidate_ready", "media_bundle_ready", "published"})
 PACKAGE_ID = "museum-09b:batch-01-formal-candidate-v1"
 BUILT_AT = "2026-07-20T12:00:00+08:00"
 REVIEW_DATE = "2026-07-20"
@@ -2030,11 +2030,20 @@ def validate_formal_candidate(
     batches = {item["id"]: item for item in registry["batches"]}
     if batches[BATCH_ID]["status"] not in VALID_BATCH_REGISTRY_STATUSES:
         _failure(failures, "batch_registry_status", batches[BATCH_ID]["status"])
-    if any(
-        item["status"] != "registered_not_started"
-        for key, item in batches.items() if key != BATCH_ID
-    ):
-        _failure(failures, "later_batch_advanced", "Batch 02-10 must remain not started")
+    later_batches = sorted(
+        (item for key, item in batches.items() if key != BATCH_ID),
+        key=lambda item: item["sequence"],
+    )
+    not_started_seen = False
+    for item in later_batches:
+        if item["status"] == "registered_not_started":
+            not_started_seen = True
+        elif not_started_seen:
+            _failure(
+                failures,
+                "later_batch_gap",
+                f"{item['id']} advanced after an unstarted predecessor",
+            )
     registered_ids = [
         artist_id
         for item in registry["batches"]

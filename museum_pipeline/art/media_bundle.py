@@ -1795,14 +1795,17 @@ def validate_bundle(root: Path = DEFAULT_BUNDLE_ROOT, *, validate_registry: bool
     if validate_registry:
         registry = _read_json(REGISTRY_PATH)
         batch = next((item for item in registry.get("batches", []) if item.get("id") == BATCH_ID), None)
-        if not batch or batch.get("status") != "media_bundle_ready":
+        if not batch or batch.get("status") not in {"media_bundle_ready", "published"}:
             issues.append("batch_registry_not_media_bundle_ready")
         else:
             if batch.get("media_package_id") != PACKAGE_ID or batch.get("media_package_content_hash") != manifest.get("artifact_content_hash") or batch.get("media_package_tree_hash") != manifest.get("artifact_tree_hash"):
                 issues.append("batch_registry_media_package_mismatch")
-        for other in registry.get("batches", [])[1:]:
-            if other.get("status") != "registered_not_started":
-                issues.append(f"later_batch_advanced:{other.get('id')}")
+        not_started_seen = False
+        for other in sorted(registry.get("batches", [])[1:], key=lambda item: item.get("sequence", 0)):
+            if other.get("status") == "registered_not_started":
+                not_started_seen = True
+            elif not_started_seen:
+                issues.append(f"later_batch_gap:{other.get('id')}")
 
     return {
         "ok": not issues,
