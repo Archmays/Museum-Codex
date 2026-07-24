@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "status": "pass",
+  "deleted": {
+    "file_count": 2362,
+    "byte_count": 412044539,
+    "classes": [
+      "dist",
+      "output/playwright",
+      "tmp",
+      "museum_pipeline Python bytecode caches",
+      "scripts Python bytecode caches",
+      "tests Python bytecode caches"
+    ],
+    "remaining_target_count": 0,
+    "rebuildable": true
+  },
+  "protected_input_deleted_count": 0,
+  "retained": [
+    {
+      "class": "Batch 03 formal candidate",
+      "file_count": 67,
+      "byte_count": 4916440
+    },
+    {
+      "class": "Batch 04 formal candidate",
+      "file_count": 67,
+      "byte_count": 4881931
+    },
+    {
+      "class": "Batch 05 formal candidate",
+      "file_count": 67,
+      "byte_count": 4933287
+    },
+    {
+      "class": "Batch 03 media bundle",
+      "file_count": 12,
+      "byte_count": 429721
+    },
+    {
+      "class": "Batch 04 media bundle",
+      "file_count": 12,
+      "byte_count": 429494
+    },
+    {
+      "class": "Batch 05 media bundle",
+      "file_count": 12,
+      "byte_count": 430683
+    },
+    {
+      "class": "immutable release 1.7.0",
+      "file_count": 68,
+      "byte_count": 25902891
+    },
+    {
+      "class": "immutable release 1.8.0",
+      "file_count": 68,
+      "byte_count": 32662966
+    },
+    {
+      "class": "immutable release 1.9.0",
+      "file_count": 68,
+      "byte_count": 39492204
+    },
+    {
+      "class": "formal phase screenshots",
+      "file_count": 12,
+      "byte_count": 6591319
+    },
+    {
+      "class": "protected ignored media vault",
+      "file_count": 171,
+      "byte_count": 240845468
+    }
+  ],
+  "unrelated_untracked_paths_preserved": [
+    ".agents/",
+    "skill/"
+  ]
+}

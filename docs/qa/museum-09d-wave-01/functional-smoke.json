@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "runtime_commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+  "environment": "Playwright Chromium against GitHub Pages",
+  "scenarios": [
+    "desktop relationship explorer, equivalent views, evidence, rights, and URL state",
+    "Art landing and 1366-wide constellation remain complete without overflow",
+    "About, rights, and accessibility routes expose their public controls",
+    "390px low-bandwidth explorer preserves focus and URL state",
+    "forced colors, reduced motion, and unavailable WebGL keep the same relationship tasks",
+    "no-script portal, Art, and rights content are available over HTTP 200"
+  ],
+  "initial_pass_count": 5,
+  "initial_failure_count": 1,
+  "failed_closure_rerun_count": 1,
+  "failed_closure_rerun_pass_count": 1,
+  "accepted_test_count": 6,
+  "initial_failure": {
+    "scenario": "desktop relationship explorer, equivalent views, evidence, rights, and URL state",
+    "cause": "relationship shard remained in the on-demand loading state until the 30 second total test timeout",
+    "disposition": "only the failed scenario was rerun with the original timeout and assertions; it passed in 14.9 seconds"
+  },
+  "console_error_count": 0,
+  "failed_same_origin_request_count": 0,
+  "http_error_count": 0,
+  "external_runtime_resource_count": 0,
+  "screenshots_committed": false,
+  "screenshot_disposition": "online smoke screenshots were written to an operating-system temporary directory; the 12 formal phase screenshots remain the committed visual evidence",
+  "status": "pass"
+}

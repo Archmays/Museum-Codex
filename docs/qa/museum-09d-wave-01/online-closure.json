@@ -1,0 +1,51 @@
+{
+  "base_url": "https://archmays.github.io/Museum-Codex/",
+  "build_identity": {
+    "commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+    "gate": "final-full"
+  },
+  "closure_class_counts": {
+    "build_materialized": 318,
+    "predecessor_reference": 245,
+    "release_manifest": 67
+  },
+  "cold_probe": {
+    "environment": "GitHub Actions runner to GitHub Pages; bounded synthetic probe; not RUM",
+    "median_ms": 365.0256000000809,
+    "p95_ms": 606.4980999999534,
+    "runs": 3,
+    "samples_ms": [
+      606.4980999999534,
+      365.0256000000809,
+      348.0854999997973
+    ]
+  },
+  "commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+  "content_hash": "sha256:7e810b9a450eadc061b53e8b385f450c470579a832731e0cc6cb44165ad804aa",
+  "convergence_attempts": 1,
+  "elapsed_seconds": 166.63840700000037,
+  "evidence_class": "bounded_public_cold_probe_and_complete_release_runtime_byte_closure",
+  "expected_byte_count": 136196196,
+  "expected_file_count": 630,
+  "failures": [],
+  "manifest_sha256": "sha256:3bd894c8de5c0ac98f962ecea4260e93614be8125c3eb28ef16ed82aa8367668",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "real_user_metric": false,
+  "release_counts": {
+    "artists": 258,
+    "artworks": 2471,
+    "claims": 3321,
+    "contexts": 828,
+    "episodes": 400,
+    "evidence": 3207,
+    "new_media_derivatives": 0,
+    "new_media_originals": 0,
+    "relationships": 60,
+    "tours": 18
+  },
+  "release_id": "release:art-expansion-batch-05-1.9.0",
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "verified_byte_count": 136196196,
+  "verified_file_count": 630
+}

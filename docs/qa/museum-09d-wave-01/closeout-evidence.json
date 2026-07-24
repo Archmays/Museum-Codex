@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "status": "completed",
+  "captured_at": "2026-07-24T12:13:59+08:00",
+  "baseline_commit": "b5f10b33d49bd8ce5e971a9f69299150f6598235",
+  "implementation_commit": "88334f00156f5c34c14b4fc23e9721476aea14fc",
+  "runtime_commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+  "compatibility_commits": [
+    "49ed213ae0a44517374461b72bc267090c7b94c9",
+    "99694b8b08750e6d7abc502eeaf6bd1003e6da72"
+  ],
+  "final_closeout_commit": "recorded_in_final_delivery",
+  "model": "not_exposed_by_runtime",
+  "reasoning": "not_exposed_by_runtime",
+  "rights_status": "PASS_BY_USER_AUTHORIZATION",
+  "releases": [
+    {
+      "id": "release:art-expansion-batch-03-1.7.0",
+      "content_hash": "sha256:9967fcbf86beb8badd84a19cf0dfda657861900084c518c0a8c1ab811c0c3135",
+      "manifest_sha256": "sha256:c69b8b9f2ec9a5412a667b7f1dac7f76cdb9fbc462589450ef3698b66c8de318",
+      "tree_hash": "sha256:07a10d1422055e3324b124bce44061b05763a03745547e84f55343c118ec4ff9",
+      "deployment_count": 0
+    },
+    {
+      "id": "release:art-expansion-batch-04-1.8.0",
+      "content_hash": "sha256:f3c70a1424099098474818aab9188f47e9471016ce0b4b299629f89c7b2574d0",
+      "manifest_sha256": "sha256:79bf569ac5e81aa3884c36132e80bcc7bd430ba2333eb4467b9a356f57ba3d1c",
+      "tree_hash": "sha256:b978b31bd03c2f4dbf423b032507b0eba8983254995958cbafe6818b229cb42c",
+      "deployment_count": 0
+    },
+    {
+      "id": "release:art-expansion-batch-05-1.9.0",
+      "content_hash": "sha256:7e810b9a450eadc061b53e8b385f450c470579a832731e0cc6cb44165ad804aa",
+      "manifest_sha256": "sha256:3bd894c8de5c0ac98f962ecea4260e93614be8125c3eb28ef16ed82aa8367668",
+      "tree_hash": "sha256:be22ce6edca6ae10f40315ac83c936fbcb1ad91987e9ff793f2f2783ad198e00",
+      "deployment_count": 1
+    }
+  ],
+  "github_actions": {
+    "workflow_run_count": 4,
+    "accepted_final_full_gate_count": 1,
+    "failed_job_rerun_count": 0,
+    "attempts": [
+      {
+        "run_id": 30062410019,
+        "event": "push",
+        "commit": "88334f00156f5c34c14b4fc23e9721476aea14fc",
+        "classification": "final-full",
+        "job_id": 89386546619,
+        "status": "failure",
+        "failure_closure": "three stale schema-count and formal-release-allowlist test expectations",
+        "python_tests": 520,
+        "python_failures": 3,
+        "python_skipped": 1,
+        "deployment_count": 0
+      },
+      {
+        "run_id": 30063883318,
+        "event": "push",
+        "commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+        "classification": "phase-scoped",
+        "status": "success",
+        "deployment_count": 0
+      },
+      {
+        "run_id": 30063954074,
+        "event": "workflow_dispatch",
+        "commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+        "classification": "final-full",
+        "job_id": 89391128695,
+        "final_full_job_status": "success",
+        "workflow_status": "failure_after_successful_deployment",
+        "failure_closure": "post-deployment verifier entrypoint could not import the scripts namespace before making a network request",
+        "python_tests": 520,
+        "python_skipped": 1,
+        "vitest_files": 15,
+        "vitest_tests": 105,
+        "playwright_tests": 47,
+        "deployment_count": 1
+      },
+      {
+        "run_id": 30065913004,
+        "event": "push",
+        "commit": "99694b8b08750e6d7abc502eeaf6bd1003e6da72",
+        "classification": "phase-scoped",
+        "status": "success",
+        "failure_closure": "online verifier direct-file entrypoint regression test and M09D release closure",
+        "deployment_count": 0
+      }
+    ]
+  },
+  "deployment_id": "5583535045",
+  "pages_url": "https://archmays.github.io/Museum-Codex/",
+  "pages": {
+    "deployment_id": 5583535045,
+    "deployed_commit": "49ed213ae0a44517374461b72bc267090c7b94c9",
+    "deploy_action_status": "success",
+    "initial_job_status_id": 15877678023,
+    "initial_job_status": "failure",
+    "initial_job_failure_scope": "post-deployment verifier process import only",
+    "recovered_status_id": 15877936952,
+    "latest_status": "success",
+    "recovery_basis": [
+      "complete online byte closure passed",
+      "accepted functional smoke passed",
+      "online verifier direct-file regression test passed",
+      "M09D phase-scoped release closure passed"
+    ],
+    "build_type": "workflow",
+    "https_enforced": true,
+    "public": true
+  },
+  "online_byte_closure": "pass",
+  "functional_smoke": "pass",
+  "online": {
+    "byte_closure": {
+      "evidence_path": "docs/qa/museum-09d-wave-01/online-closure.json",
+      "verified_file_count": 630,
+      "verified_byte_count": 136196196,
+      "hash_failure_count": 0,
+      "convergence_attempts": 1,
+      "status": "pass"
+    },
+    "functional_smoke": {
+      "evidence_path": "docs/qa/museum-09d-wave-01/functional-smoke.json",
+      "accepted_test_count": 6,
+      "initial_pass_count": 5,
+      "failed_closure_rerun_count": 1,
+      "status": "pass"
+    }
+  },
+  "release_counts": {
+    "artists": 258,
+    "artworks": 2471,
+    "gallery_profiles": 71,
+    "collection_profiles": 187,
+    "contexts": 828,
+    "claims": 3321,
+    "evidence": 3207,
+    "relationships": 60,
+    "episodes": 400,
+    "tours": 18,
+    "self_hosted_artworks": 71,
+    "external_link_only_artworks": 25,
+    "metadata_only_artworks": 2375,
+    "new_media_originals": 0,
+    "new_media_derivatives": 0
+  },
+  "execution_counts": {
+    "local_full_gate_count": 0,
+    "github_final_full_gate_count": 1,
+    "runtime_deployment_count": 1,
+    "intermediate_deployment_count": 0,
+    "closeout_deployment_count": 0,
+    "local_effective_browser_test_count": 52,
+    "formal_screenshot_count": 12
+  },
+  "storage": {
+    "evidence_path": "docs/qa/museum-09d-wave-01/storage-cleanup.json",
+    "deleted_file_count": 2362,
+    "deleted_byte_count": 412044539,
+    "protected_input_deleted_count": 0,
+    "status": "pass"
+  },
+  "evidence_path": "docs/qa/museum-09d-wave-01/closeout-evidence.json",
+  "phase_boundary": {
+    "batch_06_through_10_status": "registered_not_started",
+    "museum_09g_entered": false,
+    "arms_museum_entered": false,
+    "next_authorized_phase": null,
+    "remaining_open_decisions": [
+      "OD-011"
+    ]
+  }
+}
