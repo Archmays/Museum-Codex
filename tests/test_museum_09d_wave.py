@@ -207,6 +207,18 @@ class Museum09DWaveFactoryTests(unittest.TestCase):
         ):
             self.assertIn(option, completed.stdout)
 
+    def test_online_verifier_cli_is_directly_executable(self) -> None:
+        completed = subprocess.run(
+            ["python", "scripts/verify_museum_09d_wave_online.py", "--help"],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            encoding="utf-8",
+            stdout=subprocess.PIPE,
+        )
+        self.assertIn("--base-url", completed.stdout)
+        self.assertIn("--commit", completed.stdout)
+
     def test_generated_release_schemas_are_deterministic_and_version_bound(self) -> None:
         subprocess.run(
             ["python", "scripts/generate_expansion_release_schemas.py", "--check"],
