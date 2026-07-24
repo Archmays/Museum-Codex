@@ -1,0 +1,1 @@
+{"analytics":false,"default_mode":"comparison","entity_type":"art_path_route_config","external_runtime_api":false,"id":"path-route:museum-06-v1","release_id":"release:art-expansion-batch-03-1.7.0","route":"#/art/paths","schema_version":"1.0.0","storage":"none","url_state_allowlist":["from","to","mode","types","period","region","maxHops","path","view"]}

@@ -42,12 +42,27 @@
       "phase": "MUSEUM-09B-UX-01",
       "release_id": "release:art-expansion-batch-01-1.5.1",
       "directory": "public/releases/art-expansion-batch-01-1.5.1"
+    },
+    {
+      "phase": "MUSEUM-09C",
+      "release_id": "release:art-expansion-batch-02-1.6.0",
+      "directory": "public/releases/art-expansion-batch-02-1.6.0"
+    },
+    {
+      "phase": "MUSEUM-09D-WAVE-01",
+      "release_id": "release:art-expansion-batch-03-1.7.0",
+      "directory": "public/releases/art-expansion-batch-03-1.7.0"
+    },
+    {
+      "phase": "MUSEUM-09D-WAVE-01",
+      "release_id": "release:art-expansion-batch-04-1.8.0",
+      "directory": "public/releases/art-expansion-batch-04-1.8.0"
     }
   ],
   "candidate_release": {
-    "phase": "MUSEUM-09C",
-    "release_id": "release:art-expansion-batch-02-1.6.0",
-    "directory": "public/releases/art-expansion-batch-02-1.6.0"
+    "phase": "MUSEUM-09D-WAVE-01",
+    "release_id": "release:art-expansion-batch-05-1.9.0",
+    "directory": "public/releases/art-expansion-batch-05-1.9.0"
   },
   "docs_only_prefixes": [
     "docs/phase-reports/",
@@ -55,7 +70,10 @@
   ],
   "docs_only_exact": [
     "docs/00_project/ci-execution-governance.md",
-    "docs/05_roadmap/museum-09c-execution-contract.md"
+    "docs/05_roadmap/museum-09c-execution-contract.md",
+    "docs/qa/museum-09d-wave-01/web-preflight-audit.md",
+    "docs/05_roadmap/museum-09d-wave-01-execution-contract.md",
+    "docs/01_architecture/adr/ADR-0012-multi-batch-wave-release-and-single-deployment.md"
   ],
   "runtime_prefixes": [
     "src/",
@@ -206,6 +224,44 @@
       "data/reviewed/art/museum-09c/",
       "data/reviewed/art/museum-09c-media/",
       "public/releases/art-expansion-batch-02-1.6.0/",
+      "src/data/art-release-profile.ts",
+      "src/data/release-loader.ts",
+      "src/features/art-constellation/",
+      "src/features/art-gallery/",
+      "src/features/art-map/",
+      "src/features/art-paths/",
+      "src/features/art-search/"
+    ],
+    "MUSEUM-09D-WAVE-01": [
+      "museum_pipeline/art/expansion_wave_factory.py",
+      "scripts/run_museum_expansion_wave.py",
+      "scripts/validate_museum_09d_wave.py",
+      "scripts/generate_expansion_release_schemas.py",
+      "scripts/verify_museum_09d_wave_online.py",
+      "scripts/materialize_current_art_media.py",
+      "scripts/benchmark-museum-09b-search.mjs",
+      "scripts/verify-museum-09b-budgets.mjs",
+      "schemas/art/expansion/batch-registry.schema.json",
+      "schemas/art/release/art-expansion-public-record-v170.schema.json",
+      "schemas/art/release/art-expansion-media-asset-v170.schema.json",
+      "schemas/art/release/art-expansion-source-v170.schema.json",
+      "schemas/art/release/artist-narrative-v170.schema.json",
+      "schemas/art/release/relationship-explorer-config-v170.schema.json",
+      "schemas/art/release/art-expansion-public-record-v180.schema.json",
+      "schemas/art/release/art-expansion-media-asset-v180.schema.json",
+      "schemas/art/release/art-expansion-source-v180.schema.json",
+      "schemas/art/release/artist-narrative-v180.schema.json",
+      "schemas/art/release/relationship-explorer-config-v180.schema.json",
+      "schemas/art/release/art-expansion-public-record-v190.schema.json",
+      "schemas/art/release/art-expansion-media-asset-v190.schema.json",
+      "schemas/art/release/art-expansion-source-v190.schema.json",
+      "schemas/art/release/artist-narrative-v190.schema.json",
+      "schemas/art/release/relationship-explorer-config-v190.schema.json",
+      "data/reviewed/art/museum-09d-wave-01/",
+      "data/reviewed/art/museum-09d-wave-01-media/",
+      "public/releases/art-expansion-batch-03-1.7.0/",
+      "public/releases/art-expansion-batch-04-1.8.0/",
+      "public/releases/art-expansion-batch-05-1.9.0/",
       "src/data/art-release-profile.ts",
       "src/data/release-loader.ts",
       "src/features/art-constellation/",

@@ -148,7 +148,7 @@ test("desktop relationship explorer, equivalent views, evidence, rights, and URL
   await graphTab.focus();
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("tab", { name: /Artist list/ })).toHaveAttribute("aria-selected", "true");
-  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("111");
+  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("258");
   await page.screenshot({ path: screenshotPath("desktop-list") });
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("tab", { name: /Relationship table/ })).toHaveAttribute("aria-selected", "true");

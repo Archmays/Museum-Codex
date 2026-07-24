@@ -18,7 +18,7 @@ TEXT_SUFFIXES = {
     ".cjs", ".css", ".csv", ".htm", ".html", ".js", ".json", ".jsx", ".map", ".md", ".mjs",
     ".svg", ".ts", ".tsv", ".tsx", ".txt", ".webmanifest", ".xhtml", ".xml", ".yaml", ".yml",
 }
-MAX_SCANNABLE_TEXT_BYTES = 12 * 1024 * 1024
+MAX_SCANNABLE_TEXT_BYTES = 22 * 1024 * 1024
 THIRD_PARTY_MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".mp3", ".mp4", ".wav", ".webm"}
 MUSEUM_04_RELEASE_DIR = Path("releases") / "art-constellation-1.0.0"
 MUSEUM_05B_RELEASE_DIR = Path("releases") / "art-gallery-interactions-1.1.0"
@@ -28,6 +28,11 @@ MUSEUM_08_RELEASE_DIR = Path("releases") / "art-v1-candidate-1.4.0"
 MUSEUM_09B_RELEASE_DIR = Path("releases") / "art-expansion-batch-01-1.5.0"
 MUSEUM_09B_UX_RELEASE_DIR = Path("releases") / "art-expansion-batch-01-1.5.1"
 MUSEUM_09C_RELEASE_DIR = Path("releases") / "art-expansion-batch-02-1.6.0"
+MUSEUM_09D_RELEASE_DIRS = (
+    Path("releases") / "art-expansion-batch-03-1.7.0",
+    Path("releases") / "art-expansion-batch-04-1.8.0",
+    Path("releases") / "art-expansion-batch-05-1.9.0",
+)
 FORMAL_RELEASE_DIRS = (
     MUSEUM_04_RELEASE_DIR,
     MUSEUM_05B_RELEASE_DIR,
@@ -37,6 +42,7 @@ FORMAL_RELEASE_DIRS = (
     MUSEUM_09B_RELEASE_DIR,
     MUSEUM_09B_UX_RELEASE_DIR,
     MUSEUM_09C_RELEASE_DIR,
+    *MUSEUM_09D_RELEASE_DIRS,
 )
 RELEASE_INVALID_CODES = {
     MUSEUM_04_RELEASE_DIR.name: "museum_04_release_invalid",
@@ -47,6 +53,10 @@ RELEASE_INVALID_CODES = {
     MUSEUM_09B_RELEASE_DIR.name: "museum_09b_release_invalid",
     MUSEUM_09B_UX_RELEASE_DIR.name: "museum_09b_ux_release_invalid",
     MUSEUM_09C_RELEASE_DIR.name: "museum_09c_release_invalid",
+    **{
+        release_dir.name: "museum_09d_wave_release_invalid"
+        for release_dir in MUSEUM_09D_RELEASE_DIRS
+    },
 }
 RELEASE_LEDGER = ROOT / "governance" / "release-integrity-ledger.json"
 FORBIDDEN_PATH_PARTS = {"raw", "intermediate", "review", "recorded", "pipeline"}
@@ -97,6 +107,7 @@ def scan_public_artifact(
                 MUSEUM_09B_RELEASE_DIR.name,
                 MUSEUM_09B_UX_RELEASE_DIR.name,
                 MUSEUM_09C_RELEASE_DIR.name,
+                *(release_dir.name for release_dir in MUSEUM_09D_RELEASE_DIRS),
             }
             and path.resolve().is_relative_to(exempt_root)
             for exempt_root in resolved_exempt_roots

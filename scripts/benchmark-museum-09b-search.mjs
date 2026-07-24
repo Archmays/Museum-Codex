@@ -6,8 +6,8 @@ import { performance } from "node:perf_hooks";
 import { normalizeSearchText, searchRecords } from "../src/features/art-search/search-model.ts";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const RELEASE = join(ROOT, "public", "releases", "art-expansion-batch-02-1.6.0");
-const OUTPUT = join(ROOT, "docs", "qa", "museum-09c", "search-performance.json");
+const RELEASE = join(ROOT, "public", "releases", "art-expansion-batch-05-1.9.0");
+const OUTPUT = join(ROOT, "docs", "qa", "museum-09d-wave-01", "search-performance.json");
 const RUNS = 80;
 
 function readJson(path) {
@@ -32,8 +32,8 @@ function syntheticRecords(records, count) {
     const suffix = String(index).padStart(5, "0");
     return {
       ...source,
-      id: `search-record:synthetic-m09c-${suffix}`,
-      stable_id: `synthetic-m09c:${suffix}`,
+      id: `search-record:synthetic-m09d-${suffix}`,
+      stable_id: `synthetic-m09d:${suffix}`,
       labels: { ...source.labels },
       description: { ...source.description },
       values: source.values.map((value) => ({ ...value })),
@@ -76,7 +76,7 @@ function main() {
   if (synthetic.deterministic_digest !== repeat.deterministic_digest) failures.push("deterministic ranking digest mismatch");
   const report = {
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09C",
+    phase_id: "MUSEUM-09D-WAVE-01",
     evidence_class: "controlled_node_benchmark",
     environment: `${process.platform}-${process.arch}; Node ${process.version}`,
     normalization: manifest.normalization,

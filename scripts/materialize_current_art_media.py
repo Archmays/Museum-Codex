@@ -21,7 +21,7 @@ def main() -> int:
     parser.add_argument(
         "--release-root",
         type=Path,
-        default=ROOT / "public" / "releases" / "art-expansion-batch-02-1.6.0",
+        default=ROOT / "public" / "releases" / "art-expansion-batch-05-1.9.0",
     )
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()

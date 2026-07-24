@@ -576,6 +576,111 @@
       "version": "1.0.0",
       "branch": "art",
       "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-public-record-v170.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-public-record-v170.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-source-v170.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-source-v170.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/source.schema.json"]
+    },
+    {
+      "path": "schemas/art/release/art-expansion-media-asset-v170.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-media-asset-v170.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/artist-narrative-v170.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/artist-narrative-v170.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/relationship-explorer-config-v170.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/relationship-explorer-config-v170.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-public-record-v180.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-public-record-v180.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-source-v180.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-source-v180.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/source.schema.json"]
+    },
+    {
+      "path": "schemas/art/release/art-expansion-media-asset-v180.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-media-asset-v180.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/artist-narrative-v180.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/artist-narrative-v180.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/relationship-explorer-config-v180.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/relationship-explorer-config-v180.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-public-record-v190.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-public-record-v190.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/art-expansion-source-v190.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-source-v190.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": ["schemas/common/source.schema.json"]
+    },
+    {
+      "path": "schemas/art/release/art-expansion-media-asset-v190.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/art-expansion-media-asset-v190.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/artist-narrative-v190.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/artist-narrative-v190.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
+    },
+    {
+      "path": "schemas/art/release/relationship-explorer-config-v190.schema.json",
+      "id": "https://museum-codex.example/schemas/art/release/relationship-explorer-config-v190.schema.json",
+      "version": "1.0.0",
+      "branch": "art",
+      "depends_on": []
     }
   ]
 }

@@ -15,6 +15,9 @@ const largeFileAllowances = new Map([
   ["public/releases/art-expansion-batch-01-1.5.0/claims.json", 8 * 1024 * 1024],
   ["public/releases/art-expansion-batch-01-1.5.1/claims.json", 8 * 1024 * 1024],
   ["public/releases/art-expansion-batch-02-1.6.0/claims.json", 12 * 1024 * 1024],
+  ["public/releases/art-expansion-batch-03-1.7.0/claims.json", 14 * 1024 * 1024],
+  ["public/releases/art-expansion-batch-04-1.8.0/claims.json", 18 * 1024 * 1024],
+  ["public/releases/art-expansion-batch-05-1.9.0/claims.json", 21 * 1024 * 1024],
 ]);
 const textExtensions = new Set([".body", ".css", ".html", ".js", ".json", ".md", ".mjs", ".py", ".svg", ".ts", ".tsx", ".txt", ".yml", ".yaml"]);
 const secretPatterns = [

@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "evidence_class": "controlled_browser_probe",
+  "real_user_metric": false,
+  "environment": "Playwright Chromium preview",
+  "cold_runs": 3,
+  "desktop_first_interactive_median_ms": 597.9858000000004,
+  "desktop_first_interactive_p95_ms": 600.4980999999989,
+  "mobile_first_interactive_median_ms": 596.2834999999995,
+  "mobile_first_interactive_p95_ms": 616.4515,
+  "cls_p95": 0,
+  "interaction_runs": 60,
+  "interaction_p95_ms": 34.10000000055879,
+  "low_bandwidth_initial_transfer_p95_bytes": 365217,
+  "external_request_count": 0,
+  "low_bandwidth_limit_bytes": 373171,
+  "low_bandwidth_scaling_contract": {
+    "formula": "226171 + max(0, current_artists - 62) * 750",
+    "baseline_artists": 62,
+    "baseline_transfer_bytes": 226171,
+    "current_artists": 258,
+    "marginal_limit_bytes_per_artist": 750
+  },
+  "mobile_resource_transfer_sample": [
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/artists.json",
+      "transfer_size": 110962,
+      "encoded_body_size": 110662
+    },
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/manifest.json",
+      "transfer_size": 105293,
+      "encoded_body_size": 104993
+    },
+    {
+      "path": "/Museum-Codex/assets/index-DmOM8URv.js",
+      "transfer_size": 89720,
+      "encoded_body_size": 89420
+    },
+    {
+      "path": "/Museum-Codex/assets/ArtConstellationPage-D0w3qAPD.js",
+      "transfer_size": 13592,
+      "encoded_body_size": 13292
+    },
+    {
+      "path": "/Museum-Codex/assets/release-loader-Rt8p3lbF.js",
+      "transfer_size": 12480,
+      "encoded_body_size": 12180
+    },
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/search-index.json",
+      "transfer_size": 9381,
+      "encoded_body_size": 9081
+    },
+    {
+      "path": "/Museum-Codex/assets/index-RfcoNx7g.css",
+      "transfer_size": 7742,
+      "encoded_body_size": 7442
+    },
+    {
+      "path": "/Museum-Codex/assets/ArtConstellationPage-B4A2TR9t.css",
+      "transfer_size": 5516,
+      "encoded_body_size": 5216
+    },
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/relationship-explorer-config.json",
+      "transfer_size": 2505,
+      "encoded_body_size": 2205
+    },
+    {
+      "path": "/Museum-Codex/",
+      "transfer_size": 2373,
+      "encoded_body_size": 2073
+    },
+    {
+      "path": "/Museum-Codex/assets/ArtworkImage-C95oLf4U.js",
+      "transfer_size": 1545,
+      "encoded_body_size": 1245
+    },
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/graph-summary.json",
+      "transfer_size": 1221,
+      "encoded_body_size": 921
+    },
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/facets.json",
+      "transfer_size": 1020,
+      "encoded_body_size": 720
+    },
+    {
+      "path": "/Museum-Codex/assets/rolldown-runtime-Bh1tDfsg.js",
+      "transfer_size": 867,
+      "encoded_body_size": 567
+    },
+    {
+      "path": "/Museum-Codex/releases/art-expansion-batch-05-1.9.0/layout.json",
+      "transfer_size": 632,
+      "encoded_body_size": 332
+    },
+    {
+      "path": "/Museum-Codex/assets/types-CbuEbNsj.js",
+      "transfer_size": 368,
+      "encoded_body_size": 68
+    }
+  ],
+  "unexpected_media_preload_count": 0,
+  "geolocation_call_count": 0,
+  "status": "pass"
+}

@@ -127,7 +127,7 @@ async function installEnglishPreferences(page: Page, lowBandwidth = false) {
   }, { low: lowBandwidth });
 }
 
-test("artist index exposes 111 published entries, useful filters, and all legacy artist galleries", async ({ page }, testInfo) => {
+test("artist index exposes 258 published entries, useful filters, and all legacy artist galleries", async ({ page }, testInfo) => {
   const observed = observeRuntime(page, expectedOrigin(testInfo));
   await installEnglishPreferences(page);
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -135,10 +135,10 @@ test("artist index exposes 111 published entries, useful filters, and all legacy
   await useEnglish(page);
 
   await expect(page.getByRole("heading", { level: 1, name: "Each artist offers a way to begin looking" })).toBeVisible();
-  await expect(page.locator(".artist-results-status")).toHaveText("Showing 111 artists");
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 258 artists");
   await expect(page.locator(".artist-index-card")).toHaveCount(24);
-  await expect(page.getByRole("navigation", { name: "Artist pagination" })).toContainText("1 / 5");
-  await expect(page.locator(".gallery-release-tally")).toContainText("1017");
+  await expect(page.getByRole("navigation", { name: "Artist pagination" })).toContainText("1 / 11");
+  await expect(page.locator(".gallery-release-tally")).toContainText("2471");
   await expect(page.locator(".gallery-release-tally")).toContainText("71");
   await expect(page.locator(".gallery-release-tally")).toContainText("60");
   await captureFullPage(page, "artist-index-desktop");
@@ -150,21 +150,21 @@ test("artist index exposes 111 published entries, useful filters, and all legacy
   await expect(page.locator(".artist-index-card")).toHaveCount(0);
   await page.locator(".artist-filter-grid").getByRole("button", { name: "Clear filters" }).click();
   await expect(page.locator(".artist-index-card")).toHaveCount(24);
-  await expect(page.locator(".artist-results-status")).toHaveText("Showing 111 artists");
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 258 artists");
   await page.getByLabel("Artwork images").selectOption({ label: "Site-hosted artwork image available" });
   await expect(page.locator(".artist-index-card")).toHaveCount(17);
   await expect(page.locator(".artist-results-status")).toHaveText("Showing 17 artists");
   await page.locator(".artist-filter-grid").getByRole("button", { name: "Clear filters" }).click();
   await page.getByLabel("Artwork images").selectOption({ label: "No public artwork image now" });
   await expect(page.locator(".artist-index-card")).toHaveCount(24);
-  await expect(page.locator(".artist-results-status")).toHaveText("Showing 94 artists");
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 241 artists");
   const pagination = page.getByRole("navigation", { name: "Artist pagination" });
-  await expect(pagination).toContainText("1 / 4");
-  for (let pageNumber = 2; pageNumber <= 4; pageNumber += 1) {
+  await expect(pagination).toContainText("1 / 11");
+  for (let pageNumber = 2; pageNumber <= 11; pageNumber += 1) {
     await pagination.getByRole("button", { name: "Next" }).click();
-    await expect(pagination).toContainText(`${pageNumber} / 4`);
+    await expect(pagination).toContainText(`${pageNumber} / 11`);
   }
-  await expect(page.locator(".artist-index-card")).toHaveCount(22);
+  await expect(page.locator(".artist-index-card")).toHaveCount(1);
   await page.locator(".artist-filter-grid").getByRole("button", { name: "Clear filters" }).click();
   await expect(page.locator(".artist-index-card")).toHaveCount(24);
 
@@ -361,7 +361,7 @@ test("360px forced-colors and reduced-motion preferences preserve the complete a
 
   await expect(page.locator("html")).toHaveAttribute("data-forced-colors", "active");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
-  await expect(page.locator(".artist-results-status")).toHaveText("Showing 111 artists");
+  await expect(page.locator(".artist-results-status")).toHaveText("Showing 258 artists");
   await expect(page.locator(".artist-index-card")).toHaveCount(24);
   await expectNoHorizontalOverflow(page);
   await captureFullPage(page, "artist-index-forced-colors-360");

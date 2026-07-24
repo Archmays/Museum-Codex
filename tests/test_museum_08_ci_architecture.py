@@ -82,6 +82,9 @@ class Museum08CiImpactTests(unittest.TestCase):
                 "release:art-time-place-1.3.0",
                 "release:art-expansion-batch-01-1.5.0",
                 "release:art-expansion-batch-01-1.5.1",
+                "release:art-expansion-batch-02-1.6.0",
+                "release:art-expansion-batch-03-1.7.0",
+                "release:art-expansion-batch-04-1.8.0",
             },
             set(result["releases_hash_only"]),
         )

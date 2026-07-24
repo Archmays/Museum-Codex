@@ -61,6 +61,10 @@ jobs:
           python scripts/validate_museum_08_scale.py --evidence docs/qa/museum-08/scale-readiness.json --check
           python scripts/validate_museum_09c.py public/releases/art-expansion-batch-02-1.6.0 --batch-id museum-09-batch-02 --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1
           python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-02-1.6.0
+          python scripts/validate_museum_09d_wave.py --allow-predeployment-final
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-03-1.7.0
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-04-1.8.0
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-05-1.9.0
 
       - name: Verify sealed historical performance evidence hashes
         shell: bash
@@ -92,10 +96,9 @@ jobs:
           print(f"[sealed-performance-evidence] PASS files={len(expected)}")
           PY
 
-      - name: Rebuild only the current formal release
+      - name: Verify current wave checkpoints and deterministic release chain
         run: |
-          python scripts/run_museum_expansion_batch.py --batch-id museum-09-batch-02 --stage release --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1 --output tmp/museum-09c-ci-release
-          diff -ru public/releases/art-expansion-batch-02-1.6.0 tmp/museum-09c-ci-release
+          python scripts/run_museum_expansion_wave.py --phase-id MUSEUM-09D-WAVE-01 --batch-ids museum-09-batch-03,museum-09-batch-04,museum-09-batch-05 --release-plan docs/05_roadmap/museum-09d-wave-01/release-plan.json --through release --resume
 
       - name: Run full offline Python suite
         run: python scripts/run_offline_python_tests.py
@@ -126,10 +129,10 @@ jobs:
 
       - name: Run complete browser and accessibility gate
         env:
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09c/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09d-wave-01/playwright-results.json
         run: npm run test:e2e
 
-      - name: Verify current M09C search and release budgets
+      - name: Verify current M09D search and release budgets
         run: |
           npm run check:museum-09b-search
           npm run check:museum-09b-budgets

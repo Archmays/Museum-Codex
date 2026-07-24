@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "evidence_class": "controlled_node_benchmark",
+  "environment": "win32-x64; Node v24.16.0",
+  "normalization": "unicode_nfkc_lower_diacritic_fold_whitespace_v1",
+  "current_release": {
+    "record_count": 4039,
+    "limit_p95_ms": 80,
+    "runs": 80,
+    "median_ms": 1.39609999999999,
+    "p95_ms": 2.3897999999999797,
+    "max_ms": 2.8138000000000147,
+    "deterministic_digest": "b5a65bc214a73a153e0dbf4f8dbd51790131cc7c367fe68996b509761c47aeb0"
+  },
+  "synthetic_5000": {
+    "record_count": 5000,
+    "fixed_input": true,
+    "public_build": false,
+    "limit_p95_ms": 120,
+    "runs": 80,
+    "median_ms": 4.743799999999965,
+    "p95_ms": 9.009599999999978,
+    "max_ms": 19.96320000000003,
+    "deterministic_digest": "fc13d109cc07e7a36b0fa821d97ee06e538fa67523f0601169516a8e684173d0"
+  },
+  "deterministic_repeat": true,
+  "failures": [],
+  "status": "pass"
+}

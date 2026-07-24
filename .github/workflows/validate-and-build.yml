@@ -188,6 +188,15 @@ jobs:
           python scripts/validate_museum_09c.py public/releases/art-expansion-batch-02-1.6.0 --batch-id museum-09-batch-02 --release-id release:art-expansion-batch-02-1.6.0 --predecessor release:art-expansion-batch-01-1.5.1
           python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-02-1.6.0
 
+      - name: Run M09D Wave 01 targeted release closure
+        if: contains(needs.classify.outputs.affected_phases, 'MUSEUM-09D-WAVE-01')
+        run: |
+          python -m unittest tests.test_museum_09d_wave
+          python scripts/validate_museum_09d_wave.py --allow-predeployment-final
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-03-1.7.0
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-04-1.8.0
+          python scripts/validate_governance_foundation.py --release-root public/releases/art-expansion-batch-05-1.9.0
+
       - name: Set up Node.js
         if: needs.classify.outputs.runtime_changed == 'true'
         # actions/setup-node v6.4.0
@@ -224,11 +233,11 @@ jobs:
         if: needs.classify.outputs.deploy_required == 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: Run affected route suites and current M09C browser closure
+      - name: Run affected route suites and current M09D browser closure
         if: needs.classify.outputs.deploy_required == 'true'
         env:
           MUSEUM_BROWSER_SUITES: ${{ needs.classify.outputs.browser_suites }}
-          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09c/playwright-results.json
+          PLAYWRIGHT_JSON_OUTPUT: docs/qa/museum-09d-wave-01/playwright-results.json
         run: npm run test:e2e
 
       - name: Bind Pages artifact to this commit

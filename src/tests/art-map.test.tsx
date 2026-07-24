@@ -52,7 +52,7 @@ describe("Art Across Time and Place current-release projection", () => {
     const bundle = await loadMapBundle();
     expect(bundle.manifest.id).toBe(CURRENT_ART_RELEASE_ID);
     expect(bundle.places).toHaveLength(24);
-    expect(bundle.episodes).toHaveLength(183);
+    expect(bundle.episodes).toHaveLength(400);
     expect(bundle.holdings).toHaveLength(2);
     expect(bundle.style.renderer_version).toBe("5.24.0");
   });
@@ -65,7 +65,7 @@ describe("Art Across Time and Place current-release projection", () => {
     renderPage();
     expect(await screen.findByRole("heading", { level: 1, name: "Art Across Time and Place" })).toBeInTheDocument();
     const table = screen.getByRole("table", { name: /same filters as map and timeline/i });
-    expect(within(table).getAllByRole("row")).toHaveLength(171);
+    expect(within(table).getAllByRole("row")).toHaveLength(387);
     expect(within(table).getAllByText(/list only/i)).not.toHaveLength(0);
     expect(screen.getByText(/Modern outlines are not historical political borders/)).toBeInTheDocument();
   });

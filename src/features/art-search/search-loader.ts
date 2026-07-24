@@ -148,6 +148,9 @@ async function loadSearchIndexUncached(fetcher: typeof fetch): Promise<SearchInd
         "search-manifest:art-expansion-1.5.0",
         "search-manifest:art-expansion-1.5.1",
         "search-manifest:art-expansion-1.6.0",
+        "search-manifest:art-expansion-1.7.0",
+        "search-manifest:art-expansion-1.8.0",
+        "search-manifest:art-expansion-1.9.0",
       ].includes(manifestFile.record_ids[0])))
   ) throw new Error("search_manifest_file_missing");
   const manifestValue = await fetchVerifiedJson(base, manifestFile.path, manifestFile, fetcher);

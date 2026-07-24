@@ -5,8 +5,8 @@ import { gzipSync } from "node:zlib";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const DIST = join(ROOT, "dist");
-const RELEASE = join(DIST, "releases", "art-expansion-batch-02-1.6.0");
-const QA = join(ROOT, "docs", "qa", "museum-09c");
+const RELEASE = join(DIST, "releases", "art-expansion-batch-05-1.9.0");
+const QA = join(ROOT, "docs", "qa", "museum-09d-wave-01");
 const OUTPUT = join(QA, "bundle-budget.json");
 const FIXED_LIMITS = {
   home: Math.floor(100_059 * 1.02),
@@ -102,8 +102,12 @@ function main() {
   const searchManifestFile = metric(join(RELEASE, "search", "manifest.json"), failures);
   const searchIndexGzip = searchManifestFile.gzip_bytes + sum(shardFiles);
   const releaseManifestFile = metric(join(RELEASE, "manifest.json"), failures);
-  const searchRouteGzip = routeMeasurements.search.gzip_bytes + searchIndexGzip + releaseManifestFile.gzip_bytes;
+  // The route defers search shards until the first submitted query. Keep the
+  // complete index and query-shard closures under their dedicated budgets
+  // instead of double-counting them as initial route transfer.
+  const searchRouteGzip = routeMeasurements.search.gzip_bytes + releaseManifestFile.gzip_bytes;
   routeMeasurements.search.total_gzip_bytes = searchRouteGzip;
+  routeMeasurements.search.deferred_search_index_gzip_bytes = searchIndexGzip;
   for (const measurement of Object.values(routeMeasurements)) measurement.total_gzip_bytes ??= measurement.gzip_bytes;
   const [largestName, largest] = Object.entries(routeMeasurements).sort((a, b) => b[1].total_gzip_bytes - a[1].total_gzip_bytes)[0];
 
@@ -162,7 +166,7 @@ function main() {
   failures.push(...checks.filter(([ok]) => !ok).map(([, message]) => message));
   const report = {
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09C",
+    phase_id: "MUSEUM-09D-WAVE-01",
     measurement: "node:zlib gzip level 9; independent asset compression and deterministic route closure",
     budgets: limits,
     scaling_contract: {

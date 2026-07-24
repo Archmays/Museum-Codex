@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "status": "pass",
+  "events": [
+    {
+      "sequence": 1,
+      "kind": "formal_wave_resume",
+      "failed_at": "museum-09-batch-03/release",
+      "error_type": "KeyError",
+      "error_message": "'getty_ulan:data:eb25ddb4d400'",
+      "preserved_checkpoints": [
+        "museum-09-batch-03/research",
+        "museum-09-batch-03/media"
+      ],
+      "recovery": "The release authorization update was narrowed to governed source records and the wave resumed from the failed release stage.",
+      "evidence_path": "docs/qa/museum-09d-wave-01/wave-journal-before-deep-gate-repair.json",
+      "result": "pass"
+    },
+    {
+      "sequence": 2,
+      "kind": "deep_physical_bundle_gate",
+      "failed_codes": [
+        "schema_target_mismatch",
+        "source_license_binding_rule_missing",
+        "source_snapshot_record_mismatch",
+        "third_party_notice_source_mismatch"
+      ],
+      "recovery": "The governance validator gained explicit 1.7/1.8/1.9 schema dispatch, Factory V2 closed embedded source rules and bindings, and the invalid local candidates were recoverably quarantined before regeneration.",
+      "result": "pass",
+      "final_release_issue_count": 0
+    },
+    {
+      "sequence": 3,
+      "kind": "idempotence_replay",
+      "stage_count": 9,
+      "created_count": 0,
+      "evidence_path": "docs/qa/museum-09d-wave-01/wave-idempotence-journal.json",
+      "result": "pass"
+    }
+  ],
+  "final_release": {
+    "release_id": "release:art-expansion-batch-05-1.9.0",
+    "content_hash": "sha256:7e810b9a450eadc061b53e8b385f450c470579a832731e0cc6cb44165ad804aa",
+    "manifest_sha256": "sha256:3bd894c8de5c0ac98f962ecea4260e93614be8125c3eb28ef16ed82aa8367668",
+    "tree_hash": "sha256:be22ce6edca6ae10f40315ac83c936fbcb1ad91987e9ff793f2f2783ad198e00"
+  },
+  "unresolved": []
+}

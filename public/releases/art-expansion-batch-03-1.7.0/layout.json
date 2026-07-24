@@ -1,0 +1,1 @@
+{"algorithm":"focused_relation_lanes_v1","default_nodes":[],"distance_semantics":"none","focus_expanded_node_limit":20,"focus_initial_neighbor_limit":12,"lane_order":["shared_subject","shared_material","shared_technique"],"node_size_semantics":"constant","release_id":"release:art-expansion-batch-03-1.7.0","schema_version":"1.0.0"}

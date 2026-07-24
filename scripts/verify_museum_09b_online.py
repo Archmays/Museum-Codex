@@ -18,6 +18,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE_DIRECTORY = "art-expansion-batch-01-1.5.1"
 RELEASE_ID = "release:art-expansion-batch-01-1.5.1"
+PHASE_ID = "MUSEUM-09B-UX-01"
+PROBE_LABEL = "museum09b"
 DEFAULT_OUTPUT = ROOT / "docs" / "qa" / "museum-09b-ux-01" / "online-closure.json"
 EXPECTED_COUNTS = {
     "artists": 62,
@@ -54,7 +56,7 @@ def _fetch(url: str, *, timeout: float = 30.0, attempts: int = 3) -> tuple[bytes
         started = time.perf_counter()
         request = urllib.request.Request(
             url,
-            headers={"Accept": "*/*", "Cache-Control": "no-cache", "User-Agent": "Museum-Codex-M09B-closure/1.0"},
+            headers={"Accept": "*/*", "Cache-Control": "no-cache", "User-Agent": f"Museum-Codex-{PHASE_ID}-closure/1.0"},
         )
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -198,7 +200,7 @@ def verify_online(base_url: str, commit: str) -> dict[str, Any]:
             failures.append("online validation summary is not pass")
 
         for index in range(3):
-            _, _, elapsed_ms = _fetch(_url(base, f"index.html?museum09b_cold_probe={index}-{commit[:12]}"), timeout=20)
+            _, _, elapsed_ms = _fetch(_url(base, f"index.html?{PROBE_LABEL}_cold_probe={index}-{commit[:12]}"), timeout=20)
             cold_probe_ms.append(elapsed_ms)
     except Exception as error:
         failures.append(str(error))
@@ -206,7 +208,7 @@ def verify_online(base_url: str, commit: str) -> dict[str, Any]:
     expected_bytes = sum(item["bytes"] for item in closure.values())
     report = {
         "schema_version": "1.0.0",
-        "phase_id": "MUSEUM-09B-UX-01",
+        "phase_id": PHASE_ID,
         "evidence_class": "bounded_public_cold_probe_and_complete_release_runtime_byte_closure",
         "real_user_metric": False,
         "base_url": base,

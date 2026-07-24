@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "environment": "Playwright Chromium against local production preview",
+  "full_browser_test_count": 52,
+  "initial_pass_count": 49,
+  "initial_failure_count": 3,
+  "failed_test_rerun_count": 3,
+  "failed_test_rerun_pass_count": 3,
+  "final_effective_pass_count": 52,
+  "isolated_performance_tests": {
+    "count": 5,
+    "passed": 5,
+    "suites": [
+      "museum-09b",
+      "museum-08",
+      "museum-07",
+      "museum-05b",
+      "museum-06"
+    ]
+  },
+  "functional_tests": {
+    "count": 47,
+    "initial_passed": 44,
+    "initial_failed": 3,
+    "failed_closure_rerun_passed": 3
+  },
+  "initial_failure_dispositions": [
+    {
+      "test": "artist index pagination",
+      "cause": "historical four-page denominator remained in one loop assertion after expansion to 258 artists",
+      "disposition": "assertion updated to the current eleven-page projection and rerun passed"
+    },
+    {
+      "test": "map place table row count",
+      "cause": "historical 170-row assertion remained after expansion to 400 episodes",
+      "disposition": "assertion updated to the current 386 visible rows and rerun passed"
+    },
+    {
+      "test": "public text internal-language scan",
+      "cause": "the artwork title Nocturnal Review was a false positive for the generic word review",
+      "disposition": "scan retained internal review terminology checks while excluding ordinary artwork-title usage; rerun passed"
+    }
+  ],
+  "screenshot_count": 12,
+  "automated_accessibility": {
+    "route_count": 18,
+    "serious": 0,
+    "critical": 0,
+    "status": "pass",
+    "real_assistive_technology": "not_available",
+    "physical_devices": "not_available"
+  },
+  "raw_runner_output": {
+    "committed": false,
+    "reason": "Playwright JSON reporter embeds machine-local absolute paths; bounded path-free evidence is committed instead"
+  },
+  "status": "pass"
+}

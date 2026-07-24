@@ -612,6 +612,9 @@ function parseArtists(raw: unknown, releaseId: string): ArtistRecord[] {
     const successorNarratives = new Set([
       "release:art-expansion-batch-01-1.5.1",
       "release:art-expansion-batch-02-1.6.0",
+      "release:art-expansion-batch-03-1.7.0",
+      "release:art-expansion-batch-04-1.8.0",
+      "release:art-expansion-batch-05-1.9.0",
     ]).has(releaseId);
     const publicIntro = artist.public_intro === undefined
       ? publicLocalized(artist.summary, "artist_summary")
@@ -1032,6 +1035,9 @@ function parseGraphSummary(raw: unknown, releaseId: string) {
     (new Set([
       "release:art-expansion-batch-01-1.5.1",
       "release:art-expansion-batch-02-1.6.0",
+      "release:art-expansion-batch-03-1.7.0",
+      "release:art-expansion-batch-04-1.8.0",
+      "release:art-expansion-batch-05-1.9.0",
     ]).has(releaseId) && initialState.task !== "choose_artist")
   ) throw new Error("graph_summary_profile_invalid");
   const summary: GraphSummary = {
@@ -1570,6 +1576,9 @@ export async function loadArtConstellationRelease(
     if (new Set([
       "release:art-expansion-batch-01-1.5.1",
       "release:art-expansion-batch-02-1.6.0",
+      "release:art-expansion-batch-03-1.7.0",
+      "release:art-expansion-batch-04-1.8.0",
+      "release:art-expansion-batch-05-1.9.0",
     ]).has(coreReleaseId) && !explorerReference) {
       throw new Error("manifest_missing_relationship-explorer-config.json");
     }

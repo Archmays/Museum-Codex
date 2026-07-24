@@ -11,6 +11,8 @@ from scripts import verify_museum_09b_online as verifier
 
 verifier.RELEASE_DIRECTORY = "art-expansion-batch-02-1.6.0"
 verifier.RELEASE_ID = "release:art-expansion-batch-02-1.6.0"
+verifier.PHASE_ID = "MUSEUM-09C"
+verifier.PROBE_LABEL = "museum09c"
 verifier.EXPECTED_COUNTS = {
     "artists": 111,
     "artworks": 1017,

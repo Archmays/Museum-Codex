@@ -101,9 +101,10 @@ def _matches(path: str, patterns: Iterable[str]) -> bool:
 
 
 def _is_docs_only_path(path: str, contract: dict[str, Any]) -> bool:
-    return any(path.startswith(prefix) for prefix in contract["docs_only_prefixes"]) or path in set(
-        contract["docs_only_exact"]
-    )
+    exact = set(contract["docs_only_exact"])
+    if any(path.startswith(item + "/") for item in exact):
+        return False
+    return path in exact or any(path.startswith(prefix) for prefix in contract["docs_only_prefixes"])
 
 
 def _phase_for_release(contract: dict[str, Any], release_id: str) -> str:

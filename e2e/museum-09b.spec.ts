@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-const releaseDirectory = path.resolve("public/releases/art-expansion-batch-02-1.6.0");
-const qaDirectory = path.resolve(process.env.MUSEUM09B_QA_DIR ?? "docs/qa/museum-09c");
+const releaseDirectory = path.resolve("public/releases/art-expansion-batch-05-1.9.0");
+const qaDirectory = path.resolve(process.env.MUSEUM09B_QA_DIR ?? "docs/qa/museum-09d-wave-01");
 const screenshotDirectory = path.join(qaDirectory, "screenshots");
 mkdirSync(screenshotDirectory, { recursive: true });
 
@@ -261,12 +261,12 @@ test("formal M09B routes preserve identity, landmarks, no-image paths, and runti
     const violations = await seriousAccessibilityViolations(page);
     expect(violations, route).toEqual([]);
     const publicText = await page.locator("main#main-content").innerText();
-    expect(publicText, route).not.toMatch(/M09A|M09B|Batch 01|\bcandidate\b|\breview(?:ed)?\b|\binternal\b|\bMVP\b|\bPhase\b|source adapter/i);
+    expect(publicText, route).not.toMatch(/M09A|M09B|Batch 01|\bcandidate\b|\breview(?:ed)? (?:record|status|workflow|candidate|fixture)\b|\binternal\b|\bMVP\b|\bPhase\b|source adapter/i);
     results[route] = violations.length;
   }
   await gotoRoute(page, "/art/artists");
-  await expect(page.locator(".gallery-release-tally")).toContainText("1017");
-  await expect(page.locator(".artist-results-status")).toContainText("111");
+  await expect(page.locator(".gallery-release-tally")).toContainText("2471");
+  await expect(page.locator(".artist-results-status")).toContainText("258");
   expect(runtime.external).toEqual([]);
   expect(runtime.images).toEqual([]);
   expect(runtime.rendererChunks).toEqual([]);
@@ -276,7 +276,7 @@ test("formal M09B routes preserve identity, landmarks, no-image paths, and runti
   expect(await page.evaluate(() => sessionStorage.length)).toBe(0);
   expect(await page.evaluate(() => (window as Window & { __museum09bGeolocationReads?: number }).__museum09bGeolocationReads ?? 0)).toBe(0);
   writeFileSync(path.join(qaDirectory, "automated-a11y-results.json"), `${JSON.stringify({
-    schema_version: "1.0.0", phase_id: "MUSEUM-09C", automated_engine: "project_dom_accessibility_gate",
+    schema_version: "1.0.0", phase_id: "MUSEUM-09D-WAVE-01", automated_engine: "project_dom_accessibility_gate",
     serious: 0, critical: 0, routes: results, real_assistive_technology: "not_available",
     physical_devices: "not_available", status: "pass",
   }, null, 2)}\n`);
@@ -345,7 +345,7 @@ test("relationship explorer preserves URL history, keyboard evidence, empty, the
   await expect(page.locator(".theme-complete-list")).toBeVisible();
 
   await gotoRoute(page, "/art/constellation?view=list");
-  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("111");
+  await expect(page.locator(".artist-list-view .scale-pagination")).toContainText("258");
   await gotoRoute(page, "/art/constellation?view=table");
   await expect(page.locator(".relationship-table-view tbody tr")).toHaveCount(60);
 
@@ -510,7 +510,7 @@ test("@museum-09b-isolated-performance controlled FTI, CLS, interaction, and low
     }
   }
   const metrics = {
-    schema_version: "1.0.0", phase_id: "MUSEUM-09C", evidence_class: "controlled_browser_probe",
+    schema_version: "1.0.0", phase_id: "MUSEUM-09D-WAVE-01", evidence_class: "controlled_browser_probe",
     real_user_metric: false, environment: "Playwright Chromium preview", cold_runs: 3,
     desktop_first_interactive_median_ms: percentile(desktopFti, 0.5), desktop_first_interactive_p95_ms: percentile(desktopFti, 0.95),
     mobile_first_interactive_median_ms: percentile(mobileFti, 0.5), mobile_first_interactive_p95_ms: percentile(mobileFti, 0.95),
@@ -601,7 +601,7 @@ test("@museum-09b-screenshots captures the twelve bounded release views", async 
 
   writeFileSync(path.join(qaDirectory, "screenshot-index.json"), `${JSON.stringify({
     schema_version: "1.0.0",
-    phase_id: "MUSEUM-09C",
+    phase_id: "MUSEUM-09D-WAVE-01",
     screenshot_count: screenshots.length,
     screenshots,
   }, null, 2)}\n`);

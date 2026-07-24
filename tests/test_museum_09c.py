@@ -44,7 +44,7 @@ class Museum09CReleaseTests(unittest.TestCase):
         self.assertEqual("sha256:02b962ad03917cac733f8be584c0f710f624f3039c04c869b92772bb31b2681d", batch["input_closure_hash"])
         self.assertEqual((12, 37), (batch["gallery_tier_count"], batch["collection_tier_count"]))
 
-    def test_unentered_batch_assignments_remain_sealed(self) -> None:
+    def test_later_batch_assignments_remain_sealed(self) -> None:
         immutable = {
             "id",
             "sequence",
@@ -62,10 +62,20 @@ class Museum09CReleaseTests(unittest.TestCase):
         sealed = {item["id"]: item for item in self.sealed["batches"]}
         for sequence in range(3, 11):
             batch_id = f"museum-09-batch-{sequence:02d}"
-            self.assertEqual("registered_not_started", canonical[batch_id]["status"])
             self.assertEqual(
                 {key: canonical[batch_id][key] for key in immutable},
                 {key: sealed[batch_id][key] for key in immutable},
+            )
+        self.assertEqual("published", canonical["museum-09-batch-03"]["status"])
+        self.assertEqual("published", canonical["museum-09-batch-04"]["status"])
+        self.assertIn(
+            canonical["museum-09-batch-05"]["status"],
+            {"media_bundle_ready", "published"},
+        )
+        for sequence in range(6, 11):
+            self.assertEqual(
+                "registered_not_started",
+                canonical[f"museum-09-batch-{sequence:02d}"]["status"],
             )
 
     def test_batch_01_and_batch_02_are_published_without_next_phase(self) -> None:

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "phase_id": "MUSEUM-09D-WAVE-01",
+  "baseline_commit": "b5f10b33d49bd8ce5e971a9f69299150f6598235",
+  "build_at": "2026-07-24T12:00:00+08:00",
+  "review_date": "2026-07-24",
+  "reviewer": {
+    "id": "museum-09d-wave-release-validator",
+    "kind": "automated_release_validation_pipeline"
+  },
+  "authorization": {
+    "basis": "PASS_BY_USER_AUTHORIZATION",
+    "scope": "MUSEUM-09D-WAVE-01 immutable public release records",
+    "rule_version": "museum_09d_wave_01_v1"
+  },
+  "legacy_adapter": {
+    "template_phase_id": "MUSEUM-09C",
+    "template_reviewer_id": "museum-09c-release-validator",
+    "template_actor_id": "museum-09c-expansion-batch-factory",
+    "template_scopes": [
+      "MUSEUM-09B immutable public release records",
+      "MUSEUM-09C immutable public release records"
+    ]
+  },
+  "artifact_namespace": "museum-09d-wave-01",
+  "actor_id": "museum-09d-wave-expansion-factory-v2",
+  "current_release_id": "release:art-expansion-batch-02-1.6.0",
+  "final_release_id": "release:art-expansion-batch-05-1.9.0",
+  "journal_path": "docs/qa/museum-09d-wave-01/wave-journal.json",
+  "deployment_marker_path": "docs/qa/museum-09d-wave-01/final-deployment-marker.json",
+  "cross_batch_report_path": "docs/qa/museum-09d-wave-01/cross-batch-validation.json",
+  "batches": [
+    {
+      "batch_id": "museum-09-batch-03",
+      "release_id": "release:art-expansion-batch-03-1.7.0",
+      "version": "1.7.0",
+      "predecessor_id": "release:art-expansion-batch-02-1.6.0",
+      "input_closure_hash": "sha256:2f401a1fbf6d8f9d7f773b11c54b6c7c388c8d3a47725c9bedd3af7f13bf528d",
+      "artist_count": 49,
+      "artwork_count": 485,
+      "gallery_count": 12,
+      "collection_count": 37,
+      "cumulative_artist_count": 160,
+      "cumulative_artwork_count": 1502,
+      "research_path": "data/reviewed/art/museum-09d-wave-01/batch-03-formal-candidate-v2",
+      "media_path": "data/reviewed/art/museum-09d-wave-01-media/batch-03-media-bundle-v2",
+      "release_path": "public/releases/art-expansion-batch-03-1.7.0",
+      "deployment_eligible": false
+    },
+    {
+      "batch_id": "museum-09-batch-04",
+      "release_id": "release:art-expansion-batch-04-1.8.0",
+      "version": "1.8.0",
+      "predecessor_id": "release:art-expansion-batch-03-1.7.0",
+      "input_closure_hash": "sha256:81e07ced806a68819a6fa300cefff2f0ae9e89f8dfb95ae31ed82fde379c4ee0",
+      "artist_count": 49,
+      "artwork_count": 485,
+      "gallery_count": 12,
+      "collection_count": 37,
+      "cumulative_artist_count": 209,
+      "cumulative_artwork_count": 1987,
+      "research_path": "data/reviewed/art/museum-09d-wave-01/batch-04-formal-candidate-v2",
+      "media_path": "data/reviewed/art/museum-09d-wave-01-media/batch-04-media-bundle-v2",
+      "release_path": "public/releases/art-expansion-batch-04-1.8.0",
+      "deployment_eligible": false
+    },
+    {
+      "batch_id": "museum-09-batch-05",
+      "release_id": "release:art-expansion-batch-05-1.9.0",
+      "version": "1.9.0",
+      "predecessor_id": "release:art-expansion-batch-04-1.8.0",
+      "input_closure_hash": "sha256:1983735d38fa32b3666e401ef1144ae58ce119b4fe5072d71893535e105d0527",
+      "artist_count": 49,
+      "artwork_count": 484,
+      "gallery_count": 11,
+      "collection_count": 38,
+      "cumulative_artist_count": 258,
+      "cumulative_artwork_count": 2471,
+      "research_path": "data/reviewed/art/museum-09d-wave-01/batch-05-formal-candidate-v2",
+      "media_path": "data/reviewed/art/museum-09d-wave-01-media/batch-05-media-bundle-v2",
+      "release_path": "public/releases/art-expansion-batch-05-1.9.0",
+      "deployment_eligible": true
+    }
+  ]
+}

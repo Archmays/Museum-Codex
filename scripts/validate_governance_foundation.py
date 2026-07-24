@@ -32,6 +32,15 @@ RELEASE_SOURCE_MATRIX_SNAPSHOT_HASHES = {
     "release:art-gallery-interactions-1.1.0": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21",
     "release:art-pathways-1.2.0": "sha256:1df4788f3d3779bd0d126486eec7e96c2c07ff2ce040ce74cf9f8448fe61ac21",
 }
+EXPANSION_RELEASE_SCHEMA_SUFFIXES = {
+    "release:art-expansion-batch-01-1.5.0": "",
+    "release:art-expansion-batch-01-1.5.1": "-v151",
+    "release:art-expansion-batch-02-1.6.0": "-v160",
+    "release:art-expansion-batch-03-1.7.0": "-v170",
+    "release:art-expansion-batch-04-1.8.0": "-v180",
+    "release:art-expansion-batch-05-1.9.0": "-v190",
+}
+EXPANSION_RELEASE_IDS = frozenset(EXPANSION_RELEASE_SCHEMA_SUFFIXES)
 
 ALLOWED_CLAIM_TRANSITIONS: dict[str | None, set[str]] = {
     None: {"candidate"},
@@ -251,27 +260,14 @@ def expected_target_schema(data: dict[str, Any]) -> str | None:
     if data.get("branch_id") == "arms":
         return None
     entity_type = data.get("entity_type")
-    if data.get("release_id") == "release:art-expansion-batch-01-1.5.0":
+    schema_suffix = EXPANSION_RELEASE_SCHEMA_SUFFIXES.get(data.get("release_id"))
+    if schema_suffix is not None:
         if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
-            return "schemas/art/release/art-expansion-public-record.schema.json"
+            return f"schemas/art/release/art-expansion-public-record{schema_suffix}.schema.json"
         if entity_type == "media_asset":
-            return "schemas/art/release/art-expansion-media-asset.schema.json"
+            return f"schemas/art/release/art-expansion-media-asset{schema_suffix}.schema.json"
         if entity_type == "source":
-            return "schemas/art/release/art-expansion-source.schema.json"
-    if data.get("release_id") == "release:art-expansion-batch-01-1.5.1":
-        if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
-            return "schemas/art/release/art-expansion-public-record-v151.schema.json"
-        if entity_type == "media_asset":
-            return "schemas/art/release/art-expansion-media-asset-v151.schema.json"
-        if entity_type == "source":
-            return "schemas/art/release/art-expansion-source-v151.schema.json"
-    if data.get("release_id") == "release:art-expansion-batch-02-1.6.0":
-        if entity_type in PUBLIC_CONSTELLATION_ENTITY_TYPES:
-            return "schemas/art/release/art-expansion-public-record-v160.schema.json"
-        if entity_type == "media_asset":
-            return "schemas/art/release/art-expansion-media-asset-v160.schema.json"
-        if entity_type == "source":
-            return "schemas/art/release/art-expansion-source-v160.schema.json"
+            return f"schemas/art/release/art-expansion-source{schema_suffix}.schema.json"
     if entity_type in ART_CONTEXT_ENTITY_TYPES:
         if data.get("branch_id") == "art":
             return "schemas/art/context/art-context.schema.json"
@@ -549,11 +545,7 @@ def source_publish_issues(
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     if (
-        data.get("release_id") in {
-            "release:art-expansion-batch-01-1.5.0",
-            "release:art-expansion-batch-01-1.5.1",
-            "release:art-expansion-batch-02-1.6.0",
-        }
+        data.get("release_id") in EXPANSION_RELEASE_IDS
         and data.get("authorization_basis") == "PASS_BY_USER_AUTHORIZATION"
     ):
         if data.get("public_static_redistribution") != "allowed":
@@ -1124,11 +1116,7 @@ def reference_graph_issues(records: list[dict[str, Any]]) -> list[ValidationIssu
                 parent = indexed.get(parent_id, {})
                 if parent.get("entity_type") != "media_asset":
                     protected_parent_is_sealed = (
-                        data.get("release_id") in {
-                            "release:art-expansion-batch-01-1.5.0",
-                            "release:art-expansion-batch-01-1.5.1",
-                            "release:art-expansion-batch-02-1.6.0",
-                        }
+                        data.get("release_id") in EXPANSION_RELEASE_IDS
                         and data.get("delivery_mode") in {"predecessor_reference", "build_materialized"}
                         and isinstance(parent_id, str)
                         and parent_id.startswith("media:")
