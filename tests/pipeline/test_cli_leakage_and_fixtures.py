@@ -197,6 +197,9 @@ class LeakageTests(unittest.TestCase):
                 (ROOT / "public" / "releases" / "art-expansion-batch-01-1.5.0").resolve(),
                 (ROOT / "public" / "releases" / "art-expansion-batch-01-1.5.1").resolve(),
                 (ROOT / "public" / "releases" / "art-expansion-batch-02-1.6.0").resolve(),
+                (ROOT / "public" / "releases" / "art-expansion-batch-03-1.7.0").resolve(),
+                (ROOT / "public" / "releases" / "art-expansion-batch-04-1.8.0").resolve(),
+                (ROOT / "public" / "releases" / "art-expansion-batch-05-1.9.0").resolve(),
             },
             exempt_roots,
         )
@@ -477,7 +480,7 @@ class FixtureAndSchemaTests(unittest.TestCase):
         environment = load_schema_environment()
         pipeline = [path for path in environment.by_path if path.startswith("schemas/pipeline/")]
         self.assertEqual(10, len(pipeline))
-        self.assertEqual(106, len(environment.by_path))
+        self.assertEqual(121, len(environment.by_path))
 
     def test_canonical_dispatch_rejects_self_reported_downgrade(self) -> None:
         record = json.loads((VALID / "field-provenance.json").read_text(encoding="utf-8"))
